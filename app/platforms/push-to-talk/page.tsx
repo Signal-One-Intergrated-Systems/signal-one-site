@@ -1,54 +1,50 @@
+import Image from "next/image";
+import MarketingHero from "../../components/MarketingHero";
+
 export default function PushToTalkPage() {
-    return (
-        <main className="min-h-screen bg-[#151A21] text-slate-100 px-6 py-32">
-            <div className="max-w-7xl mx-auto">
-                {/* IMAGE PLACEHOLDER: Dispatch Console Screen | 16:9 | platforms/mcptt-hero.jpg */}
-                <h1 className="text-5xl font-semibold mb-6">Signal One Critical Connect</h1>
-                <p className="text-white/70 text-lg max-w-3xl mb-16">
-                    A carrier-grade Mission Critical Push-to-Talk (MCPTT) platform delivering instant voice, video, and data communication over public cellular networks.
-                </p>
+  return (
+    <main className="min-h-screen bg-[var(--s1-bg)] px-5 pb-24 pt-32 text-white md:pt-36">
+      <div className="mx-auto max-w-[90rem]">
+        <MarketingHero
+          eyebrow="Signal One Critical Connect"
+          title="Mission-critical Push-to-Talk over cellular."
+          body="A carrier-grade Mission Critical Push-to-Talk (MCPTT) platform delivering instant voice, video, and data communication over public cellular networks."
+          image="/images/platform/dispatch.jpg"
+          imageAlt="Signal One dispatch console"
+          primary={{ href: "/contact", label: "Discuss Critical Connect" }}
+        />
 
-                {/* --- Core Features --- */}
-                <section className="mb-20">
-                    <h2 className="text-3xl font-semibold text-white mb-10">Dispatch & Control Features</h2>
-                    <div className="grid md:grid-cols-2 gap-10">
-                        <div className="space-y-4">
-                            <h3 className="text-xl font-semibold text-[#0EA5E9]">Voice Dispatch</h3>
-                            <p className="text-slate-400">
-                                Instant group calling, private one-to-one calls, and priority interrupt. The platform supports thousands of concurrent talk groups with sub-300ms latency.
-                            </p>
-                        </div>
-                        <div className="space-y-4">
-                            <h3 className="text-xl font-semibold text-[#0EA5E9]">Live Video Streaming</h3>
-                            <p className="text-slate-400">
-                                Pull live video feeds from field devices directly to the dispatch console. Gain immediate eyes-on situational awareness during critical incidents.
-                            </p>
-                        </div>
-                        <div className="space-y-4">
-                            <h3 className="text-xl font-semibold text-[#0EA5E9]">Location Services</h3>
-                            <p className="text-slate-400">
-                                Real-time GPS tracking, geofencing, and location processing history. Visualise your entire workforce on a live map interface.
-                            </p>
-                        </div>
-                        <div className="space-y-4">
-                            <h3 className="text-xl font-semibold text-[#0EA5E9]">Emergency Alarms</h3>
-                            <p className="text-slate-400">
-                                Dedicated SOS handling with automated audio recording and location pinning. Man-down and lone-worker safety protocols are built-in.
-                            </p>
-                        </div>
-                    </div>
-                </section>
+        <section className="py-20 md:py-24">
+          <h2 className="text-3xl font-semibold tracking-[-.035em] md:text-4xl">Dispatch & Control Features</h2>
+          <div className="mt-8 grid gap-4 md:grid-cols-2">
+            {[
+              ["Voice Dispatch", "Instant group calling, private one-to-one calls, and priority interrupt. The platform supports thousands of concurrent talk groups with sub-300ms latency."],
+              ["Live Video Streaming", "Pull live video feeds from field devices directly to the dispatch console. Gain immediate eyes-on situational awareness during critical incidents."],
+              ["Location Services", "Real-time GPS tracking, geofencing, and location processing history. Visualise your entire workforce on a live map interface."],
+              ["Emergency Alarms", "Dedicated SOS handling with automated audio recording and location pinning. Man-down and lone-worker safety protocols are built-in."],
+            ].map(([title,body]) => (
+              <article key={title} className="rounded-[18px] border border-white/10 bg-[#0A0D12] p-7">
+                <span className="mb-5 block h-1 w-8 rounded-full bg-[#0EA5E9]" />
+                <h3 className="text-xl font-semibold">{title}</h3>
+                <p className="mt-4 text-sm leading-7 text-white/50">{body}</p>
+              </article>
+            ))}
+          </div>
+        </section>
 
-                {/* --- Integration --- */}
-                <section className="mb-20 p-8 rounded-2xl border border-white/10 bg-white/5">
-                    <h2 className="text-2xl font-semibold text-white mb-4">LMR Gateway Integration</h2>
-                    <p className="text-slate-300 mb-6">
-                        Bridge your existing DMR, TETRA, or Analog radio networks into the Signal One Critical Connect platform. Our RoIP gateways ensure seamless communication between traditional radios and cellular devices.
-                    </p>
-                    {/* IMAGE PLACEHOLDER: Gateway Architecture | 21:9 | platforms/gateway-diagram.jpg */}
-                </section>
-
-            </div>
-        </main>
-    );
+        <section className="grid gap-8 rounded-[24px] border border-white/10 bg-white/[.025] p-7 lg:grid-cols-[.72fr_1.28fr] lg:items-center md:p-10">
+          <div>
+            <p className="s1-mono text-[9px] font-semibold text-[#38BDF8]">LMR Gateway Integration</p>
+            <h2 className="mt-4 text-3xl font-semibold tracking-[-.035em]">Bridge traditional radio and cellular operations.</h2>
+            <p className="mt-5 text-sm leading-7 text-white/52">
+              Bridge your existing DMR, TETRA, or Analog radio networks into the Signal One Critical Connect platform. Our RoIP gateways ensure seamless communication between traditional radios and cellular devices.
+            </p>
+          </div>
+          <div className="relative min-h-[340px] overflow-hidden rounded-[18px] border border-white/10">
+            <Image src="/images/What-we-deliver/communications.jpg" alt="Push-to-talk devices connected to Signal One communications" fill className="object-cover" sizes="(min-width:1024px) 58vw,100vw" />
+          </div>
+        </section>
+      </div>
+    </main>
+  );
 }
