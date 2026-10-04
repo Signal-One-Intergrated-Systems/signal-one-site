@@ -23,8 +23,8 @@ const world: JourneyWorld = {
   ],
   image: "/images/industries/security.jpg",
   imageAlt: "Security operations environment",
-  accent: "#38BDF8",
-  accentRgb: "56,189,248",
+  accent: "#0EA5E9",
+  accentRgb: "14,165,233",
   completionTitle: "Your Signal One onboarding has started.",
   completionBody:
     "Your company profile is now in the Signal One onboarding process. The next step is verification and operational setup.",
