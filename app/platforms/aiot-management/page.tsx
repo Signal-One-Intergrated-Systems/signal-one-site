@@ -1,5 +1,11 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import MarketingHero from "../../components/MarketingHero";
+
+export const metadata: Metadata = {
+  title: "AIoT Device Management",
+  description: "Manage, secure, configure and monitor connected radios and sensors with Signal One AIoT device management.",
+};
 
 export default function AIoTManagementPage() {
   return (
