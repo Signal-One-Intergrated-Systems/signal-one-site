@@ -1,6 +1,12 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import MarketingHero from "../components/MarketingHero";
+
+export const metadata: Metadata = {
+  title: "Connectivity",
+  description: "Redundant cellular and IoT connectivity solutions from Signal One for reliable operational data transmission.",
+};
 
 export default function ConnectivityPage() {
   return (
