@@ -23,8 +23,8 @@ const world: JourneyWorld = {
   ],
   image: "/images/security.jpg",
   imageAlt: "Security officer operating on site",
-  accent: "#34D399",
-  accentRgb: "52,211,153",
+  accent: "#0EA5E9",
+  accentRgb: "14,165,233",
   completionTitle: "Your guard application is ready for review.",
   completionBody:
     "Signal One will review your onboarding information before any operational access or assignment is created.",
