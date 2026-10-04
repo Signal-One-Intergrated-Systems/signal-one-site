@@ -1,4 +1,14 @@
+import type { Metadata } from "next";
 import MarketingHero from "../../components/MarketingHero";
+
+export const metadata: Metadata = {
+  title: "Construction, Mining & Infrastructure",
+  description: "Signal One construction, mining and infrastructure solutions.",
+  robots: {
+    index: false,
+    follow: true,
+  },
+};
 
 export default function ConstructionPage() {
   return (
