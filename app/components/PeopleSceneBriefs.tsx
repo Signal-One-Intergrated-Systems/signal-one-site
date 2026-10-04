@@ -1,43 +1,55 @@
-const briefs = [
+import Image from "next/image";
+
+const scenes = [
   {
     label: "Executive operations",
-    title: "Security company owner or operations director reviewing live operations",
-    brief:
-      "Subject: South African security-company owner or operations director. Setting: modern security operations office with large monitor showing abstract operational status. Mood: calm, serious, in control. Framing: cinematic 16:9, three-quarter profile, no looking at camera. Wardrobe: executive/business-casual appropriate to private security. No visible real brands, names or client data.",
+    title: "See the operation without living in the control room.",
+    body:
+      "Management needs a current operating picture across sites, people, incidents and service delivery — not another end-of-shift reconstruction.",
+    image: "/images/industries/logistics.jpg",
+    alt: "Operations leaders reviewing a tablet at a logistics site",
+    position: "object-center",
   },
   {
     label: "Control room",
-    title: "Operator working an active control desk",
-    brief:
-      "Subject: diverse professional control-room operator. Setting: realistic South African private-security control room, multiple screens with abstract maps and alerts. Mood: focused and composed, not dramatic. Framing: over-the-shoulder medium-wide shot, operator and screens both readable as context. No recognisable real people or real client information.",
+    title: "Work the exceptions while they are still actionable.",
+    body:
+      "Control-room teams need patrol, incident and site activity in the same working context so response does not depend on fragmented messages.",
+    image: "/images/industries/security.jpg",
+    alt: "Security control-room operator working across monitoring screens",
+    position: "object-center",
   },
   {
     label: "Field supervision",
-    title: "Supervisor checking coverage on site",
-    brief:
-      "Subject: security supervisor or site manager using a tablet. Setting: commercial or industrial property in South Africa. Mood: purposeful, routine, professional. Framing: environmental portrait with site context and device visible. Avoid posed handshakes, pointing at camera or exaggerated tactical styling.",
+    title: "Keep supervisors connected to the site reality.",
+    body:
+      "Field leaders can verify coverage, coordinate people and act on exceptions while staying close to the work happening on site.",
+    image: "/images/logistics.jpg",
+    alt: "Field supervisor using a radio inside an operational warehouse",
+    position: "object-center",
   },
 ] as const;
 
 export default function PeopleSceneBriefs() {
   return (
     <div className="grid gap-4 lg:grid-cols-3">
-      {briefs.map((item) => (
+      {scenes.map((item) => (
         <article
           key={item.label}
-          className="relative min-h-[330px] overflow-hidden rounded-[1.8rem] border border-dashed border-white/14 bg-[linear-gradient(145deg,#121b24,#0b1118)] p-6"
+          className="group relative min-h-[430px] overflow-hidden rounded-[18px] border border-white/12 bg-[#0A0D12] shadow-[0_24px_70px_rgba(0,0,0,.35)]"
         >
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_10%,rgba(117,185,215,.11),transparent_28%)]" />
-          <div className="relative flex h-full flex-col justify-between">
-            <div>
-              <p className="text-[10px] font-semibold uppercase tracking-[.2em] text-[#75b9d7]">
-                Image production brief
-              </p>
-              <h3 className="mt-4 text-xl font-semibold tracking-[-.025em]">{item.title}</h3>
-            </div>
-            <div className="mt-16 rounded-2xl border border-white/8 bg-black/18 p-4">
-              <p className="text-xs leading-6 text-white/46">{item.brief}</p>
-            </div>
+          <Image
+            src={item.image}
+            alt={item.alt}
+            fill
+            className={"object-cover transition duration-700 [transition-timing-function:var(--s1-ease)] group-hover:scale-[1.035] " + item.position}
+            sizes="(min-width: 1024px) 33vw, 100vw"
+          />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,13,18,.06)_18%,rgba(10,13,18,.20)_45%,rgba(10,13,18,.94)_100%)]" />
+          <div className="absolute inset-x-0 bottom-0 p-6 md:p-7">
+            <p className="s1-mono text-[9px] font-semibold text-[#38BDF8]">{item.label}</p>
+            <h3 className="mt-3 max-w-md text-xl font-semibold tracking-[-.025em] text-white">{item.title}</h3>
+            <p className="mt-3 max-w-md text-sm leading-6 text-white/62">{item.body}</p>
           </div>
         </article>
       ))}
