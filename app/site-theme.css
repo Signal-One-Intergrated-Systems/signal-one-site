@@ -1,0 +1,26 @@
+:root {
+  --background: #080d13;
+  --foreground: #f8fafc;
+}
+html {
+  background: #080d13;
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  background: #080d13;
+  color: #f8fafc;
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+}
+::selection {
+  background: rgba(56, 189, 248, 0.32);
+  color: white;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
