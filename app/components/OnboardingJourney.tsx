@@ -107,7 +107,7 @@ export default function OnboardingJourney({
     backgroundImage:
       "radial-gradient(circle at 12% 12%, rgba(" +
       world.accentRgb +
-      ",.18), transparent 28%), radial-gradient(circle at 84% 22%, rgba(56,189,248,.09), transparent 24%), linear-gradient(145deg,#070b11 0%,#0b1119 46%,#080d13 100%)",
+      ",.18), transparent 28%), radial-gradient(circle at 84% 22%, rgba(56,189,248,.09), transparent 24%), linear-gradient(145deg,#0A0D12 0%,#151A21 50%,#0F131A 100%)",
   } as CSSProperties;
 
   function update(name: string, value: string) {
@@ -171,14 +171,14 @@ export default function OnboardingJourney({
           transition={panelMotion}
           className="relative mx-auto grid min-h-[66vh] max-w-4xl place-items-center"
         >
-          <div className="w-full rounded-[2rem] border border-white/12 bg-[#0b1119]/76 p-8 text-center shadow-[0_38px_120px_rgba(0,0,0,.46)] backdrop-blur-xl md:p-14">
+          <div className="w-full rounded-[24px] border border-white/12 bg-[#0A0D12]/80 p-8 text-center shadow-[0_38px_120px_rgba(0,0,0,.46)] backdrop-blur-xl md:p-14">
             <div
               className="mx-auto grid h-16 w-16 place-items-center rounded-full border text-2xl shadow-[0_0_50px_rgba(var(--journey-accent-rgb),.24)]"
               style={{ borderColor: "rgba(" + world.accentRgb + ",.42)", color: world.accent }}
             >
               ✓
             </div>
-            <p className="mt-7 text-xs font-semibold uppercase tracking-[.24em]" style={{ color: world.accent }}>
+            <p className="mt-7 s1-mono text-[9px] font-semibold" style={{ color: world.accent }}>
               Signal One · Application received
             </p>
             <h1 className="mx-auto mt-4 max-w-2xl text-4xl font-semibold tracking-[-.04em] md:text-5xl">
@@ -189,7 +189,7 @@ export default function OnboardingJourney({
             </p>
             <Link
               href={world.completionHref}
-              className="mt-8 inline-flex rounded-full px-6 py-3 text-sm font-semibold text-[#071018] transition hover:brightness-110"
+              className="mt-8 inline-flex rounded-[12px] px-6 py-3 text-sm font-semibold text-[#071018] transition hover:brightness-110"
               style={{ backgroundColor: world.accent }}
             >
               {world.completionCta}
@@ -219,7 +219,7 @@ export default function OnboardingJourney({
         </div>
       </div>
 
-      <div className="relative mx-auto max-w-[92rem]">
+      <div className="relative mx-auto max-w-[90rem]">
         <div className="mb-5 flex items-center justify-between gap-4 text-xs text-white/42">
           <span className="font-semibold uppercase tracking-[.2em]">{world.badge}</span>
           <span>{hydrated ? "Progress saved on this device" : "Preparing your journey…"}</span>
@@ -235,11 +235,11 @@ export default function OnboardingJourney({
         </div>
 
         <div className="mt-7 grid min-h-[650px] gap-6 lg:grid-cols-[.72fr_1.28fr]">
-          <aside className="relative hidden overflow-hidden rounded-[2rem] border border-white/10 bg-white/[.035] lg:block">
+          <aside className="relative hidden overflow-hidden rounded-[24px] border border-white/10 bg-white/[.035] lg:block">
             <Image src={world.image} alt="" fill className="object-cover opacity-55" />
             <div className="absolute inset-0 bg-gradient-to-t from-[#070b11] via-[#070b11]/58 to-transparent" />
             <div className="absolute inset-x-0 bottom-0 p-8">
-              <p className="text-xs font-semibold uppercase tracking-[.22em]" style={{ color: world.accent }}>
+              <p className="s1-mono text-[9px] font-semibold" style={{ color: world.accent }}>
                 {world.badge}
               </p>
               <h2 className="mt-3 max-w-md text-3xl font-semibold tracking-[-.035em]">
@@ -251,7 +251,7 @@ export default function OnboardingJourney({
             </div>
           </aside>
 
-          <section className="relative overflow-hidden rounded-[2rem] border border-white/12 bg-[#0a1018]/82 shadow-[0_34px_100px_rgba(0,0,0,.42)] backdrop-blur-xl">
+          <section className="relative overflow-hidden rounded-[24px] border border-white/12 bg-[#0A0D12]/84 shadow-[0_34px_100px_rgba(0,0,0,.42)] backdrop-blur-xl">
             <div className="flex items-center justify-between border-b border-white/8 px-5 py-4 md:px-8">
               <div className="flex items-center gap-2">
                 {Array.from({ length: totalMoments }, (_, index) => (
@@ -283,7 +283,7 @@ export default function OnboardingJourney({
                 {stepIndex === 0 ? (
                   <div className="flex h-full flex-col justify-between">
                     <div>
-                      <p className="text-xs font-semibold uppercase tracking-[.24em]" style={{ color: world.accent }}>
+                      <p className="s1-mono text-[9px] font-semibold" style={{ color: world.accent }}>
                         Welcome to Signal One
                       </p>
                       <h1 className="mt-5 max-w-2xl text-4xl font-semibold tracking-[-.045em] md:text-6xl">
@@ -296,7 +296,7 @@ export default function OnboardingJourney({
                         {world.welcomePoints.map((point, index) => (
                           <div
                             key={point}
-                            className="rounded-2xl border border-white/8 bg-white/[.035] p-4 text-sm leading-6 text-white/62"
+                            className="rounded-[14px] border border-white/8 bg-white/[.035] p-4 text-sm leading-6 text-white/62"
                           >
                             <span className="mb-3 block text-xs font-semibold" style={{ color: world.accent }}>
                               0{index + 1}
@@ -311,7 +311,7 @@ export default function OnboardingJourney({
                       <button
                         type="button"
                         onClick={() => next()}
-                        className="rounded-full px-6 py-3 text-sm font-semibold text-[#071018] transition hover:brightness-110 active:scale-[.98]"
+                        className="rounded-[12px] px-6 py-3 text-sm font-semibold text-[#071018] transition hover:brightness-110 active:scale-[.98]"
                         style={{ backgroundColor: world.accent }}
                       >
                         Begin
@@ -320,7 +320,7 @@ export default function OnboardingJourney({
                   </div>
                 ) : current?.review ? (
                   <div className="flex h-full flex-col">
-                    <p className="text-xs font-semibold uppercase tracking-[.22em]" style={{ color: world.accent }}>
+                    <p className="s1-mono text-[9px] font-semibold" style={{ color: world.accent }}>
                       {current.eyebrow}
                     </p>
                     <h2 className="mt-4 text-3xl font-semibold tracking-[-.035em] md:text-4xl">{current.title}</h2>
@@ -328,14 +328,14 @@ export default function OnboardingJourney({
 
                     <div className="mt-8 grid max-h-[300px] gap-3 overflow-y-auto pr-1 sm:grid-cols-2">
                       {allFields.map((field) => (
-                        <div key={field.name} className="rounded-2xl border border-white/8 bg-white/[.03] p-4">
+                        <div key={field.name} className="rounded-[14px] border border-white/8 bg-white/[.03] p-4">
                           <p className="text-[10px] font-semibold uppercase tracking-[.14em] text-white/34">{field.label}</p>
                           <p className="mt-2 text-sm text-white/78">{values[field.name] || "Not provided"}</p>
                         </div>
                       ))}
                     </div>
 
-                    <label className="mt-6 flex items-start gap-3 rounded-2xl border border-white/8 bg-white/[.025] p-4 text-sm leading-6 text-white/56">
+                    <label className="mt-6 flex items-start gap-3 rounded-[14px] border border-white/8 bg-white/[.025] p-4 text-sm leading-6 text-white/56">
                       <input
                         type="checkbox"
                         checked={consent}
@@ -348,21 +348,21 @@ export default function OnboardingJourney({
                     {message ? (
                       <p
                         role="alert"
-                        className="mt-4 rounded-2xl border border-amber-300/20 bg-amber-300/5 px-4 py-3 text-sm text-amber-100"
+                        className="mt-4 rounded-[14px] border border-amber-300/20 bg-amber-300/5 px-4 py-3 text-sm text-amber-100"
                       >
                         {message}
                       </p>
                     ) : null}
 
                     <div className="mt-auto flex items-center justify-between gap-3 pt-7">
-                      <button type="button" onClick={back} className="rounded-full border border-white/12 px-5 py-2.5 text-sm text-white/70 hover:bg-white/5">
+                      <button type="button" onClick={back} className="rounded-[12px] border border-white/12 px-5 py-2.5 text-sm text-white/70 hover:bg-white/5">
                         Back
                       </button>
                       <button
                         type="button"
                         onClick={() => void submit()}
                         disabled={!consent || state === "sending"}
-                        className="rounded-full px-6 py-3 text-sm font-semibold text-[#071018] transition hover:brightness-110 active:scale-[.98] disabled:cursor-not-allowed disabled:opacity-40"
+                        className="rounded-[12px] px-6 py-3 text-sm font-semibold text-[#071018] transition hover:brightness-110 active:scale-[.98] disabled:cursor-not-allowed disabled:opacity-40"
                         style={{ backgroundColor: world.accent }}
                       >
                         {state === "sending" ? "Sending…" : "Submit application"}
@@ -372,7 +372,7 @@ export default function OnboardingJourney({
                 ) : (
                   <form onSubmit={next} className="flex h-full flex-col">
                     <div>
-                      <p className="text-xs font-semibold uppercase tracking-[.22em]" style={{ color: world.accent }}>
+                      <p className="s1-mono text-[9px] font-semibold" style={{ color: world.accent }}>
                         {current?.eyebrow}
                       </p>
                       <h2 className="mt-4 text-3xl font-semibold tracking-[-.035em] md:text-4xl">{current?.title}</h2>
@@ -392,14 +392,14 @@ export default function OnboardingJourney({
                               value={values[field.name] || ""}
                               onChange={(event) => update(field.name, event.target.value)}
                               placeholder={field.placeholder}
-                              className="w-full rounded-2xl border border-white/10 bg-black/20 px-4 py-3.5 text-sm text-white outline-none transition placeholder:text-white/24 focus:border-[var(--journey-accent)] focus:ring-4 focus:ring-[rgba(var(--journey-accent-rgb),.08)]"
+                              className="w-full rounded-[14px] border border-white/10 bg-black/20 px-4 py-3.5 text-sm text-white outline-none transition placeholder:text-white/24 focus:border-[var(--journey-accent)] focus:ring-4 focus:ring-[rgba(var(--journey-accent-rgb),.08)]"
                             />
                           ) : field.type === "select" ? (
                             <select
                               required={field.required}
                               value={values[field.name] || ""}
                               onChange={(event) => update(field.name, event.target.value)}
-                              className="w-full rounded-2xl border border-white/10 bg-[#080d13] px-4 py-3.5 text-sm text-white outline-none transition focus:border-[var(--journey-accent)] focus:ring-4 focus:ring-[rgba(var(--journey-accent-rgb),.08)]"
+                              className="w-full rounded-[14px] border border-white/10 bg-[#0A0D12] px-4 py-3.5 text-sm text-white outline-none transition focus:border-[var(--journey-accent)] focus:ring-4 focus:ring-[rgba(var(--journey-accent-rgb),.08)]"
                             >
                               <option value="">Select</option>
                               {(field.options || []).map((option) => (
@@ -413,7 +413,7 @@ export default function OnboardingJourney({
                               value={values[field.name] || ""}
                               onChange={(event) => update(field.name, event.target.value)}
                               placeholder={field.placeholder}
-                              className="w-full rounded-2xl border border-white/10 bg-black/20 px-4 py-3.5 text-sm text-white outline-none transition placeholder:text-white/24 focus:border-[var(--journey-accent)] focus:ring-4 focus:ring-[rgba(var(--journey-accent-rgb),.08)]"
+                              className="w-full rounded-[14px] border border-white/10 bg-black/20 px-4 py-3.5 text-sm text-white outline-none transition placeholder:text-white/24 focus:border-[var(--journey-accent)] focus:ring-4 focus:ring-[rgba(var(--journey-accent-rgb),.08)]"
                             />
                           )}
                           {field.hint ? <span className="mt-2 block text-xs text-white/32">{field.hint}</span> : null}
@@ -422,12 +422,12 @@ export default function OnboardingJourney({
                     </div>
 
                     <div className="mt-auto flex items-center justify-between gap-3 pt-8">
-                      <button type="button" onClick={back} className="rounded-full border border-white/12 px-5 py-2.5 text-sm text-white/70 hover:bg-white/5">
+                      <button type="button" onClick={back} className="rounded-[12px] border border-white/12 px-5 py-2.5 text-sm text-white/70 hover:bg-white/5">
                         Back
                       </button>
                       <button
                         type="submit"
-                        className="rounded-full px-6 py-3 text-sm font-semibold text-[#071018] transition hover:brightness-110 active:scale-[.98]"
+                        className="rounded-[12px] px-6 py-3 text-sm font-semibold text-[#071018] transition hover:brightness-110 active:scale-[.98]"
                         style={{ backgroundColor: world.accent }}
                       >
                         Continue
