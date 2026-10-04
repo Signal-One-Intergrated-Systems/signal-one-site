@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import MarketingHero from "../../components/MarketingHero";
+
+export const metadata: Metadata = {
+  title: "Utilities & Smart Metering",
+  description: "Connected metering and infrastructure monitoring for electricity and water operations with Signal One.",
+};
 
 export default function UtilitiesSolutionsPage() {
   return (
