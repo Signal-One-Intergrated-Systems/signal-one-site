@@ -2,11 +2,11 @@ import Image from "next/image";
 
 export default function LoRaWANSensorsPage() {
     return (
-        <main className="min-h-screen bg-[#151A21] text-slate-100 px-6 py-32">
-            <div className="max-w-7xl mx-auto">
-                <div className="relative w-full h-[300px] md:h-[400px] rounded-3xl overflow-hidden mb-16 border border-white/10">
+        <main className="min-h-screen bg-[var(--s1-bg)] px-5 pb-24 pt-32 text-white md:pt-36">
+            <div className="mx-auto max-w-[90rem]">
+                <div className="relative w-full h-[300px] md:h-[400px] rounded-[24px] overflow-hidden mb-16 border border-white/10">
                     <Image
-                        src="/devices/lorawan-sensors/hero-sensors.jpg"
+                        src="/images/Devices/Lorawan/hero-sensors.jpg"
                         alt="LoRaWAN Sensors"
                         fill
                         className="w-full h-full object-cover"
@@ -15,7 +15,7 @@ export default function LoRaWANSensorsPage() {
                     <div className="absolute inset-0 bg-gradient-to-t from-[#151A21] via-transparent to-transparent opacity-80" />
                 </div>
                 <h1 className="text-5xl font-semibold mb-6">LoRaWAN Devices & Sensors</h1>
-                <p className="text-white/70 text-lg max-w-3xl mb-16">
+                <p className="text-white/62 text-lg max-w-3xl mb-16">
                     A comprehensive portfolio of industrial LoRaWAN sensors designed for long-range, low-power data acquisition. Ruggedised for harsh environments and built for massive scale IoT deployments.
                 </p>
 
@@ -62,11 +62,11 @@ export default function LoRaWANSensorsPage() {
                                 desc: "Wide-area smoke detection for warehouses and large atriums using beam interruption technology."
                             }
                         ].map((item) => (
-                            <div key={item.model} className="bg-white/5 border border-white/10 p-6 rounded-xl hover:bg-white/10 transition group">
-                                <span className="text-xs font-mono text-[#0EA5E9] block mb-2">{item.model}</span>
+                            <div key={item.model} className="group rounded-[18px] border border-white/10 bg-[#0A0D12] p-6 transition duration-300 hover:border-[#0EA5E9]/30">
+                                <span className="s1-mono text-[9px] text-[#38BDF8] block mb-2">{item.model}</span>
                                 <div className="aspect-square w-full mb-4 bg-black/20 rounded-lg overflow-hidden relative p-4">
                                     <Image
-                                        src={`/devices/lorawan-sensors/${item.model}.jpg`}
+                                        src={`/images/Devices/Lorawan/${item.model}.jpg`}
                                         alt={item.name}
                                         fill
                                         className="object-contain p-4 opacity-80 group-hover:opacity-100 transition duration-500"
@@ -74,7 +74,7 @@ export default function LoRaWANSensorsPage() {
                                     />
                                 </div>
                                 <h3 className="text-lg font-semibold mb-3">{item.name}</h3>
-                                <p className="text-sm text-slate-400 mb-4">{item.desc}</p>
+                                <p className="text-sm text-white/48 mb-4">{item.desc}</p>
                             </div>
                         ))}
                     </div>
@@ -103,11 +103,11 @@ export default function LoRaWANSensorsPage() {
                                 desc: "Remote managed access control lock with LoRaWAN status reporting and command capabilities."
                             }
                         ].map((item) => (
-                            <div key={item.model} className="bg-white/5 border border-white/10 p-6 rounded-xl hover:bg-white/10 transition group">
-                                <span className="text-xs font-mono text-[#0EA5E9] block mb-2">{item.model}</span>
+                            <div key={item.model} className="group rounded-[18px] border border-white/10 bg-[#0A0D12] p-6 transition duration-300 hover:border-[#0EA5E9]/30">
+                                <span className="s1-mono text-[9px] text-[#38BDF8] block mb-2">{item.model}</span>
                                 <div className="aspect-square w-full mb-4 bg-black/20 rounded-lg overflow-hidden relative p-4">
                                     <Image
-                                        src={`/images/devices/lorawan/${item.model}.jpg`}
+                                        src={`/images/Devices/Lorawan/${item.model}.jpg`}
                                         alt={item.name}
                                         fill
                                         className="object-contain p-4 opacity-80 group-hover:opacity-100 transition duration-500"
@@ -115,7 +115,7 @@ export default function LoRaWANSensorsPage() {
                                     />
                                 </div>
                                 <h3 className="text-lg font-semibold mb-3">{item.name}</h3>
-                                <p className="text-sm text-slate-400 mb-4">{item.desc}</p>
+                                <p className="text-sm text-white/48 mb-4">{item.desc}</p>
                             </div>
                         ))}
                     </div>
@@ -154,11 +154,11 @@ export default function LoRaWANSensorsPage() {
                                 desc: "Non-contact level measurement for tanks, silos, and waste bins."
                             }
                         ].map((item) => (
-                            <div key={item.model} className="bg-white/5 border border-white/10 p-6 rounded-xl hover:bg-white/10 transition group">
-                                <span className="text-xs font-mono text-[#0EA5E9] block mb-2">{item.model}</span>
+                            <div key={item.model} className="group rounded-[18px] border border-white/10 bg-[#0A0D12] p-6 transition duration-300 hover:border-[#0EA5E9]/30">
+                                <span className="s1-mono text-[9px] text-[#38BDF8] block mb-2">{item.model}</span>
                                 <div className="aspect-square w-full mb-4 bg-black/20 rounded-lg overflow-hidden relative p-4">
                                     <Image
-                                        src={`/images/devices/lorawan/${item.model}.jpg`}
+                                        src={`/images/Devices/Lorawan/${item.model}.jpg`}
                                         alt={item.name}
                                         fill
                                         className="object-contain p-4 opacity-80 group-hover:opacity-100 transition duration-500"
@@ -166,7 +166,7 @@ export default function LoRaWANSensorsPage() {
                                     />
                                 </div>
                                 <h3 className="text-lg font-semibold mb-3">{item.name}</h3>
-                                <p className="text-sm text-slate-400 mb-4">{item.desc}</p>
+                                <p className="text-sm text-white/48 mb-4">{item.desc}</p>
                             </div>
                         ))}
                     </div>
@@ -190,11 +190,11 @@ export default function LoRaWANSensorsPage() {
                                 desc: "Advanced dual-detection parking sensor with radar/magnetic fusion for high accuracy."
                             }
                         ].map((item) => (
-                            <div key={item.model} className="bg-white/5 border border-white/10 p-6 rounded-xl hover:bg-white/10 transition group">
-                                <span className="text-xs font-mono text-[#0EA5E9] block mb-2">{item.model}</span>
+                            <div key={item.model} className="group rounded-[18px] border border-white/10 bg-[#0A0D12] p-6 transition duration-300 hover:border-[#0EA5E9]/30">
+                                <span className="s1-mono text-[9px] text-[#38BDF8] block mb-2">{item.model}</span>
                                 <div className="aspect-square w-full mb-4 bg-black/20 rounded-lg overflow-hidden relative p-4">
                                     <Image
-                                        src={`/images/devices/lorawan/${item.model}.jpg`}
+                                        src={`/images/Devices/Lorawan/${item.model}.jpg`}
                                         alt={item.name}
                                         fill
                                         className="object-contain p-4 opacity-80 group-hover:opacity-100 transition duration-500"
@@ -202,7 +202,7 @@ export default function LoRaWANSensorsPage() {
                                     />
                                 </div>
                                 <h3 className="text-lg font-semibold mb-3">{item.name}</h3>
-                                <p className="text-sm text-slate-400 mb-4">{item.desc}</p>
+                                <p className="text-sm text-white/48 mb-4">{item.desc}</p>
                             </div>
                         ))}
                     </div>
@@ -226,11 +226,11 @@ export default function LoRaWANSensorsPage() {
                                 desc: "Livestock tracking collar with GPS positioning and activity monitoring for herd management."
                             }
                         ].map((item) => (
-                            <div key={item.model} className="bg-white/5 border border-white/10 p-6 rounded-xl hover:bg-white/10 transition group">
-                                <span className="text-xs font-mono text-[#0EA5E9] block mb-2">{item.model}</span>
+                            <div key={item.model} className="group rounded-[18px] border border-white/10 bg-[#0A0D12] p-6 transition duration-300 hover:border-[#0EA5E9]/30">
+                                <span className="s1-mono text-[9px] text-[#38BDF8] block mb-2">{item.model}</span>
                                 <div className="aspect-square w-full mb-4 bg-black/20 rounded-lg overflow-hidden relative p-4">
                                     <Image
-                                        src={`/images/devices/lorawan/${item.model}.jpg`}
+                                        src={`/images/Devices/Lorawan/${item.model}.jpg`}
                                         alt={item.name}
                                         fill
                                         className="object-contain p-4 opacity-80 group-hover:opacity-100 transition duration-500"
@@ -238,7 +238,7 @@ export default function LoRaWANSensorsPage() {
                                     />
                                 </div>
                                 <h3 className="text-lg font-semibold mb-3">{item.name}</h3>
-                                <p className="text-sm text-slate-400 mb-4">{item.desc}</p>
+                                <p className="text-sm text-white/48 mb-4">{item.desc}</p>
                             </div>
                         ))}
                     </div>
@@ -262,11 +262,11 @@ export default function LoRaWANSensorsPage() {
                                 desc: "Simple, lightweight wristband with panic button and location beacon for lone worker safety."
                             }
                         ].map((item) => (
-                            <div key={item.model} className="bg-white/5 border border-white/10 p-6 rounded-xl hover:bg-white/10 transition group">
-                                <span className="text-xs font-mono text-[#0EA5E9] block mb-2">{item.model}</span>
+                            <div key={item.model} className="group rounded-[18px] border border-white/10 bg-[#0A0D12] p-6 transition duration-300 hover:border-[#0EA5E9]/30">
+                                <span className="s1-mono text-[9px] text-[#38BDF8] block mb-2">{item.model}</span>
                                 <div className="aspect-square w-full mb-4 bg-black/20 rounded-lg overflow-hidden relative p-4">
                                     <Image
-                                        src={`/images/devices/lorawan/${item.model}.jpg`}
+                                        src={`/images/Devices/Lorawan/${item.model}.jpg`}
                                         alt={item.name}
                                         fill
                                         className="object-contain p-4 opacity-80 group-hover:opacity-100 transition duration-500"
@@ -274,7 +274,7 @@ export default function LoRaWANSensorsPage() {
                                     />
                                 </div>
                                 <h3 className="text-lg font-semibold mb-3">{item.name}</h3>
-                                <p className="text-sm text-slate-400 mb-4">{item.desc}</p>
+                                <p className="text-sm text-white/48 mb-4">{item.desc}</p>
                             </div>
                         ))}
                     </div>
@@ -303,11 +303,11 @@ export default function LoRaWANSensorsPage() {
                                 desc: "High-performance indoor gateway for deep building penetration and campus connectivity."
                             }
                         ].map((item) => (
-                            <div key={item.model} className="bg-white/5 border border-white/10 p-6 rounded-xl hover:bg-white/10 transition group">
-                                <span className="text-xs font-mono text-[#0EA5E9] block mb-2">{item.model}</span>
+                            <div key={item.model} className="group rounded-[18px] border border-white/10 bg-[#0A0D12] p-6 transition duration-300 hover:border-[#0EA5E9]/30">
+                                <span className="s1-mono text-[9px] text-[#38BDF8] block mb-2">{item.model}</span>
                                 <div className="aspect-square w-full mb-4 bg-black/20 rounded-lg overflow-hidden relative p-4">
                                     <Image
-                                        src={`/images/devices/lorawan/${item.model}.jpg`}
+                                        src={`/images/Devices/Lorawan/${item.model}.jpg`}
                                         alt={item.name}
                                         fill
                                         className="object-contain p-4 opacity-80 group-hover:opacity-100 transition duration-500"
@@ -315,7 +315,7 @@ export default function LoRaWANSensorsPage() {
                                     />
                                 </div>
                                 <h3 className="text-lg font-semibold mb-3">{item.name}</h3>
-                                <p className="text-sm text-slate-400 mb-4">{item.desc}</p>
+                                <p className="text-sm text-white/48 mb-4">{item.desc}</p>
                             </div>
                         ))}
                     </div>
