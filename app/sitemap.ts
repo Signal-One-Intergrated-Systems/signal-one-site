@@ -14,9 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/solutions",
     "/solutions/security",
     "/solutions/agriculture",
-    "/solutions/construction",
     "/solutions/logistics",
-    "/solutions/public-safety",
     "/solutions/utilities",
     "/platforms",
     "/platforms/push-to-talk",
@@ -26,7 +24,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/devices/lorawan-sensors",
     "/connectivity",
     "/connectivity/iot-sim",
-    "/partners",
     "/contact",
   ];
 
