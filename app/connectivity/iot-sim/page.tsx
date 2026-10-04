@@ -1,72 +1,61 @@
+import Image from "next/image";
+import MarketingHero from "../../components/MarketingHero";
+
 export default function IoTSIMPage() {
-    return (
-        <main className="min-h-screen bg-[#151A21] text-slate-100 px-6 py-32">
-            <div className="max-w-7xl mx-auto">
-                {/* IMAGE PLACEHOLDER: SIM Card Hero | 16:9 | connectivity/sim-hero.jpg */}
-                <h1 className="text-5xl font-semibold mb-6">Global IoT Connectivity</h1>
-                <p className="text-white/70 text-lg max-w-3xl mb-16">
-                    One SIM, global coverage. Our multi-IMSI IoT SIMs provide redundant, carrier-agnostic connectivity across 180+ countries and 600+ networks.
-                </p>
+  return (
+    <main className="min-h-screen bg-[var(--s1-bg)] px-5 pb-24 pt-32 text-white md:pt-36">
+      <div className="mx-auto max-w-[90rem]">
+        <MarketingHero
+          eyebrow="Signal One connectivity"
+          title="Global IoT Connectivity"
+          body="One SIM, global coverage. Our multi-IMSI IoT SIMs provide redundant, carrier-agnostic connectivity across 180+ countries and 600+ networks."
+          image="/images/What-we-deliver/connectivity.jpg"
+          imageAlt="Global cellular connectivity infrastructure"
+          primary={{ href: "/contact", label: "Discuss connectivity" }}
+        />
 
-                {/* --- Features --- */}
-                <section className="grid lg:grid-cols-2 gap-12 mb-20">
-                    <div>
-                        <h2 className="text-3xl font-semibold text-white mb-6">Why Signal One Connectivity?</h2>
-                        <ul className="space-y-6">
-                            <li>
-                                <h3 className="text-xl font-semibold text-[#0EA5E9] mb-2">Unsteered Roaming</h3>
-                                <p className="text-slate-400">
-                                    Our SIMs automatically connect to the strongest available signal, regardless of the network operator. No steering ensures maximum uptime for mission-critical devices.
-                                </p>
-                            </li>
-                            <li>
-                                <h3 className="text-xl font-semibold text-[#0EA5E9] mb-2">Single Management Plane</h3>
-                                <p className="text-slate-400">
-                                    Manage your entire global fleet from one dashboard. Activate, suspend, and monitor usage in real-time via our Connectivity Management Platform (CMP).
-                                </p>
-                            </li>
-                            <li>
-                                <h3 className="text-xl font-semibold text-[#0EA5E9] mb-2">Secure Private APN</h3>
-                                <p className="text-slate-400">
-                                    Data is routed securely via private APN tunnels directly to your infrastructure or cloud, bypassing the public internet for enhanced security.
-                                </p>
-                            </li>
-                        </ul>
-                    </div>
-                    <div className="bg-white/5 rounded-2xl border border-white/10 flex items-center justify-center">
-                        {/* IMAGE PLACEHOLDER: CMP Dashboard Screenshot | 4:3 | connectivity/cmp-dashboard.jpg */}
-                        <span className="text-white/20 italic">CMP Platform View</span>
-                    </div>
-                </section>
-
-                {/* --- Specs --- */}
-                <section>
-                    <h2 className="text-2xl font-semibold text-white mb-8">Technical Specifications</h2>
-                    <div className="overflow-x-auto">
-                        <table className="w-full text-left text-slate-300 border-collapse">
-                            <tbody>
-                                <tr className="border-b border-white/10">
-                                    <td className="py-4 font-semibold w-1/3">Form Factors</td>
-                                    <td className="py-4 text-slate-400">2FF (Mini), 3FF (Micro), 4FF (Nano), MFF2 (eSIM)</td>
-                                </tr>
-                                <tr className="border-b border-white/10">
-                                    <td className="py-4 font-semibold">Network Support</td>
-                                    <td className="py-4 text-slate-400">2G, 3G, 4G, 5G, LTE-M, NB-IoT</td>
-                                </tr>
-                                <tr className="border-b border-white/10">
-                                    <td className="py-4 font-semibold">Temperature Range</td>
-                                    <td className="py-4 text-slate-400">Industrial Grade (-40°C to +105°C) available</td>
-                                </tr>
-                                <tr className="border-b border-white/10">
-                                    <td className="py-4 font-semibold">Coverage</td>
-                                    <td className="py-4 text-slate-400">Global (180+ Countries)</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
-
+        <section className="grid gap-8 py-20 lg:grid-cols-[.9fr_1.1fr] lg:items-center md:py-24">
+          <div>
+            <p className="s1-mono text-[9px] font-semibold text-[#38BDF8]">Why Signal One Connectivity?</p>
+            <div className="mt-6 space-y-4">
+              {[
+                ["Unsteered Roaming", "Our SIMs automatically connect to the strongest available signal, regardless of the network operator. No steering ensures maximum uptime for mission-critical devices."],
+                ["Single Management Plane", "Manage your entire global fleet from one dashboard. Activate, suspend, and monitor usage in real-time via our Connectivity Management Platform (CMP)."],
+                ["Secure Private APN", "Data is routed securely via private APN tunnels directly to your infrastructure or cloud, bypassing the public internet for enhanced security."],
+              ].map(([title,body]) => (
+                <div key={title} className="rounded-[16px] border border-white/10 bg-white/[.025] p-6">
+                  <h3 className="text-xl font-semibold text-[#38BDF8]">{title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-white/50">{body}</p>
+                </div>
+              ))}
             </div>
-        </main>
-    );
+          </div>
+          <div className="relative min-h-[430px] overflow-hidden rounded-[18px] border border-white/10 bg-[#0A0D12]">
+            <Image src="/images/products/esim-platform.jpg" alt="Signal One connectivity management platform" fill className="object-contain p-8" sizes="(min-width:1024px) 55vw,100vw" />
+          </div>
+        </section>
+
+        <section className="border-t border-white/10 py-16">
+          <h2 className="text-2xl font-semibold tracking-[-.025em]">Technical Specifications</h2>
+          <div className="mt-8 overflow-hidden rounded-[18px] border border-white/10 bg-[#0A0D12]">
+            <table className="w-full border-collapse text-left text-sm">
+              <tbody>
+                {[
+                  ["Form Factors", "2FF (Mini), 3FF (Micro), 4FF (Nano), MFF2 (eSIM)"],
+                  ["Network Support", "2G, 3G, 4G, 5G, LTE-M, NB-IoT"],
+                  ["Temperature Range", "Industrial Grade (-40°C to +105°C) available"],
+                  ["Coverage", "Global (180+ Countries)"],
+                ].map(([label,value]) => (
+                  <tr key={label} className="border-b border-white/10 last:border-b-0">
+                    <td className="w-1/3 px-5 py-5 font-semibold text-white/82">{label}</td>
+                    <td className="px-5 py-5 text-white/48">{value}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </main>
+  );
 }
