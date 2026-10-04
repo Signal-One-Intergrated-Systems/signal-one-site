@@ -1,5 +1,11 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import MarketingHero from "../../components/MarketingHero";
+
+export const metadata: Metadata = {
+  title: "LoRaWAN Devices & Sensors",
+  description: "Industrial Signal One LoRaWAN sensors for monitoring, metering, tracking, access and workforce safety.",
+};
 
 export default function LoRaWANSensorsPage() {
     return (
