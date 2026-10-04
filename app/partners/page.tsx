@@ -1,4 +1,14 @@
+import type { Metadata } from "next";
 import MarketingHero from "../components/MarketingHero";
+
+export const metadata: Metadata = {
+  title: "Partners",
+  description: "Signal One partner information.",
+  robots: {
+    index: false,
+    follow: true,
+  },
+};
 
 export default function PartnersPage() {
   return (
