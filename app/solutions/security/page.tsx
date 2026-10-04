@@ -1,7 +1,13 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import MarketingHero from "../../components/MarketingHero";
 import PlatformProof from "../../components/PlatformProof";
+
+export const metadata: Metadata = {
+  title: "Security Operations",
+  description: "Run security operations from evidence with Signal One Guard attendance, post coverage, patrol verification, incidents, SOS and proof of service.",
+};
 
 const pillars = [
   ["Attendance", "Record clock-in and clock-out against the operational site, with geofence policy and preserved evidence.", "/images/logistics.jpg"],
