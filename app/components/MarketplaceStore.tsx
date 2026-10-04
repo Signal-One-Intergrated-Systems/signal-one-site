@@ -3,7 +3,7 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   marketplaceProducts,
   type MarketplaceMode,
@@ -29,6 +29,20 @@ export default function MarketplaceStore() {
   const [modeByProduct, setModeByProduct] = useState<Record<string, MarketplaceMode>>({});
   const [cart, setCart] = useState<CartLine[]>([]);
   const [cartOpen, setCartOpen] = useState(false);
+
+  useEffect(() => {
+    if (!cartOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setCartOpen(false);
+    };
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [cartOpen]);
 
   const filtered = useMemo(() => {
     const needle = query.trim().toLowerCase();
@@ -91,6 +105,7 @@ export default function MarketplaceStore() {
                 key={item}
                 type="button"
                 onClick={() => setCategory(item)}
+                aria-pressed={category === item}
                 className={
                   "rounded-[10px] border px-4 py-2 text-xs font-semibold transition " +
                   (category === item
@@ -116,6 +131,9 @@ export default function MarketplaceStore() {
             <button
               type="button"
               onClick={() => setCartOpen(true)}
+              aria-haspopup="dialog"
+              aria-controls="signal-one-cart"
+              aria-expanded={cartOpen}
               className="relative h-11 rounded-[10px] border border-white/12 bg-white/[.04] px-5 text-sm font-semibold text-white/75 transition hover:bg-white/[.08] hover:text-white"
             >
               Cart
@@ -186,6 +204,7 @@ export default function MarketplaceStore() {
                                 [product.id]: item.mode,
                               }))
                             }
+                            aria-pressed={mode === item.mode}
                             className={
                               "flex-1 rounded-lg px-3 py-2 text-xs font-semibold transition " +
                               (mode === item.mode
@@ -247,6 +266,10 @@ export default function MarketplaceStore() {
               className="fixed inset-0 z-[70] bg-black/60 backdrop-blur-sm"
             />
             <motion.aside
+              id="signal-one-cart"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="signal-one-cart-title"
               initial={reducedMotion ? false : { x: "100%" }}
               animate={{ x: 0 }}
               exit={reducedMotion ? undefined : { x: "100%" }}
@@ -256,11 +279,12 @@ export default function MarketplaceStore() {
               <div className="flex items-center justify-between border-b border-white/9 pb-5">
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-[.2em] text-[#7dd3fc]">Signal One Marketplace</p>
-                  <h2 className="mt-2 text-2xl font-semibold">Your cart</h2>
+                  <h2 id="signal-one-cart-title" className="mt-2 text-2xl font-semibold">Your cart</h2>
                 </div>
                 <button
                   type="button"
                   onClick={() => setCartOpen(false)}
+                  aria-label="Close cart"
                   className="grid h-10 w-10 place-items-center rounded-[10px] border border-white/10 text-lg text-white/60 hover:bg-white/5 hover:text-white"
                 >
                   ×
