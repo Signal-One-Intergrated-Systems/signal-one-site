@@ -1,5 +1,11 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import MarketingHero from "../../components/MarketingHero";
+
+export const metadata: Metadata = {
+  title: "Critical Connect",
+  description: "Signal One Critical Connect for mission-critical Push-to-Talk, dispatch, video, location and emergency communications.",
+};
 
 export default function PushToTalkPage() {
   return (
