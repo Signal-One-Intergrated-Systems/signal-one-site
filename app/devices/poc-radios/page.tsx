@@ -1,5 +1,11 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import MarketingHero from "../../components/MarketingHero";
+
+export const metadata: Metadata = {
+  title: "Push-to-Talk Devices",
+  description: "Signal One Push-to-Talk over Cellular radios for security, logistics and field operations.",
+};
 
 export default function PoCRadiosPage() {
     return (
