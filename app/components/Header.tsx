@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const nav = [
   { href: "/#problem", label: "Why Signal One" },
@@ -15,6 +15,15 @@ const nav = [
 export default function Header() {
   const [open, setOpen] = useState(false);
   const reducedMotion = useReducedMotion();
+
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [open]);
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 px-3 sm:px-5">
@@ -66,8 +75,9 @@ export default function Header() {
           type="button"
           onClick={() => setOpen((value) => !value)}
           className="grid h-10 w-10 place-items-center rounded-xl border border-white/12 bg-white/[.035] text-white xl:hidden"
-          aria-label="Toggle navigation"
+          aria-label={open ? "Close navigation" : "Open navigation"}
           aria-expanded={open}
+          aria-controls="signal-one-mobile-nav"
         >
           <span className="text-xl leading-none">{open ? "×" : "≡"}</span>
         </button>
@@ -80,6 +90,7 @@ export default function Header() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={reducedMotion ? undefined : { opacity: 0, y: -8, scale: 0.985 }}
             transition={reducedMotion ? { duration: 0 } : { duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+            id="signal-one-mobile-nav"
             className="s1-glass mx-auto mt-2 max-w-[90rem] rounded-[18px] p-3 xl:hidden"
           >
             <nav className="grid gap-1" aria-label="Mobile navigation">
