@@ -1,54 +1,57 @@
+import Image from "next/image";
+import MarketingHero from "../../components/MarketingHero";
+
 export default function AIoTManagementPage() {
-    return (
-        <main className="min-h-screen bg-[#151A21] text-slate-100 px-6 py-32">
-            <div className="max-w-7xl mx-auto">
-                {/* IMAGE PLACEHOLDER: AIoT Dashboard UI | 16:9 | platforms/aiot-dashboard.jpg */}
-                <h1 className="text-5xl font-semibold mb-6">AIoT Device Management</h1>
-                <p className="text-white/70 text-lg max-w-3xl mb-16">
-                    A unified Mobile Device Management (MDM) and IoT monitoring suite. Secure, configure, and update your entire fleet of radios and sensors from the cloud.
-                </p>
+  return (
+    <main className="min-h-screen bg-[var(--s1-bg)] px-5 pb-24 pt-32 text-white md:pt-36">
+      <div className="mx-auto max-w-[90rem]">
+        <MarketingHero
+          eyebrow="Signal One AIoT"
+          title="AIoT Device Management"
+          body="A unified Mobile Device Management (MDM) and IoT monitoring suite. Secure, configure, and update your entire fleet of radios and sensors from the cloud."
+          image="/images/What-we-deliver/platforms.jpg"
+          imageAlt="Connected operational platform for device management"
+          primary={{ href: "/contact", label: "Discuss device management" }}
+        />
 
-                {/* --- Capabilities --- */}
-                <section className="grid md:grid-cols-3 gap-8 mb-20">
-                    <div className="bg-white/5 p-8 rounded-2xl border border-white/10">
-                        <h3 className="text-xl font-semibold text-white mb-4">Zero-Touch Provisioning</h3>
-                        <p className="text-slate-400 text-sm">
-                            Deploy devices instantly. Configurations are pushed over-the-air (OTA) immediately upon activation, removing the need for manual setup.
-                        </p>
-                    </div>
-                    <div className="bg-white/5 p-8 rounded-2xl border border-white/10">
-                        <h3 className="text-xl font-semibold text-white mb-4">Kiosk Mode</h3>
-                        <p className="text-slate-400 text-sm">
-                            Lock down devices to specific applications. Prevent distraction and misuse by restricting access to unauthorised apps and settings.
-                        </p>
-                    </div>
-                    <div className="bg-white/5 p-8 rounded-2xl border border-white/10">
-                        <h3 className="text-xl font-semibold text-white mb-4">Remote Diagnostics</h3>
-                        <p className="text-slate-400 text-sm">
-                            Monitor battery health, signal strength, and storage status. Troubleshoot issues remotely with screen sharing and log retrieval.
-                        </p>
-                    </div>
-                </section>
+        <section className="py-20 md:py-24">
+          <div className="grid gap-4 md:grid-cols-3">
+            {[
+              ["Zero-Touch Provisioning", "Deploy devices instantly. Configurations are pushed over-the-air (OTA) immediately upon activation, removing the need for manual setup."],
+              ["Kiosk Mode", "Lock down devices to specific applications. Prevent distraction and misuse by restricting access to unauthorised apps and settings."],
+              ["Remote Diagnostics", "Monitor battery health, signal strength, and storage status. Troubleshoot issues remotely with screen sharing and log retrieval."],
+            ].map(([title,body])=>(
+              <article key={title} className="rounded-[18px] border border-white/10 bg-[#0A0D12] p-7">
+                <span className="mb-5 block h-1 w-8 rounded-full bg-[#0EA5E9]" />
+                <h3 className="text-xl font-semibold">{title}</h3>
+                <p className="mt-4 text-sm leading-7 text-white/50">{body}</p>
+              </article>
+            ))}
+          </div>
+        </section>
 
-                {/* --- Security --- */}
-                <section className="mb-20">
-                    <h2 className="text-3xl font-semibold text-white mb-8">Enterprise Security Features</h2>
-                    <ul className="grid md:grid-cols-2 gap-4 text-slate-300">
-                        <li className="flex items-center gap-3 p-4 bg-white/5 rounded-lg border border-white/5">
-                            <span className="text-[#0EA5E9]">✓</span> Remote Wipe & Lock capability
-                        </li>
-                        <li className="flex items-center gap-3 p-4 bg-white/5 rounded-lg border border-white/5">
-                            <span className="text-[#0EA5E9]">✓</span> Application Whitelisting/Blacklisting
-                        </li>
-                        <li className="flex items-center gap-3 p-4 bg-white/5 rounded-lg border border-white/5">
-                            <span className="text-[#0EA5E9]">✓</span> Enforced Password Policies
-                        </li>
-                        <li className="flex items-center gap-3 p-4 bg-white/5 rounded-lg border border-white/5">
-                            <span className="text-[#0EA5E9]">✓</span> Geofence-based Policy Enforcement
-                        </li>
-                    </ul>
-                </section>
-            </div>
-        </main>
-    );
+        <section className="grid gap-8 border-t border-white/10 py-20 lg:grid-cols-[.72fr_1.28fr] lg:items-center">
+          <div>
+            <p className="s1-mono text-[9px] font-semibold text-[#38BDF8]">Enterprise Security Features</p>
+            <h2 className="mt-4 text-3xl font-semibold tracking-[-.035em] md:text-4xl">Keep the fleet governed from one control plane.</h2>
+            <ul className="mt-7 grid gap-3">
+              {[
+                "Remote Wipe & Lock capability",
+                "Application Whitelisting/Blacklisting",
+                "Enforced Password Policies",
+                "Geofence-based Policy Enforcement",
+              ].map((item)=>(
+                <li key={item} className="flex items-center gap-3 rounded-[14px] border border-white/10 bg-white/[.025] px-4 py-4 text-sm text-white/62">
+                  <span className="text-[#38BDF8]">✓</span>{item}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="relative min-h-[420px] overflow-hidden rounded-[18px] border border-white/10 bg-[#0A0D12]">
+            <Image src="/images/products/mdm-platform.jpg" alt="Signal One device management platform" fill className="object-contain p-8" sizes="(min-width:1024px) 58vw,100vw" />
+          </div>
+        </section>
+      </div>
+    </main>
+  );
 }
