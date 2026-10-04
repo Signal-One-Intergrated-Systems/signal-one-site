@@ -13,16 +13,16 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Signal One | Security Operations Platform",
+    default: "Signal One | Security Operations",
     template: "%s | Signal One",
   },
   description:
-    "Onboard your security company, build teams through the Guard Marketplace, and run security operations with Signal One.",
+    "Signal One connects security operations, sales workflows, field teams, proof of service, devices and connectivity.",
   metadataBase: new URL("https://signal-one-site.vercel.app"),
   openGraph: {
     title: "Signal One Security Operations",
     description:
-      "Acquire work, build teams and operate security services from one connected system.",
+      "Run the operation, equip teams and connect commercial workflows through Signal One.",
     type: "website",
   },
 };
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} font-sans antialiased`}>
+      <body className={inter.variable + " font-sans antialiased"}>
         <Header />
         {children}
         <Footer />

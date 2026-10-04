@@ -1,49 +1,112 @@
 import type { Metadata } from "next";
-import IntakeForm, { type IntakeField } from "../components/IntakeForm";
+import OnboardingJourney, {
+  type JourneyStep,
+  type JourneyWorld,
+} from "../components/OnboardingJourney";
 
 export const metadata: Metadata = {
   title: "Onboard your security company",
-  description: "Start your Signal One company onboarding and prepare your Guard operation.",
+  description: "Start your Signal One company onboarding journey.",
 };
 
-const fields: IntakeField[] = [
-  { name: "companyName", label: "Company name", required: true, placeholder: "ABC Security (Pty) Ltd" },
-  { name: "registrationNumber", label: "Company registration number", placeholder: "Optional at first step" },
-  { name: "contactName", label: "Primary contact", required: true, placeholder: "Full name" },
-  { name: "email", label: "Business email", type: "email", required: true, placeholder: "name@company.co.za" },
-  { name: "mobile", label: "Mobile number", type: "tel", required: true, placeholder: "+27" },
-  { name: "province", label: "Primary province", type: "select", required: true, options: ["Gauteng", "Western Cape", "KwaZulu-Natal", "Eastern Cape", "Free State", "Limpopo", "Mpumalanga", "North West", "Northern Cape", "Multiple provinces"] },
-  { name: "guardCount", label: "Approximate guard count", type: "number", placeholder: "e.g. 120" },
-  { name: "siteCount", label: "Approximate site count", type: "number", placeholder: "e.g. 18" },
-  { name: "need", label: "What do you need from Signal One?", type: "textarea", required: true, placeholder: "Guard management, control room, workforce, PTT, tracking, devices, CCTV, sales support…" },
+const world: JourneyWorld = {
+  kind: "client",
+  storageKey: "signal-one-client-onboarding-v2",
+  badge: "Company onboarding",
+  welcomeTitle: "Build your operation with Signal One.",
+  welcomeBody:
+    "A guided setup for security companies moving from first conversation to an operational Signal One environment. We will collect only what is needed to understand your company, footprint and priorities.",
+  welcomePoints: [
+    "Introduce your company and primary contact.",
+    "Tell us the scale and shape of your security operation.",
+    "Define what Signal One should help you improve first.",
+  ],
+  image: "/images/industries/security.jpg",
+  imageAlt: "Security operations environment",
+  accent: "#38BDF8",
+  accentRgb: "56,189,248",
+  completionTitle: "Your Signal One onboarding has started.",
+  completionBody:
+    "Your company profile is now in the Signal One onboarding process. The next step is verification and operational setup.",
+  completionHref: "/solutions/security",
+  completionCta: "Explore Signal One Guard",
+};
+
+const steps: JourneyStep[] = [
+  {
+    id: "company",
+    eyebrow: "01 · Company",
+    title: "Tell us who you operate as.",
+    body: "Start with the legal and trading identity we should use for your onboarding.",
+    fields: [
+      { name: "companyName", label: "Company name", required: true, placeholder: "ABC Security (Pty) Ltd" },
+      { name: "registrationNumber", label: "Company registration number", placeholder: "Optional at this stage" },
+    ],
+  },
+  {
+    id: "contact",
+    eyebrow: "02 · Contact",
+    title: "Who should Signal One work with?",
+    body: "This person becomes our primary onboarding contact.",
+    fields: [
+      { name: "contactName", label: "Primary contact", required: true, placeholder: "Full name" },
+      { name: "email", label: "Business email", type: "email", required: true, placeholder: "name@company.co.za" },
+      { name: "mobile", label: "Mobile number", type: "tel", required: true, placeholder: "+27" },
+    ],
+  },
+  {
+    id: "operation",
+    eyebrow: "03 · Operation",
+    title: "Show us the shape of your operation.",
+    body: "A few scale signals help us prepare the right onboarding path.",
+    fields: [
+      {
+        name: "province",
+        label: "Primary operating province",
+        type: "select",
+        required: true,
+        options: [
+          "Gauteng",
+          "Western Cape",
+          "KwaZulu-Natal",
+          "Eastern Cape",
+          "Free State",
+          "Limpopo",
+          "Mpumalanga",
+          "North West",
+          "Northern Cape",
+          "Multiple provinces",
+        ],
+      },
+      { name: "guardCount", label: "Approximate guard count", type: "number", placeholder: "e.g. 120" },
+      { name: "siteCount", label: "Approximate site count", type: "number", placeholder: "e.g. 18" },
+    ],
+  },
+  {
+    id: "needs",
+    eyebrow: "04 · Priorities",
+    title: "What needs to work better first?",
+    body: "Focus on the operational outcome, not the technology. We will map the right Signal One capability to it.",
+    fields: [
+      {
+        name: "need",
+        label: "Your priority",
+        type: "textarea",
+        required: true,
+        placeholder:
+          "For example: stronger control-room visibility, verified patrols, better post coverage, proof of service, devices or communications.",
+      },
+    ],
+  },
+  {
+    id: "review",
+    eyebrow: "05 · Review",
+    title: "Confirm your onboarding profile.",
+    body: "Check the information before sending it to Signal One.",
+    review: true,
+  },
 ];
 
 export default function GetStartedPage() {
-  return (
-    <main className="min-h-screen bg-[#080d13] px-5 pb-24 pt-36 text-white md:pt-44">
-      <div className="mx-auto grid max-w-[92rem] gap-12 xl:grid-cols-[.72fr_1.28fr]">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-[.22em] text-[#39bdf8]">Company onboarding</p>
-          <h1 className="mt-5 text-4xl font-semibold tracking-[-.04em] md:text-5xl">Start your Signal One operation.</h1>
-          <p className="mt-6 text-base leading-7 text-white/55">
-            This starts the commercial and operational onboarding process. Your company is reviewed in LEOS first; approved companies are then provisioned into Guard with a company administrator.
-          </p>
-          <div className="mt-9 space-y-4">
-            {[
-              ["1", "Company profile", "Tell us who you are and what you operate."],
-              ["2", "Verification & commercial setup", "Signal One reviews the company, requirements and commercial relationship."],
-              ["3", "Guard activation", "Your company, initial administrator and operational setup are provisioned into Guard."],
-              ["4", "Go live", "Add sites, people, devices and staffing requirements."],
-            ].map(([number, title, body]) => (
-              <div key={number} className="flex gap-4">
-                <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-white/10 text-xs text-[#7dd3fc]">{number}</span>
-                <div><p className="text-sm font-semibold">{title}</p><p className="mt-1 text-xs leading-5 text-white/40">{body}</p></div>
-              </div>
-            ))}
-          </div>
-        </div>
-        <IntakeForm kind="client" title="Company onboarding request" intro="Submit the first-stage company profile. We do not create an unrestricted Guard tenant directly from an anonymous website request." fields={fields} submitLabel="Start company onboarding" />
-      </div>
-    </main>
-  );
+  return <OnboardingJourney world={world} steps={steps} />;
 }

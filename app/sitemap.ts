@@ -9,6 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/join/sales",
     "/guards",
     "/guards/join",
+    "/marketplace",
     "/systems",
     "/solutions",
     "/solutions/security",
@@ -19,9 +20,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   return routes.map((route) => ({
-    url: `${base}${route}`,
+    url: base + route,
     lastModified: new Date(),
-    changeFrequency: route === "" || route === "/guards" ? "weekly" : "monthly",
-    priority: route === "" ? 1 : route === "/get-started" || route === "/guards" ? 0.9 : 0.7,
+    changeFrequency: route === "" || route === "/marketplace" ? "weekly" : "monthly",
+    priority:
+      route === ""
+        ? 1
+        : route === "/get-started" || route === "/marketplace"
+          ? 0.9
+          : 0.7,
   }));
 }

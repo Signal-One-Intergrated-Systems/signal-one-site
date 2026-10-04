@@ -1,12 +1,12 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { useState } from "react";
 
 const nav = [
   { href: "/#platform", label: "Platform" },
-  { href: "/guards", label: "Guard Marketplace" },
+  { href: "/marketplace", label: "Marketplace" },
   { href: "/solutions/security", label: "Security" },
   { href: "/devices", label: "Devices" },
   { href: "/contact", label: "Contact" },
@@ -14,10 +14,11 @@ const nav = [
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const reducedMotion = useReducedMotion();
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 px-3 sm:px-5">
-      <div className="mx-auto mt-3 flex max-w-[92rem] items-center justify-between rounded-2xl border border-white/15 bg-[#0b1017]/80 px-4 py-3 shadow-[0_20px_80px_rgba(0,0,0,.35)] backdrop-blur-2xl md:mt-5 md:px-6">
+      <div className="mx-auto mt-3 flex max-w-[92rem] items-center justify-between rounded-2xl border border-white/15 bg-[#0b1017]/78 px-4 py-3 shadow-[0_20px_80px_rgba(0,0,0,.35)] backdrop-blur-2xl md:mt-5 md:px-6">
         <Link href="/" className="flex items-center gap-3" onClick={() => setOpen(false)}>
           <span className="relative grid h-10 w-10 place-items-center rounded-full border border-[#39bdf8]/40">
             <span className="absolute inset-1 rounded-full border border-[#39bdf8]/20" />
@@ -64,10 +65,10 @@ export default function Header() {
       <AnimatePresence>
         {open ? (
           <motion.div
-            initial={{ opacity: 0, y: -10, scale: 0.98 }}
+            initial={reducedMotion ? false : { opacity: 0, y: -10, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -8, scale: 0.98 }}
-            transition={{ duration: 0.22 }}
+            exit={reducedMotion ? undefined : { opacity: 0, y: -8, scale: 0.98 }}
+            transition={reducedMotion ? { duration: 0 } : { duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
             className="mx-auto mt-2 max-w-[92rem] rounded-2xl border border-white/15 bg-[#0b1017]/95 p-3 shadow-2xl backdrop-blur-2xl xl:hidden"
           >
             <nav className="grid gap-1">
