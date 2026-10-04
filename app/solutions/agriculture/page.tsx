@@ -1,5 +1,11 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import MarketingHero from "../../components/MarketingHero";
+
+export const metadata: Metadata = {
+  title: "Agriculture & Rural Operations",
+  description: "Connected livestock monitoring, rural telemetry and long-range operational technology from Signal One.",
+};
 
 export default function AgricultureSolutionsPage() {
   return (
