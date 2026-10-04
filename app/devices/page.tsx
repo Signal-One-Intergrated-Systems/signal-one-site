@@ -1,6 +1,12 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import MarketingHero from "../components/MarketingHero";
+
+export const metadata: Metadata = {
+  title: "Devices",
+  description: "Ruggedised Signal One communications, sensing and tracking hardware for field operations.",
+};
 
 const devices = [
   {
