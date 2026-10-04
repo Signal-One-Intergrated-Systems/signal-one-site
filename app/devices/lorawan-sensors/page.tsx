@@ -1,23 +1,21 @@
 import Image from "next/image";
+import MarketingHero from "../../components/MarketingHero";
 
 export default function LoRaWANSensorsPage() {
     return (
         <main className="min-h-screen bg-[var(--s1-bg)] px-5 pb-24 pt-32 text-white md:pt-36">
             <div className="mx-auto max-w-[90rem]">
-                <div className="relative w-full h-[300px] md:h-[400px] rounded-[24px] overflow-hidden mb-16 border border-white/10">
-                    <Image
-                        src="/images/Devices/Lorawan/hero-sensors.jpg"
-                        alt="LoRaWAN Sensors"
-                        fill
-                        className="w-full h-full object-cover"
-                        priority
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#151A21] via-transparent to-transparent opacity-80" />
-                </div>
-                <h1 className="text-5xl font-semibold mb-6">LoRaWAN Devices & Sensors</h1>
-                <p className="text-white/62 text-lg max-w-3xl mb-16">
-                    A comprehensive portfolio of industrial LoRaWAN sensors designed for long-range, low-power data acquisition. Ruggedised for harsh environments and built for massive scale IoT deployments.
-                </p>
+                <MarketingHero
+                    eyebrow="Signal One devices"
+                    title="LoRaWAN Devices & Sensors"
+                    body="A comprehensive portfolio of industrial LoRaWAN sensors designed for long-range, low-power data acquisition. Ruggedised for harsh environments and built for massive scale IoT deployments."
+                    image="/images/Devices/Lorawan/hero-sensors.jpg"
+                    imageAlt="Signal One LoRaWAN sensors"
+                    primary={{ href: "/contact", label: "Request a sensor quote" }}
+                    secondary={{ href: "/marketplace", label: "Browse marketplace" }}
+                />
+
+                <div className="h-16 md:h-20" />
 
                 {/* --- Environmental & Safety --- */}
                 <section className="mb-20">
