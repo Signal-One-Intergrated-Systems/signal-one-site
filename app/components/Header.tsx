@@ -18,35 +18,46 @@ export default function Header() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 px-3 sm:px-5">
-      <div className="mx-auto mt-3 flex max-w-[92rem] items-center justify-between rounded-2xl border border-white/12 bg-[#0d141c]/82 px-4 py-3 shadow-[0_20px_70px_rgba(0,0,0,.32)] backdrop-blur-2xl md:mt-5 md:px-6">
-        <Link href="/" className="flex items-center gap-3" onClick={() => setOpen(false)}>
-          <span className="relative grid h-10 w-10 place-items-center rounded-full border border-[#5f9fbd]/42">
-            <span className="absolute inset-1 rounded-full border border-[#5f9fbd]/18" />
-            <span className="h-2.5 w-2.5 rounded-full bg-[#75b9d7] shadow-[0_0_20px_rgba(117,185,215,.55)]" />
+      <div className="s1-glass mx-auto mt-3 flex h-[72px] max-w-[90rem] items-center justify-between rounded-[18px] px-4 md:mt-5 md:px-5">
+        <Link href="/" className="group flex items-center gap-3" onClick={() => setOpen(false)} aria-label="Signal One home">
+          <span className="relative grid h-10 w-10 place-items-center rounded-full border border-[#0EA5E9]/45">
+            <span className="absolute inset-[5px] rounded-full border border-[#38BDF8]/20 transition duration-300 group-hover:scale-110" />
+            <span className="absolute h-2.5 w-2.5 rounded-full bg-[#0EA5E9] shadow-[0_0_26px_rgba(14,165,233,.75)]" />
+            <span className="absolute h-6 w-6 animate-ping rounded-full border border-[#0EA5E9]/25 [animation-duration:2.8s]" />
           </span>
           <span>
-            <span className="block text-base font-semibold tracking-[.14em] text-white md:text-lg">
-              SIGNAL <span className="text-[#8bc0d7]">ONE</span>
+            <span className="block text-[15px] font-semibold tracking-[.16em] text-[#F1F5F9] md:text-base">
+              SIGNAL <span className="text-[#0EA5E9]">ONE</span>
             </span>
-            <span className="block text-[9px] uppercase tracking-[.26em] text-white/42">
+            <span className="s1-mono mt-0.5 block text-[8px] text-white/42">
               Security Operations
             </span>
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-1 xl:flex">
+        <nav className="hidden items-center gap-1 xl:flex" aria-label="Primary navigation">
           {nav.map((item) => (
-            <Link key={item.href} href={item.href} className="rounded-full px-4 py-2 text-sm text-white/62 transition hover:bg-white/5 hover:text-white">
+            <Link
+              key={item.href}
+              href={item.href}
+              className="rounded-[10px] px-4 py-2.5 text-sm font-medium text-white/62 transition duration-200 hover:bg-white/[.055] hover:text-white"
+            >
               {item.label}
             </Link>
           ))}
         </nav>
 
         <div className="hidden items-center gap-2 xl:flex">
-          <Link href="/get-started" className="rounded-full border border-white/12 px-4 py-2.5 text-sm font-semibold text-white/72 transition hover:border-white/22 hover:bg-white/5 hover:text-white">
+          <Link
+            href="/get-started"
+            className="s1-secondary-action px-4 py-2.5 text-sm font-semibold"
+          >
             Company onboarding
           </Link>
-          <Link href="/contact" className="rounded-full bg-[#75b9d7] px-5 py-2.5 text-sm font-semibold text-[#071018] shadow-[0_12px_32px_rgba(95,159,189,.18)] transition hover:bg-[#9bcddd]">
+          <Link
+            href="/contact"
+            className="s1-primary-action px-5 py-2.5 text-sm font-semibold"
+          >
             Book review
           </Link>
         </div>
@@ -54,11 +65,11 @@ export default function Header() {
         <button
           type="button"
           onClick={() => setOpen((value) => !value)}
-          className="grid h-10 w-10 place-items-center rounded-xl border border-white/10 text-white xl:hidden"
+          className="grid h-10 w-10 place-items-center rounded-xl border border-white/12 bg-white/[.035] text-white xl:hidden"
           aria-label="Toggle navigation"
           aria-expanded={open}
         >
-          <span className="text-xl">{open ? "×" : "≡"}</span>
+          <span className="text-xl leading-none">{open ? "×" : "≡"}</span>
         </button>
       </div>
 
@@ -69,19 +80,32 @@ export default function Header() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={reducedMotion ? undefined : { opacity: 0, y: -8, scale: 0.985 }}
             transition={reducedMotion ? { duration: 0 } : { duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
-            className="mx-auto mt-2 max-w-[92rem] rounded-2xl border border-white/12 bg-[#0d141c]/96 p-3 shadow-2xl backdrop-blur-2xl xl:hidden"
+            className="s1-glass mx-auto mt-2 max-w-[90rem] rounded-[18px] p-3 xl:hidden"
           >
-            <nav className="grid gap-1">
+            <nav className="grid gap-1" aria-label="Mobile navigation">
               {nav.map((item) => (
-                <Link key={item.href} href={item.href} onClick={() => setOpen(false)} className="rounded-xl px-4 py-3 text-sm text-white/70 hover:bg-white/5 hover:text-white">
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setOpen(false)}
+                  className="rounded-xl px-4 py-3 text-sm text-white/72 transition hover:bg-white/[.055] hover:text-white"
+                >
                   {item.label}
                 </Link>
               ))}
-              <div className="mt-2 grid grid-cols-2 gap-2 border-t border-white/8 pt-3">
-                <Link href="/get-started" onClick={() => setOpen(false)} className="rounded-xl border border-white/12 px-4 py-3 text-center text-sm text-white/78">
+              <div className="mt-2 grid grid-cols-2 gap-2 border-t border-white/10 pt-3">
+                <Link
+                  href="/get-started"
+                  onClick={() => setOpen(false)}
+                  className="s1-secondary-action px-4 py-3 text-center text-sm font-semibold"
+                >
                   Company onboarding
                 </Link>
-                <Link href="/contact" onClick={() => setOpen(false)} className="rounded-xl bg-[#75b9d7] px-4 py-3 text-center text-sm font-semibold text-[#071018]">
+                <Link
+                  href="/contact"
+                  onClick={() => setOpen(false)}
+                  className="s1-primary-action px-4 py-3 text-center text-sm font-semibold"
+                >
                   Book review
                 </Link>
               </div>
