@@ -77,98 +77,73 @@ const roles = [
 export default function Home() {
   return (
     <main className="overflow-hidden bg-[var(--s1-bg)] text-[var(--s1-text)]">
-      <section className="relative border-b border-white/[.07] px-5 pb-24 pt-40 md:pt-48">
-        <div className="s1-ambient absolute inset-0" />
-        <div className="relative mx-auto grid min-h-[690px] max-w-[92rem] items-center gap-14 xl:grid-cols-[1.02fr_.98fr]">
-          <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[.035] px-4 py-2 text-xs font-semibold uppercase tracking-[.18em] text-white/58 backdrop-blur-xl">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#5f9fbd]" />
-              For private security companies
-            </div>
-            <h1 className="mt-7 max-w-5xl text-5xl font-semibold leading-[.94] tracking-[-.05em] sm:text-6xl lg:text-7xl xl:text-[5.45rem]">
-              Control every site.
-              <span className="block text-[var(--s1-accent)]">Know what happened.</span>
-              <span className="block">Prove the service.</span>
-            </h1>
-            <p className="mt-8 max-w-2xl text-base leading-7 text-white/66 md:text-lg">
-              Signal One gives security-company owners and operations leaders one operational picture across people, posts, patrols, exceptions, evidence, devices and client service.
-            </p>
-            <div className="mt-9 flex flex-wrap gap-3">
-              <Link
-                href="/#proof"
-                className="rounded-full bg-[var(--s1-accent)] px-6 py-3 text-sm font-semibold text-[#071018] shadow-[0_16px_42px_rgba(95,159,189,.16)] transition hover:brightness-110"
-              >
-                See Signal One in action
-              </Link>
-              <Link
-                href="/contact"
-                className="rounded-full border border-white/14 bg-white/[.025] px-6 py-3 text-sm font-semibold text-white/78 transition hover:border-white/24 hover:bg-white/[.05] hover:text-white"
-              >
-                Book an operational review
-              </Link>
-            </div>
-            <div className="mt-9 grid max-w-2xl grid-cols-3 gap-4 border-t border-white/[.07] pt-6">
-              {[
-                ["Attendance", "Know who is actually on site."],
-                ["Patrols", "Verify rounds and checkpoints."],
-                ["Service proof", "Show what was delivered."],
-              ].map(([label, text]) => (
-                <div key={label}>
-                  <p className="text-sm font-semibold text-white/86">{label}</p>
-                  <p className="mt-1 text-xs leading-5 text-white/38">{text}</p>
+      <section className="relative isolate overflow-hidden border-b border-white/10 px-5 pb-20 pt-32 md:pb-28 md:pt-36">
+        <div className="s1-ambient absolute inset-0 -z-20" />
+        <div className="s1-grid absolute inset-0 -z-10 opacity-55" />
+        <div className="absolute left-1/2 top-0 -z-10 h-[560px] w-[820px] -translate-x-1/2 rounded-full bg-[#0EA5E9]/[.065] blur-[120px]" />
+
+        <div className="mx-auto max-w-[90rem]">
+          <div className="s1-glass relative overflow-hidden rounded-[24px] p-5 sm:p-7 lg:p-10 xl:p-12">
+            <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(115deg,rgba(14,165,233,.07),transparent_36%,rgba(255,255,255,.018))]" />
+
+            <div className="relative grid items-center gap-10 xl:grid-cols-[.92fr_1.08fr] xl:gap-12">
+              <div className="py-2 xl:py-6">
+                <div className="inline-flex items-center gap-2 rounded-full border border-[#0EA5E9]/30 bg-[#0EA5E9]/[.075] px-3.5 py-2">
+                  <span className="relative h-2 w-2 rounded-full bg-[#0EA5E9] shadow-[0_0_16px_rgba(14,165,233,.7)]" />
+                  <span className="s1-mono text-[9px] font-medium text-[#7DD3FC]">
+                    For private security companies
+                  </span>
                 </div>
-              ))}
+
+                <h1 className="mt-6 max-w-3xl text-[clamp(2.6rem,5vw,3.75rem)] font-semibold leading-[1.02] tracking-[-.025em] text-[#F1F5F9]">
+                  Control every site.
+                  <span className="block text-[#0EA5E9]">Know what happened.</span>
+                  <span className="block">Prove the service.</span>
+                </h1>
+
+                <p className="mt-6 max-w-2xl text-base leading-7 text-white/72 md:text-lg md:leading-8">
+                  Signal One gives security-company owners and operations leaders one operational picture across people, posts, patrols, exceptions, evidence, devices and client service.
+                </p>
+
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <Link
+                    href="/#proof"
+                    className="s1-primary-action px-6 py-3.5 text-sm font-semibold"
+                  >
+                    See Signal One in action
+                  </Link>
+                  <Link
+                    href="/contact"
+                    className="s1-secondary-action px-6 py-3.5 text-sm font-semibold"
+                  >
+                    Book an operational review
+                  </Link>
+                </div>
+
+                <div className="mt-9 grid max-w-2xl grid-cols-1 gap-3 border-t border-white/10 pt-6 sm:grid-cols-3">
+                  {[
+                    ["Attendance", "Know who is actually on site."],
+                    ["Patrols", "Verify rounds and checkpoints."],
+                    ["Service proof", "Show what was delivered."],
+                  ].map(([label, text]) => (
+                    <div key={label} className="rounded-xl border border-white/[.065] bg-white/[.025] p-3.5">
+                      <p className="text-sm font-semibold text-white/88">{label}</p>
+                      <p className="mt-1 text-xs leading-5 text-white/44">{text}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="relative">
+                <div className="absolute -inset-8 -z-10 rounded-full bg-[#0EA5E9]/10 blur-3xl" />
+                <HeroVideo />
+              </div>
             </div>
           </div>
 
-          <div className="relative">
-            <div className="absolute -inset-12 rounded-full bg-[#5f9fbd]/8 blur-3xl" />
-            <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[#101820]/88 shadow-[0_42px_130px_rgba(0,0,0,.42)]">
-              <div className="flex items-center justify-between border-b border-white/[.07] px-5 py-4">
-                <div>
-                  <p className="text-[10px] font-semibold uppercase tracking-[.18em] text-white/34">Executive operational picture</p>
-                  <p className="mt-1 text-sm font-semibold text-white/82">What needs attention now</p>
-                </div>
-                <span className="rounded-full border border-emerald-300/20 bg-emerald-300/7 px-3 py-1 text-[10px] font-semibold uppercase tracking-[.12em] text-emerald-200">
-                  Live view
-                </span>
-              </div>
-
-              <div className="grid gap-3 p-4 sm:grid-cols-2">
-                {[
-                  ["Posts covered", "42 / 45", "3 need action"],
-                  ["Guards on duty", "118", "Across active sites"],
-                  ["Patrol exceptions", "4", "2 need review"],
-                  ["SOS unresolved", "1", "Control Room active"],
-                ].map(([label, value, detail], index) => (
-                  <div key={label} className="rounded-2xl border border-white/[.07] bg-[#0b1118] p-4">
-                    <p className="text-[10px] font-semibold uppercase tracking-[.14em] text-white/34">{label}</p>
-                    <div className="mt-3 flex items-end justify-between gap-3">
-                      <p className="text-2xl font-semibold tabular-nums text-white/92">{value}</p>
-                      <span className={index === 3 ? "h-2 w-2 rounded-full bg-amber-300" : "h-2 w-2 rounded-full bg-emerald-300"} />
-                    </div>
-                    <p className="mt-2 text-xs text-white/35">{detail}</p>
-                  </div>
-                ))}
-              </div>
-
-              <div className="border-t border-white/[.07] bg-black/12 p-4">
-                <div className="rounded-2xl border border-white/[.07] bg-white/[.025] p-4">
-                  <div className="flex items-center justify-between gap-3">
-                    <div>
-                      <p className="text-xs font-semibold text-white/80">Operational evidence</p>
-                      <p className="mt-1 text-xs text-white/36">Attendance · Patrols · Incidents · Occurrence</p>
-                    </div>
-                    <span className="rounded-full bg-[#5f9fbd]/12 px-3 py-1 text-[10px] font-semibold text-[#a9cfdf]">
-                      One record
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <p className="mt-4 text-right text-[10px] uppercase tracking-[.16em] text-white/24">
-              Illustrative summary · product detail below
-            </p>
+          <div className="mt-5 flex flex-col gap-3 px-1 text-xs text-white/38 sm:flex-row sm:items-center sm:justify-between">
+            <p>One operating record across attendance, patrols, incidents, SOS and service proof.</p>
+            <p className="s1-mono text-[9px] text-white/30">Signal One · Security Operations</p>
           </div>
         </div>
       </section>
