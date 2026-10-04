@@ -1,5 +1,11 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import MarketingHero from "../../components/MarketingHero";
+
+export const metadata: Metadata = {
+  title: "Global IoT Connectivity",
+  description: "Signal One multi-network IoT connectivity for resilient global device operations.",
+};
 
 export default function IoTSIMPage() {
   return (
