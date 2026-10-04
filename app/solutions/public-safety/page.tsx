@@ -1,4 +1,14 @@
+import type { Metadata } from "next";
 import MarketingHero from "../../components/MarketingHero";
+
+export const metadata: Metadata = {
+  title: "Public Safety & Municipal Services",
+  description: "Signal One public safety and municipal services solutions.",
+  robots: {
+    index: false,
+    follow: true,
+  },
+};
 
 export default function PublicSafetyPage() {
   return (
