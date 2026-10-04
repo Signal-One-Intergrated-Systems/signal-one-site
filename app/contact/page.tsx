@@ -1,63 +1,64 @@
+import type { Metadata } from "next";
+import IntakeForm, { type IntakeField } from "../components/IntakeForm";
+
+export const metadata: Metadata = {
+  title: "Operational review",
+  description: "Talk to Signal One about your security operation, sites, control room and service evidence.",
+};
+
+const fields: IntakeField[] = [
+  { name: "companyName", label: "Security company", required: true, placeholder: "Company name" },
+  { name: "contactName", label: "Your name", required: true, placeholder: "Full name" },
+  { name: "email", label: "Business email", type: "email", required: true, placeholder: "name@company.co.za" },
+  { name: "mobile", label: "Mobile number", type: "tel", required: true, placeholder: "+27" },
+  {
+    name: "need",
+    label: "What do you need better control of?",
+    type: "textarea",
+    required: true,
+    placeholder: "For example: post coverage, attendance, patrol proof, Control Room visibility, client reporting, devices or a multi-site rollout.",
+  },
+];
+
 export default function ContactPage() {
-    return (
-        <main className="min-h-screen bg-[#151A21] text-slate-100 px-6 py-32">
-            <div className="max-w-7xl mx-auto">
-                <div className="grid lg:grid-cols-2 gap-16">
+  return (
+    <main className="min-h-screen bg-[var(--s1-bg)] px-5 pb-24 pt-40 text-white md:pt-48">
+      <div className="mx-auto grid max-w-[92rem] gap-12 lg:grid-cols-[.72fr_1.28fr]">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[.2em] text-[var(--s1-accent)]">Operational review</p>
+          <h1 className="mt-5 text-4xl font-semibold tracking-[-.045em] md:text-6xl">
+            Start with the operation, not a software demo.
+          </h1>
+          <p className="mt-6 max-w-xl text-base leading-7 text-white/56">
+            Tell us where you need stronger visibility or evidence. Signal One can then frame the relevant sites, people, workflows and rollout instead of forcing a generic product conversation.
+          </p>
 
-                    {/* Contact Info */}
-                    <div>
-                        <h1 className="text-5xl font-semibold mb-6">Partner with Signal One</h1>
-                        <p className="text-white/70 text-lg mb-12">
-                            Ready to modernise your operations? Our solution architects are ready to design a system tailored to your specific requirements.
-                        </p>
+          <div className="mt-10 space-y-5 border-t border-white/[.08] pt-7">
+            {[
+              ["Coverage & staffing", "Posts, shortfalls, roster and verified presence."],
+              ["Patrol & field evidence", "Routes, checkpoints, incidents and offline field work."],
+              ["Control & client proof", "SOS, exceptions, occurrence records and service evidence."],
+            ].map(([title, body]) => (
+              <div key={title}>
+                <h2 className="text-sm font-semibold text-white/84">{title}</h2>
+                <p className="mt-1 text-sm leading-6 text-white/40">{body}</p>
+              </div>
+            ))}
+          </div>
 
-                        <div className="space-y-8">
-                            <div>
-                                <h3 className="text-xl font-semibold text-white mb-2">System Design Consultation</h3>
-                                <p className="text-slate-400">
-                                    Book a session with our engineering team to map out your coverage, device, and integration needs.
-                                </p>
-                            </div>
+          <p className="mt-10 text-xs leading-5 text-white/30">
+            Signal One serves South African security operators. Company and rollout details are confirmed directly during onboarding rather than inferred from a public form.
+          </p>
+        </div>
 
-                            <hr className="border-white/10" />
-
-                            <div>
-                                <h3 className="text-xl font-semibold text-white mb-2">Technical Support</h3>
-                                <p className="text-slate-400 mb-1">Existing customer? Access the support portal.</p>
-                                <span className="text-[#0EA5E9] cursor-pointer hover:underline">support@signal1.systems</span>
-                            </div>
-
-                            <hr className="border-white/10" />
-
-                            <div>
-                                <h3 className="text-xl font-semibold text-white mb-2">Head Office</h3>
-                                <p className="text-slate-400">
-                                    Level 4, TechHub Precinct<br />
-                                    Innovation Drive, Metropolis
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Contact Form Placeholder - in reality this would be interactive */}
-                    <div className="bg-white/5 border border-white/10 p-8 rounded-2xl">
-                        <h2 className="text-2xl font-semibold text-white mb-6">Request a Proposal</h2>
-                        <form className="space-y-6">
-                            <div className="grid md:grid-cols-2 gap-6">
-                                <input type="text" placeholder="First Name" className="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-[#0EA5E9] outline-none transition" />
-                                <input type="text" placeholder="Last Name" className="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-[#0EA5E9] outline-none transition" />
-                            </div>
-                            <input type="email" placeholder="Business Email" className="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-[#0EA5E9] outline-none transition" />
-                            <input type="tel" placeholder="Phone Number" className="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-[#0EA5E9] outline-none transition" />
-                            <textarea placeholder="Tell us about your project requirements..." rows={4} className="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-[#0EA5E9] outline-none transition"></textarea>
-                            <button className="w-full bg-[#0EA5E9] hover:bg-[#0284C7] text-white font-medium py-4 rounded-lg transition shadow-[0_0_20px_rgba(14,165,233,0.3)]">
-                                Submit Enquiry
-                            </button>
-                        </form>
-                    </div>
-
-                </div>
-            </div>
-        </main>
-    );
+        <IntakeForm
+          kind="client"
+          title="Request an operational review"
+          intro="Give us enough context to understand the operational problem. This does not create platform access or commit you to a rollout."
+          fields={fields}
+          submitLabel="Request review"
+        />
+      </div>
+    </main>
+  );
 }

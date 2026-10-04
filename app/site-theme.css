@@ -1,26 +1,57 @@
 :root {
-  --background: #080d13;
-  --foreground: #f8fafc;
+  --background: #0b1016;
+  --foreground: #f2f5f7;
+  --s1-bg: #0b1016;
+  --s1-base: #0e151d;
+  --s1-surface: #111a23;
+  --s1-raised: #17222d;
+  --s1-accent: #75b9d7;
+  --s1-accent-strong: #5f9fbd;
+  --s1-text: #f2f5f7;
+  --s1-muted: #a8b2bc;
 }
+
 html {
-  background: #080d13;
+  background: var(--s1-bg);
   scroll-behavior: smooth;
 }
+
 body {
   margin: 0;
-  background: #080d13;
-  color: #f8fafc;
+  background: var(--s1-bg);
+  color: var(--s1-text);
   font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+  text-rendering: optimizeLegibility;
 }
+
+.s1-ambient {
+  background:
+    radial-gradient(circle at 72% 10%, rgba(95, 159, 189, 0.15), transparent 30%),
+    radial-gradient(circle at 18% 55%, rgba(67, 91, 112, 0.11), transparent 32%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.012), transparent 55%);
+}
+
 ::selection {
-  background: rgba(56, 189, 248, 0.32);
+  background: rgba(117, 185, 215, 0.3);
   color: white;
 }
+
+:focus-visible {
+  outline: 2px solid rgba(117, 185, 215, 0.88);
+  outline-offset: 3px;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after {
-    animation-duration: .01ms !important;
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
   }
 }

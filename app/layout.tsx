@@ -17,12 +17,12 @@ export const metadata: Metadata = {
     template: "%s | Signal One",
   },
   description:
-    "Signal One connects security operations, sales workflows, field teams, proof of service, devices and connectivity.",
+    "Operational control, patrol and attendance evidence, post coverage, client proof and connected services for private security companies.",
   metadataBase: new URL("https://signal-one-site.vercel.app"),
   openGraph: {
     title: "Signal One Security Operations",
     description:
-      "Run the operation, equip teams and connect commercial workflows through Signal One.",
+      "Control every site, know what happened and prove the service with Signal One.",
     type: "website",
   },
 };
