@@ -13,9 +13,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/systems",
     "/solutions",
     "/solutions/security",
+    "/solutions/agriculture",
+    "/solutions/construction",
+    "/solutions/logistics",
+    "/solutions/public-safety",
+    "/solutions/utilities",
     "/platforms",
+    "/platforms/push-to-talk",
+    "/platforms/aiot-management",
     "/devices",
+    "/devices/poc-radios",
+    "/devices/lorawan-sensors",
     "/connectivity",
+    "/connectivity/iot-sim",
+    "/partners",
     "/contact",
   ];
 
@@ -28,6 +39,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
         ? 1
         : route === "/get-started" || route === "/marketplace"
           ? 0.9
-          : 0.7,
+          : route === "/solutions/security"
+            ? 0.85
+            : 0.7,
   }));
 }
