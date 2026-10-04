@@ -3,25 +3,51 @@
 import { useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
+type NetworkInformationLike = {
+  saveData?: boolean;
+  effectiveType?: string;
+};
+
 export default function HeroVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const reducedMotion = useReducedMotion();
   const [playing, setPlaying] = useState(false);
   const [muted, setMuted] = useState(true);
   const [ready, setReady] = useState(false);
+  const [autoPlayEnabled, setAutoPlayEnabled] = useState(false);
+
+  useEffect(() => {
+    const desktopQuery = window.matchMedia("(min-width: 1024px)");
+
+    const updateAutoPlay = () => {
+      const nav = navigator as Navigator & { connection?: NetworkInformationLike };
+      const connection = nav.connection;
+      const constrainedNetwork =
+        Boolean(connection?.saveData) ||
+        ["slow-2g", "2g", "3g"].includes(connection?.effectiveType || "");
+
+      setAutoPlayEnabled(
+        desktopQuery.matches && !reducedMotion && !constrainedNetwork,
+      );
+    };
+
+    updateAutoPlay();
+    desktopQuery.addEventListener("change", updateAutoPlay);
+    return () => desktopQuery.removeEventListener("change", updateAutoPlay);
+  }, [reducedMotion]);
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    if (reducedMotion) {
+    if (!autoPlayEnabled) {
       video.pause();
       setPlaying(false);
       return;
     }
 
     video.play().catch(() => setPlaying(false));
-  }, [reducedMotion]);
+  }, [autoPlayEnabled]);
 
   const togglePlayback = () => {
     const video = videoRef.current;
@@ -48,18 +74,18 @@ export default function HeroVideo() {
       <div
         className={
           "absolute inset-0 z-10 bg-[#0a0d12] transition-opacity duration-500 " +
-          (ready ? "pointer-events-none opacity-0" : "opacity-100")
+          (autoPlayEnabled && !ready ? "opacity-100" : "pointer-events-none opacity-0")
         }
         aria-hidden="true"
       />
 
       <video
         ref={videoRef}
-        autoPlay={!reducedMotion}
+        autoPlay={autoPlayEnabled}
         loop
         muted={muted}
         playsInline
-        preload={reducedMotion ? "none" : "metadata"}
+        preload={autoPlayEnabled ? "metadata" : "none"}
         poster="/images/industries/security.jpg"
         onCanPlay={() => setReady(true)}
         onLoadedData={() => setReady(true)}
