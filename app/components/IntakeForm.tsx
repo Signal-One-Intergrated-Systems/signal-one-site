@@ -26,7 +26,7 @@ export default function IntakeForm({
 }) {
   const initial = useMemo(
     () => Object.fromEntries(fields.map((field) => [field.name, ""])),
-    [fields]
+    [fields],
   );
   const [values, setValues] = useState<Record<string, string>>(initial);
   const [consent, setConsent] = useState(false);
@@ -56,24 +56,27 @@ export default function IntakeForm({
 
   if (state === "done") {
     return (
-      <div className="rounded-3xl border border-emerald-400/20 bg-emerald-400/5 p-8">
-        <p className="text-xs font-semibold uppercase tracking-[.22em] text-emerald-300">Received</p>
+      <div className="rounded-[18px] border border-[#0EA5E9]/25 bg-[#0EA5E9]/[.065] p-8 shadow-[var(--s1-shadow-card)]">
+        <p className="s1-mono text-[9px] font-semibold text-[#38BDF8]">Received</p>
         <h2 className="mt-3 text-2xl font-semibold text-white">{title}</h2>
-        <p className="mt-4 text-sm leading-6 text-white/65">{message}</p>
+        <p className="mt-4 text-sm leading-6 text-white/62">{message}</p>
       </div>
     );
   }
 
+  const fieldClass =
+    "w-full rounded-[12px] border border-white/12 bg-[#0A0D12]/90 px-4 py-3.5 text-sm text-white outline-none transition duration-200 placeholder:text-white/26 focus:border-[#0EA5E9]/70 focus:ring-4 focus:ring-[#0EA5E9]/[.08]";
+
   return (
-    <form onSubmit={submit} className="rounded-3xl border border-white/10 bg-white/[.035] p-5 shadow-2xl md:p-8">
-      <p className="text-xs font-semibold uppercase tracking-[.22em] text-[#39bdf8]">Secure intake</p>
-      <h2 className="mt-3 text-2xl font-semibold text-white">{title}</h2>
-      <p className="mt-3 max-w-2xl text-sm leading-6 text-white/55">{intro}</p>
+    <form onSubmit={submit} className="s1-glass rounded-[18px] p-5 md:p-8">
+      <p className="s1-mono text-[9px] font-semibold text-[#38BDF8]">Secure intake</p>
+      <h2 className="mt-3 text-2xl font-semibold tracking-[-.025em] text-white">{title}</h2>
+      <p className="mt-3 max-w-2xl text-sm leading-6 text-white/54">{intro}</p>
 
       <div className="mt-8 grid gap-5 md:grid-cols-2">
         {fields.map((field) => (
           <label key={field.name} className={field.type === "textarea" ? "md:col-span-2" : ""}>
-            <span className="mb-2 block text-xs font-medium uppercase tracking-[.12em] text-white/45">
+            <span className="mb-2 block text-[10px] font-semibold uppercase tracking-[.14em] text-white/42">
               {field.label}
             </span>
             {field.type === "textarea" ? (
@@ -83,14 +86,14 @@ export default function IntakeForm({
                 value={values[field.name] || ""}
                 onChange={(e) => setValues((current) => ({ ...current, [field.name]: e.target.value }))}
                 placeholder={field.placeholder}
-                className="w-full rounded-2xl border border-white/10 bg-[#080d13] px-4 py-3 text-sm text-white outline-none transition placeholder:text-white/25 focus:border-[#39bdf8]/60"
+                className={fieldClass}
               />
             ) : field.type === "select" ? (
               <select
                 required={field.required}
                 value={values[field.name] || ""}
                 onChange={(e) => setValues((current) => ({ ...current, [field.name]: e.target.value }))}
-                className="w-full rounded-2xl border border-white/10 bg-[#080d13] px-4 py-3 text-sm text-white outline-none transition focus:border-[#39bdf8]/60"
+                className={fieldClass}
               >
                 <option value="">Select</option>
                 {(field.options || []).map((option) => <option key={option} value={option}>{option}</option>)}
@@ -102,25 +105,25 @@ export default function IntakeForm({
                 value={values[field.name] || ""}
                 onChange={(e) => setValues((current) => ({ ...current, [field.name]: e.target.value }))}
                 placeholder={field.placeholder}
-                className="w-full rounded-2xl border border-white/10 bg-[#080d13] px-4 py-3 text-sm text-white outline-none transition placeholder:text-white/25 focus:border-[#39bdf8]/60"
+                className={fieldClass}
               />
             )}
           </label>
         ))}
       </div>
 
-      <label className="mt-6 flex items-start gap-3 text-sm leading-6 text-white/55">
+      <label className="mt-6 flex items-start gap-3 rounded-[12px] border border-white/8 bg-black/15 p-4 text-sm leading-6 text-white/54">
         <input
           type="checkbox"
           checked={consent}
           onChange={(e) => setConsent(e.target.checked)}
-          className="mt-1"
+          className="mt-1 accent-[#0EA5E9]"
         />
         <span>I consent to Signal One processing this information for onboarding, verification and contacting me about this application.</span>
       </label>
 
       {message ? (
-        <p role="alert" className={`mt-5 rounded-xl border px-4 py-3 text-sm ${state === "error" ? "border-amber-300/20 bg-amber-300/5 text-amber-100" : "border-white/10 text-white/70"}`}>
+        <p role="alert" className={"mt-5 rounded-[12px] border px-4 py-3 text-sm " + (state === "error" ? "border-amber-300/20 bg-amber-300/5 text-amber-100" : "border-white/10 text-white/70")}>
           {message}
         </p>
       ) : null}
@@ -128,7 +131,7 @@ export default function IntakeForm({
       <button
         type="submit"
         disabled={!consent || state === "sending"}
-        className="mt-6 w-full rounded-2xl bg-[#39bdf8] px-5 py-3.5 text-sm font-semibold text-[#061019] transition hover:bg-[#7dd3fc] disabled:cursor-not-allowed disabled:opacity-40"
+        className="s1-primary-action mt-6 w-full px-5 py-3.5 text-sm font-semibold disabled:cursor-not-allowed disabled:opacity-40"
       >
         {state === "sending" ? "Sending…" : submitLabel}
       </button>

@@ -1,34 +1,54 @@
+import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
-import { products } from "../data/products";
+import MarketingHero from "../components/MarketingHero";
+
+export const metadata: Metadata = {
+  title: "Connectivity",
+  description: "Redundant cellular and IoT connectivity solutions from Signal One for reliable operational data transmission.",
+};
 
 export default function ConnectivityPage() {
-    return (
-        <main className="min-h-screen bg-[#151A21] text-slate-100 px-6 py-32">
-            <div className="max-w-7xl mx-auto">
-                <h1 className="text-5xl font-semibold mb-6">Connectivity</h1>
-                <p className="text-white/70 text-lg max-w-3xl mb-16">
-                    Global, redundant cellular and IoT connectivity solutions for reliable data transmission.
-                </p>
+  return (
+    <main className="min-h-screen bg-[var(--s1-bg)] px-5 pb-24 pt-32 text-white md:pt-36">
+      <div className="mx-auto max-w-[90rem]">
+        <MarketingHero
+          eyebrow="Signal One connectivity"
+          title="Connectivity designed for operational continuity."
+          body="Global, redundant cellular and IoT connectivity solutions for reliable data transmission."
+          image="/images/What-we-deliver/connectivity.jpg"
+          imageAlt="Connected cellular infrastructure representing Signal One connectivity"
+          primary={{ href: "/connectivity/iot-sim", label: "Explore IoT connectivity" }}
+          secondary={{ href: "/contact", label: "Discuss coverage requirements" }}
+        />
 
-                <div className="grid md:grid-cols-2 gap-10 mb-20">
-                    <Link href="/connectivity/iot-sim" className="group relative overflow-hidden rounded-3xl bg-white/5 border border-white/10 hover:border-[#0EA5E9]/50 transition-all duration-300">
-                        <div className="h-64 bg-black/20 flex items-center justify-center">
-                            {/* IMAGE PLACEHOLDER: IoT SIM Hero | 16:9 | connectivity/sim-hero.jpg */}
-                            <span className="text-white/20 font-mono text-lg">Global IoT SIM</span>
-                        </div>
-                        <div className="p-8">
-                            <h2 className="text-3xl font-semibold text-white mb-4 group-hover:text-[#0EA5E9] transition">Global IoT SIM</h2>
-                            <p className="text-slate-400 mb-6 text-lg">
-                                Multi-IMSI connectivity for global roaming. One SIM card, 600+ networks, providing unsteered access for mission-critical uptime.
-                            </p>
-                            <span className="inline-flex items-center text-[#0EA5E9] font-medium group-hover:translate-x-2 transition">
-                                View Connectivity Plans <span className="ml-2">→</span>
-                            </span>
-                        </div>
-                    </Link>
-                </div>
-
+        <section className="py-20 md:py-24">
+          <Link
+            href="/connectivity/iot-sim"
+            className="group grid overflow-hidden rounded-[18px] border border-white/10 bg-[#0A0D12] transition duration-500 [transition-timing-function:var(--s1-ease)] hover:border-[#0EA5E9]/35 lg:grid-cols-[1.05fr_.95fr]"
+          >
+            <div className="relative min-h-[340px] overflow-hidden bg-[radial-gradient(circle_at_50%_40%,rgba(14,165,233,.12),transparent_55%)]">
+              <Image
+                src="/images/products/sim-card.jpg"
+                alt="Signal One global IoT SIM"
+                fill
+                className="object-contain p-10 transition duration-700 [transition-timing-function:var(--s1-ease)] group-hover:scale-[1.04]"
+                sizes="(min-width: 1024px) 50vw, 100vw"
+              />
             </div>
-        </main>
-    );
+            <div className="flex flex-col justify-center border-t border-white/10 p-7 lg:border-l lg:border-t-0 md:p-10">
+              <p className="s1-mono text-[9px] font-semibold text-[#38BDF8]">Global IoT SIM</p>
+              <h2 className="mt-4 text-3xl font-semibold tracking-[-.035em] md:text-4xl">One SIM. Multi-network resilience.</h2>
+              <p className="mt-5 text-base leading-7 text-white/52">
+                Multi-IMSI connectivity for global roaming. One SIM card, 600+ networks, providing unsteered access for mission-critical uptime.
+              </p>
+              <span className="mt-7 inline-flex text-sm font-semibold text-[#38BDF8] transition duration-300 group-hover:translate-x-1">
+                View connectivity plans →
+              </span>
+            </div>
+          </Link>
+        </section>
+      </div>
+    </main>
+  );
 }

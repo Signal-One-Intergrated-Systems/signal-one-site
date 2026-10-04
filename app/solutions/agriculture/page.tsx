@@ -1,31 +1,42 @@
-export default function AgricultureSolutionsPage() {
-    return (
-        <main className="min-h-screen bg-[#151A21] text-slate-100 px-6 py-32">
-            <div className="max-w-7xl mx-auto">
-                {/* IMAGE PLACEHOLDER: Smart Farm | 16:9 | solutions/agriculture-hero.jpg */}
-                <h1 className="text-5xl font-semibold mb-6">Agriculture & Rural Operations</h1>
-                <p className="text-white/70 text-lg max-w-3xl mb-16">
-                    Bring digital intelligence to the paddock. Monitor soil moisture, track livestock, and automate irrigation systems across vast rural properties using long-range telemetry.
-                </p>
+import type { Metadata } from "next";
+import Image from "next/image";
+import MarketingHero from "../../components/MarketingHero";
 
-                <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
-                    <div className="space-y-6">
-                        <h2 className="text-3xl font-semibold text-white">Livestock Management</h2>
-                        <p className="text-slate-400 text-lg">
-                            Know exactly where your herd is. Our smart collars monitor location and behaviour, alerting you to stray animals, theft, or health issues immediately.
-                        </p>
-                        <ul className="text-slate-400 list-disc ml-5 space-y-2">
-                            <li>Virtual Fencing capabilities</li>
-                            <li>Heat detection & health monitoring</li>
-                            <li>Pasture utilisation analysis</li>
-                        </ul>
-                    </div>
-                    <div className="bg-white/5 rounded-2xl h-80 border border-white/10 flex items-center justify-center">
-                        {/* IMAGE PLACEHOLDER: Cattle with smart collar | 4:3 | solutions/cattle-collar.jpg */}
-                        <span className="text-white/20 italic">Livestock Monitoring</span>
-                    </div>
-                </div>
-            </div>
-        </main>
-    );
+export const metadata: Metadata = {
+  title: "Agriculture & Rural Operations",
+  description: "Connected livestock monitoring, rural telemetry and long-range operational technology from Signal One.",
+};
+
+export default function AgricultureSolutionsPage() {
+  return (
+    <main className="min-h-screen bg-[var(--s1-bg)] px-5 pb-24 pt-32 text-white md:pt-36">
+      <div className="mx-auto max-w-[90rem]">
+        <MarketingHero
+          eyebrow="Signal One solutions"
+          title="Agriculture & Rural Operations"
+          body="Bring digital intelligence to the paddock. Monitor soil moisture, track livestock, and automate irrigation systems across vast rural properties using long-range telemetry."
+          image="/images/industries/agriculture.jpg"
+          imageAlt="Agricultural operation supported by connected technology"
+          primary={{ href: "/contact", label: "Discuss an agriculture solution" }}
+        />
+        <section className="grid gap-8 py-20 lg:grid-cols-[.8fr_1.2fr] lg:items-center md:py-24">
+          <div>
+            <p className="s1-mono text-[9px] font-semibold text-[#38BDF8]">Livestock Management</p>
+            <h2 className="mt-4 text-3xl font-semibold tracking-[-.035em] md:text-4xl">Know exactly where your herd is.</h2>
+            <p className="mt-5 text-base leading-7 text-white/52">
+              Our smart collars monitor location and behaviour, alerting you to stray animals, theft, or health issues immediately.
+            </p>
+            <ul className="mt-6 space-y-3 text-sm text-white/48">
+              {["Virtual Fencing capabilities","Heat detection & health monitoring","Pasture utilisation analysis"].map(item=>(
+                <li key={item} className="flex items-center gap-3"><span className="h-1.5 w-1.5 rounded-full bg-[#0EA5E9]" />{item}</li>
+              ))}
+            </ul>
+          </div>
+          <div className="relative min-h-[400px] overflow-hidden rounded-[18px] border border-white/10 bg-[#0A0D12]">
+            <Image src="/images/products/cattle-tracker.jpg" alt="Connected cattle tracking device" fill className="object-contain p-8" sizes="(min-width:1024px) 58vw,100vw" />
+          </div>
+        </section>
+      </div>
+    </main>
+  );
 }

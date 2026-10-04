@@ -23,8 +23,8 @@ const world: JourneyWorld = {
   ],
   image: "/images/What-we-deliver/communications.jpg",
   imageAlt: "Signal One commercial communications environment",
-  accent: "#A78BFA",
-  accentRgb: "167,139,250",
+  accent: "#0EA5E9",
+  accentRgb: "14,165,233",
   completionTitle: "Your Signal One Sales application is in.",
   completionBody:
     "If approved, the next stages are workforce setup, training, sales packs, commission setup and activation into Signal One Sales OS.",

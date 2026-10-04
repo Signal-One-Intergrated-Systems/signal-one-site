@@ -1,14 +1,47 @@
 :root {
-  --background: #0b1016;
-  --foreground: #f2f5f7;
-  --s1-bg: #0b1016;
-  --s1-base: #0e151d;
-  --s1-surface: #111a23;
-  --s1-raised: #17222d;
-  --s1-accent: #75b9d7;
-  --s1-accent-strong: #5f9fbd;
-  --s1-text: #f2f5f7;
-  --s1-muted: #a8b2bc;
+  --background: #151a21;
+  --foreground: #f1f5f9;
+
+  /* Reference-derived Signal One palette */
+  --s1-bg: #151a21;
+  --s1-deep: #0f131a;
+  --s1-base: #151a21;
+  --s1-surface: #1c222b;
+  --s1-raised: #222a35;
+  --s1-black: #0a0d12;
+
+  --s1-accent: #0ea5e9;
+  --s1-accent-strong: #0284c7;
+  --s1-accent-light: #38bdf8;
+  --s1-accent-faint: #7dd3fc;
+  --s1-accent-rgb: 14, 165, 233;
+
+  --s1-text: #f1f5f9;
+  --s1-body: rgba(255, 255, 255, 0.85);
+  --s1-muted: rgba(255, 255, 255, 0.72);
+  --s1-soft: rgba(255, 255, 255, 0.60);
+  --s1-faint: rgba(255, 255, 255, 0.40);
+
+  --s1-glass-04: rgba(255, 255, 255, 0.04);
+  --s1-glass-06: rgba(255, 255, 255, 0.06);
+  --s1-glass-08: rgba(255, 255, 255, 0.08);
+  --s1-glass-10: rgba(255, 255, 255, 0.10);
+  --s1-line-10: rgba(255, 255, 255, 0.10);
+  --s1-line-15: rgba(255, 255, 255, 0.15);
+  --s1-line-20: rgba(255, 255, 255, 0.20);
+
+  --s1-radius-sm: 0.5rem;
+  --s1-radius-md: 0.75rem;
+  --s1-radius-lg: 1rem;
+  --s1-radius-xl: 1.5rem;
+
+  --s1-shadow-card: 0 30px 80px rgba(0, 0, 0, 0.6);
+  --s1-shadow-panel: 0 40px 120px rgba(0, 0, 0, 0.65);
+  --s1-glow: 0 0 40px rgba(var(--s1-accent-rgb), 0.25);
+  --s1-glow-strong: 0 0 80px rgba(var(--s1-accent-rgb), 0.35);
+  --s1-glow-button: 0 0 30px rgba(var(--s1-accent-rgb), 0.6);
+
+  --s1-ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 html {
@@ -22,22 +55,79 @@ body {
   color: var(--s1-text);
   font-family: var(--font-inter), Arial, Helvetica, sans-serif;
   text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+.s1-mono {
+  font-family: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
 }
 
 .s1-ambient {
   background:
-    radial-gradient(circle at 72% 10%, rgba(95, 159, 189, 0.15), transparent 30%),
-    radial-gradient(circle at 18% 55%, rgba(67, 91, 112, 0.11), transparent 32%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.012), transparent 55%);
+    radial-gradient(circle at 77% 14%, rgba(var(--s1-accent-rgb), 0.18), transparent 29%),
+    radial-gradient(circle at 17% 52%, rgba(255, 255, 255, 0.045), transparent 34%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.018), transparent 58%);
+}
+
+.s1-grid {
+  background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,.72), transparent 82%);
+}
+
+.s1-glass {
+  border: 1px solid var(--s1-line-15);
+  background: rgba(255, 255, 255, 0.065);
+  box-shadow: var(--s1-shadow-panel);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.s1-primary-action {
+  border-radius: var(--s1-radius-md);
+  background: var(--s1-accent);
+  color: white;
+  box-shadow: var(--s1-glow-button);
+  transition:
+    transform .3s var(--s1-ease),
+    background-color .18s ease,
+    box-shadow .3s var(--s1-ease);
+}
+
+.s1-primary-action:hover {
+  background: var(--s1-accent-strong);
+  transform: translateY(-2px);
+  box-shadow: 0 0 42px rgba(var(--s1-accent-rgb), .5);
+}
+
+.s1-secondary-action {
+  border: 1px solid var(--s1-line-20);
+  border-radius: var(--s1-radius-md);
+  background: rgba(255,255,255,.035);
+  color: rgba(255,255,255,.88);
+  transition:
+    transform .3s var(--s1-ease),
+    border-color .18s ease,
+    background-color .18s ease;
+}
+
+.s1-secondary-action:hover {
+  transform: translateY(-2px);
+  border-color: rgba(var(--s1-accent-rgb), .5);
+  background: rgba(255,255,255,.07);
 }
 
 ::selection {
-  background: rgba(117, 185, 215, 0.3);
+  background: rgba(var(--s1-accent-rgb), 0.34);
   color: white;
 }
 
 :focus-visible {
-  outline: 2px solid rgba(117, 185, 215, 0.88);
+  outline: 2px solid rgba(var(--s1-accent-rgb), 0.92);
   outline-offset: 3px;
 }
 

@@ -32,25 +32,38 @@ const groups = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/[.07] bg-[#070b10] px-5 py-14 text-white">
-      <div className="mx-auto grid max-w-[92rem] gap-12 lg:grid-cols-[1.15fr_2fr]">
+    <footer className="border-t border-white/10 bg-[var(--s1-deep)] px-5 py-14 text-white">
+      <div className="mx-auto grid max-w-[90rem] gap-12 lg:grid-cols-[1.15fr_2fr]">
         <div>
-          <p className="text-lg font-semibold tracking-[.16em]">SIGNAL <span className="text-[#8bc0d7]">ONE</span></p>
-          <p className="mt-4 max-w-md text-sm leading-6 text-white/48">
+          <div className="flex items-center gap-3">
+            <span className="relative grid h-9 w-9 place-items-center rounded-full border border-[#0EA5E9]/40">
+              <span className="h-2 w-2 rounded-full bg-[#0EA5E9] shadow-[0_0_20px_rgba(14,165,233,.65)]" />
+            </span>
+            <p className="text-base font-semibold tracking-[.16em]">
+              SIGNAL <span className="text-[#0EA5E9]">ONE</span>
+            </p>
+          </div>
+          <p className="mt-5 max-w-md text-sm leading-6 text-white/52">
             Operational control, field evidence and client service for private security companies.
           </p>
-          <Link href="/contact" className="mt-6 inline-flex rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-[#071018]">
+          <Link href="/contact" className="s1-primary-action mt-7 inline-flex px-5 py-2.5 text-sm font-semibold">
             Book operational review
           </Link>
         </div>
+
         <div className="grid gap-8 sm:grid-cols-3">
           {groups.map((group) => (
             <div key={group.title}>
-              <h3 className="text-xs font-semibold uppercase tracking-[.18em] text-white/30">{group.title}</h3>
-              <ul className="mt-4 space-y-3">
+              <h3 className="s1-mono text-[10px] font-semibold text-white/34">{group.title}</h3>
+              <ul className="mt-5 space-y-3">
                 {group.links.map(([href, label]) => (
-                  <li key={href}>
-                    <Link href={href} className="text-sm text-white/58 transition hover:text-white">{label}</Link>
+                  <li key={href + label}>
+                    <Link
+                      href={href}
+                      className="text-sm text-white/58 transition duration-200 hover:text-[#38BDF8]"
+                    >
+                      {label}
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -58,9 +71,10 @@ export default function Footer() {
           ))}
         </div>
       </div>
-      <div className="mx-auto mt-12 flex max-w-[92rem] flex-col gap-3 border-t border-white/[.07] pt-6 text-xs text-white/30 sm:flex-row sm:items-center sm:justify-between">
+
+      <div className="mx-auto mt-12 flex max-w-[90rem] flex-col gap-3 border-t border-white/10 pt-6 text-xs text-white/34 sm:flex-row sm:items-center sm:justify-between">
         <span>© {new Date().getFullYear()} Signal One Integrated Systems.</span>
-        <span>South Africa</span>
+        <span className="s1-mono text-[9px]">South Africa</span>
       </div>
     </footer>
   );

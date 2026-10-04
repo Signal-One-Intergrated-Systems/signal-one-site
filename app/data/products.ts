@@ -55,7 +55,7 @@ export const products: Product[] = [
             'Encryption: AES-256 End-to-End',
         ],
         imagePlaceholder: 'pocstar-mcx.jpg',
-        imagePath: '/images/products/mcptt-platform.jpg',
+        imagePath: '/images/products/dispatch-console.jpg',
         tags: ['Dispatch', 'MCPTT', 'Software'],
     },
     {
