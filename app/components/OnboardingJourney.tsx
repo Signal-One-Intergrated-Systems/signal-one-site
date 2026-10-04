@@ -91,10 +91,14 @@ export default function OnboardingJourney({
 
   useEffect(() => {
     if (!hydrated || state === "done") return;
-    window.localStorage.setItem(
-      world.storageKey,
-      JSON.stringify({ stepIndex, values, consent }),
-    );
+    try {
+      window.localStorage.setItem(
+        world.storageKey,
+        JSON.stringify({ stepIndex, values, consent }),
+      );
+    } catch {
+      // Local progress is optional; the journey remains usable without storage.
+    }
   }, [consent, hydrated, state, stepIndex, values, world.storageKey]);
 
   const current = stepIndex === 0 ? null : steps[stepIndex - 1];
@@ -141,7 +145,11 @@ export default function OnboardingJourney({
       }
       setState("done");
       setMessage(body.message || "Your Signal One application has been received.");
-      window.localStorage.removeItem(world.storageKey);
+      try {
+        window.localStorage.removeItem(world.storageKey);
+      } catch {
+        // Completion must not fail if local storage is unavailable.
+      }
     } catch (error) {
       setState("error");
       setMessage(
@@ -222,10 +230,17 @@ export default function OnboardingJourney({
       <div className="relative mx-auto max-w-[90rem]">
         <div className="mb-5 flex items-center justify-between gap-4 text-xs text-white/42">
           <span className="font-semibold uppercase tracking-[.2em]">{world.badge}</span>
-          <span>{hydrated ? "Progress saved on this device" : "Preparing your journey…"}</span>
+          <span aria-live="polite">{hydrated ? "Progress saved on this device" : "Preparing your journey…"}</span>
         </div>
 
-        <div className="h-1 overflow-hidden rounded-full bg-white/8">
+        <div
+          className="h-1 overflow-hidden rounded-full bg-white/8"
+          role="progressbar"
+          aria-label="Onboarding progress"
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={Math.round(progress)}
+        >
           <motion.div
             className="h-full rounded-full"
             animate={{ width: String(progress) + "%" }}
@@ -340,7 +355,7 @@ export default function OnboardingJourney({
                         type="checkbox"
                         checked={consent}
                         onChange={(event) => setConsent(event.target.checked)}
-                        className="mt-1"
+                        className="mt-1 accent-[#0EA5E9]"
                       />
                       <span>I consent to Signal One processing this information for onboarding, verification and contacting me about this application.</span>
                     </label>
