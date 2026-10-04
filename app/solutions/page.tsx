@@ -1,6 +1,12 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import MarketingHero from "../components/MarketingHero";
+
+export const metadata: Metadata = {
+  title: "Solutions",
+  description: "Operational solutions integrating Signal One hardware, platforms and connectivity for security, utilities, logistics and agriculture.",
+};
 
 const solutions = [
   {
