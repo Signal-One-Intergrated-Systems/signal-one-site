@@ -26,9 +26,6 @@ export const metadata: Metadata = {
     "Operational control, patrol and attendance evidence, post coverage, client proof and connected services for private security companies.",
   metadataBase: new URL("https://signal-one-site.vercel.app"),
   applicationName: "Signal One",
-  alternates: {
-    canonical: "/",
-  },
   openGraph: {
     title: "Signal One Security Operations",
     description:
