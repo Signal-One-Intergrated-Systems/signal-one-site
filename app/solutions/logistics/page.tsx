@@ -1,5 +1,11 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import MarketingHero from "../../components/MarketingHero";
+
+export const metadata: Metadata = {
+  title: "Logistics & Fleet Operations",
+  description: "Real-time asset visibility, driver communications and connected fleet operations with Signal One.",
+};
 
 export default function LogisticsSolutionsPage() {
   return (
