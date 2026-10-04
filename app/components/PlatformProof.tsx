@@ -41,70 +41,95 @@ export default function PlatformProof() {
   const view = views.find((item) => item.id === active) || views[0];
 
   return (
-    <section className="overflow-hidden rounded-[2rem] border border-white/9 bg-[#0d141c] shadow-[0_38px_120px_rgba(0,0,0,.28)]">
-      <div className="flex flex-wrap items-center gap-2 border-b border-white/8 bg-[#111923] px-4 py-3 md:px-5">
-        <div className="mr-2 hidden gap-1.5 sm:flex">
-          <span className="h-2.5 w-2.5 rounded-full bg-white/14" />
-          <span className="h-2.5 w-2.5 rounded-full bg-white/10" />
-          <span className="h-2.5 w-2.5 rounded-full bg-white/8" />
+    <section className="overflow-hidden rounded-[24px] border border-white/12 bg-[#0A0D12] shadow-[var(--s1-shadow-panel)]">
+      <div className="flex flex-wrap items-center gap-2 border-b border-white/10 bg-white/[.035] px-4 py-3 md:px-5">
+        <div className="mr-3 hidden gap-1.5 sm:flex" aria-hidden="true">
+          <span className="h-2.5 w-2.5 rounded-full bg-[#EF4444]/65" />
+          <span className="h-2.5 w-2.5 rounded-full bg-[#F59E0B]/65" />
+          <span className="h-2.5 w-2.5 rounded-full bg-[#22C55E]/65" />
         </div>
+
         {views.map((item) => (
           <button
             key={item.id}
             type="button"
             onClick={() => setActive(item.id)}
             className={
-              "rounded-full px-3.5 py-2 text-xs font-semibold transition " +
+              "rounded-[10px] px-3.5 py-2 text-xs font-semibold transition duration-200 " +
               (active === item.id
-                ? "bg-white/10 text-white"
-                : "text-white/44 hover:bg-white/5 hover:text-white/72")
+                ? "bg-[#0EA5E9] text-white shadow-[0_0_22px_rgba(14,165,233,.25)]"
+                : "text-white/48 hover:bg-white/[.055] hover:text-white/78")
             }
           >
             {item.label}
           </button>
         ))}
+
+        <span className="s1-mono ml-auto hidden text-[8px] text-white/24 lg:block">
+          Controlled QA / demo environment
+        </span>
       </div>
 
-      <div className="grid lg:grid-cols-[.72fr_1.28fr]">
-        <div className="flex flex-col justify-between border-b border-white/8 p-6 lg:border-b-0 lg:border-r lg:p-8">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[.2em] text-[#75b9d7]">Demo environment</p>
+      <div className="grid lg:grid-cols-[.64fr_1.36fr]">
+        <div className="relative flex flex-col justify-between overflow-hidden border-b border-white/10 p-6 lg:border-b-0 lg:border-r lg:p-8 xl:p-10">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_0%_0%,rgba(14,165,233,.13),transparent_38%)]" />
+          <div className="relative">
+            <p className="s1-mono text-[9px] font-semibold text-[#38BDF8]">Product proof</p>
             <AnimatePresence mode="wait">
               <motion.div
                 key={view.id}
-                initial={reducedMotion ? false : { opacity: 0, y: 10 }}
+                initial={reducedMotion ? false : { opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={reducedMotion ? undefined : { opacity: 0, y: -8 }}
-                transition={reducedMotion ? { duration: 0 } : { duration: .34, ease: [0.16, 1, 0.3, 1] }}
+                transition={reducedMotion ? { duration: 0 } : { duration: .38, ease: [0.16, 1, 0.3, 1] }}
               >
-                <h3 className="mt-4 text-2xl font-semibold tracking-[-.035em] md:text-3xl">{view.title}</h3>
-                <p className="mt-4 text-sm leading-7 text-white/56">{view.body}</p>
+                <h3 className="mt-4 text-2xl font-semibold tracking-[-.035em] text-white md:text-3xl">
+                  {view.title}
+                </h3>
+                <p className="mt-4 text-sm leading-7 text-white/60">{view.body}</p>
               </motion.div>
             </AnimatePresence>
           </div>
-          <p className="mt-8 text-xs leading-5 text-white/32">
-            Product evidence captured from Signal One Guard QA/demo states. Names, sites and records shown are synthetic test data.
-          </p>
+
+          <div className="relative mt-10 border-t border-white/10 pt-5">
+            <div className="flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-[#22C55E] shadow-[0_0_12px_rgba(34,197,94,.45)]" />
+              <span className="text-xs font-semibold text-white/66">Synthetic demo data only</span>
+            </div>
+            <p className="mt-2 text-xs leading-5 text-white/36">
+              Product evidence captured from Signal One Guard controlled QA/demo states. Names, sites and records shown are synthetic test data.
+            </p>
+          </div>
         </div>
 
-        <div className="relative min-h-[360px] overflow-hidden bg-[#06090d] md:min-h-[520px]">
+        <div className="relative min-h-[360px] overflow-hidden bg-[#06090D] md:min-h-[520px]">
+          <div className="absolute inset-x-5 top-5 z-20 flex items-center justify-between rounded-xl border border-white/10 bg-black/35 px-4 py-3 backdrop-blur-xl">
+            <div>
+              <p className="s1-mono text-[8px] text-white/36">Signal One Guard</p>
+              <p className="mt-1 text-xs font-semibold text-white/78">{view.label}</p>
+            </div>
+            <span className="rounded-full border border-[#0EA5E9]/30 bg-[#0EA5E9]/10 px-3 py-1.5 text-[10px] font-semibold text-[#7DD3FC]">
+              Demo
+            </span>
+          </div>
+
           <AnimatePresence mode="wait">
             <motion.div
               key={view.image}
-              initial={reducedMotion ? false : { opacity: 0, scale: 1.015 }}
+              initial={reducedMotion ? false : { opacity: 0, scale: 1.018 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={reducedMotion ? undefined : { opacity: 0 }}
-              transition={reducedMotion ? { duration: 0 } : { duration: .48, ease: [0.16, 1, 0.3, 1] }}
+              transition={reducedMotion ? { duration: 0 } : { duration: .52, ease: [0.16, 1, 0.3, 1] }}
               className="absolute inset-0"
             >
               <Image
                 src={view.image}
-                alt={view.label + " demo interface with synthetic data"}
+                alt={view.label + " Signal One Guard demo interface with synthetic data"}
                 fill
                 className="object-cover object-top"
-                sizes="(min-width: 1024px) 58vw, 100vw"
-                priority={view.id === "control"}
+                sizes="(min-width: 1024px) 62vw, 100vw"
               />
+              <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.06),transparent_26%,rgba(0,0,0,.10))]" />
               <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/5" />
             </motion.div>
           </AnimatePresence>
