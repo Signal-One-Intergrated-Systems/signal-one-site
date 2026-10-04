@@ -1,0 +1,94 @@
+name: Stage 4 media optimization
+
+on:
+  push:
+    branches:
+      - review/reference-redesign-stage-1
+    paths:
+      - .github/workflows/stage4-media-optimize.yml
+
+permissions:
+  contents: write
+
+jobs:
+  optimize-and-verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout review branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Production build
+        run: npm run build
+
+      - name: Public LEOS audit
+        run: |
+          if grep -RniE '\\bLEOS\\b' app public --exclude='*.map'; then
+            echo "Public LEOS reference found."
+            exit 1
+          fi
+          echo "No public LEOS references found."
+
+      - name: Ensure ffmpeg
+        run: |
+          if ! command -v ffmpeg >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y ffmpeg
+          fi
+          ffmpeg -version | head -n 1
+
+      - name: Optimize hero video and create poster
+        run: |
+          set -euo pipefail
+          original="public/videos/hero-panel.mp4"
+          optimized="/tmp/hero-panel.mp4"
+          poster="public/images/hero-panel-poster.jpg"
+
+          ffmpeg -y -i "$original" \
+            -vf "scale='min(1280,iw)':-2:flags=lanczos" \
+            -c:v libx264 -preset slow -crf 25 -pix_fmt yuv420p \
+            -movflags +faststart -an "$optimized"
+
+          original_size=$(stat -c%s "$original")
+          optimized_size=$(stat -c%s "$optimized")
+          echo "Original bytes: $original_size"
+          echo "Optimized bytes: $optimized_size"
+
+          if [ "$optimized_size" -ge "$original_size" ]; then
+            echo "Optimized video is not smaller; refusing replacement."
+            exit 1
+          fi
+
+          mv "$optimized" "$original"
+
+          ffmpeg -y -ss 00:00:01 -i "$original" \
+            -frames:v 1 -vf "scale='min(1280,iw)':-2:flags=lanczos" \
+            -q:v 3 "$poster"
+
+          ls -lh "$original" "$poster"
+
+      - name: Commit optimized media
+        run: |
+          git config user.name "Signal One Release Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add public/videos/hero-panel.mp4 public/images/hero-panel-poster.jpg
+          if git diff --cached --quiet; then
+            echo "No media changes to commit."
+            exit 0
+          fi
+          git commit -m "Stage 4: optimize hero media"
+          git push origin HEAD:review/reference-redesign-stage-1
