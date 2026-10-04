@@ -1,10 +1,12 @@
 "use client";
 
+import { useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 export default function HeroVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [playing, setPlaying] = useState(true);
+  const reducedMotion = useReducedMotion();
+  const [playing, setPlaying] = useState(false);
   const [muted, setMuted] = useState(true);
   const [ready, setReady] = useState(false);
 
@@ -12,8 +14,14 @@ export default function HeroVideo() {
     const video = videoRef.current;
     if (!video) return;
 
+    if (reducedMotion) {
+      video.pause();
+      setPlaying(false);
+      return;
+    }
+
     video.play().catch(() => setPlaying(false));
-  }, []);
+  }, [reducedMotion]);
 
   const togglePlayback = () => {
     const video = videoRef.current;
@@ -47,15 +55,18 @@ export default function HeroVideo() {
 
       <video
         ref={videoRef}
-        autoPlay
+        autoPlay={!reducedMotion}
         loop
         muted={muted}
         playsInline
-        preload="metadata"
+        preload={reducedMotion ? "none" : "metadata"}
+        poster="/images/industries/security.jpg"
         onCanPlay={() => setReady(true)}
+        onLoadedData={() => setReady(true)}
         onPlay={() => setPlaying(true)}
         onPause={() => setPlaying(false)}
         className="aspect-[4/3] w-full object-cover object-center sm:aspect-[16/11] xl:aspect-[4/3]"
+        aria-label="Signal One field operations video"
       >
         <source src="/videos/hero-panel.mp4" type="video/mp4" />
         Your browser does not support HTML video.
@@ -73,7 +84,7 @@ export default function HeroVideo() {
         <div className="max-w-sm">
           <p className="text-sm font-semibold text-white">Operational visibility, from site to control room.</p>
           <p className="mt-1 hidden text-xs leading-5 text-white/58 sm:block">
-            Existing Signal One video retained and reframed for the new public-site experience.
+            Field activity, control-room visibility and service evidence in one operating context.
           </p>
         </div>
 
