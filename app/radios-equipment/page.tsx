@@ -5,7 +5,8 @@ import EquipmentQuoteForm from "../components/EquipmentQuoteForm";
 export const metadata: Metadata = {
   title: "Radios & Tracking",
   description:
-    "Rent Signal One PoC radios and request tracking equipment for security operations. Rental periods: 12, 24 or 36 months.",
+    "Rent PoC radios and request PTT, vehicle tracking, asset tracking and related field equipment for South African security operations.",
+  alternates: { canonical: "/radios-equipment" },
 };
 
 const radios = [
