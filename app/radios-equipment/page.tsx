@@ -21,12 +21,6 @@ const radioProducts = [
     body: "A current catalogue rental option for security and field communications, with communications and SOS positioned as part of the service.",
     facts: ["PoC communications", "SOS capability", "SIM and data included", "Platform access included"],
   },
-  {
-    model: "E600 PoC LTE radio",
-    commercial: "Purchase · quote",
-    body: "An outright PoC LTE radio option in the current commercial catalogue for teams that want to own the hardware.",
-    facts: ["PoC LTE radio", "Outright equipment purchase", "PTT service can be scoped separately", "Final configuration confirmed before quote"],
-  },
 ] as const;
 
 const connectedProducts = [
@@ -73,7 +67,7 @@ export default function RadiosEquipmentPage() {
             </div>
             <div>
               <p className="text-lg leading-8 text-white/64">
-                Rent PoC radios, buy supported equipment, or request tracking and body-camera products from the current Signal One catalogue.
+                Rent PoC radios or request PTT, tracking and body-camera services from the current Signal One catalogue.
                 Radio rentals remain quote-only.
               </p>
               <p className="mt-4 text-sm leading-7 text-white/55">
@@ -107,7 +101,7 @@ export default function RadiosEquipmentPage() {
             </div>
           </div>
 
-          <div className="mt-12 grid gap-4 lg:grid-cols-3">
+          <div className="mt-12 grid gap-4 lg:grid-cols-2">
             {radioProducts.map((radio) => (
               <article key={radio.model} className="rounded-[18px] border border-white/10 bg-[#0F131A] p-6">
                 <p className="s1-mono text-[#38BDF8]">{radio.commercial}</p>
@@ -166,7 +160,7 @@ export default function RadiosEquipmentPage() {
               Tell us what the site needs. We confirm the commercial model.
             </h2>
             <p className="s1-body mt-5 max-w-xl">
-              Radio rental, equipment purchases, platform subscriptions and tracking requirements do not all use the same term. The form changes with the product instead of forcing one commercial model onto everything.
+              Radio rental, platform subscriptions and tracking requirements do not all use the same term. The form changes with the product instead of forcing one commercial model onto everything.
             </p>
 
             <div className="mt-8 space-y-5 border-t border-white/10 pt-7">
