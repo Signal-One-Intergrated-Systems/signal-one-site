@@ -441,9 +441,9 @@ export default function Home() {
 
           <div className="mt-5 grid gap-4 md:grid-cols-3">
             {[
-              ["/images/story/central-device.webp", "Central Device", "Shared authorised device at a fixed security post."],
-              ["/images/story/incident-response.webp", "Incident response", "Field communication when an exception needs action."],
-              ["/images/story/field-supervisor.webp", "Supervision", "Operational oversight across active posts and teams."],
+              [premiumImages.siteOperations, "Central Device", "Shared authorised device at a fixed security post."],
+              [premiumImages.controlRoomNight, "Incident response", "Field communication when an exception needs action."],
+              [premiumImages.workforceBriefing, "Supervision", "Operational oversight across active posts and teams."],
             ].map(([src, title, body]) => (
               <article key={title} className="group relative min-h-[250px] overflow-hidden rounded-[18px] border border-white/10">
                 <Image src={src} alt={title} fill className="object-cover transition duration-700 group-hover:scale-[1.025]" sizes="(min-width:768px) 33vw,100vw" />
@@ -507,7 +507,7 @@ export default function Home() {
             </div>
             <div className="mt-6 relative h-[150px] overflow-hidden rounded-[16px] border border-white/12 bg-black/20 sm:h-[170px]">
               <Image
-                src="/images/story/female-control.webp"
+                src={premiumImages.controlRoomDay}
                 alt="Control room operator monitoring multiple security feeds"
                 fill
                 className="object-cover object-center"
@@ -554,7 +554,7 @@ export default function Home() {
 
             <article className="relative flex min-h-[560px] flex-col justify-between overflow-hidden rounded-[24px] border border-white/10 bg-[#0A0D12] p-7 md:p-10">
               <Image
-                src="/images/story/proof.webp"
+                src={premiumImages.clientReporting}
                 alt="Security-company client reviewing proof of service"
                 fill
                 className="object-cover object-center opacity-55"
@@ -617,7 +617,7 @@ export default function Home() {
           </div>
           <div className="relative min-h-[360px] overflow-hidden rounded-[22px] border border-white/10 bg-[#0A0D12]">
             <Image
-              src="/images/story/operations-director.webp"
+              src={premiumImages.clientReporting}
               alt="Security operations director reviewing service performance"
               fill
               className="object-cover object-center"
