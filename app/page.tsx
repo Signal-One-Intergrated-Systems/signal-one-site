@@ -72,7 +72,7 @@ export default function Home() {
         <div className="absolute inset-y-0 left-1/2 w-full max-w-[1916px] -translate-x-1/2">
           <Image
             src={premiumImages.hero}
-            alt="Illustrative security operations scene with several fictional security-company teams"
+            alt="Illustrative South African business-park security operations scene for a fictional security company"
             fill
             priority
             quality={94}
@@ -190,9 +190,9 @@ export default function Home() {
 
             <article className="relative overflow-hidden rounded-[20px] border border-white/10 bg-[#0A0D12] md:col-span-5">
               <Image
-                src={premiumImages.clientReporting}
+                src={premiumImages.warehouseSecurity}
                 quality={92}
-                alt="Illustrative security-company leadership reviewing operations and client reporting"
+                alt="Illustrative South African logistics-site security checkpoint for a fictional security company"
                 fill
                 className="object-cover object-center"
                 sizes="(min-width:768px) 42vw,100vw"
@@ -367,7 +367,7 @@ export default function Home() {
               <Image
                 src={premiumImages.marketplace}
                 quality={92}
-                alt="Illustrative Guard Marketplace and workforce planning scene using fictional company data"
+                alt="Illustrative security-team briefing and workforce-readiness scene for a fictional security company"
                 fill
                 className="object-cover object-center"
                 sizes="(min-width:1024px) 54vw,100vw"
