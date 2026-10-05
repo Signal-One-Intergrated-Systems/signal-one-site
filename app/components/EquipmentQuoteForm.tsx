@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import { trackEvent } from "../lib/analytics";
 
 type QuoteState = "idle" | "sending" | "done" | "error";
 
@@ -42,6 +43,7 @@ export default function EquipmentQuoteForm() {
 
     setState("sending");
     setMessage("");
+    trackEvent("equipment_quote_begin", { product: values.product });
 
     try {
       const response = await fetch("/api/intake", {
@@ -66,6 +68,7 @@ export default function EquipmentQuoteForm() {
       }
 
       setState("done");
+      trackEvent("equipment_quote_complete", { product: values.product });
       setMessage(
         body.message ||
           "Your quote request has been received. Signal One will confirm availability, rental terms and pricing.",
@@ -83,7 +86,7 @@ export default function EquipmentQuoteForm() {
   if (state === "done") {
     return (
       <div className="rounded-[18px] border border-[#22C55E]/20 bg-[#22C55E]/[.045] p-7">
-        <p className="s1-mono text-[8px] font-semibold text-[#86EFAC]">
+        <p className="s1-mono text-[11px] font-semibold text-[#86EFAC]">
           Quote request received
         </p>
         <h3 className="mt-4 text-2xl font-semibold">We have your requirement.</h3>
