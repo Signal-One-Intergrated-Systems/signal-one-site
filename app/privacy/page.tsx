@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description: "How Signal One handles personal information submitted through its public website.",
+  alternates: { canonical: "/privacy" },
 };
 
 export default function PrivacyPage() {
