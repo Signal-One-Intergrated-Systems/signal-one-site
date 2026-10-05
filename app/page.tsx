@@ -1,522 +1,627 @@
 import Image from "next/image";
 import Link from "next/link";
+import GuardDayCalculator from "./components/GuardDayCalculator";
 import HeroVideo from "./components/HeroVideo";
-import PeopleSceneBriefs from "./components/PeopleSceneBriefs";
-import PlatformProof from "./components/PlatformProof";
 
-const risks = [
-  {
-    title: "A post is short and management finds out too late.",
-    body: "Coverage needs to be visible before a staffing gap becomes a client problem.",
-    tag: "Coverage risk",
-    image: "/images/security.jpg",
-    alt: "Security officer communicating by radio while working on site",
-  },
-  {
-    title: "A client disputes what happened on site.",
-    body: "Attendance, patrol and incident evidence should be available without reconstructing the day from messages.",
-    tag: "Evidence risk",
-    image: "/images/industries/security.jpg",
-    alt: "Security control room with operators monitoring multiple screens",
-  },
-  {
-    title: "The control room sees fragments, not the operation.",
-    body: "SOS, exceptions, site activity and response need one operational picture.",
-    tag: "Visibility risk",
-    image: "/images/What-we-deliver/platforms.jpg",
-    alt: "Connected operational screens showing a unified digital platform",
-  },
-  {
-    title: "Supervisors spend time chasing facts instead of acting.",
-    body: "Signal One is designed to surface what needs attention and preserve the operational record.",
-    tag: "Management load",
-    image: "/images/managed.jpg",
-    alt: "Operations team reviewing connected systems and operational data",
-  },
+const salesCapabilities = [
+  "Leads and pipeline",
+  "Next actions and follow-ups",
+  "Quotes and customer conversations",
+  "Sales coaching and performance",
 ] as const;
 
-const pillars = [
-  {
-    title: "Workforce attendance",
-    body: "Clock-in and clock-out tied to the operational site, with geofence policy and an evidence trail.",
-    image: "/images/logistics.jpg",
-    alt: "Field supervisor using a radio inside an operational site",
-  },
-  {
-    title: "Patrol verification",
-    body: "Patrol routes, QR or NFC checkpoints, GPS policy and offline synchronisation for field continuity.",
-    image: "/images/security.jpg",
-    alt: "Security officer using a handheld radio during field operations",
-  },
-  {
-    title: "Digital occurrence book",
-    body: "A chronological operational record built from real events, incidents, corrections and exceptions.",
-    image: "/images/industries/security.jpg",
-    alt: "Security control-room operator working with monitoring screens",
-  },
-  {
-    title: "Operational intelligence",
-    body: "Control-room awareness, post coverage and proof of service derived from the same operational facts.",
-    image: "/images/What-we-deliver/platforms.jpg",
-    alt: "Operational platform displayed across connected screens",
-  },
+const guardCapabilities = [
+  ["Attendance", "Know who arrived and where the service is being delivered."],
+  ["Patrols", "Verify routes and checkpoints with QR or NFC, with offline continuity."],
+  ["Occurrence", "Keep incidents, corrections and exceptions in one chronological record."],
+  ["Control Room", "Bring SOS, site activity and operational exceptions into the response workspace."],
 ] as const;
 
-const buyerOutcomes = [
-  ["Know", "See site coverage, guards on duty, patrol state and exceptions without waiting for a manual update."],
-  ["Act", "Move attention to the posts, SOS events and operational exceptions that need intervention now."],
-  ["Prove", "Turn attendance, patrols and occurrence records into service evidence for management and clients."],
+const clientCapabilities = [
+  "Authorised sites",
+  "Scheduled service coverage",
+  "Patrol and checkpoint evidence",
+  "Incidents and proof-of-service reports",
 ] as const;
 
-const roles = [
-  {
-    eyebrow: "Owners & directors",
-    title: "Control without living in the control room.",
-    body: "See the operational picture, understand risk and give clients a stronger evidence story without depending on fragmented reports.",
-  },
-  {
-    eyebrow: "Operations managers",
-    title: "One place to see what needs attention.",
-    body: "Work from My operation, Control Room, post coverage, people and access, occurrence records and service proof.",
-  },
-  {
-    eyebrow: "Supervisors",
-    title: "Run the sites, not the spreadsheet.",
-    body: "See assigned sites, roster or map, shortfalls, team state and operational actions from the same environment.",
-  },
-  {
-    eyebrow: "Your clients",
-    title: "Give the buyer evidence, not internal noise.",
-    body: "Client-facing service views can show coverage and service proof without exposing the security company's internal operating workspace.",
-  },
-] as const;
+function Status({
+  children,
+  tone = "current",
+}: {
+  children: React.ReactNode;
+  tone?: "current" | "planned";
+}) {
+  return (
+    <span
+      className={
+        "s1-mono inline-flex rounded-[8px] border px-2.5 py-1 text-[8px] font-semibold " +
+        (tone === "current"
+          ? "border-[#22C55E]/25 bg-[#22C55E]/[.06] text-[#86EFAC]"
+          : "border-[#38BDF8]/25 bg-[#0EA5E9]/[.06] text-[#7DD3FC]")
+      }
+    >
+      {children}
+    </span>
+  );
+}
 
-const marketplace = [
-  {
-    image: "/images/Devices/poc/D21.jpg",
-    title: "PoC radios",
-    mode: "Buy or rent",
-    alt: "Professional push-to-talk radio available through Signal One Marketplace",
-  },
-  {
-    image: "/images/products/dispatch-console.jpg",
-    title: "Dispatch",
-    mode: "Control room",
-    alt: "Dispatch console for operational communications",
-  },
-  {
-    image: "/images/products/sim-card.jpg",
-    title: "Connectivity",
-    mode: "Subscribe",
-    alt: "Managed connectivity SIM product",
-  },
-  {
-    image: "/images/Devices/Lorawan/hero-sensors.jpg",
-    title: "Sensors",
-    mode: "Buy or quote",
-    alt: "Connected LoRaWAN sensors for operational sites",
-  },
-  {
-    image: "/images/products/sos-button.jpg",
-    title: "SOS devices",
-    mode: "Buy or quote",
-    alt: "Connected SOS device for operational safety",
-  },
-] as const;
-
-const implementation = [
-  ["01", "Operational review", "Understand sites, people, operating model and the first risks Signal One needs to address."],
-  ["02", "Company setup", "Create the company administration layer and controlled access for the people responsible for the operation."],
-  ["03", "Sites & people", "Set up clients, sites, posts, supervisors, guards and operational devices."],
-  ["04", "Go live", "Move attendance, patrols, exceptions and service evidence into the live Signal One workflow."],
-] as const;
-
-const trust = [
-  ["Role-based access", "People see the operational scope appropriate to their role."],
-  ["Audit-preserving records", "Deactivation and corrections preserve the operational history rather than deleting it."],
-  ["Offline field continuity", "Guard flows are designed to continue through connectivity loss and reconcile later."],
-  ["Evidence-led client service", "Service proof is derived from the same operational record used to run the work."],
-] as const;
+function RailLabel({
+  number,
+  label,
+}: {
+  number: string;
+  label: string;
+}) {
+  return (
+    <div className="flex items-center gap-3">
+      <span className="s1-mono text-[8px] text-white/28">{number}</span>
+      <span className="s1-eyebrow">{label}</span>
+    </div>
+  );
+}
 
 export default function Home() {
   return (
-    <main className="overflow-hidden bg-[var(--s1-bg)] text-[var(--s1-text)]">
-      <section className="relative isolate overflow-hidden border-b border-white/10 px-5 pb-20 pt-32 md:pb-28 md:pt-36">
-        <div className="s1-ambient absolute inset-0 -z-20" />
-        <div className="s1-grid absolute inset-0 -z-10 opacity-55" />
-        <div className="absolute left-1/2 top-0 -z-10 h-[560px] w-[820px] -translate-x-1/2 rounded-full bg-[#0EA5E9]/[.065] blur-[120px]" />
-
-        <div className="mx-auto max-w-[90rem]">
-          <div className="s1-glass relative overflow-hidden rounded-[24px] p-5 sm:p-7 lg:p-10 xl:p-12">
-            <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(115deg,rgba(14,165,233,.07),transparent_36%,rgba(255,255,255,.018))]" />
-
-            <div className="relative grid items-center gap-10 xl:grid-cols-[.92fr_1.08fr] xl:gap-12">
-              <div className="py-2 xl:py-6">
-                <div className="inline-flex items-center gap-2 rounded-full border border-[#0EA5E9]/30 bg-[#0EA5E9]/[.075] px-3.5 py-2">
-                  <span className="relative h-2 w-2 rounded-full bg-[#0EA5E9] shadow-[0_0_16px_rgba(14,165,233,.7)]" />
-                  <span className="s1-mono text-[9px] font-medium text-[#7DD3FC]">
-                    For private security companies
-                  </span>
-                </div>
-
-                <h1 className="mt-6 max-w-3xl text-[clamp(2.6rem,5vw,3.75rem)] font-semibold leading-[1.02] tracking-[-.025em] text-[#F1F5F9]">
-                  Control every site.
-                  <span className="block text-[#0EA5E9]">Know what happened.</span>
-                  <span className="block">Prove the service.</span>
-                </h1>
-
-                <p className="mt-6 max-w-2xl text-base leading-7 text-white/72 md:text-lg md:leading-8">
-                  Signal One gives security-company owners and operations leaders one operational picture across people, posts, patrols, exceptions, evidence, devices and client service.
-                </p>
-
-                <div className="mt-8 flex flex-wrap gap-3">
-                  <Link href="/#proof" className="s1-primary-action px-6 py-3.5 text-sm font-semibold">
-                    See Signal One in action
-                  </Link>
-                  <Link href="/contact" className="s1-secondary-action px-6 py-3.5 text-sm font-semibold">
-                    Book an operational review
-                  </Link>
-                </div>
-
-                <div className="mt-9 grid max-w-2xl grid-cols-1 gap-3 border-t border-white/10 pt-6 sm:grid-cols-3">
-                  {[
-                    ["Attendance", "Know who is actually on site."],
-                    ["Patrols", "Verify rounds and checkpoints."],
-                    ["Service proof", "Show what was delivered."],
-                  ].map(([label, text]) => (
-                    <div key={label} className="rounded-xl border border-white/[.065] bg-white/[.025] p-3.5">
-                      <p className="text-sm font-semibold text-white/88">{label}</p>
-                      <p className="mt-1 text-xs leading-5 text-white/44">{text}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="relative">
-                <div className="absolute -inset-8 -z-10 rounded-full bg-[#0EA5E9]/10 blur-3xl" />
-                <HeroVideo />
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-5 flex flex-col gap-3 px-1 text-xs text-white/38 sm:flex-row sm:items-center sm:justify-between">
-            <p>One operating record across attendance, patrols, incidents, SOS and service proof.</p>
-            <p className="s1-mono text-[9px] text-white/30">Signal One · Security Operations</p>
-          </div>
-        </div>
-      </section>
-
-      <section id="problem" className="relative px-5 py-24 md:py-32">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_12%,rgba(14,165,233,.055),transparent_27%)]" />
-        <div className="relative mx-auto max-w-[90rem]">
-          <div className="grid gap-8 lg:grid-cols-[.92fr_1.08fr] lg:items-end">
-            <div className="max-w-4xl">
-              <p className="s1-mono text-[9px] font-semibold text-[#38BDF8]">The operating problem</p>
-              <h2 className="mt-4 text-3xl font-semibold tracking-[-.035em] sm:text-5xl">
-                The risk is not lack of activity. It is not knowing what is true soon enough.
-              </h2>
-            </div>
-            <p className="max-w-3xl text-base leading-7 text-white/56">
-              Security operations fail quietly first: a post goes short, a patrol cannot be proven, an SOS sits unresolved, or a client asks for evidence that lives across messages and spreadsheets.
-            </p>
-          </div>
-
-          <div className="mt-12 grid gap-4 lg:grid-cols-2">
-            {risks.map((risk) => (
-              <article
-                key={risk.title}
-                className="group overflow-hidden rounded-[18px] border border-white/10 bg-[#0A0D12] shadow-[0_24px_70px_rgba(0,0,0,.24)] transition duration-500 [transition-timing-function:var(--s1-ease)] hover:-translate-y-1 hover:border-[#0EA5E9]/30"
-              >
-                <div className="relative h-52 overflow-hidden sm:h-60">
-                  <Image
-                    src={risk.image}
-                    alt={risk.alt}
-                    fill
-                    className="object-cover transition duration-700 [transition-timing-function:var(--s1-ease)] group-hover:scale-[1.035]"
-                    sizes="(min-width: 1024px) 50vw, 100vw"
-                  />
-                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,13,18,.04),rgba(10,13,18,.68))]" />
-                  <p className="s1-mono absolute bottom-4 left-5 text-[9px] font-semibold text-[#7DD3FC]">{risk.tag}</p>
-                </div>
-                <div className="p-6 md:p-7">
-                  <h3 className="text-xl font-semibold tracking-[-.025em] text-white/94">{risk.title}</h3>
-                  <p className="mt-3 max-w-2xl text-sm leading-6 text-white/52">{risk.body}</p>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="relative isolate overflow-hidden border-y border-white/10 px-5 py-24 md:py-32">
+    <main className="overflow-hidden bg-[var(--s1-surface-base)] text-[var(--s1-text-strong)]">
+      {/* CINEMATIC HERO */}
+      <section className="relative isolate min-h-[760px] overflow-hidden border-b border-white/10 md:min-h-[820px]">
         <Image
-          src="/images/systems-overview-bg.jpg"
-          alt=""
+          src="/images/story/hero.webp"
+          alt="Security officer working at an active site"
           fill
-          className="-z-20 object-cover opacity-40"
+          priority
+          className="object-cover object-[66%_center]"
           sizes="100vw"
         />
-        <div className="absolute inset-0 -z-10 bg-[linear-gradient(105deg,rgba(10,13,18,.97),rgba(10,13,18,.90)_48%,rgba(21,26,33,.84))]" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,#0A0D12_0%,rgba(10,13,18,.96)_27%,rgba(10,13,18,.74)_52%,rgba(10,13,18,.18)_78%,rgba(10,13,18,.08)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,13,18,.22)_0%,rgba(10,13,18,.05)_55%,#0A0D12_100%)]" />
+        <div className="absolute left-[38%] top-[18%] h-[420px] w-[420px] rounded-full bg-[#0EA5E9]/[.055] blur-[110px]" />
 
-        <div className="mx-auto max-w-[90rem]">
-          <div className="grid gap-10 lg:grid-cols-[.82fr_1.18fr] lg:items-end">
-            <div>
-              <p className="s1-mono text-[9px] font-semibold text-[#38BDF8]">The Signal One answer</p>
-              <h2 className="mt-4 text-3xl font-semibold tracking-[-.035em] sm:text-5xl">
-                One operational record from the post to the client.
-              </h2>
-            </div>
-            <p className="max-w-3xl text-base leading-7 text-white/60">
-              Signal One Guard turns field activity into operational state: attendance, patrols, incidents, SOS, post coverage, occurrence records and proof of service. The point is not another dashboard. The point is a clearer answer to three management questions.
+        <div className="relative mx-auto flex min-h-[760px] max-w-[1440px] items-center px-5 pb-20 pt-32 md:min-h-[820px] md:pt-36">
+          <div className="max-w-[760px]">
+            <p className="s1-eyebrow">For South African security companies</p>
+            <h1 className="mt-6 text-[clamp(3rem,6.3vw,6.5rem)] font-semibold leading-[.94] tracking-[-.055em] text-[#F1F5F9]">
+              Run the business
+              <span className="block">of security.</span>
+              <span className="mt-2 block text-[#38BDF8]">One platform.</span>
+            </h1>
+            <p className="mt-7 max-w-xl text-lg leading-8 text-white/68">
+              Win contracts. Hire guards. Run sites. Equip your teams. Prove
+              the service. Build the next opportunity from the same operating
+              record.
             </p>
-          </div>
 
-          <div className="mt-12 grid gap-3 lg:grid-cols-3">
-            {buyerOutcomes.map(([title, body], index) => (
-              <div
-                key={title}
-                className="s1-glass rounded-[18px] p-7 md:p-8"
-              >
-                <div className="flex items-center justify-between gap-4">
-                  <span className="s1-mono text-[9px] text-white/30">0{index + 1}</span>
-                  <span className="h-px flex-1 bg-[linear-gradient(90deg,rgba(14,165,233,.45),transparent)]" />
-                </div>
-                <h3 className="mt-8 text-3xl font-semibold tracking-[-.04em] text-white">{title}</h3>
-                <p className="mt-4 text-sm leading-7 text-white/54">{body}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="proof" className="px-5 py-24 md:py-32">
-        <div className="mx-auto max-w-[90rem]">
-          <div className="mb-12 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-            <div className="max-w-4xl">
-              <p className="s1-mono text-[9px] font-semibold text-[#38BDF8]">Product proof</p>
-              <h2 className="mt-4 text-3xl font-semibold tracking-[-.035em] sm:text-5xl">
-                Do not take the capability on trust. See the operating system.
-              </h2>
-            </div>
-            <p className="max-w-md text-sm leading-6 text-white/46">
-              These are real Signal One Guard product captures from controlled QA/demo states using synthetic test data.
-            </p>
-          </div>
-          <PlatformProof />
-        </div>
-      </section>
-
-      <section id="platform" className="border-y border-white/10 bg-[var(--s1-deep)] px-5 py-24 md:py-32">
-        <div className="mx-auto max-w-[90rem]">
-          <div className="grid gap-10 lg:grid-cols-[.72fr_1.28fr] lg:items-end">
-            <div className="max-w-xl">
-              <p className="s1-mono text-[9px] font-semibold text-[#38BDF8]">Signal One Guard</p>
-              <h2 className="mt-4 text-3xl font-semibold tracking-[-.035em] sm:text-5xl">
-                Built around four operational pillars.
-              </h2>
-            </div>
-            <div className="max-w-3xl">
-              <p className="text-sm leading-7 text-white/54">
-                The platform is structured around the evidence a security company needs to run the operation, respond to exceptions and stand behind the service delivered.
-              </p>
-              <Link href="/solutions/security" className="mt-5 inline-flex text-sm font-semibold text-[#38BDF8] transition hover:text-[#7DD3FC]">
-                Explore security operations →
-              </Link>
-            </div>
-          </div>
-
-          <div className="mt-12 grid gap-4 sm:grid-cols-2">
-            {pillars.map((pillar, index) => (
-              <article
-                key={pillar.title}
-                className="group overflow-hidden rounded-[18px] border border-white/10 bg-[#0A0D12] transition duration-500 [transition-timing-function:var(--s1-ease)] hover:border-[#0EA5E9]/30"
-              >
-                <div className="relative h-52 overflow-hidden">
-                  <Image
-                    src={pillar.image}
-                    alt={pillar.alt}
-                    fill
-                    className="object-cover transition duration-700 [transition-timing-function:var(--s1-ease)] group-hover:scale-[1.035]"
-                    sizes="(min-width: 640px) 50vw, 100vw"
-                  />
-                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,13,18,.06),rgba(10,13,18,.68))]" />
-                  <span className="s1-mono absolute bottom-4 left-5 text-[9px] font-semibold text-white/56">0{index + 1}</span>
-                </div>
-                <div className="p-6 md:p-7">
-                  <h3 className="text-xl font-semibold tracking-[-.025em]">{pillar.title}</h3>
-                  <p className="mt-3 text-sm leading-6 text-white/50">{pillar.body}</p>
-                </div>
-              </article>
-            ))}
-          </div>
-
-          <div className="mt-14 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {roles.map((role) => (
-              <article key={role.eyebrow} className="rounded-[16px] border border-white/[.075] bg-white/[.025] p-5 md:p-6">
-                <p className="s1-mono text-[8px] font-semibold text-[#38BDF8]">{role.eyebrow}</p>
-                <h3 className="mt-4 text-lg font-semibold tracking-[-.02em]">{role.title}</h3>
-                <p className="mt-3 text-sm leading-6 text-white/44">{role.body}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="px-5 py-24 md:py-32">
-        <div className="mx-auto max-w-[90rem]">
-          <div className="grid gap-8 lg:grid-cols-[.86fr_1.14fr] lg:items-end">
-            <div className="max-w-3xl">
-              <p className="s1-mono text-[9px] font-semibold text-[#38BDF8]">People in the operation</p>
-              <h2 className="mt-4 text-3xl font-semibold tracking-[-.035em] sm:text-5xl">
-                The product should be seen where the work actually happens.
-              </h2>
-            </div>
-            <p className="max-w-2xl text-sm leading-7 text-white/52">
-              Signal One is designed around the people who run security operations: management, control-room teams and field supervisors working from the same operational record.
-            </p>
-          </div>
-
-          <div className="mt-12">
-            <PeopleSceneBriefs />
-          </div>
-        </div>
-      </section>
-
-      <section id="marketplace" className="border-y border-white/10 bg-[var(--s1-deep)] px-5 py-24 md:py-32">
-        <div className="mx-auto max-w-[90rem]">
-          <div className="grid gap-8 lg:grid-cols-[.85fr_1.15fr] lg:items-end">
-            <div>
-              <p className="s1-mono text-[9px] font-semibold text-[#38BDF8]">Signal One Marketplace</p>
-              <h2 className="mt-4 text-3xl font-semibold tracking-[-.035em] sm:text-5xl">
-                Equip the operation after you understand the operation.
-              </h2>
-            </div>
-            <div className="max-w-3xl">
-              <p className="text-sm leading-7 text-white/54">
-                Buy or rent radios, choose SIM subscriptions and source connected sensors and platform services. Marketplace supports the security operation; it is not the main reason to choose Signal One.
-              </p>
-              <Link href="/marketplace" className="s1-primary-action mt-6 inline-flex px-6 py-3 text-sm font-semibold">
-                Browse marketplace
-              </Link>
-            </div>
-          </div>
-
-          <div className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-            {marketplace.map((item) => (
+            <div className="mt-9 flex flex-wrap gap-3">
               <Link
-                key={item.title}
-                href="/marketplace"
-                className="group overflow-hidden rounded-[18px] border border-white/10 bg-[#0A0D12] transition duration-500 [transition-timing-function:var(--s1-ease)] hover:-translate-y-1 hover:border-[#0EA5E9]/35"
+                href="/get-started"
+                className="s1-primary-action px-6 py-3 text-sm font-semibold"
               >
-                <div className="relative h-48 overflow-hidden bg-[radial-gradient(circle_at_50%_35%,rgba(14,165,233,.11),transparent_52%)]">
-                  <Image
-                    src={item.image}
-                    alt={item.alt}
-                    fill
-                    className="object-contain p-5 transition duration-500 [transition-timing-function:var(--s1-ease)] group-hover:scale-[1.045]"
-                    sizes="(min-width: 1280px) 20vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                  />
-                </div>
-                <div className="border-t border-white/10 p-5">
-                  <p className="font-semibold text-white/90">{item.title}</p>
-                  <div className="mt-2 flex items-center justify-between gap-3">
-                    <p className="text-xs text-white/40">{item.mode}</p>
-                    <span className="text-[#38BDF8] transition duration-300 group-hover:translate-x-1">→</span>
-                  </div>
-                </div>
+                Get started
               </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="px-5 py-24 md:py-32">
-        <div className="mx-auto max-w-[90rem]">
-          <div className="grid gap-6 lg:grid-cols-[.82fr_1.18fr]">
-            <div className="relative min-h-[380px] overflow-hidden rounded-[18px] border border-white/10">
-              <Image
-                src="/images/managed.jpg"
-                alt="Operations team reviewing connected systems during implementation"
-                fill
-                className="object-cover"
-                sizes="(min-width: 1024px) 42vw, 100vw"
-              />
-              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,13,18,.04),rgba(10,13,18,.82))]" />
-              <div className="absolute inset-x-0 bottom-0 p-7">
-                <p className="s1-mono text-[9px] font-semibold text-[#38BDF8]">Implementation & trust</p>
-                <h2 className="mt-4 max-w-xl text-3xl font-semibold tracking-[-.035em] md:text-4xl">
-                  A controlled path into live operations.
-                </h2>
-              </div>
+              <Link
+                href="/#platform"
+                className="s1-secondary-action border-white/25 bg-black/20 px-6 py-3 text-sm font-semibold backdrop-blur-[12px]"
+              >
+                See the operating system ↓
+              </Link>
             </div>
 
-            <div className="grid gap-3 sm:grid-cols-2">
-              {implementation.map(([number, title, body]) => (
-                <div key={number} className="rounded-[18px] border border-white/10 bg-white/[.025] p-6 md:p-7">
-                  <div className="flex items-center gap-3">
-                    <span className="s1-mono text-[9px] font-semibold text-[#38BDF8]">{number}</span>
-                    <span className="h-px flex-1 bg-white/10" />
-                  </div>
-                  <h3 className="mt-6 text-lg font-semibold">{title}</h3>
-                  <p className="mt-3 text-sm leading-6 text-white/46">{body}</p>
+            <div className="mt-12 grid max-w-xl grid-cols-3 border-y border-white/15 bg-black/10 backdrop-blur-[10px]">
+              {[
+                ["01", "FIELD", "Guards · posts · patrols"],
+                ["02", "CONTROL", "Exceptions · SOS · response"],
+                ["03", "PROOF", "Reports · client evidence"],
+              ].map(([number, title, detail], index) => (
+                <div
+                  key={title}
+                  className={
+                    "py-4 pr-4 " +
+                    (index ? "border-l border-white/15 pl-4" : "")
+                  }
+                >
+                  <p className="s1-mono text-[7px] text-[#7DD3FC]">
+                    {number} / {title}
+                  </p>
+                  <p className="mt-2 text-[11px] leading-5 text-white/48">
+                    {detail}
+                  </p>
                 </div>
               ))}
             </div>
           </div>
+        </div>
 
-          <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {trust.map(([title, body]) => (
-              <div key={title} className="rounded-[16px] border border-white/[.075] bg-[#0A0D12] p-5">
-                <span className="mb-4 block h-1 w-8 rounded-full bg-[#0EA5E9] shadow-[0_0_14px_rgba(14,165,233,.45)]" />
-                <h3 className="text-sm font-semibold text-white/84">{title}</h3>
-                <p className="mt-2 text-xs leading-5 text-white/40">{body}</p>
+        <div className="absolute bottom-6 right-6 hidden items-center gap-3 text-right lg:flex">
+          <div>
+            <p className="s1-mono text-[7px] text-white/32">Signal One</p>
+            <p className="mt-1 text-xs font-medium text-white/60">
+              Security company operating platform
+            </p>
+          </div>
+          <span className="h-10 w-px bg-white/18" />
+          <span className="h-2 w-2 rounded-full bg-[#38BDF8] shadow-[0_0_18px_rgba(56,189,248,.72)]" />
+        </div>
+      </section>
+
+      {/* EDITORIAL STORY */}
+      <section className="relative px-5 py-24 md:py-32">
+        <div className="mx-auto max-w-[1440px]">
+          <div className="grid gap-10 lg:grid-cols-[.72fr_1.28fr] lg:items-end">
+            <div>
+              <p className="s1-eyebrow">The contract is the start</p>
+              <h2 className="mt-5 max-w-2xl text-4xl font-semibold leading-[1.02] tracking-[-.045em] md:text-6xl">
+                Winning the work is only the beginning.
+              </h2>
+            </div>
+            <p className="max-w-2xl text-base leading-8 text-white/56 lg:pb-1">
+              A security company still has to staff the site, get the guards
+              there, verify the patrols, respond to exceptions and give the
+              client evidence. Signal One is built around that whole chain.
+            </p>
+          </div>
+
+          <div className="mt-14 grid auto-rows-[220px] gap-4 md:grid-cols-12 md:auto-rows-[250px]">
+            <article className="relative overflow-hidden rounded-[20px] border border-white/10 bg-[#0A0D12] md:col-span-7 md:row-span-2">
+              <Image
+                src="/images/story/checkpoint.webp"
+                alt="Security officer verifying a checkpoint"
+                fill
+                className="object-cover object-center"
+                sizes="(min-width:768px) 58vw,100vw"
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,13,18,.04)_35%,rgba(10,13,18,.92)_100%)]" />
+              <div className="absolute inset-x-0 bottom-0 p-6 md:p-8">
+                <p className="s1-mono text-[8px] text-[#7DD3FC]">
+                  02 / STAFF + RUN
+                </p>
+                <h3 className="mt-3 max-w-xl text-2xl font-semibold tracking-[-.03em] md:text-3xl">
+                  Put the right people on the right site — then know the work
+                  happened.
+                </h3>
+              </div>
+            </article>
+
+            <article className="relative overflow-hidden rounded-[20px] border border-white/10 bg-[#0A0D12] md:col-span-5">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_25%,rgba(14,165,233,.16),transparent_38%)]" />
+              <div className="relative flex h-full flex-col justify-between p-6 md:p-8">
+                <p className="s1-mono text-[8px] text-[#7DD3FC]">01 / WIN</p>
+                <div>
+                  <p className="text-3xl font-semibold tracking-[-.04em]">
+                    Lead → quote → contract.
+                  </p>
+                  <p className="mt-3 max-w-sm text-sm leading-7 text-white/46">
+                    Sales OS keeps leads, pipeline, next actions, quotes and
+                    customer conversations in one commercial operating rhythm.
+                  </p>
+                </div>
+              </div>
+            </article>
+
+            <article className="relative overflow-hidden rounded-[20px] border border-white/10 bg-[#0A0D12] md:col-span-5">
+              <Image
+                src="/images/story/control-room.webp"
+                alt="Security control room operator monitoring active operations"
+                fill
+                className="object-cover object-center"
+                sizes="(min-width:768px) 42vw,100vw"
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,13,18,.86),rgba(10,13,18,.2))]" />
+              <div className="relative flex h-full max-w-[60%] flex-col justify-end p-6 md:p-7">
+                <p className="s1-mono text-[8px] text-[#7DD3FC]">
+                  03 / CONTROL
+                </p>
+                <p className="mt-3 text-xl font-semibold tracking-[-.025em]">
+                  See the exception while it can still be acted on.
+                </p>
+              </div>
+            </article>
+          </div>
+
+          <div className="mt-4 grid gap-4 md:grid-cols-[.9fr_1.1fr]">
+            <div className="rounded-[20px] border border-white/10 bg-[#0F131A] p-7 md:p-9">
+              <p className="s1-mono text-[8px] text-[#7DD3FC]">04 / PROVE</p>
+              <p className="mt-4 max-w-xl text-2xl font-semibold tracking-[-.03em] md:text-3xl">
+                The service record should be created by the operation — not
+                reconstructed after it.
+              </p>
+            </div>
+            <div className="flex items-center rounded-[20px] border border-[#0EA5E9]/20 bg-[#0EA5E9]/[.045] p-7 md:p-9">
+              <p className="max-w-2xl text-base leading-8 text-white/60">
+                That is the Signal One flywheel: win the contract, staff it,
+                operate it, prove it, then take stronger evidence into the next
+                commercial conversation.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SYSTEM RAIL */}
+      <section id="platform" className="border-y border-white/10 bg-[#0F131A] px-5 py-10">
+        <div className="mx-auto max-w-[1440px]">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <p className="s1-eyebrow">One business · one operating system</p>
+              <p className="mt-2 text-sm text-white/44">
+                Commercial → workforce → operations → equipment → proof → growth
+              </p>
+            </div>
+            <div className="grid grid-cols-3 gap-x-6 gap-y-3 sm:grid-cols-6">
+              {["Win", "Hire", "Run", "Equip", "Prove", "Grow"].map(
+                (label, index) => (
+                  <div key={label} className="flex items-center gap-2">
+                    <span className="s1-mono text-[7px] text-[#38BDF8]">
+                      0{index + 1}
+                    </span>
+                    <span className="text-xs font-semibold text-white/66">
+                      {label}
+                    </span>
+                  </div>
+                ),
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SALES OS */}
+      <section className="relative px-5 py-24 md:py-32">
+        <div className="pointer-events-none absolute right-[-8%] top-[8%] h-[500px] w-[500px] rounded-full bg-[#0EA5E9]/[.055] blur-[130px]" />
+        <div className="relative mx-auto grid max-w-[1440px] gap-14 lg:grid-cols-[.92fr_1.08fr] lg:items-center">
+          <div>
+            <RailLabel number="01" label="Win" />
+            <h2 className="mt-5 max-w-2xl text-4xl font-semibold leading-[1.02] tracking-[-.045em] md:text-6xl">
+              Turn leads into contracts.
+            </h2>
+            <p className="mt-6 max-w-xl text-base leading-8 text-white/56">
+              Signal One Sales OS gives the security company&apos;s own sales
+              team a working system for leads, pipeline, next actions, quotes,
+              conversations and coaching.
+            </p>
+            <p className="mt-5 max-w-xl text-sm leading-7 text-white/40">
+              Signal One provides the sales operating system. Your company
+              provides the sales team.
+            </p>
+          </div>
+
+          <div className="relative overflow-hidden rounded-[24px] border border-white/10 bg-[#0A0D12] p-7 shadow-[0_35px_90px_rgba(0,0,0,.38)] md:p-9">
+            <div className="absolute right-0 top-0 h-52 w-52 rounded-full bg-[#0EA5E9]/10 blur-[80px]" />
+            <div className="relative">
+              <div className="flex items-center justify-between border-b border-white/10 pb-5">
+                <div>
+                  <p className="s1-mono text-[8px] text-[#7DD3FC]">
+                    Sales OS
+                  </p>
+                  <p className="mt-2 text-sm font-semibold text-white/72">
+                    Commercial operating rhythm
+                  </p>
+                </div>
+                <span className="h-2 w-2 rounded-full bg-[#22C55E] shadow-[0_0_14px_rgba(34,197,94,.45)]" />
+              </div>
+
+              <div className="mt-5 divide-y divide-white/[.07]">
+                {salesCapabilities.map((capability, index) => (
+                  <div
+                    key={capability}
+                    className="flex items-center justify-between gap-6 py-4"
+                  >
+                    <div className="flex items-center gap-4">
+                      <span className="s1-mono text-[7px] text-white/22">
+                        0{index + 1}
+                      </span>
+                      <span className="text-sm font-medium text-white/70">
+                        {capability}
+                      </span>
+                    </div>
+                    <span className="text-xs text-[#38BDF8]">→</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-5 flex items-center justify-between rounded-[12px] border border-[#38BDF8]/18 bg-[#0EA5E9]/[.035] px-4 py-3.5">
+                <span className="text-sm font-medium text-white/66">
+                  Calendar / appointments
+                </span>
+                <Status tone="planned">Planned</Status>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* HIRE */}
+      <section className="px-5 pb-24 md:pb-32">
+        <div className="mx-auto max-w-[1440px] overflow-hidden rounded-[24px] border border-white/10 bg-[#0A0D12]">
+          <div className="grid lg:grid-cols-[1.05fr_.95fr]">
+            <div className="relative min-h-[420px] lg:min-h-[610px]">
+              <Image
+                src="/images/story/checkpoint.webp"
+                alt="Security officer using a mobile device at a site checkpoint"
+                fill
+                className="object-cover object-center"
+                sizes="(min-width:1024px) 54vw,100vw"
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,13,18,.04),rgba(10,13,18,.38))]" />
+              <div className="absolute bottom-6 left-6 rounded-[12px] border border-white/14 bg-[#0A0D12]/74 px-4 py-3 backdrop-blur-[14px]">
+                <p className="s1-mono text-[7px] text-[#7DD3FC]">
+                  PRIVATE CLIENT WORKSPACE
+                </p>
+                <p className="mt-1.5 text-xs text-white/62">
+                  Guard profiles stay behind authenticated access.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex flex-col justify-center p-7 md:p-10 lg:p-12">
+              <div className="flex items-center gap-3">
+                <RailLabel number="02" label="Hire" />
+                <Status tone="planned">Target product</Status>
+              </div>
+              <h2 className="mt-5 text-4xl font-semibold leading-[1.04] tracking-[-.045em] md:text-5xl">
+                Won the contract?
+                <span className="block text-[#38BDF8]">Staff it.</span>
+              </h2>
+              <p className="mt-6 text-base leading-8 text-white/54">
+                Guard Marketplace is the planned hiring layer: client security
+                companies browse eligible profiles, send a request to hire and
+                the guard accepts or declines from the Guard app.
+              </p>
+              <p className="mt-4 text-sm leading-7 text-white/40">
+                Guard already contains live PSiRA verification against
+                PSiRA&apos;s official individual verification service.
+                Marketplace eligibility enforcement is part of the planned
+                hiring workflow.
+              </p>
+              <Link
+                href="/guard-marketplace"
+                className="mt-7 inline-flex text-sm font-semibold text-[#38BDF8] transition hover:text-[#7DD3FC]"
+              >
+                Explore the Guard Marketplace model →
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* RUN */}
+      <section className="relative border-y border-white/10 bg-[#0F131A] px-5 py-24 md:py-32">
+        <div className="mx-auto max-w-[1440px]">
+          <div className="grid gap-10 lg:grid-cols-[.8fr_1.2fr] lg:items-end">
+            <div>
+              <div className="flex items-center gap-3">
+                <RailLabel number="03" label="Run" />
+                <Status>Current</Status>
+              </div>
+              <h2 className="mt-5 text-4xl font-semibold leading-[1.02] tracking-[-.045em] md:text-6xl">
+                From contract
+                <span className="block">to live site.</span>
+              </h2>
+            </div>
+            <p className="max-w-2xl text-base leading-8 text-white/54">
+              Set up sites, shifts and allocations. Guards work from their own
+              phones or an authorised Central Device. Attendance, patrols,
+              incidents, SOS and exceptions feed the same operational record.
+            </p>
+          </div>
+
+          <div className="mt-12 overflow-hidden rounded-[24px] border border-white/10 shadow-[0_40px_110px_rgba(0,0,0,.38)]">
+            <HeroVideo />
+          </div>
+
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {guardCapabilities.map(([title, body], index) => (
+              <article key={title} className="border-l border-white/12 pl-5">
+                <p className="s1-mono text-[7px] text-[#38BDF8]">
+                  0{index + 1}
+                </p>
+                <h3 className="mt-3 text-base font-semibold text-white/82">
+                  {title}
+                </h3>
+                <p className="mt-2 text-sm leading-7 text-white/42">{body}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CONTROL ROOM */}
+      <section className="relative min-h-[680px] overflow-hidden border-b border-white/10">
+        <Image
+          src="/images/story/control-room.webp"
+          alt="Control room operator monitoring security operations"
+          fill
+          className="object-cover object-center"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,#0A0D12_0%,rgba(10,13,18,.94)_30%,rgba(10,13,18,.54)_58%,rgba(10,13,18,.08)_100%)]" />
+        <div className="relative mx-auto flex min-h-[680px] max-w-[1440px] items-center px-5 py-24">
+          <div className="max-w-[590px]">
+            <p className="s1-eyebrow">Control Room</p>
+            <h2 className="mt-5 text-4xl font-semibold leading-[1.03] tracking-[-.045em] md:text-6xl">
+              Attention goes where the operation needs it.
+            </h2>
+            <p className="mt-6 text-base leading-8 text-white/62">
+              SOS, incidents, short posts and operational exceptions belong in
+              the same response workspace — with the site context needed to
+              act.
+            </p>
+            <div className="mt-8 grid grid-cols-2 gap-3">
+              {["SOS", "Incidents", "Exceptions", "Site activity"].map(
+                (item) => (
+                  <div
+                    key={item}
+                    className="rounded-[12px] border border-white/14 bg-black/20 px-4 py-3 text-sm font-medium text-white/68 backdrop-blur-[12px]"
+                  >
+                    {item}
+                  </div>
+                ),
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* EQUIP + PROVE */}
+      <section className="px-5 py-24 md:py-32">
+        <div className="mx-auto max-w-[1440px]">
+          <div className="grid gap-4 lg:grid-cols-[.9fr_1.1fr]">
+            <article className="relative min-h-[560px] overflow-hidden rounded-[24px] border border-white/10 bg-[#0A0D12]">
+              <Image
+                src="/images/Devices/poc/hero-radios.jpg"
+                alt="Professional push-to-talk radio equipment"
+                fill
+                className="object-cover object-center opacity-78"
+                sizes="(min-width:1024px) 45vw,100vw"
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,13,18,.12)_15%,rgba(10,13,18,.92)_100%)]" />
+              <div className="absolute inset-x-0 bottom-0 p-7 md:p-9">
+                <RailLabel number="04" label="Equip" />
+                <h2 className="mt-4 text-3xl font-semibold tracking-[-.04em] md:text-4xl">
+                  Add what the contract needs.
+                </h2>
+                <p className="mt-4 max-w-xl text-sm leading-7 text-white/52">
+                  Signal One can supply radios, PTT, tracking and body-worn
+                  equipment alongside the operating platform. Direct on/off
+                  controls inside Guard are planned.
+                </p>
+                <Link
+                  href="/radios-equipment"
+                  className="mt-6 inline-flex text-sm font-semibold text-[#38BDF8]"
+                >
+                  Radios & equipment →
+                </Link>
+              </div>
+            </article>
+
+            <article className="flex min-h-[560px] flex-col justify-between rounded-[24px] border border-white/10 bg-[linear-gradient(140deg,#0F131A_0%,#121A23_60%,rgba(14,165,233,.09)_100%)] p-7 md:p-10">
+              <div>
+                <div className="flex items-center gap-3">
+                  <RailLabel number="05" label="Prove" />
+                  <Status>Current</Status>
+                </div>
+                <h2 className="mt-5 max-w-2xl text-4xl font-semibold leading-[1.03] tracking-[-.045em] md:text-5xl">
+                  Give the client evidence — without giving away your
+                  operation.
+                </h2>
+                <p className="mt-6 max-w-2xl text-base leading-8 text-white/54">
+                  Client users sign into Guard with credentials supplied by
+                  their security company and see the service information
+                  authorised for them.
+                </p>
+              </div>
+
+              <div className="mt-10 grid gap-3 sm:grid-cols-2">
+                {clientCapabilities.map((capability) => (
+                  <div
+                    key={capability}
+                    className="rounded-[13px] border border-white/10 bg-white/[.025] px-4 py-3.5 text-sm text-white/58"
+                  >
+                    {capability}
+                  </div>
+                ))}
+                <div className="rounded-[13px] border border-[#38BDF8]/18 bg-[#0EA5E9]/[.035] px-4 py-3.5 sm:col-span-2">
+                  <div className="flex items-center justify-between gap-4">
+                    <span className="text-sm text-white/58">
+                      Live map, clock status and live patrol progress
+                    </span>
+                    <Status tone="planned">Planned extension</Status>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      {/* GROW */}
+      <section className="border-y border-white/10 bg-[#0F131A] px-5 py-20 md:py-24">
+        <div className="mx-auto grid max-w-[1280px] gap-10 lg:grid-cols-[1fr_.85fr] lg:items-center">
+          <div>
+            <RailLabel number="06" label="Grow" />
+            <h2 className="mt-5 max-w-3xl text-4xl font-semibold leading-[1.03] tracking-[-.045em] md:text-5xl">
+              Close the loop with better evidence and a stronger next sale.
+            </h2>
+            <p className="mt-5 max-w-2xl text-base leading-8 text-white/52">
+              Add Payroll and Accounting when the business needs them. More
+              importantly, the record created in Guard gives management a
+              stronger client-retention story and better commercial proof for
+              the next opportunity.
+            </p>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {[
+              ["Payroll", "Available", "Extra cost"],
+              ["Accounting", "Available", "Extra cost"],
+            ].map(([title, state, meta]) => (
+              <div
+                key={title}
+                className="rounded-[18px] border border-white/10 bg-[#0A0D12] p-6"
+              >
+                <p className="s1-mono text-[8px] text-[#86EFAC]">{state}</p>
+                <p className="mt-4 text-xl font-semibold">{title}</p>
+                <p className="mt-2 text-sm text-white/38">{meta}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="border-t border-white/10 px-5 py-20 md:py-24">
-        <div className="relative mx-auto min-h-[430px] max-w-[90rem] overflow-hidden rounded-[24px] border border-white/12 bg-[#0A0D12] shadow-[var(--s1-shadow-card)]">
+      {/* PRICING */}
+      <section className="px-5 py-24 md:py-32">
+        <div className="mx-auto grid max-w-[1280px] gap-12 lg:grid-cols-[.82fr_1.18fr] lg:items-center">
+          <div>
+            <p className="s1-eyebrow">Simple Guard pricing</p>
+            <h2 className="mt-5 text-4xl font-semibold leading-[1.03] tracking-[-.045em] md:text-5xl">
+              R2 per guard per day.
+            </h2>
+            <p className="mt-5 max-w-xl text-base leading-8 text-white/54">
+              Buying guard days gives your security company access to the Guard
+              platform. Pricing is excluding VAT. Guard days carry over and
+              the minimum purchase is 10 guard days.
+            </p>
+            <Link
+              href="/pricing"
+              className="mt-6 inline-flex text-sm font-semibold text-[#38BDF8]"
+            >
+              See full pricing details →
+            </Link>
+          </div>
+          <GuardDayCalculator compact />
+        </div>
+      </section>
+
+      {/* CLOSING */}
+      <section className="px-5 pb-24 md:pb-32">
+        <div className="relative mx-auto min-h-[420px] max-w-[1440px] overflow-hidden rounded-[24px] border border-white/10">
           <Image
-            src="/images/industries/security.jpg"
-            alt="Security control room supporting active field operations"
+            src="/images/story/hero.webp"
+            alt=""
             fill
-            className="object-cover object-center"
+            className="object-cover object-[64%_center] opacity-55"
             sizes="100vw"
           />
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,13,18,.98)_0%,rgba(10,13,18,.95)_42%,rgba(10,13,18,.58)_72%,rgba(10,13,18,.32)_100%)]" />
-
-          <div className="relative flex min-h-[430px] max-w-4xl flex-col justify-between p-7 md:p-12">
-            <div>
-              <p className="s1-mono text-[9px] font-semibold text-[#38BDF8]">Next step</p>
-              <h2 className="mt-4 max-w-3xl text-3xl font-semibold tracking-[-.035em] md:text-5xl">
-                Start with the operational problem you need to control.
-              </h2>
-              <p className="mt-5 max-w-2xl text-sm leading-7 text-white/58">
-                We can review your current operating model first, or you can begin company onboarding directly.
-              </p>
-
-              <div className="mt-7 flex flex-wrap gap-3">
-                <Link href="/contact" className="s1-primary-action px-6 py-3 text-sm font-semibold">
-                  Book operational review
-                </Link>
-                <Link href="/get-started" className="s1-secondary-action px-6 py-3 text-sm font-semibold">
-                  Start company onboarding
-                </Link>
-              </div>
-            </div>
-
-            <div className="mt-10 flex flex-col gap-4 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
-              <p className="text-sm text-white/40">Looking to work with Signal One instead?</p>
-              <div className="flex flex-wrap gap-4 text-sm">
-                <Link href="/guards/join" className="font-semibold text-white/66 transition hover:text-[#38BDF8]">
-                  Guard onboarding →
-                </Link>
-                <Link href="/join/sales" className="font-semibold text-white/66 transition hover:text-[#38BDF8]">
-                  Join Signal One Sales →
-                </Link>
-              </div>
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,#0A0D12_0%,rgba(10,13,18,.88)_42%,rgba(10,13,18,.28)_100%)]" />
+          <div className="relative flex min-h-[420px] max-w-3xl flex-col justify-center p-7 md:p-12">
+            <p className="s1-eyebrow">Start the flywheel</p>
+            <h2 className="mt-5 text-4xl font-semibold leading-[1.02] tracking-[-.045em] md:text-6xl">
+              Win it. Staff it.
+              <span className="block text-[#38BDF8]">
+                Run it. Prove it. Repeat.
+              </span>
+            </h2>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link
+                href="/get-started"
+                className="s1-primary-action px-6 py-3 text-sm font-semibold"
+              >
+                Get started
+              </Link>
+              <Link
+                href="/contact"
+                className="s1-secondary-action border-white/20 bg-black/20 px-6 py-3 text-sm font-semibold backdrop-blur-[12px]"
+              >
+                Talk to Signal One
+              </Link>
             </div>
           </div>
         </div>
