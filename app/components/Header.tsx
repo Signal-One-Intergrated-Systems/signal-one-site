@@ -7,8 +7,14 @@ import { useEffect, useState } from "react";
 const nav = [
   { href: "/#platform", label: "Platform" },
   { href: "/guard-marketplace", label: "Guard Marketplace" },
-  { href: "/radios-equipment", label: "Radios & Equipment" },
+  { href: "/radios-equipment", label: "Radios & Tracking" },
   { href: "/pricing", label: "Pricing" },
+] as const;
+
+const contactLinks = [
+  { href: "tel:+27100231810", label: "Call", detail: "+27 10 023 1810" },
+  { href: "https://wa.me/27606335870", label: "WhatsApp", detail: "+27 60 633 5870" },
+  { href: "mailto:sales@signalone.co.za", label: "Email", detail: "sales@signalone.co.za" },
 ] as const;
 
 export default function Header() {
@@ -26,13 +32,8 @@ export default function Header() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#0F131A]/88 backdrop-blur-[20px]">
-      <div className="mx-auto flex h-[72px] max-w-[1440px] items-center justify-between px-4 sm:px-5 lg:px-6">
-        <Link
-          href="/"
-          onClick={() => setOpen(false)}
-          className="flex min-w-0 items-center gap-3"
-          aria-label="Signal One home"
-        >
+      <div className="mx-auto flex h-[72px] max-w-[1440px] items-center justify-between gap-4 px-4 sm:px-5 lg:px-6">
+        <Link href="/" onClick={() => setOpen(false)} className="flex min-w-0 items-center gap-3" aria-label="Signal One home">
           <span className="relative grid h-9 w-9 shrink-0 place-items-center rounded-full border border-[#0EA5E9]/40">
             <span className="h-2.5 w-2.5 rounded-full bg-[#0EA5E9] shadow-[0_0_18px_rgba(14,165,233,.55)]" />
           </span>
@@ -40,7 +41,7 @@ export default function Header() {
             <span className="block truncate text-[15px] font-semibold tracking-[.15em] text-[#F1F5F9]">
               SIGNAL <span className="text-[#0EA5E9]">ONE</span>
             </span>
-            <span className="s1-mono mt-0.5 block truncate text-[8px] text-white/38">
+            <span className="s1-mono mt-0.5 block truncate text-white/55">
               Security company operating platform
             </span>
           </span>
@@ -48,15 +49,19 @@ export default function Header() {
 
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary navigation">
           {nav.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="rounded-[8px] px-3.5 py-2.5 text-sm font-medium text-white/60 transition duration-200 hover:bg-white/[.04] hover:text-white"
-            >
+            <Link key={item.href} href={item.href} className="rounded-[8px] px-3 py-2.5 text-sm font-medium text-white/64 transition duration-200 hover:bg-white/[.04] hover:text-white">
               {item.label}
             </Link>
           ))}
         </nav>
+
+        <div className="hidden items-center gap-3 xl:flex" aria-label="Contact Signal One">
+          {contactLinks.map((item) => (
+            <a key={item.href} href={item.href} className="text-xs font-medium text-white/60 transition hover:text-[#7DD3FC]" title={item.detail}>
+              {item.label}
+            </a>
+          ))}
+        </div>
 
         <div className="hidden lg:block">
           <Link href="/get-started" className="s1-primary-action px-5 py-2.5 text-sm font-semibold">
@@ -88,20 +93,18 @@ export default function Header() {
           >
             <nav className="mx-auto grid max-w-[1440px] gap-1" aria-label="Mobile navigation">
               {nav.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setOpen(false)}
-                  className="rounded-[10px] px-3 py-3 text-sm font-medium text-white/68 transition hover:bg-white/[.05] hover:text-white"
-                >
+                <Link key={item.href} href={item.href} onClick={() => setOpen(false)} className="rounded-[10px] px-3 py-3 text-sm font-medium text-white/70 transition hover:bg-white/[.05] hover:text-white">
                   {item.label}
                 </Link>
               ))}
-              <Link
-                href="/get-started"
-                onClick={() => setOpen(false)}
-                className="s1-primary-action mt-2 px-5 py-3 text-center text-sm font-semibold"
-              >
+              <div className="my-2 border-t border-white/10 pt-3">
+                {contactLinks.map((item) => (
+                  <a key={item.href} href={item.href} className="flex items-center justify-between rounded-[10px] px-3 py-2.5 text-sm text-white/70 hover:bg-white/[.05]">
+                    <span>{item.label}</span><span className="text-xs text-white/58">{item.detail}</span>
+                  </a>
+                ))}
+              </div>
+              <Link href="/get-started" onClick={() => setOpen(false)} className="s1-primary-action mt-2 px-5 py-3 text-center text-sm font-semibold">
                 Get started
               </Link>
             </nav>
