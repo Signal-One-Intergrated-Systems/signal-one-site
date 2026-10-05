@@ -20,8 +20,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Signal One | Security Company Operating Platform",
-    template: "%s | Signal One",
+    default: "Signal One: Integrated Systems | Security Company Operating Platform",
+    template: "%s | Signal One: Integrated Systems",
   },
   description:
     "Security guard management software for South African security companies: sites, shifts, patrols, incidents, client proof, Guard Marketplace, radios and tracking.",
@@ -36,20 +36,20 @@ export const metadata: Metadata = {
     "PTT radio rental South Africa",
     "security tracking South Africa",
   ],
-  applicationName: "Signal One",
+  applicationName: "Signal One: Integrated Systems",
   openGraph: {
-    title: "Signal One | Security Company Operating Platform",
+    title: "Signal One: Integrated Systems | Security Company Operating Platform",
     description:
       "Run sites, shifts, patrols and incidents, hire guards, rent radios and tracking, and give clients proof of service.",
     type: "website",
-    siteName: "Signal One",
+    siteName: "Signal One: Integrated Systems",
     locale: "en_ZA",
     url: "/",
     images: ["/images/story/hero.webp"],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Signal One | Security Company Operating Platform",
+    title: "Signal One: Integrated Systems | Security Company Operating Platform",
     description:
       "Security guard management software for South African security companies, with Guard Marketplace, radios, tracking and client proof.",
     images: ["/images/story/hero.webp"],
