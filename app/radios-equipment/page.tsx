@@ -3,7 +3,7 @@ import Image from "next/image";
 import EquipmentQuoteForm from "../components/EquipmentQuoteForm";
 
 export const metadata: Metadata = {
-  title: "Radios & Equipment",
+  title: "Radios & Tracking",
   description:
     "Rent Signal One PoC radios and request tracking equipment for security operations. Rental periods: 12, 24 or 36 months.",
 };
@@ -67,7 +67,7 @@ export default function RadiosEquipmentPage() {
           <div className="absolute right-0 top-0 -z-10 h-80 w-80 rounded-full bg-[#0EA5E9]/[.06] blur-[100px]" />
           <div className="grid gap-10 lg:grid-cols-[.95fr_1.05fr] lg:items-end">
             <div>
-              <p className="s1-eyebrow">Radios & Equipment</p>
+              <p className="s1-eyebrow">Radios & Tracking</p>
               <h1 className="s1-display mt-5 max-w-4xl font-semibold">
                 Rent the field equipment
                 <span className="block text-[#38BDF8]">the contract needs.</span>
@@ -79,7 +79,7 @@ export default function RadiosEquipmentPage() {
                 alongside the operating platform. Radios are rental-by-quote
                 only, with 12, 24 or 36 month rental periods.
               </p>
-              <p className="mt-4 text-sm leading-7 text-white/42">
+              <p className="mt-4 text-sm leading-7 text-white/68">
                 Final availability, accessories, network requirements and
                 commercial terms are confirmed for the deployment before a
                 rental is accepted.
@@ -120,7 +120,7 @@ export default function RadiosEquipmentPage() {
                 key={radio.model}
                 className="rounded-[18px] border border-white/10 bg-[#0F131A] p-6"
               >
-                <p className="s1-mono text-[8px] text-[#38BDF8]">
+                <p className="s1-mono text-[11px] text-[#38BDF8]">
                   Rental · quote only
                 </p>
                 <h3 className="mt-4 text-2xl font-semibold tracking-[-.03em]">
@@ -134,7 +134,7 @@ export default function RadiosEquipmentPage() {
                 </p>
 
                 <div className="mt-6 border-t border-white/10 pt-5">
-                  <p className="s1-mono text-[8px] text-white/28">
+                  <p className="s1-mono text-[11px] text-white/68">
                     Verified core specifications
                   </p>
                   <ul className="mt-4 space-y-2.5 text-xs leading-6 text-white/46">
@@ -188,7 +188,7 @@ export default function RadiosEquipmentPage() {
                 className="rounded-[16px] border border-white/10 bg-[#0F131A] p-5"
               >
                 <h3 className="text-base font-semibold text-white/80">{title}</h3>
-                <p className="mt-2 text-sm leading-7 text-white/42">{body}</p>
+                <p className="mt-2 text-sm leading-7 text-white/68">{body}</p>
               </article>
             ))}
           </div>
@@ -214,12 +214,12 @@ export default function RadiosEquipmentPage() {
                 ["04", "Receive the quote", "Commercial terms are confirmed before rental acceptance."],
               ].map(([number, title, body]) => (
                 <div key={number} className="grid grid-cols-[34px_1fr] gap-4">
-                  <span className="s1-mono pt-1 text-[8px] text-[#38BDF8]">
+                  <span className="s1-mono pt-1 text-[11px] text-[#38BDF8]">
                     {number}
                   </span>
                   <div>
                     <h3 className="text-sm font-semibold text-white/80">{title}</h3>
-                    <p className="mt-1 text-sm leading-6 text-white/40">{body}</p>
+                    <p className="mt-1 text-sm leading-6 text-white/68">{body}</p>
                   </div>
                 </div>
               ))}
