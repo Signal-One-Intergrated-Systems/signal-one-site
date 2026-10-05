@@ -39,20 +39,20 @@ export default function SecuritySolutionsPage() {
                 <div className="relative h-44 overflow-hidden">
                   <Image src={image} alt="" fill className="object-cover transition duration-700 group-hover:scale-[1.035]" sizes="(min-width:1280px) 33vw, (min-width:768px) 50vw, 100vw" />
                   <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,13,18,.04),rgba(10,13,18,.76))]" />
-                  <span className="s1-mono absolute bottom-4 left-5 text-[9px] text-white/50">0{index + 1}</span>
+                  <span className="s1-mono absolute bottom-4 left-5 text-[11px] text-white/68">0{index + 1}</span>
                 </div>
                 <div className="p-6">
                   <h2 className="text-xl font-semibold tracking-[-.025em]">{title}</h2>
-                  <p className="mt-3 text-sm leading-6 text-white/48">{body}</p>
+                  <p className="mt-3 text-sm leading-6 text-white/68">{body}</p>
                 </div>
               </article>
             ))}
           </div>
         </section>
 
-        <section className="border-y border-white/10 py-14 md:py-16">
+        <section id="proof" className="border-y border-white/10 py-14 md:py-16">
           <div className="mb-8 max-w-4xl">
-            <p className="s1-mono text-[9px] font-semibold text-[#38BDF8]">Inside the product</p>
+            <p className="s1-mono text-[11px] font-semibold text-[#38BDF8]">Inside the product</p>
             <h2 className="mt-4 text-3xl font-semibold tracking-[-.035em] md:text-5xl">
               The same operational facts serve management, control and client proof.
             </h2>
@@ -70,7 +70,7 @@ export default function SecuritySolutionsPage() {
               <div key={title} className="rounded-[18px] border border-white/10 bg-white/[.025] p-6">
                 <span className="mb-5 block h-1 w-8 rounded-full bg-[#0EA5E9]" />
                 <h2 className="text-lg font-semibold">{title}</h2>
-                <p className="mt-3 text-sm leading-6 text-white/46">{body}</p>
+                <p className="mt-3 text-sm leading-6 text-white/68">{body}</p>
               </div>
             ))}
           </div>
@@ -79,13 +79,13 @@ export default function SecuritySolutionsPage() {
         <section className="relative overflow-hidden rounded-[24px] border border-white/12 bg-[#0A0D12] p-8 md:p-12">
           <Image src="/images/security.jpg" alt="" fill className="-z-20 object-cover opacity-35" sizes="100vw" />
           <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(10,13,18,.98),rgba(10,13,18,.88))]" />
-          <p className="s1-mono text-[9px] font-semibold text-[#38BDF8]">Next step</p>
+          <p className="s1-mono text-[11px] font-semibold text-[#38BDF8]">Next step</p>
           <div className="mt-4 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
             <div>
               <h2 className="max-w-3xl text-3xl font-semibold tracking-[-.035em] md:text-4xl">
                 Review the operation before choosing the rollout.
               </h2>
-              <p className="mt-4 max-w-2xl text-sm leading-7 text-white/52">
+              <p className="mt-4 max-w-2xl text-sm leading-7 text-white/68">
                 Start with the sites, people, control-room workflow and service evidence you need to bring under control.
               </p>
             </div>

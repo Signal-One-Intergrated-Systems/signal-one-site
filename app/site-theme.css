@@ -150,9 +150,9 @@ body {
 
 .s1-eyebrow {
   font-family: var(--font-geist-mono), ui-monospace, "SF Mono", Menlo, monospace;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 600;
-  letter-spacing: var(--s1-tracking-eyebrow);
+  letter-spacing: .12em;
   text-transform: uppercase;
   color: var(--s1-signal-400);
 }

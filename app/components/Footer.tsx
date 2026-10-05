@@ -6,16 +6,20 @@ const groups = [
     links: [
       ["/#platform", "How Signal One works"],
       ["/guard-marketplace", "Guard Marketplace"],
-      ["/radios-equipment", "Radios & Equipment"],
+      ["/radios-equipment", "Radios & Tracking"],
       ["/pricing", "Guard-day pricing"],
     ],
   },
   {
-    title: "Get started",
+    title: "Company",
     links: [
-      ["/get-started", "Choose your journey"],
+      ["/get-started", "Start onboarding"],
       ["/contact", "Talk to Signal One"],
       ["/solutions/security", "Security operations"],
+      ["/privacy", "Privacy"],
+      ["/terms", "Terms"],
+      ["/popia", "POPIA & data handling"],
+      ["/security-trust", "Security & trust"],
     ],
   },
 ] as const;
@@ -34,28 +38,31 @@ export default function Footer() {
             </p>
           </div>
 
-          <p className="mt-5 max-w-xl text-sm leading-7 text-white/52">
+          <p className="mt-5 max-w-xl text-sm leading-7 text-white/70">
             One platform for security companies to win clients, hire guards, run operations and prove their service.
           </p>
 
           <div className="mt-7 flex flex-wrap gap-3">
-            <Link href="/get-started" className="s1-primary-action px-5 py-2.5 text-sm font-semibold">
-              Get started
+            <Link href="/#proof" className="s1-primary-action px-5 py-2.5 text-sm font-semibold">
+              See Signal One in action
             </Link>
             <Link href="/contact" className="s1-secondary-action px-5 py-2.5 text-sm font-semibold">
               Talk to Signal One
             </Link>
           </div>
+          <p className="mt-5 text-sm text-white/70">
+            Sales email: <a href="mailto:sales@signalone.co.za" className="font-semibold text-[#7DD3FC] hover:text-white">sales@signalone.co.za</a>
+          </p>
         </div>
 
         <div className="grid gap-8 sm:grid-cols-2">
           {groups.map((group) => (
             <div key={group.title}>
-              <h2 className="s1-mono text-[9px] font-semibold text-white/34">{group.title}</h2>
+              <h2 className="s1-mono text-[11px] font-semibold text-white/68">{group.title}</h2>
               <ul className="mt-5 space-y-3">
                 {group.links.map(([href, label]) => (
                   <li key={href + label}>
-                    <Link href={href} className="text-sm text-white/58 transition duration-200 hover:text-[#38BDF8]">
+                    <Link href={href} className="text-sm text-white/72 transition duration-200 hover:text-[#38BDF8]">
                       {label}
                     </Link>
                   </li>
@@ -66,7 +73,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="mx-auto mt-8 flex max-w-[1440px] flex-col gap-3 border-t border-white/10 pt-5 text-xs text-white/34 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mx-auto mt-8 flex max-w-[1440px] flex-col gap-3 border-t border-white/10 pt-5 text-xs text-white/66 sm:flex-row sm:items-center sm:justify-between">
         <span>© {new Date().getFullYear()} Signal One.</span>
         <span>South Africa · Pricing shown excluding VAT where stated.</span>
       </div>

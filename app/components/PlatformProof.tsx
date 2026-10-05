@@ -65,7 +65,7 @@ export default function PlatformProof() {
           </button>
         ))}
 
-        <span className="s1-mono ml-auto hidden text-[8px] text-white/24 lg:block">
+        <span className="s1-mono ml-auto hidden text-[11px] text-white/62 lg:block">
           Controlled QA / demo environment
         </span>
       </div>
@@ -74,7 +74,7 @@ export default function PlatformProof() {
         <div className="relative flex flex-col justify-between overflow-hidden border-b border-white/10 p-6 lg:border-b-0 lg:border-r lg:p-8 xl:p-10">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_0%_0%,rgba(14,165,233,.13),transparent_38%)]" />
           <div className="relative">
-            <p className="s1-mono text-[9px] font-semibold text-[#38BDF8]">Product proof</p>
+            <p className="s1-mono text-[11px] font-semibold text-[#38BDF8]">Product proof</p>
             <AnimatePresence mode="wait">
               <motion.div
                 key={view.id}
@@ -96,7 +96,7 @@ export default function PlatformProof() {
               <span className="h-2 w-2 rounded-full bg-[#22C55E] shadow-[0_0_12px_rgba(34,197,94,.45)]" />
               <span className="text-xs font-semibold text-white/66">Synthetic demo data only</span>
             </div>
-            <p className="mt-2 text-xs leading-5 text-white/36">
+            <p className="mt-2 text-xs leading-5 text-white/64">
               Product evidence captured from Signal One Guard controlled QA/demo states. Names, sites and records shown are synthetic test data.
             </p>
           </div>
@@ -105,10 +105,10 @@ export default function PlatformProof() {
         <div className="relative min-h-[360px] overflow-hidden bg-[#06090D] md:min-h-[520px]">
           <div className="absolute inset-x-5 top-5 z-20 flex items-center justify-between rounded-xl border border-white/10 bg-black/35 px-4 py-3 backdrop-blur-xl">
             <div>
-              <p className="s1-mono text-[8px] text-white/36">Signal One Guard</p>
+              <p className="s1-mono text-[11px] text-white/64">Signal One Guard</p>
               <p className="mt-1 text-xs font-semibold text-white/78">{view.label}</p>
             </div>
-            <span className="rounded-full border border-[#0EA5E9]/30 bg-[#0EA5E9]/10 px-3 py-1.5 text-[10px] font-semibold text-[#7DD3FC]">
+            <span className="rounded-full border border-[#0EA5E9]/30 bg-[#0EA5E9]/10 px-3 py-1.5 text-[11px] font-semibold text-[#7DD3FC]">
               Demo
             </span>
           </div>
