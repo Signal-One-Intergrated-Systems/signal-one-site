@@ -9,6 +9,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/join/sales",
     "/guards",
     "/guards/join",
+    "/tour",
+    "/pricing",
+    "/trust",
     "/marketplace",
     "/systems",
     "/solutions",
@@ -34,10 +37,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority:
       route === ""
         ? 1
-        : route === "/get-started" || route === "/marketplace"
+        : route === "/tour" || route === "/pricing"
           ? 0.9
-          : route === "/solutions/security"
+          : route === "/solutions/security" || route === "/trust"
             ? 0.85
-            : 0.7,
+            : route === "/get-started" || route === "/marketplace"
+              ? 0.8
+              : 0.7,
   }));
 }
