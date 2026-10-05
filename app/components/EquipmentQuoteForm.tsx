@@ -30,6 +30,8 @@ export default function EquipmentQuoteForm() {
     notes: "",
   });
 
+  const isTracking = values.product === "Vehicle tracking" || values.product === "Asset tracking";
+
   function update(name: keyof typeof values, value: string) {
     setValues((current) => ({ ...current, [name]: value }));
   }
@@ -49,7 +51,8 @@ export default function EquipmentQuoteForm() {
           kind: "client",
           data: {
             ...values,
-            intent: "equipment-rental-quote",
+            rentalPeriod: isTracking ? "" : values.rentalPeriod,
+            intent: isTracking ? "tracking-quote" : "equipment-rental-quote",
           },
         }),
       });
@@ -84,7 +87,7 @@ export default function EquipmentQuoteForm() {
           Quote request received
         </p>
         <h3 className="mt-4 text-2xl font-semibold">We have your requirement.</h3>
-        <p className="mt-3 text-sm leading-7 text-white/52">{message}</p>
+        <p className="mt-3 text-sm leading-7 text-white/70">{message}</p>
       </div>
     );
   }
@@ -98,13 +101,13 @@ export default function EquipmentQuoteForm() {
       <h2 className="mt-4 text-2xl font-semibold tracking-[-.03em]">
         Tell us what the contract needs.
       </h2>
-      <p className="mt-3 text-sm leading-7 text-white/46">
+      <p className="mt-3 text-sm leading-7 text-white/66">
         Signal One confirms availability, final product specification and commercial terms before any rental is accepted.
       </p>
 
       <div className="mt-7 grid gap-5 sm:grid-cols-2">
         <label>
-          <span className="mb-2 block text-[10px] font-semibold uppercase tracking-[.14em] text-white/40">
+          <span className="mb-2 block text-[11px] font-semibold uppercase tracking-[.12em] text-white/70">
             Company
           </span>
           <input
@@ -117,7 +120,7 @@ export default function EquipmentQuoteForm() {
         </label>
 
         <label>
-          <span className="mb-2 block text-[10px] font-semibold uppercase tracking-[.14em] text-white/40">
+          <span className="mb-2 block text-[11px] font-semibold uppercase tracking-[.12em] text-white/70">
             Contact person
           </span>
           <input
@@ -130,7 +133,7 @@ export default function EquipmentQuoteForm() {
         </label>
 
         <label>
-          <span className="mb-2 block text-[10px] font-semibold uppercase tracking-[.14em] text-white/40">
+          <span className="mb-2 block text-[11px] font-semibold uppercase tracking-[.12em] text-white/70">
             Email
           </span>
           <input
@@ -144,7 +147,7 @@ export default function EquipmentQuoteForm() {
         </label>
 
         <label>
-          <span className="mb-2 block text-[10px] font-semibold uppercase tracking-[.14em] text-white/40">
+          <span className="mb-2 block text-[11px] font-semibold uppercase tracking-[.12em] text-white/70">
             Phone
           </span>
           <input
@@ -158,7 +161,7 @@ export default function EquipmentQuoteForm() {
         </label>
 
         <label>
-          <span className="mb-2 block text-[10px] font-semibold uppercase tracking-[.14em] text-white/40">
+          <span className="mb-2 block text-[11px] font-semibold uppercase tracking-[.12em] text-white/70">
             Product
           </span>
           <select
@@ -175,7 +178,7 @@ export default function EquipmentQuoteForm() {
         </label>
 
         <label>
-          <span className="mb-2 block text-[10px] font-semibold uppercase tracking-[.14em] text-white/40">
+          <span className="mb-2 block text-[11px] font-semibold uppercase tracking-[.12em] text-white/70">
             Quantity
           </span>
           <input
@@ -190,25 +193,33 @@ export default function EquipmentQuoteForm() {
           />
         </label>
 
-        <label className="sm:col-span-2">
-          <span className="mb-2 block text-[10px] font-semibold uppercase tracking-[.14em] text-white/40">
-            Rental period
-          </span>
-          <select
-            value={values.rentalPeriod}
-            onChange={(event) => update("rentalPeriod", event.target.value)}
-            className={fieldClass}
-          >
-            {periods.map((period) => (
-              <option key={period} value={period}>
-                {period}
-              </option>
-            ))}
-          </select>
-        </label>
+        {isTracking ? (
+          <div className="sm:col-span-2 rounded-[12px] border border-[#38BDF8]/18 bg-[#0EA5E9]/[.04] px-4 py-3 text-sm leading-6 text-white/70">
+            Tracking is scoped by deployment. Tell us the vehicle or asset count,
+            operating area and required visibility in the notes below; commercial
+            terms are confirmed in the quote.
+          </div>
+        ) : (
+          <label className="sm:col-span-2">
+            <span className="mb-2 block text-[11px] font-semibold uppercase tracking-[.12em] text-white/70">
+              Rental period
+            </span>
+            <select
+              value={values.rentalPeriod}
+              onChange={(event) => update("rentalPeriod", event.target.value)}
+              className={fieldClass}
+            >
+              {periods.map((period) => (
+                <option key={period} value={period}>
+                  {period}
+                </option>
+              ))}
+            </select>
+          </label>
+        )}
 
         <label className="sm:col-span-2">
-          <span className="mb-2 block text-[10px] font-semibold uppercase tracking-[.14em] text-white/40">
+          <span className="mb-2 block text-[11px] font-semibold uppercase tracking-[.12em] text-white/70">
             Notes
           </span>
           <textarea
@@ -221,7 +232,7 @@ export default function EquipmentQuoteForm() {
         </label>
       </div>
 
-      <label className="mt-5 flex items-start gap-3 rounded-[12px] border border-white/8 bg-black/15 p-4 text-sm leading-6 text-white/50">
+      <label className="mt-5 flex items-start gap-3 rounded-[12px] border border-white/8 bg-black/15 p-4 text-sm leading-6 text-white/68">
         <input
           type="checkbox"
           checked={consent}
