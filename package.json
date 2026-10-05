@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "check:branding": "node scripts/check-branding.mjs",
+    "prebuild": "npm run check:branding"
   },
   "dependencies": {
     "framer-motion": "^12.23.26",
