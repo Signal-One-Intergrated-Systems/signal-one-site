@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   },
   description:
     "Signal One gives security companies one platform to win clients, hire guards, run operations and prove their service.",
-  metadataBase: new URL("https://signal-one-site.vercel.app"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://signal-one-site.up.railway.app"),
   applicationName: "Signal One",
   openGraph: {
     title: "Signal One | Security Company Operating Platform",
