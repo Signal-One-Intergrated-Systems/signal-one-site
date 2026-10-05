@@ -145,7 +145,7 @@ export default function MarketplaceStore() {
               aria-expanded={cartOpen}
               className="relative h-11 rounded-[10px] border border-white/12 bg-white/[.04] px-5 text-sm font-semibold text-white/75 transition hover:bg-white/[.08] hover:text-white"
             >
-              Cart
+              Quote basket
               {cartCount > 0 ? (
                 <span className="ml-2 rounded-[8px] bg-[#0EA5E9] px-2 py-0.5 text-[10px] text-[#061019]">
                   {cartCount}
@@ -246,7 +246,7 @@ export default function MarketplaceStore() {
                         </button>
                       ) : (
                         <Link
-                          href="/contact"
+                          href={"/contact?intent=pricing&quote=" + encodeURIComponent(product.name + " (" + offer.mode + ")")}
                           className="rounded-[10px] border border-white/12 px-5 py-2.5 text-xs font-semibold text-white/76 transition hover:bg-white/6 hover:text-white"
                         >
                           Request quote
@@ -303,7 +303,7 @@ export default function MarketplaceStore() {
               <div className="min-h-0 flex-1 overflow-y-auto py-5">
                 {cart.length === 0 ? (
                   <div className="rounded-[14px] border border-white/9 bg-white/[.025] p-6 text-sm leading-6 text-white/45">
-                    Your quote basket is empty. Choose a product, then select Buy, Rent or Subscription where available.
+                    Your quote basket is empty. Choose products and select Buy, Rent or Subscription where available.
                   </div>
                 ) : (
                   <div className="space-y-3">
@@ -319,9 +319,9 @@ export default function MarketplaceStore() {
                               <p className="mt-1 text-xs text-white/38">{line.mode} · {offer.priceLabel}</p>
                             </div>
                             <div className="flex items-center gap-2 rounded-[10px] border border-white/9 px-2 py-1">
-                              <button type="button" onClick={() => adjust(line, -1)} className="grid h-7 w-7 place-items-center text-white/60">−</button>
+                              <button type="button" onClick={() => adjust(line, -1)} aria-label={"Reduce quantity for " + product.name} className="grid h-7 w-7 place-items-center text-white/60">−</button>
                               <span className="min-w-5 text-center text-xs tabular-nums">{line.quantity}</span>
-                              <button type="button" onClick={() => adjust(line, 1)} className="grid h-7 w-7 place-items-center text-white/60">+</button>
+                              <button type="button" onClick={() => adjust(line, 1)} aria-label={"Increase quantity for " + product.name} className="grid h-7 w-7 place-items-center text-white/60">+</button>
                             </div>
                           </div>
                         </div>
