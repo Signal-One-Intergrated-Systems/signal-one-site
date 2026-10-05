@@ -5,7 +5,8 @@ import GuardDayCalculator from "../components/GuardDayCalculator";
 export const metadata: Metadata = {
   title: "Guard-Day Pricing",
   description:
-    "Signal One Guard platform access is R2 per guard per day excluding VAT. Guard days carry over and the minimum purchase is 10 guard days.",
+    "Signal One Guard costs R2 per guard day excluding VAT. Calculate guard-day requirements with no packages or software tiers.",
+  alternates: { canonical: "/pricing" },
 };
 
 export default function PricingPage() {
