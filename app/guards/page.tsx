@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import MarketingHero from "../components/MarketingHero";
 
 export const metadata: Metadata = {
-  title: "Signal One for guards",
-  description: "See how security officers work from the Signal One Guard mobile experience.",
+  title: "Signal One for security guards",
+  description: "See the Signal One Guard mobile experience for assigned shifts, clock-in, patrol verification, incidents, SOS and personal operational history.",
+  alternates: { canonical: "/guards" },
 };
 
 const capabilities = [
