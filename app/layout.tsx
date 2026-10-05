@@ -19,32 +19,25 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Signal One | Security Operations",
+    default: "Signal One | Security Company Operating Platform",
     template: "%s | Signal One",
   },
   description:
-    "Operational control, patrol and attendance evidence, post coverage, client proof and connected services for private security companies.",
+    "Signal One gives security companies one platform to win clients, hire guards, run operations and prove their service.",
   metadataBase: new URL("https://signal-one-site.vercel.app"),
   applicationName: "Signal One",
   openGraph: {
-    title: "Signal One Security Operations",
+    title: "Signal One | Security Company Operating Platform",
     description:
-      "Control every site, know what happened and prove the service with Signal One.",
+      "Win clients, hire guards, run operations and prove the service from one Signal One platform.",
     type: "website",
     siteName: "Signal One",
-    images: [
-      {
-        url: "/images/industries/security.jpg",
-        alt: "Signal One security operations",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Signal One Security Operations",
+    title: "Signal One | Security Company Operating Platform",
     description:
-      "Control every site, know what happened and prove the service with Signal One.",
-    images: ["/images/industries/security.jpg"],
+      "Win clients, hire guards, run operations and prove the service from one Signal One platform.",
   },
   robots: {
     index: true,
@@ -61,8 +54,8 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className={inter.variable + " " + geistMono.variable + " font-sans antialiased"}>
+    <html lang="en-ZA">
+      <body className={inter.variable + " " + geistMono.variable + " antialiased"}>
         <Header />
         {children}
         <Footer />
