@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import MarketingHero from "../components/MarketingHero";
+import { premiumImages } from "../lib/premiumImages";
 
 export const metadata: Metadata = {
   title: "Signal One for security guards",
@@ -24,8 +25,8 @@ export default function GuardsPage() {
           eyebrow="For security officers"
           title="Your shift. Your patrol. Your evidence."
           body="Signal One Guard gives officers a focused mobile workspace for assigned shifts, attendance, patrol verification, incidents, SOS and personal operational history."
-          image="/images/security.jpg"
-          imageAlt="Security officer working on site with a handheld radio"
+          image={premiumImages.siteOperations}
+          imageAlt="Illustrative security officers working on site for a fictional security company"
           primary={{ href: "/guards/join", label: "Start guard onboarding" }}
         />
 

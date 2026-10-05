@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist_Mono, Inter } from "next/font/google";
 import Analytics from "./components/Analytics";
+import { premiumImages } from "./lib/premiumImages";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import "./globals.css";
@@ -45,14 +46,14 @@ export const metadata: Metadata = {
     siteName: "Signal One: Integrated Systems",
     locale: "en_ZA",
     url: "/",
-    images: ["/images/story/hero.webp"],
+    images: [premiumImages.hero],
   },
   twitter: {
     card: "summary_large_image",
     title: "Signal One: Integrated Systems | Security Company Operating Platform",
     description:
       "Security guard management software for South African security companies, with Guard Marketplace, radios, tracking and client proof.",
-    images: ["/images/story/hero.webp"],
+    images: [premiumImages.hero],
   },
   robots: {
     index: true,

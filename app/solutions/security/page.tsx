@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import MarketingHero from "../../components/MarketingHero";
 import PlatformProof from "../../components/PlatformProof";
+import { premiumImages } from "../../lib/premiumImages";
 
 export const metadata: Metadata = {
   title: "Security Guard Management Software",
@@ -12,11 +13,11 @@ export const metadata: Metadata = {
 };
 
 const pillars = [
-  ["Attendance", "Record clock-in and clock-out against the operational site, with geofence policy and preserved evidence.", "/images/logistics.jpg"],
-  ["Post coverage", "See what each post requires, what is allocated, what is verified and where a shortfall needs action.", "/images/security.jpg"],
-  ["Patrol verification", "Run routes and checkpoints with QR or NFC verification, GPS policy and offline synchronisation.", "/images/industries/security.jpg"],
-  ["Occurrence & incidents", "Keep a chronological operational record of incidents, exceptions, corrections and response.", "/images/emergency.jpg"],
-  ["Control Room", "Bring SOS, operational exceptions and live site awareness into the workspace used to respond.", "/images/What-we-deliver/platforms.jpg"],
+  ["Attendance", "Record clock-in and clock-out against the operational site, with geofence policy and preserved evidence.", premiumImages.siteOperations],
+  ["Post coverage", "See what each post requires, what is allocated, what is verified and where a shortfall needs action.", premiumImages.workforceBriefing],
+  ["Patrol verification", "Run routes and checkpoints with QR or NFC verification, GPS policy and offline synchronisation.", premiumImages.radioTracking],
+  ["Occurrence & incidents", "Keep a chronological operational record of incidents, exceptions, corrections and response.", premiumImages.controlRoomNight],
+  ["Control Room", "Bring SOS, operational exceptions and live site awareness into the workspace used to respond.", premiumImages.controlRoomDay],
   ["Proof of service", "Give management and authorised clients a clearer record of what was scheduled, what happened and what can be proven.", "/images/product-proof/proof-of-service-demo.jpg"],
 ] as const;
 
@@ -28,8 +29,8 @@ export default function SecuritySolutionsPage() {
           eyebrow="Signal One Guard for security companies"
           title="Run security operations from evidence, not assumptions."
           body="Signal One Guard connects attendance, posts, patrol verification, incidents, SOS, occurrence records and proof of service so operations teams can see what is happening and preserve what happened."
-          image="/images/industries/security.jpg"
-          imageAlt="Security operations control room"
+          image={premiumImages.siteOperations}
+          imageAlt="Illustrative premium security operations scene for a fictional security company"
           primary={{ href: "/contact", label: "Book operational review" }}
           secondary={{ href: "/#proof", label: "See product proof" }}
         />
@@ -39,7 +40,7 @@ export default function SecuritySolutionsPage() {
             {pillars.map(([title, body, image], index) => (
               <article key={title} className="group overflow-hidden rounded-[18px] border border-white/10 bg-[#0A0D12] transition duration-500 hover:border-[#0EA5E9]/30">
                 <div className="relative h-44 overflow-hidden">
-                  <Image src={image} alt="" fill className="object-cover transition duration-700 group-hover:scale-[1.035]" sizes="(min-width:1280px) 33vw, (min-width:768px) 50vw, 100vw" />
+                  <Image src={image} alt="" fill quality={90} className="object-cover transition duration-700 group-hover:scale-[1.035]" sizes="(min-width:1280px) 33vw, (min-width:768px) 50vw, 100vw" />
                   <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,13,18,.04),rgba(10,13,18,.76))]" />
                   <span className="s1-mono absolute bottom-4 left-5 text-[11px] text-white/68">0{index + 1}</span>
                 </div>
@@ -79,7 +80,7 @@ export default function SecuritySolutionsPage() {
         </section>
 
         <section className="relative overflow-hidden rounded-[24px] border border-white/12 bg-[#0A0D12] p-8 md:p-12">
-          <Image src="/images/security.jpg" alt="" fill className="-z-20 object-cover opacity-35" sizes="100vw" />
+          <Image src={premiumImages.clientReporting} alt="" fill quality={90} className="-z-20 object-cover opacity-35" sizes="100vw" />
           <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(10,13,18,.98),rgba(10,13,18,.88))]" />
           <p className="s1-mono text-[11px] font-semibold text-[#38BDF8]">Next step</p>
           <div className="mt-4 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">

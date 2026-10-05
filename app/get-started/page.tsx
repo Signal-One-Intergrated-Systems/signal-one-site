@@ -3,6 +3,7 @@ import OnboardingJourney, {
   type JourneyStep,
   type JourneyWorld,
 } from "../components/OnboardingJourney";
+import { premiumImages } from "../lib/premiumImages";
 
 export const metadata: Metadata = {
   title: "Onboard your security company",
@@ -22,8 +23,8 @@ const world: JourneyWorld = {
     "Tell us the scale and shape of your security operation.",
     "Define what Signal One should help you improve first.",
   ],
-  image: "/images/industries/security.jpg",
-  imageAlt: "Security operations environment",
+  image: premiumImages.workforceBriefing,
+  imageAlt: "Illustrative daytime security team briefing for a fictional security company",
   accent: "#0EA5E9",
   accentRgb: "14,165,233",
   completionTitle: "Your Signal One onboarding has started.",

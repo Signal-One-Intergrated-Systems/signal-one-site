@@ -2,6 +2,7 @@
 
 import { useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import { premiumImages } from "../lib/premiumImages";
 
 type NetworkInformationLike = {
   saveData?: boolean;
@@ -109,7 +110,7 @@ export default function HeroVideo() {
         muted={muted}
         playsInline
         preload={hasEnteredViewport ? "metadata" : "none"}
-        poster="/images/industries/security.jpg"
+        poster={premiumImages.controlRoomDay}
         onCanPlay={() => setReady(true)}
         onLoadedData={() => setReady(true)}
         onPlay={() => setPlaying(true)}
