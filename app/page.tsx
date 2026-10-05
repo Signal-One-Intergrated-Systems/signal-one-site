@@ -1,14 +1,7 @@
+import Image from "next/image";
 import Link from "next/link";
-import FlywheelThread from "./components/FlywheelThread";
 import GuardDayCalculator from "./components/GuardDayCalculator";
 import HeroVideo from "./components/HeroVideo";
-
-const operatingProblems = [
-  ["Win", "Leads, quotes and follow-ups are scattered across inboxes, calls and spreadsheets."],
-  ["Staff", "A contract can be won before the right guards are ready for the site."],
-  ["Run", "Attendance, patrols, incidents and exceptions become separate stories."],
-  ["Prove", "Client reporting is rebuilt after the shift instead of coming from the operation itself."],
-] as const;
 
 const salesCapabilities = [
   "Leads and pipeline",
@@ -18,10 +11,10 @@ const salesCapabilities = [
 ] as const;
 
 const guardCapabilities = [
-  ["Attendance", "Site-linked clock-in and clock-out with operational evidence."],
-  ["Patrols", "Routes plus QR or NFC checkpoint verification and offline continuity."],
-  ["Occurrence", "Chronological incidents, corrections and operational exceptions."],
-  ["Control Room", "SOS, site activity and exceptions that need intervention."],
+  ["Attendance", "Know who arrived and where the service is being delivered."],
+  ["Patrols", "Verify routes and checkpoints with QR or NFC, with offline continuity."],
+  ["Occurrence", "Keep incidents, corrections and exceptions in one chronological record."],
+  ["Control Room", "Bring SOS, site activity and operational exceptions into the response workspace."],
 ] as const;
 
 const clientCapabilities = [
@@ -29,12 +22,6 @@ const clientCapabilities = [
   "Scheduled service coverage",
   "Patrol and checkpoint evidence",
   "Incidents and proof-of-service reports",
-] as const;
-
-const equipmentCapabilities = [
-  ["PTT", "Managed push-to-talk communications and compatible field devices."],
-  ["Tracking", "Vehicle tracking, asset tracking and tracking devices for operational deployments."],
-  ["Body Cam", "Body-worn video can be supplied as part of the wider equipment relationship."],
 ] as const;
 
 function Status({
@@ -58,7 +45,13 @@ function Status({
   );
 }
 
-function StageLabel({ number, label }: { number: string; label: string }) {
+function RailLabel({
+  number,
+  label,
+}: {
+  number: string;
+  label: string;
+}) {
   return (
     <div className="flex items-center gap-3">
       <span className="s1-mono text-[8px] text-white/28">{number}</span>
@@ -70,303 +63,526 @@ function StageLabel({ number, label }: { number: string; label: string }) {
 export default function Home() {
   return (
     <main className="overflow-hidden bg-[var(--s1-surface-base)] text-[var(--s1-text-strong)]">
-      <section className="relative isolate min-h-[720px] overflow-hidden border-b border-white/10 px-5 pb-20 pt-32 md:min-h-[760px] md:pb-24 md:pt-40">
-        <div className="s1-ambient absolute inset-0 -z-30" />
-        <div className="s1-grid absolute inset-0 -z-20 opacity-35" />
-        <div className="absolute -right-[8%] top-[12%] -z-10 h-[560px] w-[560px] rounded-full bg-[#0EA5E9]/[.08] blur-[120px]" />
+      {/* CINEMATIC HERO */}
+      <section className="relative isolate min-h-[760px] overflow-hidden border-b border-white/10 md:min-h-[820px]">
+        <Image
+          src="/images/story/hero.webp"
+          alt="Security officer working at an active site"
+          fill
+          priority
+          className="object-cover object-[66%_center]"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,#0A0D12_0%,rgba(10,13,18,.96)_27%,rgba(10,13,18,.74)_52%,rgba(10,13,18,.18)_78%,rgba(10,13,18,.08)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,13,18,.22)_0%,rgba(10,13,18,.05)_55%,#0A0D12_100%)]" />
+        <div className="absolute left-[38%] top-[18%] h-[420px] w-[420px] rounded-full bg-[#0EA5E9]/[.055] blur-[110px]" />
 
-        <div className="mx-auto grid max-w-[1440px] items-center gap-14 lg:grid-cols-[1.06fr_.94fr] lg:gap-16">
-          <div className="max-w-4xl">
+        <div className="relative mx-auto flex min-h-[760px] max-w-[1440px] items-center px-5 pb-20 pt-32 md:min-h-[820px] md:pt-36">
+          <div className="max-w-[760px]">
             <p className="s1-eyebrow">For South African security companies</p>
-            <h1 className="s1-display mt-6 max-w-4xl font-semibold text-[#F1F5F9]">
-              Run the business of security
-              <span className="block text-[#38BDF8]">from one platform.</span>
+            <h1 className="mt-6 text-[clamp(3rem,6.3vw,6.5rem)] font-semibold leading-[.94] tracking-[-.055em] text-[#F1F5F9]">
+              Run the business
+              <span className="block">of security.</span>
+              <span className="mt-2 block text-[#38BDF8]">One platform.</span>
             </h1>
-            <p className="mt-7 max-w-2xl text-lg leading-8 text-white/62">
-              Win contracts. Hire guards. Run sites. Equip your teams. Prove the service. Then use that operating evidence to strengthen the next sale.
+            <p className="mt-7 max-w-xl text-lg leading-8 text-white/68">
+              Win contracts. Hire guards. Run sites. Equip your teams. Prove
+              the service. Build the next opportunity from the same operating
+              record.
             </p>
 
-            <div className="mt-9 flex flex-wrap items-center gap-3">
-              <Link href="/get-started" className="s1-primary-action px-6 py-3 text-sm font-semibold">
+            <div className="mt-9 flex flex-wrap gap-3">
+              <Link
+                href="/get-started"
+                className="s1-primary-action px-6 py-3 text-sm font-semibold"
+              >
                 Get started
               </Link>
-              <Link href="/#platform" className="s1-secondary-action px-6 py-3 text-sm font-semibold">
-                See how it works ↓
+              <Link
+                href="/#platform"
+                className="s1-secondary-action border-white/25 bg-black/20 px-6 py-3 text-sm font-semibold backdrop-blur-[12px]"
+              >
+                See the operating system ↓
               </Link>
             </div>
 
-            <div className="mt-12 flex max-w-2xl flex-wrap gap-x-6 gap-y-3 border-t border-white/10 pt-6">
-              {["Win", "Hire", "Run", "Equip", "Prove", "Grow"].map((label, index) => (
-                <div key={label} className="flex items-center gap-2">
-                  <span className="s1-mono text-[8px] text-white/24">0{index + 1}</span>
-                  <span className="text-xs font-medium text-white/52">{label}</span>
+            <div className="mt-12 grid max-w-xl grid-cols-3 border-y border-white/15 bg-black/10 backdrop-blur-[10px]">
+              {[
+                ["01", "FIELD", "Guards · posts · patrols"],
+                ["02", "CONTROL", "Exceptions · SOS · response"],
+                ["03", "PROOF", "Reports · client evidence"],
+              ].map(([number, title, detail], index) => (
+                <div
+                  key={title}
+                  className={
+                    "py-4 pr-4 " +
+                    (index ? "border-l border-white/15 pl-4" : "")
+                  }
+                >
+                  <p className="s1-mono text-[7px] text-[#7DD3FC]">
+                    {number} / {title}
+                  </p>
+                  <p className="mt-2 text-[11px] leading-5 text-white/48">
+                    {detail}
+                  </p>
                 </div>
               ))}
             </div>
           </div>
+        </div>
 
-          <div className="relative min-h-[430px] lg:min-h-[500px]" aria-hidden="true">
-            <div className="absolute inset-[12%] rounded-full border border-white/[.07]" />
-            <div className="absolute inset-[21%] rounded-full border border-[#0EA5E9]/15" />
-            <div className="absolute inset-[31%] rounded-full border border-white/[.07]" />
-            <div className="absolute left-1/2 top-1/2 h-40 w-40 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#0EA5E9]/10 blur-[28px]" />
-            <div className="absolute left-1/2 top-1/2 grid h-28 w-28 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-[#0EA5E9]/30 bg-[#0F131A]/82 shadow-[0_0_70px_rgba(14,165,233,.12)] backdrop-blur-[20px]">
-              <span className="text-center text-sm font-semibold leading-5">SIGNAL<br /><span className="text-[#38BDF8]">ONE</span></span>
+        <div className="absolute bottom-6 right-6 hidden items-center gap-3 text-right lg:flex">
+          <div>
+            <p className="s1-mono text-[7px] text-white/32">Signal One</p>
+            <p className="mt-1 text-xs font-medium text-white/60">
+              Security company operating platform
+            </p>
+          </div>
+          <span className="h-10 w-px bg-white/18" />
+          <span className="h-2 w-2 rounded-full bg-[#38BDF8] shadow-[0_0_18px_rgba(56,189,248,.72)]" />
+        </div>
+      </section>
+
+      {/* EDITORIAL STORY */}
+      <section className="relative px-5 py-24 md:py-32">
+        <div className="mx-auto max-w-[1440px]">
+          <div className="grid gap-10 lg:grid-cols-[.72fr_1.28fr] lg:items-end">
+            <div>
+              <p className="s1-eyebrow">The contract is the start</p>
+              <h2 className="mt-5 max-w-2xl text-4xl font-semibold leading-[1.02] tracking-[-.045em] md:text-6xl">
+                Winning the work is only the beginning.
+              </h2>
             </div>
+            <p className="max-w-2xl text-base leading-8 text-white/56 lg:pb-1">
+              A security company still has to staff the site, get the guards
+              there, verify the patrols, respond to exceptions and give the
+              client evidence. Signal One is built around that whole chain.
+            </p>
+          </div>
 
-            {[
-              ["WIN", "left-[4%] top-[18%]"],
-              ["HIRE", "right-[2%] top-[28%]"],
-              ["RUN", "right-[8%] bottom-[17%]"],
-              ["PROVE", "left-[7%] bottom-[12%]"],
-            ].map(([label, position]) => (
-              <div key={label} className={"absolute " + position}>
-                <span className="s1-mono rounded-[8px] border border-white/10 bg-[#0F131A]/78 px-3 py-2 text-[8px] text-white/56 backdrop-blur-[12px]">
-                  {label}
-                </span>
-              </div>
-            ))}
-
-            <svg viewBox="0 0 500 500" className="absolute inset-0 h-full w-full">
-              <defs>
-                <linearGradient id="hero-signal" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#7DD3FC" stopOpacity=".16" />
-                  <stop offset="45%" stopColor="#38BDF8" stopOpacity=".76" />
-                  <stop offset="100%" stopColor="#0EA5E9" stopOpacity=".12" />
-                </linearGradient>
-              </defs>
-              <path
-                d="M74 150 C132 54 302 48 389 126 C470 198 454 347 356 414 C250 486 103 427 64 316 C42 252 45 202 74 150Z"
-                fill="none"
-                stroke="url(#hero-signal)"
-                strokeWidth="2"
+          <div className="mt-14 grid auto-rows-[220px] gap-4 md:grid-cols-12 md:auto-rows-[250px]">
+            <article className="relative overflow-hidden rounded-[20px] border border-white/10 bg-[#0A0D12] md:col-span-7 md:row-span-2">
+              <Image
+                src="/images/story/checkpoint.webp"
+                alt="Security officer verifying a checkpoint"
+                fill
+                className="object-cover object-center"
+                sizes="(min-width:768px) 58vw,100vw"
               />
-              <circle cx="74" cy="150" r="4" fill="#38BDF8" />
-              <circle cx="389" cy="126" r="4" fill="#38BDF8" />
-              <circle cx="356" cy="414" r="4" fill="#38BDF8" />
-              <circle cx="64" cy="316" r="4" fill="#38BDF8" />
-            </svg>
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,13,18,.04)_35%,rgba(10,13,18,.92)_100%)]" />
+              <div className="absolute inset-x-0 bottom-0 p-6 md:p-8">
+                <p className="s1-mono text-[8px] text-[#7DD3FC]">
+                  02 / STAFF + RUN
+                </p>
+                <h3 className="mt-3 max-w-xl text-2xl font-semibold tracking-[-.03em] md:text-3xl">
+                  Put the right people on the right site — then know the work
+                  happened.
+                </h3>
+              </div>
+            </article>
+
+            <article className="relative overflow-hidden rounded-[20px] border border-white/10 bg-[#0A0D12] md:col-span-5">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_25%,rgba(14,165,233,.16),transparent_38%)]" />
+              <div className="relative flex h-full flex-col justify-between p-6 md:p-8">
+                <p className="s1-mono text-[8px] text-[#7DD3FC]">01 / WIN</p>
+                <div>
+                  <p className="text-3xl font-semibold tracking-[-.04em]">
+                    Lead → quote → contract.
+                  </p>
+                  <p className="mt-3 max-w-sm text-sm leading-7 text-white/46">
+                    Sales OS keeps leads, pipeline, next actions, quotes and
+                    customer conversations in one commercial operating rhythm.
+                  </p>
+                </div>
+              </div>
+            </article>
+
+            <article className="relative overflow-hidden rounded-[20px] border border-white/10 bg-[#0A0D12] md:col-span-5">
+              <Image
+                src="/images/story/control-room.webp"
+                alt="Security control room operator monitoring active operations"
+                fill
+                className="object-cover object-center"
+                sizes="(min-width:768px) 42vw,100vw"
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,13,18,.86),rgba(10,13,18,.2))]" />
+              <div className="relative flex h-full max-w-[60%] flex-col justify-end p-6 md:p-7">
+                <p className="s1-mono text-[8px] text-[#7DD3FC]">
+                  03 / CONTROL
+                </p>
+                <p className="mt-3 text-xl font-semibold tracking-[-.025em]">
+                  See the exception while it can still be acted on.
+                </p>
+              </div>
+            </article>
+          </div>
+
+          <div className="mt-4 grid gap-4 md:grid-cols-[.9fr_1.1fr]">
+            <div className="rounded-[20px] border border-white/10 bg-[#0F131A] p-7 md:p-9">
+              <p className="s1-mono text-[8px] text-[#7DD3FC]">04 / PROVE</p>
+              <p className="mt-4 max-w-xl text-2xl font-semibold tracking-[-.03em] md:text-3xl">
+                The service record should be created by the operation — not
+                reconstructed after it.
+              </p>
+            </div>
+            <div className="flex items-center rounded-[20px] border border-[#0EA5E9]/20 bg-[#0EA5E9]/[.045] p-7 md:p-9">
+              <p className="max-w-2xl text-base leading-8 text-white/60">
+                That is the Signal One flywheel: win the contract, staff it,
+                operate it, prove it, then take stronger evidence into the next
+                commercial conversation.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="relative px-5 py-20 md:py-28">
-        <div className="mx-auto max-w-[1280px]">
-          <div className="max-w-4xl">
-            <p className="s1-eyebrow">The business problem</p>
-            <h2 className="s1-h1 mt-5 max-w-4xl font-semibold">
-              Winning the contract is only the beginning.
+      {/* SYSTEM RAIL */}
+      <section id="platform" className="border-y border-white/10 bg-[#0F131A] px-5 py-10">
+        <div className="mx-auto max-w-[1440px]">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <p className="s1-eyebrow">One business · one operating system</p>
+              <p className="mt-2 text-sm text-white/44">
+                Commercial → workforce → operations → equipment → proof → growth
+              </p>
+            </div>
+            <div className="grid grid-cols-3 gap-x-6 gap-y-3 sm:grid-cols-6">
+              {["Win", "Hire", "Run", "Equip", "Prove", "Grow"].map(
+                (label, index) => (
+                  <div key={label} className="flex items-center gap-2">
+                    <span className="s1-mono text-[7px] text-[#38BDF8]">
+                      0{index + 1}
+                    </span>
+                    <span className="text-xs font-semibold text-white/66">
+                      {label}
+                    </span>
+                  </div>
+                ),
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SALES OS */}
+      <section className="relative px-5 py-24 md:py-32">
+        <div className="pointer-events-none absolute right-[-8%] top-[8%] h-[500px] w-[500px] rounded-full bg-[#0EA5E9]/[.055] blur-[130px]" />
+        <div className="relative mx-auto grid max-w-[1440px] gap-14 lg:grid-cols-[.92fr_1.08fr] lg:items-center">
+          <div>
+            <RailLabel number="01" label="Win" />
+            <h2 className="mt-5 max-w-2xl text-4xl font-semibold leading-[1.02] tracking-[-.045em] md:text-6xl">
+              Turn leads into contracts.
             </h2>
-            <p className="s1-body mt-5 max-w-3xl">
-              Security companies do not run one process. They win work, find people, deploy guards, manage sites, support field communications and then have to prove to the client that the contracted service actually happened.
+            <p className="mt-6 max-w-xl text-base leading-8 text-white/56">
+              Signal One Sales OS gives the security company&apos;s own sales
+              team a working system for leads, pipeline, next actions, quotes,
+              conversations and coaching.
+            </p>
+            <p className="mt-5 max-w-xl text-sm leading-7 text-white/40">
+              Signal One provides the sales operating system. Your company
+              provides the sales team.
             </p>
           </div>
 
-          <div className="mt-12 grid border-y border-white/10 sm:grid-cols-2 lg:grid-cols-4">
-            {operatingProblems.map(([title, body], index) => (
-              <article key={title} className="border-white/10 py-6 sm:px-6 sm:first:pl-0 lg:border-r lg:last:border-r-0">
-                <p className="s1-mono text-[8px] text-white/26">0{index + 1}</p>
-                <h3 className="mt-5 text-xl font-semibold tracking-[-.025em]">{title}</h3>
-                <p className="mt-3 text-sm leading-7 text-white/48">{body}</p>
+          <div className="relative overflow-hidden rounded-[24px] border border-white/10 bg-[#0A0D12] p-7 shadow-[0_35px_90px_rgba(0,0,0,.38)] md:p-9">
+            <div className="absolute right-0 top-0 h-52 w-52 rounded-full bg-[#0EA5E9]/10 blur-[80px]" />
+            <div className="relative">
+              <div className="flex items-center justify-between border-b border-white/10 pb-5">
+                <div>
+                  <p className="s1-mono text-[8px] text-[#7DD3FC]">
+                    Sales OS
+                  </p>
+                  <p className="mt-2 text-sm font-semibold text-white/72">
+                    Commercial operating rhythm
+                  </p>
+                </div>
+                <span className="h-2 w-2 rounded-full bg-[#22C55E] shadow-[0_0_14px_rgba(34,197,94,.45)]" />
+              </div>
+
+              <div className="mt-5 divide-y divide-white/[.07]">
+                {salesCapabilities.map((capability, index) => (
+                  <div
+                    key={capability}
+                    className="flex items-center justify-between gap-6 py-4"
+                  >
+                    <div className="flex items-center gap-4">
+                      <span className="s1-mono text-[7px] text-white/22">
+                        0{index + 1}
+                      </span>
+                      <span className="text-sm font-medium text-white/70">
+                        {capability}
+                      </span>
+                    </div>
+                    <span className="text-xs text-[#38BDF8]">→</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-5 flex items-center justify-between rounded-[12px] border border-[#38BDF8]/18 bg-[#0EA5E9]/[.035] px-4 py-3.5">
+                <span className="text-sm font-medium text-white/66">
+                  Calendar / appointments
+                </span>
+                <Status tone="planned">Planned</Status>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* HIRE */}
+      <section className="px-5 pb-24 md:pb-32">
+        <div className="mx-auto max-w-[1440px] overflow-hidden rounded-[24px] border border-white/10 bg-[#0A0D12]">
+          <div className="grid lg:grid-cols-[1.05fr_.95fr]">
+            <div className="relative min-h-[420px] lg:min-h-[610px]">
+              <Image
+                src="/images/story/checkpoint.webp"
+                alt="Security officer using a mobile device at a site checkpoint"
+                fill
+                className="object-cover object-center"
+                sizes="(min-width:1024px) 54vw,100vw"
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,13,18,.04),rgba(10,13,18,.38))]" />
+              <div className="absolute bottom-6 left-6 rounded-[12px] border border-white/14 bg-[#0A0D12]/74 px-4 py-3 backdrop-blur-[14px]">
+                <p className="s1-mono text-[7px] text-[#7DD3FC]">
+                  PRIVATE CLIENT WORKSPACE
+                </p>
+                <p className="mt-1.5 text-xs text-white/62">
+                  Guard profiles stay behind authenticated access.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex flex-col justify-center p-7 md:p-10 lg:p-12">
+              <div className="flex items-center gap-3">
+                <RailLabel number="02" label="Hire" />
+                <Status tone="planned">Target product</Status>
+              </div>
+              <h2 className="mt-5 text-4xl font-semibold leading-[1.04] tracking-[-.045em] md:text-5xl">
+                Won the contract?
+                <span className="block text-[#38BDF8]">Staff it.</span>
+              </h2>
+              <p className="mt-6 text-base leading-8 text-white/54">
+                Guard Marketplace is the planned hiring layer: client security
+                companies browse eligible profiles, send a request to hire and
+                the guard accepts or declines from the Guard app.
+              </p>
+              <p className="mt-4 text-sm leading-7 text-white/40">
+                Guard already contains live PSiRA verification against
+                PSiRA&apos;s official individual verification service.
+                Marketplace eligibility enforcement is part of the planned
+                hiring workflow.
+              </p>
+              <Link
+                href="/guard-marketplace"
+                className="mt-7 inline-flex text-sm font-semibold text-[#38BDF8] transition hover:text-[#7DD3FC]"
+              >
+                Explore the Guard Marketplace model →
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* RUN */}
+      <section className="relative border-y border-white/10 bg-[#0F131A] px-5 py-24 md:py-32">
+        <div className="mx-auto max-w-[1440px]">
+          <div className="grid gap-10 lg:grid-cols-[.8fr_1.2fr] lg:items-end">
+            <div>
+              <div className="flex items-center gap-3">
+                <RailLabel number="03" label="Run" />
+                <Status>Current</Status>
+              </div>
+              <h2 className="mt-5 text-4xl font-semibold leading-[1.02] tracking-[-.045em] md:text-6xl">
+                From contract
+                <span className="block">to live site.</span>
+              </h2>
+            </div>
+            <p className="max-w-2xl text-base leading-8 text-white/54">
+              Set up sites, shifts and allocations. Guards work from their own
+              phones or an authorised Central Device. Attendance, patrols,
+              incidents, SOS and exceptions feed the same operational record.
+            </p>
+          </div>
+
+          <div className="mt-12 overflow-hidden rounded-[24px] border border-white/10 shadow-[0_40px_110px_rgba(0,0,0,.38)]">
+            <HeroVideo />
+          </div>
+
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {guardCapabilities.map(([title, body], index) => (
+              <article key={title} className="border-l border-white/12 pl-5">
+                <p className="s1-mono text-[7px] text-[#38BDF8]">
+                  0{index + 1}
+                </p>
+                <h3 className="mt-3 text-base font-semibold text-white/82">
+                  {title}
+                </h3>
+                <p className="mt-2 text-sm leading-7 text-white/42">{body}</p>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="platform" className="relative isolate px-5 pb-28 pt-8 md:pb-36">
-        <div className="absolute inset-x-0 top-0 -z-10 h-72 bg-[radial-gradient(circle_at_50%_0%,rgba(14,165,233,.07),transparent_60%)]" />
-        <div className="relative mx-auto max-w-[1440px]">
-          <FlywheelThread />
-
-          <header className="mx-auto max-w-4xl text-center">
-            <p className="s1-eyebrow">One business · one operating system</p>
-            <h2 className="s1-h1 mt-5 font-semibold">
-              One continuous operating record from the first lead to the next contract.
+      {/* CONTROL ROOM */}
+      <section className="relative min-h-[680px] overflow-hidden border-b border-white/10">
+        <Image
+          src="/images/story/control-room.webp"
+          alt="Control room operator monitoring security operations"
+          fill
+          className="object-cover object-center"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,#0A0D12_0%,rgba(10,13,18,.94)_30%,rgba(10,13,18,.54)_58%,rgba(10,13,18,.08)_100%)]" />
+        <div className="relative mx-auto flex min-h-[680px] max-w-[1440px] items-center px-5 py-24">
+          <div className="max-w-[590px]">
+            <p className="s1-eyebrow">Control Room</p>
+            <h2 className="mt-5 text-4xl font-semibold leading-[1.03] tracking-[-.045em] md:text-6xl">
+              Attention goes where the operation needs it.
             </h2>
-            <p className="s1-body mx-auto mt-5 max-w-3xl">
-              Signal One connects the commercial and operational lifecycle instead of making a security company stitch it together from unrelated tools.
+            <p className="mt-6 text-base leading-8 text-white/62">
+              SOS, incidents, short posts and operational exceptions belong in
+              the same response workspace — with the site context needed to
+              act.
             </p>
-          </header>
-
-          <div className="mt-20 space-y-20 md:space-y-28 xl:space-y-36">
-            <section className="grid gap-8 xl:grid-cols-[1fr_160px_1fr] xl:items-center">
-              <div className="xl:pr-12">
-                <StageLabel number="01" label="Win" />
-                <h3 className="mt-5 text-3xl font-semibold tracking-[-.035em] md:text-5xl">Turn leads into contracts.</h3>
-                <p className="mt-5 max-w-2xl text-base leading-8 text-white/58">
-                  Signal One Sales OS gives the security company's own sales team a working system for leads, pipeline, next actions, quotes, conversations and coaching.
-                </p>
-                <p className="mt-5 max-w-2xl text-sm leading-7 text-white/44">
-                  Signal One provides the sales operating system. Your company provides the sales team.
-                </p>
-              </div>
-              <div className="hidden xl:block" />
-              <div className="grid gap-3 sm:grid-cols-2 xl:pl-12">
-                {salesCapabilities.map((capability) => (
-                  <div key={capability} className="rounded-[14px] border border-white/10 bg-white/[.025] px-5 py-4 text-sm font-medium text-white/72">
-                    {capability}
+            <div className="mt-8 grid grid-cols-2 gap-3">
+              {["SOS", "Incidents", "Exceptions", "Site activity"].map(
+                (item) => (
+                  <div
+                    key={item}
+                    className="rounded-[12px] border border-white/14 bg-black/20 px-4 py-3 text-sm font-medium text-white/68 backdrop-blur-[12px]"
+                  >
+                    {item}
                   </div>
-                ))}
-                <div className="rounded-[14px] border border-[#38BDF8]/18 bg-[#0EA5E9]/[.035] px-5 py-4">
-                  <div className="flex items-center justify-between gap-3">
-                    <span className="text-sm font-medium text-white/72">Calendar / appointments</span>
-                    <Status tone="planned">Planned</Status>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <section className="grid gap-8 xl:grid-cols-[1fr_160px_1fr] xl:items-center">
-              <div className="order-2 xl:order-1 xl:pr-12">
-                <div className="rounded-[18px] border border-white/10 bg-[#0F131A] p-6 md:p-7">
-                  <div className="flex items-center justify-between gap-4 border-b border-white/10 pb-5">
-                    <div>
-                      <p className="s1-mono text-[8px] text-white/30">Guard Marketplace</p>
-                      <p className="mt-2 text-sm font-semibold text-white/82">Client-only hiring workspace</p>
-                    </div>
-                    <Status tone="planned">Target product</Status>
-                  </div>
-                  <div className="mt-5 grid gap-3 sm:grid-cols-2">
-                    {["Location", "PSiRA grade", "Experience", "Availability", "Skills", "Profile photo"].map((field) => (
-                      <div key={field} className="rounded-[12px] border border-white/[.07] bg-white/[.025] px-4 py-3 text-xs text-white/50">{field}</div>
-                    ))}
-                  </div>
-                  <p className="mt-5 text-xs leading-6 text-white/36">
-                    Profiles will only be visible to paying Signal One client companies. Ratings are omitted until the combined scoring model is implemented.
-                  </p>
-                </div>
-              </div>
-              <div className="hidden xl:order-2 xl:block" />
-              <div className="order-1 xl:order-3 xl:pl-12">
-                <StageLabel number="02" label="Hire" />
-                <h3 className="mt-5 text-3xl font-semibold tracking-[-.035em] md:text-5xl">Won the contract? Staff it.</h3>
-                <p className="mt-5 max-w-2xl text-base leading-8 text-white/58">
-                  Guard Marketplace is the next step in the Signal One flywheel: client security companies will browse eligible guards, send a request to hire and let the guard accept or decline in the Guard app.
-                </p>
-                <p className="mt-5 max-w-2xl text-sm leading-7 text-white/44">
-                  Guard already includes live PSiRA verification against PSiRA's official individual verification service. Marketplace eligibility enforcement is part of the planned hiring flow.
-                </p>
-                <Link href="/guard-marketplace" className="mt-6 inline-flex text-sm font-semibold text-[#38BDF8] transition hover:text-[#7DD3FC]">
-                  Guard Marketplace roadmap →
-                </Link>
-              </div>
-            </section>
-
-            <section className="grid gap-8 xl:grid-cols-[1fr_160px_1fr] xl:items-center">
-              <div className="xl:pr-12">
-                <StageLabel number="03" label="Run" />
-                <div className="mt-4 flex items-center gap-3">
-                  <h3 className="text-3xl font-semibold tracking-[-.035em] md:text-5xl">From contract to live site.</h3>
-                  <Status>Current</Status>
-                </div>
-                <p className="mt-5 max-w-2xl text-base leading-8 text-white/58">
-                  Set up sites, shifts and allocations. Guards work from their own phones or an authorised Central Device at the site. Attendance, patrols, incidents, SOS and exceptions feed the same operational record.
-                </p>
-                <div className="mt-7 grid gap-3 sm:grid-cols-2">
-                  {guardCapabilities.map(([title, body]) => (
-                    <div key={title} className="border-l border-white/10 pl-4">
-                      <p className="text-sm font-semibold text-white/78">{title}</p>
-                      <p className="mt-1 text-xs leading-6 text-white/42">{body}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div className="hidden xl:block" />
-              <div className="xl:pl-12">
-                <HeroVideo />
-              </div>
-            </section>
-
-            <section className="grid gap-8 xl:grid-cols-[1fr_160px_1fr] xl:items-center">
-              <div className="order-2 grid gap-3 xl:order-1 xl:pr-12">
-                {equipmentCapabilities.map(([title, body]) => (
-                  <div key={title} className="rounded-[16px] border border-white/10 bg-[#0F131A] p-5">
-                    <div className="flex items-center justify-between gap-4">
-                      <h4 className="text-base font-semibold">{title}</h4>
-                      <Status>Available alongside Guard</Status>
-                    </div>
-                    <p className="mt-3 text-sm leading-7 text-white/46">{body}</p>
-                  </div>
-                ))}
-              </div>
-              <div className="hidden xl:order-2 xl:block" />
-              <div className="order-1 xl:order-3 xl:pl-12">
-                <StageLabel number="04" label="Equip" />
-                <h3 className="mt-5 text-3xl font-semibold tracking-[-.035em] md:text-5xl">Add what the contract needs.</h3>
-                <p className="mt-5 max-w-2xl text-base leading-8 text-white/58">
-                  Signal One can supply radios, PTT, tracking and body-worn equipment alongside the operating platform. Guard already has Devices & Services catalogue/request foundations; direct PTT, Tracking and Body Cam on/off controls inside Guard are planned.
-                </p>
-                <Link href="/radios-equipment" className="mt-6 inline-flex text-sm font-semibold text-[#38BDF8] transition hover:text-[#7DD3FC]">
-                  Radios & equipment →
-                </Link>
-              </div>
-            </section>
-
-            <section className="grid gap-8 xl:grid-cols-[1fr_160px_1fr] xl:items-center">
-              <div className="xl:pr-12">
-                <StageLabel number="05" label="Prove" />
-                <div className="mt-4 flex items-center gap-3">
-                  <h3 className="text-3xl font-semibold tracking-[-.035em] md:text-5xl">Give the client evidence.</h3>
-                  <Status>Current</Status>
-                </div>
-                <p className="mt-5 max-w-2xl text-base leading-8 text-white/58">
-                  Client users sign into Guard with credentials supplied by their security company. The current client experience is deliberately scoped to service assurance rather than exposing the security company's internal workspace.
-                </p>
-                <p className="mt-5 max-w-2xl text-sm leading-7 text-white/42">
-                  Live map/location, clock status and live patrol progress are the target next extension of the client experience, not a current public claim.
-                </p>
-              </div>
-              <div className="hidden xl:block" />
-              <div className="grid gap-3 sm:grid-cols-2 xl:pl-12">
-                {clientCapabilities.map((capability) => (
-                  <div key={capability} className="rounded-[14px] border border-white/10 bg-white/[.025] px-5 py-4 text-sm font-medium text-white/66">
-                    {capability}
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            <section className="grid gap-8 xl:grid-cols-[1fr_160px_1fr] xl:items-center">
-              <div className="order-2 xl:order-1 xl:pr-12">
-                <div className="grid gap-3 sm:grid-cols-2">
-                  {[
-                    ["Payroll", "Available", "Extra cost"],
-                    ["Accounting", "Available", "Extra cost"],
-                  ].map(([title, status, meta]) => (
-                    <div key={title} className="rounded-[16px] border border-white/10 bg-[#0F131A] p-6">
-                      <p className="s1-mono text-[8px] text-[#86EFAC]">{status}</p>
-                      <h4 className="mt-4 text-xl font-semibold">{title}</h4>
-                      <p className="mt-2 text-sm text-white/40">{meta}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div className="hidden xl:order-2 xl:block" />
-              <div className="order-1 xl:order-3 xl:pl-12">
-                <StageLabel number="06" label="Grow" />
-                <h3 className="mt-5 text-3xl font-semibold tracking-[-.035em] md:text-5xl">Close the loop.</h3>
-                <p className="mt-5 max-w-2xl text-base leading-8 text-white/58">
-                  Add Payroll and Accounting when the business needs them. More importantly, the operational evidence created in Guard gives management a stronger client-retention story and better commercial proof for the next opportunity.
-                </p>
-                <p className="mt-5 max-w-2xl text-sm leading-7 text-white/42">
-                  The flywheel returns to Sales OS: better evidence, better conversations, another contract.
-                </p>
-              </div>
-            </section>
+                ),
+              )}
+            </div>
           </div>
         </div>
       </section>
 
+      {/* EQUIP + PROVE */}
+      <section className="px-5 py-24 md:py-32">
+        <div className="mx-auto max-w-[1440px]">
+          <div className="grid gap-4 lg:grid-cols-[.9fr_1.1fr]">
+            <article className="relative min-h-[560px] overflow-hidden rounded-[24px] border border-white/10 bg-[#0A0D12]">
+              <Image
+                src="/images/Devices/poc/hero-radios.jpg"
+                alt="Professional push-to-talk radio equipment"
+                fill
+                className="object-cover object-center opacity-78"
+                sizes="(min-width:1024px) 45vw,100vw"
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,13,18,.12)_15%,rgba(10,13,18,.92)_100%)]" />
+              <div className="absolute inset-x-0 bottom-0 p-7 md:p-9">
+                <RailLabel number="04" label="Equip" />
+                <h2 className="mt-4 text-3xl font-semibold tracking-[-.04em] md:text-4xl">
+                  Add what the contract needs.
+                </h2>
+                <p className="mt-4 max-w-xl text-sm leading-7 text-white/52">
+                  Signal One can supply radios, PTT, tracking and body-worn
+                  equipment alongside the operating platform. Direct on/off
+                  controls inside Guard are planned.
+                </p>
+                <Link
+                  href="/radios-equipment"
+                  className="mt-6 inline-flex text-sm font-semibold text-[#38BDF8]"
+                >
+                  Radios & equipment →
+                </Link>
+              </div>
+            </article>
+
+            <article className="flex min-h-[560px] flex-col justify-between rounded-[24px] border border-white/10 bg-[linear-gradient(140deg,#0F131A_0%,#121A23_60%,rgba(14,165,233,.09)_100%)] p-7 md:p-10">
+              <div>
+                <div className="flex items-center gap-3">
+                  <RailLabel number="05" label="Prove" />
+                  <Status>Current</Status>
+                </div>
+                <h2 className="mt-5 max-w-2xl text-4xl font-semibold leading-[1.03] tracking-[-.045em] md:text-5xl">
+                  Give the client evidence — without giving away your
+                  operation.
+                </h2>
+                <p className="mt-6 max-w-2xl text-base leading-8 text-white/54">
+                  Client users sign into Guard with credentials supplied by
+                  their security company and see the service information
+                  authorised for them.
+                </p>
+              </div>
+
+              <div className="mt-10 grid gap-3 sm:grid-cols-2">
+                {clientCapabilities.map((capability) => (
+                  <div
+                    key={capability}
+                    className="rounded-[13px] border border-white/10 bg-white/[.025] px-4 py-3.5 text-sm text-white/58"
+                  >
+                    {capability}
+                  </div>
+                ))}
+                <div className="rounded-[13px] border border-[#38BDF8]/18 bg-[#0EA5E9]/[.035] px-4 py-3.5 sm:col-span-2">
+                  <div className="flex items-center justify-between gap-4">
+                    <span className="text-sm text-white/58">
+                      Live map, clock status and live patrol progress
+                    </span>
+                    <Status tone="planned">Planned extension</Status>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      {/* GROW */}
       <section className="border-y border-white/10 bg-[#0F131A] px-5 py-20 md:py-24">
-        <div className="mx-auto grid max-w-[1280px] gap-10 lg:grid-cols-[.9fr_1.1fr] lg:items-center">
+        <div className="mx-auto grid max-w-[1280px] gap-10 lg:grid-cols-[1fr_.85fr] lg:items-center">
+          <div>
+            <RailLabel number="06" label="Grow" />
+            <h2 className="mt-5 max-w-3xl text-4xl font-semibold leading-[1.03] tracking-[-.045em] md:text-5xl">
+              Close the loop with better evidence and a stronger next sale.
+            </h2>
+            <p className="mt-5 max-w-2xl text-base leading-8 text-white/52">
+              Add Payroll and Accounting when the business needs them. More
+              importantly, the record created in Guard gives management a
+              stronger client-retention story and better commercial proof for
+              the next opportunity.
+            </p>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {[
+              ["Payroll", "Available", "Extra cost"],
+              ["Accounting", "Available", "Extra cost"],
+            ].map(([title, state, meta]) => (
+              <div
+                key={title}
+                className="rounded-[18px] border border-white/10 bg-[#0A0D12] p-6"
+              >
+                <p className="s1-mono text-[8px] text-[#86EFAC]">{state}</p>
+                <p className="mt-4 text-xl font-semibold">{title}</p>
+                <p className="mt-2 text-sm text-white/38">{meta}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* PRICING */}
+      <section className="px-5 py-24 md:py-32">
+        <div className="mx-auto grid max-w-[1280px] gap-12 lg:grid-cols-[.82fr_1.18fr] lg:items-center">
           <div>
             <p className="s1-eyebrow">Simple Guard pricing</p>
-            <h2 className="s1-h1 mt-5 font-semibold">R2 per guard per day.</h2>
-            <p className="mt-5 max-w-2xl text-base leading-8 text-white/58">
-              Buying guard days gives your security company access to the Guard platform. Pricing is excluding VAT. Guard days carry over and the minimum purchase is 10 guard days.
+            <h2 className="mt-5 text-4xl font-semibold leading-[1.03] tracking-[-.045em] md:text-5xl">
+              R2 per guard per day.
+            </h2>
+            <p className="mt-5 max-w-xl text-base leading-8 text-white/54">
+              Buying guard days gives your security company access to the Guard
+              platform. Pricing is excluding VAT. Guard days carry over and
+              the minimum purchase is 10 guard days.
             </p>
-            <Link href="/pricing" className="mt-6 inline-flex text-sm font-semibold text-[#38BDF8] transition hover:text-[#7DD3FC]">
+            <Link
+              href="/pricing"
+              className="mt-6 inline-flex text-sm font-semibold text-[#38BDF8]"
+            >
               See full pricing details →
             </Link>
           </div>
@@ -374,21 +590,36 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="px-5 py-24 md:py-32">
-        <div className="mx-auto max-w-[1280px]">
-          <div className="rounded-[20px] border border-white/10 bg-[linear-gradient(125deg,rgba(14,165,233,.07),rgba(255,255,255,.025)_45%,rgba(15,19,26,.7))] p-7 md:p-10 lg:p-12">
+      {/* CLOSING */}
+      <section className="px-5 pb-24 md:pb-32">
+        <div className="relative mx-auto min-h-[420px] max-w-[1440px] overflow-hidden rounded-[24px] border border-white/10">
+          <Image
+            src="/images/story/hero.webp"
+            alt=""
+            fill
+            className="object-cover object-[64%_center] opacity-55"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,#0A0D12_0%,rgba(10,13,18,.88)_42%,rgba(10,13,18,.28)_100%)]" />
+          <div className="relative flex min-h-[420px] max-w-3xl flex-col justify-center p-7 md:p-12">
             <p className="s1-eyebrow">Start the flywheel</p>
-            <h2 className="mt-5 max-w-4xl text-3xl font-semibold tracking-[-.035em] md:text-5xl">
-              Win it. Staff it. Run it. Prove it. Repeat.
+            <h2 className="mt-5 text-4xl font-semibold leading-[1.02] tracking-[-.045em] md:text-6xl">
+              Win it. Staff it.
+              <span className="block text-[#38BDF8]">
+                Run it. Prove it. Repeat.
+              </span>
             </h2>
-            <p className="mt-5 max-w-2xl text-base leading-8 text-white/56">
-              Start with Guard, add the commercial and equipment layers your company needs, and build one operating record around the contracts you serve.
-            </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/get-started" className="s1-primary-action px-6 py-3 text-sm font-semibold">
+              <Link
+                href="/get-started"
+                className="s1-primary-action px-6 py-3 text-sm font-semibold"
+              >
                 Get started
               </Link>
-              <Link href="/contact" className="s1-secondary-action px-6 py-3 text-sm font-semibold">
+              <Link
+                href="/contact"
+                className="s1-secondary-action border-white/20 bg-black/20 px-6 py-3 text-sm font-semibold backdrop-blur-[12px]"
+              >
                 Talk to Signal One
               </Link>
             </div>
