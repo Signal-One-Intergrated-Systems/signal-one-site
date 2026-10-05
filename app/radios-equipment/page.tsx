@@ -97,9 +97,8 @@ export default function RadiosEquipmentPage() {
               </h2>
               <p className="s1-body mt-5 max-w-xl">
                 The public range below is limited to radio models whose core
-                specifications have been cross-checked against manufacturer
-                material. No P30 Pro model is published until its supplier
-                identity is confirmed.
+                specifications have been cross-checked against current
+                manufacturer material.
               </p>
             </div>
 
