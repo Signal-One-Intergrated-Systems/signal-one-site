@@ -58,6 +58,15 @@ export default function MarketplaceStore() {
   }, [category, query]);
 
   const cartCount = cart.reduce((sum, line) => sum + line.quantity, 0);
+  const quoteSummary = cart
+    .map((line) => {
+      const product = marketplaceProducts.find((item) => item.id === line.productId);
+      return (product?.name || line.productId) + " ×" + line.quantity + " (" + line.mode + ")";
+    })
+    .join("; ");
+  const quoteHref = cart.length
+    ? "/contact?intent=pricing&quote=" + encodeURIComponent(quoteSummary)
+    : "/marketplace";
 
   function selectedMode(product: MarketplaceProduct) {
     return modeByProduct[product.id] || product.offers[0].mode;
@@ -327,7 +336,7 @@ export default function MarketplaceStore() {
                   Final pricing, rental terms, subscriptions, stock and delivery are confirmed by Signal One after the configured quote request is reviewed.
                 </p>
                 <Link
-                  href={cart.length ? "/contact" : "/marketplace"}
+                  href={quoteHref}
                   onClick={() => setCartOpen(false)}
                   className="mt-4 flex w-full items-center justify-center rounded-[10px] bg-[#0EA5E9] px-5 py-3 text-sm font-semibold text-[#061019]"
                 >
