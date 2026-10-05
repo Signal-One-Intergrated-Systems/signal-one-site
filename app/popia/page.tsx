@@ -10,10 +10,10 @@ export default function PopiaPage() {
   return (
     <main className="min-h-screen bg-[var(--s1-surface-base)] px-5 pb-16 pt-28 text-white md:pt-32">
       <article className="mx-auto max-w-4xl">
-        <p className="s1-eyebrow">For legal review</p>
+        <p className="s1-eyebrow">Privacy & POPIA</p>
         <h1 className="s1-display mt-5 font-semibold">POPIA & data handling</h1>
         <p className="mt-6 text-base leading-8 text-white/72">
-          Signal One is designed to minimise unnecessary exposure of operational and personal information. This page is a draft operating statement and must be aligned with the final Information Officer, operator agreements, retention schedule and privacy notices.
+          Signal One is designed to minimise unnecessary exposure of operational and personal information. Product-specific privacy notices, operator responsibilities and retention requirements are confirmed in the relevant customer and service documentation.
         </p>
         <div className="mt-10 grid gap-4 md:grid-cols-2">
           {[
