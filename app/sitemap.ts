@@ -1,37 +1,48 @@
 import type { MetadataRoute } from "next";
 
 const base =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://signal-one-site.up.railway.app";
+  process.env.NEXT_PUBLIC_SITE_URL || "https://signalone.co.za";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
     "",
-    "/get-started",
     "/guard-marketplace",
     "/radios-equipment",
     "/pricing",
     "/solutions/security",
+    "/get-started",
+    "/contact",
     "/guards",
     "/guards/join",
-    "/contact",
+    "/security-trust",
+    "/privacy",
+    "/popia",
+    "/terms",
   ];
 
   return routes.map((route) => ({
     url: base + route,
     lastModified: new Date(),
     changeFrequency:
-      route === "" || route === "/guard-marketplace" || route === "/radios-equipment"
+      route === "" ||
+      route === "/guard-marketplace" ||
+      route === "/radios-equipment" ||
+      route === "/pricing"
         ? "weekly"
         : "monthly",
     priority:
       route === ""
         ? 1
-        : route === "/get-started" || route === "/pricing"
+        : route === "/pricing" ||
+            route === "/guard-marketplace" ||
+            route === "/radios-equipment"
           ? 0.9
-          : route === "/guard-marketplace" ||
-              route === "/radios-equipment" ||
-              route === "/solutions/security"
+          : route === "/solutions/security" ||
+              route === "/get-started" ||
+              route === "/contact"
             ? 0.85
-            : 0.7,
+            : route.startsWith("/guards")
+              ? 0.7
+              : 0.45,
   }));
 }
