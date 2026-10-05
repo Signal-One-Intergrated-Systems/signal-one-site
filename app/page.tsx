@@ -130,7 +130,7 @@ export default function Home() {
 
         <div className="absolute bottom-6 right-6 hidden items-center gap-3 text-right lg:flex">
           <div>
-            <p className="s1-mono text-[7px] text-white/32">Signal One</p>
+            <p className="s1-mono text-[11px] text-white/66">Signal One</p>
             <p className="mt-1 text-xs font-medium text-white/60">
               Security company operating platform
             </p>
@@ -168,7 +168,7 @@ export default function Home() {
               />
               <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,13,18,.04)_35%,rgba(10,13,18,.92)_100%)]" />
               <div className="absolute inset-x-0 bottom-0 p-6 md:p-8">
-                <p className="s1-mono text-[8px] text-[#7DD3FC]">
+                <p className="s1-mono text-[11px] text-[#7DD3FC]">
                   02 / STAFF + RUN
                 </p>
                 <h3 className="mt-3 max-w-xl text-2xl font-semibold tracking-[-.03em] md:text-3xl">
@@ -188,7 +188,7 @@ export default function Home() {
               />
               <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,13,18,.08)_10%,rgba(10,13,18,.88)_100%)]" />
               <div className="relative flex h-full flex-col justify-between p-6 md:p-8">
-                <p className="s1-mono text-[8px] text-[#7DD3FC]">01 / WIN</p>
+                <p className="s1-mono text-[11px] text-[#7DD3FC]">01 / WIN</p>
                 <div>
                   <p className="text-3xl font-semibold tracking-[-.04em]">
                     Lead → quote → contract.
@@ -211,7 +211,7 @@ export default function Home() {
               />
               <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,13,18,.86),rgba(10,13,18,.2))]" />
               <div className="relative flex h-full max-w-[60%] flex-col justify-end p-6 md:p-7">
-                <p className="s1-mono text-[8px] text-[#7DD3FC]">
+                <p className="s1-mono text-[11px] text-[#7DD3FC]">
                   03 / CONTROL
                 </p>
                 <p className="mt-3 text-xl font-semibold tracking-[-.025em]">
@@ -223,7 +223,7 @@ export default function Home() {
 
           <div className="mt-4 grid gap-4 md:grid-cols-[.9fr_1.1fr]">
             <div className="rounded-[20px] border border-white/10 bg-[#0F131A] p-7 md:p-9">
-              <p className="s1-mono text-[8px] text-[#7DD3FC]">04 / PROVE</p>
+              <p className="s1-mono text-[11px] text-[#7DD3FC]">04 / PROVE</p>
               <p className="mt-4 max-w-xl text-2xl font-semibold tracking-[-.03em] md:text-3xl">
                 The service record should be created by the operation — not
                 reconstructed after it.
@@ -269,7 +269,7 @@ export default function Home() {
               {["Win", "Hire", "Run", "Equip", "Prove", "Grow"].map(
                 (label, index) => (
                   <div key={label} className="flex items-center gap-2">
-                    <span className="s1-mono text-[7px] text-[#38BDF8]">
+                    <span className="s1-mono text-[11px] text-[#38BDF8]">
                       0{index + 1}
                     </span>
                     <span className="text-xs font-semibold text-white/66">
@@ -297,7 +297,7 @@ export default function Home() {
               team a working system for leads, pipeline, next actions, quotes,
               conversations and coaching.
             </p>
-            <p className="mt-5 max-w-xl text-sm leading-7 text-white/40">
+            <p className="mt-5 max-w-xl text-sm leading-7 text-white/68">
               Signal One provides the sales operating system. Your company
               provides the sales team.
             </p>
@@ -308,7 +308,7 @@ export default function Home() {
             <div className="relative">
               <div className="flex items-center justify-between border-b border-white/10 pb-5">
                 <div>
-                  <p className="s1-mono text-[8px] text-[#7DD3FC]">
+                  <p className="s1-mono text-[11px] text-[#7DD3FC]">
                     Sales OS
                   </p>
                   <p className="mt-2 text-sm font-semibold text-white/72">
@@ -325,7 +325,7 @@ export default function Home() {
                     className="flex items-center justify-between gap-6 py-4"
                   >
                     <div className="flex items-center gap-4">
-                      <span className="s1-mono text-[7px] text-white/22">
+                      <span className="s1-mono text-[11px] text-white/66">
                         0{index + 1}
                       </span>
                       <span className="text-sm font-medium text-white/70">
@@ -362,7 +362,7 @@ export default function Home() {
               />
               <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,13,18,.04),rgba(10,13,18,.38))]" />
               <div className="absolute bottom-6 left-6 rounded-[12px] border border-white/14 bg-[#0A0D12]/74 px-4 py-3 backdrop-blur-[14px]">
-                <p className="s1-mono text-[7px] text-[#7DD3FC]">
+                <p className="s1-mono text-[11px] text-[#7DD3FC]">
                   PRIVATE CLIENT WORKSPACE
                 </p>
                 <p className="mt-1.5 text-xs text-white/62">
@@ -386,7 +386,7 @@ export default function Home() {
                 send a request to hire before accepted guards move into the
                 workforce and site-allocation flow.
               </p>
-              <p className="mt-4 text-sm leading-7 text-white/40">
+              <p className="mt-4 text-sm leading-7 text-white/68">
                 Guard already records PSiRA number, grade and expiry and blocks
                 invalid assignments. Official external PSiRA verification is not
                 claimed until that integration is confirmed.
@@ -447,13 +447,13 @@ export default function Home() {
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {guardCapabilities.map(([title, body], index) => (
               <article key={title} className="border-l border-white/12 pl-5">
-                <p className="s1-mono text-[7px] text-[#38BDF8]">
+                <p className="s1-mono text-[11px] text-[#38BDF8]">
                   0{index + 1}
                 </p>
                 <h3 className="mt-3 text-base font-semibold text-white/82">
                   {title}
                 </h3>
-                <p className="mt-2 text-sm leading-7 text-white/42">{body}</p>
+                <p className="mt-2 text-sm leading-7 text-white/68">{body}</p>
               </article>
             ))}
           </div>
@@ -619,7 +619,7 @@ export default function Home() {
                 <div key={title} className="rounded-[13px] border border-white/12 bg-[#0A0D12]/76 p-4 backdrop-blur-[12px]">
                   <p className="s1-mono text-[11px] text-[#86EFAC]">{state}</p>
                   <p className="mt-2 text-sm font-semibold">{title}</p>
-                  <p className="mt-1 text-[11px] text-white/38">Extra cost</p>
+                  <p className="mt-1 text-[11px] text-white/66">Extra cost</p>
                 </div>
               ))}
             </div>
