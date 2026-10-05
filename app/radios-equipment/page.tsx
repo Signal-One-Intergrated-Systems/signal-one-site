@@ -3,59 +3,57 @@ import Image from "next/image";
 import EquipmentQuoteForm from "../components/EquipmentQuoteForm";
 
 export const metadata: Metadata = {
-  title: "Radios & Equipment",
+  title: "Radios & Tracking",
   description:
-    "Rent Signal One PoC radios and request tracking equipment for security operations. Rental periods: 12, 24 or 36 months.",
+    "Request Signal One PoC radio rental, radio purchases, PTT services, vehicle tracking and body-camera equipment for security operations.",
 };
 
-const radios = [
+const radioProducts = [
   {
-    model: "Hytera PNC360S",
-    label: "Compact professional PoC radio",
-    useCase:
-      "For security teams that need a compact LTE/Wi-Fi push-to-talk device with strong audio and rugged field protection.",
-    specs: [
-      "LTE / WCDMA / GSM cellular support",
-      "1.77-inch display",
-      "4,000 mAh battery",
-      "Wi-Fi 2.4 GHz",
-      "Bluetooth 4.1",
-      "GPS / BDS / GLONASS / AGPS positioning",
-      "IP67 protection",
-      "Approx. 190 g with belt clip",
-    ],
+    model: "PNC360S PoC radio",
+    commercial: "Rental · quote only",
+    body: "The current Signal One catalogue rental combines the device with RoIP and data for a monthly deployment.",
+    facts: ["PoC radio device", "RoIP service", "Data included in the catalogue rental", "Final term and stock confirmed by quote"],
   },
   {
-    model: "Hytera P30",
-    label: "Professional lightweight PoC radio",
-    useCase:
-      "For guarding and field teams that need simple push-to-talk communications in a lightweight handheld form factor.",
-    specs: [
-      "2G / 3G / LTE cellular support",
-      "1.77-inch 128×160 display",
-      "3,300 mAh battery",
-      "Up to 3 W audio",
-      "Nano SIM",
-      "Optional GPS / BDS / GLONASS positioning",
-      "IP54 protection",
-      "Approx. 170 g without belt clip",
-    ],
+    model: "P30 Lite PoC radio",
+    commercial: "Rental · quote only",
+    body: "A current catalogue rental option for security and field communications, with communications and SOS positioned as part of the service.",
+    facts: ["PoC communications", "SOS capability", "SIM and data included", "Platform access included"],
   },
   {
-    model: "Caltta e600",
-    label: "Rugged broadband PoC radio",
-    useCase:
-      "For field teams that need a larger battery, rugged enclosure and Android-based broadband communications device.",
-    specs: [
-      "LTE / WCDMA / GSM plus Wi-Fi",
-      "5,100 mAh battery",
-      "Customised Android 8",
-      "512 MB RAM + 4 GB storage",
-      "GPS / AGPS positioning",
-      "Wi-Fi 2.4 GHz",
-      "Bluetooth support",
-      "IP68 protection",
-    ],
+    model: "E600 PoC LTE radio",
+    commercial: "Purchase · quote",
+    body: "An outright PoC LTE radio option in the current commercial catalogue for teams that want to own the hardware.",
+    facts: ["PoC LTE radio", "Outright equipment purchase", "PTT service can be scoped separately", "Final configuration confirmed before quote"],
+  },
+] as const;
+
+const connectedProducts = [
+  {
+    title: "FMC920 vehicle tracker",
+    status: "Live",
+    body: "2G/4G vehicle-tracker hardware in the current catalogue. Hardware and deployment terms are confirmed by quote.",
+  },
+  {
+    title: "FMB920 vehicle tracker",
+    status: "Live",
+    body: "2G vehicle-tracker hardware in the current catalogue for supported deployments.",
+  },
+  {
+    title: "Tracker platform",
+    status: "Live",
+    body: "Per-device tracking-platform subscription exists in the commercial catalogue. The exact provider and deployment scope are confirmed in the quote.",
+  },
+  {
+    title: "SC780 body camera",
+    status: "Live",
+    body: "A 24-month body-camera rental product exists in the current catalogue. Public pricing is not shown.",
+  },
+  {
+    title: "Manage inside Guard",
+    status: "Coming soon",
+    body: "Direct PTT, tracking and body-camera controls inside Guard are not presented as live yet.",
   },
 ] as const;
 
@@ -67,22 +65,19 @@ export default function RadiosEquipmentPage() {
           <div className="absolute right-0 top-0 -z-10 h-80 w-80 rounded-full bg-[#0EA5E9]/[.06] blur-[100px]" />
           <div className="grid gap-10 lg:grid-cols-[.95fr_1.05fr] lg:items-end">
             <div>
-              <p className="s1-eyebrow">Radios & Equipment</p>
+              <p className="s1-eyebrow">Radios & Tracking</p>
               <h1 className="s1-display mt-5 max-w-4xl font-semibold">
-                Rent the field equipment
-                <span className="block text-[#38BDF8]">the contract needs.</span>
+                Equip the contract
+                <span className="block text-[#38BDF8]">without buying blind.</span>
               </h1>
             </div>
             <div>
-              <p className="text-lg leading-8 text-white/62">
-                Signal One supplies PoC radios and can scope tracking equipment
-                alongside the operating platform. Radios are rental-by-quote
-                only, with 12, 24 or 36 month rental periods.
+              <p className="text-lg leading-8 text-white/64">
+                Rent PoC radios, buy supported equipment, or request tracking and body-camera products from the current Signal One catalogue.
+                Radio rentals remain quote-only.
               </p>
-              <p className="mt-4 text-sm leading-7 text-white/42">
-                Final availability, accessories, network requirements and
-                commercial terms are confirmed for the deployment before a
-                rental is accepted.
+              <p className="mt-4 text-sm leading-7 text-white/55">
+                Stock, final configuration, network requirements, accessories, insurance and support terms are confirmed for the actual deployment rather than assumed on the website.
               </p>
             </div>
           </div>
@@ -91,14 +86,12 @@ export default function RadiosEquipmentPage() {
         <section className="py-12 md:py-16">
           <div className="grid gap-10 lg:grid-cols-[.78fr_1.22fr] lg:items-start">
             <div>
-              <p className="s1-eyebrow">PoC radio range</p>
+              <p className="s1-eyebrow">PoC radio catalogue</p>
               <h2 className="s1-h2 mt-5 max-w-xl font-semibold">
-                Professional cellular push-to-talk devices.
+                Start with the radios Signal One is actually set up to quote.
               </h2>
               <p className="s1-body mt-5 max-w-xl">
-                The public range below is limited to radio models whose core
-                specifications have been cross-checked against current
-                manufacturer material.
+                The commercial facts below come from the current internal product catalogue. We do not publish a radio rental price until the deployment is quoted.
               </p>
             </div>
 
@@ -115,111 +108,79 @@ export default function RadiosEquipmentPage() {
           </div>
 
           <div className="mt-12 grid gap-4 lg:grid-cols-3">
-            {radios.map((radio) => (
-              <article
-                key={radio.model}
-                className="rounded-[18px] border border-white/10 bg-[#0F131A] p-6"
-              >
-                <p className="s1-mono text-[8px] text-[#38BDF8]">
-                  Rental · quote only
-                </p>
-                <h3 className="mt-4 text-2xl font-semibold tracking-[-.03em]">
-                  {radio.model}
-                </h3>
-                <p className="mt-2 text-sm font-medium text-white/50">
-                  {radio.label}
-                </p>
-                <p className="mt-5 text-sm leading-7 text-white/44">
-                  {radio.useCase}
-                </p>
-
-                <div className="mt-6 border-t border-white/10 pt-5">
-                  <p className="s1-mono text-[8px] text-white/28">
-                    Verified core specifications
-                  </p>
-                  <ul className="mt-4 space-y-2.5 text-xs leading-6 text-white/46">
-                    {radio.specs.map((spec) => (
-                      <li key={spec} className="flex gap-2">
-                        <span className="mt-[9px] h-1 w-1 shrink-0 rounded-full bg-[#38BDF8]" />
-                        <span>{spec}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+            {radioProducts.map((radio) => (
+              <article key={radio.model} className="rounded-[18px] border border-white/10 bg-[#0F131A] p-6">
+                <p className="s1-mono text-[#38BDF8]">{radio.commercial}</p>
+                <h3 className="mt-4 text-2xl font-semibold tracking-[-.03em]">{radio.model}</h3>
+                <p className="mt-5 text-sm leading-7 text-white/58">{radio.body}</p>
+                <ul className="mt-6 space-y-2.5 border-t border-white/10 pt-5 text-sm leading-6 text-white/60">
+                  {radio.facts.map((fact) => (
+                    <li key={fact} className="flex gap-2">
+                      <span className="mt-[9px] h-1 w-1 shrink-0 rounded-full bg-[#38BDF8]" />
+                      <span>{fact}</span>
+                    </li>
+                  ))}
+                </ul>
               </article>
             ))}
           </div>
         </section>
 
-        <section className="grid gap-10 border-y border-white/10 py-12 lg:grid-cols-[.82fr_1.18fr] lg:items-start md:py-16">
-          <div>
-            <p className="s1-eyebrow">Tracking</p>
-            <h2 className="s1-h2 mt-5 max-w-xl font-semibold">
-              Vehicle tracking, asset tracking and tracking devices.
-            </h2>
-            <p className="s1-body mt-5 max-w-xl">
-              Tracking remains a commercial category rather than a named public
-              hardware range for now. Signal One can scope tracking against the
-              operating requirement and confirm the exact device before quote.
-            </p>
-          </div>
+        <section className="border-y border-white/10 py-12 md:py-16">
+          <div className="grid gap-10 lg:grid-cols-[.82fr_1.18fr] lg:items-start">
+            <div>
+              <p className="s1-eyebrow">Tracking & body camera</p>
+              <h2 className="s1-h2 mt-5 max-w-xl font-semibold">
+                Add the devices the operation needs.
+              </h2>
+              <p className="s1-body mt-5 max-w-xl">
+                Tracking and body-camera products are commercial catalogue items. Direct control of those capabilities from inside Guard remains a separate product integration and is labelled honestly below.
+              </p>
+            </div>
 
-          <div className="grid gap-3 sm:grid-cols-2">
-            {[
-              [
-                "Vehicle tracking",
-                "For response vehicles, patrol vehicles and other mobile fleet assets.",
-              ],
-              [
-                "Asset tracking",
-                "For equipment and operational assets that need location visibility.",
-              ],
-              [
-                "Tracking devices",
-                "Hardware selection is confirmed against the environment, power, network and mounting requirement.",
-              ],
-              [
-                "Guard integration",
-                "Direct Tracking on/off controls inside Guard are planned, not currently presented as live.",
-              ],
-            ].map(([title, body]) => (
-              <article
-                key={title}
-                className="rounded-[16px] border border-white/10 bg-[#0F131A] p-5"
-              >
-                <h3 className="text-base font-semibold text-white/80">{title}</h3>
-                <p className="mt-2 text-sm leading-7 text-white/42">{body}</p>
-              </article>
-            ))}
+            <div className="grid gap-3 sm:grid-cols-2">
+              {connectedProducts.map((product) => (
+                <article key={product.title} className="rounded-[16px] border border-white/10 bg-[#0F131A] p-5">
+                  <div className="flex items-start justify-between gap-3">
+                    <h3 className="text-base font-semibold text-white/84">{product.title}</h3>
+                    <span className={
+                      "rounded-full border px-2.5 py-1 text-[11px] font-semibold " +
+                      (product.status === "Live"
+                        ? "border-[#22C55E]/25 bg-[#22C55E]/[.06] text-[#86EFAC]"
+                        : "border-[#38BDF8]/25 bg-[#0EA5E9]/[.06] text-[#7DD3FC]")
+                    }>
+                      {product.status}
+                    </span>
+                  </div>
+                  <p className="mt-3 text-sm leading-7 text-white/58">{product.body}</p>
+                </article>
+              ))}
+            </div>
           </div>
         </section>
 
         <section className="grid gap-10 py-12 lg:grid-cols-[.8fr_1.2fr] lg:items-start md:py-16">
           <div>
-            <p className="s1-eyebrow">How rental works</p>
+            <p className="s1-eyebrow">How the quote works</p>
             <h2 className="s1-h2 mt-5 max-w-xl font-semibold">
-              No cart. No invented online price.
+              Tell us what the site needs. We confirm the commercial model.
             </h2>
             <p className="s1-body mt-5 max-w-xl">
-              Tell Signal One what the site or contract needs. We confirm the
-              product, quantity, rental period, availability and final quote
-              before anything is supplied.
+              Radio rental, equipment purchases, platform subscriptions and tracking requirements do not all use the same term. The form changes with the product instead of forcing one commercial model onto everything.
             </p>
 
             <div className="mt-8 space-y-5 border-t border-white/10 pt-7">
               {[
-                ["01", "Choose a product", "Select a radio or tracking requirement."],
-                ["02", "Set quantity & term", "Choose 12, 24 or 36 months for radio rentals."],
-                ["03", "Confirm the deployment", "Signal One checks product fit, accessories, network and availability."],
-                ["04", "Receive the quote", "Commercial terms are confirmed before rental acceptance."],
+                ["01", "Choose the product", "Select the radio, PTT, tracking or body-camera requirement."],
+                ["02", "Set the quantity", "Tell us how many units or devices the deployment needs."],
+                ["03", "Confirm deployment details", "Signal One checks stock, connectivity, configuration and applicable terms."],
+                ["04", "Receive the quote", "Nothing is accepted until the final commercial terms are confirmed."],
               ].map(([number, title, body]) => (
-                <div key={number} className="grid grid-cols-[34px_1fr] gap-4">
-                  <span className="s1-mono pt-1 text-[8px] text-[#38BDF8]">
-                    {number}
-                  </span>
+                <div key={number} className="grid grid-cols-[36px_1fr] gap-4">
+                  <span className="s1-mono pt-1 text-[#38BDF8]">{number}</span>
                   <div>
-                    <h3 className="text-sm font-semibold text-white/80">{title}</h3>
-                    <p className="mt-1 text-sm leading-6 text-white/40">{body}</p>
+                    <h3 className="text-sm font-semibold text-white/82">{title}</h3>
+                    <p className="mt-1 text-sm leading-6 text-white/58">{body}</p>
                   </div>
                 </div>
               ))}
