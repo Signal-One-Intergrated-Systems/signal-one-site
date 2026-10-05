@@ -21,9 +21,9 @@ export default function PricingPage() {
           </div>
           <div className="max-w-2xl">
             <p className="text-lg leading-8 text-white/62">
-              Buying guard days gives your security company access to the
-              Signal One Guard platform. You only calculate the guards and
-              days you want to cover.
+              Buying guard days gives your security company access to Signal One Guard.
+              A guard day is used when an allocated guard clocks into a scheduled shift
+              on site; clock-out closes that service record.
             </p>
             <p className="mt-4 text-sm leading-7 text-white/42">
               Pricing is excluding VAT. Guard days carry over. Minimum
@@ -32,7 +32,7 @@ export default function PricingPage() {
           </div>
         </section>
 
-        <section className="grid gap-10 py-12 lg:grid-cols-[.78fr_1.22fr] lg:items-start md:py-16">
+        <section id="calculator" className="grid scroll-mt-24 gap-10 py-12 lg:grid-cols-[.78fr_1.22fr] lg:items-start md:py-16">
           <div>
             <p className="s1-eyebrow">Calculate</p>
             <h2 className="s1-h2 mt-5 max-w-xl font-semibold">
@@ -85,10 +85,11 @@ export default function PricingPage() {
               Guard platform access is priced in guard days.
             </h2>
             <p className="s1-body mt-5 max-w-2xl">
-              Guard supports the operating workflows used to run security
-              sites: attendance, patrol verification, incidents, occurrence
-              records, SOS, operational exceptions, Control Room and
-              proof-of-service workflows.
+              Guard supports attendance, site and shift operations, patrol verification,
+              incidents, occurrence records, SOS, Control Room and proof-of-service workflows.
+              Authorised client users access their service evidence through the Guard client
+              experience. Signal One Sales OS is an internal sales workspace and is not sold
+              as part of the guard-day price.
             </p>
           </div>
 

@@ -60,9 +60,17 @@ export default function ContactPage() {
                 ))}
               </div>
 
-              <p className="mt-8 text-xs leading-5 text-white/32">
-                Signal One serves South African security operators. Company and rollout details are confirmed directly during onboarding rather than inferred from a public form.
-              </p>
+              <div className="mt-8 border-t border-white/10 pt-6">
+                <p className="text-xs font-semibold uppercase tracking-[.14em] text-white/58">Talk to a person</p>
+                <div className="mt-3 grid gap-2 text-sm">
+                  <a href="tel:+27100231810" className="text-white/70 transition hover:text-[#7DD3FC]">Call · +27 10 023 1810</a>
+                  <a href="https://wa.me/27606335870" className="text-white/70 transition hover:text-[#7DD3FC]">WhatsApp · +27 60 633 5870</a>
+                  <a href="mailto:sales@signalone.co.za" className="text-white/70 transition hover:text-[#7DD3FC]">Email · sales@signalone.co.za</a>
+                </div>
+                <p className="mt-4 text-xs leading-5 text-white/58">
+                  The WhatsApp number is a direct business contact channel. Automated WhatsApp messaging is not claimed as part of this website flow.
+                </p>
+              </div>
             </div>
 
             <IntakeForm

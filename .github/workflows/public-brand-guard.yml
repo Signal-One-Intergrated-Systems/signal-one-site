@@ -1,0 +1,32 @@
+name: Public site quality
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  public-site-quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout review commit
+        shell: bash
+        run: |
+          git init .
+          git remote add origin "https://github.com/${GITHUB_REPOSITORY}.git"
+          git fetch --depth=1 origin "${GITHUB_SHA}"
+          git checkout --detach FETCH_HEAD
+      - name: Install
+        run: npm ci
+      - name: Check public branding
+        run: npm run check:public-brand
+      - name: Check internal links
+        run: npm run check:internal-links
+      - name: Lint
+        run: npm run lint
+      - name: Build
+        run: npm run build

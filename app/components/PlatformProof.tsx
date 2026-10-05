@@ -53,6 +53,7 @@ export default function PlatformProof() {
           <button
             key={item.id}
             type="button"
+            aria-pressed={active === item.id}
             onClick={() => setActive(item.id)}
             className={
               "rounded-[10px] px-3.5 py-2 text-xs font-semibold transition duration-200 " +

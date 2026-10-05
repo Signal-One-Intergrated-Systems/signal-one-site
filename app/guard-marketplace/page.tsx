@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Guard Marketplace",
   description:
-    "The planned Signal One Guard Marketplace will let paying security-company clients find eligible guards and send hire requests through the Guard app.",
+    "Signal One Guard Marketplace is an MVP hiring workflow being built for authenticated security-company clients to find suitable guards and send hire requests through Guard.",
 };
 
 const fields = [
@@ -32,7 +32,7 @@ export default function GuardMarketplacePage() {
             <div className="flex flex-wrap items-center gap-3">
               <p className="s1-eyebrow">Guard Marketplace</p>
               <span className="s1-mono rounded-[8px] border border-[#38BDF8]/22 bg-[#0EA5E9]/[.055] px-2.5 py-1 text-[8px] font-semibold text-[#7DD3FC]">
-                Target product
+                Coming soon
               </span>
             </div>
             <h1 className="s1-display mt-5 max-w-4xl font-semibold">
@@ -42,10 +42,10 @@ export default function GuardMarketplacePage() {
           </div>
           <div>
             <p className="text-lg leading-8 text-white/62">
-              Guard Marketplace is the planned hiring layer inside the Signal One flywheel. It will be available only to paying Signal One security-company clients—guard profiles will never be publicly browsable.
+              Guard Marketplace is part of the Signal One MVP. The client-facing browse, shortlist and request-to-hire experience is being built now for authenticated Signal One security-company clients—guard profiles will never be publicly browsable.
             </p>
             <p className="mt-4 text-sm leading-7 text-white/42">
-              The public page explains the workflow. It does not expose real guard identities, employment documents or private profile data.
+              This public page explains the MVP workflow using structure only. It does not expose real guard identities, employment documents or private profile data.
             </p>
           </div>
         </section>
@@ -62,7 +62,7 @@ export default function GuardMarketplacePage() {
             <div className="mt-7 rounded-[14px] border border-[#22C55E]/20 bg-[#22C55E]/[.045] p-5">
               <p className="s1-mono text-[8px] font-semibold text-[#86EFAC]">Current Guard foundation</p>
               <p className="mt-3 text-sm leading-7 text-white/52">
-                Guard already supports mobile offers that a guard can accept or decline. The full browse → request hire → workforce allocation lifecycle is the planned extension.
+                Guard already supports mobile shift offers that a guard can accept or decline. Marketplace browse, shortlist and request-to-hire are the Coming soon layer that will feed accepted guards into the existing workforce and shift lifecycle.
               </p>
             </div>
           </div>
@@ -74,7 +74,7 @@ export default function GuardMarketplacePage() {
                 <p className="mt-2 text-sm font-semibold text-white/80">Guard profile anatomy</p>
               </div>
               <span className="rounded-[8px] border border-white/10 px-2.5 py-1 text-[10px] font-medium text-white/42">
-                Demo structure only
+                Synthetic demo structure
               </span>
             </div>
 
@@ -88,7 +88,7 @@ export default function GuardMarketplacePage() {
               <div className="rounded-[14px] border border-[#38BDF8]/18 bg-[#0EA5E9]/[.04] p-4 sm:col-span-2">
                 <div className="flex items-center justify-between gap-4">
                   <p className="text-sm font-semibold text-white/74">Rating</p>
-                  <span className="s1-mono text-[8px] text-[#7DD3FC]">Planned</span>
+                  <span className="s1-mono text-[8px] text-[#7DD3FC]">Coming soon</span>
                 </div>
                 <p className="mt-2 text-xs leading-6 text-white/38">
                   The target rating combines company ratings, historical operational performance and an internal Signal One score. It will not be shown publicly until that scoring model is implemented.
@@ -133,13 +133,13 @@ export default function GuardMarketplacePage() {
           <div>
             <p className="s1-eyebrow">PSiRA eligibility</p>
             <h2 className="s1-h2 mt-5 max-w-2xl font-semibold">
-              Marketplace eligibility will use live PSiRA verification.
+              Marketplace eligibility starts with the PSiRA registration record.
             </h2>
             <p className="s1-body mt-5 max-w-2xl">
-              Guard already contains a live verification integration against PSiRA&apos;s official individual verification service. It can compare the supplied ID number and PSiRA reference and reject mismatched registration details, grade or expiry.
+              Guard currently records the PSiRA number, grade and expiry, calculates registration status and applies those registration rules when a guard is assigned. External verification against an official PSiRA service is not presented as Live until that integration is proven.
             </p>
             <p className="mt-4 max-w-2xl text-sm leading-7 text-white/42">
-              The Marketplace itself is still a target product, so the website does not yet claim that every visible profile has passed a Marketplace eligibility gate.
+              The Marketplace is Coming soon, so the website does not claim that a synthetic demo profile has passed an external verification gate.
             </p>
           </div>
 
@@ -149,7 +149,7 @@ export default function GuardMarketplacePage() {
               <li>• No public guard search.</li>
               <li>• No public profile identities.</li>
               <li>• No public employment documents.</li>
-              <li>• No invented “verified” badges.</li>
+              <li>• No blanket “verified” badge unless the exact check is defined and performed.</li>
               <li>• Hiring requests go through the authenticated Signal One relationship.</li>
             </ul>
           </div>
