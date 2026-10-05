@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import EquipmentQuoteForm from "../components/EquipmentQuoteForm";
+import { premiumImages } from "../lib/premiumImages";
 
 export const metadata: Metadata = {
   title: "Radios & Tracking",
@@ -85,9 +86,10 @@ export default function RadiosEquipmentPage() {
 
             <div className="relative min-h-[300px] overflow-hidden rounded-[18px] border border-white/10 bg-[#0A0D12]">
               <Image
-                src="/images/Devices/poc/hero-radios.jpg"
-                alt="Push-to-talk radio equipment"
+                src={premiumImages.radioTracking}
+                alt="Illustrative field security team using radios and tracking equipment"
                 fill
+                quality={92}
                 className="object-cover object-center opacity-72"
                 sizes="(min-width:1024px) 58vw,100vw"
               />
