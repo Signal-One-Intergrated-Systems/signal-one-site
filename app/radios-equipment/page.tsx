@@ -32,13 +32,13 @@ const radioProducts = [
 const connectedProducts = [
   {
     title: "FMC920 vehicle tracker",
-    status: "Live",
-    body: "2G/4G vehicle-tracker hardware in the current catalogue. Hardware and deployment terms are confirmed by quote.",
+    status: "Coming soon",
+    body: "2G/4G vehicle-tracker hardware exists in the internal catalogue but is still in draft lifecycle, so it is not presented as a live public product.",
   },
   {
     title: "FMB920 vehicle tracker",
-    status: "Live",
-    body: "2G vehicle-tracker hardware in the current catalogue for supported deployments.",
+    status: "Coming soon",
+    body: "2G vehicle-tracker hardware exists in the internal catalogue but is not yet quote-enabled on the public product path.",
   },
   {
     title: "Tracker platform",
