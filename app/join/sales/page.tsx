@@ -6,20 +6,20 @@ import OnboardingJourney, {
 
 export const metadata: Metadata = {
   title: "Join Signal One Sales",
-  description: "Apply to join Signal One Sales and work from Signal One Sales OS.",
+  description: "Apply for one of Signal One’s current internal sales representative vacancies.",
 };
 
 const world: JourneyWorld = {
   kind: "sales",
   storageKey: "signal-one-sales-onboarding-v2",
-  badge: "Sales representative onboarding",
-  welcomeTitle: "Your next sales environment is a cockpit, not a spreadsheet.",
+  badge: "Signal One careers · 10 current sales vacancies",
+  welcomeTitle: "Apply to work as a Signal One sales representative.",
   welcomeBody:
-    "Signal One Sales brings customer conversations, leads, pipeline, quoting, performance, training and sales packs into one working environment. This journey tells us whether the role is a fit.",
+    "These are internal Signal One roles. Our customers provide their own sales teams; this application is only for candidates who want to work for Signal One. We are currently recruiting up to 10 sales representatives.",
   welcomePoints: [
-    "Introduce yourself and where you want to sell.",
+    "Give us your basic contact and location information.",
     "Show us your B2B and security-industry experience.",
-    "Tell us what you can bring to the Signal One sales network.",
+    "If shortlisted, continue to CV review and an interview slot when calendar availability is opened.",
   ],
   image: "/images/What-we-deliver/communications.jpg",
   imageAlt: "Signal One commercial communications environment",
@@ -27,7 +27,7 @@ const world: JourneyWorld = {
   accentRgb: "14,165,233",
   completionTitle: "Your Signal One Sales application is in.",
   completionBody:
-    "If approved, the next stages are workforce setup, training, sales packs, commission setup and activation into Signal One Sales OS.",
+    "If shortlisted, Signal One will move the application into CV review and offer an interview slot when administrator-approved calendar availability is open. Hiring, onboarding, training and Sales OS access follow only after approval.",
   completionHref: "/#platform",
   completionCta: "Explore Signal One",
 };
@@ -84,15 +84,15 @@ const steps: JourneyStep[] = [
   {
     id: "motivation",
     eyebrow: "04 · Fit",
-    title: "Why Signal One?",
-    body: "Give us the short version of the network, skills and ambition you would bring.",
+    title: "Why do you want to work for Signal One?",
+    body: "Give us the short version of the experience, relationships and discipline you would bring to an internal Signal One sales role.",
     fields: [
       {
         name: "motivation",
         label: "Your case",
         type: "textarea",
         required: true,
-        placeholder: "Tell us about your experience, network and what you want to build.",
+        placeholder: "Tell us why you want the role, what you have sold and the relationships or skills you would bring.",
       },
     ],
   },
