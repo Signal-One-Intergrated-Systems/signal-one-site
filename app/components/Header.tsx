@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 const nav = [
   { href: "/#platform", label: "Platform" },
   { href: "/guard-marketplace", label: "Guard Marketplace" },
-  { href: "/radios-equipment", label: "Radios & Equipment" },
+  { href: "/radios-equipment", label: "Radios & Tracking" },
   { href: "/pricing", label: "Pricing" },
 ] as const;
 
@@ -40,7 +40,7 @@ export default function Header() {
             <span className="block truncate text-[15px] font-semibold tracking-[.15em] text-[#F1F5F9]">
               SIGNAL <span className="text-[#0EA5E9]">ONE</span>
             </span>
-            <span className="s1-mono mt-0.5 block truncate text-[8px] text-white/38">
+            <span className="s1-mono mt-0.5 block truncate text-[11px] text-white/68">
               Security company operating platform
             </span>
           </span>
@@ -51,7 +51,7 @@ export default function Header() {
             <Link
               key={item.href}
               href={item.href}
-              className="rounded-[8px] px-3.5 py-2.5 text-sm font-medium text-white/60 transition duration-200 hover:bg-white/[.04] hover:text-white"
+              className="rounded-[8px] px-3.5 py-2.5 text-sm font-medium text-white/72 transition duration-200 hover:bg-white/[.04] hover:text-white"
             >
               {item.label}
             </Link>
@@ -92,7 +92,7 @@ export default function Header() {
                   key={item.href}
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className="rounded-[10px] px-3 py-3 text-sm font-medium text-white/68 transition hover:bg-white/[.05] hover:text-white"
+                  className="rounded-[10px] px-3 py-3 text-sm font-medium text-white/76 transition hover:bg-white/[.05] hover:text-white"
                 >
                   {item.label}
                 </Link>
