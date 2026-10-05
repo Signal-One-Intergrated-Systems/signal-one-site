@@ -1,11 +1,14 @@
 import type { MetadataRoute } from "next";
 
-const base = "https://signal-one-site.vercel.app";
+const base = process.env.NEXT_PUBLIC_SITE_URL || "https://signal-one-site.up.railway.app";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
     "",
     "/get-started",
+    "/guard-marketplace",
+    "/radios-equipment",
+    "/pricing",
     "/join/sales",
     "/guards",
     "/guards/join",
