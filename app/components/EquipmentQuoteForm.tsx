@@ -6,11 +6,13 @@ import { trackEvent } from "../lib/analytics";
 type QuoteState = "idle" | "sending" | "done" | "error";
 
 const products = [
-  "Hytera PNC360S",
-  "Hytera P30",
-  "Caltta e600",
-  "Vehicle tracking",
-  "Asset tracking",
+  "PNC360S radio rental",
+  "P30 Lite PoC radio rental",
+  "E600 PoC LTE radio",
+  "PTT platform + SIM & data",
+  "FMC920 vehicle tracker",
+  "FMB920 vehicle tracker",
+  "SC780 body camera rental",
   "Other / mixed requirement",
 ] as const;
 
@@ -31,7 +33,9 @@ export default function EquipmentQuoteForm() {
     notes: "",
   });
 
-  const isTracking = values.product === "Vehicle tracking" || values.product === "Asset tracking";
+  const isTracking =
+    values.product === "FMC920 vehicle tracker" ||
+    values.product === "FMB920 vehicle tracker";
 
   function update(name: keyof typeof values, value: string) {
     setValues((current) => ({ ...current, [name]: value }));
