@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Website Terms",
-  description: "Draft Signal One public website terms for legal review.",
+  description: "Signal One public website terms for product information, pricing and acceptable use.",
+  alternates: { canonical: "/terms" },
 };
 
 export default function TermsPage() {
