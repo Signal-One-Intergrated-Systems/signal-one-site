@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-const ALLOWED_EVENTS = new Set(["page_view", "buyer_click"]);
+const ALLOWED_EVENTS = new Set(["page_view", "buyer_click", "lead_form_start", "lead_form_submit"]);
 
 export async function POST(request: Request) {
   let body: unknown;
