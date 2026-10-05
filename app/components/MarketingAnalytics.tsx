@@ -56,6 +56,7 @@ const trackedPaths = new Set([
   "/contact",
   "/marketplace",
   "/get-started",
+  "/insights",
 ]);
 
 export default function MarketingAnalytics() {
@@ -75,7 +76,11 @@ export default function MarketingAnalytics() {
       if (!rawHref.startsWith("/")) return;
 
       const url = new URL(rawHref, window.location.origin);
-      if (!trackedPaths.has(url.pathname) && !url.pathname.startsWith("/solutions/security/")) {
+      if (
+        !trackedPaths.has(url.pathname) &&
+        !url.pathname.startsWith("/solutions/security/") &&
+        !url.pathname.startsWith("/insights/")
+      ) {
         return;
       }
 
