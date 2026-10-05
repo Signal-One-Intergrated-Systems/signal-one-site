@@ -21,14 +21,16 @@ export default function PricingPage() {
             </h1>
           </div>
           <div className="max-w-2xl">
-            <p className="text-lg leading-8 text-white/62">
+            <p className="text-lg leading-8 text-white/72">
               Buying guard days gives your security company access to the
-              Signal One Guard platform. You only calculate the guards and
-              days you want to cover.
+              Signal One Guard platform. One guard day is tied to an allocated
+              guard clocking into and out of an on-site shift.
             </p>
-            <p className="mt-4 text-sm leading-7 text-white/42">
-              Pricing is excluding VAT. Guard days carry over. Minimum
-              purchase: 10 guard days.
+            <p className="mt-4 text-sm leading-7 text-white/68">
+              Pricing excludes VAT. Guard days carry over. Minimum purchase:
+              10 guard days. Cancellation, no-show and multi-shift exception
+              rules are confirmed in the customer terms rather than hidden in
+              the calculator.
             </p>
           </div>
         </section>
@@ -46,17 +48,17 @@ export default function PricingPage() {
 
             <div className="mt-8 space-y-5 border-t border-white/10 pt-7">
               {[
-                ["1", "Choose the number of guards", "Use the number of guards you want the platform to cover."],
-                ["2", "Choose the number of days", "Calculate the period you want to purchase."],
-                ["3", "Buy the guard days", "Payment can be made by EFT or card before company activation."],
+                ["1", "Choose the number of guards", "Use the number of guards you expect to allocate to on-site shifts."],
+                ["2", "Choose the coverage days", "Estimate how many guard-days of active shift coverage you need."],
+                ["3", "Activate Guard", "The purchased balance is then used as guards clock into and out of allocated on-site shifts."],
               ].map(([number, title, body]) => (
                 <div key={number} className="grid grid-cols-[34px_1fr] gap-4">
-                  <span className="s1-mono pt-1 text-[8px] text-[#38BDF8]">
+                  <span className="s1-mono pt-1 text-[11px] text-[#38BDF8]">
                     0{number}
                   </span>
                   <div>
                     <h3 className="text-sm font-semibold text-white/82">{title}</h3>
-                    <p className="mt-1 text-sm leading-6 text-white/42">{body}</p>
+                    <p className="mt-1 text-sm leading-6 text-white/68">{body}</p>
                   </div>
                 </div>
               ))}
@@ -74,7 +76,7 @@ export default function PricingPage() {
           ].map(([title, body]) => (
             <article key={title} className="sm:px-6 sm:first:pl-0">
               <h2 className="text-base font-semibold text-white/84">{title}</h2>
-              <p className="mt-2 text-sm leading-7 text-white/44">{body}</p>
+              <p className="mt-2 text-sm leading-7 text-white/68">{body}</p>
             </article>
           ))}
         </section>
@@ -95,18 +97,18 @@ export default function PricingPage() {
 
           <div className="rounded-[16px] border border-white/10 bg-[#0F131A] p-6">
             <p className="s1-eyebrow">Priced separately</p>
-            <div className="mt-5 space-y-4 text-sm leading-6 text-white/52">
+            <div className="mt-5 space-y-4 text-sm leading-6 text-white/68">
               <p>
                 <strong className="font-semibold text-white/82">Payroll</strong>{" "}
-                — extra cost.
+                — Coming soon; priced separately when launched.
               </p>
               <p>
                 <strong className="font-semibold text-white/82">Accounting</strong>{" "}
-                — extra cost.
+                — Beta; priced separately when activated.
               </p>
               <p>
                 <strong className="font-semibold text-white/82">
-                  Radios & equipment
+                  Radios & tracking
                 </strong>{" "}
                 — rental by quote.
               </p>
@@ -127,7 +129,7 @@ export default function PricingPage() {
               <h2 className="mt-4 max-w-3xl text-3xl font-semibold tracking-[-.035em]">
                 Purchase guard days, then activate your company.
               </h2>
-              <p className="mt-4 max-w-2xl text-sm leading-7 text-white/50">
+              <p className="mt-4 max-w-2xl text-sm leading-7 text-white/68">
                 Signal One company activation follows payment. The onboarding
                 flow will support EFT and card before the Guard company
                 environment is created.
