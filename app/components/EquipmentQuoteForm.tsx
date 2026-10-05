@@ -24,7 +24,7 @@ export default function EquipmentQuoteForm() {
     contactName: "",
     email: "",
     mobile: "",
-    product: products[0],
+    product: products[0] as string,
     quantity: "1",
     rentalPeriod: periods[0],
     notes: "",
