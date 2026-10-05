@@ -182,14 +182,21 @@ export default function Home() {
             </article>
 
             <article className="relative overflow-hidden rounded-[20px] border border-white/10 bg-[#0A0D12] md:col-span-5">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_25%,rgba(14,165,233,.16),transparent_38%)]" />
+              <Image
+                src="/images/story/sales.webp"
+                alt="Sales professional working on a security-company opportunity"
+                fill
+                className="object-cover object-center"
+                sizes="(min-width:768px) 42vw,100vw"
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,13,18,.08)_10%,rgba(10,13,18,.88)_100%)]" />
               <div className="relative flex h-full flex-col justify-between p-6 md:p-8">
                 <p className="s1-mono text-[8px] text-[#7DD3FC]">01 / WIN</p>
                 <div>
                   <p className="text-3xl font-semibold tracking-[-.04em]">
                     Lead → quote → contract.
                   </p>
-                  <p className="mt-3 max-w-sm text-sm leading-7 text-white/46">
+                  <p className="mt-3 max-w-sm text-sm leading-7 text-white/58">
                     Sales OS keeps leads, pipeline, next actions, quotes and
                     customer conversations in one commercial operating rhythm.
                   </p>
@@ -335,7 +342,7 @@ export default function Home() {
           <div className="grid lg:grid-cols-[1.05fr_.95fr]">
             <div className="relative min-h-[420px] lg:min-h-[610px]">
               <Image
-                src="/images/story/checkpoint.webp"
+                src="/images/story/female-guard.webp"
                 alt="Security officer using a mobile device at a site checkpoint"
                 fill
                 className="object-cover object-center"
@@ -408,6 +415,23 @@ export default function Home() {
             <HeroVideo />
           </div>
 
+          <div className="mt-5 grid gap-4 md:grid-cols-3">
+            {[
+              ["/images/story/central-device.webp", "Central Device", "Shared authorised device at a fixed security post."],
+              ["/images/story/incident-response.webp", "Incident response", "Field communication when an exception needs action."],
+              ["/images/story/field-supervisor.webp", "Supervision", "Operational oversight across active posts and teams."],
+            ].map(([src, title, body]) => (
+              <article key={title} className="group relative min-h-[250px] overflow-hidden rounded-[18px] border border-white/10">
+                <Image src={src} alt={title} fill className="object-cover transition duration-700 group-hover:scale-[1.025]" sizes="(min-width:768px) 33vw,100vw" />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,13,18,.05)_28%,rgba(10,13,18,.92)_100%)]" />
+                <div className="absolute inset-x-0 bottom-0 p-5">
+                  <p className="text-base font-semibold text-white/88">{title}</p>
+                  <p className="mt-1.5 text-xs leading-5 text-white/52">{body}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {guardCapabilities.map(([title, body], index) => (
               <article key={title} className="border-l border-white/12 pl-5">
@@ -457,6 +481,16 @@ export default function Home() {
                 ),
               )}
             </div>
+            <div className="mt-6 relative h-[150px] overflow-hidden rounded-[16px] border border-white/12 bg-black/20 sm:h-[170px]">
+              <Image
+                src="/images/story/female-control.webp"
+                alt="Control room operator monitoring multiple security feeds"
+                fill
+                className="object-cover object-center"
+                sizes="(min-width:1024px) 520px,90vw"
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,13,18,.08),rgba(10,13,18,.45))]" />
+            </div>
           </div>
         </div>
       </section>
@@ -493,8 +527,16 @@ export default function Home() {
               </div>
             </article>
 
-            <article className="flex min-h-[560px] flex-col justify-between rounded-[24px] border border-white/10 bg-[linear-gradient(140deg,#0F131A_0%,#121A23_60%,rgba(14,165,233,.09)_100%)] p-7 md:p-10">
-              <div>
+            <article className="relative flex min-h-[560px] flex-col justify-between overflow-hidden rounded-[24px] border border-white/10 bg-[#0A0D12] p-7 md:p-10">
+              <Image
+                src="/images/story/proof.webp"
+                alt="Security-company client reviewing proof of service"
+                fill
+                className="object-cover object-center opacity-55"
+                sizes="(min-width:1024px) 55vw,100vw"
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,13,18,.32)_0%,rgba(10,13,18,.78)_45%,#0A0D12_100%)]" />
+              <div className="relative">
                 <div className="flex items-center gap-3">
                   <RailLabel number="05" label="Prove" />
                   <Status>Current</Status>
@@ -510,7 +552,7 @@ export default function Home() {
                 </p>
               </div>
 
-              <div className="mt-10 grid gap-3 sm:grid-cols-2">
+              <div className="relative mt-10 grid gap-3 sm:grid-cols-2">
                 {clientCapabilities.map((capability) => (
                   <div
                     key={capability}
@@ -548,20 +590,27 @@ export default function Home() {
               the next opportunity.
             </p>
           </div>
-          <div className="grid gap-3 sm:grid-cols-2">
-            {[
-              ["Payroll", "Available", "Extra cost"],
-              ["Accounting", "Available", "Extra cost"],
-            ].map(([title, state, meta]) => (
-              <div
-                key={title}
-                className="rounded-[18px] border border-white/10 bg-[#0A0D12] p-6"
-              >
-                <p className="s1-mono text-[8px] text-[#86EFAC]">{state}</p>
-                <p className="mt-4 text-xl font-semibold">{title}</p>
-                <p className="mt-2 text-sm text-white/38">{meta}</p>
-              </div>
-            ))}
+          <div className="relative min-h-[360px] overflow-hidden rounded-[22px] border border-white/10 bg-[#0A0D12]">
+            <Image
+              src="/images/story/operations-director.webp"
+              alt="Security operations director reviewing service performance"
+              fill
+              className="object-cover object-center"
+              sizes="(min-width:1024px) 44vw,100vw"
+            />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,13,18,.04)_22%,rgba(10,13,18,.92)_100%)]" />
+            <div className="absolute inset-x-0 bottom-0 grid grid-cols-2 gap-3 p-5 md:p-6">
+              {[
+                ["Payroll", "Available"],
+                ["Accounting", "Available"],
+              ].map(([title, state]) => (
+                <div key={title} className="rounded-[13px] border border-white/12 bg-[#0A0D12]/76 p-4 backdrop-blur-[12px]">
+                  <p className="s1-mono text-[7px] text-[#86EFAC]">{state}</p>
+                  <p className="mt-2 text-sm font-semibold">{title}</p>
+                  <p className="mt-1 text-[11px] text-white/38">Extra cost</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
