@@ -22,8 +22,8 @@ const groups = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-[#0F131A] px-5 py-14 text-white">
-      <div className="mx-auto grid max-w-[1440px] gap-12 lg:grid-cols-[1.25fr_.75fr]">
+    <footer className="border-t border-white/10 bg-[#0F131A] px-5 py-10 text-white">
+      <div className="mx-auto grid max-w-[1440px] gap-8 lg:grid-cols-[1.25fr_.75fr]">
         <div>
           <div className="flex items-center gap-3">
             <span className="relative grid h-9 w-9 place-items-center rounded-full border border-[#0EA5E9]/40">
@@ -66,7 +66,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="mx-auto mt-12 flex max-w-[1440px] flex-col gap-3 border-t border-white/10 pt-6 text-xs text-white/34 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mx-auto mt-8 flex max-w-[1440px] flex-col gap-3 border-t border-white/10 pt-5 text-xs text-white/34 sm:flex-row sm:items-center sm:justify-between">
         <span>© {new Date().getFullYear()} Signal One.</span>
         <span>South Africa · Pricing shown excluding VAT where stated.</span>
       </div>
