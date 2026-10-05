@@ -42,7 +42,7 @@ export default function PlatformProof() {
 
   return (
     <section className="overflow-hidden rounded-[24px] border border-white/12 bg-[#0A0D12] shadow-[var(--s1-shadow-panel)]">
-      <div className="flex flex-wrap items-center gap-2 border-b border-white/10 bg-white/[.035] px-4 py-3 md:px-5">
+      <div className="flex flex-wrap items-center gap-2 border-b border-white/10 bg-white/[.035] px-4 py-3 md:px-5" role="tablist" aria-label="Signal One product views">
         <div className="mr-3 hidden gap-1.5 sm:flex" aria-hidden="true">
           <span className="h-2.5 w-2.5 rounded-full bg-[#EF4444]/65" />
           <span className="h-2.5 w-2.5 rounded-full bg-[#F59E0B]/65" />
@@ -54,6 +54,8 @@ export default function PlatformProof() {
             key={item.id}
             type="button"
             onClick={() => setActive(item.id)}
+            role="tab"
+            aria-selected={active === item.id}
             className={
               "rounded-[10px] px-3.5 py-2 text-xs font-semibold transition duration-200 " +
               (active === item.id
