@@ -23,7 +23,7 @@ const fields: IntakeField[] = [
 
 export default function ContactPage() {
   return (
-    <main className="min-h-screen bg-[var(--s1-bg)] px-5 pb-24 pt-32 text-white md:pt-36">
+    <main className="min-h-screen bg-[var(--s1-bg)] px-5 pb-16 pt-28 text-white md:pt-32">
       <div className="mx-auto max-w-[90rem]">
         <section className="relative overflow-hidden rounded-[24px] border border-white/12 bg-[#0A0D12] shadow-[var(--s1-shadow-panel)]">
           <Image
