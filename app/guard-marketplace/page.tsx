@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
+import { premiumImages } from "../lib/premiumImages";
 
 export const metadata: Metadata = {
   title: "Guard Marketplace",
@@ -48,6 +50,23 @@ export default function GuardMarketplacePage() {
             <p className="mt-4 text-sm leading-7 text-white/68">
               The public page explains the workflow. It does not expose real guard identities, employment documents or private profile data.
             </p>
+          </div>
+        </section>
+
+        <section className="py-8 md:py-10">
+          <div className="relative aspect-[16/9] max-h-[680px] overflow-hidden rounded-[24px] border border-white/10 bg-[#0A0D12]">
+            <Image
+              src={premiumImages.marketplace}
+              alt="Illustrative Guard Marketplace and workforce planning scene using fictional company data"
+              fill
+              quality={92}
+              className="object-cover object-center"
+              sizes="(min-width:1280px) 1280px, 100vw"
+            />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,13,18,.02)_52%,rgba(10,13,18,.82)_100%)]" />
+            <div className="absolute bottom-5 left-5 rounded-[10px] border border-white/12 bg-[#0A0D12]/78 px-4 py-2.5 text-xs text-white/72 backdrop-blur-[14px]">
+              Illustrative MVP workflow · fictional company and synthetic profile data
+            </div>
           </div>
         </section>
 
