@@ -151,7 +151,7 @@ export default function RadiosEquipmentPage() {
           </div>
         </section>
 
-        <section className="grid gap-10 border-y border-white/10 py-16 lg:grid-cols-[.82fr_1.18fr] lg:items-start md:py-20">
+        <section className="grid gap-10 border-y border-white/10 py-12 lg:grid-cols-[.82fr_1.18fr] lg:items-start md:py-16">
           <div>
             <p className="s1-eyebrow">Tracking</p>
             <h2 className="s1-h2 mt-5 max-w-xl font-semibold">
@@ -194,7 +194,7 @@ export default function RadiosEquipmentPage() {
           </div>
         </section>
 
-        <section className="grid gap-10 py-16 lg:grid-cols-[.8fr_1.2fr] lg:items-start md:py-20">
+        <section className="grid gap-10 py-12 lg:grid-cols-[.8fr_1.2fr] lg:items-start md:py-16">
           <div>
             <p className="s1-eyebrow">How rental works</p>
             <h2 className="s1-h2 mt-5 max-w-xl font-semibold">
