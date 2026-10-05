@@ -190,9 +190,9 @@ export default function Home() {
 
             <article className="relative overflow-hidden rounded-[20px] border border-white/10 bg-[#0A0D12] md:col-span-5">
               <Image
-                src={premiumImages.clientReporting}
+                src={premiumImages.warehouseSecurity}
                 quality={92}
-                alt="Illustrative security-company leadership reviewing operations and client reporting"
+                alt="Illustrative South African logistics-site security checkpoint for a fictional security company"
                 fill
                 className="object-cover object-center"
                 sizes="(min-width:768px) 42vw,100vw"
