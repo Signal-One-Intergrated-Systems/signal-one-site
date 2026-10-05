@@ -61,9 +61,9 @@ const radios = [
 
 export default function RadiosEquipmentPage() {
   return (
-    <main className="min-h-screen bg-[var(--s1-surface-base)] px-5 pb-24 pt-32 text-white md:pt-36">
+    <main className="min-h-screen bg-[var(--s1-surface-base)] px-5 pb-16 pt-28 text-white md:pt-32">
       <div className="mx-auto max-w-[1280px]">
-        <section className="relative overflow-hidden border-b border-white/10 pb-16 md:pb-20">
+        <section className="relative overflow-hidden border-b border-white/10 pb-12 md:pb-16">
           <div className="absolute right-0 top-0 -z-10 h-80 w-80 rounded-full bg-[#0EA5E9]/[.06] blur-[100px]" />
           <div className="grid gap-10 lg:grid-cols-[.95fr_1.05fr] lg:items-end">
             <div>
@@ -88,7 +88,7 @@ export default function RadiosEquipmentPage() {
           </div>
         </section>
 
-        <section className="py-16 md:py-20">
+        <section className="py-12 md:py-16">
           <div className="grid gap-10 lg:grid-cols-[.78fr_1.22fr] lg:items-start">
             <div>
               <p className="s1-eyebrow">PoC radio range</p>
@@ -151,7 +151,7 @@ export default function RadiosEquipmentPage() {
           </div>
         </section>
 
-        <section className="grid gap-10 border-y border-white/10 py-16 lg:grid-cols-[.82fr_1.18fr] lg:items-start md:py-20">
+        <section className="grid gap-10 border-y border-white/10 py-12 lg:grid-cols-[.82fr_1.18fr] lg:items-start md:py-16">
           <div>
             <p className="s1-eyebrow">Tracking</p>
             <h2 className="s1-h2 mt-5 max-w-xl font-semibold">
@@ -194,7 +194,7 @@ export default function RadiosEquipmentPage() {
           </div>
         </section>
 
-        <section className="grid gap-12 py-16 lg:grid-cols-[.8fr_1.2fr] lg:items-start md:py-20">
+        <section className="grid gap-10 py-12 lg:grid-cols-[.8fr_1.2fr] lg:items-start md:py-16">
           <div>
             <p className="s1-eyebrow">How rental works</p>
             <h2 className="s1-h2 mt-5 max-w-xl font-semibold">

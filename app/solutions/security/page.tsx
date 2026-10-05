@@ -20,7 +20,7 @@ const pillars = [
 
 export default function SecuritySolutionsPage() {
   return (
-    <main className="min-h-screen bg-[var(--s1-bg)] px-5 pb-24 pt-32 text-white md:pt-36">
+    <main className="min-h-screen bg-[var(--s1-bg)] px-5 pb-16 pt-28 text-white md:pt-32">
       <div className="mx-auto max-w-[90rem]">
         <MarketingHero
           eyebrow="Signal One Guard for security companies"
@@ -32,7 +32,7 @@ export default function SecuritySolutionsPage() {
           secondary={{ href: "/#proof", label: "See product proof" }}
         />
 
-        <section className="py-20 md:py-24">
+        <section className="py-14 md:py-16">
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {pillars.map(([title, body, image], index) => (
               <article key={title} className="group overflow-hidden rounded-[18px] border border-white/10 bg-[#0A0D12] transition duration-500 hover:border-[#0EA5E9]/30">
@@ -50,8 +50,8 @@ export default function SecuritySolutionsPage() {
           </div>
         </section>
 
-        <section className="border-y border-white/10 py-20 md:py-24">
-          <div className="mb-10 max-w-4xl">
+        <section className="border-y border-white/10 py-14 md:py-16">
+          <div className="mb-8 max-w-4xl">
             <p className="s1-mono text-[9px] font-semibold text-[#38BDF8]">Inside the product</p>
             <h2 className="mt-4 text-3xl font-semibold tracking-[-.035em] md:text-5xl">
               The same operational facts serve management, control and client proof.
@@ -60,7 +60,7 @@ export default function SecuritySolutionsPage() {
           <PlatformProof />
         </section>
 
-        <section className="py-20 md:py-24">
+        <section className="py-14 md:py-16">
           <div className="grid gap-4 lg:grid-cols-3">
             {[
               ["Owners & directors", "A clearer operating picture, stronger evidence and less dependence on fragmented manual reporting."],

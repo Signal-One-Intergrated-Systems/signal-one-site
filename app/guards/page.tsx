@@ -17,7 +17,7 @@ const capabilities = [
 
 export default function GuardsPage() {
   return (
-    <main className="min-h-screen bg-[var(--s1-bg)] px-5 pb-24 pt-32 text-white md:pt-36">
+    <main className="min-h-screen bg-[var(--s1-bg)] px-5 pb-16 pt-28 text-white md:pt-32">
       <div className="mx-auto max-w-[90rem]">
         <MarketingHero
           eyebrow="For security officers"
@@ -28,7 +28,7 @@ export default function GuardsPage() {
           primary={{ href: "/guards/join", label: "Start guard onboarding" }}
         />
 
-        <section className="py-20 md:py-24">
+        <section className="py-14 md:py-16">
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {capabilities.map(([title, body], index) => (
               <article key={title} className="rounded-[18px] border border-white/10 bg-[#0A0D12] p-6 transition duration-300 hover:border-[#0EA5E9]/30">
