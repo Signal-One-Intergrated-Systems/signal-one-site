@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import GuardDayCalculator from "./components/GuardDayCalculator";
 import HeroVideo from "./components/HeroVideo";
+import PlatformProof from "./components/PlatformProof";
 
 const salesCapabilities = [
   "Leads and pipeline",
@@ -26,20 +27,20 @@ const clientCapabilities = [
 
 function Status({
   children,
-  tone = "current",
+  tone = "live",
 }: {
   children: React.ReactNode;
-  tone?: "current" | "planned";
+  tone?: "live" | "beta" | "soon" | "offered";
 }) {
+  const toneClass = {
+    live: "border-[#22C55E]/25 bg-[#22C55E]/[.06] text-[#86EFAC]",
+    beta: "border-[#F59E0B]/25 bg-[#F59E0B]/[.06] text-[#FCD34D]",
+    soon: "border-[#38BDF8]/25 bg-[#0EA5E9]/[.06] text-[#7DD3FC]",
+    offered: "border-white/16 bg-white/[.035] text-white/66",
+  }[tone];
+
   return (
-    <span
-      className={
-        "s1-mono inline-flex rounded-[8px] border px-2.5 py-1 text-[8px] font-semibold " +
-        (tone === "current"
-          ? "border-[#22C55E]/25 bg-[#22C55E]/[.06] text-[#86EFAC]"
-          : "border-[#38BDF8]/25 bg-[#0EA5E9]/[.06] text-[#7DD3FC]")
-      }
-    >
+    <span className={"s1-mono inline-flex rounded-[8px] border px-2.5 py-1 text-[11px] font-semibold " + toneClass}>
       {children}
     </span>
   );
@@ -54,17 +55,19 @@ function RailLabel({
 }) {
   return (
     <div className="flex items-center gap-3">
-      <span className="s1-mono text-[8px] text-white/28">{number}</span>
+      <span className="s1-mono text-[11px] text-white/60">{number}</span>
       <span className="s1-eyebrow">{label}</span>
     </div>
   );
 }
 
 export default function Home() {
+  const usePainHero = process.env.NEXT_PUBLIC_HERO_VARIANT === "pain";
+
   return (
     <main className="overflow-hidden bg-[var(--s1-surface-base)] text-[var(--s1-text-strong)]">
       {/* CINEMATIC HERO */}
-      <section className="relative isolate min-h-[760px] overflow-hidden border-b border-white/10 md:min-h-[820px]">
+      <section className="relative isolate min-h-[620px] overflow-hidden border-b border-white/10 md:min-h-[660px]">
         <Image
           src="/images/story/hero.webp"
           alt="Security officer working at an active site"
@@ -77,56 +80,50 @@ export default function Home() {
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,13,18,.22)_0%,rgba(10,13,18,.05)_55%,#0A0D12_100%)]" />
         <div className="absolute left-[38%] top-[18%] h-[420px] w-[420px] rounded-full bg-[#0EA5E9]/[.055] blur-[110px]" />
 
-        <div className="relative mx-auto flex min-h-[760px] max-w-[1440px] items-center px-5 pb-20 pt-32 md:min-h-[820px] md:pt-36">
+        <div className="relative mx-auto flex min-h-[620px] max-w-[1440px] items-center px-5 pb-16 pt-28 md:min-h-[660px] md:pt-28">
           <div className="max-w-[760px]">
-            <p className="s1-eyebrow">For South African security companies</p>
-            <h1 className="mt-6 text-[clamp(3rem,6.3vw,6.5rem)] font-semibold leading-[.94] tracking-[-.055em] text-[#F1F5F9]">
-              Run the business
-              <span className="block">of security.</span>
-              <span className="mt-2 block text-[#38BDF8]">One platform.</span>
+            <p className="s1-eyebrow">For growing South African security companies</p>
+            <h1 className="mt-6 text-[clamp(2.8rem,5.8vw,5.7rem)] font-semibold leading-[.96] tracking-[-.055em] text-[#F1F5F9]">
+              {usePainHero ? (
+                <>Replace the spreadsheets, WhatsApp groups and paper trail.</>
+              ) : (
+                <>
+                  Win more contracts.
+                  <span className="block">Run every site.</span>
+                  <span className="block text-[#38BDF8]">Prove the service.</span>
+                </>
+              )}
             </h1>
-            <p className="mt-7 max-w-xl text-lg leading-8 text-white/68">
-              Win contracts. Hire guards. Run sites. Equip your teams. Prove
-              the service. Build the next opportunity from the same operating
-              record.
+            <p className="mt-7 max-w-2xl text-lg leading-8 text-white/72">
+              Signal One is the operating system for your security company,
+              connecting your sales team, guard hiring, sites, shifts, patrols,
+              control room, PTT radios, tracking and client reporting in one place.
             </p>
 
-            <div className="mt-9 flex flex-wrap gap-3">
+            <div className="mt-8 flex flex-wrap gap-3">
               <Link
-                href="/get-started"
+                href="/#proof"
                 className="s1-primary-action px-6 py-3 text-sm font-semibold"
               >
-                Get started
+                See Signal One in action
               </Link>
               <Link
-                href="/#platform"
+                href="/pricing"
                 className="s1-secondary-action border-white/25 bg-black/20 px-6 py-3 text-sm font-semibold backdrop-blur-[12px]"
               >
-                See the operating system ↓
+                Calculate guard cost · R2 per guard per day
               </Link>
             </div>
+            <p className="mt-5 text-sm leading-6 text-white/66">
+              Your guards can use their own phones or an authorised Central Device.
+            </p>
 
-            <div className="mt-12 grid max-w-xl grid-cols-3 border-y border-white/15 bg-black/10 backdrop-blur-[10px]">
-              {[
-                ["01", "FIELD", "Guards · posts · patrols"],
-                ["02", "CONTROL", "Exceptions · SOS · response"],
-                ["03", "PROOF", "Reports · client evidence"],
-              ].map(([number, title, detail], index) => (
-                <div
-                  key={title}
-                  className={
-                    "py-4 pr-4 " +
-                    (index ? "border-l border-white/15 pl-4" : "")
-                  }
-                >
-                  <p className="s1-mono text-[7px] text-[#7DD3FC]">
-                    {number} / {title}
-                  </p>
-                  <p className="mt-2 text-[11px] leading-5 text-white/48">
-                    {detail}
-                  </p>
-                </div>
-              ))}
+            <div className="mt-9 flex max-w-3xl flex-wrap gap-x-5 gap-y-2 border-y border-white/15 bg-black/10 py-3 text-[12px] text-white/72 backdrop-blur-[10px]">
+              <span><strong className="text-white">R2</strong> / guard / day</span>
+              <span>Own phone or Central Device</span>
+              <span>PSiRA status enforced</span>
+              <span>Client Portal <strong className="text-[#86EFAC]">Live</strong></span>
+              <span>Radio rental by quote</span>
             </div>
           </div>
         </div>
@@ -198,7 +195,7 @@ export default function Home() {
                   </p>
                   <p className="mt-3 max-w-sm text-sm leading-7 text-white/58">
                     Sales OS keeps leads, pipeline, next actions, quotes and
-                    customer conversations in one commercial operating rhythm.
+                    customer conversations in one one place, so every lead, follow-up and quote has a clear next action.
                   </p>
                 </div>
               </div>
@@ -240,6 +237,21 @@ export default function Home() {
               </p>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section id="proof" className="px-5 pb-16 md:pb-20">
+        <div className="mx-auto max-w-[1440px]">
+          <div className="mb-8 max-w-3xl">
+            <p className="s1-eyebrow">See the product</p>
+            <h2 className="mt-4 text-3xl font-semibold tracking-[-.035em] md:text-5xl">
+              The operating record, not a slide deck.
+            </h2>
+            <p className="mt-4 text-base leading-7 text-white/64">
+              Explore controlled Signal One Guard demo states using synthetic data.
+            </p>
+          </div>
+          <PlatformProof />
         </div>
       </section>
 
@@ -329,7 +341,7 @@ export default function Home() {
                 <span className="text-sm font-medium text-white/66">
                   Calendar / appointments
                 </span>
-                <Status tone="planned">Planned</Status>
+                <Status tone="soon">Coming soon</Status>
               </div>
             </div>
           </div>
@@ -362,28 +374,28 @@ export default function Home() {
             <div className="flex flex-col justify-center p-7 md:p-10 lg:p-12">
               <div className="flex items-center gap-3">
                 <RailLabel number="02" label="Hire" />
-                <Status tone="planned">Target product</Status>
+                <Status tone="beta">MVP</Status>
               </div>
               <h2 className="mt-5 text-4xl font-semibold leading-[1.04] tracking-[-.045em] md:text-5xl">
                 Won the contract?
                 <span className="block text-[#38BDF8]">Staff it.</span>
               </h2>
               <p className="mt-6 text-base leading-8 text-white/54">
-                Guard Marketplace is the planned hiring layer: client security
-                companies browse eligible profiles, send a request to hire and
-                the guard accepts or declines from the Guard app.
+                Guard Marketplace is part of the Signal One MVP: security
+                companies will browse eligible profiles, shortlist guards and
+                send a request to hire before accepted guards move into the
+                workforce and site-allocation flow.
               </p>
               <p className="mt-4 text-sm leading-7 text-white/40">
-                Guard already contains live PSiRA verification against
-                PSiRA&apos;s official individual verification service.
-                Marketplace eligibility enforcement is part of the planned
-                hiring workflow.
+                Guard already records PSiRA number, grade and expiry and blocks
+                invalid assignments. Official external PSiRA verification is not
+                claimed until that integration is confirmed.
               </p>
               <Link
                 href="/guard-marketplace"
                 className="mt-7 inline-flex text-sm font-semibold text-[#38BDF8] transition hover:text-[#7DD3FC]"
               >
-                Explore the Guard Marketplace model →
+                Explore Guard Marketplace →
               </Link>
             </div>
           </div>
@@ -397,7 +409,7 @@ export default function Home() {
             <div>
               <div className="flex items-center gap-3">
                 <RailLabel number="03" label="Run" />
-                <Status>Current</Status>
+                <Status>Live</Status>
               </div>
               <h2 className="mt-5 text-4xl font-semibold leading-[1.02] tracking-[-.045em] md:text-6xl">
                 From contract
@@ -515,8 +527,8 @@ export default function Home() {
                 </h2>
                 <p className="mt-4 max-w-xl text-sm leading-7 text-white/52">
                   Signal One can supply radios, PTT, tracking and body-worn
-                  equipment alongside the operating platform. Direct on/off
-                  controls inside Guard are planned.
+                  equipment alongside the operating platform. Guard-side
+                  activation controls are Coming soon.
                 </p>
                 <Link
                   href="/radios-equipment"
@@ -539,7 +551,7 @@ export default function Home() {
               <div className="relative">
                 <div className="flex items-center gap-3">
                   <RailLabel number="05" label="Prove" />
-                  <Status>Current</Status>
+                  <Status>Live</Status>
                 </div>
                 <h2 className="mt-5 max-w-2xl text-4xl font-semibold leading-[1.03] tracking-[-.045em] md:text-5xl">
                   Give the client evidence — without giving away your
@@ -566,7 +578,7 @@ export default function Home() {
                     <span className="text-sm text-white/58">
                       Live map, clock status and live patrol progress
                     </span>
-                    <Status tone="planned">Planned extension</Status>
+                    <Status tone="soon">Coming soon</Status>
                   </div>
                 </div>
               </div>
@@ -601,11 +613,11 @@ export default function Home() {
             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,13,18,.04)_22%,rgba(10,13,18,.92)_100%)]" />
             <div className="absolute inset-x-0 bottom-0 grid grid-cols-2 gap-3 p-5 md:p-6">
               {[
-                ["Payroll", "Available"],
-                ["Accounting", "Available"],
+                ["Payroll", "Coming soon"],
+                ["Accounting", "Beta"],
               ].map(([title, state]) => (
                 <div key={title} className="rounded-[13px] border border-white/12 bg-[#0A0D12]/76 p-4 backdrop-blur-[12px]">
-                  <p className="s1-mono text-[7px] text-[#86EFAC]">{state}</p>
+                  <p className="s1-mono text-[11px] text-[#86EFAC]">{state}</p>
                   <p className="mt-2 text-sm font-semibold">{title}</p>
                   <p className="mt-1 text-[11px] text-white/38">Extra cost</p>
                 </div>
