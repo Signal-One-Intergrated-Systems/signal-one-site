@@ -5,8 +5,10 @@ import MarketingHero from "../../components/MarketingHero";
 import PlatformProof from "../../components/PlatformProof";
 
 export const metadata: Metadata = {
-  title: "Security Operations",
-  description: "Run security operations from evidence with Signal One Guard attendance, post coverage, patrol verification, incidents, SOS and proof of service.",
+  title: "Security Guard Management Software",
+  description:
+    "Run attendance, site coverage, shifts, patrol verification, incidents, SOS, control room and proof of service with Signal One Guard.",
+  alternates: { canonical: "/solutions/security" },
 };
 
 const pillars = [
