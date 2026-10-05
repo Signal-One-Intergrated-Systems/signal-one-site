@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 const pillars = [
   ["Attendance", "Record clock-in and clock-out against the operational site, with geofence policy and preserved evidence.", premiumImages.siteOperations],
-  ["Post coverage", "See what each post requires, what is allocated, what is verified and where a shortfall needs action.", premiumImages.workforceBriefing],
+  ["Post coverage", "See what each post requires, what is allocated, what is verified and where a shortfall needs action.", premiumImages.warehouseSecurity],
   ["Patrol verification", "Run routes and checkpoints with QR or NFC verification, GPS policy and offline synchronisation.", premiumImages.radioTracking],
   ["Occurrence & incidents", "Keep a chronological operational record of incidents, exceptions, corrections and response.", premiumImages.controlRoomNight],
   ["Control Room", "Bring SOS, operational exceptions and live site awareness into the workspace used to respond.", premiumImages.controlRoomDay],
