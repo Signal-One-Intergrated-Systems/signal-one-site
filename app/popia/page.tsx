@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "POPIA & Data Handling",
-  description: "Signal One's draft POPIA and data-handling approach for legal review.",
+  description: "Signal One's POPIA and data-handling approach for public enquiries and operational product data.",
+  alternates: { canonical: "/popia" },
 };
 
 export default function PopiaPage() {
