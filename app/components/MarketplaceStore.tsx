@@ -132,7 +132,7 @@ export default function MarketplaceStore() {
               type="button"
               onClick={() => setCartOpen(true)}
               aria-haspopup="dialog"
-              aria-controls="signal-one-cart"
+              aria-controls="signal-one-quote-basket"
               aria-expanded={cartOpen}
               className="relative h-11 rounded-[10px] border border-white/12 bg-white/[.04] px-5 text-sm font-semibold text-white/75 transition hover:bg-white/[.08] hover:text-white"
             >
@@ -233,7 +233,7 @@ export default function MarketplaceStore() {
                           onClick={() => add(product)}
                           className="rounded-[10px] bg-[#0EA5E9] px-5 py-2.5 text-xs font-semibold text-[#061019] transition hover:bg-[#7dd3fc] active:scale-[.98]"
                         >
-                          Add to cart
+                          Add to quote
                         </button>
                       ) : (
                         <Link
@@ -257,7 +257,7 @@ export default function MarketplaceStore() {
           <>
             <motion.button
               type="button"
-              aria-label="Close cart"
+              aria-label="Close quote basket"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -266,10 +266,10 @@ export default function MarketplaceStore() {
               className="fixed inset-0 z-[70] bg-black/60 backdrop-blur-sm"
             />
             <motion.aside
-              id="signal-one-cart"
+              id="signal-one-quote-basket"
               role="dialog"
               aria-modal="true"
-              aria-labelledby="signal-one-cart-title"
+              aria-labelledby="signal-one-quote-basket-title"
               initial={reducedMotion ? false : { x: "100%" }}
               animate={{ x: 0 }}
               exit={reducedMotion ? undefined : { x: "100%" }}
@@ -279,12 +279,12 @@ export default function MarketplaceStore() {
               <div className="flex items-center justify-between border-b border-white/9 pb-5">
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-[.2em] text-[#7dd3fc]">Signal One Marketplace</p>
-                  <h2 id="signal-one-cart-title" className="mt-2 text-2xl font-semibold">Your cart</h2>
+                  <h2 id="signal-one-quote-basket-title" className="mt-2 text-2xl font-semibold">Your quote basket</h2>
                 </div>
                 <button
                   type="button"
                   onClick={() => setCartOpen(false)}
-                  aria-label="Close cart"
+                  aria-label="Close quote basket"
                   className="grid h-10 w-10 place-items-center rounded-[10px] border border-white/10 text-lg text-white/60 hover:bg-white/5 hover:text-white"
                 >
                   ×
@@ -294,7 +294,7 @@ export default function MarketplaceStore() {
               <div className="min-h-0 flex-1 overflow-y-auto py-5">
                 {cart.length === 0 ? (
                   <div className="rounded-[14px] border border-white/9 bg-white/[.025] p-6 text-sm leading-6 text-white/45">
-                    Your cart is empty. Choose a product, then select Buy, Rent or Subscription where available.
+                    Your quote basket is empty. Choose a product, then select Buy, Rent or Subscription where available.
                   </div>
                 ) : (
                   <div className="space-y-3">
@@ -324,14 +324,14 @@ export default function MarketplaceStore() {
 
               <div className="border-t border-white/9 pt-5">
                 <p className="text-xs leading-5 text-white/34">
-                  Final pricing, rental terms, subscriptions, stock and delivery are confirmed by Signal One before an order is accepted.
+                  Final pricing, rental terms, subscriptions, stock and delivery are confirmed by Signal One after the configured quote request is reviewed.
                 </p>
                 <Link
                   href={cart.length ? "/contact" : "/marketplace"}
                   onClick={() => setCartOpen(false)}
                   className="mt-4 flex w-full items-center justify-center rounded-[10px] bg-[#0EA5E9] px-5 py-3 text-sm font-semibold text-[#061019]"
                 >
-                  {cart.length ? "Request order / quote" : "Continue shopping"}
+                  {cart.length ? "Request configured quote" : "Continue shopping"}
                 </Link>
               </div>
             </motion.aside>
