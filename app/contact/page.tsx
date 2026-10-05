@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { premiumImages } from "../lib/premiumImages";
 import IntakeForm, { type IntakeField } from "../components/IntakeForm";
 
 export const metadata: Metadata = {
@@ -28,7 +29,7 @@ export default function ContactPage() {
       <div className="mx-auto max-w-[90rem]">
         <section className="relative overflow-hidden rounded-[24px] border border-white/12 bg-[#0A0D12] shadow-[var(--s1-shadow-panel)]">
           <Image
-            src="/images/industries/security.jpg"
+            src={premiumImages.siteOperations}
             alt="Security operations control room"
             fill
             priority
