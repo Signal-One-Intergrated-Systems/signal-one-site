@@ -20,6 +20,16 @@ const legacyRedirects = [
 ] as const;
 
 const nextConfig: NextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "premium-images-production.up.railway.app",
+        pathname: "/assets/**",
+      },
+    ],
+    formats: ["image/avif", "image/webp"],
+  },
   async redirects() {
     return legacyRedirects.map(([source, destination]) => ({
       source,
