@@ -57,7 +57,7 @@ export default function GuardMarketplacePage() {
           <div className="relative aspect-[16/9] max-h-[680px] overflow-hidden rounded-[24px] border border-white/10 bg-[#0A0D12]">
             <Image
               src={premiumImages.marketplace}
-              alt="Illustrative Guard Marketplace and workforce planning scene using fictional company data"
+              alt="Illustrative security-team briefing and workforce-readiness scene for a fictional security company"
               fill
               quality={92}
               className="object-cover object-center"
@@ -65,7 +65,7 @@ export default function GuardMarketplacePage() {
             />
             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,13,18,.02)_52%,rgba(10,13,18,.82)_100%)]" />
             <div className="absolute bottom-5 left-5 rounded-[10px] border border-white/12 bg-[#0A0D12]/78 px-4 py-2.5 text-xs text-white/72 backdrop-blur-[14px]">
-              Illustrative MVP workflow · fictional company and synthetic profile data
+              Illustrative workforce-readiness scene · fictional security company
             </div>
           </div>
         </section>
