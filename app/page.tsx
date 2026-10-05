@@ -385,6 +385,43 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="px-5 py-24 md:py-32">
+        <div className="mx-auto max-w-[90rem]">
+          <div className="grid gap-8 lg:grid-cols-[.8fr_1.2fr] lg:items-end">
+            <div>
+              <p className="s1-mono text-[9px] font-semibold text-[#38BDF8]">Signal One point of view</p>
+              <h2 className="mt-4 text-3xl font-semibold tracking-[-.035em] sm:text-5xl">
+                Security operations should produce earlier truth, not more reporting.
+              </h2>
+            </div>
+            <div className="max-w-3xl">
+              <p className="text-sm leading-7 text-white/52">
+                Our insights focus on the operating problems behind guard management: delayed truth, exception overload, fragmented occurrence records and weak service evidence.
+              </p>
+              <Link href="/insights" className="mt-5 inline-flex text-sm font-semibold text-[#38BDF8] transition hover:text-[#7DD3FC]">
+                Read Signal One insights →
+              </Link>
+            </div>
+          </div>
+
+          <div className="mt-10 grid gap-4 lg:grid-cols-3">
+            {[
+              ["/insights/security-contracts-fail-quietly", "Operating risk", "Security contracts usually fail quietly before they fail visibly."],
+              ["/insights/control-room-exception-management", "Control room", "A control room should manage exceptions, not stare at everything."],
+              ["/insights/digital-occurrence-book", "Operational record", "A digital occurrence book is not just a paper book on a screen."],
+            ].map(([href, tag, title]) => (
+              <Link key={href} href={href} className="group rounded-[18px] border border-white/10 bg-[#0A0D12] p-6 transition duration-300 hover:-translate-y-1 hover:border-[#0EA5E9]/35">
+                <p className="s1-mono text-[9px] font-semibold text-[#38BDF8]">{tag}</p>
+                <h3 className="mt-5 text-xl font-semibold leading-7 tracking-[-.025em]">{title}</h3>
+                <span className="mt-6 inline-flex text-sm font-semibold text-[#38BDF8] transition duration-300 group-hover:translate-x-1">
+                  Read insight →
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="border-y border-white/10 bg-[var(--s1-deep)] px-5 py-20 md:py-24">
         <div className="mx-auto max-w-[90rem]">
           <div className="grid gap-8 lg:grid-cols-[.78fr_1.22fr] lg:items-end">
