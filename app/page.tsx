@@ -95,9 +95,10 @@ export default function Home() {
               )}
             </h1>
             <p className="mt-7 max-w-2xl text-lg leading-8 text-white/72">
-              Signal One is the operating system for your security company,
-              connecting guard hiring, sites, shifts, patrols, control room,
-              PTT radios, tracking and client reporting in one place.
+              Signal One: Integrated Systems builds connected operating systems
+              for real-world industries. For security companies, that means guard
+              hiring, sites, shifts, patrols, control room, PTT radios, tracking
+              and client reporting in one operating environment.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
@@ -134,9 +135,9 @@ export default function Home() {
 
         <div className="absolute bottom-6 right-6 hidden items-center gap-3 text-right lg:flex">
           <div>
-            <p className="s1-mono text-[11px] text-white/66">Signal One</p>
+            <p className="s1-mono text-[11px] text-white/66">Signal One · Integrated Systems</p>
             <p className="mt-1 text-xs font-medium text-white/60">
-              Security company operating platform
+              Security operating system
             </p>
           </div>
           <span className="h-10 w-px bg-white/18" />
