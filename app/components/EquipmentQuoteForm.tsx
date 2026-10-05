@@ -8,15 +8,11 @@ type ProductKind = "radio-rental" | "bodycam-rental" | "sale" | "subscription" |
 const products = [
   { value: "RENT-PNC360S", label: "PNC360S PoC radio rental", kind: "radio-rental" },
   { value: "RENT-P30LITE", label: "P30 Lite PoC radio rental", kind: "radio-rental" },
-  { value: "HYTERA-P30-PRO", label: "Hytera P30 Pro radio purchase", kind: "sale" },
-  { value: "HYTERA-P30-LITE", label: "Hytera P30 Lite radio purchase", kind: "sale" },
-  { value: "E600-POC-LTE", label: "E600 PoC LTE radio purchase", kind: "sale" },
   { value: "PTT-PLATFORM-SIM", label: "PTT platform access + SIM and data", kind: "subscription" },
-  { value: "FMC920", label: "FMC920 vehicle tracker", kind: "tracking" },
-  { value: "FMB920", label: "FMB920 vehicle tracker", kind: "tracking" },
+  { value: "PTT-SUB-ROIP-DATA", label: "PTT subscription with RoIP and data", kind: "subscription" },
   { value: "TRACKER-PLATFORM-M", label: "Tracker platform subscription", kind: "tracking" },
   { value: "SC780-BODYCAM-RENTAL", label: "SC780 body camera rental", kind: "bodycam-rental" },
-  { value: "OTHER", label: "Other / mixed requirement", kind: "mixed" },
+  { value: "OTHER", label: "Other equipment / mixed requirement", kind: "mixed" },
 ] as const satisfies ReadonlyArray<{ value: string; label: string; kind: ProductKind }>;
 
 const radioPeriods = ["12 months", "24 months", "36 months"] as const;
