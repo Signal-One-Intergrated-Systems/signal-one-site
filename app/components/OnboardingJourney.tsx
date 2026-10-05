@@ -172,7 +172,7 @@ export default function OnboardingJourney({
         data-onboarding-world={world.kind}
       >
         <div className="absolute inset-0 opacity-25">
-          <Image src={world.image} alt="" fill className="object-cover" priority />
+          <Image src={world.image} alt="" fill quality={92} className="object-cover" priority sizes="(min-width:1280px) 1280px, 100vw" />
           <div className="absolute inset-0 bg-[#071018]/80" />
         </div>
         <motion.section
@@ -253,7 +253,7 @@ export default function OnboardingJourney({
 
         <div className="mt-7 grid min-h-[650px] gap-6 lg:grid-cols-[.72fr_1.28fr]">
           <aside className="relative hidden overflow-hidden rounded-[24px] border border-white/10 bg-white/[.035] lg:block">
-            <Image src={world.image} alt="" fill className="object-cover opacity-55" />
+            <Image src={world.image} alt="" fill quality={90} className="object-cover opacity-55" sizes="(min-width:1280px) 1280px, 100vw" />
             <div className="absolute inset-0 bg-gradient-to-t from-[#070b11] via-[#070b11]/58 to-transparent" />
             <div className="absolute inset-x-0 bottom-0 p-8">
               <p className="s1-mono text-[11px] font-semibold" style={{ color: world.accent }}>
