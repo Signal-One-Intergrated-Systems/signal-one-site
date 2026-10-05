@@ -155,7 +155,7 @@ export default function Home() {
                 <div className="inline-flex items-center gap-2 rounded-full border border-[#0EA5E9]/30 bg-[#0EA5E9]/[.075] px-3.5 py-2">
                   <span className="relative h-2 w-2 rounded-full bg-[#0EA5E9] shadow-[0_0_16px_rgba(14,165,233,.7)]" />
                   <span className="s1-mono text-[9px] font-medium text-[#7DD3FC]">
-                    For private security companies
+                    Security operations software for South African guarding companies
                   </span>
                 </div>
 
@@ -166,15 +166,18 @@ export default function Home() {
                 </h1>
 
                 <p className="mt-6 max-w-2xl text-base leading-7 text-white/72 md:text-lg md:leading-8">
-                  Signal One gives security-company owners and operations leaders one operational picture across people, posts, patrols, exceptions, evidence, devices and client service.
+                  Run attendance, posts, patrols, incidents, SOS, control-room visibility and client proof from one operational record. Add push-to-talk communications, managed devices and connectivity when the operation needs them.
                 </p>
 
                 <div className="mt-8 flex flex-wrap gap-3">
-                  <Link href="/#proof" className="s1-primary-action px-6 py-3.5 text-sm font-semibold">
-                    See Signal One in action
+                  <Link href="/tour" className="s1-primary-action px-6 py-3.5 text-sm font-semibold">
+                    Watch product tour
                   </Link>
-                  <Link href="/contact" className="s1-secondary-action px-6 py-3.5 text-sm font-semibold">
-                    Book an operational review
+                  <Link href="/contact?intent=demo" className="s1-secondary-action px-6 py-3.5 text-sm font-semibold">
+                    Book a 30-minute demo
+                  </Link>
+                  <Link href="/pricing" className="px-3 py-3.5 text-sm font-semibold text-white/58 transition hover:text-[#38BDF8]">
+                    See packages →
                   </Link>
                 </div>
 
@@ -382,6 +385,39 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="border-y border-white/10 bg-[var(--s1-deep)] px-5 py-20 md:py-24">
+        <div className="mx-auto max-w-[90rem]">
+          <div className="grid gap-8 lg:grid-cols-[.78fr_1.22fr] lg:items-end">
+            <div>
+              <p className="s1-mono text-[9px] font-semibold text-[#38BDF8]">Evaluate before you engage</p>
+              <h2 className="mt-4 text-3xl font-semibold tracking-[-.035em] sm:text-5xl">
+                Build most of the business case before the sales call.
+              </h2>
+            </div>
+            <p className="max-w-3xl text-sm leading-7 text-white/54">
+              See the operating system, understand how Signal One is packaged and review the deployment principles procurement will ask about. The live conversation should focus on fit, not basic discovery.
+            </p>
+          </div>
+
+          <div className="mt-10 grid gap-4 lg:grid-cols-3">
+            {[
+              ["/tour", "Product tour", "See Control Room, My operation, People & access and Proof of service using controlled demo captures.", "Tour the product"],
+              ["/pricing", "Packages & pricing", "Understand Guard Core, Control, Connected Operations and Enterprise before requesting commercial pricing.", "See packages"],
+              ["/trust", "Trust & deployment", "Review access, audit-preserving records, offline field continuity and the implementation path.", "Review trust"],
+            ].map(([href, title, body, cta]) => (
+              <Link key={href} href={href} className="group rounded-[18px] border border-white/10 bg-[#0A0D12] p-7 transition duration-300 hover:border-[#0EA5E9]/35">
+                <span className="mb-5 block h-1 w-8 rounded-full bg-[#0EA5E9]" />
+                <h3 className="text-2xl font-semibold tracking-[-.03em]">{title}</h3>
+                <p className="mt-3 text-sm leading-7 text-white/48">{body}</p>
+                <span className="mt-6 inline-flex text-sm font-semibold text-[#38BDF8] transition duration-300 group-hover:translate-x-1">
+                  {cta} →
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section id="marketplace" className="border-y border-white/10 bg-[var(--s1-deep)] px-5 py-24 md:py-32">
         <div className="mx-auto max-w-[90rem]">
           <div className="grid gap-8 lg:grid-cols-[.85fr_1.15fr] lg:items-end">
@@ -494,27 +530,30 @@ export default function Home() {
                 Start with the operational problem you need to control.
               </h2>
               <p className="mt-5 max-w-2xl text-sm leading-7 text-white/58">
-                We can review your current operating model first, or you can begin company onboarding directly.
+                Take the self-guided tour first, then use a live demo to map Signal One to your own sites, guard count, control-room workflow and client-service requirements.
               </p>
 
               <div className="mt-7 flex flex-wrap gap-3">
-                <Link href="/contact" className="s1-primary-action px-6 py-3 text-sm font-semibold">
-                  Book operational review
+                <Link href="/tour" className="s1-primary-action px-6 py-3 text-sm font-semibold">
+                  Take product tour
                 </Link>
-                <Link href="/get-started" className="s1-secondary-action px-6 py-3 text-sm font-semibold">
-                  Start company onboarding
+                <Link href="/contact?intent=demo" className="s1-secondary-action px-6 py-3 text-sm font-semibold">
+                  Book a 30-minute demo
+                </Link>
+                <Link href="/pricing" className="px-3 py-3 text-sm font-semibold text-white/62 transition hover:text-[#38BDF8]">
+                  See packages →
                 </Link>
               </div>
             </div>
 
             <div className="mt-10 flex flex-col gap-4 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
-              <p className="text-sm text-white/40">Looking to work with Signal One instead?</p>
+              <p className="text-sm text-white/40">Need technical or procurement information before a demo?</p>
               <div className="flex flex-wrap gap-4 text-sm">
-                <Link href="/guards/join" className="font-semibold text-white/66 transition hover:text-[#38BDF8]">
-                  Guard onboarding →
+                <Link href="/trust" className="font-semibold text-white/66 transition hover:text-[#38BDF8]">
+                  Trust & deployment →
                 </Link>
-                <Link href="/join/sales" className="font-semibold text-white/66 transition hover:text-[#38BDF8]">
-                  Join Signal One Sales →
+                <Link href="/marketplace" className="font-semibold text-white/66 transition hover:text-[#38BDF8]">
+                  Connected operations →
                 </Link>
               </div>
             </div>
