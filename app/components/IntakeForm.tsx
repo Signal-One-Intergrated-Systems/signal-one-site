@@ -20,6 +20,7 @@ type Attribution = {
   content: string;
   landingPath: string;
   referrer: string;
+  quoteConfiguration: string;
 };
 
 const emptyAttribution: Attribution = {
@@ -31,6 +32,7 @@ const emptyAttribution: Attribution = {
   content: "",
   landingPath: "",
   referrer: "",
+  quoteConfiguration: "",
 };
 
 export default function IntakeForm({
@@ -59,6 +61,7 @@ export default function IntakeForm({
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const intent = params.get("intent") || "";
+    const quoteConfiguration = params.get("quote") || "";
     setAttribution({
       intent,
       source: params.get("utm_source") || "",
@@ -68,6 +71,7 @@ export default function IntakeForm({
       content: params.get("utm_content") || "",
       landingPath: window.location.pathname + window.location.search,
       referrer: document.referrer || "",
+      quoteConfiguration,
     });
 
     if (intent && fields.some((field) => field.name === "intent")) {
@@ -81,6 +85,13 @@ export default function IntakeForm({
       if (mapped) {
         setValues((current) => ({ ...current, intent: mapped }));
       }
+    }
+
+    if (quoteConfiguration && fields.some((field) => field.name === "need")) {
+      setValues((current) => ({
+        ...current,
+        need: current.need || "Configured quote request: " + quoteConfiguration,
+      }));
     }
   }, [fields]);
 
@@ -100,6 +111,7 @@ export default function IntakeForm({
       leadUtmContent: attribution.content,
       leadLandingPath: attribution.landingPath,
       leadReferrer: attribution.referrer,
+      leadQuoteConfiguration: attribution.quoteConfiguration,
     };
 
     try {
