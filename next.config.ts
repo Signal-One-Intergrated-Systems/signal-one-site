@@ -15,7 +15,7 @@ const legacyRedirects = [
   ["/solutions/public-safety", "/solutions/security"],
   ["/solutions/utilities", "/solutions/security"],
   ["/systems", "/"],
-  ["/marketplace", "/radios-equipment"],
+  ["/marketplace", "/guard-marketplace"],
   ["/partners", "/contact"],
 ] as const;
 
