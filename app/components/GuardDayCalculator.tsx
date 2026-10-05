@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
+import { trackEvent } from "../lib/analytics";
 
 const PRICE_PER_GUARD_DAY = 2;
 const MINIMUM_GUARD_DAYS = 10;
@@ -26,6 +27,13 @@ export default function GuardDayCalculator({
 }) {
   const [guards, setGuards] = useState(50);
   const [days, setDays] = useState(30);
+  const interactionTracked = useRef(false);
+
+  function trackInteraction() {
+    if (interactionTracked.current) return;
+    interactionTracked.current = true;
+    trackEvent("guard_pricing_interaction");
+  }
 
   const result = useMemo(() => {
     const requestedGuardDays = guards * days;
@@ -58,7 +66,7 @@ export default function GuardDayCalculator({
     >
       <div className="grid gap-4 sm:grid-cols-2">
         <label>
-          <span className="s1-mono mb-2 block text-[8px] text-white/38">
+          <span className="s1-mono mb-2 block text-[11px] text-white/68">
             Guards
           </span>
           <input
@@ -67,16 +75,17 @@ export default function GuardDayCalculator({
             step="1"
             inputMode="numeric"
             value={guards}
-            onChange={(event) =>
-              setGuards(normalise(event.target.value, 0))
-            }
+            onChange={(event) => {
+              trackInteraction();
+              setGuards(normalise(event.target.value, 0));
+            }}
             className={inputClass}
             aria-label="Number of guards"
           />
         </label>
 
         <label>
-          <span className="s1-mono mb-2 block text-[8px] text-white/38">
+          <span className="s1-mono mb-2 block text-[11px] text-white/68">
             Days
           </span>
           <input
@@ -85,7 +94,10 @@ export default function GuardDayCalculator({
             step="1"
             inputMode="numeric"
             value={days}
-            onChange={(event) => setDays(normalise(event.target.value, 0))}
+            onChange={(event) => {
+              trackInteraction();
+              setDays(normalise(event.target.value, 0));
+            }}
             className={inputClass}
             aria-label="Number of days"
           />
@@ -95,7 +107,7 @@ export default function GuardDayCalculator({
       <div className="mt-6 border-t border-white/10 pt-6" aria-live="polite">
         <div className="flex items-end justify-between gap-5">
           <div>
-            <p className="s1-mono text-[8px] text-white/34">
+            <p className="s1-mono text-[11px] text-white/68">
               Guard days
             </p>
             <p className="mt-2 text-2xl font-semibold tracking-[-.03em] text-white">
@@ -103,7 +115,7 @@ export default function GuardDayCalculator({
             </p>
           </div>
           <div className="text-right">
-            <p className="s1-mono text-[8px] text-white/34">
+            <p className="s1-mono text-[11px] text-white/68">
               Ex VAT
             </p>
             <p className="mt-2 text-3xl font-semibold tracking-[-.04em] text-[#38BDF8]">
@@ -112,7 +124,7 @@ export default function GuardDayCalculator({
           </div>
         </div>
 
-        <p className="mt-5 text-sm leading-6 text-white/44">
+        <p className="mt-5 text-sm leading-6 text-white/68">
           {result.billableGuardDays > 0
             ? `${result.billableGuardDays.toLocaleString("en-ZA")} × R${PRICE_PER_GUARD_DAY} per guard day`
             : "Enter the guards and days you want to cover."}
@@ -129,19 +141,19 @@ export default function GuardDayCalculator({
       {!compact ? (
         <div className="mt-6 grid gap-3 border-t border-white/10 pt-6 sm:grid-cols-3">
           <div>
-            <p className="s1-mono text-[8px] text-white/28">Rate</p>
+            <p className="s1-mono text-[11px] text-white/64">Rate</p>
             <p className="mt-2 text-sm font-semibold text-white/70">
               R2 / guard / day
             </p>
           </div>
           <div>
-            <p className="s1-mono text-[8px] text-white/28">Minimum</p>
+            <p className="s1-mono text-[11px] text-white/64">Minimum</p>
             <p className="mt-2 text-sm font-semibold text-white/70">
               10 guard days
             </p>
           </div>
           <div>
-            <p className="s1-mono text-[8px] text-white/28">Unused days</p>
+            <p className="s1-mono text-[11px] text-white/64">Unused days</p>
             <p className="mt-2 text-sm font-semibold text-white/70">
               Carry over
             </p>
