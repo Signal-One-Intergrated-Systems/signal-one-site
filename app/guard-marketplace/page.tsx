@@ -27,7 +27,7 @@ export default function GuardMarketplacePage() {
   return (
     <main className="min-h-screen bg-[var(--s1-surface-base)] px-5 pb-16 pt-28 text-white md:pt-32">
       <div className="mx-auto max-w-[1280px]">
-        <section className="grid gap-10 border-b border-white/10 pb-16 lg:grid-cols-[.9fr_1.1fr] lg:items-end md:pb-20">
+        <section className="grid gap-10 border-b border-white/10 pb-12 lg:grid-cols-[.9fr_1.1fr] lg:items-end md:pb-16">
           <div>
             <div className="flex flex-wrap items-center gap-3">
               <p className="s1-eyebrow">Guard Marketplace</p>
@@ -50,7 +50,7 @@ export default function GuardMarketplacePage() {
           </div>
         </section>
 
-        <section className="grid gap-10 py-16 lg:grid-cols-[.82fr_1.18fr] lg:items-start md:py-20">
+        <section className="grid gap-10 py-12 lg:grid-cols-[.82fr_1.18fr] lg:items-start md:py-16">
           <div>
             <p className="s1-eyebrow">Private client workspace</p>
             <h2 className="s1-h2 mt-5 max-w-xl font-semibold">
@@ -129,7 +129,7 @@ export default function GuardMarketplacePage() {
           </div>
         </section>
 
-        <section className="grid gap-10 py-16 lg:grid-cols-[1fr_.9fr] lg:items-start md:py-20">
+        <section className="grid gap-10 py-12 lg:grid-cols-[1fr_.9fr] lg:items-start md:py-16">
           <div>
             <p className="s1-eyebrow">PSiRA eligibility</p>
             <h2 className="s1-h2 mt-5 max-w-2xl font-semibold">
