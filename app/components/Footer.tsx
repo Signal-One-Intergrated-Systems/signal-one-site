@@ -8,6 +8,7 @@ const groups = [
       ["/solutions/security", "Security operations"],
       ["/pricing", "Packages & pricing"],
       ["/trust", "Trust & deployment"],
+      ["/insights", "Insights"],
     ],
   },
   {
