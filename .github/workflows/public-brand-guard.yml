@@ -24,6 +24,8 @@ jobs:
         run: npm ci
       - name: Check public branding
         run: npm run check:public-brand
+      - name: Check internal links
+        run: npm run check:internal-links
       - name: Lint
         run: npm run lint
       - name: Build
