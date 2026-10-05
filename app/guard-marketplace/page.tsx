@@ -4,7 +4,8 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Guard Marketplace",
   description:
-    "The planned Signal One Guard Marketplace will let paying security-company clients find eligible guards and send hire requests through the Guard app.",
+    "Signal One Guard Marketplace is an MVP hiring workspace for security companies to find eligible guards, shortlist them and send hire requests.",
+  alternates: { canonical: "/guard-marketplace" },
 };
 
 const fields = [
