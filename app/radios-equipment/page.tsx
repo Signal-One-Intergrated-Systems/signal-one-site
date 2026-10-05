@@ -9,55 +9,35 @@ export const metadata: Metadata = {
   alternates: { canonical: "/radios-equipment" },
 };
 
-const radios = [
+const radioOfferings = [
   {
     model: "Hytera PNC360S",
-    label: "Compact professional PoC radio",
+    commercial: "Rental · quote only",
+    label: "PoC radio rental",
     useCase:
-      "For security teams that need a compact LTE/Wi-Fi push-to-talk device with strong audio and rugged field protection.",
-    specs: [
-      "LTE / WCDMA / GSM cellular support",
-      "1.77-inch display",
-      "4,000 mAh battery",
-      "Wi-Fi 2.4 GHz",
-      "Bluetooth 4.1",
-      "GPS / BDS / GLONASS / AGPS positioning",
-      "IP67 protection",
-      "Approx. 190 g with belt clip",
-    ],
+      "Catalogue rental offering for cellular push-to-talk, including the device, RoIP service and data.",
   },
   {
-    model: "Hytera P30",
-    label: "Professional lightweight PoC radio",
+    model: "P30 Lite PoC",
+    commercial: "Rental · quote only",
+    label: "Comms + SOS rental",
     useCase:
-      "For guarding and field teams that need simple push-to-talk communications in a lightweight handheld form factor.",
-    specs: [
-      "2G / 3G / LTE cellular support",
-      "1.77-inch 128×160 display",
-      "3,300 mAh battery",
-      "Up to 3 W audio",
-      "Nano SIM",
-      "Optional GPS / BDS / GLONASS positioning",
-      "IP54 protection",
-      "Approx. 170 g without belt clip",
-    ],
+      "Catalogue rental offering including communications, SOS, SIM, data and platform access.",
   },
   {
-    model: "Caltta e600",
-    label: "Rugged broadband PoC radio",
+    model: "PTT platform + SIM & data",
+    commercial: "Subscription · quote only",
+    label: "PTT service",
     useCase:
-      "For field teams that need a larger battery, rugged enclosure and Android-based broadband communications device.",
-    specs: [
-      "LTE / WCDMA / GSM plus Wi-Fi",
-      "5,100 mAh battery",
-      "Customised Android 8",
-      "512 MB RAM + 4 GB storage",
-      "GPS / AGPS positioning",
-      "Wi-Fi 2.4 GHz",
-      "Bluetooth support",
-      "IP68 protection",
-    ],
+      "Monthly platform access with SIM and data for supported radios. Final device and network fit are confirmed for the deployment.",
   },
+] as const;
+
+const additionalEquipment = [
+  ["E600 PoC LTE radio", "PoC LTE radio available through the Signal One catalogue by quote."],
+  ["FMC920 tracker", "2G/4G vehicle tracking device, paired with the tracking-platform requirement."],
+  ["FMB920 tracker", "2G vehicle tracking device for deployments where that network/device profile is suitable."],
+  ["SC780 body camera", "24-month body-camera rental offering in the Signal One catalogue."],
 ] as const;
 
 export default function RadiosEquipmentPage() {
@@ -97,9 +77,9 @@ export default function RadiosEquipmentPage() {
                 Professional cellular push-to-talk devices.
               </h2>
               <p className="s1-body mt-5 max-w-xl">
-                The public range below is limited to radio models whose core
-                specifications have been cross-checked against current
-                manufacturer material.
+                These public offerings are aligned to the current Signal One
+                commercial catalogue. Final hardware, network fit, stock and
+                rental terms are confirmed before a quote is accepted.
               </p>
             </div>
 
@@ -116,37 +96,23 @@ export default function RadiosEquipmentPage() {
           </div>
 
           <div className="mt-12 grid gap-4 lg:grid-cols-3">
-            {radios.map((radio) => (
+            {radioOfferings.map((radio) => (
               <article
                 key={radio.model}
                 className="rounded-[18px] border border-white/10 bg-[#0F131A] p-6"
               >
                 <p className="s1-mono text-[11px] text-[#38BDF8]">
-                  Rental · quote only
+                  {radio.commercial}
                 </p>
                 <h3 className="mt-4 text-2xl font-semibold tracking-[-.03em]">
                   {radio.model}
                 </h3>
-                <p className="mt-2 text-sm font-medium text-white/50">
+                <p className="mt-2 text-sm font-medium text-white/70">
                   {radio.label}
                 </p>
-                <p className="mt-5 text-sm leading-7 text-white/44">
+                <p className="mt-5 text-sm leading-7 text-white/68">
                   {radio.useCase}
                 </p>
-
-                <div className="mt-6 border-t border-white/10 pt-5">
-                  <p className="s1-mono text-[11px] text-white/68">
-                    Verified core specifications
-                  </p>
-                  <ul className="mt-4 space-y-2.5 text-xs leading-6 text-white/46">
-                    {radio.specs.map((spec) => (
-                      <li key={spec} className="flex gap-2">
-                        <span className="mt-[9px] h-1 w-1 shrink-0 rounded-full bg-[#38BDF8]" />
-                        <span>{spec}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
               </article>
             ))}
           </div>
@@ -159,30 +125,18 @@ export default function RadiosEquipmentPage() {
               Vehicle tracking, asset tracking and tracking devices.
             </h2>
             <p className="s1-body mt-5 max-w-xl">
-              Tracking remains a commercial category rather than a named public
-              hardware range for now. Signal One can scope tracking against the
-              operating requirement and confirm the exact device before quote.
+              The current catalogue includes named vehicle-tracking devices and
+              a monthly tracking-platform service. Signal One confirms the
+              appropriate device, installation and platform requirement before quote.
             </p>
           </div>
 
           <div className="grid gap-3 sm:grid-cols-2">
             {[
-              [
-                "Vehicle tracking",
-                "For response vehicles, patrol vehicles and other mobile fleet assets.",
-              ],
-              [
-                "Asset tracking",
-                "For equipment and operational assets that need location visibility.",
-              ],
-              [
-                "Tracking devices",
-                "Hardware selection is confirmed against the environment, power, network and mounting requirement.",
-              ],
-              [
-                "Guard integration",
-                "Direct Tracking on/off controls inside Guard are planned, not currently presented as live.",
-              ],
+              ["FMC920", "2G/4G vehicle tracker available through the current catalogue."],
+              ["FMB920", "2G vehicle tracker available through the current catalogue."],
+              ["Tracking platform", "Monthly platform subscription per tracking device; final commercial terms are quoted for the deployment."],
+              ["Guard integration", "Tracking controls inside Guard are Coming soon and are not presented as live today."],
             ].map(([title, body]) => (
               <article
                 key={title}
@@ -192,6 +146,30 @@ export default function RadiosEquipmentPage() {
                 <p className="mt-2 text-sm leading-7 text-white/68">{body}</p>
               </article>
             ))}
+          </div>
+        </section>
+
+        <section className="border-b border-white/10 py-12 md:py-16">
+          <div className="grid gap-8 lg:grid-cols-[.78fr_1.22fr]">
+            <div>
+              <p className="s1-eyebrow">Additional catalogue equipment</p>
+              <h2 className="s1-h2 mt-5 max-w-xl font-semibold">
+                More than radios.
+              </h2>
+              <p className="s1-body mt-5 max-w-xl">
+                Equipment is surfaced from the same commercial catalogue used
+                by Signal One representatives. Public availability remains
+                subject to a confirmed quote.
+              </p>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {additionalEquipment.map(([title, body]) => (
+                <article key={title} className="rounded-[16px] border border-white/10 bg-[#0F131A] p-5">
+                  <h3 className="text-base font-semibold text-white/84">{title}</h3>
+                  <p className="mt-2 text-sm leading-7 text-white/68">{body}</p>
+                </article>
+              ))}
+            </div>
           </div>
         </section>
 
