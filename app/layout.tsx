@@ -45,12 +45,14 @@ export const metadata: Metadata = {
     siteName: "Signal One",
     locale: "en_ZA",
     url: "/",
+    images: ["/images/story/hero.webp"],
   },
   twitter: {
     card: "summary_large_image",
     title: "Signal One | Security Company Operating Platform",
     description:
       "Security guard management software for South African security companies, with Guard Marketplace, radios, tracking and client proof.",
+    images: ["/images/story/hero.webp"],
   },
   robots: {
     index: true,
