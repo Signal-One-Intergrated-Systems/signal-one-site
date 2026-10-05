@@ -9,12 +9,32 @@ type NetworkInformationLike = {
 };
 
 export default function HeroVideo() {
+  const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const reducedMotion = useReducedMotion();
   const [playing, setPlaying] = useState(false);
   const [muted, setMuted] = useState(true);
   const [ready, setReady] = useState(false);
   const [autoPlayEnabled, setAutoPlayEnabled] = useState(false);
+  const [nearViewport, setNearViewport] = useState(false);
+  const [hasEnteredViewport, setHasEnteredViewport] = useState(false);
+
+  useEffect(() => {
+    const element = containerRef.current;
+    if (!element) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        const near = Boolean(entry?.isIntersecting);
+        setNearViewport(near);
+        if (near) setHasEnteredViewport(true);
+      },
+      { rootMargin: "320px 0px", threshold: 0.01 },
+    );
+
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const desktopQuery = window.matchMedia("(min-width: 1024px)");
@@ -27,14 +47,17 @@ export default function HeroVideo() {
         ["slow-2g", "2g", "3g"].includes(connection?.effectiveType || "");
 
       setAutoPlayEnabled(
-        desktopQuery.matches && !reducedMotion && !constrainedNetwork,
+        desktopQuery.matches &&
+          nearViewport &&
+          !reducedMotion &&
+          !constrainedNetwork,
       );
     };
 
     updateAutoPlay();
     desktopQuery.addEventListener("change", updateAutoPlay);
     return () => desktopQuery.removeEventListener("change", updateAutoPlay);
-  }, [reducedMotion]);
+  }, [nearViewport, reducedMotion]);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -70,7 +93,7 @@ export default function HeroVideo() {
   };
 
   return (
-    <div className="group relative overflow-hidden rounded-[18px] border border-white/15 bg-[var(--s1-black)] shadow-[var(--s1-shadow-card)]">
+    <div ref={containerRef} className="group relative overflow-hidden rounded-[18px] border border-white/15 bg-[var(--s1-black)] shadow-[var(--s1-shadow-card)]">
       <div
         className={
           "absolute inset-0 z-10 bg-[#0a0d12] transition-opacity duration-500 " +
@@ -85,7 +108,7 @@ export default function HeroVideo() {
         loop
         muted={muted}
         playsInline
-        preload={autoPlayEnabled ? "metadata" : "none"}
+        preload={hasEnteredViewport ? "metadata" : "none"}
         poster="/images/industries/security.jpg"
         onCanPlay={() => setReady(true)}
         onLoadedData={() => setReady(true)}
@@ -94,7 +117,7 @@ export default function HeroVideo() {
         className="aspect-[4/3] w-full object-cover object-center sm:aspect-[16/11] xl:aspect-[4/3]"
         aria-label="Signal One field operations video"
       >
-        <source src="/videos/hero-panel.mp4" type="video/mp4" />
+        {hasEnteredViewport ? <source src="/videos/hero-panel.mp4" type="video/mp4" /> : null}
         Your browser does not support HTML video.
       </video>
 
@@ -103,7 +126,7 @@ export default function HeroVideo() {
 
       <div className="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full border border-white/14 bg-[#0a0d12]/64 px-3 py-2 backdrop-blur-xl">
         <span className="relative h-2 w-2 rounded-full bg-[#22C55E] shadow-[0_0_14px_rgba(34,197,94,.55)]" />
-        <span className="s1-mono text-[9px] text-white/72">Signal One field operations</span>
+        <span className="s1-mono text-[11px] text-white/72">Signal One field operations</span>
       </div>
 
       <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-4 sm:p-5">
