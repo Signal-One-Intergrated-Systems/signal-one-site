@@ -31,7 +31,7 @@ export default function Header() {
           href="/"
           onClick={() => setOpen(false)}
           className="flex min-w-0 items-center gap-3"
-          aria-label="Signal One home"
+          aria-label="Signal One Integrated Systems home"
         >
           <span className="relative grid h-9 w-9 shrink-0 place-items-center rounded-full border border-[#0EA5E9]/40">
             <span className="h-2.5 w-2.5 rounded-full bg-[#0EA5E9] shadow-[0_0_18px_rgba(14,165,233,.55)]" />
@@ -41,7 +41,7 @@ export default function Header() {
               SIGNAL <span className="text-[#0EA5E9]">ONE</span>
             </span>
             <span className="s1-mono mt-0.5 block truncate text-[11px] text-white/68">
-              Security company operating platform
+              Integrated Systems · Security
             </span>
           </span>
         </Link>
@@ -59,7 +59,7 @@ export default function Header() {
         </nav>
 
         <div className="hidden lg:block">
-          <Link href="/get-started" className="s1-primary-action px-5 py-2.5 text-sm font-semibold">
+          <Link href="/get-started" data-analytics-event="header_get_started" data-analytics-label="Desktop header" className="s1-primary-action px-5 py-2.5 text-sm font-semibold">
             Get started
           </Link>
         </div>
@@ -100,6 +100,8 @@ export default function Header() {
               <Link
                 href="/get-started"
                 onClick={() => setOpen(false)}
+                data-analytics-event="header_get_started"
+                data-analytics-label="Mobile header"
                 className="s1-primary-action mt-2 px-5 py-3 text-center text-sm font-semibold"
               >
                 Get started

@@ -6,7 +6,8 @@ import OnboardingJourney, {
 
 export const metadata: Metadata = {
   title: "Onboard your security company",
-  description: "Start your Signal One company onboarding journey.",
+  description: "Start your Signal One security-company onboarding journey.",
+  alternates: { canonical: "/get-started" },
 };
 
 const world: JourneyWorld = {

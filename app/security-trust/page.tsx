@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Security & Trust",
-  description: "Current Signal One security and operational trust controls, with unconfirmed commitments clearly identified.",
+  description: "Signal One security, access-control, audit, hosting and product-truth practices.",
+  alternates: { canonical: "/security-trust" },
 };
 
 export default function SecurityTrustPage() {
@@ -31,8 +32,8 @@ export default function SecurityTrustPage() {
             </section>
           ))}
         </div>
-        <p className="mt-8 rounded-[14px] border border-[#F59E0B]/20 bg-[#F59E0B]/[.05] p-5 text-sm leading-7 text-[#FCD34D]">
-          For legal and operational review: confirm the public support schedule, hosting/data-location commitment, backup retention, RPO/RTO and final Information Officer contact before removing this notice.
+        <p className="mt-8 rounded-[14px] border border-white/10 bg-white/[.025] p-5 text-sm leading-7 text-white/70">
+          Procurement or security review? Contact <a href="mailto:sales@signalone.co.za" className="font-semibold text-[#7DD3FC]">sales@signalone.co.za</a>. Contractual support hours, data-location commitments, backup retention and recovery objectives are confirmed in the applicable customer agreement rather than invented on the public website.
         </p>
       </article>
     </main>

@@ -4,6 +4,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { FormEvent, useEffect, useMemo, useState, type CSSProperties } from "react";
+import { trackEvent } from "../lib/analytics";
 
 export type JourneyField = {
   name: string;
@@ -144,6 +145,7 @@ export default function OnboardingJourney({
         throw new Error(body.message || "We could not send this application.");
       }
       setState("done");
+      trackEvent("onboarding_complete", { kind: world.kind });
       setMessage(body.message || "Your Signal One application has been received.");
       try {
         window.localStorage.removeItem(world.storageKey);
@@ -186,13 +188,13 @@ export default function OnboardingJourney({
             >
               ✓
             </div>
-            <p className="mt-7 s1-mono text-[9px] font-semibold" style={{ color: world.accent }}>
+            <p className="mt-7 s1-mono text-[11px] font-semibold" style={{ color: world.accent }}>
               Signal One · Application received
             </p>
             <h1 className="mx-auto mt-4 max-w-2xl text-4xl font-semibold tracking-[-.04em] md:text-5xl">
               {world.completionTitle}
             </h1>
-            <p className="mx-auto mt-5 max-w-xl text-base leading-7 text-white/58">
+            <p className="mx-auto mt-5 max-w-xl text-base leading-7 text-white/68">
               {message || world.completionBody}
             </p>
             <Link
@@ -228,7 +230,7 @@ export default function OnboardingJourney({
       </div>
 
       <div className="relative mx-auto max-w-[90rem]">
-        <div className="mb-5 flex items-center justify-between gap-4 text-xs text-white/42">
+        <div className="mb-5 flex items-center justify-between gap-4 text-xs text-white/68">
           <span className="font-semibold uppercase tracking-[.2em]">{world.badge}</span>
           <span aria-live="polite">{hydrated ? "Progress saved on this device" : "Preparing your journey…"}</span>
         </div>
@@ -254,13 +256,13 @@ export default function OnboardingJourney({
             <Image src={world.image} alt="" fill className="object-cover opacity-55" />
             <div className="absolute inset-0 bg-gradient-to-t from-[#070b11] via-[#070b11]/58 to-transparent" />
             <div className="absolute inset-x-0 bottom-0 p-8">
-              <p className="s1-mono text-[9px] font-semibold" style={{ color: world.accent }}>
+              <p className="s1-mono text-[11px] font-semibold" style={{ color: world.accent }}>
                 {world.badge}
               </p>
               <h2 className="mt-3 max-w-md text-3xl font-semibold tracking-[-.035em]">
                 {stepIndex === 0 ? world.welcomeTitle : current?.title}
               </h2>
-              <p className="mt-4 max-w-md text-sm leading-6 text-white/60">
+              <p className="mt-4 max-w-md text-sm leading-6 text-white/70">
                 {stepIndex === 0 ? world.welcomeBody : current?.body}
               </p>
             </div>
@@ -281,7 +283,7 @@ export default function OnboardingJourney({
                   />
                 ))}
               </div>
-              <span className="text-xs tabular-nums text-white/38">
+              <span className="text-xs tabular-nums text-white/64">
                 {stepIndex === 0 ? "Welcome" : "Step " + stepIndex + " of " + steps.length}
               </span>
             </div>
@@ -298,13 +300,13 @@ export default function OnboardingJourney({
                 {stepIndex === 0 ? (
                   <div className="flex h-full flex-col justify-between">
                     <div>
-                      <p className="s1-mono text-[9px] font-semibold" style={{ color: world.accent }}>
+                      <p className="s1-mono text-[11px] font-semibold" style={{ color: world.accent }}>
                         Welcome to Signal One
                       </p>
                       <h1 className="mt-5 max-w-2xl text-4xl font-semibold tracking-[-.045em] md:text-6xl">
                         {world.welcomeTitle}
                       </h1>
-                      <p className="mt-6 max-w-2xl text-base leading-7 text-white/58">
+                      <p className="mt-6 max-w-2xl text-base leading-7 text-white/68">
                         {world.welcomeBody}
                       </p>
                       <div className="mt-9 grid gap-3 md:grid-cols-3">
@@ -322,10 +324,13 @@ export default function OnboardingJourney({
                       </div>
                     </div>
                     <div className="mt-10 flex items-center justify-between">
-                      <span className="text-xs text-white/35">You can leave and resume later on this device.</span>
+                      <span className="text-xs text-white/64">You can leave and resume later on this device.</span>
                       <button
                         type="button"
-                        onClick={() => next()}
+                        onClick={() => {
+                          trackEvent("onboarding_begin", { kind: world.kind });
+                          next();
+                        }}
                         className="rounded-[12px] px-6 py-3 text-sm font-semibold text-[#071018] transition hover:brightness-110 active:scale-[.98]"
                         style={{ backgroundColor: world.accent }}
                       >
@@ -335,22 +340,22 @@ export default function OnboardingJourney({
                   </div>
                 ) : current?.review ? (
                   <div className="flex h-full flex-col">
-                    <p className="s1-mono text-[9px] font-semibold" style={{ color: world.accent }}>
+                    <p className="s1-mono text-[11px] font-semibold" style={{ color: world.accent }}>
                       {current.eyebrow}
                     </p>
                     <h2 className="mt-4 text-3xl font-semibold tracking-[-.035em] md:text-4xl">{current.title}</h2>
-                    <p className="mt-3 max-w-2xl text-sm leading-6 text-white/52">{current.body}</p>
+                    <p className="mt-3 max-w-2xl text-sm leading-6 text-white/68">{current.body}</p>
 
                     <div className="mt-8 grid max-h-[300px] gap-3 overflow-y-auto pr-1 sm:grid-cols-2">
                       {allFields.map((field) => (
                         <div key={field.name} className="rounded-[14px] border border-white/8 bg-white/[.03] p-4">
-                          <p className="text-[10px] font-semibold uppercase tracking-[.14em] text-white/34">{field.label}</p>
+                          <p className="text-[11px] font-semibold uppercase tracking-[.14em] text-white/34">{field.label}</p>
                           <p className="mt-2 text-sm text-white/78">{values[field.name] || "Not provided"}</p>
                         </div>
                       ))}
                     </div>
 
-                    <label className="mt-6 flex items-start gap-3 rounded-[14px] border border-white/8 bg-white/[.025] p-4 text-sm leading-6 text-white/56">
+                    <label className="mt-6 flex items-start gap-3 rounded-[14px] border border-white/8 bg-white/[.025] p-4 text-sm leading-6 text-white/68">
                       <input
                         type="checkbox"
                         checked={consent}
@@ -387,17 +392,17 @@ export default function OnboardingJourney({
                 ) : (
                   <form onSubmit={next} className="flex h-full flex-col">
                     <div>
-                      <p className="s1-mono text-[9px] font-semibold" style={{ color: world.accent }}>
+                      <p className="s1-mono text-[11px] font-semibold" style={{ color: world.accent }}>
                         {current?.eyebrow}
                       </p>
                       <h2 className="mt-4 text-3xl font-semibold tracking-[-.035em] md:text-4xl">{current?.title}</h2>
-                      <p className="mt-3 max-w-2xl text-sm leading-6 text-white/52">{current?.body}</p>
+                      <p className="mt-3 max-w-2xl text-sm leading-6 text-white/68">{current?.body}</p>
                     </div>
 
                     <div className="mt-9 grid gap-5">
                       {(current?.fields || []).map((field) => (
                         <label key={field.name} className="block">
-                          <span className="mb-2 block text-xs font-semibold uppercase tracking-[.12em] text-white/42">
+                          <span className="mb-2 block text-xs font-semibold uppercase tracking-[.12em] text-white/68">
                             {field.label}
                           </span>
                           {field.type === "textarea" ? (

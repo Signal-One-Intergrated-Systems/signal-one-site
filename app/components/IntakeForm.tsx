@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useMemo, useState } from "react";
+import { trackEvent } from "../lib/analytics";
 
 export type IntakeField = {
   name: string;
@@ -38,6 +39,7 @@ export default function IntakeForm({
     if (!consent || state === "sending") return;
     setState("sending");
     setMessage("");
+    trackEvent(kind === "client" ? "contact_begin" : kind + "_intake_begin");
     try {
       const response = await fetch("/api/intake", {
         method: "POST",
@@ -47,6 +49,7 @@ export default function IntakeForm({
       const body = (await response.json().catch(() => ({}))) as { message?: string };
       if (!response.ok) throw new Error(body.message || "We could not send this application.");
       setState("done");
+      trackEvent(kind === "client" ? "contact_complete" : kind + "_intake_complete");
       setMessage(body.message || "Application received.");
     } catch (error) {
       setState("error");
@@ -57,7 +60,7 @@ export default function IntakeForm({
   if (state === "done") {
     return (
       <div className="rounded-[18px] border border-[#0EA5E9]/25 bg-[#0EA5E9]/[.065] p-8 shadow-[var(--s1-shadow-card)]">
-        <p className="s1-mono text-[9px] font-semibold text-[#38BDF8]">Received</p>
+        <p className="s1-mono text-[11px] font-semibold text-[#38BDF8]">Received</p>
         <h2 className="mt-3 text-2xl font-semibold text-white">{title}</h2>
         <p className="mt-4 text-sm leading-6 text-white/62">{message}</p>
       </div>
@@ -69,14 +72,14 @@ export default function IntakeForm({
 
   return (
     <form onSubmit={submit} className="s1-glass rounded-[18px] p-5 md:p-8">
-      <p className="s1-mono text-[9px] font-semibold text-[#38BDF8]">Secure intake</p>
+      <p className="s1-mono text-[11px] font-semibold text-[#38BDF8]">Secure intake</p>
       <h2 className="mt-3 text-2xl font-semibold tracking-[-.025em] text-white">{title}</h2>
-      <p className="mt-3 max-w-2xl text-sm leading-6 text-white/54">{intro}</p>
+      <p className="mt-3 max-w-2xl text-sm leading-6 text-white/68">{intro}</p>
 
       <div className="mt-8 grid gap-5 md:grid-cols-2">
         {fields.map((field) => (
           <label key={field.name} className={field.type === "textarea" ? "md:col-span-2" : ""}>
-            <span className="mb-2 block text-[10px] font-semibold uppercase tracking-[.14em] text-white/42">
+            <span className="mb-2 block text-[11px] font-semibold uppercase tracking-[.14em] text-white/68">
               {field.label}
             </span>
             {field.type === "textarea" ? (
@@ -112,7 +115,7 @@ export default function IntakeForm({
         ))}
       </div>
 
-      <label className="mt-6 flex items-start gap-3 rounded-[12px] border border-white/8 bg-black/15 p-4 text-sm leading-6 text-white/54">
+      <label className="mt-6 flex items-start gap-3 rounded-[12px] border border-white/8 bg-black/15 p-4 text-sm leading-6 text-white/68">
         <input
           type="checkbox"
           checked={consent}

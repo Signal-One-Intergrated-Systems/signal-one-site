@@ -1,15 +1,18 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import { trackEvent } from "../lib/analytics";
 
 type QuoteState = "idle" | "sending" | "done" | "error";
 
 const products = [
-  "Hytera PNC360S",
-  "Hytera P30",
-  "Caltta e600",
-  "Vehicle tracking",
-  "Asset tracking",
+  "PNC360S radio rental",
+  "P30 Lite PoC radio rental",
+  "E600 PoC LTE radio",
+  "PTT platform + SIM & data",
+  "FMC920 vehicle tracker",
+  "FMB920 vehicle tracker",
+  "SC780 body camera rental",
   "Other / mixed requirement",
 ] as const;
 
@@ -30,7 +33,9 @@ export default function EquipmentQuoteForm() {
     notes: "",
   });
 
-  const isTracking = values.product === "Vehicle tracking" || values.product === "Asset tracking";
+  const isTracking =
+    values.product === "FMC920 vehicle tracker" ||
+    values.product === "FMB920 vehicle tracker";
 
   function update(name: keyof typeof values, value: string) {
     setValues((current) => ({ ...current, [name]: value }));
@@ -42,6 +47,7 @@ export default function EquipmentQuoteForm() {
 
     setState("sending");
     setMessage("");
+    trackEvent("equipment_quote_begin", { product: values.product });
 
     try {
       const response = await fetch("/api/intake", {
@@ -66,6 +72,7 @@ export default function EquipmentQuoteForm() {
       }
 
       setState("done");
+      trackEvent("equipment_quote_complete", { product: values.product });
       setMessage(
         body.message ||
           "Your quote request has been received. Signal One will confirm availability, rental terms and pricing.",
@@ -83,7 +90,7 @@ export default function EquipmentQuoteForm() {
   if (state === "done") {
     return (
       <div className="rounded-[18px] border border-[#22C55E]/20 bg-[#22C55E]/[.045] p-7">
-        <p className="s1-mono text-[8px] font-semibold text-[#86EFAC]">
+        <p className="s1-mono text-[11px] font-semibold text-[#86EFAC]">
           Quote request received
         </p>
         <h3 className="mt-4 text-2xl font-semibold">We have your requirement.</h3>

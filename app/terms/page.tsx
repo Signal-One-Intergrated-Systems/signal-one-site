@@ -2,17 +2,18 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Website Terms",
-  description: "Draft Signal One public website terms for legal review.",
+  description: "Signal One public website terms for product information, pricing and acceptable use.",
+  alternates: { canonical: "/terms" },
 };
 
 export default function TermsPage() {
   return (
     <main className="min-h-screen bg-[var(--s1-surface-base)] px-5 pb-16 pt-28 text-white md:pt-32">
       <article className="mx-auto max-w-4xl">
-        <p className="s1-eyebrow">For legal review</p>
+        <p className="s1-eyebrow">Website terms</p>
         <h1 className="s1-display mt-5 font-semibold">Website Terms</h1>
         <p className="mt-6 text-base leading-8 text-white/72">
-          These are draft public-site terms, not the final customer agreement. Product orders, rentals, Guard access and other paid services remain subject to the applicable quotation, order, rental or service agreement.
+          These website terms govern use of the public Signal One site. Product orders, rentals, Guard access and other paid services remain subject to the applicable quotation, order, rental or service agreement.
         </p>
         {[
           ["Website information", "We aim to keep public product information accurate, but availability, hardware specifications and commercial terms are confirmed before an order or rental is accepted."],

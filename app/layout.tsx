@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist_Mono, Inter } from "next/font/google";
+import Analytics from "./components/Analytics";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import "./globals.css";
@@ -19,25 +20,39 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Signal One | Security Company Operating Platform",
-    template: "%s | Signal One",
+    default: "Signal One: Integrated Systems | Security Company Operating Platform",
+    template: "%s | Signal One: Integrated Systems",
   },
   description:
-    "Signal One gives security companies one platform to win clients, hire guards, run operations and prove their service.",
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://signal-one-site.up.railway.app"),
-  applicationName: "Signal One",
+    "Security guard management software for South African security companies: sites, shifts, patrols, incidents, client proof, Guard Marketplace, radios and tracking.",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://signalone.co.za"),
+  category: "business software",
+  keywords: [
+    "security guard management software South Africa",
+    "security company software",
+    "guard patrol software",
+    "security guard attendance software",
+    "security control room software",
+    "PTT radio rental South Africa",
+    "security tracking South Africa",
+  ],
+  applicationName: "Signal One: Integrated Systems",
   openGraph: {
-    title: "Signal One | Security Company Operating Platform",
+    title: "Signal One: Integrated Systems | Security Company Operating Platform",
     description:
-      "Win clients, hire guards, run operations and prove the service from one Signal One platform.",
+      "Run sites, shifts, patrols and incidents, hire guards, rent radios and tracking, and give clients proof of service.",
     type: "website",
-    siteName: "Signal One",
+    siteName: "Signal One: Integrated Systems",
+    locale: "en_ZA",
+    url: "/",
+    images: ["/images/story/hero.webp"],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Signal One | Security Company Operating Platform",
+    title: "Signal One: Integrated Systems | Security Company Operating Platform",
     description:
-      "Win clients, hire guards, run operations and prove the service from one Signal One platform.",
+      "Security guard management software for South African security companies, with Guard Marketplace, radios, tracking and client proof.",
+    images: ["/images/story/hero.webp"],
   },
   robots: {
     index: true,
@@ -59,6 +74,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Header />
         {children}
         <Footer />
+        <Analytics />
       </body>
     </html>
   );

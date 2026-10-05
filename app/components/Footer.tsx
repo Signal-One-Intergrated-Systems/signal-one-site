@@ -33,20 +33,23 @@ export default function Footer() {
             <span className="relative grid h-9 w-9 place-items-center rounded-full border border-[#0EA5E9]/40">
               <span className="h-2 w-2 rounded-full bg-[#0EA5E9] shadow-[0_0_18px_rgba(14,165,233,.5)]" />
             </span>
-            <p className="text-base font-semibold tracking-[.15em]">
-              SIGNAL <span className="text-[#0EA5E9]">ONE</span>
-            </p>
+            <div>
+              <p className="text-base font-semibold tracking-[.15em]">
+                SIGNAL <span className="text-[#0EA5E9]">ONE</span>
+              </p>
+              <p className="s1-mono mt-1 text-[11px] text-white/68">Integrated Systems</p>
+            </div>
           </div>
 
           <p className="mt-5 max-w-xl text-sm leading-7 text-white/70">
-            One platform for security companies to win clients, hire guards, run operations and prove their service.
+            Signal One: Integrated Systems builds connected operating systems for real-world industries. This site is focused on security companies: Guard, hiring, radios, tracking and proof of service.
           </p>
 
           <div className="mt-7 flex flex-wrap gap-3">
-            <Link href="/#proof" className="s1-primary-action px-5 py-2.5 text-sm font-semibold">
+            <Link href="/#proof" data-analytics-event="footer_product_proof" data-analytics-label="Footer proof CTA" className="s1-primary-action px-5 py-2.5 text-sm font-semibold">
               See Signal One in action
             </Link>
-            <Link href="/contact" className="s1-secondary-action px-5 py-2.5 text-sm font-semibold">
+            <Link href="/contact" data-analytics-event="contact_begin" data-analytics-label="Footer contact CTA" className="s1-secondary-action px-5 py-2.5 text-sm font-semibold">
               Talk to Signal One
             </Link>
           </div>
@@ -74,7 +77,7 @@ export default function Footer() {
       </div>
 
       <div className="mx-auto mt-8 flex max-w-[1440px] flex-col gap-3 border-t border-white/10 pt-5 text-xs text-white/66 sm:flex-row sm:items-center sm:justify-between">
-        <span>© {new Date().getFullYear()} Signal One.</span>
+        <span>© {new Date().getFullYear()} Signal One: Integrated Systems.</span>
         <span>South Africa · Pricing shown excluding VAT where stated.</span>
       </div>
     </footer>

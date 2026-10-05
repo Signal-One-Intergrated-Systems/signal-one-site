@@ -7,6 +7,7 @@ import OnboardingJourney, {
 export const metadata: Metadata = {
   title: "Join Signal One Sales",
   description: "Apply for one of Signal One’s current internal sales representative vacancies.",
+  robots: { index: false, follow: true },
 };
 
 const world: JourneyWorld = {

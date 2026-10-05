@@ -3,8 +3,9 @@ import Image from "next/image";
 import IntakeForm, { type IntakeField } from "../components/IntakeForm";
 
 export const metadata: Metadata = {
-  title: "Operational review",
-  description: "Talk to Signal One about your security operation, sites, control room and service evidence.",
+  title: "Talk to Signal One",
+  description: "Talk to Signal One about Guard, Guard Marketplace, PTT radios, tracking, client proof and your security operation.",
+  alternates: { canonical: "/contact" },
 };
 
 const fields: IntakeField[] = [

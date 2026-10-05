@@ -3,16 +3,17 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description: "How Signal One handles personal information submitted through its public website.",
+  alternates: { canonical: "/privacy" },
 };
 
 export default function PrivacyPage() {
   return (
     <main className="min-h-screen bg-[var(--s1-surface-base)] px-5 pb-16 pt-28 text-white md:pt-32">
       <article className="mx-auto max-w-4xl">
-        <p className="s1-eyebrow">For legal review</p>
+        <p className="s1-eyebrow">Privacy</p>
         <h1 className="s1-display mt-5 font-semibold">Privacy Policy</h1>
         <p className="mt-6 text-base leading-8 text-white/72">
-          This draft describes the public website and enquiry flows. It must be reviewed against Signal One's final legal, hosting and retention arrangements before it is treated as legal advice or a final policy.
+          This policy describes how Signal One handles information submitted through the public website and enquiry flows. Product-specific agreements and notices may add requirements for operational services.
         </p>
         {[
           ["Information we collect", "We collect information you choose to submit through enquiries, onboarding, quote requests and applications, such as names, company details, contact information and the information needed to respond to your request."],
