@@ -28,8 +28,9 @@ export default function MarketingHero({
         alt={imageAlt}
         fill
         priority
+        quality={92}
         className="-z-20 object-cover object-center"
-        sizes="100vw"
+        sizes="(min-width:1440px) 1440px, 100vw"
       />
       <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(10,13,18,.98)_0%,rgba(10,13,18,.94)_47%,rgba(10,13,18,.58)_78%,rgba(10,13,18,.30)_100%)]" />
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_82%_18%,rgba(14,165,233,.18),transparent_30%)]" />
