@@ -12,6 +12,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/tour",
     "/pricing",
     "/trust",
+    "/insights",
+    "/insights/security-contracts-fail-quietly",
+    "/insights/control-room-exception-management",
+    "/insights/digital-occurrence-book",
     "/marketplace",
     "/systems",
     "/solutions",
@@ -40,7 +44,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return routes.map((route) => ({
     url: base + route,
     lastModified: new Date(),
-    changeFrequency: route === "" || route === "/marketplace" ? "weekly" : "monthly",
+    changeFrequency: route === "" || route === "/marketplace" || route.startsWith("/insights") ? "weekly" : "monthly",
     priority:
       route === ""
         ? 1
@@ -48,6 +52,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
           ? 0.9
           : route === "/solutions/security" || route.startsWith("/solutions/security/") || route === "/trust"
             ? 0.85
+            : route === "/insights"
+              ? 0.8
             : route === "/get-started" || route === "/marketplace"
               ? 0.8
               : 0.7,
