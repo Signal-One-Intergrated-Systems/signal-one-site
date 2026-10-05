@@ -1,4 +1,4 @@
-name: Public brand guard
+name: Public site quality
 
 on:
   pull_request:
@@ -24,3 +24,7 @@ jobs:
         run: npm ci
       - name: Check public branding
         run: npm run check:public-brand
+      - name: Lint
+        run: npm run lint
+      - name: Build
+        run: npm run build
