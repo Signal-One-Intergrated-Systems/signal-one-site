@@ -4,11 +4,11 @@ import GuardDayCalculator from "./components/GuardDayCalculator";
 import HeroVideo from "./components/HeroVideo";
 import PlatformProof from "./components/PlatformProof";
 
-const salesCapabilities = [
-  "Leads and pipeline",
-  "Next actions and follow-ups",
-  "Quotes and customer conversations",
-  "Sales coaching and performance",
+const startCapabilities = [
+  "Guard software · R2 per guard day",
+  "Radio and PTT rental · quote only",
+  "Vehicle and asset tracking",
+  "Consultation with a Signal One representative",
 ] as const;
 
 const guardCapabilities = [
@@ -96,19 +96,23 @@ export default function Home() {
             </h1>
             <p className="mt-7 max-w-2xl text-lg leading-8 text-white/72">
               Signal One is the operating system for your security company,
-              connecting your sales team, guard hiring, sites, shifts, patrols,
-              control room, PTT radios, tracking and client reporting in one place.
+              connecting guard hiring, sites, shifts, patrols, control room,
+              PTT radios, tracking and client reporting in one place.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
                 href="/#proof"
+                data-analytics-event="hero_product_proof"
+                data-analytics-label="See Signal One in action"
                 className="s1-primary-action px-6 py-3 text-sm font-semibold"
               >
                 See Signal One in action
               </Link>
               <Link
                 href="/pricing"
+                data-analytics-event="hero_pricing"
+                data-analytics-label="Calculate guard cost"
                 className="s1-secondary-action border-white/25 bg-black/20 px-6 py-3 text-sm font-semibold backdrop-blur-[12px]"
               >
                 Calculate guard cost · R2 per guard per day
@@ -188,14 +192,14 @@ export default function Home() {
               />
               <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,13,18,.08)_10%,rgba(10,13,18,.88)_100%)]" />
               <div className="relative flex h-full flex-col justify-between p-6 md:p-8">
-                <p className="s1-mono text-[11px] text-[#7DD3FC]">01 / WIN</p>
+                <p className="s1-mono text-[11px] text-[#7DD3FC]">01 / SCOPE</p>
                 <div>
                   <p className="text-3xl font-semibold tracking-[-.04em]">
-                    Lead → quote → contract.
+                    Start with what the contract needs.
                   </p>
-                  <p className="mt-3 max-w-sm text-sm leading-7 text-white/58">
-                    Sales OS keeps leads, pipeline, next actions, quotes and
-                    customer conversations in one one place, so every lead, follow-up and quote has a clear next action.
+                  <p className="mt-3 max-w-sm text-sm leading-7 text-white/68">
+                    Request a consultation with a Signal One representative or
+                    go directly to Guard pricing, radio rental and tracking requirements.
                   </p>
                 </div>
               </div>
@@ -262,11 +266,11 @@ export default function Home() {
             <div>
               <p className="s1-eyebrow">One business · one operating system</p>
               <p className="mt-2 text-sm text-white/44">
-                Commercial → workforce → operations → equipment → proof → growth
+                Contract → workforce → operations → equipment → proof → growth
               </p>
             </div>
             <div className="grid grid-cols-3 gap-x-6 gap-y-3 sm:grid-cols-6">
-              {["Win", "Hire", "Run", "Equip", "Prove", "Grow"].map(
+              {["Scope", "Hire", "Run", "Equip", "Prove", "Grow"].map(
                 (label, index) => (
                   <div key={label} className="flex items-center gap-2">
                     <span className="s1-mono text-[11px] text-[#38BDF8]">
@@ -283,24 +287,36 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SALES OS */}
+      {/* START / SCOPE */}
       <section className="relative px-5 py-16 md:py-20">
         <div className="pointer-events-none absolute right-[-8%] top-[8%] h-[500px] w-[500px] rounded-full bg-[#0EA5E9]/[.055] blur-[130px]" />
         <div className="relative mx-auto grid max-w-[1440px] gap-10 lg:grid-cols-[.92fr_1.08fr] lg:items-center">
           <div>
-            <RailLabel number="01" label="Win" />
+            <RailLabel number="01" label="Scope" />
             <h2 className="mt-5 max-w-2xl text-4xl font-semibold leading-[1.02] tracking-[-.045em] md:text-6xl">
-              Turn leads into contracts.
+              Start with the contract requirement.
             </h2>
-            <p className="mt-6 max-w-xl text-base leading-8 text-white/56">
-              Signal One Sales OS gives the security company&apos;s own sales
-              team a working system for leads, pipeline, next actions, quotes,
-              conversations and coaching.
+            <p className="mt-6 max-w-xl text-base leading-8 text-white/68">
+              If you know what you need, go straight to Guard pricing or request
+              radios and tracking. If the requirement is more complex, ask a
+              Signal One representative to scope it with you.
             </p>
-            <p className="mt-5 max-w-xl text-sm leading-7 text-white/68">
-              Signal One provides the sales operating system. Your company
-              provides the sales team.
-            </p>
+            <div className="mt-7 flex flex-wrap gap-3">
+              <Link
+                href="/contact"
+                data-analytics-event="contact_begin"
+                data-analytics-label="Request a consultation"
+                className="s1-primary-action px-5 py-3 text-sm font-semibold"
+              >
+                Request a consultation
+              </Link>
+              <Link
+                href="/radios-equipment"
+                className="s1-secondary-action px-5 py-3 text-sm font-semibold"
+              >
+                Radios & tracking
+              </Link>
+            </div>
           </div>
 
           <div className="relative overflow-hidden rounded-[24px] border border-white/10 bg-[#0A0D12] p-7 shadow-[0_35px_90px_rgba(0,0,0,.38)] md:p-9">
@@ -308,41 +324,28 @@ export default function Home() {
             <div className="relative">
               <div className="flex items-center justify-between border-b border-white/10 pb-5">
                 <div>
-                  <p className="s1-mono text-[11px] text-[#7DD3FC]">
-                    Sales OS
-                  </p>
+                  <p className="s1-mono text-[11px] text-[#7DD3FC]">Start with Signal One</p>
                   <p className="mt-2 text-sm font-semibold text-white/72">
-                    Commercial operating rhythm
+                    Self-service when simple. A representative when needed.
                   </p>
                 </div>
                 <span className="h-2 w-2 rounded-full bg-[#22C55E] shadow-[0_0_14px_rgba(34,197,94,.45)]" />
               </div>
 
               <div className="mt-5 divide-y divide-white/[.07]">
-                {salesCapabilities.map((capability, index) => (
-                  <div
-                    key={capability}
-                    className="flex items-center justify-between gap-6 py-4"
-                  >
+                {startCapabilities.map((capability, index) => (
+                  <div key={capability} className="flex items-center justify-between gap-6 py-4">
                     <div className="flex items-center gap-4">
-                      <span className="s1-mono text-[11px] text-white/66">
-                        0{index + 1}
-                      </span>
-                      <span className="text-sm font-medium text-white/70">
-                        {capability}
-                      </span>
+                      <span className="s1-mono text-[11px] text-white/66">0{index + 1}</span>
+                      <span className="text-sm font-medium text-white/76">{capability}</span>
                     </div>
                     <span className="text-xs text-[#38BDF8]">→</span>
                   </div>
                 ))}
               </div>
-
-              <div className="mt-5 flex items-center justify-between rounded-[12px] border border-[#38BDF8]/18 bg-[#0EA5E9]/[.035] px-4 py-3.5">
-                <span className="text-sm font-medium text-white/66">
-                  Calendar / appointments
-                </span>
-                <Status tone="soon">Coming soon</Status>
-              </div>
+              <p className="mt-5 text-sm leading-7 text-white/62">
+                Signal One&apos;s internal Sales OS supports our representatives behind the scenes. It is not included in Guard-day pricing.
+              </p>
             </div>
           </div>
         </div>
