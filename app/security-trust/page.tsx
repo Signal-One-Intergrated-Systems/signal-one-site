@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Security & Trust",
-  description: "Current Signal One security and operational trust controls, with unconfirmed commitments clearly identified.",
+  description: "Signal One security, access-control, audit, hosting and product-truth practices.",
+  alternates: { canonical: "/security-trust" },
 };
 
 export default function SecurityTrustPage() {
