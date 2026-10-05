@@ -1,5 +1,6 @@
 import Link from "next/link";
 import FlywheelThread from "./components/FlywheelThread";
+import GuardDayCalculator from "./components/GuardDayCalculator";
 import HeroVideo from "./components/HeroVideo";
 
 const operatingProblems = [
@@ -358,22 +359,18 @@ export default function Home() {
       </section>
 
       <section className="border-y border-white/10 bg-[#0F131A] px-5 py-20 md:py-24">
-        <div className="mx-auto grid max-w-[1280px] gap-10 lg:grid-cols-[1fr_.9fr] lg:items-end">
+        <div className="mx-auto grid max-w-[1280px] gap-10 lg:grid-cols-[.9fr_1.1fr] lg:items-center">
           <div>
             <p className="s1-eyebrow">Simple Guard pricing</p>
             <h2 className="s1-h1 mt-5 font-semibold">R2 per guard per day.</h2>
             <p className="mt-5 max-w-2xl text-base leading-8 text-white/58">
               Buying guard days gives your security company access to the Guard platform. Pricing is excluding VAT. Guard days carry over and the minimum purchase is 10 guard days.
             </p>
-          </div>
-          <div className="lg:text-right">
-            <p className="s1-mono text-[8px] text-white/28">Example</p>
-            <p className="mt-3 text-3xl font-semibold tracking-[-.035em]">50 guards × 30 days × R2</p>
-            <p className="mt-2 text-lg text-[#38BDF8]">R3,000 ex VAT</p>
-            <Link href="/pricing" className="s1-primary-action mt-6 px-6 py-3 text-sm font-semibold">
-              Calculate guard days
+            <Link href="/pricing" className="mt-6 inline-flex text-sm font-semibold text-[#38BDF8] transition hover:text-[#7DD3FC]">
+              See full pricing details →
             </Link>
           </div>
+          <GuardDayCalculator compact />
         </div>
       </section>
 
