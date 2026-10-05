@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npm run check:public-brand && next build",
+    "build": "npm run check:public-brand && npm run check:internal-links && next build",
     "start": "next start",
     "lint": "eslint",
-    "check:public-brand": "node scripts/check-public-branding.mjs"
+    "check:public-brand": "node scripts/check-public-branding.mjs",
+    "check:internal-links": "node scripts/check-internal-links.mjs"
   },
   "dependencies": {
     "framer-motion": "^12.23.26",
