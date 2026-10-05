@@ -35,7 +35,7 @@ export default function GuardMarketplacePage() {
             <div className="flex flex-wrap items-center gap-3">
               <p className="s1-eyebrow">Guard Marketplace</p>
               <span className="s1-mono rounded-[8px] border border-[#38BDF8]/22 bg-[#0EA5E9]/[.055] px-2.5 py-1 text-[11px] font-semibold text-[#7DD3FC]">
-                Target product
+                MVP
               </span>
             </div>
             <h1 className="s1-display mt-5 max-w-4xl font-semibold">
