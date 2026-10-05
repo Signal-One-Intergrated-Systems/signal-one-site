@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist_Mono, Inter } from "next/font/google";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import MarketingAnalytics from "./components/MarketingAnalytics";
 import "./globals.css";
 import "./site-theme.css";
 
@@ -19,17 +20,17 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Signal One | Security Operations",
+    default: "Security Guard Management Software South Africa | Signal One",
     template: "%s | Signal One",
   },
   description:
-    "Operational control, patrol and attendance evidence, post coverage, client proof and connected services for private security companies.",
+    "Signal One is security guard management software for South African guarding companies, connecting attendance, patrols, incidents, SOS, control-room visibility and client proof.",
   metadataBase: new URL("https://signal-one-site.vercel.app"),
   applicationName: "Signal One",
   openGraph: {
-    title: "Signal One Security Operations",
+    title: "Security Guard Management Software South Africa | Signal One",
     description:
-      "Control every site, know what happened and prove the service with Signal One.",
+      "Control every site, know what happened and prove the service with Signal One security operations software.",
     type: "website",
     siteName: "Signal One",
     images: [
@@ -41,9 +42,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Signal One Security Operations",
+    title: "Security Guard Management Software South Africa | Signal One",
     description:
-      "Control every site, know what happened and prove the service with Signal One.",
+      "Control every site, know what happened and prove the service with Signal One security operations software.",
     images: ["/images/industries/security.jpg"],
   },
   robots: {
@@ -61,9 +62,10 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en-ZA">
       <body className={inter.variable + " " + geistMono.variable + " font-sans antialiased"}>
         <Header />
+        <MarketingAnalytics />
         {children}
         <Footer />
       </body>
