@@ -3,6 +3,7 @@ import OnboardingJourney, {
   type JourneyStep,
   type JourneyWorld,
 } from "../../components/OnboardingJourney";
+import { premiumImages } from "../../lib/premiumImages";
 
 export const metadata: Metadata = {
   title: "Join Signal One Sales",
@@ -22,7 +23,7 @@ const world: JourneyWorld = {
     "Show us your B2B and security-industry experience.",
     "If shortlisted, continue to CV review and an interview slot when calendar availability is opened.",
   ],
-  image: "/images/What-we-deliver/communications.jpg",
+  image: premiumImages.clientReporting,
   imageAlt: "Signal One commercial communications environment",
   accent: "#0EA5E9",
   accentRgb: "14,165,233",
