@@ -32,7 +32,7 @@ export default function GuardMarketplacePage() {
           <div>
             <div className="flex flex-wrap items-center gap-3">
               <p className="s1-eyebrow">Guard Marketplace</p>
-              <span className="s1-mono rounded-[8px] border border-[#38BDF8]/22 bg-[#0EA5E9]/[.055] px-2.5 py-1 text-[8px] font-semibold text-[#7DD3FC]">
+              <span className="s1-mono rounded-[8px] border border-[#38BDF8]/22 bg-[#0EA5E9]/[.055] px-2.5 py-1 text-[11px] font-semibold text-[#7DD3FC]">
                 Target product
               </span>
             </div>
@@ -43,9 +43,9 @@ export default function GuardMarketplacePage() {
           </div>
           <div>
             <p className="text-lg leading-8 text-white/62">
-              Guard Marketplace is the planned hiring layer inside the Signal One flywheel. It will be available only to paying Signal One security-company clients—guard profiles will never be publicly browsable.
+              Guard Marketplace is part of the Signal One MVP. Paying security-company clients will use it to browse eligible guard profiles, shortlist candidates and send hire requests inside an authenticated workspace—guard profiles will never be publicly browsable.
             </p>
-            <p className="mt-4 text-sm leading-7 text-white/42">
+            <p className="mt-4 text-sm leading-7 text-white/68">
               The public page explains the workflow. It does not expose real guard identities, employment documents or private profile data.
             </p>
           </div>
@@ -61,9 +61,9 @@ export default function GuardMarketplacePage() {
               A company first buys guard days and activates its Signal One environment. Marketplace access can then sit inside that authenticated company relationship rather than behaving like a public job board.
             </p>
             <div className="mt-7 rounded-[14px] border border-[#22C55E]/20 bg-[#22C55E]/[.045] p-5">
-              <p className="s1-mono text-[8px] font-semibold text-[#86EFAC]">Current Guard foundation</p>
-              <p className="mt-3 text-sm leading-7 text-white/52">
-                Guard already supports mobile offers that a guard can accept or decline. The full browse → request hire → workforce allocation lifecycle is the planned extension.
+              <p className="s1-mono text-[11px] font-semibold text-[#86EFAC]">Current Guard foundation</p>
+              <p className="mt-3 text-sm leading-7 text-white/68">
+                Guard already supports mobile offers that a guard can accept or decline. The Marketplace MVP adds the missing browse → shortlist → request hire → workforce allocation experience around that proven downstream flow.
               </p>
             </div>
           </div>
@@ -71,11 +71,11 @@ export default function GuardMarketplacePage() {
           <div className="relative overflow-hidden rounded-[20px] border border-white/10 bg-[#0A0D12]">
             <div className="flex items-center justify-between gap-4 border-b border-white/10 px-6 py-5">
               <div>
-                <p className="s1-mono text-[8px] text-white/28">Authenticated preview</p>
+                <p className="s1-mono text-[11px] text-white/64">Authenticated preview</p>
                 <p className="mt-2 text-sm font-semibold text-white/80">Guard profile anatomy</p>
               </div>
-              <span className="rounded-[8px] border border-white/10 px-2.5 py-1 text-[10px] font-medium text-white/42">
-                Demo structure only
+              <span className="rounded-[8px] border border-white/10 px-2.5 py-1 text-[11px] font-medium text-white/68">
+                MVP structure
               </span>
             </div>
 
@@ -83,23 +83,23 @@ export default function GuardMarketplacePage() {
               {fields.map(([title, body]) => (
                 <div key={title} className="rounded-[14px] border border-white/[.075] bg-white/[.025] p-4">
                   <p className="text-sm font-semibold text-white/74">{title}</p>
-                  <p className="mt-2 text-xs leading-6 text-white/38">{body}</p>
+                  <p className="mt-2 text-xs leading-6 text-white/66">{body}</p>
                 </div>
               ))}
               <div className="rounded-[14px] border border-[#38BDF8]/18 bg-[#0EA5E9]/[.04] p-4 sm:col-span-2">
                 <div className="flex items-center justify-between gap-4">
                   <p className="text-sm font-semibold text-white/74">Rating</p>
-                  <span className="s1-mono text-[8px] text-[#7DD3FC]">Planned</span>
+                  <span className="s1-mono text-[11px] text-[#7DD3FC]">Coming later</span>
                 </div>
-                <p className="mt-2 text-xs leading-6 text-white/38">
-                  The target rating combines company ratings, historical operational performance and an internal Signal One score. It will not be shown publicly until that scoring model is implemented.
+                <p className="mt-2 text-xs leading-6 text-white/66">
+                  Ratings are not part of the initial MVP. Signal One will not display a score until the data source, methodology and safeguards are defined and implemented.
                 </p>
               </div>
             </div>
 
             <div className="absolute inset-0 grid place-items-center bg-[#0A0D12]/36 backdrop-blur-[2px]">
               <div className="rounded-[14px] border border-white/12 bg-[#0F131A]/94 px-5 py-4 text-center shadow-[0_18px_50px_rgba(0,0,0,.38)]">
-                <p className="s1-mono text-[8px] text-[#38BDF8]">Client only</p>
+                <p className="s1-mono text-[11px] text-[#38BDF8]">Client only</p>
                 <p className="mt-2 text-sm font-semibold text-white/78">Guard profiles stay behind authenticated access.</p>
               </div>
             </div>
@@ -121,9 +121,9 @@ export default function GuardMarketplacePage() {
             <div className="grid gap-3 sm:grid-cols-2">
               {flow.map(([title, body], index) => (
                 <article key={title} className="rounded-[16px] border border-white/10 bg-[#0F131A] p-5">
-                  <p className="s1-mono text-[8px] text-[#38BDF8]">0{index + 1}</p>
+                  <p className="s1-mono text-[11px] text-[#38BDF8]">0{index + 1}</p>
                   <h3 className="mt-4 text-lg font-semibold">{title}</h3>
-                  <p className="mt-2 text-sm leading-7 text-white/44">{body}</p>
+                  <p className="mt-2 text-sm leading-7 text-white/68">{body}</p>
                 </article>
               ))}
             </div>
@@ -134,19 +134,19 @@ export default function GuardMarketplacePage() {
           <div>
             <p className="s1-eyebrow">PSiRA eligibility</p>
             <h2 className="s1-h2 mt-5 max-w-2xl font-semibold">
-              Marketplace eligibility will use live PSiRA verification.
+              Eligibility starts with recorded PSiRA status.
             </h2>
             <p className="s1-body mt-5 max-w-2xl">
-              Guard already contains a live verification integration against PSiRA&apos;s official individual verification service. It can compare the supplied ID number and PSiRA reference and reject mismatched registration details, grade or expiry.
+              Guard records the PSiRA number, grade and expiry used for operational eligibility and can block invalid assignments. Signal One does not claim external official PSiRA verification until that integration is confirmed and proven.
             </p>
-            <p className="mt-4 max-w-2xl text-sm leading-7 text-white/42">
-              The Marketplace itself is still a target product, so the website does not yet claim that every visible profile has passed a Marketplace eligibility gate.
+            <p className="mt-4 max-w-2xl text-sm leading-7 text-white/68">
+              The Marketplace MVP will expose the eligibility facts the platform can actually support. It will not use a blanket “verified” badge for checks that have not been completed.
             </p>
           </div>
 
           <div className="rounded-[16px] border border-white/10 bg-[#0F131A] p-6">
             <p className="s1-eyebrow">Not a public job board</p>
-            <ul className="mt-5 space-y-4 text-sm leading-7 text-white/50">
+            <ul className="mt-5 space-y-4 text-sm leading-7 text-white/68">
               <li>• No public guard search.</li>
               <li>• No public profile identities.</li>
               <li>• No public employment documents.</li>
@@ -163,7 +163,7 @@ export default function GuardMarketplacePage() {
               <h2 className="mt-4 max-w-3xl text-3xl font-semibold tracking-[-.035em]">
                 Marketplace access starts with the operating platform.
               </h2>
-              <p className="mt-4 max-w-2xl text-sm leading-7 text-white/50">
+              <p className="mt-4 max-w-2xl text-sm leading-7 text-white/68">
                 Buy guard days, activate the company environment and bring the hiring workflow into the same system used to allocate and operate the guard force.
               </p>
             </div>
@@ -171,7 +171,7 @@ export default function GuardMarketplacePage() {
               <Link href="/pricing" className="s1-secondary-action px-6 py-3 text-sm font-semibold">
                 See Guard pricing
               </Link>
-              <Link href="/get-started" className="s1-primary-action px-6 py-3 text-sm font-semibold">
+              <Link href="/get-started" data-analytics-event="marketplace_interest" data-analytics-label="Marketplace get started" className="s1-primary-action px-6 py-3 text-sm font-semibold">
                 Get started
               </Link>
             </div>
