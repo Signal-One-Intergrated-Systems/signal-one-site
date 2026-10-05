@@ -3,6 +3,7 @@ import OnboardingJourney, {
   type JourneyStep,
   type JourneyWorld,
 } from "../../components/OnboardingJourney";
+import { premiumImages } from "../../lib/premiumImages";
 
 export const metadata: Metadata = {
   title: "Guard onboarding",
@@ -22,7 +23,7 @@ const world: JourneyWorld = {
     "Record your PSIRA registration and security experience.",
     "Tell us where and how you are ready to work.",
   ],
-  image: "/images/security.jpg",
+  image: premiumImages.workforceBriefing,
   imageAlt: "Security officer operating on site",
   accent: "#0EA5E9",
   accentRgb: "14,165,233",
