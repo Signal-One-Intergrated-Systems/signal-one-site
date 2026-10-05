@@ -59,7 +59,7 @@ export default function Header() {
         </nav>
 
         <div className="hidden lg:block">
-          <Link href="/get-started" className="s1-primary-action px-5 py-2.5 text-sm font-semibold">
+          <Link href="/get-started" data-analytics-event="header_get_started" data-analytics-label="Desktop header" className="s1-primary-action px-5 py-2.5 text-sm font-semibold">
             Get started
           </Link>
         </div>
@@ -100,6 +100,8 @@ export default function Header() {
               <Link
                 href="/get-started"
                 onClick={() => setOpen(false)}
+                data-analytics-event="header_get_started"
+                data-analytics-label="Mobile header"
                 className="s1-primary-action mt-2 px-5 py-3 text-center text-sm font-semibold"
               >
                 Get started
