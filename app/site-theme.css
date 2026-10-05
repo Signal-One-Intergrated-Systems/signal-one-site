@@ -30,7 +30,7 @@
   --s1-text-body: rgba(255, 255, 255, 0.85);
   --s1-text-muted: rgba(255, 255, 255, 0.72);
   --s1-text-soft: rgba(255, 255, 255, 0.60);
-  --s1-text-faint: rgba(255, 255, 255, 0.40);
+  --s1-text-faint: rgba(255, 255, 255, 0.55);
   --s1-text-slate: #cbd5e1;
   --s1-text-slate-dim: #94a3b8;
   --s1-text-on-accent: #ffffff;
@@ -150,7 +150,7 @@ body {
 
 .s1-eyebrow {
   font-family: var(--font-geist-mono), ui-monospace, "SF Mono", Menlo, monospace;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 600;
   letter-spacing: var(--s1-tracking-eyebrow);
   text-transform: uppercase;
@@ -239,6 +239,36 @@ body {
   transform: translateY(-2px);
   border-color: rgba(14, 165, 233, 0.5);
   background: var(--s1-glass-08);
+}
+
+/* Public-site readability floor: small labels stay legible and normal text clears AA on dark surfaces. */
+[class~="text-[7px]"],
+[class~="text-[8px]"],
+[class~="text-[9px]"],
+[class~="text-[10px]"] {
+  font-size: 11px !important;
+}
+
+[class~="text-white/22"],
+[class~="text-white/24"],
+[class~="text-white/28"],
+[class~="text-white/30"],
+[class~="text-white/32"],
+[class~="text-white/34"],
+[class~="text-white/35"],
+[class~="text-white/36"],
+[class~="text-white/38"],
+[class~="text-white/40"],
+[class~="text-white/42"],
+[class~="text-white/44"],
+[class~="text-white/45"] {
+  color: rgba(255, 255, 255, 0.55) !important;
+}
+
+[class~="placeholder:text-white/24"]::placeholder,
+[class~="placeholder:text-white/28"]::placeholder,
+[class~="placeholder:text-white/32"]::placeholder {
+  color: rgba(255, 255, 255, 0.55) !important;
 }
 
 ::selection {
