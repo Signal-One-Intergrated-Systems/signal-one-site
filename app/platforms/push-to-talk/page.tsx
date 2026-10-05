@@ -14,7 +14,7 @@ export default function PushToTalkPage() {
         <MarketingHero
           eyebrow="Signal One Critical Connect"
           title="Mission-critical Push-to-Talk over cellular."
-          body="A carrier-grade Mission Critical Push-to-Talk (MCPTT) platform delivering instant voice, video, and data communication over public cellular networks."
+          body="A managed Push-to-Talk over Cellular platform for distributed operational teams, combining voice communication with dispatch, location and emergency workflows."
           image="/images/platform/dispatch.jpg"
           imageAlt="Signal One dispatch console"
           primary={{ href: "/contact", label: "Discuss Critical Connect" }}
@@ -24,10 +24,10 @@ export default function PushToTalkPage() {
           <h2 className="text-3xl font-semibold tracking-[-.035em] md:text-4xl">Dispatch & Control Features</h2>
           <div className="mt-8 grid gap-4 md:grid-cols-2">
             {[
-              ["Voice Dispatch", "Instant group calling, private one-to-one calls, and priority interrupt. The platform supports thousands of concurrent talk groups with sub-300ms latency."],
-              ["Live Video Streaming", "Pull live video feeds from field devices directly to the dispatch console. Gain immediate eyes-on situational awareness during critical incidents."],
-              ["Location Services", "Real-time GPS tracking, geofencing, and location processing history. Visualise your entire workforce on a live map interface."],
-              ["Emergency Alarms", "Dedicated SOS handling with automated audio recording and location pinning. Man-down and lone-worker safety protocols are built-in."],
+              ["Voice Dispatch", "Group and private voice workflows for distributed operational teams through the Critical Connect dispatch environment."],
+              ["Video Workflows", "Supported field devices can be evaluated for video-enabled operational workflows where the deployment requires them."],
+              ["Location Services", "Location-aware operational workflows can support dispatch and field-team visibility where enabled for the deployment."],
+              ["Emergency Workflows", "SOS and emergency communication workflows can be configured around the field devices and operating model selected."],
             ].map(([title,body]) => (
               <article key={title} className="rounded-[18px] border border-white/10 bg-[#0A0D12] p-7">
                 <span className="mb-5 block h-1 w-8 rounded-full bg-[#0EA5E9]" />
@@ -43,7 +43,7 @@ export default function PushToTalkPage() {
             <p className="s1-mono text-[9px] font-semibold text-[#38BDF8]">LMR Gateway Integration</p>
             <h2 className="mt-4 text-3xl font-semibold tracking-[-.035em]">Bridge traditional radio and cellular operations.</h2>
             <p className="mt-5 text-sm leading-7 text-white/52">
-              Bridge your existing DMR, TETRA, or Analog radio networks into the Signal One Critical Connect platform. Our RoIP gateways ensure seamless communication between traditional radios and cellular devices.
+              RoIP gateway integration can be evaluated where an operation needs to connect existing radio infrastructure with cellular push-to-talk workflows. The exact supported network types and integration scope should be confirmed during solution design.
             </p>
           </div>
           <div className="relative min-h-[340px] overflow-hidden rounded-[18px] border border-white/10">
