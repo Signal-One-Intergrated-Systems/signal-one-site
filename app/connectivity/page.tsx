@@ -40,7 +40,7 @@ export default function ConnectivityPage() {
               <p className="s1-mono text-[9px] font-semibold text-[#38BDF8]">Global IoT SIM</p>
               <h2 className="mt-4 text-3xl font-semibold tracking-[-.035em] md:text-4xl">One SIM. Multi-network resilience.</h2>
               <p className="mt-5 text-base leading-7 text-white/52">
-                Multi-IMSI connectivity for global roaming. One SIM card, 600+ networks, providing unsteered access for mission-critical uptime.
+                Multi-network IoT connectivity for supported deployments that need broader cellular reach and less dependence on a single operator.
               </p>
               <span className="mt-7 inline-flex text-sm font-semibold text-[#38BDF8] transition duration-300 group-hover:translate-x-1">
                 View connectivity plans →
