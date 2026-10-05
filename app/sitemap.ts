@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 
-const base = process.env.NEXT_PUBLIC_SITE_URL || "https://signal-one-site.up.railway.app";
+const base =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://signal-one-site.up.railway.app";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
@@ -9,37 +10,27 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/guard-marketplace",
     "/radios-equipment",
     "/pricing",
-    "/join/sales",
+    "/solutions/security",
     "/guards",
     "/guards/join",
-    "/marketplace",
-    "/systems",
-    "/solutions",
-    "/solutions/security",
-    "/solutions/agriculture",
-    "/solutions/logistics",
-    "/solutions/utilities",
-    "/platforms",
-    "/platforms/push-to-talk",
-    "/platforms/aiot-management",
-    "/devices",
-    "/devices/poc-radios",
-    "/devices/lorawan-sensors",
-    "/connectivity",
-    "/connectivity/iot-sim",
     "/contact",
   ];
 
   return routes.map((route) => ({
     url: base + route,
     lastModified: new Date(),
-    changeFrequency: route === "" || route === "/marketplace" ? "weekly" : "monthly",
+    changeFrequency:
+      route === "" || route === "/guard-marketplace" || route === "/radios-equipment"
+        ? "weekly"
+        : "monthly",
     priority:
       route === ""
         ? 1
-        : route === "/get-started" || route === "/marketplace"
+        : route === "/get-started" || route === "/pricing"
           ? 0.9
-          : route === "/solutions/security"
+          : route === "/guard-marketplace" ||
+              route === "/radios-equipment" ||
+              route === "/solutions/security"
             ? 0.85
             : 0.7,
   }));
