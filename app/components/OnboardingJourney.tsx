@@ -165,7 +165,7 @@ export default function OnboardingJourney({
   if (state === "done") {
     return (
       <main
-        className="relative min-h-screen overflow-hidden px-5 pb-16 pt-32 text-white md:pt-40"
+        className="relative min-h-screen overflow-hidden px-5 pb-12 pt-24 text-white md:pt-28"
         style={style}
         data-onboarding-world={world.kind}
       >
@@ -210,7 +210,7 @@ export default function OnboardingJourney({
 
   return (
     <main
-      className="relative min-h-screen overflow-hidden px-5 pb-14 pt-28 text-white md:pt-32"
+      className="relative min-h-screen overflow-hidden px-5 pb-12 pt-24 text-white md:pt-28"
       style={style}
       data-onboarding-world={world.kind}
     >
