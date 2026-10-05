@@ -6,7 +6,8 @@ import OnboardingJourney, {
 
 export const metadata: Metadata = {
   title: "Guard onboarding",
-  description: "Apply to join Signal One as a security officer.",
+  description: "Apply to create a Signal One Guard profile for future security work opportunities.",
+  alternates: { canonical: "/guards/join" },
 };
 
 const world: JourneyWorld = {
