@@ -43,10 +43,10 @@ export default function Footer() {
           </p>
 
           <div className="mt-7 flex flex-wrap gap-3">
-            <Link href="/#proof" className="s1-primary-action px-5 py-2.5 text-sm font-semibold">
+            <Link href="/#proof" data-analytics-event="footer_product_proof" data-analytics-label="Footer proof CTA" className="s1-primary-action px-5 py-2.5 text-sm font-semibold">
               See Signal One in action
             </Link>
-            <Link href="/contact" className="s1-secondary-action px-5 py-2.5 text-sm font-semibold">
+            <Link href="/contact" data-analytics-event="contact_begin" data-analytics-label="Footer contact CTA" className="s1-secondary-action px-5 py-2.5 text-sm font-semibold">
               Talk to Signal One
             </Link>
           </div>
