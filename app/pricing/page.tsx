@@ -10,9 +10,9 @@ export const metadata: Metadata = {
 
 export default function PricingPage() {
   return (
-    <main className="min-h-screen bg-[var(--s1-surface-base)] px-5 pb-24 pt-32 text-white md:pt-36">
+    <main className="min-h-screen bg-[var(--s1-surface-base)] px-5 pb-16 pt-28 text-white md:pt-32">
       <div className="mx-auto max-w-[1280px]">
-        <section className="grid gap-12 border-b border-white/10 pb-16 lg:grid-cols-[.85fr_1.15fr] lg:items-end md:pb-20">
+        <section className="grid gap-10 border-b border-white/10 pb-16 lg:grid-cols-[.85fr_1.15fr] lg:items-end md:pb-20">
           <div>
             <p className="s1-eyebrow">Guard-day pricing</p>
             <h1 className="s1-display mt-5 max-w-3xl font-semibold">
@@ -32,7 +32,7 @@ export default function PricingPage() {
           </div>
         </section>
 
-        <section className="grid gap-12 py-16 lg:grid-cols-[.78fr_1.22fr] lg:items-start md:py-20">
+        <section className="grid gap-10 py-16 lg:grid-cols-[.78fr_1.22fr] lg:items-start md:py-20">
           <div>
             <p className="s1-eyebrow">Calculate</p>
             <h2 className="s1-h2 mt-5 max-w-xl font-semibold">
@@ -65,7 +65,7 @@ export default function PricingPage() {
           <GuardDayCalculator />
         </section>
 
-        <section className="grid gap-5 border-y border-white/10 py-14 sm:grid-cols-3">
+        <section className="grid gap-5 border-y border-white/10 py-12 sm:grid-cols-3">
           {[
             ["Carry over", "Unused guard days remain available for your security company."],
             ["10 guard-day minimum", "The minimum purchase is guard days, not a minimum number of guards."],
