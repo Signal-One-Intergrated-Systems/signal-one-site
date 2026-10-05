@@ -3,6 +3,7 @@ import Link from "next/link";
 import GuardDayCalculator from "./components/GuardDayCalculator";
 import HeroVideo from "./components/HeroVideo";
 import PlatformProof from "./components/PlatformProof";
+import { premiumImages } from "./lib/premiumImages";
 
 const startCapabilities = [
   "Guard software · R2 per guard day",
@@ -68,14 +69,17 @@ export default function Home() {
     <main className="overflow-hidden bg-[var(--s1-surface-base)] text-[var(--s1-text-strong)]">
       {/* CINEMATIC HERO */}
       <section className="relative isolate min-h-[620px] overflow-hidden border-b border-white/10 md:min-h-[660px]">
-        <Image
-          src="/images/story/hero.webp"
-          alt="Security officer working at an active site"
-          fill
-          priority
-          className="object-cover object-[66%_center]"
-          sizes="100vw"
-        />
+        <div className="absolute inset-y-0 left-1/2 w-full max-w-[1916px] -translate-x-1/2">
+          <Image
+            src={premiumImages.hero}
+            alt="Illustrative security operations scene with several fictional security-company teams"
+            fill
+            priority
+            quality={94}
+            className="object-cover object-center"
+            sizes="(min-width:1916px) 1916px, 100vw"
+          />
+        </div>
         <div className="absolute inset-0 bg-[linear-gradient(90deg,#0A0D12_0%,rgba(10,13,18,.96)_27%,rgba(10,13,18,.74)_52%,rgba(10,13,18,.18)_78%,rgba(10,13,18,.08)_100%)]" />
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,13,18,.22)_0%,rgba(10,13,18,.05)_55%,#0A0D12_100%)]" />
         <div className="absolute left-[38%] top-[18%] h-[420px] w-[420px] rounded-full bg-[#0EA5E9]/[.055] blur-[110px]" />
@@ -165,8 +169,9 @@ export default function Home() {
           <div className="mt-10 grid auto-rows-[220px] gap-4 md:grid-cols-12 md:auto-rows-[250px]">
             <article className="relative overflow-hidden rounded-[20px] border border-white/10 bg-[#0A0D12] md:col-span-7 md:row-span-2">
               <Image
-                src="/images/story/checkpoint.webp"
-                alt="Security officer verifying a checkpoint"
+                src={premiumImages.siteOperations}
+                quality={92}
+                alt="Illustrative daytime site operations scene for a fictional security company"
                 fill
                 className="object-cover object-center"
                 sizes="(min-width:768px) 58vw,100vw"
@@ -185,8 +190,9 @@ export default function Home() {
 
             <article className="relative overflow-hidden rounded-[20px] border border-white/10 bg-[#0A0D12] md:col-span-5">
               <Image
-                src="/images/story/sales.webp"
-                alt="Sales professional working on a security-company opportunity"
+                src={premiumImages.clientReporting}
+                quality={92}
+                alt="Illustrative security-company leadership reviewing operations and client reporting"
                 fill
                 className="object-cover object-center"
                 sizes="(min-width:768px) 42vw,100vw"
@@ -208,8 +214,9 @@ export default function Home() {
 
             <article className="relative overflow-hidden rounded-[20px] border border-white/10 bg-[#0A0D12] md:col-span-5">
               <Image
-                src="/images/story/control-room.webp"
-                alt="Security control room operator monitoring active operations"
+                src={premiumImages.controlRoomDay}
+                quality={92}
+                alt="Illustrative daytime security control room operated by a fictional security company"
                 fill
                 className="object-cover object-center"
                 sizes="(min-width:768px) 42vw,100vw"
@@ -358,8 +365,9 @@ export default function Home() {
           <div className="grid lg:grid-cols-[1.05fr_.95fr]">
             <div className="relative min-h-[420px] lg:min-h-[610px]">
               <Image
-                src="/images/story/female-guard.webp"
-                alt="Security officer using a mobile device at a site checkpoint"
+                src={premiumImages.marketplace}
+                quality={92}
+                alt="Illustrative Guard Marketplace and workforce planning scene using fictional company data"
                 fill
                 className="object-cover object-center"
                 sizes="(min-width:1024px) 54vw,100vw"
@@ -467,7 +475,7 @@ export default function Home() {
       {/* CONTROL ROOM */}
       <section className="relative min-h-[680px] overflow-hidden border-b border-white/10">
         <Image
-          src="/images/story/control-room.webp"
+          src={premiumImages.controlRoomDay}
           alt="Control room operator monitoring security operations"
           fill
           className="object-cover object-center"
@@ -517,7 +525,8 @@ export default function Home() {
           <div className="grid gap-4 lg:grid-cols-[.9fr_1.1fr]">
             <article className="relative min-h-[560px] overflow-hidden rounded-[24px] border border-white/10 bg-[#0A0D12]">
               <Image
-                src="/images/Devices/poc/hero-radios.jpg"
+                src={premiumImages.radioTracking}
+                quality={92}
                 alt="Professional push-to-talk radio equipment"
                 fill
                 className="object-cover object-center opacity-78"
@@ -659,7 +668,7 @@ export default function Home() {
       <section className="px-5 pb-16 md:pb-20">
         <div className="relative mx-auto min-h-[420px] max-w-[1440px] overflow-hidden rounded-[24px] border border-white/10">
           <Image
-            src="/images/story/hero.webp"
+            src={premiumImages.hero}
             alt=""
             fill
             className="object-cover object-[64%_center] opacity-55"
