@@ -144,7 +144,7 @@ export default function Home() {
       </section>
 
       {/* EDITORIAL STORY */}
-      <section className="relative px-5 py-24 md:py-32">
+      <section className="relative px-5 py-16 md:py-20">
         <div className="mx-auto max-w-[1440px]">
           <div className="grid gap-10 lg:grid-cols-[.72fr_1.28fr] lg:items-end">
             <div>
@@ -160,7 +160,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="mt-14 grid auto-rows-[220px] gap-4 md:grid-cols-12 md:auto-rows-[250px]">
+          <div className="mt-10 grid auto-rows-[220px] gap-4 md:grid-cols-12 md:auto-rows-[250px]">
             <article className="relative overflow-hidden rounded-[20px] border border-white/10 bg-[#0A0D12] md:col-span-7 md:row-span-2">
               <Image
                 src="/images/story/checkpoint.webp"
@@ -272,9 +272,9 @@ export default function Home() {
       </section>
 
       {/* SALES OS */}
-      <section className="relative px-5 py-24 md:py-32">
+      <section className="relative px-5 py-16 md:py-20">
         <div className="pointer-events-none absolute right-[-8%] top-[8%] h-[500px] w-[500px] rounded-full bg-[#0EA5E9]/[.055] blur-[130px]" />
-        <div className="relative mx-auto grid max-w-[1440px] gap-14 lg:grid-cols-[.92fr_1.08fr] lg:items-center">
+        <div className="relative mx-auto grid max-w-[1440px] gap-10 lg:grid-cols-[.92fr_1.08fr] lg:items-center">
           <div>
             <RailLabel number="01" label="Win" />
             <h2 className="mt-5 max-w-2xl text-4xl font-semibold leading-[1.02] tracking-[-.045em] md:text-6xl">
@@ -337,7 +337,7 @@ export default function Home() {
       </section>
 
       {/* HIRE */}
-      <section className="px-5 pb-24 md:pb-32">
+      <section className="px-5 pb-16 md:pb-20">
         <div className="mx-auto max-w-[1440px] overflow-hidden rounded-[24px] border border-white/10 bg-[#0A0D12]">
           <div className="grid lg:grid-cols-[1.05fr_.95fr]">
             <div className="relative min-h-[420px] lg:min-h-[610px]">
@@ -391,7 +391,7 @@ export default function Home() {
       </section>
 
       {/* RUN */}
-      <section className="relative border-y border-white/10 bg-[#0F131A] px-5 py-24 md:py-32">
+      <section className="relative border-y border-white/10 bg-[#0F131A] px-5 py-16 md:py-20">
         <div className="mx-auto max-w-[1440px]">
           <div className="grid gap-10 lg:grid-cols-[.8fr_1.2fr] lg:items-end">
             <div>
@@ -496,7 +496,7 @@ export default function Home() {
       </section>
 
       {/* EQUIP + PROVE */}
-      <section className="px-5 py-24 md:py-32">
+      <section className="px-5 py-16 md:py-20">
         <div className="mx-auto max-w-[1440px]">
           <div className="grid gap-4 lg:grid-cols-[.9fr_1.1fr]">
             <article className="relative min-h-[560px] overflow-hidden rounded-[24px] border border-white/10 bg-[#0A0D12]">
@@ -576,7 +576,7 @@ export default function Home() {
       </section>
 
       {/* GROW */}
-      <section className="border-y border-white/10 bg-[#0F131A] px-5 py-20 md:py-24">
+      <section className="border-y border-white/10 bg-[#0F131A] px-5 py-16 md:py-20">
         <div className="mx-auto grid max-w-[1280px] gap-10 lg:grid-cols-[1fr_.85fr] lg:items-center">
           <div>
             <RailLabel number="06" label="Grow" />
@@ -616,7 +616,7 @@ export default function Home() {
       </section>
 
       {/* PRICING */}
-      <section className="px-5 py-24 md:py-32">
+      <section className="px-5 py-16 md:py-20">
         <div className="mx-auto grid max-w-[1280px] gap-12 lg:grid-cols-[.82fr_1.18fr] lg:items-center">
           <div>
             <p className="s1-eyebrow">Simple Guard pricing</p>
@@ -640,7 +640,7 @@ export default function Home() {
       </section>
 
       {/* CLOSING */}
-      <section className="px-5 pb-24 md:pb-32">
+      <section className="px-5 pb-16 md:pb-20">
         <div className="relative mx-auto min-h-[420px] max-w-[1440px] overflow-hidden rounded-[24px] border border-white/10">
           <Image
             src="/images/story/hero.webp"
