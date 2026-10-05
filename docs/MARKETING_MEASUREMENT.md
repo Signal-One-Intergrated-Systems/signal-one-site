@@ -35,6 +35,18 @@ Additional fields:
 - href
 - label
 
+### lead_form_start
+
+Emitted once when a visitor first interacts with an enquiry/onboarding form.
+
+No name, email, mobile number or free-text form content is sent to the analytics endpoint.
+
+### lead_form_submit
+
+Emitted only after the existing intake endpoint confirms a successful submission.
+
+The analytics payload contains the form intent/category and campaign context, not the submitted personal information.
+
 ## Server configuration
 
 If no analytics destination is configured, the endpoint returns HTTP 204 and the buyer experience is unaffected.
