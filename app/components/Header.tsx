@@ -5,10 +5,10 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const nav = [
-  { href: "/#problem", label: "Why Signal One" },
-  { href: "/#platform", label: "Platform" },
+  { href: "/tour", label: "Product tour" },
   { href: "/solutions/security", label: "Security operations" },
-  { href: "/marketplace", label: "Marketplace" },
+  { href: "/pricing", label: "Packages" },
+  { href: "/trust", label: "Trust" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -57,17 +57,11 @@ export default function Header() {
         </nav>
 
         <div className="hidden items-center gap-2 xl:flex">
-          <Link
-            href="/get-started"
-            className="s1-secondary-action px-4 py-2.5 text-sm font-semibold"
-          >
-            Company onboarding
+          <Link href="/pricing" className="s1-secondary-action px-4 py-2.5 text-sm font-semibold">
+            See packages
           </Link>
-          <Link
-            href="/contact"
-            className="s1-primary-action px-5 py-2.5 text-sm font-semibold"
-          >
-            Book review
+          <Link href="/contact?intent=demo" className="s1-primary-action px-5 py-2.5 text-sm font-semibold">
+            Book demo
           </Link>
         </div>
 
@@ -105,19 +99,11 @@ export default function Header() {
                 </Link>
               ))}
               <div className="mt-2 grid grid-cols-2 gap-2 border-t border-white/10 pt-3">
-                <Link
-                  href="/get-started"
-                  onClick={() => setOpen(false)}
-                  className="s1-secondary-action px-4 py-3 text-center text-sm font-semibold"
-                >
-                  Company onboarding
+                <Link href="/pricing" onClick={() => setOpen(false)} className="s1-secondary-action px-4 py-3 text-center text-sm font-semibold">
+                  See packages
                 </Link>
-                <Link
-                  href="/contact"
-                  onClick={() => setOpen(false)}
-                  className="s1-primary-action px-4 py-3 text-center text-sm font-semibold"
-                >
-                  Book review
+                <Link href="/contact?intent=demo" onClick={() => setOpen(false)} className="s1-primary-action px-4 py-3 text-center text-sm font-semibold">
+                  Book demo
                 </Link>
               </div>
             </nav>
