@@ -1,7 +1,8 @@
 import { readdir, readFile, stat } from "node:fs/promises";
 import path from "node:path";
 
-const roots = ["app", "public"];
+const roots = ["."];
+const skippedDirectories = new Set([".git", ".next", "node_modules", "coverage"]);
 const textExtensions = new Set([
   ".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs", ".json", ".css", ".md",
   ".txt", ".html", ".xml", ".svg", ".yml", ".yaml",
@@ -21,6 +22,7 @@ async function walk(target) {
   }
 
   if (info.isDirectory()) {
+    if (skippedDirectories.has(path.basename(target))) return;
     for (const entry of await readdir(target)) {
       await walk(path.join(target, entry));
     }
