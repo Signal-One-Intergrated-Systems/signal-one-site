@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useEffect, useMemo, useState } from "react";
 
 export type IntakeField = {
   name: string;
@@ -9,6 +9,28 @@ export type IntakeField = {
   placeholder?: string;
   required?: boolean;
   options?: string[];
+};
+
+type Attribution = {
+  intent: string;
+  source: string;
+  medium: string;
+  campaign: string;
+  term: string;
+  content: string;
+  landingPath: string;
+  referrer: string;
+};
+
+const emptyAttribution: Attribution = {
+  intent: "",
+  source: "",
+  medium: "",
+  campaign: "",
+  term: "",
+  content: "",
+  landingPath: "",
+  referrer: "",
 };
 
 export default function IntakeForm({
@@ -29,20 +51,62 @@ export default function IntakeForm({
     [fields],
   );
   const [values, setValues] = useState<Record<string, string>>(initial);
+  const [attribution, setAttribution] = useState<Attribution>(emptyAttribution);
   const [consent, setConsent] = useState(false);
   const [state, setState] = useState<"idle" | "sending" | "done" | "error">("idle");
   const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const intent = params.get("intent") || "";
+    setAttribution({
+      intent,
+      source: params.get("utm_source") || "",
+      medium: params.get("utm_medium") || "",
+      campaign: params.get("utm_campaign") || "",
+      term: params.get("utm_term") || "",
+      content: params.get("utm_content") || "",
+      landingPath: window.location.pathname + window.location.search,
+      referrer: document.referrer || "",
+    });
+
+    if (intent && fields.some((field) => field.name === "intent")) {
+      const intentMap: Record<string, string> = {
+        demo: "Product demo",
+        pricing: "Pricing / commercial proposal",
+        pilot: "Pilot / first-site rollout",
+        trust: "Trust / procurement / technical review",
+      };
+      const mapped = intentMap[intent];
+      if (mapped) {
+        setValues((current) => ({ ...current, intent: mapped }));
+      }
+    }
+  }, [fields]);
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!consent || state === "sending") return;
     setState("sending");
     setMessage("");
+
+    const enrichedData: Record<string, string> = {
+      ...values,
+      leadIntent: attribution.intent,
+      leadUtmSource: attribution.source,
+      leadUtmMedium: attribution.medium,
+      leadUtmCampaign: attribution.campaign,
+      leadUtmTerm: attribution.term,
+      leadUtmContent: attribution.content,
+      leadLandingPath: attribution.landingPath,
+      leadReferrer: attribution.referrer,
+    };
+
     try {
       const response = await fetch("/api/intake", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ kind, data: values }),
+        body: JSON.stringify({ kind, data: enrichedData }),
       });
       const body = (await response.json().catch(() => ({}))) as { message?: string };
       if (!response.ok) throw new Error(body.message || "We could not send this application.");
@@ -69,7 +133,7 @@ export default function IntakeForm({
 
   return (
     <form onSubmit={submit} className="s1-glass rounded-[18px] p-5 md:p-8">
-      <p className="s1-mono text-[9px] font-semibold text-[#38BDF8]">Secure intake</p>
+      <p className="s1-mono text-[9px] font-semibold text-[#38BDF8]">Secure enquiry</p>
       <h2 className="mt-3 text-2xl font-semibold tracking-[-.025em] text-white">{title}</h2>
       <p className="mt-3 max-w-2xl text-sm leading-6 text-white/54">{intro}</p>
 
@@ -119,7 +183,7 @@ export default function IntakeForm({
           onChange={(e) => setConsent(e.target.checked)}
           className="mt-1 accent-[#0EA5E9]"
         />
-        <span>I consent to Signal One processing this information for onboarding, verification and contacting me about this application.</span>
+        <span>I consent to Signal One processing this information for responding to this enquiry, onboarding where relevant, and contacting me about Signal One.</span>
       </label>
 
       {message ? (
