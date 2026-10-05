@@ -5,7 +5,7 @@ import MarketplaceStore from "../components/MarketplaceStore";
 export const metadata: Metadata = {
   title: "Marketplace",
   description:
-    "Browse Signal One radios, connectivity subscriptions, sensors and operational technology. Buy, rent or request a quote.",
+    "Configure a Signal One quote for radios, connectivity subscriptions, sensors and operational technology.",
 };
 
 export default function MarketplacePage() {
@@ -15,11 +15,11 @@ export default function MarketplacePage() {
         <MarketingHero
           eyebrow="Signal One Marketplace"
           title="Equip the operation."
-          body="Buy or rent Signal One radios, choose connectivity subscriptions, and source the sensors and platform services your operation needs."
+          body="Build a configured quote for radios, connectivity subscriptions, sensors and platform services after you understand the operating requirement."
           image="/images/What-we-deliver/communications.jpg"
           imageAlt="Signal One radios and connected operational devices"
           primary={{ href: "#catalogue", label: "Browse catalogue" }}
-          secondary={{ href: "/contact", label: "Request a quote" }}
+          secondary={{ href: "/contact?intent=pricing", label: "Discuss a configured quote" }}
           meta={
             <div className="flex flex-wrap gap-2">
               {["Buy", "Rent", "Subscribe"].map((label) => (
@@ -28,7 +28,7 @@ export default function MarketplacePage() {
                 </span>
               ))}
               <span className="ml-0 text-xs leading-9 text-white/36 md:ml-3">
-                Where a published numeric price is not available, Signal One confirms pricing before the order is accepted.
+                Select the products and commercial mode you want. The quote basket carries that configuration into the commercial enquiry.
               </span>
             </div>
           }

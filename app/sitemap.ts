@@ -9,10 +9,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/join/sales",
     "/guards",
     "/guards/join",
+    "/tour",
+    "/pricing",
+    "/trust",
+    "/insights",
+    "/insights/security-contracts-fail-quietly",
+    "/insights/control-room-exception-management",
+    "/insights/digital-occurrence-book",
     "/marketplace",
     "/systems",
     "/solutions",
     "/solutions/security",
+    "/solutions/security/guard-management",
+    "/solutions/security/patrol-verification",
+    "/solutions/security/attendance",
+    "/solutions/security/electronic-occurrence-book",
+    "/solutions/security/control-room",
+    "/solutions/security/client-proof",
+    "/solutions/security/push-to-talk",
     "/solutions/agriculture",
     "/solutions/logistics",
     "/solutions/utilities",
@@ -30,14 +44,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return routes.map((route) => ({
     url: base + route,
     lastModified: new Date(),
-    changeFrequency: route === "" || route === "/marketplace" ? "weekly" : "monthly",
+    changeFrequency: route === "" || route === "/marketplace" || route.startsWith("/insights") ? "weekly" : "monthly",
     priority:
       route === ""
         ? 1
-        : route === "/get-started" || route === "/marketplace"
+        : route === "/tour" || route === "/pricing"
           ? 0.9
-          : route === "/solutions/security"
+          : route === "/solutions/security" || route.startsWith("/solutions/security/") || route === "/trust"
             ? 0.85
-            : 0.7,
+            : route === "/insights"
+              ? 0.8
+            : route === "/get-started" || route === "/marketplace"
+              ? 0.8
+              : 0.7,
   }));
 }

@@ -14,7 +14,7 @@ export default function IoTSIMPage() {
         <MarketingHero
           eyebrow="Signal One connectivity"
           title="Global IoT Connectivity"
-          body="One SIM, global coverage. Our multi-IMSI IoT SIMs provide redundant, carrier-agnostic connectivity across 180+ countries and 600+ networks."
+          body="Multi-network IoT connectivity for supported deployments that need resilient cellular access across regions and network environments."
           image="/images/What-we-deliver/connectivity.jpg"
           imageAlt="Global cellular connectivity infrastructure"
           primary={{ href: "/contact", label: "Discuss connectivity" }}
@@ -25,9 +25,9 @@ export default function IoTSIMPage() {
             <p className="s1-mono text-[9px] font-semibold text-[#38BDF8]">Why Signal One Connectivity?</p>
             <div className="mt-6 space-y-4">
               {[
-                ["Unsteered Roaming", "Our SIMs automatically connect to the strongest available signal, regardless of the network operator. No steering ensures maximum uptime for mission-critical devices."],
-                ["Single Management Plane", "Manage your entire global fleet from one dashboard. Activate, suspend, and monitor usage in real-time via our Connectivity Management Platform (CMP)."],
-                ["Secure Private APN", "Data is routed securely via private APN tunnels directly to your infrastructure or cloud, bypassing the public internet for enhanced security."],
+                ["Multi-network connectivity", "Use supported multi-network connectivity options to reduce dependence on a single operator where the deployment requires broader cellular reach."],
+                ["Connectivity management", "Manage supported SIM and connectivity services through the relevant connectivity-management environment for the deployment."],
+                ["Private connectivity options", "Private APN or other managed connectivity requirements can be scoped where the selected provider and deployment support them."],
               ].map(([title,body]) => (
                 <div key={title} className="rounded-[16px] border border-white/10 bg-white/[.025] p-6">
                   <h3 className="text-xl font-semibold text-[#38BDF8]">{title}</h3>
@@ -47,10 +47,10 @@ export default function IoTSIMPage() {
             <table className="w-full border-collapse text-left text-sm">
               <tbody>
                 {[
-                  ["Form Factors", "2FF (Mini), 3FF (Micro), 4FF (Nano), MFF2 (eSIM)"],
-                  ["Network Support", "2G, 3G, 4G, 5G, LTE-M, NB-IoT"],
-                  ["Temperature Range", "Industrial Grade (-40°C to +105°C) available"],
-                  ["Coverage", "Global (180+ Countries)"],
+                  ["Form factors", "Physical SIM and eSIM options subject to the selected connectivity service."],
+                  ["Network technologies", "Supported technologies depend on the selected SIM profile, provider and target network."],
+                  ["Coverage", "Coverage is confirmed against the countries, operators and device requirements in the deployment."],
+                  ["Private connectivity", "Private APN and related managed-network options are scoped where available."],
                 ].map(([label,value]) => (
                   <tr key={label} className="border-b border-white/10 last:border-b-0">
                     <td className="w-1/3 px-5 py-5 font-semibold text-white/82">{label}</td>

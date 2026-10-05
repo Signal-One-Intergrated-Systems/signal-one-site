@@ -2,16 +2,26 @@ import Link from "next/link";
 
 const groups = [
   {
-    title: "For security companies",
+    title: "Evaluate Signal One",
     links: [
-      ["/contact", "Book operational review"],
-      ["/get-started", "Company onboarding"],
+      ["/tour", "Product tour"],
       ["/solutions/security", "Security operations"],
-      ["/#proof", "See product proof"],
+      ["/pricing", "Packages & pricing"],
+      ["/trust", "Trust & deployment"],
+      ["/insights", "Insights"],
     ],
   },
   {
-    title: "Equip & connect",
+    title: "Security workflows",
+    links: [
+      ["/solutions/security/guard-management", "Guard management"],
+      ["/solutions/security/patrol-verification", "Patrol verification"],
+      ["/solutions/security/control-room", "Control room"],
+      ["/solutions/security/client-proof", "Client proof"],
+    ],
+  },
+  {
+    title: "Connected operations",
     links: [
       ["/marketplace", "Marketplace"],
       ["/devices", "Devices"],
@@ -23,7 +33,7 @@ const groups = [
     title: "Work with Signal One",
     links: [
       ["/guards", "For guards"],
-      ["/guards/join", "Guard onboarding"],
+      ["/guards/join", "Guard opportunities"],
       ["/join/sales", "Join Signal One Sales"],
       ["/contact", "Contact"],
     ],
@@ -33,7 +43,7 @@ const groups = [
 export default function Footer() {
   return (
     <footer className="border-t border-white/10 bg-[var(--s1-deep)] px-5 py-14 text-white">
-      <div className="mx-auto grid max-w-[90rem] gap-12 lg:grid-cols-[1.15fr_2fr]">
+      <div className="mx-auto grid max-w-[90rem] gap-12 lg:grid-cols-[.9fr_2.1fr]">
         <div>
           <div className="flex items-center gap-3">
             <span className="relative grid h-9 w-9 place-items-center rounded-full border border-[#0EA5E9]/40">
@@ -44,24 +54,26 @@ export default function Footer() {
             </p>
           </div>
           <p className="mt-5 max-w-md text-sm leading-6 text-white/52">
-            Operational control, field evidence and client service for private security companies.
+            Security operations software for South African guarding companies, with connected communications, devices and connectivity when the operation needs them.
           </p>
-          <Link href="/contact" className="s1-primary-action mt-7 inline-flex px-5 py-2.5 text-sm font-semibold">
-            Book operational review
-          </Link>
+          <div className="mt-7 flex flex-wrap gap-3">
+            <Link href="/tour" className="s1-primary-action inline-flex px-5 py-2.5 text-sm font-semibold">
+              Take product tour
+            </Link>
+            <Link href="/contact?intent=demo" className="s1-secondary-action inline-flex px-5 py-2.5 text-sm font-semibold">
+              Book demo
+            </Link>
+          </div>
         </div>
 
-        <div className="grid gap-8 sm:grid-cols-3">
+        <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-4">
           {groups.map((group) => (
             <div key={group.title}>
               <h3 className="s1-mono text-[10px] font-semibold text-white/34">{group.title}</h3>
               <ul className="mt-5 space-y-3">
                 {group.links.map(([href, label]) => (
                   <li key={href + label}>
-                    <Link
-                      href={href}
-                      className="text-sm text-white/58 transition duration-200 hover:text-[#38BDF8]"
-                    >
+                    <Link href={href} className="text-sm text-white/58 transition duration-200 hover:text-[#38BDF8]">
                       {label}
                     </Link>
                   </li>

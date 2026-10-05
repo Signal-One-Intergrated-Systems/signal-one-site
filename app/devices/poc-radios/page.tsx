@@ -177,9 +177,9 @@ export default function PoCRadiosPage() {
 
                 {/* Compatibility Note */}
                 <div className="mt-20 p-8 rounded-[18px] bg-[#0EA5E9]/10 border border-[#0EA5E9]/20">
-                    <h3 className="text-xl font-semibold text-white mb-4">Seamless Compatibility</h3>
+                    <h3 className="text-xl font-semibold text-white mb-4">Deployment compatibility</h3>
                     <p className="text-white/60">
-                        All Signal One PoC devices are fully certified for the Signal One Critical Connect platform, ensuring instant provisioning, over-the-air updates, and end-to-end encryption.
+                        Signal One PoC device options can be evaluated alongside Critical Connect, device management and managed connectivity. Final compatibility, provisioning and security requirements are confirmed for the selected device and deployment.
                     </p>
                 </div>
 

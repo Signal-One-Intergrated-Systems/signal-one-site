@@ -10,12 +10,12 @@ export const metadata: Metadata = {
 };
 
 const pillars = [
-  ["Attendance", "Record clock-in and clock-out against the operational site, with geofence policy and preserved evidence.", "/images/logistics.jpg"],
-  ["Post coverage", "See what each post requires, what is allocated, what is verified and where a shortfall needs action.", "/images/security.jpg"],
-  ["Patrol verification", "Run routes and checkpoints with QR or NFC verification, GPS policy and offline synchronisation.", "/images/industries/security.jpg"],
-  ["Occurrence & incidents", "Keep a chronological operational record of incidents, exceptions, corrections and response.", "/images/emergency.jpg"],
-  ["Control Room", "Bring SOS, operational exceptions and live site awareness into the workspace used to respond.", "/images/What-we-deliver/platforms.jpg"],
-  ["Proof of service", "Give management and authorised clients a clearer record of what was scheduled, what happened and what can be proven.", "/images/product-proof/proof-of-service-demo.jpg"],
+  ["/solutions/security/attendance", "Attendance", "Record clock-in and clock-out against the operational site, with geofence policy and preserved evidence.", "/images/logistics.jpg"],
+  ["/solutions/security/guard-management", "Guard management", "Connect attendance, posts, patrols, incidents, SOS and service proof in one security operating record.", "/images/security.jpg"],
+  ["/solutions/security/patrol-verification", "Patrol verification", "Run routes and checkpoints with QR or NFC verification, GPS policy and offline synchronisation.", "/images/industries/security.jpg"],
+  ["/solutions/security/electronic-occurrence-book", "Electronic occurrence book", "Keep a chronological operational record of incidents, exceptions, corrections and response.", "/images/emergency.jpg"],
+  ["/solutions/security/control-room", "Control Room", "Bring SOS, operational exceptions and live site awareness into the workspace used to respond.", "/images/What-we-deliver/platforms.jpg"],
+  ["/solutions/security/client-proof", "Proof of service", "Give management and authorised clients a clearer record of what was scheduled, what happened and what can be proven.", "/images/product-proof/proof-of-service-demo.jpg"],
 ] as const;
 
 export default function SecuritySolutionsPage() {
@@ -28,14 +28,14 @@ export default function SecuritySolutionsPage() {
           body="Signal One Guard connects attendance, posts, patrol verification, incidents, SOS, occurrence records and proof of service so operations teams can see what is happening and preserve what happened."
           image="/images/industries/security.jpg"
           imageAlt="Security operations control room"
-          primary={{ href: "/contact", label: "Book operational review" }}
-          secondary={{ href: "/#proof", label: "See product proof" }}
+          primary={{ href: "/tour", label: "Take product tour" }}
+          secondary={{ href: "/contact?intent=demo", label: "Book a 30-minute demo" }}
         />
 
         <section className="py-20 md:py-24">
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-            {pillars.map(([title, body, image], index) => (
-              <article key={title} className="group overflow-hidden rounded-[18px] border border-white/10 bg-[#0A0D12] transition duration-500 hover:border-[#0EA5E9]/30">
+            {pillars.map(([href, title, body, image], index) => (
+              <Link key={href} href={href} className="group overflow-hidden rounded-[18px] border border-white/10 bg-[#0A0D12] transition duration-500 hover:-translate-y-1 hover:border-[#0EA5E9]/30">
                 <div className="relative h-44 overflow-hidden">
                   <Image src={image} alt="" fill className="object-cover transition duration-700 group-hover:scale-[1.035]" sizes="(min-width:1280px) 33vw, (min-width:768px) 50vw, 100vw" />
                   <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,13,18,.04),rgba(10,13,18,.76))]" />
@@ -45,7 +45,10 @@ export default function SecuritySolutionsPage() {
                   <h2 className="text-xl font-semibold tracking-[-.025em]">{title}</h2>
                   <p className="mt-3 text-sm leading-6 text-white/48">{body}</p>
                 </div>
-              </article>
+                <span className="mx-6 mb-6 inline-flex text-sm font-semibold text-[#38BDF8] transition duration-300 group-hover:translate-x-1">
+                  Explore workflow →
+                </span>
+              </Link>
             ))}
           </div>
         </section>
@@ -90,8 +93,8 @@ export default function SecuritySolutionsPage() {
               </p>
             </div>
             <div className="flex flex-wrap gap-3">
-              <Link href="/contact" className="s1-primary-action px-6 py-3 text-sm font-semibold">Book operational review</Link>
-              <Link href="/get-started" className="s1-secondary-action px-6 py-3 text-sm font-semibold">Start onboarding</Link>
+              <Link href="/tour" className="s1-primary-action px-6 py-3 text-sm font-semibold">Take product tour</Link>
+              <Link href="/pricing" className="s1-secondary-action px-6 py-3 text-sm font-semibold">See packages</Link>
             </div>
           </div>
         </section>
