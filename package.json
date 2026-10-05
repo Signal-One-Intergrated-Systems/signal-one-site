@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npm run check:public-brand && next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "check:public-brand": "node scripts/check-public-branding.mjs"
   },
   "dependencies": {
     "framer-motion": "^12.23.26",
