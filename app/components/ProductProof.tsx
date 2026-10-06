@@ -12,7 +12,7 @@ function ratio(width: number, height: number) {
 export function ProofImage({ shot, priority = false }: { shot: ProofShot; priority?: boolean }) {
   const common = { alt: shot.alt, quality: 90, priority };
   const {
-    props: { srcSet: desktopSrcSet },
+    props: { srcSet: desktopSrcSet, sizes: desktopSizes },
   } = getImageProps({ ...common, src: shot.desktop, sizes: "(min-width: 1280px) 860px, (min-width: 768px) 66vw, 100vw" });
   const {
     props: { srcSet: mobileSrcSet, style: _style, ...img },
@@ -28,7 +28,7 @@ export function ProofImage({ shot, priority = false }: { shot: ProofShot; priori
         } as React.CSSProperties
       }
     >
-      <source media="(min-width: 768px)" srcSet={desktopSrcSet} />
+      <source media="(min-width: 768px)" srcSet={desktopSrcSet} sizes={desktopSizes} />
       <img
         {...img}
         srcSet={mobileSrcSet}

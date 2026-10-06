@@ -8,11 +8,11 @@ export const metadata: Metadata = {
 };
 
 const sections = [
-          ["Information we collect", "We collect information you choose to submit through enquiries, onboarding, quote requests and applications, such as names, company details, contact information and the information needed to respond to your request."],
-          ["Why we use it", "We use submitted information to respond to enquiries, prepare quotes, assess applications, activate requested services, support customers and maintain an auditable business record."],
-          ["Access and security", "Access to operational systems is role-controlled. The platform includes authentication, permission controls and audit logging. We do not claim security certifications that have not been independently awarded."],
-          ["Sharing", "Information may be processed by contracted infrastructure, communications, payment or service providers where needed to deliver the requested service. We do not publish private guard or customer records on the public website."],
-          ["Retention and rights", "Retention periods must follow the purpose of processing, contractual requirements and applicable South African law. Requests to access, correct or object to processing can be sent to sales@signalone.co.za until a dedicated privacy address is confirmed."],
+  ["Information we collect", "We collect information you choose to submit through enquiries, onboarding, quote requests and applications, such as names, company details, contact information and the information needed to respond to your request."],
+  ["Why we use it", "We use submitted information to respond to enquiries, prepare quotes, assess applications, activate requested services, support customers and maintain an auditable business record."],
+  ["Access and security", "Access to operational systems is role-controlled. The platform includes authentication, permission controls and audit logging. We do not claim security certifications that have not been independently awarded."],
+  ["Sharing", "Information may be processed by contracted infrastructure, communications, payment or service providers where needed to deliver the requested service. We do not publish private guard or customer records on the public website."],
+  ["Retention and rights", "Retention periods must follow the purpose of processing, contractual requirements and applicable South African law. Requests to access, correct or object to processing can be sent to sales@signalone.co.za until a dedicated privacy address is confirmed."],
 ] as const;
 
 export default function PrivacyPage() {
