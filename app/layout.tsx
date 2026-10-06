@@ -9,7 +9,8 @@ import "./globals.css";
 const body = Inter({
   subsets: ["latin"],
   variable: "--font-body",
-  display: "swap",
+  // "optional": the page never waits for or reflows to the web font. With the metric-matched fallback this keeps LCP and CLS low.
+  display: "optional",
 });
 
 const description =

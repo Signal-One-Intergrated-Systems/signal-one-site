@@ -22,7 +22,7 @@ const legacyRedirects = [
 const nextConfig: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
-    qualities: [75, 90, 92, 94],
+    qualities: [70, 75, 90],
   },
   async redirects() {
     return legacyRedirects.map(([source, destination]) => ({

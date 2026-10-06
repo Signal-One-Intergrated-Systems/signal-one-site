@@ -132,7 +132,7 @@ export function Photo({
           sizes={sizes}
           priority={priority}
           placeholder="blur"
-          quality={80}
+          quality={75}
           className={imgClassName}
         />
       </div>
@@ -222,7 +222,7 @@ export function PhotoBand({
             alt={alt}
             fill
             sizes={sizes || "(min-width: " + src.width + "px) " + src.width + "px, 100vw"}
-            quality={82}
+            quality={75}
             placeholder="blur"
             className="object-cover"
             style={{ objectPosition }}
@@ -289,8 +289,9 @@ export function SplitHero({
             alt={alt}
             fill
             priority
+            fetchPriority="high"
             sizes={"(min-width: 1024px) 52vw, 100vw"}
-            quality={85}
+            quality={70}
             placeholder="blur"
             className="object-cover [object-position:var(--pos-m)] lg:[object-position:var(--pos-d)]"
             style={{ ["--pos-m" as string]: objectPositionMobile, ["--pos-d" as string]: objectPosition }}

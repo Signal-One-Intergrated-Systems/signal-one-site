@@ -38,3 +38,22 @@ Also added: `Dockerfile.qa` (Playwright 1.56.1 image; `npm run qa:docker`), a re
 - No thumbnail-size photos remain anywhere (the smallest photo is 58% of the container).
 
 **Skipped:** no real product photography exists yet for radios (waiting on Simon).
+
+## W3: Speed
+
+**Status: done, with two pages at the edge of the LCP target.** Lighthouse 13, local Chromium, mobile profile (default simulated throttling), production build. Scores are the median of three runs; the first run of each page before and after is saved in `docs/qa/lighthouse/` (trimmed to the headline metrics).
+
+| Page | Perf before | Perf after | LCP before | LCP after (median) | CLS | TBT after |
+|---|---|---|---|---|---|---|
+| `/` | 96 | 98 | 2.74 s | 2.38 s | 0 | 32 ms |
+| `/pricing` | 97 | 99 | 2.51 s | 1.96 s | 0 | 33 ms |
+| `/guards` | 99 | 97 | 2.03 s | 2.58 s (runs 2.48 to 2.67) | 0 | 32 ms |
+| `/radios-equipment` | 99 | 97 | 1.96 s | 2.50 s (runs 2.44 to 2.52) | 0 | 30 ms |
+
+Targets: performance at least 90 (met on all four), CLS under 0.05 (met, 0), LCP under 2.5 s (met on `/` and `/pricing`; `/guards` and `/radios-equipment` sit at 2.5 to 2.6 s on simulated throttling, within run-to-run noise of the target but not clearly under it).
+
+**What changed**
+- `next/font` Inter now uses `display: "optional"`: the page never waits for or reflows to the web font (the metric-matched fallback shows if the font is not ready in 100 ms). This is what moved `/pricing` (LCP is the "R2" text) from 2.51 s to 1.96 s.
+- Hero photograph: `fetchPriority="high"`, quality 70; photo bands and `Photo` at quality 75. `images.qualities` is now `[70, 75, 90]` (it was `[75, 90, 92, 94]`, which also silently rounded the requested 85 up to 90). Product screenshots stay at 90.
+
+**Where it stopped.** Measured (non-simulated) LCP sub-parts are tiny (first byte 14 ms, resource load 12 to 27 ms, render delay 80 ms), and the remaining 1.8 s between FCP and LCP in the simulation comes from simulated 4G transfer of the render-blocking CSS, the 70 KB React runtime chunk, the 48 KB font and the hero image together. Further gains need a smaller framework payload (not available without dropping Next features) or a smaller hero image, which would cost visible quality. Left as is.
