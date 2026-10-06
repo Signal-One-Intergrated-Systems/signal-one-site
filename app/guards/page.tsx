@@ -65,7 +65,7 @@ export default function GuardsPage() {
           <div>
             <div className="flex flex-wrap items-center gap-3">
               <h2 className="t-h2">Planned: Guard Marketplace</h2>
-              <span className="rounded-full bg-beta-tint px-3 py-1 text-[0.9375rem] font-semibold text-beta">Coming soon</span>
+              <span className="rounded-full bg-beta-tint px-3 py-1 text-[0.9375rem] font-semibold text-beta">MVP in development</span>
             </div>
             <p className="mt-4 text-[1.1875rem] leading-relaxed text-text-2">
               We are building Marketplace. When it launches, signed-in Signal One client companies will be able to find profiles by:

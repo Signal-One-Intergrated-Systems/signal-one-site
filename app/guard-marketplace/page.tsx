@@ -57,7 +57,7 @@ export default function GuardMarketplacePage() {
           </Status>
         }
         title="Win the contract. Then staff it from the same system."
-        lead="Find guards near the site, check what they have recorded, send a hire request and allocate the guards who accept. Inside your company workspace, next to the sites and shifts they will work."
+        lead="When it launches, you will be able to find guards near the site, check what they have recorded, send a hire request and allocate the guards who accept. Inside your company workspace, next to the sites and shifts they will work."
         aside={
           <div className="rounded-card border border-line-dark bg-raised p-6 sm:p-8">
             <h2 className="t-h3">Where Marketplace is today</h2>
@@ -77,7 +77,7 @@ export default function GuardMarketplacePage() {
           <div>
             <h2 className="t-h2">From contract to shift, in ten steps.</h2>
             <p className="t-body mt-4 text-text-2">
-              The hiring workflow ends where your operation already lives: a guard allocated to a site and a shift in Signal
+              The planned hiring workflow ends where your operation already lives: a guard allocated to a site and a shift in Signal
               One Guard.
             </p>
           </div>
@@ -182,11 +182,11 @@ export default function GuardMarketplacePage() {
             <h2 className="t-h2">Private by design.</h2>
             <ul className="m-0 mt-6 grid list-none gap-4 p-0">
               {[
-                "Profiles are only visible inside a signed-in Signal One company workspace.",
+                "Profiles will only be visible inside a signed-in Signal One company workspace.",
                 "There is no public guard search and no public jobs board.",
-                "Guards choose whether to accept a hire request.",
-                "PSiRA number, grade and expiry are shown as recorded. Signal One does not check them with PSiRA.",
-                "No ratings, readiness scores or badges.",
+                "Guards will choose whether to accept a hire request.",
+                "PSiRA number, grade and expiry will be shown as recorded. Signal One does not check them with PSiRA.",
+                "There will be no ratings, readiness scores or badges.",
               ].map((item) => (
                 <li key={item} className="t-body flex gap-3">
                   <Check className="mt-1 text-signal-ink" />
@@ -202,7 +202,7 @@ export default function GuardMarketplacePage() {
             </div>
             <p className="t-body mt-4 text-text-2">
               You can already offer open posts to your own guards. Each guard sees the offer in the Guard app and accepts
-              or declines it. Marketplace extends the same accept-or-decline step to guards outside your company.
+              or declines it. Marketplace will extend the same accept-or-decline step to guards outside your company.
             </p>
             <ButtonLink href="/solutions/security" variant="ghost-light" className="mt-6">
               See the live platform

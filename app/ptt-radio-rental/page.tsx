@@ -17,7 +17,7 @@ export default function PttRadioRentalPage() {
     <LandingPage
       kicker="PTT radio rental"
       title="Push-to-talk radios for your security contracts."
-      lead="Rent push-to-talk over cellular radios for your sites and supervisors. Push-to-talk over the cellular network, so a supervisor in Midrand can reach a guard in Pretoria without repeaters. Quoted per deployment, on 12, 24 or 36-month terms."
+      lead="Rent push-to-talk radios that run over the cellular network, so a supervisor in Midrand can reach a guard in Pretoria without repeaters. Quoted per deployment, on 12, 24 or 36-month terms."
       actions={
         <>
           <ButtonLink href="/radios-equipment#quote" size="lg">

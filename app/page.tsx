@@ -169,9 +169,9 @@ export default function Home() {
         <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-20">
           <div>
             <p className="t-lead measure text-text-inv-2">
-              Guard Marketplace is the hiring step we are building into Signal One. Find guards near the site, shortlist
-              them and send a hire request. The guard accepts or declines on their phone, and accepted guards join your
-              workforce, ready for a site and a shift.
+              Guard Marketplace is the hiring step we are building into Signal One. When it launches, you will be able to find
+              guards near the site, shortlist them and send a hire request. The guard will accept or decline on their phone,
+              and accepted guards will join your workforce, ready for a site and a shift.
             </p>
             <Link href="/guard-marketplace" className="link-arrow mt-8 text-signal-400">
               See how Marketplace will work <Arrow />
@@ -189,13 +189,13 @@ export default function Home() {
 
             <dl className="mt-12 grid gap-6 border-t border-line-dark pt-8 sm:grid-cols-2">
               <div>
-                <dt className="t-h4">Five filters, nothing else</dt>
+                <dt className="t-h4">Planned: five filters, nothing else</dt>
                 <dd className="t-small m-0 mt-2 text-text-inv-2">Location, PSiRA grade, availability, experience and skills.</dd>
               </div>
               <div>
                 <dt className="t-h4">Private, not a jobs board</dt>
                 <dd className="t-small m-0 mt-2 text-text-inv-2">
-                  Profiles stay inside your signed-in company workspace. Nothing is published publicly.
+                  Profiles will stay inside your signed-in company workspace. Nothing will be published publicly.
                 </dd>
               </div>
               <div className="sm:col-span-2">

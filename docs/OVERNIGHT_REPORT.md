@@ -71,3 +71,27 @@ Targets: performance at least 90 (met on all four), CLS under 0.05 (met, 0), LCP
 **Suite:** 135 tests, stable over four consecutive full runs. Two form helpers were hardened (wait for React hydration; retry a click on a controlled radio that can lag a frame under load).
 
 **Skipped:** nothing. Note for Simon: the first deploy that sets `CANONICAL_REDIRECT=1` should wait until DNS for the canonical domain is live, otherwise the Railway host will redirect to a domain that does not resolve yet.
+
+## W5: Copy and truth sweep
+
+**Status: done.** Every rendered page (17 routes, about 6,400 words) was read in full from the production build. Legal wording on `/privacy`, `/popia`, `/terms` and `/security-trust` was not changed.
+
+**Changes**
+1. **Present-tense Marketplace promises removed** (Marketplace is in development):
+   - Home, "Hire": "Find guards near the site…" and "The guard accepts or declines… accepted guards join your workforce" now read "When it launches, you will be able to find… the guard will accept or decline… will join"; "Five filters, nothing else" is now "Planned: five filters, nothing else"; "Profiles stay inside… Nothing is published publicly" is now "will stay… will be published".
+   - `/guard-marketplace`: hero lead now "When it launches, you will be able to…"; "The hiring workflow" is now "The planned hiring workflow"; the "Private by design" list uses "will" for profile visibility, guard choice, PSiRA display and "no ratings, readiness scores or badges"; "Marketplace extends" is now "will extend".
+2. **Inconsistent status label:** `/guards` labelled the planned Marketplace "Coming soon"; it is now "MVP in development" like every other page. Status vocabulary across the site is now exactly: Live, Beta (Accounting), MVP in development (Marketplace), Coming soon (Payroll, equipment-to-platform controls, client live map and patrol progress), By quote.
+3. **Pricing:** "10,000" is now "10 000" (en-ZA thousands separator, matching the worked-examples table); "36 month terms" is now "36-month terms".
+4. **PTT radio page:** removed a duplicated sentence in the hero lead.
+5. **en-ZA spelling:** searched all rendered text for US spellings (organize, color, center, program, license, analyze, prioritize, behavior, favor, catalog, honor): none found; "authorised", "organisation" style is used throughout.
+6. **Duplicated claims:** the client-portal, clock-in and PSiRA statements repeat across home, platform, patrol and attendance pages with identical wording on purpose (one source of truth per claim); no conflicting versions were found.
+
+**Numbers on the site that are not derived from R2 or the 10 guard-day minimum** (all left in place; listed so Simon can confirm them):
+- 15% VAT in the calculator line "(R1 380 incl. 15% VAT)": South African standard rate; the price itself stays excl. VAT.
+- Radio rental terms 12, 24 and 36 months: from the equipment catalogue.
+- Journey time estimates: "about 5 minutes" (guard profile), "about three minutes" (company onboarding), "about eight minutes" (sales application), "about two minutes" (equipment quote). These are estimates, not measurements.
+- Step and filter counts: ten Marketplace steps, five filters, seven application steps, nine guard-profile steps.
+- Inside the clearly labelled synthetic Marketplace preview only: "Within 25 km of Midrand", "2+ years", and the sample guards' years of experience.
+- Worked examples (10, 50 and 200 guards) are plain arithmetic: guards × days × R2, checked.
+
+**Not changed, flagged:** the home hero caption and every photograph still say "Illustrative scene · fictional security company" (all photography is AI-generated).
