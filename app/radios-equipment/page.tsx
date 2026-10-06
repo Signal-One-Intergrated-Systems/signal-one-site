@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import EquipmentQuoteForm from "../components/EquipmentQuoteForm";
-import { ButtonLink, Kicker, Status, Steps } from "../components/ui";
+import { ButtonLink, PageHero, Status, Steps } from "../components/ui";
 
 export const metadata: Metadata = {
   title: "PTT Radio Rental, Vehicle Tracking & Body Cameras",
@@ -44,28 +44,35 @@ const catalogue = [
 export default function RadiosEquipmentPage() {
   return (
     <main id="main">
-      <section className="surface-base">
-        <div className="wrap grid gap-10 py-14 md:py-20 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-end lg:gap-16">
-          <div>
-            <div className="flex flex-wrap items-center gap-3">
-              <Kicker tone="dark">Radios & Tracking</Kicker>
-              <Status kind="quote" tone="dark">
-                By quote
-              </Status>
-            </div>
-            <h1 className="t-h1 mt-5">Radios, PTT, tracking and body cameras. Rented, not sold online.</h1>
-          </div>
-          <div>
-            <p className="t-lead text-text-inv-2">
-              Choose the product, tell us the requirement and quantity, and where it will be deployed. We reply with a
-              written quote.
-            </p>
-            <ButtonLink href="#quote" size="lg" className="mt-6">
-              Request a quote
-            </ButtonLink>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        kicker="Radios & Tracking"
+        status={
+          <Status kind="quote" tone="dark">
+            By quote
+          </Status>
+        }
+        title="Radios, PTT, tracking and body cameras. Rented, not sold online."
+        lead="Choose the product, tell us the requirement and quantity, and where it will be deployed. We reply with a written quote."
+        actions={
+          <ButtonLink href="#quote" size="lg">
+            Request a quote
+          </ButtonLink>
+        }
+        aside={
+          <dl className="m-0 grid gap-px overflow-hidden rounded-card border border-line-dark bg-line-dark">
+            {[
+              ["Radios and PTT", "Hytera PNC360S, P30 Lite PoC, E600 PoC LTE, PTT platform with SIM and data"],
+              ["Vehicle and asset tracking", "FMC920 and FMB920 trackers"],
+              ["Body cameras", "SC780 body camera"],
+            ].map(([term, detail]) => (
+              <div key={term} className="bg-raised p-5 sm:p-6">
+                <dt className="t-h4">{term}</dt>
+                <dd className="t-small m-0 mt-1 text-text-inv-2">{detail}</dd>
+              </div>
+            ))}
+          </dl>
+        }
+      />
 
       <section className="surface-light section">
         <div className="wrap">
@@ -86,12 +93,17 @@ export default function RadiosEquipmentPage() {
                     <p className="t-small mt-3 text-text-2">{group.lead}</p>
                     <p className="t-small mt-3 font-semibold">{group.terms}</p>
                   </div>
-                  <ul className="m-0 grid list-none gap-3 p-0 sm:grid-cols-2">
+                  <ul className="m-0 grid list-none gap-3 p-0 lg:grid-cols-2">
                     {group.products.map((product) => (
-                      <li key={product.model} className="card p-5 sm:p-6">
-                        <p className="t-small text-text-2">{product.type}</p>
-                        <p className="mt-1 font-display text-[1.5rem] font-bold leading-tight tracking-[-0.01em]">{product.model}</p>
-                        <p className="t-small mt-3 text-text-2">{product.detail}</p>
+                      <li key={product.model} className="card flex flex-col justify-between gap-8 p-6 sm:p-8">
+                        <div>
+                          <p className="t-small font-semibold text-signal-ink">{product.type}</p>
+                          <p className="font-display mt-3 text-[2rem] font-bold leading-[1.05] tracking-[-0.03em] sm:text-[2.5rem]">{product.model}</p>
+                          <p className="t-small mt-4 text-text-2">{product.detail}</p>
+                        </div>
+                        <p>
+                          <Status kind="quote">By quote</Status>
+                        </p>
                       </li>
                     ))}
                   </ul>

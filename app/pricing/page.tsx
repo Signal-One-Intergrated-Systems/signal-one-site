@@ -21,8 +21,8 @@ const examples = [
 export default function PricingPage() {
   return (
     <main id="main">
-      <section className="surface-base">
-        <div className="wrap grid gap-10 py-14 md:py-20 lg:grid-cols-[minmax(0,6fr)_minmax(0,6fr)] lg:items-end lg:gap-16">
+      <section className="split-hero surface-deep">
+        <div className="wrap grid gap-12 py-16 md:py-24 lg:grid-cols-[minmax(0,var(--hero-col))_minmax(0,1fr)] lg:items-center lg:gap-20 lg:py-32">
           <div>
             <Kicker tone="dark">Signal One Security pricing</Kicker>
             <h1 className="mt-6 flex flex-wrap items-end gap-x-5 gap-y-2">

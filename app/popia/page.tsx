@@ -20,6 +20,7 @@ const sections = [
 export default function PopiaPage() {
   return (
     <LegalPage
+      reviewNote
       kicker="POPIA"
       title="POPIA and data handling"
       intro="Signal One is designed to minimise unnecessary exposure of operational and personal information. Product-specific privacy notices, operator responsibilities and retention requirements are confirmed in the relevant customer and service documentation."

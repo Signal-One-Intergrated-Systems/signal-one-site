@@ -18,6 +18,7 @@ const sections = [
 export default function TermsPage() {
   return (
     <LegalPage
+      reviewNote
       kicker="Website terms"
       title="Website terms"
       intro="These website terms govern use of the public Signal One site. Product orders, rentals, Guard access and other paid services remain subject to the applicable quotation, order, rental or service agreement."

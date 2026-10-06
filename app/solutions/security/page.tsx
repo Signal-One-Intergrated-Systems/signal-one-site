@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ProductWindow } from "../../components/ProductProof";
-import { ButtonLink, Check, Kicker, Photo, Status } from "../../components/ui";
+import { ButtonLink, Check, Kicker, Photo, SplitHero, Status } from "../../components/ui";
 import { illustrativeCaption, photos } from "../../lib/photos";
 import { proofViews } from "../../lib/productProof";
 
@@ -33,32 +33,28 @@ export default function SecurityPlatformPage() {
 
   return (
     <main id="main">
-      <section className="surface-base">
-        <div className="wrap grid gap-12 py-14 md:py-20 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:items-center lg:gap-14">
-          <div>
-            <div className="flex flex-wrap items-center gap-3">
-              <Kicker tone="dark">Signal One Security · the platform</Kicker>
-              <Status kind="live" tone="dark">
-                Live
-              </Status>
-            </div>
-            <h1 className="t-h1 mt-5">Run security operations from the record, not the group chat.</h1>
-            <p className="t-lead mt-6 text-text-inv-2">
-              Sites, posts, shifts, attendance, patrols, incidents, SOS, the control room and client proof of service. One
-              system for owners, supervisors, control-room operators, guards and your clients.
-            </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <ButtonLink href="/contact" size="lg">
-                Talk to Signal One
-              </ButtonLink>
-              <ButtonLink href="/pricing" variant="ghost-dark" size="lg">
-                R2 per guard per day
-              </ButtonLink>
-            </div>
-          </div>
-          <ProductWindow screen={control.screen} shot={control.shots[0]} priority />
+      <SplitHero src={photos.teamBriefing.src} alt={photos.teamBriefing.alt} objectPositionMobile="55% 50%" objectPosition="62% 45%">
+        <div className="flex flex-wrap items-center gap-3">
+          <Kicker tone="dark">Signal One Security · the platform</Kicker>
+          <Status kind="live" tone="dark">
+            Live
+          </Status>
         </div>
-      </section>
+        <h1 className="t-hero mt-5">Run security operations from the record, not the group chat.</h1>
+        <p className="t-lead measure mt-6 text-text-inv-2">
+          Sites, posts, shifts, attendance, patrols, incidents, SOS, the control room and client proof of service. One
+          system for owners, supervisors, control-room operators, guards and your clients.
+        </p>
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <ButtonLink href="/contact" size="lg">
+            Talk to Signal One
+          </ButtonLink>
+          <ButtonLink href="/pricing" variant="ghost-dark" size="lg">
+            R2 per guard per day
+          </ButtonLink>
+        </div>
+        <p className="t-caption mt-6 text-text-inv-2">{illustrativeCaption}</p>
+      </SplitHero>
 
       {/* Coverage */}
       <section className="surface-light section">
@@ -76,7 +72,8 @@ export default function SecurityPlatformPage() {
               ))}
             </ul>
           </div>
-          <div className="grid content-start gap-4 lg:pt-2">
+          <div className="grid content-start gap-6">
+            <ProductWindow screen={control.screen} shot={control.shots[0]} priority />
             <h3 className="t-h3">The control room sees every SOS in order.</h3>
             <p className="t-body text-text-2">{control.body}</p>
             <p className="t-body text-text-2">

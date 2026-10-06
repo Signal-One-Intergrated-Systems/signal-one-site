@@ -83,7 +83,7 @@ export default function Home() {
       {/* 1 · HERO */}
       <SplitHero src={photos.hero.src} alt={photos.hero.alt} objectPositionMobile="66% 45%" objectPosition="80% 40%">
           <Kicker tone="dark">For growing South African security companies</Kicker>
-          <h1 className="t-display mt-5 text-[clamp(2.6rem,4.3vw,3.8rem)]">
+          <h1 className="t-hero mt-5">
             Win more contracts.
             <br />
             Run every site.

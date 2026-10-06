@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import IntakeForm, { type IntakeField } from "../components/IntakeForm";
-import { ButtonLink, Check, Kicker, Status, Steps } from "../components/ui";
+import { ButtonLink, Check, PageHero, Status, Steps } from "../components/ui";
 
 export const metadata: Metadata = {
   title: "Guard Marketplace: Hire Guards for New Contracts",
@@ -49,33 +49,28 @@ function DemoChip({ children }: { children: React.ReactNode }) {
 export default function GuardMarketplacePage() {
   return (
     <main id="main">
-      <section className="surface-base">
-        <div className="wrap grid gap-10 py-14 md:py-20 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-end lg:gap-16">
-          <div>
-            <div className="flex flex-wrap items-center gap-3">
-              <Kicker tone="dark">Guard Marketplace</Kicker>
-              <Status kind="mvp" tone="dark">
-                MVP in development
-              </Status>
-            </div>
-            <h1 className="t-h1 mt-5">Win the contract. Then staff it from the same system.</h1>
-            <p className="t-lead measure mt-6 text-text-inv-2">
-              Find guards near the site, check what they have recorded, send a hire request and allocate the guards who
-              accept. Inside your company workspace, next to the sites and shifts they will work.
-            </p>
-          </div>
-          <div className="rounded-card border border-line-dark bg-raised p-6">
-            <h2 className="t-h4">Where Marketplace is today</h2>
-            <p className="t-small mt-2 text-text-inv-2">
+      <PageHero
+        kicker="Guard Marketplace"
+        status={
+          <Status kind="mvp" tone="dark">
+            MVP in development
+          </Status>
+        }
+        title="Win the contract. Then staff it from the same system."
+        lead="Find guards near the site, check what they have recorded, send a hire request and allocate the guards who accept. Inside your company workspace, next to the sites and shifts they will work."
+        aside={
+          <div className="rounded-card border border-line-dark bg-raised p-6 sm:p-8">
+            <h2 className="t-h3">Where Marketplace is today</h2>
+            <p className="t-body mt-3 text-text-inv-2">
               Marketplace is not live yet. We are building the MVP described on this page. Register interest and we will
               tell you when your company can use it.
             </p>
-            <ButtonLink href="#interest" className="mt-5">
+            <ButtonLink href="#interest" size="lg" className="mt-6">
               Register interest
             </ButtonLink>
           </div>
-        </div>
-      </section>
+        }
+      />
 
       <section className="surface-light section">
         <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">

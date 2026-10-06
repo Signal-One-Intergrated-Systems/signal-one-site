@@ -30,7 +30,7 @@ export default function GuardsPage() {
     <main id="main" className="bg-light text-text">
       <SplitHero src={photos.siteOperations.src} alt={photos.siteOperations.alt} side="left" objectPositionMobile="0% 8%" objectPosition="0% 12%">
           <p className="text-[1.0625rem] font-semibold text-signal-400">For security officers</p>
-          <h1 className="t-h1 mt-4">Your work, on record. Your next job, your choice.</h1>
+          <h1 className="t-hero mt-4">Your work, on record. Your next job, your choice.</h1>
           <p className="mt-6 text-[1.25rem] leading-relaxed text-text-inv-2">
             Signal One Guard is the app you use on shift. Guard Marketplace is not live yet. When it launches,
             signed-in security companies will be able to send you hire requests. You will always decide whether to accept.

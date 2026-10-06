@@ -18,6 +18,7 @@ const sections = [
 export default function PrivacyPage() {
   return (
     <LegalPage
+      reviewNote
       kicker="Privacy"
       title="Privacy policy"
       intro="This policy describes how Signal One handles information submitted through the public website and enquiry flows. Product-specific agreements and notices may add requirements for operational services."
