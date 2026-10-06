@@ -7,7 +7,7 @@ import { illustrativeCaption, photos } from "./lib/photos";
 import { proofViews } from "./lib/productProof";
 
 export const metadata: Metadata = {
-  title: { absolute: "Security Guard Management Software South Africa | Signal One: Integrated Systems" },
+  title: { absolute: "Security Guard Management Software South Africa | Signal One" },
   alternates: { canonical: "/" },
 };
 

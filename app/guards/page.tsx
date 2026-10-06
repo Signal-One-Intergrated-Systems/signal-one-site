@@ -4,9 +4,9 @@ import { Check, SplitHero } from "../components/ui";
 import { photos } from "../lib/photos";
 
 export const metadata: Metadata = {
-  title: "For Security Officers: Signal One Guard and Guard Marketplace",
+  title: "Security Officer App: Clock In, Patrol and SOS",
   description:
-    "For security officers in South Africa: how the Signal One Guard app works on shift, what Guard Marketplace is planned to do, what PSiRA details we ask for and why, and how your information is kept private.",
+    "How the Signal One Guard app works on shift for security officers: clock in, QR and NFC patrols, occurrence book and SOS. What PSiRA details we ask for and why.",
   alternates: { canonical: "/guards" },
 };
 

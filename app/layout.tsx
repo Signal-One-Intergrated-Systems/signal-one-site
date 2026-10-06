@@ -18,8 +18,8 @@ const description =
 
 export const metadata: Metadata = {
   title: {
-    default: "Security Guard Management Software South Africa | " + brand.master,
-    template: "%s | " + brand.master,
+    default: "Security Guard Management Software South Africa | Signal One",
+    template: "%s | Signal One",
   },
   description,
   metadataBase: new URL(siteUrl),
@@ -44,13 +44,13 @@ export const metadata: Metadata = {
     siteName: brand.master,
     locale: "en_ZA",
     url: "/",
-    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Signal One: Integrated Systems" }],
+    
   },
   twitter: {
     card: "summary_large_image",
     title: "Signal One Security: run every site and prove the service",
     description,
-    images: ["/og-image.jpg"],
+    
   },
   robots: { index: true, follow: true },
 };
@@ -74,6 +74,7 @@ const structuredData = {
       name: brand.master,
       url: siteUrl,
       email: salesEmail,
+      logo: siteUrl + "/icon.png",
       areaServed: { "@type": "Country", name: "South Africa" },
       contactPoint: {
         "@type": "ContactPoint",
@@ -86,7 +87,8 @@ const structuredData = {
     {
       "@type": "SoftwareApplication",
       "@id": siteUrl + "/#software",
-      name: brand.product,
+      name: "Signal One Guard",
+      alternateName: brand.product,
       applicationCategory: "BusinessApplication",
       applicationSubCategory: "Security guard management software",
       operatingSystem: "Web, Android, iOS",
@@ -94,10 +96,19 @@ const structuredData = {
       description,
       offers: {
         "@type": "Offer",
+        url: siteUrl + "/pricing",
         price: "2.00",
         priceCurrency: "ZAR",
         description: "R2 per guard per day, excluding VAT. Minimum purchase 10 guard days.",
         eligibleRegion: { "@type": "Country", name: "South Africa" },
+        priceSpecification: {
+          "@type": "UnitPriceSpecification",
+          price: "2.00",
+          priceCurrency: "ZAR",
+          unitText: "per guard per day",
+          valueAddedTaxIncluded: false,
+          eligibleQuantity: { "@type": "QuantitativeValue", minValue: 10, unitText: "guard days" },
+        },
       },
     },
   ],

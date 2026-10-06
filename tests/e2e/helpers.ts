@@ -1,6 +1,16 @@
-import type { Page } from "@playwright/test";
+import { expect, type Page } from "@playwright/test";
 
 export const OK_BASE = "http://localhost:3101";
+
+/** Click a controlled radio or checkbox and wait for React to reflect it (it can lag a frame under load). */
+export async function tick(locator: import("@playwright/test").Locator) {
+  for (let attempt = 0; attempt < 6; attempt++) {
+    if (await locator.isChecked()) return;
+    await locator.click({ force: true });
+    await locator.page().waitForTimeout(150);
+  }
+  await expect(locator).toBeChecked();
+}
 
 /** Fill every empty visible field in `scope`, choose the first option of each group. */
 export async function fillVisible(page: Page, scope = "main") {
@@ -25,7 +35,7 @@ export async function fillVisible(page: Page, scope = "main") {
   const radioNames = new Set(await page.$$eval(`${scope} input[type=radio]`, (r) => r.map((x) => (x as HTMLInputElement).name)));
   for (const name of radioNames) {
     if (await page.locator(`${scope} input[type=radio][name="${name}"]:checked`).count()) continue;
-    await page.locator(`${scope} input[type=radio][name="${name}"]`).first().check({ force: true });
+    await tick(page.locator(`${scope} input[type=radio][name="${name}"]`).first());
   }
   const groups: Record<string, import("@playwright/test").ElementHandle[]> = {};
   for (const box of await page.$$(`${scope} input[type=checkbox]`)) {
@@ -35,7 +45,13 @@ export async function fillVisible(page: Page, scope = "main") {
   for (const list of Object.values(groups)) {
     let any = false;
     for (const box of list) if (await box.isChecked()) any = true;
-    if (!any) await list[0].check({ force: true });
+    if (!any) {
+      for (let attempt = 0; attempt < 6 && !(await list[0].isChecked()); attempt++) {
+        await list[0].click({ force: true });
+        await page.waitForTimeout(150);
+      }
+      expect(await list[0].isChecked()).toBe(true);
+    }
   }
 }
 
@@ -72,4 +88,15 @@ export async function events(page: Page): Promise<string[]> {
 export function decodeMailto(href: string) {
   const url = new URL(href);
   return { to: url.pathname, subject: url.searchParams.get("subject") || "", body: url.searchParams.get("body") || "" };
+}
+
+/** Wait until React has attached its handlers to the first element matching `selector`. */
+export async function hydrated(page: Page, selector = "main form") {
+  await page.waitForFunction(
+    (sel) => {
+      const el = document.querySelector(sel);
+      return !!el && Object.keys(el).some((key) => key.startsWith("__reactProps") || key.startsWith("__reactFiber"));
+    },
+    selector,
+  );
 }

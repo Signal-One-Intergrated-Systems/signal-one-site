@@ -3,7 +3,8 @@ import LegalPage from "../components/LegalPage";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
-  description: "How Signal One handles personal information submitted through its public website.",
+  description:
+    "How Signal One handles personal information submitted through its public website, including enquiries, quote requests, onboarding and security-officer profiles.",
   alternates: { canonical: "/privacy" },
 };
 

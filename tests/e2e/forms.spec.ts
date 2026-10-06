@@ -1,5 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
-import { decodeMailto, fillVisible, OK_BASE, walkJourney } from "./helpers";
+import { decodeMailto, fillVisible, hydrated, OK_BASE, tick, walkJourney } from "./helpers";
 
 type Case = {
   name: string;
@@ -12,6 +12,7 @@ type Case = {
 };
 
 const simple = async (page: Page) => {
+  await hydrated(page);
   await fillVisible(page, "main form");
   await page.locator("main form button[type=submit]").first().click();
 };
@@ -32,7 +33,8 @@ const cases: Case[] = [
     intent,
     kind: "client",
     run: async (page) => {
-      await page.getByRole("radio", { name: label }).check({ force: true });
+      await hydrated(page);
+      await tick(page.getByRole("radio", { name: label, exact: true }));
       await simple(page);
     },
   })),
@@ -54,6 +56,7 @@ const cases: Case[] = [
 for (const c of cases) {
   test(`503 fallback: ${c.name}`, async ({ page }) => {
     await page.goto(c.path);
+    await page.waitForLoadState("networkidle");
     await c.run(page);
     const link = page.locator('a[href^="mailto:sales@signalone.co.za"][href*="subject="]').first();
     await expect(link).toBeVisible({ timeout: 15_000 });
@@ -66,6 +69,7 @@ for (const c of cases) {
 
   test(`success with mocked upstream: ${c.name}`, async ({ page, request }) => {
     await page.goto(OK_BASE + c.path);
+    await page.waitForLoadState("networkidle");
     await c.run(page);
     await expect(page.locator('[role="status"]').first()).toBeVisible({ timeout: 15_000 });
     await expect(page.locator('a[href^="mailto:sales@signalone.co.za"][href*="subject="]')).toHaveCount(0);

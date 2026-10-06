@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import LegalPage from "../components/LegalPage";
 
 export const metadata: Metadata = {
-  title: "Security & Trust",
-  description: "Signal One security, access-control, audit, hosting and product-truth practices.",
+  title: "Security and Trust: Access Control and Audit",
+  description:
+    "How Signal One Security controls access, keeps audit trails and handles hosting and data. We state only what is proven: no certifications we have not been awarded.",
   alternates: { canonical: "/security-trust" },
 };
 

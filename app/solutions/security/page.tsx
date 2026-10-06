@@ -5,9 +5,9 @@ import { illustrativeCaption, photos } from "../../lib/photos";
 import { proofViews } from "../../lib/productProof";
 
 export const metadata: Metadata = {
-  title: "Security Company Software: Guard Attendance, Patrols & Control Room",
+  title: "Security Company Software: Patrols, Attendance, SOS",
   description:
-    "Signal One Security is guard management software for South African security companies: sites, shifts, guard attendance, QR and NFC patrols that work offline, incidents, SOS, control room and client proof of service.",
+    "Guard management software for South African security companies: sites, shifts, attendance, offline QR and NFC patrols, SOS, control room and proof of service.",
   alternates: { canonical: "/solutions/security" },
 };
 

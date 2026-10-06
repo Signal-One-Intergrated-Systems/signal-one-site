@@ -3,7 +3,8 @@ import LegalPage from "../components/LegalPage";
 
 export const metadata: Metadata = {
   title: "Website Terms",
-  description: "Signal One public website terms for product information, pricing and acceptable use.",
+  description:
+    "Terms for using the Signal One public website: product information, pricing and acceptable use.",
   alternates: { canonical: "/terms" },
 };
 

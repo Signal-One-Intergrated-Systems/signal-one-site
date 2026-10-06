@@ -1,45 +1,14 @@
 import type { Metadata } from "next";
 import EquipmentQuoteForm from "../components/EquipmentQuoteForm";
+import { catalogue } from "../lib/catalogue";
 import { ButtonLink, PageHero, Status, Steps } from "../components/ui";
 
 export const metadata: Metadata = {
-  title: "PTT Radio Rental, Vehicle Tracking & Body Cameras",
+  title: "Radios, Vehicle Tracking and Body Cameras for Contracts",
   description:
-    "PTT radio rental in South Africa on 12, 24 or 36 month terms, vehicle tracking for security companies and body-camera rental. Hytera PNC360S, P30 Lite PoC, E600, FMC920, FMB920, SC780. Quoted per deployment.",
+    "Rent PTT radios, vehicle trackers and body cameras for your security contracts: Hytera PNC360S, P30 Lite PoC, E600 PoC LTE, FMC920, FMB920, SC780. By quote.",
   alternates: { canonical: "/radios-equipment" },
 };
-
-const catalogue = [
-  {
-    category: "Radios and PTT",
-    id: "radios",
-    lead: "Push-to-talk over the cellular network, so a supervisor in Midrand can reach a guard in Pretoria without repeaters.",
-    products: [
-      { model: "Hytera PNC360S", type: "PoC radio", detail: "Rental. Device with push-to-talk service and data." },
-      { model: "P30 Lite PoC", type: "PoC radio with SOS", detail: "Rental. Communications, SOS, SIM, data and platform access." },
-      { model: "E600 PoC LTE", type: "PoC LTE radio", detail: "Available by quote." },
-      { model: "PTT platform + SIM & data", type: "Service", detail: "Monthly platform access with SIM and data for supported radios." },
-    ],
-    terms: "Radio rental terms: 12, 24 or 36 months.",
-  },
-  {
-    category: "Vehicle and asset tracking",
-    id: "tracking",
-    lead: "Trackers for response vehicles, supervisor cars and high-value assets, with the tracking platform quoted per device.",
-    products: [
-      { model: "FMC920", type: "Vehicle tracker, 2G/4G", detail: "For deployments that need 4G coverage." },
-      { model: "FMB920", type: "Vehicle tracker, 2G", detail: "Where the 2G network profile suits the area." },
-    ],
-    terms: "Device, installation and platform confirmed per deployment.",
-  },
-  {
-    category: "Body cameras",
-    id: "bodycams",
-    lead: "Recorded evidence for patrols, access points and events, where a client contract asks for it.",
-    products: [{ model: "SC780", type: "Body camera", detail: "Rental." }],
-    terms: "Quoted per deployment.",
-  },
-] as const;
 
 export default function RadiosEquipmentPage() {
   return (

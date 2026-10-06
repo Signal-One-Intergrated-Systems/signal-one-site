@@ -5,9 +5,9 @@ import { Arrow, ButtonLink, Kicker, Status } from "../components/ui";
 import { num, rand } from "../lib/format";
 
 export const metadata: Metadata = {
-  title: "Pricing: R2 per Guard per Day",
+  title: "Security Guard Software Pricing: R2 per Guard per Day",
   description:
-    "Signal One Security costs R2 per guard per day, excluding VAT. No tiers or packages. Minimum purchase 10 guard days; unused guard days carry over. Calculate your guard cost.",
+    "Signal One Security is R2 per guard per day, excluding VAT. No tiers or packages. Minimum 10 guard days; unused days carry over. Calculate your cost.",
   alternates: { canonical: "/pricing" },
 };
 

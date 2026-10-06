@@ -4,9 +4,9 @@ import IntakeForm, { type IntakeField } from "../components/IntakeForm";
 import { ButtonLink, Check, PageHero, Status, Steps } from "../components/ui";
 
 export const metadata: Metadata = {
-  title: "Guard Marketplace: Hire Guards for New Contracts",
+  title: "Guard Marketplace: Staff New Contracts (in development)",
   description:
-    "Guard Marketplace is the hiring step being built into Signal One Security: filter by location, PSiRA grade, availability, experience and skills, shortlist, send a hire request and allocate accepted guards to sites and shifts.",
+    "Guard Marketplace is being built into Signal One Security: filter by location, PSiRA grade, availability and skills, shortlist and send hire requests. Register interest.",
   alternates: { canonical: "/guard-marketplace" },
 };
 

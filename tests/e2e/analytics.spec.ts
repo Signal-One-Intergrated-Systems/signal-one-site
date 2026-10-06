@@ -49,6 +49,7 @@ test("calculator fires guard_pricing_interaction", async ({ page }) => {
 test("contact fires consultation_start and consultation_complete", async ({ page }) => {
   const seen = await record(page);
   await page.goto(OK_BASE + "/contact");
+  await page.waitForLoadState("networkidle");
   await fillVisible(page, "main form");
   await page.locator("main form button[type=submit]").click();
   await expect.poll(() => seen).toEqual(expect.arrayContaining(["consultation_start", "consultation_complete"]));
@@ -57,6 +58,7 @@ test("contact fires consultation_start and consultation_complete", async ({ page
 test("marketplace interest fires marketplace_interest", async ({ page }) => {
   const seen = await record(page);
   await page.goto(OK_BASE + "/guard-marketplace");
+  await page.waitForLoadState("networkidle");
   await fillVisible(page, "main form");
   await page.locator("main form button[type=submit]").click();
   await expect.poll(() => seen).toContain("marketplace_interest");
@@ -65,6 +67,7 @@ test("marketplace interest fires marketplace_interest", async ({ page }) => {
 test("equipment quote fires start and complete", async ({ page }) => {
   const seen = await record(page);
   await page.goto(OK_BASE + "/radios-equipment");
+  await page.waitForLoadState("networkidle");
   await fillVisible(page, "main form");
   await page.locator("main form button[type=submit]").click();
   await expect.poll(() => seen).toEqual(expect.arrayContaining(["equipment_quote_start", "equipment_quote_complete"]));
@@ -73,6 +76,7 @@ test("equipment quote fires start and complete", async ({ page }) => {
 test("client onboarding fires start and complete", async ({ page }) => {
   const seen = await record(page);
   await page.goto(OK_BASE + "/get-started");
+  await page.waitForLoadState("networkidle");
   await walkJourney(page);
   await expect.poll(() => seen).toEqual(expect.arrayContaining(["client_onboarding_start", "client_onboarding_complete"]));
 });
@@ -80,6 +84,7 @@ test("client onboarding fires start and complete", async ({ page }) => {
 test("guard join fires start and complete", async ({ page }) => {
   const seen = await record(page);
   await page.goto(OK_BASE + "/guards/join");
+  await page.waitForLoadState("networkidle");
   await page.getByRole("button", { name: "Start my profile" }).click();
   await walkJourney(page);
   await expect.poll(() => seen).toEqual(expect.arrayContaining(["guard_join_start", "guard_join_complete"]));
@@ -88,6 +93,7 @@ test("guard join fires start and complete", async ({ page }) => {
 test("sales application fires start and complete", async ({ page }) => {
   const seen = await record(page);
   await page.goto(OK_BASE + "/join/sales");
+  await page.waitForLoadState("networkidle");
   await walkJourney(page, "#apply");
   await expect.poll(() => seen).toEqual(expect.arrayContaining(["sales_application_start", "sales_application_complete"]));
 });

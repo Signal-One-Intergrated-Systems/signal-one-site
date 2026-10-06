@@ -57,3 +57,17 @@ Targets: performance at least 90 (met on all four), CLS under 0.05 (met, 0), LCP
 - Hero photograph: `fetchPriority="high"`, quality 70; photo bands and `Photo` at quality 75. `images.qualities` is now `[70, 75, 90]` (it was `[75, 90, 92, 94]`, which also silently rounded the requested 85 up to 90). Product screenshots stay at 90.
 
 **Where it stopped.** Measured (non-simulated) LCP sub-parts are tiny (first byte 14 ms, resource load 12 to 27 ms, render delay 80 ms), and the remaining 1.8 s between FCP and LCP in the simulation comes from simulated 4G transfer of the render-blocking CSS, the 70 KB React runtime chunk, the 48 KB font and the hero image together. Further gains need a smaller framework payload (not available without dropping Next features) or a smaller hero image, which would cost visible quality. Left as is.
+
+## W4: Search and sharing
+
+**Status: done.**
+
+- **Metadata review.** Every route has a unique title (at most 70 characters including the suffix) and a unique description of 115 to 215 characters, written for the security-software intent (guard management, patrols, attendance, PTT radio rental, R2 per guard per day, Marketplace "in development"). The title template is now `%s | Signal One` (the old suffix used 33 characters). Enforced by `tests/e2e/seo.spec.ts`.
+- **Open Graph images.** `app/lib/og.tsx` renders a 1200×630 PNG with the dark lockup (the canonical mark and wordmark from `docs/BRAND.md`) and the page title, generated at build with `next/og` (an `opengraph-image.tsx` per route; the home page and all 15 indexable routes). Inter Bold and SemiBold TTFs (OFL) are bundled in `app/lib/fonts/` because `next/og` cannot read woff2. Previews: `docs/qa/og/`. The root layout no longer pins the old static `/og-image.jpg` (still in `public/` as a fallback).
+- **JSON-LD** (root layout): `Organization` ("Signal One: Integrated Systems", `sales@signalone.co.za`, logo, contact point) and `SoftwareApplication` "Signal One Guard" with an `Offer` carrying a `UnitPriceSpecification` of 2.00 ZAR per guard per day, VAT not included, minimum 10 guard days. No ratings and no reviews (tested).
+- **Three landing pages**, built only from capabilities that exist, linked from the footer and in the sitemap, each with an OG image: `/guard-patrol-software`, `/guard-attendance-software`, `/ptt-radio-rental`. Product evidence is the real proof-of-service record screenshot (synthetic data). Each page states what it does not do yet (client live patrol progress is coming soon; Payroll is coming soon; PSiRA details are recorded, not verified; renting a radio does not yet connect it to Signal One Guard). The PTT page uses the rental catalogue (now shared in `app/lib/catalogue.ts`) and no pictures of devices.
+- **Canonical host.** Still driven by `NEXT_PUBLIC_SITE_URL`. New `proxy.ts` (the Next 16 name for middleware): when `CANONICAL_REDIRECT=1` it sends any `*.railway.app` host to the canonical origin with a 308 (path and query kept); off by default. Both states are tested (a third server on :3102).
+
+**Suite:** 135 tests, stable over four consecutive full runs. Two form helpers were hardened (wait for React hydration; retry a click on a controlled radio that can lag a frame under load).
+
+**Skipped:** nothing. Note for Simon: the first deploy that sets `CANONICAL_REDIRECT=1` should wait until DNS for the canonical domain is live, otherwise the Railway host will redirect to a domain that does not resolve yet.
