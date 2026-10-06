@@ -76,7 +76,7 @@ const clientSees = [
 ] as const;
 
 export default function Home() {
-  const proveShot = proofViews.find((view) => view.id === "proof")?.shots[1];
+  const proveShot = proofViews.find((view) => view.id === "proof")?.shots[0];
 
   return (
     <main id="main">
@@ -379,7 +379,7 @@ export default function Home() {
           </div>
 
           {proveShot ? (
-            <ProductWindow screen="Proof of service" className="mt-12">
+            <ProductWindow screen="Proof of service" className="mt-12 max-w-[860px]">
               <ProofImage shot={proveShot} />
             </ProductWindow>
           ) : null}

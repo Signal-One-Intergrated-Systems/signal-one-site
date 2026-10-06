@@ -13,7 +13,7 @@ export function ProofImage({ shot, priority = false }: { shot: ProofShot; priori
   const common = { alt: shot.alt, quality: 90, priority };
   const {
     props: { srcSet: desktopSrcSet, sizes: desktopSizes },
-  } = getImageProps({ ...common, src: shot.desktop, sizes: "(min-width: 1280px) 1240px, 100vw" });
+  } = getImageProps({ ...common, src: shot.desktop, sizes: "(min-width: 1280px) 860px, 100vw" });
   const {
     props: mobileProps,
   } = getImageProps({ ...common, src: shot.mobile, sizes: "100vw" });
@@ -63,7 +63,7 @@ export function ProductWindow({
   );
 }
 
-export default function ProductProof({ initial = "operation" }: { initial?: string }) {
+export default function ProductProof({ initial = "control" }: { initial?: string }) {
   const [active, setActive] = useState(initial);
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const index = Math.max(0, proofViews.findIndex((view) => view.id === active));

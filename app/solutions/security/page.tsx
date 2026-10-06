@@ -27,7 +27,6 @@ const fieldCapabilities = [
 ] as const;
 
 export default function SecurityPlatformPage() {
-  const operation = view("operation");
   const control = view("control");
   const proof = view("proof");
   const people = view("people");
@@ -57,8 +56,8 @@ export default function SecurityPlatformPage() {
               </ButtonLink>
             </div>
           </div>
-          <ProductWindow screen={operation.screen}>
-            <ProofImage shot={operation.shots[0]} priority />
+          <ProductWindow screen={control.screen}>
+            <ProofImage shot={control.shots[0]} priority />
           </ProductWindow>
         </div>
       </section>
@@ -69,7 +68,7 @@ export default function SecurityPlatformPage() {
           <div>
             <Kicker>Coverage and supervision</Kicker>
             <h2 className="t-h2 mt-4">Know which posts are short before the client does.</h2>
-            <p className="t-body mt-5 text-text-2">{operation.body}</p>
+            <p className="t-body mt-5 text-text-2">The supervisor&rsquo;s day in one place: your sites, the roster against each post, shortfalls, and every SOS or late patrol waiting for action.</p>
             <ul className="m-0 mt-6 grid list-none gap-3 p-0">
               {["Sites, posts and shifts", "Roster or map view", "Shortfalls per post", "Guards on duty now"].map((item) => (
                 <li key={item} className="t-body flex gap-3">
@@ -79,14 +78,13 @@ export default function SecurityPlatformPage() {
               ))}
             </ul>
           </div>
-          <div className="grid content-start gap-6">
-            <ProductWindow screen={control.screen}>
-              <ProofImage shot={control.shots[0]} />
-            </ProductWindow>
-            <div>
-              <h3 className="t-h3">The control room sees every SOS in order.</h3>
-              <p className="t-body mt-3 text-text-2">{control.body}</p>
-            </div>
+          <div className="grid content-start gap-4 lg:pt-2">
+            <h3 className="t-h3">The control room sees every SOS in order.</h3>
+            <p className="t-body text-text-2">{control.body}</p>
+            <p className="t-body text-text-2">
+              Supervisors see each post&rsquo;s roster and any shortfall before the shift starts, and the map shows the last known
+              position of each guard with its age.
+            </p>
           </div>
         </div>
       </section>
@@ -174,12 +172,7 @@ export default function SecurityPlatformPage() {
               </p>
             </div>
             <ProductWindow screen={proof.screen}>
-              {proof.shots.map((shot, i) => (
-                <div key={i} className={i > 0 ? "border-t border-dashed border-[#3a414b]" : ""}>
-                  {i > 0 ? <p className="bg-[#141619] px-4 py-2 text-[0.875rem] text-[#c6ccd4]">Further down the same screen</p> : null}
-                  <ProofImage shot={shot} />
-                </div>
-              ))}
+              <ProofImage shot={proof.shots[0]} />
             </ProductWindow>
           </div>
         </div>

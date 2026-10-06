@@ -22,13 +22,18 @@ const subjects: Record<string, string> = {
 // Mail clients and some OSes truncate very long mailto: links.
 const MAX_BODY_CHARS = 1500;
 
+function humanise(name: string): string {
+  const words = name.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/[-_]/g, " ").toLowerCase();
+  return (words.charAt(0).toUpperCase() + words.slice(1)).replace(/psira/gi, "PSiRA");
+}
+
 /** Builds a mailto: link prefilled with the visitor's answers. */
 export function buildMailto(data: Record<string, string>, labels: Record<string, string> = {}): IntakeFallback {
   const intent = data.intent || "";
   const subject = "Signal One website: " + (subjects[intent] || intent || "Enquiry");
   const lines = Object.entries(data)
     .filter(([name, value]) => name !== "intent" && value)
-    .map(([name, value]) => (labels[name] || name) + ": " + value);
+    .map(([name, value]) => (labels[name] || humanise(name)) + ": " + value);
   let body = lines.join("\n");
   if (body.length > MAX_BODY_CHARS) body = body.slice(0, MAX_BODY_CHARS) + "\n[shortened: please add anything missing]";
   const href = "mailto:" + salesEmail + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);

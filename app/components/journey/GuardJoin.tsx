@@ -115,15 +115,13 @@ export default function GuardJoin() {
             Thank you. Your profile is with Signal One.
           </h1>
           <p className="mt-4 text-[1.1875rem] leading-relaxed text-text-2">
-            Here is what happens now. You do not need to do anything until we contact you.
+            Here is what happens today.
           </p>
         </div>
         <ol className="m-0 mt-8 list-none p-0">
           {[
-            ["We contact you", "Using the contact details you gave, to confirm your details and PSiRA registration."],
-            ["Your profile is ready", "When Guard Marketplace opens, eligible profiles can be seen privately by Signal One client companies. Never publicly."],
-            ["A company sends a hire request", "You see who it is from and decide. You can accept or decline."],
-            ["If you accept", "The company adds you to its workforce and allocates you to a site and shifts."],
+            ["Signal One reviews your profile", "We have saved what you sent and the Signal One team will review it."],
+            ["We contact you", "Using the contact details you gave, to confirm your details and PSiRA registration. We cannot say when."],
           ].map(([title, body], index) => (
             <li key={title} className="grid grid-cols-[2.75rem_1fr] gap-4 border-t border-line py-5">
               <span className="t-num text-[1.75rem] text-field">{index + 1}</span>
@@ -135,6 +133,9 @@ export default function GuardJoin() {
           ))}
         </ol>
         <p className="mt-6 text-[1.0625rem] text-text-2">
+          Guard Marketplace is not live yet. When it launches, signed-in Signal One client companies will be able to find your profile and send you a hire request, which you accept or decline. Your profile is never shown on a public website.
+        </p>
+        <p className="mt-4 text-[1.0625rem] text-text-2">
           Want something corrected or removed? Email{" "}
           <a href="mailto:sales@signalone.co.za" className="link-inline font-semibold text-field">
             sales@signalone.co.za
@@ -200,8 +201,7 @@ export default function GuardJoin() {
               <div className="mt-8 rounded-card bg-white p-5 ring-1 ring-line">
                 <h2 className="text-[1.125rem] font-semibold">Your profile is private</h2>
                 <p className="mt-1 text-[1.0625rem] text-text-2">
-                  It is never shown on a public website. Only signed-in Signal One client companies will see it, and only
-                  you can accept a hire request.{" "}
+                  We save your profile and Signal One reviews it. When Guard Marketplace launches, signed-in Signal One client companies will be able to find your profile and send you a hire request, which you accept or decline. Your profile is never shown on a public website.{" "}
                   <Link href="/guards#your-information" className="link-inline text-field">
                     How we use your information
                   </Link>
@@ -213,7 +213,7 @@ export default function GuardJoin() {
           {current.id === "profile" ? (
             <StepShell
               title="About you"
-              why="Companies see your name on your profile when you are matched with work."
+              why="Signal One uses this to review your profile and contact you."
               next="How we contact you."
             >
               <JText j={j} name="fullName" label="Full name" required autoComplete="name" />
@@ -233,7 +233,7 @@ export default function GuardJoin() {
           {current.id === "identity" ? (
             <StepShell
               title="How can we reach you?"
-              why="Signal One uses this to confirm your details. Hire requests also reach you here once Marketplace opens."
+              why="Signal One uses this to confirm your details. We use it to contact you."
               next="Your PSiRA registration."
             >
               <JText j={j} name="mobile" label="Mobile number" type="tel" required autoComplete="tel" inputMode="tel" placeholder="e.g. 082 123 4567" />
@@ -284,7 +284,7 @@ export default function GuardJoin() {
           {current.id === "experience" ? (
             <StepShell
               title="Your experience"
-              why="Companies look for guards who have worked on sites like theirs."
+              why="This helps Signal One review your profile."
               next="Your skills."
             >
               <JRadio
@@ -320,7 +320,7 @@ export default function GuardJoin() {
           {current.id === "skills" ? (
             <StepShell
               title="Your skills"
-              why="Skills are one of the five things companies can filter on."
+              why="This helps Signal One review your profile. Skills are one of the things Marketplace is planned to search on."
               next="Where you can work."
             >
               <JMulti
@@ -348,7 +348,7 @@ export default function GuardJoin() {
           {current.id === "areas" ? (
             <StepShell
               title="Where can you work?"
-              why="Location is the first thing companies filter on. We only show you to companies near where you can work."
+              why="Where you can work is one of the things Marketplace is planned to search on. Nothing is shown to companies today."
               next="When you can work."
             >
               <JSelect j={j} name="province" label="Province" required options={provinces} />
@@ -368,7 +368,7 @@ export default function GuardJoin() {
           {current.id === "availability" ? (
             <StepShell
               title="When can you work?"
-              why="Companies filter on availability. You can ask us to update it at any time."
+              why="Availability is one of the things Marketplace is planned to search on. You can ask us to update it at any time."
               next="Check your answers and send."
             >
               <JRadio
@@ -415,7 +415,7 @@ export default function GuardJoin() {
               <div className="mt-6 rounded-card bg-white p-5 ring-1 ring-line">
                 <Consent j={j}>
                   I agree that Signal One may use this information to assess my profile and contact me, and, when Guard
-                  Marketplace opens, show my profile privately to Signal One client companies. I can ask for it to be
+                  Marketplace launches, let signed-in Signal One client companies find my profile and send me hire requests. I can ask for it to be
                   corrected or deleted at any time.
                 </Consent>
               </div>

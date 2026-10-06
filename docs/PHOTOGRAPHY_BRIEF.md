@@ -45,3 +45,19 @@ Check every frame for the following:
 - blur or upscaling
 - stretched aspect ratios
 - weak crops at 390px and 2560px
+
+## Product capture: curated demo tenant (needed for recapture)
+
+The product screenshots on the site are crops of captures from a test tenant. Every region of the "My operation" roster and the proof-of-service detail list carries test labels ("SMOKE A Site", "Smoke walk-through post", "Smoke idle guard", "Realistic Late c2995a93"), raw enum codes (`EARLY_CLOCK_OUT`, `OUTSIDE_RADIUS`) and US-format dates (`9/26/2026, 5:09:38 AM`). We do not blur or edit screenshots, so those two views are **not shown** until the tenant below exists. The control-room, proof summary and people views use the cleanest regions available today.
+
+Build one curated demo tenant, then recapture all views at 1440px wide (desktop) and 390px wide (mobile), dark theme, navigation tabs cropped out (the product tab still says "Shared site phone"; the website says Central Device).
+
+- **Company:** a plausible mid-size South African security company, for example "Ikhaya Security Services". No "Demo", "Smoke" or "Test".
+- **People:** 25–40 guards with realistic South African names across language groups, 3–4 supervisors, one company admin. Email addresses on a real-looking domain, not `.local`.
+- **Sites:** four to six, named like real work: a residential estate (for example "Bryanston Estate"), an office park ("Waterfall Office Park"), a logistics yard ("Isando Logistics Yard"), a school or mall. Posts named by function: "Main gate", "Pedestrian gate", "Control room".
+- **One plausible day:** day, afternoon and night shifts across the sites, one shortfall (a post short by one guard), a handful of patrols with QR/NFC checkpoints scanned on time and one missed, and **one** SOS that is acknowledged and resolved. No dozens of identical alerts.
+- **Proof of service:** a week with a believable mix: mostly proven, a few partly proven or unresolved, each with a human-readable reason.
+- **Dates and times:** en-ZA format (`26 Sep 2026, 05:09`, 24-hour). Product change needed if the app currently renders `M/D/YYYY h:mm AM`.
+- **No raw enum codes** in any visible text. Reasons are phrased in words ("clock-out earlier than the shift end").
+- **Counts:** queue sizes that a real operation would have, not 77 live SOS or 323 open items.
+- **Checks before publishing:** no real names, phone numbers or emails; no test prefixes; screenshots unedited.

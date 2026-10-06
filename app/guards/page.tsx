@@ -6,7 +6,7 @@ import { photos } from "../lib/photos";
 export const metadata: Metadata = {
   title: "For Security Officers: Signal One Guard and Guard Marketplace",
   description:
-    "For security officers in South Africa: how the Signal One Guard app works on shift, how Guard Marketplace hire requests will work, what PSiRA details we ask for and why, and how your information is kept private.",
+    "For security officers in South Africa: how the Signal One Guard app works on shift, what Guard Marketplace is planned to do, what PSiRA details we ask for and why, and how your information is kept private.",
   alternates: { canonical: "/guards" },
 };
 
@@ -20,9 +20,9 @@ const onShift = [
 
 const joinSteps = [
   ["Create your profile", "About 5 minutes on your phone. Your progress is saved as you go."],
+  ["Signal One reviews it", "We save your profile and review it."],
   ["We contact you", "To confirm your details and your PSiRA registration."],
-  ["Hire requests", "When Guard Marketplace opens, companies near you can send a hire request."],
-  ["You decide", "Accept or decline. If you accept, the company adds you to its team and gives you shifts."],
+  ["Marketplace, when it launches", "Signed-in Signal One client companies will be able to find your profile and send you a hire request. You accept or decline."],
 ] as const;
 
 export default function GuardsPage() {
@@ -36,8 +36,8 @@ export default function GuardsPage() {
               Your work, on record. Your next job, your choice.
             </h1>
             <p className="mt-6 max-w-[34rem] text-[1.25rem] leading-relaxed text-text-2">
-              Signal One Guard is the app you use on shift. Guard Marketplace, coming soon, lets security companies find
-              you for new work. You always decide whether to take it.
+              Signal One Guard is the app you use on shift. Guard Marketplace is not live yet. When it launches, signed-in
+              security companies will be able to send you hire requests. You will always decide whether to accept.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link href="/guards/join" className="btn btn-field btn-lg">
@@ -79,11 +79,11 @@ export default function GuardsPage() {
           </div>
           <div>
             <div className="flex flex-wrap items-center gap-3">
-              <h2 className="font-display text-[2.25rem] font-bold leading-tight tracking-[-0.02em]">New work: Marketplace</h2>
+              <h2 className="font-display text-[2.25rem] font-bold leading-tight tracking-[-0.02em]">Planned: Guard Marketplace</h2>
               <span className="rounded-full bg-beta-tint px-3 py-1 text-[0.9375rem] font-semibold text-beta">Coming soon</span>
             </div>
             <p className="mt-4 text-[1.1875rem] leading-relaxed text-text-2">
-              Security companies that win new contracts need guards. Marketplace will let them find you by:
+              We are building Marketplace. When it launches, signed-in Signal One client companies will be able to find profiles by:
             </p>
             <ul className="m-0 mt-6 grid list-none gap-3 p-0 text-[1.125rem]">
               {["Where you can work", "Your PSiRA grade", "When you are available", "Your experience", "Your skills"].map((item) => (
@@ -94,7 +94,7 @@ export default function GuardsPage() {
               ))}
             </ul>
             <p className="mt-6 text-[1.0625rem] text-text-2">
-              No ratings, no scores, no badges. A company sends you a hire request, and you accept or decline it.
+              No ratings, no scores, no badges. A company will be able to send you a hire request, which you accept or decline. Nothing is live today, and we cannot promise when it will be or that you will receive any request.
             </p>
           </div>
         </div>
@@ -130,9 +130,9 @@ export default function GuardsPage() {
           <ul className="m-0 grid list-none gap-4 p-0 text-[1.125rem]">
             {[
               "Your profile is never shown on a public website or jobs board.",
-              "Only signed-in Signal One client companies will see it, once Marketplace opens.",
+              "Today we save it and Signal One reviews it. When Marketplace launches, only signed-in Signal One client companies will be able to find it.",
               "We do not ask for your ID number on the form.",
-              "You decide on every hire request.",
+              "When hire requests exist, you decide on each one.",
               "You can ask us to correct or delete your information at any time.",
             ].map((item) => (
               <li key={item} className="flex gap-3">
