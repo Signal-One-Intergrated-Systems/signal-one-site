@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Check, HeroPhoto } from "../components/ui";
+import { Check, SplitHero } from "../components/ui";
 import { photos } from "../lib/photos";
 
 export const metadata: Metadata = {
@@ -28,28 +28,23 @@ const joinSteps = [
 export default function GuardsPage() {
   return (
     <main id="main" className="bg-sand text-text">
-      <section className="surface-ink relative">
-        <HeroPhoto src={photos.teamBriefing.src} alt={photos.teamBriefing.alt} objectPositionMobile="58% 50%" objectPosition="72% 45%" />
-        <div className="wrap relative pb-14 pt-10 lg:flex lg:min-h-[clamp(560px,40vw,700px)] lg:items-center lg:pb-24 lg:pt-24">
-          <div className="max-w-[40rem]">
-            <p className="text-[1.0625rem] font-semibold text-[#7bd3a6]">For security officers</p>
-            <h1 className="t-h1 mt-4">Your work, on record. Your next job, your choice.</h1>
-            <p className="mt-6 text-[1.25rem] leading-relaxed text-text-inv-2">
-              Signal One Guard is the app you use on shift. Guard Marketplace is not live yet. When it launches,
-              signed-in security companies will be able to send you hire requests. You will always decide whether to accept.
-            </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link href="/guards/join" className="btn btn-field btn-lg">
-                Create your profile
-              </Link>
-              <Link href="#how-it-works" className="btn btn-ghost-dark btn-lg">
-                How it works
-              </Link>
-            </div>
-            <p className="t-caption mt-6 text-text-inv-2/80">Illustrative scene · fictional security company</p>
+      <SplitHero src={photos.siteOperations.src} alt={photos.siteOperations.alt} side="left" objectPositionMobile="0% 8%" objectPosition="0% 12%">
+          <p className="text-[1.0625rem] font-semibold text-[#7bd3a6]">For security officers</p>
+          <h1 className="t-h1 mt-4">Your work, on record. Your next job, your choice.</h1>
+          <p className="mt-6 text-[1.25rem] leading-relaxed text-text-inv-2">
+            Signal One Guard is the app you use on shift. Guard Marketplace is not live yet. When it launches,
+            signed-in security companies will be able to send you hire requests. You will always decide whether to accept.
+          </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Link href="/guards/join" className="btn btn-field btn-lg">
+              Create your profile
+            </Link>
+            <Link href="#how-it-works" className="btn btn-ghost-dark btn-lg">
+              How it works
+            </Link>
           </div>
-        </div>
-      </section>
+          <p className="t-caption mt-6 text-text-inv-2">Illustrative scene · fictional security company</p>
+      </SplitHero>
 
       <section id="how-it-works" className="scroll-mt-[72px] bg-white py-16 md:py-24">
         <div className="wrap grid gap-12 lg:grid-cols-2 lg:gap-16">

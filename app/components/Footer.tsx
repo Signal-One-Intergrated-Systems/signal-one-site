@@ -43,7 +43,7 @@ export default function Footer() {
     <footer className="surface-ink border-t border-line-dark">
       <div className="wrap grid gap-12 py-14 md:py-16 lg:grid-cols-[1.1fr_2fr]">
         <div>
-          <SignalOneLogo size={22} tone="dark" />
+          <SignalOneLogo size={24} tone="dark" descriptorMin={11} />
           <p className="t-small measure-tight mt-6 text-text-inv-2">
             Signal One Security is the operating system for South African security companies: sites, shifts, patrols,
             control room and client proof of service.

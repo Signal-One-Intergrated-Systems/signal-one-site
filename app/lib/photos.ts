@@ -38,7 +38,7 @@ export const photos = {
   },
   siteOperations: {
     src: siteOperations,
-    alt: "A security officer helping a visitor sign in at an office-park access point",
+    alt: "A security officer checking a visitor in at an office-park access point",
   },
   teamBriefing: {
     src: teamBriefing,

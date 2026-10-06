@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import GuardDayCalculator from "./components/GuardDayCalculator";
 import ProductProof, { ProductWindow } from "./components/ProductProof";
-import { Arrow, ButtonLink, Check, HeroPhoto, Kicker, Photo, PhotoBand, Status } from "./components/ui";
+import { Arrow, ButtonLink, Check, Kicker, Photo, PhotoBand, SplitHero, Status } from "./components/ui";
 import { illustrativeCaption, photos } from "./lib/photos";
 import { proofViews } from "./lib/productProof";
 
@@ -81,38 +81,33 @@ export default function Home() {
   return (
     <main id="main">
       {/* 1 · HERO */}
-      <section className="surface-ink relative">
-        <HeroPhoto src={photos.hero.src} alt={photos.hero.alt} objectPositionMobile="66% 45%" objectPosition="74% 40%" />
-        <div className="wrap relative pb-14 pt-10 lg:flex lg:min-h-[clamp(620px,44vw,780px)] lg:items-center lg:pb-24 lg:pt-24">
-          <div className="max-w-[48rem]">
-            <Kicker tone="dark">For growing South African security companies</Kicker>
-            <h1 className="t-display mt-5">
-              Win more contracts.
-              <br />
-              Run every site.
-              <br />
-              <span className="text-signal-bright">Prove the service.</span>
-            </h1>
-            <p className="t-lead measure mt-6 text-text-inv-2">
-              One operating system for guard hiring, sites, shifts, patrols, the control room, radios and PTT, tracking
-              and the proof your clients ask for.
-            </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <ButtonLink href="#product" size="lg" event="hero_product_proof" eventLabel="Hero primary">
-                See Signal One in action
-              </ButtonLink>
-              <ButtonLink href="/pricing#calculator" variant="ghost-dark" size="lg" event="hero_pricing" eventLabel="Hero secondary">
-                <span className="sm:hidden">Calculate guard cost · R2/day</span>
-                <span className="hidden sm:inline">Calculate guard cost · R2 per guard per day</span>
-              </ButtonLink>
-            </div>
-            <p className="t-small mt-6 text-text-inv-2">
-              Your guards can use their own phones or an authorised Central Device.
-            </p>
-            <p className="t-caption mt-3 text-text-inv-2/80">{illustrativeCaption}</p>
+      <SplitHero src={photos.hero.src} alt={photos.hero.alt} objectPositionMobile="66% 45%" objectPosition="80% 40%">
+          <Kicker tone="dark">For growing South African security companies</Kicker>
+          <h1 className="t-display mt-5 text-[clamp(2.6rem,4.3vw,3.8rem)]">
+            Win more contracts.
+            <br />
+            Run every site.
+            <br />
+            <span className="text-signal-bright">Prove the service.</span>
+          </h1>
+          <p className="t-lead measure mt-6 text-text-inv-2">
+            One operating system for guard hiring, sites, shifts, patrols, the control room, radios and PTT, tracking
+            and the proof your clients ask for.
+          </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <ButtonLink href="#product" size="lg" event="hero_product_proof" eventLabel="Hero primary">
+              See Signal One in action
+            </ButtonLink>
+            <ButtonLink href="/pricing#calculator" variant="ghost-dark" size="lg" event="hero_pricing" eventLabel="Hero secondary">
+              <span className="sm:hidden">Calculate guard cost · R2/day</span>
+              <span className="hidden sm:inline">Calculate guard cost · R2 per guard per day</span>
+            </ButtonLink>
           </div>
-        </div>
-      </section>
+          <p className="t-small mt-6 text-text-inv-2">
+            Your guards can use their own phones or an authorised Central Device.
+          </p>
+          <p className="t-caption mt-3 text-text-inv-2">{illustrativeCaption}</p>
+      </SplitHero>
 
       {/* 2 + 3 · PROBLEM → REAL PRODUCT */}
       <section id="product" className="surface-paper section scroll-mt-[72px]">
@@ -158,7 +153,7 @@ export default function Home() {
       <PhotoBand
         src={photos.warehouse.src}
         alt={photos.warehouse.alt}
-        objectPosition="50% 38%"
+        objectPosition="50% 0%"
         kicker={
           <span className="flex flex-wrap items-center gap-3">
             <Kicker tone="dark">Hire</Kicker>
@@ -221,7 +216,7 @@ export default function Home() {
       <PhotoBand
         src={photos.estateNight.src}
         alt={photos.estateNight.alt}
-        objectPosition="50% 20%"
+        objectPosition="50% 0%"
         textSide="right"
         kicker={
           <span className="flex flex-wrap items-center gap-3">

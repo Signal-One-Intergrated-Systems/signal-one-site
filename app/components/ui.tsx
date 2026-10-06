@@ -253,46 +253,63 @@ export function PhotoBand({
 }
 
 /**
- * Hero photograph: behind the text on desktop (dark gradient only where the
- * text sits), full width on top of it on mobile at 56vw tall.
+ * Split hero. From lg up the text sits on solid dark on one side and the
+ * photograph fills the other side full height, so no text can overlap a face
+ * or figure. The photo box starts one text column plus gutters in from the
+ * container edge, so the split holds at every width. Below lg the photo goes
+ * full width on top, 56vw tall.
  */
-export function HeroPhoto({
+export function SplitHero({
   src,
   alt,
-  objectPositionMobile = "64% 45%",
-  objectPosition = "72% 40%",
-  gradient = "left",
+  children,
+  side = "right",
+  objectPositionMobile = "50% 40%",
+  objectPosition = "50% 40%",
 }: {
   src: StaticImageData;
   alt: string;
+  children: ReactNode;
+  /** Which side the photograph is on from lg up. */
+  side?: "left" | "right";
   objectPositionMobile?: string;
   objectPosition?: string;
-  gradient?: "left" | "right";
 }) {
+  const inset = "calc(max(0px, (100vw - 1320px) / 2) + 40px + 38rem + 40px)";
+  const box: React.CSSProperties =
+    side === "right"
+      ? ({ ["--ph-l" as string]: inset, ["--ph-r" as string]: "0px" } as React.CSSProperties)
+      : ({ ["--ph-l" as string]: "0px", ["--ph-r" as string]: inset } as React.CSSProperties);
   return (
-    <div className="relative h-[56vw] lg:absolute lg:inset-0 lg:h-auto">
-      <div className="relative mx-auto h-full" style={{ maxWidth: src.width, ...edgeFade(src.width) }}>
-        <Image
-          src={src}
-          alt={alt}
-          fill
-          priority
-          sizes={"(min-width: " + src.width + "px) " + src.width + "px, 100vw"}
-          quality={85}
-          placeholder="blur"
-          className="object-cover [object-position:var(--pos-m)] lg:[object-position:var(--pos-d)]"
-          style={{ ["--pos-m" as string]: objectPositionMobile, ["--pos-d" as string]: objectPosition }}
-        />
-        <div
-          aria-hidden="true"
-          className={
-            "absolute inset-0 bg-gradient-to-t from-ink via-transparent to-transparent " +
-            (gradient === "left"
-              ? "lg:bg-gradient-to-r lg:from-ink lg:via-ink/75 lg:via-35% lg:to-transparent lg:to-65%"
-              : "lg:bg-gradient-to-l lg:from-ink lg:via-ink/75 lg:via-35% lg:to-transparent lg:to-65%")
-          }
-        />
+    <section className="relative bg-[#0B1118] text-text-inv" style={box}>
+      <div className="relative h-[56vw] lg:absolute lg:inset-y-0 lg:left-[var(--ph-l)] lg:right-[var(--ph-r)] lg:h-auto">
+        <div className="relative mx-auto h-full" style={{ maxWidth: src.width }}>
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            priority
+            sizes={"(min-width: 1024px) 52vw, 100vw"}
+            quality={85}
+            placeholder="blur"
+            className="object-cover [object-position:var(--pos-m)] lg:[object-position:var(--pos-d)]"
+            style={{ ["--pos-m" as string]: objectPositionMobile, ["--pos-d" as string]: objectPosition }}
+          />
+          <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#0B1118] via-transparent to-transparent via-40% lg:hidden" />
+          <div
+            aria-hidden="true"
+            className={
+              "absolute inset-0 hidden lg:block " +
+              (side === "right"
+                ? "bg-gradient-to-r from-[#0B1118] from-0% via-[#0B1118]/60 via-6% to-transparent to-16%"
+                : "bg-gradient-to-l from-[#0B1118] from-0% via-[#0B1118]/60 via-6% to-transparent to-16%")
+            }
+          />
+        </div>
       </div>
-    </div>
+      <div className={"wrap relative pb-14 pt-10 lg:flex lg:min-h-[clamp(600px,44vw,760px)] lg:items-center lg:pb-24 lg:pt-24 " + (side === "left" ? "lg:justify-end" : "")}>
+        <div className="max-w-[38rem] lg:w-[38rem]">{children}</div>
+      </div>
+    </section>
   );
 }

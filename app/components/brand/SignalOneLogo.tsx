@@ -2,20 +2,26 @@ import SignalOneMark, { type BrandTone } from "./SignalOneMark";
 
 /**
  * The Signal One lockup: mark left, wordmark and descriptor right, 12px gap.
- * `size` is the wordmark type size in px; the mark is 1.6x that, the
- * descriptor 0.4x. Canonical definition: docs/BRAND.md.
+ * `size` is the wordmark type size in px; the mark is 1.6x that. The
+ * descriptor is 0.4x, but never below `descriptorMin` px (10 in the header,
+ * 11 in the footer), and the lockup grows to fit. Canonical definition:
+ * docs/BRAND.md.
  */
 export default function SignalOneLogo({
   size = 18,
   tone = "light",
   pulse = false,
+  descriptorMin = 10,
   className = "",
 }: {
   size?: number;
   tone?: BrandTone;
   pulse?: boolean;
+  /** Minimum descriptor size in px; overrides the 0.4x ratio. */
+  descriptorMin?: number;
   className?: string;
 }) {
+  const descriptor = Math.max(size * 0.4, descriptorMin);
   const dark = tone === "dark";
   return (
     <span className={"inline-flex items-center " + className} style={{ gap: 12 }}>
@@ -29,8 +35,8 @@ export default function SignalOneLogo({
         </span>
         <span
           style={{
-            marginTop: Math.round(size * 0.25),
-            fontSize: size * 0.4,
+            marginTop: Math.max(4, Math.round(size * 0.25)),
+            fontSize: descriptor,
             fontWeight: 600,
             letterSpacing: "0.42em",
             lineHeight: 1,

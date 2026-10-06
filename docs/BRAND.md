@@ -20,13 +20,15 @@ On dark surfaces the two ring strokes may use `#38BDF8`. The dot is always `#0EA
 |---|---|---|---|---|
 | `SIGNAL` | 700, line-height 1 | 0.06em | `#0B1B2B` | `#F1F5F9` |
 | `ONE` | 700, line-height 1 | 0.06em | `#0EA5E9` | `#38BDF8` |
-| `INTEGRATED SYSTEMS` | 600, about 0.4× wordmark size | 0.42em | `#5A7184` | `#94A3B8` |
+| `INTEGRATED SYSTEMS` | 600, about 0.4× wordmark size, **never below 10px (11px in the footer)** | 0.42em | `#5A7184` | `#94A3B8` |
+
+**Minimum descriptor size overrides the 0.4× ratio:** 10px in the header and 11px in the footer, so the lockup grows slightly (the descriptor is then wider than the wordmark). Letter-spacing stays 0.42em. The static SVGs use 10px.
 
 The descriptor sits 4–5px below the wordmark (0.25× the wordmark size in `SignalOneLogo`).
 
 ## Lockup
 
-Mark left, wordmark and descriptor right, 12px gap, vertically centred. `SignalOneLogo` takes the wordmark size in px and sets the mark to 1.6× that, so the mark matches the height of the two-line text block (header: 18px wordmark, 29px mark; footer: 22px and 35px).
+Mark left, wordmark and descriptor right, 12px gap, vertically centred. `SignalOneLogo` takes the wordmark size in px and sets the mark to 1.6× that, so the mark matches the height of the two-line text block (header: 22px wordmark, 35px mark, 10px descriptor; footer: 24px wordmark, 38px mark, 11px descriptor).
 
 ## Pulse
 

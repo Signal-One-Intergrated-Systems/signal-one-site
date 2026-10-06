@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Fraunces } from "next/font/google";
 import SalesApplication from "../../components/journey/SalesApplication";
-import { HeroPhoto } from "../../components/ui";
+import { SplitHero } from "../../components/ui";
 import { getCareersConfig } from "../../lib/careers";
 import { photos } from "../../lib/photos";
 
@@ -49,41 +49,36 @@ export default function SalesCareersPage() {
 
   return (
     <main id="main" className={serif.variable + " bg-paper text-text"}>
-      <section className="surface-ink relative">
-        <HeroPhoto src={photos.controlRoomTeam.src} alt={photos.controlRoomTeam.alt} objectPositionMobile="50% 30%" objectPosition="70% 35%" />
-        <div className="wrap relative pb-14 pt-10 lg:flex lg:min-h-[clamp(560px,40vw,700px)] lg:items-center lg:pb-24 lg:pt-24">
-          <div className="max-w-[40rem]">
-            <p className="t-kicker text-[#e2b86b]">Careers at Signal One</p>
-            <h1 className="mt-4 font-serif text-[3.1rem] font-semibold leading-[1.04] tracking-[-0.02em] sm:text-[4.6rem]">
-              Sell the system security companies run on.
-            </h1>
-            <p className="t-lead measure mt-6 text-text-inv-2">
-              We are building a sales team to work for Signal One itself, bringing South African security companies onto
-              Signal One Security.
-            </p>
-            <p className="mt-8 inline-flex flex-wrap items-center gap-3">
-              <span
-                className={
-                  "rounded-full px-4 py-2 text-[0.9375rem] font-semibold " +
-                  (open ? "bg-brass-tint text-brass" : "bg-soon-tint text-soon")
-                }
-              >
-                {open
-                  ? config.openRoles
-                    ? "Applications open · " + config.openRoles + (config.openRoles === 1 ? " role" : " roles")
-                    : "Applications open"
-                  : "Applications closed"}
-              </span>
-              {open ? (
-                <a href="#apply" className="btn btn-brass">
-                  Apply now
-                </a>
-              ) : null}
-            </p>
-            <p className="t-caption mt-6 text-text-inv-2/80">Illustrative scene · fictional security company</p>
-          </div>
-        </div>
-      </section>
+      <SplitHero src={photos.controlRoomTeam.src} alt={photos.controlRoomTeam.alt} objectPositionMobile="50% 30%" objectPosition="60% 35%">
+          <p className="t-kicker text-[#e2b86b]">Careers at Signal One</p>
+          <h1 className="mt-4 font-serif text-[2.9rem] font-semibold leading-[1.04] tracking-[-0.02em] sm:text-[3.6rem]">
+            Sell the system security companies run on.
+          </h1>
+          <p className="t-lead measure mt-6 text-text-inv-2">
+            We are building a sales team to work for Signal One itself, bringing South African security companies onto
+            Signal One Security.
+          </p>
+          <p className="mt-8 inline-flex flex-wrap items-center gap-3">
+            <span
+              className={
+                "rounded-full px-4 py-2 text-[0.9375rem] font-semibold " +
+                (open ? "bg-brass-tint text-brass" : "bg-soon-tint text-soon")
+              }
+            >
+              {open
+                ? config.openRoles
+                  ? "Applications open · " + config.openRoles + (config.openRoles === 1 ? " role" : " roles")
+                  : "Applications open"
+                : "Applications closed"}
+            </span>
+            {open ? (
+              <a href="#apply" className="btn btn-brass">
+                Apply now
+              </a>
+            ) : null}
+          </p>
+          <p className="t-caption mt-6 text-text-inv-2">Illustrative scene · fictional security company</p>
+      </SplitHero>
 
       <section id="role" className="scroll-mt-[72px] bg-white py-16 md:py-24">
         <div className="wrap">
