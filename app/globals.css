@@ -1,36 +1,629 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 @import "tailwindcss";
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+/*
+ * Signal One design system — see docs/DESIGN_SYSTEM.md.
+ * Premium through typography, composition, real product and restraint.
+ * No glow, no glass, no gradient blobs. Must still look right with every
+ * shadow removed.
+ */
+
+@theme inline {
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-display-face), var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-serif-face), Georgia, "Times New Roman", serif;
 }
 
-html {
-  min-width: 320px;
+@theme {
+  /* Surfaces */
+  --color-ink: #0d1015;
+  --color-graphite: #161b22;
+  --color-graphite-2: #1f252e;
+  --color-line-dark: #2e3540;
+  --color-paper: #f6f4f0;
+  --color-paper-2: #ece8e1;
+  --color-line: #d6d0c5;
+
+  /* Text */
+  --color-text: #14181e;
+  --color-text-2: #4a515b;
+  --color-text-inv: #f3f4f6;
+  --color-text-inv-2: #b4bbc5;
+
+  /* Signal blue — accent only */
+  --color-signal: #0369a1;
+  --color-signal-hover: #075985;
+  --color-signal-bright: #5cc6f5;
+  --color-signal-tint: #e3f0f8;
+
+  /* Status */
+  --color-live: #166534;
+  --color-live-tint: #e5f2e9;
+  --color-live-inv: #6ee7a0;
+  --color-beta: #92400e;
+  --color-beta-tint: #fbf0dc;
+  --color-beta-inv: #fcd47a;
+  --color-soon: #374151;
+  --color-soon-tint: #e8e9ec;
+  --color-soon-inv: #d1d5db;
+  --color-danger: #b42318;
+
+  /* Guard world */
+  --color-field: #0f5a46;
+  --color-field-hover: #0b4536;
+  --color-field-tint: #e1eee8;
+  --color-sand: #faf8f3;
+
+  /* Careers world */
+  --color-brass: #85570f;
+  --color-brass-hover: #6c460b;
+  --color-brass-tint: #f2eadb;
+  --color-night: #121417;
+
+  /* Radii */
+  --radius-ui: 10px;
+  --radius-card: 14px;
+  --radius-frame: 12px;
+
+  /* Motion */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-body {
-  min-width: 320px;
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    min-width: 320px;
+    background: var(--color-ink);
+    color-scheme: light dark;
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 88px;
+  }
+
+  body {
+    margin: 0;
+    min-width: 320px;
+    background: var(--color-paper);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "cv11", "ss01";
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  img,
+  video {
+    max-width: 100%;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-wrap: balance;
+  }
+
+  p {
+    margin: 0;
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: #bfe1f5;
+    color: #0d1015;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-signal-bright);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+@layer components {
+  /* Layout */
+  /* A bare `grid` has one auto column that grows to its widest child's min-content and overflows phones. Utilities (grid-cols-*) still win. */
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .wrap {
+    width: 100%;
+    max-width: 1320px;
+    margin-inline: auto;
+    padding-inline: 16px;
+  }
+  @media (min-width: 640px) {
+    .wrap {
+      padding-inline: 24px;
+    }
+  }
+  @media (min-width: 1024px) {
+    .wrap {
+      padding-inline: 40px;
+    }
+  }
+
+  .wrap-narrow {
+    width: 100%;
+    max-width: 880px;
+    margin-inline: auto;
+    padding-inline: 16px;
+  }
+  @media (min-width: 640px) {
+    .wrap-narrow {
+      padding-inline: 24px;
+    }
+  }
+
+  .section {
+    padding-block: 64px;
+  }
+  @media (min-width: 768px) {
+    .section {
+      padding-block: 96px;
+    }
+  }
+  @media (min-width: 1280px) {
+    .section {
+      padding-block: 112px;
+    }
+  }
+
+  /* Surfaces */
+  .surface-ink {
+    background: var(--color-ink);
+    color: var(--color-text-inv);
+  }
+  .surface-graphite {
+    background: var(--color-graphite);
+    color: var(--color-text-inv);
+  }
+  .surface-paper {
+    background: var(--color-paper);
+    color: var(--color-text);
+  }
+  .surface-paper-2 {
+    background: var(--color-paper-2);
+    color: var(--color-text);
+  }
+  .surface-white {
+    background: #fff;
+    color: var(--color-text);
+  }
+
+  /* Type */
+  .t-display {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-stretch: 92%;
+    font-size: clamp(2.5rem, 1.6rem + 3.9vw, 5rem);
+    line-height: 0.98;
+    letter-spacing: -0.032em;
+  }
+  .t-h1 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-stretch: 92%;
+    font-size: clamp(2.25rem, 1.6rem + 2.8vw, 4rem);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+  }
+  .t-h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-stretch: 94%;
+    font-size: clamp(1.875rem, 1.35rem + 2.1vw, 3.125rem);
+    line-height: 1.05;
+    letter-spacing: -0.026em;
+  }
+  .t-h3 {
+    font-family: var(--font-display);
+    font-weight: 650;
+    font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+    line-height: 1.2;
+    letter-spacing: -0.012em;
+  }
+  .t-h4 {
+    font-family: var(--font-sans);
+    font-weight: 650;
+    font-size: 1.125rem;
+    line-height: 1.35;
+  }
+  .t-lead {
+    font-size: 1.1875rem;
+    line-height: 1.55;
+  }
+  @media (min-width: 768px) {
+    .t-lead {
+      font-size: 1.3125rem;
+    }
+  }
+  .t-body {
+    font-size: 1.0625rem;
+    line-height: 1.65;
+  }
+  .t-small {
+    font-size: 0.9375rem;
+    line-height: 1.55;
+  }
+  .t-caption {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+  /* Sentence-case kicker. Replaces the old 11px mono uppercase eyebrows. */
+  .t-kicker {
+    font-size: 0.9375rem;
+    font-weight: 650;
+    line-height: 1.4;
+    letter-spacing: 0.005em;
+  }
+  .t-num {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-stretch: 88%;
+    font-variant-numeric: tabular-nums lining-nums;
+    letter-spacing: -0.04em;
+    line-height: 0.9;
+  }
+  .measure {
+    max-width: 62ch;
+  }
+  .measure-tight {
+    max-width: 46ch;
+  }
+
+  /* Buttons — 48px min target, no glow */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 48px;
+    padding: 0.75rem 1.375rem;
+    border-radius: var(--radius-ui);
+    border: 1px solid transparent;
+    font-size: 1rem;
+    font-weight: 650;
+    line-height: 1.2;
+    text-align: center;
+    cursor: pointer;
+    transition:
+      background-color 160ms var(--ease-out-soft),
+      border-color 160ms var(--ease-out-soft),
+      color 160ms var(--ease-out-soft),
+      transform 120ms var(--ease-out-soft);
+  }
+  .btn:active {
+    transform: translateY(1px);
+  }
+  .btn:disabled,
+  .btn[aria-disabled="true"] {
+    cursor: not-allowed;
+    opacity: 0.5;
+    transform: none;
+  }
+  .btn-primary {
+    background: var(--color-signal);
+    color: #fff;
+  }
+  .btn-primary:hover {
+    background: var(--color-signal-hover);
+  }
+  .btn-ghost-light {
+    border-color: #b9b2a6;
+    color: var(--color-text);
+    background: transparent;
+  }
+  .btn-ghost-light:hover {
+    background: var(--color-paper-2);
+    border-color: #8f887c;
+  }
+  .btn-ghost-dark {
+    border-color: rgba(255, 255, 255, 0.34);
+    color: #fff;
+    background: transparent;
+  }
+  .btn-ghost-dark:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.6);
+  }
+  .btn-field {
+    background: var(--color-field);
+    color: #fff;
+  }
+  .btn-field:hover {
+    background: var(--color-field-hover);
+  }
+  .btn-brass {
+    background: var(--color-brass);
+    color: #fff;
+  }
+  .btn-brass:hover {
+    background: var(--color-brass-hover);
+  }
+  .btn-lg {
+    min-height: 56px;
+    padding: 0.875rem 1.75rem;
+    font-size: 1.0625rem;
+  }
+
+  .link-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 44px;
+    font-weight: 650;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 5px;
+  }
+  .link-arrow:hover {
+    text-decoration-thickness: 2px;
+  }
+  .link-inline {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+
+  /* Forms */
+  .field {
+    display: grid;
+    gap: 0.5rem;
+  }
+  .field-label {
+    font-size: 0.9375rem;
+    font-weight: 650;
+    line-height: 1.35;
+    color: var(--color-text);
+  }
+  .field-hint {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--color-text-2);
+  }
+  .field-input {
+    width: 100%;
+    min-height: 52px;
+    padding: 0.75rem 0.9rem;
+    border: 1px solid #b9b2a6;
+    border-radius: var(--radius-ui);
+    background: #fff;
+    color: var(--color-text);
+    font-size: 1.0625rem;
+    line-height: 1.4;
+    transition:
+      border-color 140ms ease,
+      box-shadow 140ms ease;
+  }
+  .field-input::placeholder {
+    color: #7a7f87;
+  }
+  .field-input:focus {
+    outline: none;
+    border-color: var(--color-signal);
+    box-shadow: 0 0 0 3px rgba(3, 105, 161, 0.22);
+  }
+  .field-input[aria-invalid="true"] {
+    border-color: var(--color-danger);
+  }
+  textarea.field-input {
+    min-height: 128px;
+    resize: vertical;
+  }
+  select.field-input {
+    appearance: none;
+    padding-right: 2.5rem;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2314181e' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.9rem center;
+  }
+  .field-error {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-danger);
+  }
+
+  .check {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    min-height: 44px;
+    font-size: 1rem;
+    line-height: 1.5;
+    cursor: pointer;
+  }
+  .check input {
+    width: 22px;
+    height: 22px;
+    margin-top: 1px;
+    flex-shrink: 0;
+    accent-color: var(--color-signal);
+  }
+
+  /* Option chips (checkbox/radio styled as selectable tiles) */
+  .choice {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-height: 52px;
+    padding: 0.75rem 1rem;
+    border: 1px solid #c9c2b6;
+    border-radius: var(--radius-ui);
+    background: #fff;
+    font-size: 1rem;
+    font-weight: 550;
+    cursor: pointer;
+    transition:
+      border-color 140ms ease,
+      background-color 140ms ease;
+  }
+  .choice:hover {
+    border-color: #8f887c;
+  }
+  .choice input {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+  .choice:has(input:checked) {
+    border-color: currentColor;
+    box-shadow: inset 0 0 0 1px currentColor;
+  }
+  .choice:has(input:focus-visible) {
+    outline: 3px solid var(--color-signal-bright);
+    outline-offset: 2px;
+  }
+
+  /* Cards — discrete items only */
+  .card {
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+    background: #fff;
+  }
+  .card-dark {
+    border: 1px solid var(--color-line-dark);
+    border-radius: var(--radius-card);
+    background: var(--color-graphite);
+  }
+
+  /* Rules */
+  .rule {
+    border: 0;
+    border-top: 1px solid var(--color-line);
+  }
+  .rule-dark {
+    border: 0;
+    border-top: 1px solid var(--color-line-dark);
+  }
+
+  /* Product window — real screenshots only */
+  .product-window {
+    overflow: hidden;
+    border-radius: var(--radius-frame);
+    border: 1px solid #2a3039;
+    background: #0b0b0c;
+    box-shadow: 0 28px 60px -32px rgba(13, 16, 21, 0.55);
+  }
+  .product-window-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.625rem 1rem;
+    border-bottom: 1px solid #23282f;
+    background: #141619;
+    color: #c6ccd4;
+    font-size: 0.875rem;
+    line-height: 1.3;
+  }
+
+  /* Photography */
+  .photo {
+    position: relative;
+    overflow: hidden;
+    background: var(--color-graphite-2);
+  }
+  .photo-caption {
+    font-size: 0.875rem;
+    line-height: 1.45;
+    color: var(--color-text-2);
+  }
 }
 
-button,
-input,
-textarea,
-select {
-  font: inherit;
+@layer utilities {
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+  .sr-only-focusable:not(:focus):not(:focus-within) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
 }
 
-img,
-video {
-  max-width: 100%;
+@keyframes s1-enter {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@layer utilities {
+  .animate-enter {
+    animation: s1-enter 320ms var(--ease-out-soft) both;
+  }
+}
+
+/* World accents for form focus states */
+@layer components {
+  .world-guard .field-input:focus {
+    border-color: var(--color-field);
+    box-shadow: 0 0 0 3px rgba(15, 90, 70, 0.22);
+  }
+  .world-guard .check input {
+    accent-color: var(--color-field);
+  }
+  .world-guard .field-input {
+    font-size: 1.125rem;
+    min-height: 56px;
+  }
+  .world-guard .field-label {
+    font-size: 1.0625rem;
+  }
+  .world-careers .field-input:focus {
+    border-color: var(--color-brass);
+    box-shadow: 0 0 0 3px rgba(133, 87, 15, 0.22);
+  }
+  .world-careers .check input {
+    accent-color: var(--color-brass);
+  }
 }

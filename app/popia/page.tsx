@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import LegalPage from "../components/LegalPage";
 
 export const metadata: Metadata = {
   title: "POPIA & Data Handling",
@@ -6,31 +7,23 @@ export const metadata: Metadata = {
   alternates: { canonical: "/popia" },
 };
 
+const sections = [
+  ["Purpose limitation", "Collect information for a defined operational, commercial, onboarding or support purpose."],
+  ["Least access", "Use role and tenant boundaries so users see only the information needed for their work."],
+  ["Private workforce data", "Guard profiles and employment documents are never published on the public website and are not publicly browsable."],
+  ["Guard profile applications", "Details a guard submits through the website are used to assess the application and contact the guard. When Guard Marketplace launches, an eligible profile is shown only to signed-in Signal One client companies, and the guard decides whether to accept any hire request. A guard can ask for their information to be corrected or deleted by emailing sales@signalone.co.za."],
+  ["Auditability", "Sensitive operational actions should leave an auditable record rather than relying on informal changes."],
+  ["Corrections", "Provide a process for authorised correction of inaccurate personal information."],
+  ["Retention", "Retain information only for the period justified by its operational, contractual or legal purpose; the final schedule remains subject to legal review."],
+] as const;
+
 export default function PopiaPage() {
   return (
-    <main className="min-h-screen bg-[var(--s1-surface-base)] px-5 pb-16 pt-28 text-white md:pt-32">
-      <article className="mx-auto max-w-4xl">
-        <p className="s1-eyebrow">Privacy & POPIA</p>
-        <h1 className="s1-display mt-5 font-semibold">POPIA & data handling</h1>
-        <p className="mt-6 text-base leading-8 text-white/72">
-          Signal One is designed to minimise unnecessary exposure of operational and personal information. Product-specific privacy notices, operator responsibilities and retention requirements are confirmed in the relevant customer and service documentation.
-        </p>
-        <div className="mt-10 grid gap-4 md:grid-cols-2">
-          {[
-            ["Purpose limitation", "Collect information for a defined operational, commercial, onboarding or support purpose."],
-            ["Least access", "Use role and tenant boundaries so users see only the information needed for their work."],
-            ["Private workforce data", "Guard profiles and employment documents are not intended to be publicly browsable."],
-            ["Auditability", "Sensitive operational actions should leave an auditable record rather than relying on informal changes."],
-            ["Corrections", "Provide a process for authorised correction of inaccurate personal information."],
-            ["Retention", "Retain information only for the period justified by its operational, contractual or legal purpose; the final schedule remains subject to legal review."],
-          ].map(([title, body]) => (
-            <section key={title} className="rounded-[18px] border border-white/10 bg-[#0F131A] p-6">
-              <h2 className="text-lg font-semibold">{title}</h2>
-              <p className="mt-3 text-sm leading-7 text-white/70">{body}</p>
-            </section>
-          ))}
-        </div>
-      </article>
-    </main>
+    <LegalPage
+      kicker="POPIA"
+      title="POPIA and data handling"
+      intro="Signal One is designed to minimise unnecessary exposure of operational and personal information. Product-specific privacy notices, operator responsibilities and retention requirements are confirmed in the relevant customer and service documentation."
+      sections={sections}
+    />
   );
 }

@@ -1,115 +1,246 @@
 "use client";
 
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 
-const nav = [
-  { href: "/#platform", label: "Platform" },
-  { href: "/guard-marketplace", label: "Guard Marketplace" },
-  { href: "/radios-equipment", label: "Radios & Tracking" },
-  { href: "/pricing", label: "Pricing" },
-] as const;
+type World = "buyer" | "guard" | "careers";
+
+type NavItem = { href: string; label: string };
+
+const worlds: Record<
+  World,
+  {
+    identity: string;
+    homeHref: string;
+    primary: NavItem[];
+    secondary: NavItem[];
+    cta: NavItem;
+    shell: string;
+    link: string;
+    cta_class: string;
+    sheet: string;
+  }
+> = {
+  buyer: {
+    identity: "Integrated Systems",
+    homeHref: "/",
+    primary: [
+      { href: "/solutions/security", label: "Platform" },
+      { href: "/guard-marketplace", label: "Marketplace" },
+      { href: "/radios-equipment", label: "Radios & Tracking" },
+      { href: "/pricing", label: "Pricing" },
+    ],
+    secondary: [
+      { href: "/guards", label: "For guards" },
+      { href: "/join/sales", label: "Careers" },
+    ],
+    cta: { href: "/#product", label: "See Signal One in action" },
+    shell: "bg-ink text-text-inv border-b border-line-dark",
+    link: "text-text-inv hover:bg-white/8",
+    cta_class: "btn btn-primary",
+    sheet: "bg-ink text-text-inv",
+  },
+  guard: {
+    identity: "For security officers",
+    homeHref: "/guards",
+    primary: [
+      { href: "/guards#how-it-works", label: "How it works" },
+      { href: "/guards#psira", label: "PSiRA" },
+      { href: "/guards#your-information", label: "Your information" },
+    ],
+    secondary: [{ href: "/", label: "For security companies" }],
+    cta: { href: "/guards/join", label: "Create your profile" },
+    shell: "bg-sand text-text border-b border-line",
+    link: "text-text hover:bg-black/5",
+    cta_class: "btn btn-field",
+    sheet: "bg-sand text-text",
+  },
+  careers: {
+    identity: "Careers",
+    homeHref: "/join/sales",
+    primary: [
+      { href: "/join/sales#role", label: "The role" },
+      { href: "/join/sales#process", label: "Process" },
+    ],
+    secondary: [{ href: "/", label: "About Signal One" }],
+    cta: { href: "/join/sales#apply", label: "Apply" },
+    shell: "bg-paper text-text border-b border-line",
+    link: "text-text hover:bg-black/5",
+    cta_class: "btn btn-brass",
+    sheet: "bg-paper text-text",
+  },
+};
+
+function worldFor(pathname: string): World {
+  if (pathname === "/guards" || pathname.startsWith("/guards/")) return "guard";
+  if (pathname.startsWith("/join/sales")) return "careers";
+  return "buyer";
+}
+
+function Mark({ dark }: { dark: boolean }) {
+  return (
+    <svg aria-hidden="true" width="30" height="30" viewBox="0 0 32 32" className="shrink-0">
+      <rect x="1" y="1" width="30" height="30" rx="7" fill="none" stroke={dark ? "#5cc6f5" : "#0369a1"} strokeWidth="2" />
+      <rect x="12" y="7" width="8" height="18" rx="1.5" fill={dark ? "#f3f4f6" : "#14181e"} />
+    </svg>
+  );
+}
 
 export default function Header() {
+  const pathname = usePathname() || "/";
+  const world = worldFor(pathname);
+  const config = worlds[world];
+  const dark = world === "buyer";
   const [open, setOpen] = useState(false);
-  const reducedMotion = useReducedMotion();
+  const sheetRef = useRef<HTMLDivElement>(null);
+  const toggleRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (!open) return;
-    const close = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setOpen(false);
+        toggleRef.current?.focus();
+      }
     };
-    window.addEventListener("keydown", close);
-    return () => window.removeEventListener("keydown", close);
+    window.addEventListener("keydown", onKey);
+    sheetRef.current?.querySelector<HTMLElement>("a")?.focus();
+    return () => {
+      document.body.style.overflow = previous;
+      window.removeEventListener("keydown", onKey);
+    };
   }, [open]);
 
+  const isCurrent = (href: string) => !href.includes("#") && href !== "/" && pathname.startsWith(href);
+
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#0F131A]/88 backdrop-blur-[20px]">
-      <div className="mx-auto flex h-[72px] max-w-[1440px] items-center justify-between px-4 sm:px-5 lg:px-6">
+    <header className={"sticky top-0 z-50 " + config.shell}>
+      <div className="wrap flex h-[72px] items-center justify-between gap-4">
         <Link
-          href="/"
-          onClick={() => setOpen(false)}
-          className="flex min-w-0 items-center gap-3"
-          aria-label="Signal One Integrated Systems home"
+          href={config.homeHref}
+          className="flex min-h-[44px] min-w-0 items-center gap-3"
+          aria-label={"Signal One " + config.identity + " home"}
         >
-          <span className="relative grid h-9 w-9 shrink-0 place-items-center rounded-full border border-[#0EA5E9]/40">
-            <span className="h-2.5 w-2.5 rounded-full bg-[#0EA5E9] shadow-[0_0_18px_rgba(14,165,233,.55)]" />
-          </span>
-          <span className="min-w-0">
-            <span className="block truncate text-[15px] font-semibold tracking-[.15em] text-[#F1F5F9]">
-              SIGNAL <span className="text-[#0EA5E9]">ONE</span>
-            </span>
-            <span className="s1-mono mt-0.5 block truncate text-[11px] text-white/68">
-              Integrated Systems · Security
+          <Mark dark={dark} />
+          <span className="min-w-0 leading-tight">
+            <span className="block font-display text-[1.0625rem] font-bold tracking-[0.06em]">SIGNAL ONE</span>
+            <span className={"block truncate text-[0.875rem] " + (dark ? "text-text-inv-2" : "text-text-2")}>
+              {config.identity}
             </span>
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary navigation">
-          {nav.map((item) => (
+        <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
+          {config.primary.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="rounded-[8px] px-3.5 py-2.5 text-sm font-medium text-white/72 transition duration-200 hover:bg-white/[.04] hover:text-white"
+              aria-current={isCurrent(item.href) ? "page" : undefined}
+              className={
+                "flex min-h-[44px] items-center rounded-ui px-3.5 text-[1rem] font-medium transition-colors aria-[current=page]:underline aria-[current=page]:underline-offset-8 " +
+                config.link
+              }
             >
               {item.label}
             </Link>
           ))}
         </nav>
 
-        <div className="hidden lg:block">
-          <Link href="/get-started" data-analytics-event="header_get_started" data-analytics-label="Desktop header" className="s1-primary-action px-5 py-2.5 text-sm font-semibold">
-            Get started
+        <div className="hidden items-center gap-1 lg:flex">
+          {config.secondary.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={
+                "flex min-h-[44px] items-center rounded-ui px-3 text-[0.9375rem] " +
+                (dark ? "text-text-inv-2 hover:text-text-inv" : "text-text-2 hover:text-text")
+              }
+            >
+              {item.label}
+            </Link>
+          ))}
+          <Link href={config.cta.href} className={config.cta_class + " ml-3"}>
+            {config.cta.label}
           </Link>
         </div>
 
         <button
+          ref={toggleRef}
           type="button"
           onClick={() => setOpen((value) => !value)}
           aria-expanded={open}
-          aria-controls="signal-one-mobile-nav"
-          aria-label={open ? "Close navigation" : "Open navigation"}
-          className="grid h-10 w-10 place-items-center rounded-[10px] border border-white/12 bg-white/[.035] text-white lg:hidden"
+          aria-controls="mobile-nav"
+          className={
+            "flex min-h-[44px] items-center gap-2 rounded-ui border px-3.5 text-[1rem] font-semibold lg:hidden " +
+            (dark ? "border-white/30" : "border-[#b9b2a6]")
+          }
         >
-          <span aria-hidden="true" className="text-xl leading-none">{open ? "×" : "≡"}</span>
+          <span>{open ? "Close" : "Menu"}</span>
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
+            {open ? <path d="M6 6l12 12M18 6 6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
+          </svg>
         </button>
       </div>
 
-      <AnimatePresence>
-        {open ? (
-          <motion.div
-            id="signal-one-mobile-nav"
-            initial={reducedMotion ? false : { opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={reducedMotion ? undefined : { opacity: 0, y: -8 }}
-            transition={reducedMotion ? { duration: 0 } : { duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="border-t border-white/10 bg-[#0F131A]/96 px-4 pb-5 pt-3 backdrop-blur-[20px] lg:hidden"
-          >
-            <nav className="mx-auto grid max-w-[1440px] gap-1" aria-label="Mobile navigation">
-              {nav.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setOpen(false)}
-                  className="rounded-[10px] px-3 py-3 text-sm font-medium text-white/76 transition hover:bg-white/[.05] hover:text-white"
-                >
-                  {item.label}
-                </Link>
+      {open ? (
+        <div
+          id="mobile-nav"
+          ref={sheetRef}
+          className={"fixed inset-x-0 bottom-0 top-[72px] z-50 overflow-y-auto lg:hidden " + config.sheet}
+        >
+          <nav className="wrap flex min-h-full flex-col pb-8 pt-4" aria-label="Mobile">
+            <ul className="m-0 list-none p-0">
+              {config.primary.map((item) => (
+                <li key={item.href} className={"border-b " + (dark ? "border-line-dark" : "border-line")}>
+                  <Link
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    className="flex min-h-[60px] items-center justify-between font-display text-[1.5rem] font-semibold"
+                  >
+                    {item.label}
+                    <span aria-hidden="true" className={dark ? "text-text-inv-2" : "text-text-2"}>→</span>
+                  </Link>
+                </li>
               ))}
-              <Link
-                href="/get-started"
-                onClick={() => setOpen(false)}
-                data-analytics-event="header_get_started"
-                data-analytics-label="Mobile header"
-                className="s1-primary-action mt-2 px-5 py-3 text-center text-sm font-semibold"
-              >
-                Get started
+            </ul>
+
+            <div className="mt-8 grid gap-3">
+              <Link href={config.cta.href} onClick={() => setOpen(false)} className={config.cta_class + " btn-lg w-full"}>
+                {config.cta.label}
               </Link>
-            </nav>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
+              {world === "buyer" ? (
+                <Link href="/contact" onClick={() => setOpen(false)} className="btn btn-ghost-dark btn-lg w-full">
+                  Talk to Signal One
+                </Link>
+              ) : null}
+            </div>
+
+            <ul className="m-0 mt-8 flex list-none flex-wrap gap-x-6 gap-y-1 p-0">
+              {config.secondary.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    className={"flex min-h-[44px] items-center text-[1.0625rem] underline underline-offset-4 " + (dark ? "text-text-inv-2" : "text-text-2")}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+
+            <p className={"t-small mt-auto pt-10 " + (dark ? "text-text-inv-2" : "text-text-2")}>
+              Signal One: Integrated Systems · South Africa ·{" "}
+              <a href="mailto:sales@signalone.co.za" className="link-inline">
+                sales@signalone.co.za
+              </a>
+            </p>
+          </nav>
+        </div>
+      ) : null}
     </header>
   );
 }

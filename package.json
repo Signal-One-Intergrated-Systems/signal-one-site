@@ -8,10 +8,11 @@
     "start": "next start",
     "lint": "eslint",
     "check:branding": "node scripts/check-branding.mjs",
-    "prebuild": "npm run check:branding"
+    "prebuild": "npm run check:branding",
+    "check:built": "node scripts/check-branding.mjs --built",
+    "postbuild": "npm run check:built"
   },
   "dependencies": {
-    "framer-motion": "^12.23.26",
     "next": "16.1.0",
     "react": "19.2.3",
     "react-dom": "19.2.3"

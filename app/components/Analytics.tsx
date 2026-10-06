@@ -3,7 +3,7 @@
 import Script from "next/script";
 import { usePathname, useSearchParams } from "next/navigation";
 import { Suspense, useEffect } from "react";
-import { trackEvent } from "../lib/analytics";
+import { isSignalOneEvent, trackEvent } from "../lib/analytics";
 
 const measurementId = process.env.NEXT_PUBLIC_GA_ID;
 
@@ -26,7 +26,7 @@ function RouteAnalytics() {
         : null;
       if (!target) return;
       const name = target.dataset.analyticsEvent;
-      if (!name) return;
+      if (!isSignalOneEvent(name)) return;
       trackEvent(name, {
         label: target.dataset.analyticsLabel,
         href: target instanceof HTMLAnchorElement ? target.href : undefined,
