@@ -27,16 +27,16 @@ const joinSteps = [
 
 export default function GuardsPage() {
   return (
-    <main id="main" className="bg-sand text-text">
+    <main id="main" className="bg-light text-text">
       <SplitHero src={photos.siteOperations.src} alt={photos.siteOperations.alt} side="left" objectPositionMobile="0% 8%" objectPosition="0% 12%">
-          <p className="text-[1.0625rem] font-semibold text-[#7bd3a6]">For security officers</p>
+          <p className="text-[1.0625rem] font-semibold text-signal-400">For security officers</p>
           <h1 className="t-h1 mt-4">Your work, on record. Your next job, your choice.</h1>
           <p className="mt-6 text-[1.25rem] leading-relaxed text-text-inv-2">
             Signal One Guard is the app you use on shift. Guard Marketplace is not live yet. When it launches,
             signed-in security companies will be able to send you hire requests. You will always decide whether to accept.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Link href="/guards/join" className="btn btn-field btn-lg">
+            <Link href="/guards/join" className="btn btn-primary btn-lg">
               Create your profile
             </Link>
             <Link href="#how-it-works" className="btn btn-ghost-dark btn-lg">
@@ -73,7 +73,7 @@ export default function GuardsPage() {
             <ul className="m-0 mt-6 grid list-none gap-3 p-0 text-[1.125rem]">
               {["Where you can work", "Your PSiRA grade", "When you are available", "Your experience", "Your skills"].map((item) => (
                 <li key={item} className="flex gap-3">
-                  <Check className="mt-1 text-field" />
+                  <Check className="mt-1 text-signal-ink" />
                   {item}
                 </li>
               ))}
@@ -121,17 +121,17 @@ export default function GuardsPage() {
               "You can ask us to correct or delete your information at any time.",
             ].map((item) => (
               <li key={item} className="flex gap-3">
-                <Check className="mt-1 text-field" />
+                <Check className="mt-1 text-signal-ink" />
                 {item}
               </li>
             ))}
             <li className="mt-2 text-[1.0625rem] text-text-2">
               Questions or requests:{" "}
-              <a href="mailto:sales@signalone.co.za" className="link-inline font-semibold text-field">
+              <a href="mailto:sales@signalone.co.za" className="link-inline font-semibold text-signal-ink">
                 sales@signalone.co.za
               </a>
               . Full detail on our{" "}
-              <Link href="/popia" className="link-inline font-semibold text-field">
+              <Link href="/popia" className="link-inline font-semibold text-signal-ink">
                 POPIA page
               </Link>
               .
@@ -146,13 +146,13 @@ export default function GuardsPage() {
           <ol className="m-0 mt-8 grid list-none gap-6 p-0 md:grid-cols-4">
             {joinSteps.map(([title, body], index) => (
               <li key={title} className="border-t-2 border-field pt-4">
-                <span className="t-num text-[2rem] text-field">{index + 1}</span>
+                <span className="t-num text-[2rem] text-signal-600">{index + 1}</span>
                 <h3 className="mt-2 text-[1.1875rem] font-semibold">{title}</h3>
                 <p className="mt-1 text-[1.0625rem] text-text-2">{body}</p>
               </li>
             ))}
           </ol>
-          <Link href="/guards/join" className="btn btn-field btn-lg mt-10">
+          <Link href="/guards/join" className="btn btn-primary btn-lg mt-10">
             Create your profile
           </Link>
         </div>

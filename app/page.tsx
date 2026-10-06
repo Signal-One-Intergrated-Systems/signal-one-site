@@ -88,7 +88,7 @@ export default function Home() {
             <br />
             Run every site.
             <br />
-            <span className="text-signal-bright">Prove the service.</span>
+            <span className="text-signal-400">Prove the service.</span>
           </h1>
           <p className="t-lead measure mt-6 text-text-inv-2">
             One operating system for guard hiring, sites, shifts, patrols, the control room, radios and PTT, tracking
@@ -110,7 +110,7 @@ export default function Home() {
       </SplitHero>
 
       {/* 2 + 3 · PROBLEM → REAL PRODUCT */}
-      <section id="product" className="surface-paper section scroll-mt-[72px]">
+      <section id="product" className="surface-light section scroll-mt-[72px]">
         <div className="wrap">
           <div className="grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
             <div>
@@ -130,7 +130,7 @@ export default function Home() {
             </ul>
           </div>
 
-          <div className="mt-16 border-t-2 border-ink pt-10 md:mt-20">
+          <div className="mt-16 border-t-2 border-base pt-10 md:mt-20">
             <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
               <div>
                 <h2 className="t-h2">Signal One answers them from one record.</h2>
@@ -138,7 +138,7 @@ export default function Home() {
                   These are real Signal One Guard screens, not mock-ups. The data is synthetic.
                 </p>
               </div>
-              <Link href="/solutions/security" className="link-arrow shrink-0 text-signal">
+              <Link href="/solutions/security" className="link-arrow shrink-0 text-signal-ink">
                 Everything the platform does <Arrow />
               </Link>
             </div>
@@ -165,7 +165,7 @@ export default function Home() {
         headline="Won the contract? Staff it."
         caption={illustrativeCaption}
       />
-      <section className="surface-ink section">
+      <section className="surface-base section">
         <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-20">
           <div>
             <p className="t-lead measure text-text-inv-2">
@@ -173,7 +173,7 @@ export default function Home() {
               them and send a hire request. The guard accepts or declines on their phone, and accepted guards join your
               workforce, ready for a site and a shift.
             </p>
-            <Link href="/guard-marketplace" className="link-arrow mt-8 text-signal-bright">
+            <Link href="/guard-marketplace" className="link-arrow mt-8 text-signal-400">
               See how Marketplace will work <Arrow />
             </Link>
           </div>
@@ -181,7 +181,7 @@ export default function Home() {
             <ol aria-label="Marketplace hiring flow" className="m-0 flex list-none flex-wrap gap-x-2 gap-y-3 p-0">
               {hireFlow.map((step, index) => (
                 <li key={step} className="flex items-center gap-2 text-[1rem] font-medium">
-                  <span className="rounded-ui border border-line-dark bg-graphite px-3 py-2">{step}</span>
+                  <span className="rounded-ui border border-line-dark bg-raised px-3 py-2">{step}</span>
                   {index < hireFlow.length - 1 ? <span aria-hidden="true" className="text-text-inv-2">→</span> : null}
                 </li>
               ))}
@@ -229,7 +229,7 @@ export default function Home() {
         headline="Run every site from one record."
         caption={illustrativeCaption}
       />
-      <section className="surface-paper section">
+      <section className="surface-light section">
         <div className="wrap">
           <p className="t-lead measure text-text-2">
             Sites, shifts, attendance, patrols, incidents and SOS feed the same operational record your control room,
@@ -269,7 +269,7 @@ export default function Home() {
       </section>
 
       {/* 6 · EQUIP */}
-      <section className="surface-paper-2 section">
+      <section className="surface-light-2 section">
         <div className="wrap">
           <div className="grid gap-6 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-end lg:gap-16">
             <div>
@@ -312,7 +312,7 @@ export default function Home() {
       </section>
 
       {/* 7 · PROVE */}
-      <section className="surface-ink section">
+      <section className="surface-base section">
         <div className="wrap">
           <div className="max-w-3xl">
             <div className="flex flex-wrap items-center gap-3">
@@ -328,7 +328,7 @@ export default function Home() {
           </div>
 
           <div className="mt-12 grid gap-px overflow-hidden rounded-card bg-line-dark md:grid-cols-2">
-            <div className="bg-graphite p-6 sm:p-8">
+            <div className="bg-raised p-6 sm:p-8">
               <h3 className="t-h3">Your security company sees</h3>
               <ul className="m-0 mt-5 grid list-none gap-3 p-0">
                 {companySees.map((item) => (
@@ -339,12 +339,12 @@ export default function Home() {
                 ))}
               </ul>
             </div>
-            <div className="bg-graphite p-6 sm:p-8">
+            <div className="bg-raised p-6 sm:p-8">
               <h3 className="t-h3">Your client sees</h3>
               <ul className="m-0 mt-5 grid list-none gap-3 p-0">
                 {clientSees.map((item) => (
                   <li key={item} className="t-body flex gap-3">
-                    <Check className="mt-1 text-signal-bright" />
+                    <Check className="mt-1 text-signal-400" />
                     {item}
                   </li>
                 ))}
@@ -365,13 +365,13 @@ export default function Home() {
       </section>
 
       {/* 8 · PRICING */}
-      <section className="surface-paper section">
+      <section className="surface-light section">
         <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:items-start lg:gap-16">
           <div>
             <Kicker>Pricing</Kicker>
             <h2 className="sr-only">R2 per guard per day, excluding VAT</h2>
             <p aria-hidden="true" className="mt-6 flex items-end gap-4">
-              <span className="t-num text-[6.5rem] text-signal sm:text-[8.5rem]">R2</span>
+              <span className="t-num text-[6.5rem] text-signal-600 sm:text-[8.5rem]">R2</span>
               <span className="pb-3 font-display text-[1.375rem] font-semibold leading-tight sm:text-[1.625rem]">
                 per guard
                 <br />
@@ -393,7 +393,7 @@ export default function Home() {
                 </div>
               ))}
             </dl>
-            <Link href="/pricing" className="link-arrow mt-4 text-signal">
+            <Link href="/pricing" className="link-arrow mt-4 text-signal-ink">
               Full pricing details <Arrow />
             </Link>
           </div>
@@ -402,7 +402,7 @@ export default function Home() {
       </section>
 
       {/* 9 · NEXT STEP */}
-      <section className="surface-ink section">
+      <section className="surface-base section">
         <div className="wrap">
           <h2 className="t-h2 max-w-3xl">See it, price it, or talk to us.</h2>
           <div className="mt-10 grid gap-px overflow-hidden rounded-card bg-line-dark md:grid-cols-3">
@@ -429,7 +429,7 @@ export default function Home() {
                 variant: "primary" as const,
               },
             ].map((option) => (
-              <div key={option.title} className="flex flex-col bg-graphite p-6 sm:p-8">
+              <div key={option.title} className="flex flex-col bg-raised p-6 sm:p-8">
                 <h3 className="t-h3">{option.title}</h3>
                 <p className="t-body mt-3 text-text-inv-2">{option.body}</p>
                 <ButtonLink href={option.href} variant={option.variant} className="mt-8 self-start">

@@ -7,7 +7,7 @@ import { Check, Steps } from "../ui";
 import { Consent, JMulti, JRadio, JSelect, JText, ReviewList } from "./fields";
 import { useJourney } from "./useJourney";
 
-const ACCENT = "text-signal";
+const ACCENT = "text-signal-ink";
 
 const steps = [
   { id: "company", label: "Company" },
@@ -47,7 +47,7 @@ export default function ClientOnboarding() {
   if (j.status === "done") {
     return (
       <div role="status" className="mx-auto max-w-[760px]">
-        <span className="grid h-14 w-14 place-items-center rounded-full bg-signal text-white">
+        <span className="grid h-14 w-14 place-items-center rounded-full bg-signal text-deep">
           <Check />
         </span>
         <h1 className="t-h1 mt-6">Thanks. Your onboarding request is with Signal One.</h1>
@@ -72,7 +72,7 @@ export default function ClientOnboarding() {
   return (
     <div className="grid gap-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
       <aside className="lg:sticky lg:top-[104px] lg:self-start">
-        <p className="t-kicker text-signal">Company onboarding</p>
+        <p className="t-kicker text-signal-ink">Company onboarding</p>
         <p className="mt-2 font-display text-[1.5rem] font-bold leading-tight">Set up your security company on Signal One.</p>
         <ol className="m-0 mt-6 hidden list-none p-0 lg:block" aria-label="Onboarding steps">
           {steps.map((step, index) => (
@@ -87,7 +87,7 @@ export default function ClientOnboarding() {
               <span
                 className={
                   "grid h-7 w-7 place-items-center rounded-full text-[0.875rem] font-semibold " +
-                  (index < j.stepIndex ? "bg-signal text-white" : index === j.stepIndex ? "bg-ink text-white" : "bg-paper-2 text-text-2")
+                  (index < j.stepIndex ? "bg-signal text-deep" : index === j.stepIndex ? "bg-base text-text-inv" : "bg-light-2 text-text-2")
                 }
               >
                 {index < j.stepIndex ? "✓" : index + 1}

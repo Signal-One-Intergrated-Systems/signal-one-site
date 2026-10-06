@@ -40,7 +40,7 @@ const groups = [
 
 export default function Footer() {
   return (
-    <footer className="surface-ink border-t border-line-dark">
+    <footer className="surface-base border-t border-line-dark">
       <div className="wrap grid gap-12 py-14 md:py-16 lg:grid-cols-[1.1fr_2fr]">
         <div>
           <SignalOneLogo size={24} tone="dark" descriptorMin={11} />

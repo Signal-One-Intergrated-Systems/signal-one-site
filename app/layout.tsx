@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, Inter } from "next/font/google";
+import { Inter } from "next/font/google";
 import Analytics from "./components/Analytics";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
@@ -9,13 +9,6 @@ import "./globals.css";
 const body = Inter({
   subsets: ["latin"],
   variable: "--font-body",
-  display: "swap",
-});
-
-const display = Archivo({
-  subsets: ["latin"],
-  axes: ["wdth"],
-  variable: "--font-display-face",
   display: "swap",
 });
 
@@ -66,8 +59,8 @@ export const viewport: Viewport = {
   initialScale: 1,
   colorScheme: "light dark",
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#0d1015" },
-    { media: "(prefers-color-scheme: dark)", color: "#0d1015" },
+    { media: "(prefers-color-scheme: light)", color: "#151a21" },
+    { media: "(prefers-color-scheme: dark)", color: "#151a21" },
   ],
 };
 
@@ -111,11 +104,11 @@ const structuredData = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-ZA" className={body.variable + " " + display.variable}>
+    <html lang="en-ZA" className={body.variable}>
       <body>
         <a
           href="#main"
-          className="sr-only-focusable fixed left-4 top-3 z-[60] rounded-ui bg-paper px-4 py-3 font-semibold text-text"
+          className="sr-only-focusable fixed left-4 top-3 z-[60] rounded-ui bg-light px-4 py-3 font-semibold text-text"
         >
           Skip to content
         </a>

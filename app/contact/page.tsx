@@ -38,7 +38,7 @@ const fields: IntakeField[] = [
 
 export default function ContactPage() {
   return (
-    <main id="main" className="surface-paper">
+    <main id="main" className="surface-light">
       <div className="wrap grid gap-12 py-12 md:py-20 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
         <div>
           <Kicker>Talk to Signal One</Kicker>
@@ -60,7 +60,7 @@ export default function ContactPage() {
 
           <div className="mt-10 border-t border-line pt-6">
             <p className="t-small text-text-2">Prefer email?</p>
-            <a href="mailto:sales@signalone.co.za" className="mt-1 inline-flex min-h-[44px] items-center text-[1.25rem] font-semibold text-signal underline underline-offset-4">
+            <a href="mailto:sales@signalone.co.za" className="mt-1 inline-flex min-h-[44px] items-center text-[1.25rem] font-semibold text-signal-ink underline underline-offset-4">
               sales@signalone.co.za
             </a>
           </div>

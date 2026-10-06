@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function GuardJoinPage() {
   return (
-    <main id="main" className="min-h-[calc(100vh-72px)] bg-sand text-text">
+    <main id="main" className="min-h-[calc(100vh-72px)] bg-light text-text">
       <GuardJoin />
     </main>
   );

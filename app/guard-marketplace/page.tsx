@@ -43,13 +43,13 @@ const interestFields: IntakeField[] = [
 ];
 
 function DemoChip({ children }: { children: React.ReactNode }) {
-  return <span className="rounded-full bg-paper-2 px-3 py-1 text-[0.875rem] font-medium">{children}</span>;
+  return <span className="rounded-full bg-light-2 px-3 py-1 text-[0.875rem] font-medium">{children}</span>;
 }
 
 export default function GuardMarketplacePage() {
   return (
     <main id="main">
-      <section className="surface-ink">
+      <section className="surface-base">
         <div className="wrap grid gap-10 py-14 md:py-20 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-end lg:gap-16">
           <div>
             <div className="flex flex-wrap items-center gap-3">
@@ -64,7 +64,7 @@ export default function GuardMarketplacePage() {
               accept. Inside your company workspace, next to the sites and shifts they will work.
             </p>
           </div>
-          <div className="rounded-card border border-line-dark bg-graphite p-6">
+          <div className="rounded-card border border-line-dark bg-raised p-6">
             <h2 className="t-h4">Where Marketplace is today</h2>
             <p className="t-small mt-2 text-text-inv-2">
               Marketplace is not live yet. We are building the MVP described on this page. Register interest and we will
@@ -77,7 +77,7 @@ export default function GuardMarketplacePage() {
         </div>
       </section>
 
-      <section className="surface-paper section">
+      <section className="surface-light section">
         <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
           <div>
             <h2 className="t-h2">From contract to shift, in ten steps.</h2>
@@ -91,7 +91,7 @@ export default function GuardMarketplacePage() {
             <ol start={6} className="m-0 grid list-none gap-0 p-0">
               {flow.slice(5).map(([title, body], index) => (
                 <li key={title} className="grid grid-cols-[2.5rem_1fr] gap-4 border-t border-line py-5">
-                  <span className="t-num pt-0.5 text-[1.5rem] text-signal">{index + 6}</span>
+                  <span className="t-num pt-0.5 text-[1.5rem] text-signal-600">{index + 6}</span>
                   <div>
                     <h3 className="t-h4">{title}</h3>
                     <p className="t-small mt-1 text-text-2">{body}</p>
@@ -125,12 +125,12 @@ export default function GuardMarketplacePage() {
             role="img"
             aria-label="Illustrative Marketplace design preview with synthetic data: filters for location, PSiRA grade, availability, experience and skills, and three sample guard profiles with shortlist and hire request buttons"
           >
-            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-line bg-paper px-4 py-3 text-[0.875rem] sm:px-6">
+            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-line bg-light px-4 py-3 text-[0.875rem] sm:px-6">
               <span className="font-semibold">Guard Marketplace · design preview</span>
               <span className="text-text-2">Illustrative demo · synthetic data</span>
             </div>
             <div className="grid md:grid-cols-[minmax(0,4fr)_minmax(0,8fr)]">
-              <div className="border-b border-line bg-paper/60 p-4 sm:p-6 md:border-b-0 md:border-r">
+              <div className="border-b border-line bg-light/60 p-4 sm:p-6 md:border-b-0 md:border-r">
                 <p className="t-h4">Filters</p>
                 <dl className="mt-4 grid gap-3 text-[0.9375rem]">
                   {[
@@ -151,7 +151,7 @@ export default function GuardMarketplacePage() {
                 {demoProfiles.map((profile) => (
                   <li key={profile.tag} className="grid gap-4 p-4 sm:grid-cols-[1fr_auto] sm:items-center sm:p-6">
                     <div className="flex gap-4">
-                      <span aria-hidden="true" className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-paper-2 font-display text-[1.125rem] font-bold">
+                      <span aria-hidden="true" className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-light-2 font-display text-[1.125rem] font-bold">
                         {profile.tag.slice(-1)}
                       </span>
                       <div>
@@ -181,7 +181,7 @@ export default function GuardMarketplacePage() {
         </div>
       </section>
 
-      <section className="surface-paper section">
+      <section className="surface-light section">
         <div className="wrap grid gap-12 md:grid-cols-2 lg:gap-16">
           <div>
             <h2 className="t-h2">Private by design.</h2>
@@ -194,7 +194,7 @@ export default function GuardMarketplacePage() {
                 "No ratings, readiness scores or badges.",
               ].map((item) => (
                 <li key={item} className="t-body flex gap-3">
-                  <Check className="mt-1 text-signal" />
+                  <Check className="mt-1 text-signal-ink" />
                   {item}
                 </li>
               ))}
@@ -226,7 +226,7 @@ export default function GuardMarketplacePage() {
             </p>
             <p className="t-small mt-6 text-text-2">
               Are you a guard?{" "}
-              <Link href="/guards" className="link-inline font-semibold text-field">
+              <Link href="/guards" className="link-inline font-semibold text-signal-ink">
                 Create your profile here
               </Link>
               .
