@@ -9,6 +9,7 @@ The body is `{ kind: "client" | "guard" | "sales", data: { …fields, intent } }
 The site forwards it to `SIGNAL_ONE_INTAKE_URL` as `{ kind, data, source: "signal-one-site" }`, with `Authorization: Bearer $SIGNAL_ONE_INTAKE_TOKEN` when the token is set.
 
 - **Unset URL:** returns 503 with a message telling the visitor to email sales@signalone.co.za.
+- **Client fallback (all five forms):** on a 5xx response or a network failure, `app/lib/intake.ts` shows the server message plus a `mailto:sales@signalone.co.za` link. Subject is `Signal One website: <form type>` and the body is one `field label: value` line per answer (capped at 1,500 characters). Applies to contact, equipment quote, marketplace interest, client onboarding, guard join and sales application. 4xx errors show the message only.
 - **Upstream errors:** passed through.
 - **Network failure:** returns 502.
 
@@ -31,6 +32,10 @@ The site forwards it to `SIGNAL_ONE_INTAKE_URL` as `{ kind, data, source: "signa
 - **Vacancy admin:** recruitment status and role count come from env (`SALES_RECRUITMENT_STATUS`, `SALES_OPEN_ROLES`).
 - **Sales OS sign-in URL:** set `SALES_OS_URL`. Until then, `/join/sales` shows a placeholder.
 - **Guard Marketplace data:** not built. The public site **must never** publish guard profiles. `/api/marketplace` was removed on purpose.
+
+## Upstream contract we need (proposal)
+
+`POST $SIGNAL_ONE_INTAKE_URL` with `Authorization: Bearer <token>` and JSON `{ kind: "client"|"guard"|"sales", data: { <field>: string, intent: string }, source: "signal-one-site" }`. Reply `2xx` with optional `{ message }` shown to the visitor, or `4xx/5xx` with `{ message }`. It should be idempotent per submission and must not return personal data. Until it exists, the mailto fallback is the only route and mail volume depends on the visitor's own mail client.
 
 ## Analytics
 

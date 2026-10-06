@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import GuardDayCalculator from "../components/GuardDayCalculator";
 import { Arrow, ButtonLink, Kicker, Status } from "../components/ui";
+import { num, rand } from "../lib/format";
 
 export const metadata: Metadata = {
   title: "Pricing: R2 per Guard per Day",
@@ -16,9 +17,6 @@ const examples = [
   { guards: 200, days: 31 },
 ] as const;
 
-function rand(value: number) {
-  return "R" + value.toLocaleString("en-ZA");
-}
 
 export default function PricingPage() {
   return (
@@ -110,7 +108,7 @@ export default function PricingPage() {
                   <tr key={guards + "-" + days} className="border-t border-line">
                     <td className="px-4 py-4 sm:px-6">{guards}</td>
                     <td className="px-4 py-4 sm:px-6">{days}</td>
-                    <td className="px-4 py-4 sm:px-6">{(guards * days).toLocaleString("en-ZA")}</td>
+                    <td className="px-4 py-4 sm:px-6">{num(guards * days)}</td>
                     <td className="px-4 py-4 text-right font-semibold sm:px-6">{rand(guards * days * 2)}</td>
                   </tr>
                 ))}

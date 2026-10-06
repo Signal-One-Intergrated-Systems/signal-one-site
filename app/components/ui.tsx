@@ -106,6 +106,7 @@ export function Photo({
   sizes,
   priority = false,
   className = "",
+  aspect,
   imgClassName = "object-cover",
   caption,
   captionTone = "light",
@@ -115,13 +116,15 @@ export function Photo({
   sizes: string;
   priority?: boolean;
   className?: string;
+  /** Aspect-ratio classes for the picture itself (not the figure, so the caption never counts toward it). */
+  aspect?: string;
   imgClassName?: string;
   caption?: string;
   captionTone?: Tone;
 }) {
   return (
     <figure className={"m-0 " + className}>
-      <div className="photo h-full w-full">
+      <div className={"photo w-full " + (aspect || "h-full")}>
         <Image
           src={src}
           alt={alt}

@@ -115,6 +115,7 @@ export default function Home() {
             priority
             sizes="(min-width: 1320px) 520px, (min-width: 1024px) 40vw, 100vw"
             className="mx-auto w-full max-w-[560px]"
+            aspect="aspect-[4/3] lg:aspect-[4/5]"
             imgClassName="object-cover object-[50%_40%]"
             caption={illustrativeCaption}
             captionTone="dark"
@@ -170,7 +171,8 @@ export default function Home() {
               src={photos.logisticsGate.src}
               alt={photos.logisticsGate.alt}
               sizes="(min-width: 1320px) 500px, (min-width: 1024px) 38vw, 100vw"
-              className="aspect-[4/3] w-full lg:aspect-[4/5]"
+              className="w-full"
+              aspect="aspect-[4/3] lg:aspect-[4/5]"
               imgClassName="object-cover object-[20%_50%]"
               caption={illustrativeCaption}
               captionTone="dark"
@@ -250,7 +252,8 @@ export default function Home() {
                 src={photos.officeParkAccess.src}
                 alt={photos.officeParkAccess.alt}
                 sizes="(min-width: 1320px) 440px, (min-width: 1024px) 34vw, 60vw"
-                className="aspect-[4/5] w-full"
+                className="w-full"
+                aspect="aspect-[4/5]"
                 imgClassName="object-cover object-[8%_50%]"
               />
               <Photo
@@ -258,7 +261,7 @@ export default function Home() {
                 alt={photos.estateGateDusk.alt}
                 sizes="(min-width: 1320px) 300px, (min-width: 1024px) 22vw, 40vw"
                 className="h-full w-full"
-                imgClassName="object-cover object-[55%_50%]"
+                imgClassName="object-cover object-[72%_50%]"
               />
               <p className="photo-caption col-span-2">{illustrativeCaption}. Day shift at an office park, night shift at an estate gate.</p>
             </div>

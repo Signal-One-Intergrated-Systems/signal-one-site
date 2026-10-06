@@ -2,6 +2,7 @@
 
 import { useId, useMemo, useRef, useState } from "react";
 import { trackEvent } from "../lib/analytics";
+import { num, rand as money } from "../lib/format";
 
 const PRICE_PER_GUARD_DAY = 2;
 const MINIMUM_GUARD_DAYS = 10;
@@ -11,15 +12,6 @@ function normalise(value: string) {
   const parsed = Number.parseInt(value, 10);
   if (!Number.isFinite(parsed) || parsed < 0) return 0;
   return Math.min(parsed, 100000);
-}
-
-function money(value: number) {
-  return new Intl.NumberFormat("en-ZA", {
-    style: "currency",
-    currency: "ZAR",
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 2,
-  }).format(value);
 }
 
 /**
@@ -100,7 +92,7 @@ export default function GuardDayCalculator({ heading = "Calculate your guard cos
         <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-4">
           <div>
             <p className="t-small text-text-2">Guard days</p>
-            <p className="t-num mt-2 text-[2.25rem] text-text">{result.billable.toLocaleString("en-ZA")}</p>
+            <p className="t-num mt-2 text-[2.25rem] text-text">{num(result.billable)}</p>
           </div>
           <div className="text-right">
             <p className="t-small text-text-2">Total, excl. VAT</p>
@@ -109,7 +101,7 @@ export default function GuardDayCalculator({ heading = "Calculate your guard cos
         </div>
         <p className="t-small mt-4 text-text-2">
           {result.billable > 0
-            ? result.billable.toLocaleString("en-ZA") +
+            ? num(result.billable) +
               " guard days × R2 = " +
               money(result.exVat) +
               " excl. VAT (" +

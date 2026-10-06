@@ -53,7 +53,8 @@ export default function GuardsPage() {
             alt={photos.guardCheckpoint.alt}
             priority
             sizes="(min-width: 768px) 420px, 100vw"
-            className="mx-auto aspect-[4/5] w-full max-w-[420px]"
+            className="mx-auto w-full max-w-[420px]"
+            aspect="aspect-[4/5]"
             imgClassName="object-cover object-[30%_50%]"
             caption="Illustrative scene"
           />

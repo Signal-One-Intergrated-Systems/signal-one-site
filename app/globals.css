@@ -158,6 +158,11 @@
 
 @layer components {
   /* Layout */
+  /* A bare `grid` has one auto column that grows to its widest child's min-content and overflows phones. Utilities (grid-cols-*) still win. */
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
   .wrap {
     width: 100%;
     max-width: 1320px;

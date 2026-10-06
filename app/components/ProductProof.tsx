@@ -13,7 +13,7 @@ export function ProofImage({ shot, priority = false }: { shot: ProofShot; priori
   const common = { alt: shot.alt, quality: 90, priority };
   const {
     props: { srcSet: desktopSrcSet, sizes: desktopSizes },
-  } = getImageProps({ ...common, src: shot.desktop, sizes: "(min-width: 1280px) 860px, (min-width: 768px) 66vw, 100vw" });
+  } = getImageProps({ ...common, src: shot.desktop, sizes: "(min-width: 1280px) 1240px, 100vw" });
   const {
     props: mobileProps,
   } = getImageProps({ ...common, src: shot.mobile, sizes: "100vw" });

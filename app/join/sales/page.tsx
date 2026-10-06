@@ -85,7 +85,8 @@ export default function SalesCareersPage() {
             alt={photos.careersDesk.alt}
             priority
             sizes="(min-width: 1024px) 480px, 100vw"
-            className="mx-auto aspect-[4/3] w-full max-w-[480px]"
+            className="mx-auto w-full max-w-[480px]"
+            aspect="aspect-[4/3]"
             imgClassName="object-cover object-[60%_50%]"
             caption="Illustrative scene"
           />

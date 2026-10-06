@@ -44,3 +44,18 @@ These were checked against `signal-one-guard` and the enterprise platform repo a
 | Equipment catalogue and 12/24/36 terms | Present in the enterprise catalogue. | Named products listed, rental by quote. No prices shown. |
 | Sales OS | Exists, staff-only, behind the shared staff login. | Never presented as part of the R2 subscription. Existing reps are linked via `SALES_OS_URL`. |
 | Intake upstream | No endpoint accepts website intake. | `/api/intake` keeps returning a graceful 503 until `SIGNAL_ONE_INTAKE_URL` is set. **Backend contract missing.** |
+
+## Verification pass (build, render, QA)
+
+Run on 2026-10-06 against `next build` output.
+
+| Check | Result |
+|---|---|
+| Hydration error #418 on `/` and `/pricing` | Cause: `Intl` en-ZA separators differ between Node and the browser. Fixed with `app/lib/format.ts`. |
+| Horizontal scroll at 390px on `/guards`, `/join/sales`, `/solutions/security` | Cause: bare `grid` has one auto column. Fixed with a `minmax(0,1fr)` base. |
+| Hero and Run photos rendered at 0px height | Cause: aspect ratio sat on the `<figure>` and the picture used `h-full`. `Photo` now takes an `aspect` prop for the picture itself. |
+| Forms dead-ending on 503 | Shared `submitIntake` returns a prefilled mailto fallback; see `SITE_INTEGRATION.md`. |
+| Unused: `framer-motion`, `scripts/crawl_and_report.js`, `scripts/list_routes.js`, image `remotePatterns` | Removed. |
+| Screenshots | `docs/qa/<route>-<width>.png` at 390, 768, 1440, 1920, 2560. |
+
+Known and accepted: all photography is still AI-generated and captioned "Illustrative scene"; the home hero shows a generic city skyline (see the overseas-architecture check in `PHOTOGRAPHY_BRIEF.md`). Product crops are native-resolution regions of 1440px captures.
