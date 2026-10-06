@@ -193,16 +193,16 @@
   }
 
   .section {
-    padding-block: 64px;
+    padding-block: 80px;
   }
   @media (min-width: 768px) {
     .section {
-      padding-block: 96px;
+      padding-block: 128px;
     }
   }
   @media (min-width: 1280px) {
     .section {
-      padding-block: 112px;
+      padding-block: 160px;
     }
   }
 
@@ -233,7 +233,7 @@
     font-family: var(--font-display);
     font-weight: 700;
     font-stretch: 92%;
-    font-size: clamp(2.5rem, 1.6rem + 3.9vw, 5rem);
+    font-size: clamp(2.875rem, 1.84rem + 4.5vw, 5.75rem);
     line-height: 0.98;
     letter-spacing: -0.032em;
   }
@@ -241,7 +241,7 @@
     font-family: var(--font-display);
     font-weight: 700;
     font-stretch: 92%;
-    font-size: clamp(2.25rem, 1.6rem + 2.8vw, 4rem);
+    font-size: clamp(2.6rem, 1.84rem + 3.2vw, 4.6rem);
     line-height: 1.02;
     letter-spacing: -0.03em;
   }
@@ -249,7 +249,7 @@
     font-family: var(--font-display);
     font-weight: 700;
     font-stretch: 94%;
-    font-size: clamp(1.875rem, 1.35rem + 2.1vw, 3.125rem);
+    font-size: clamp(2.15rem, 1.55rem + 2.4vw, 3.6rem);
     line-height: 1.05;
     letter-spacing: -0.026em;
   }
@@ -556,6 +556,20 @@
     line-height: 1.3;
   }
 
+  .phone-frame {
+    border-radius: 36px;
+    border: 1px solid #2a3039;
+    background: #05070a;
+    padding: 10px;
+    box-shadow: 0 28px 60px -32px rgba(13, 16, 21, 0.55);
+  }
+  .phone-screen {
+    overflow: hidden;
+    border-radius: 27px;
+    background: #0b0b0c;
+    min-height: 220px;
+  }
+
   /* Photography */
   .photo {
     position: relative;
@@ -625,5 +639,45 @@
   }
   .world-careers .check input {
     accent-color: var(--color-brass);
+  }
+}
+
+/* Signal One mark: the pulse is the brand's heartbeat. Header mark only. */
+@layer components {
+  .s1-mark {
+    position: relative;
+    display: inline-block;
+    flex: none;
+  }
+  .s1-mark > svg {
+    display: block;
+  }
+  .s1-pulse::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1px solid #0ea5e9;
+    border-radius: 9999px;
+    opacity: 0;
+    animation: signal-pulse 2.8s ease-out infinite;
+    pointer-events: none;
+  }
+  @keyframes signal-pulse {
+    0% {
+      transform: scale(0.9);
+      opacity: 0.8;
+    }
+    70% {
+      transform: scale(1.5);
+      opacity: 0;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .s1-pulse::after {
+      animation: none;
+    }
   }
 }

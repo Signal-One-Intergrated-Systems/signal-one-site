@@ -13,7 +13,7 @@ export function ProofImage({ shot, priority = false }: { shot: ProofShot; priori
   const common = { alt: shot.alt, quality: 90, priority };
   const {
     props: { srcSet: desktopSrcSet, sizes: desktopSizes },
-  } = getImageProps({ ...common, src: shot.desktop, sizes: "(min-width: 1280px) 860px, 100vw" });
+  } = getImageProps({ ...common, src: shot.desktop, sizes: "(min-width: 1280px) 1200px, 100vw" });
   const {
     props: mobileProps,
   } = getImageProps({ ...common, src: shot.mobile, sizes: "100vw" });
@@ -22,13 +22,11 @@ export function ProofImage({ shot, priority = false }: { shot: ProofShot; priori
 
   return (
     <picture
-      className="mx-auto block max-w-[var(--mw-m)] md:max-w-[var(--mw-d)]"
+      className="block"
       style={
         {
           "--ar-m": ratio(shot.mobile.width, shot.mobile.height),
           "--ar-d": ratio(shot.desktop.width, shot.desktop.height),
-          "--mw-m": shot.mobile.width + "px",
-          "--mw-d": shot.desktop.width + "px",
         } as React.CSSProperties
       }
     >
@@ -43,23 +41,54 @@ export function ProofImage({ shot, priority = false }: { shot: ProofShot; priori
   );
 }
 
+/**
+ * Product frame: a browser frame from md up, a phone frame below.
+ *
+ * Width follows the capture: full container width (about 1200px) once real
+ * 2x captures exist, and no more than 1.25x a small crop's native width so
+ * a crop is never blown up. TODO(recapture): the current crops are the
+ * largest clean regions of the test-tenant captures; replace them with
+ * scripts/capture-product.mjs output once the demo tenant is on staging.
+ */
 export function ProductWindow({
   screen,
-  children,
+  shot,
+  priority = false,
   className = "",
 }: {
   screen: string;
-  children: React.ReactNode;
+  shot: ProofShot;
+  priority?: boolean;
   className?: string;
 }) {
+  const frameWidth = Math.min(1200, Math.round(shot.desktop.width * 1.25));
+  const phoneWidth = Math.min(340, Math.round(shot.mobile.width * 1.1) + 20);
   return (
-    <figure className={"m-0 " + className}>
-      <div className="product-window">
+    <figure className={"m-0 " + className} style={{ ["--frame-w" as string]: frameWidth + "px", ["--phone-w" as string]: phoneWidth + "px" }}>
+      {/* Browser frame, md and up */}
+      <div className="product-window mx-auto hidden w-full max-w-[var(--frame-w)] md:block">
         <div className="product-window-bar">
+          <span aria-hidden="true" className="flex gap-1.5">
+            <i className="block h-2.5 w-2.5 rounded-full bg-[#3a414b]" />
+            <i className="block h-2.5 w-2.5 rounded-full bg-[#3a414b]" />
+            <i className="block h-2.5 w-2.5 rounded-full bg-[#3a414b]" />
+          </span>
           <span className="font-semibold text-[#e7eaee]">Signal One Guard · {screen}</span>
           <span>Synthetic demo data</span>
         </div>
-        {children}
+        <ProofImage shot={shot} priority={priority} />
+      </div>
+      {/* Phone frame, below md */}
+      <div className="md:hidden">
+        <div className="phone-frame mx-auto w-full max-w-[var(--phone-w)]">
+          <div className="phone-screen">
+            <p className="flex justify-between px-3 pb-2 pt-3 text-[0.75rem] text-[#9aa3ad]">
+              <span className="font-semibold text-[#e7eaee]">{screen}</span>
+              <span>Synthetic demo data</span>
+            </p>
+            <ProofImage shot={shot} priority={priority} />
+          </div>
+        </div>
       </div>
     </figure>
   );
@@ -125,26 +154,21 @@ export default function ProductProof({ initial = "control" }: { initial?: string
         id={"proof-panel-" + view.id}
         role="tabpanel"
         aria-labelledby={"proof-tab-" + view.id}
-        className="animate-enter mt-8 grid gap-8 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-12"
+        className="animate-enter mt-10"
       >
-        <div className="lg:pt-2">
-          <h3 className="t-h3">{view.title}</h3>
-          <p className="t-body mt-4 text-text-2">{view.body}</p>
-          <p className="t-caption mt-6 border-t border-line pt-4 text-text-2">
-            Real Signal One Guard screen from our demo environment. Every name, site and record shown is synthetic.
-          </p>
+        <div className="grid gap-4 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] lg:items-end lg:gap-16">
+          <h3 className="t-h3 lg:text-[1.75rem]">{view.title}</h3>
+          <div>
+            <p className="t-body text-text-2">{view.body}</p>
+            <p className="t-caption mt-3 text-text-2">
+              Real Signal One Guard screen from our demo environment. Every name, site and record shown is synthetic.
+            </p>
+          </div>
         </div>
 
-        <ProductWindow screen={view.screen}>
-          {view.shots.map((shot, i) => (
-            <div key={i} className={i > 0 ? "border-t border-dashed border-[#3a414b]" : ""}>
-              {i > 0 ? (
-                <p className="bg-[#141619] px-4 py-2 text-[0.875rem] text-[#c6ccd4]">Further down the same screen</p>
-              ) : null}
-              <ProofImage shot={shot} />
-            </div>
-          ))}
-        </ProductWindow>
+        <div className="mt-8 md:mt-10">
+          <ProductWindow screen={view.screen} shot={view.shots[0]} />
+        </div>
       </div>
     </div>
   );

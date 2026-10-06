@@ -175,3 +175,141 @@ export function Steps({
     </ol>
   );
 }
+
+/**
+ * CSS for a photograph that never stretches past its native width: on a
+ * viewport wider than `native` px the image is centred and its edges fade
+ * into the section colour instead of upscaling.
+ */
+function edgeFade(native: number): React.CSSProperties {
+  const mask = "linear-gradient(to right, transparent 0, #000 var(--fade), #000 calc(100% - var(--fade)), transparent 100%)";
+  return {
+    ["--fade" as string]: "clamp(0px, calc(100vw - " + native + "px), 200px)",
+    maskImage: mask,
+    WebkitMaskImage: mask,
+  };
+}
+
+/**
+ * Full-bleed photographic band with a one-line headline over it.
+ * Height is capped so very wide screens get a wider surround, not a taller crop.
+ */
+export function PhotoBand({
+  src,
+  alt,
+  headline,
+  kicker,
+  objectPosition = "50% 50%",
+  textSide = "left",
+  caption,
+  sizes,
+}: {
+  src: StaticImageData;
+  alt: string;
+  headline: ReactNode;
+  kicker?: ReactNode;
+  objectPosition?: string;
+  textSide?: "left" | "right";
+  caption?: string;
+  sizes?: string;
+}) {
+  return (
+    <section className="surface-ink relative">
+      <div className="relative mx-auto" style={{ maxWidth: src.width }}>
+        <div className="relative h-[max(300px,72vw)] overflow-hidden md:h-[clamp(420px,40vw,680px)]" style={edgeFade(src.width)}>
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            sizes={sizes || "(min-width: " + src.width + "px) " + src.width + "px, 100vw"}
+            quality={82}
+            placeholder="blur"
+            className="object-cover"
+            style={{ objectPosition }}
+          />
+          <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 via-35% to-transparent to-70%" />
+          <div
+            aria-hidden="true"
+            className={
+              "absolute inset-0 hidden md:block " +
+              (textSide === "left"
+                ? "bg-gradient-to-r from-ink/70 via-transparent via-45% to-transparent"
+                : "bg-gradient-to-l from-ink/70 via-transparent via-45% to-transparent")
+            }
+          />
+        </div>
+      </div>
+      <div className="absolute inset-0 flex items-end">
+        <div className={"wrap pb-8 md:pb-14 " + (textSide === "right" ? "md:flex md:justify-end" : "")}>
+          <div className="max-w-[40rem]">
+            {kicker ? <div className="mb-3">{kicker}</div> : null}
+            <h2 className="t-h2 text-text-inv">{headline}</h2>
+            {caption ? <p className="t-caption mt-4 text-text-inv-2">{caption}</p> : null}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/**
+ * Split hero. From lg up the text sits on solid dark on one side and the
+ * photograph fills the other side full height, so no text can overlap a face
+ * or figure. The photo box starts one text column plus gutters in from the
+ * container edge, so the split holds at every width. Below lg the photo goes
+ * full width on top, 56vw tall.
+ */
+export function SplitHero({
+  src,
+  alt,
+  children,
+  side = "right",
+  objectPositionMobile = "50% 40%",
+  objectPosition = "50% 40%",
+}: {
+  src: StaticImageData;
+  alt: string;
+  children: ReactNode;
+  /** Which side the photograph is on from lg up. */
+  side?: "left" | "right";
+  objectPositionMobile?: string;
+  objectPosition?: string;
+}) {
+  const inset = "calc(max(0px, (100vw - 1320px) / 2) + 40px + 38rem + 40px)";
+  const box: React.CSSProperties =
+    side === "right"
+      ? ({ ["--ph-l" as string]: inset, ["--ph-r" as string]: "0px" } as React.CSSProperties)
+      : ({ ["--ph-l" as string]: "0px", ["--ph-r" as string]: inset } as React.CSSProperties);
+  return (
+    <section className="relative bg-[#0B1118] text-text-inv" style={box}>
+      <div className="relative h-[56vw] lg:absolute lg:inset-y-0 lg:left-[var(--ph-l)] lg:right-[var(--ph-r)] lg:h-auto">
+        <div className="relative mx-auto h-full" style={{ maxWidth: src.width }}>
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            priority
+            sizes={"(min-width: 1024px) 52vw, 100vw"}
+            quality={85}
+            placeholder="blur"
+            className="object-cover [object-position:var(--pos-m)] lg:[object-position:var(--pos-d)]"
+            style={{ ["--pos-m" as string]: objectPositionMobile, ["--pos-d" as string]: objectPosition }}
+          />
+          <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#0B1118] via-transparent to-transparent via-40% lg:hidden" />
+          <div
+            aria-hidden="true"
+            className={
+              "absolute inset-0 hidden lg:block " +
+              (side === "right"
+                ? "bg-gradient-to-r from-[#0B1118] from-0% via-[#0B1118]/60 via-6% to-transparent to-16%"
+                : "bg-gradient-to-l from-[#0B1118] from-0% via-[#0B1118]/60 via-6% to-transparent to-16%")
+            }
+          />
+        </div>
+      </div>
+      <div className={"wrap relative pb-14 pt-10 lg:flex lg:min-h-[clamp(600px,44vw,760px)] lg:items-center lg:pb-24 lg:pt-24 " + (side === "left" ? "lg:justify-end" : "")}>
+        <div className="max-w-[38rem] lg:w-[38rem]">{children}</div>
+      </div>
+    </section>
+  );
+}
