@@ -15,8 +15,10 @@ export function ProofImage({ shot, priority = false }: { shot: ProofShot; priori
     props: { srcSet: desktopSrcSet, sizes: desktopSizes },
   } = getImageProps({ ...common, src: shot.desktop, sizes: "(min-width: 1280px) 860px, (min-width: 768px) 66vw, 100vw" });
   const {
-    props: { srcSet: mobileSrcSet, style: _style, ...img },
+    props: mobileProps,
   } = getImageProps({ ...common, src: shot.mobile, sizes: "100vw" });
+  const { srcSet: mobileSrcSet, style, ...img } = mobileProps;
+  void style;
 
   return (
     <picture
