@@ -22,11 +22,13 @@ export function ProofImage({ shot, priority = false }: { shot: ProofShot; priori
 
   return (
     <picture
-      className="block"
+      className="mx-auto block max-w-[var(--mw-m)] md:max-w-[var(--mw-d)]"
       style={
         {
           "--ar-m": ratio(shot.mobile.width, shot.mobile.height),
           "--ar-d": ratio(shot.desktop.width, shot.desktop.height),
+          "--mw-m": shot.mobile.width + "px",
+          "--mw-d": shot.desktop.width + "px",
         } as React.CSSProperties
       }
     >

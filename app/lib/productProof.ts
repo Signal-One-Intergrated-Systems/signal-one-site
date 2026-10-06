@@ -12,8 +12,8 @@ import controlRoomDesktop from "../../public/images/product-proof/crops/control-
 import controlRoomMobile from "../../public/images/product-proof/crops/control-room-mobile.webp";
 import peopleDesktop from "../../public/images/product-proof/crops/people-access-desktop.webp";
 import peopleMobile from "../../public/images/product-proof/crops/people-access-mobile.webp";
-import proofSummaryDesktop from "../../public/images/product-proof/crops/proof-summary-desktop.webp";
-import proofSummaryMobile from "../../public/images/product-proof/crops/proof-summary-mobile.webp";
+import proofRecordDesktop from "../../public/images/product-proof/crops/proof-record-desktop.webp";
+import proofRecordMobile from "../../public/images/product-proof/crops/proof-record-mobile.webp";
 import type { StaticImageData } from "next/image";
 
 export type ProofShot = {
@@ -37,12 +37,12 @@ export const proofViews: ProofView[] = [
     tab: "Control room",
     screen: "Control room",
     title: "Every SOS in a queue, with acknowledge, navigate and resolve.",
-    body: "Live SOS first, then late SOS, incidents and anything else that needs action. Positions show on the map with their age.",
+    body: "An SOS lands in the queue. The control room acknowledges, navigates and resolves it, and every step is recorded.",
     shots: [
       {
         desktop: controlRoomDesktop,
         mobile: controlRoomMobile,
-        alt: "Signal One Guard Control room queue listing live emergency alerts from a guard at a demo site, each with Navigate, Acknowledge and Resolve buttons, beside a map of last-known positions",
+        alt: "Signal One Guard Control room: a live Emergency alert from a guard at a demo site with Navigate, Acknowledge and Resolve buttons",
       },
     ],
   },
@@ -54,9 +54,9 @@ export const proofViews: ProofView[] = [
     body: "Each scheduled service is marked proven, partly proven, unresolved or not proven, with the reason. Generate a report for the period your client asks about.",
     shots: [
       {
-        desktop: proofSummaryDesktop,
-        mobile: proofSummaryMobile,
-        alt: "Signal One Guard Proof of service summary with a Generate report button and counts of services, proven, partly proven, unresolved and not proven",
+        desktop: proofRecordDesktop,
+        mobile: proofRecordMobile,
+        alt: "Signal One Guard Proof of service record marked Proven, with the attendance and checkpoint line, the reason attendance was verified, and an Evidence button",
       },
     ],
   },
