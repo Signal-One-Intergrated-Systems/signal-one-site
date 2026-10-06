@@ -1,0 +1,12 @@
+# Runs the QA suite in a clean container:
+#   docker build -f Dockerfile.qa -t signal-one-qa . && docker run --rm signal-one-qa
+FROM mcr.microsoft.com/playwright:v1.56.1-noble
+
+WORKDIR /app
+COPY package.json package-lock.json ./
+ENV PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
+RUN npm ci
+COPY . .
+ENV CI=1
+RUN npm run build
+CMD ["npx", "playwright", "test"]

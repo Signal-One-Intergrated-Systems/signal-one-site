@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Signal One public website
 
-## Getting Started
+The public site for **Signal One: Integrated Systems**: Signal One Security (guard management software for South African security companies), radios and tracking by quote, Guard Marketplace (in development) and the guard and careers journeys. Next.js 16 (App Router), React 19, Tailwind v4, TypeScript. It holds no customer, guard or applicant data; see `SITE_INTEGRATION.md` for what it needs from the platform.
 
-First, run the development server:
+## Run it
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm ci
+npm run dev        # http://localhost:3000
+npm run build      # runs the branding check before and after the build
+npm run start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+| Variable | Purpose |
+|---|---|
+| `NEXT_PUBLIC_SITE_URL` | Canonical host (default `https://signalone.co.za`) |
+| `NEXT_PUBLIC_GA_ID` | Enables gtag; events are listed in `app/lib/analytics.ts` |
+| `SIGNAL_ONE_INTAKE_URL`, `SIGNAL_ONE_INTAKE_TOKEN` | Where `/api/intake` forwards form submissions. Unset: forms show an email fallback |
+| `SALES_RECRUITMENT_STATUS`, `SALES_OPEN_ROLES`, `SALES_OS_URL` | Careers page state |
+| `CANONICAL_REDIRECT=1` | Redirect the railway.app host to the canonical domain (off by default) |
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Checks
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run check:branding   # public-truth gate on source (and, after a build, rendered HTML)
+npx tsc --noEmit
+npm run lint
+npm run qa               # build, start the site and a mock intake, run the Playwright suite
+```
 
-## Learn More
+The suite is in `tests/e2e/` and covers: every route (200, one h1, title, canonical), the legacy 308 redirects, the 503 mailto fallback and the mocked-success path for every form, the 14 analytics events (with a `window.gtag` stub), no horizontal scroll at 390px, the branding check on rendered HTML, and axe-core on every route at 390 and 1440 (no serious or critical violations).
 
-To learn more about Next.js, take a look at the following resources:
+`npm run qa` expects a Chromium. Locally, Playwright uses its own browser; to use a specific binary set `PW_CHROMIUM=/path/to/chrome`. To run everything in a clean container:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run qa:docker        # builds Dockerfile.qa and runs the suite
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The suite starts three processes on its own: the site on :3100 (no intake upstream), the site on :3101 pointed at a mock intake, and the mock on :4010 (`tests/e2e/mock-intake.mjs`).
 
-## Deploy on Vercel
+## Where things are
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Path | What |
+|---|---|
+| `app/` | Pages, components, `app/lib` (analytics, intake, photos, product proof, careers config) |
+| `app/components/brand/` | The Signal One mark and lockup |
+| `docs/DESIGN_SYSTEM.md`, `docs/BRAND.md` | Binding design and logo rules |
+| `docs/CONTRAST.md` | Text and background contrast audit |
+| `docs/PHOTOGRAPHY_BRIEF.md` | Photography and product-capture briefs |
+| `docs/OVERNIGHT_REPORT.md` | Report from the unattended hardening run |
+| `scripts/capture-product.mjs` | Captures product screens from a staging tenant (credentials from env) |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Product truth
+
+Marketplace is "in development"; PSiRA details are recorded, not externally verified; the shared device is called "Central Device"; R2 per guard per day excluding VAT, 10 guard-day minimum; radios by quote; Payroll coming soon; Accounting beta. `npm run check:branding` enforces the wording rules.

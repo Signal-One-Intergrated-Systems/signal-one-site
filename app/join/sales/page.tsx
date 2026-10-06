@@ -10,6 +10,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Careers: Sales Representative at Signal One",
   description: "Work at Signal One as a sales representative, selling the operating system South African security companies run on.",
+  alternates: { canonical: "/join/sales" },
   robots: { index: false, follow: true },
 };
 
