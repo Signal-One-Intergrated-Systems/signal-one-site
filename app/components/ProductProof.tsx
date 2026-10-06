@@ -69,11 +69,11 @@ export function ProductWindow({
       <div className="product-window mx-auto hidden w-full max-w-[var(--frame-w)] md:block">
         <div className="product-window-bar">
           <span aria-hidden="true" className="flex gap-1.5">
-            <i className="block h-2.5 w-2.5 rounded-full bg-[#3a414b]" />
-            <i className="block h-2.5 w-2.5 rounded-full bg-[#3a414b]" />
-            <i className="block h-2.5 w-2.5 rounded-full bg-[#3a414b]" />
+            <i className="block h-2.5 w-2.5 rounded-full bg-line-dark" />
+            <i className="block h-2.5 w-2.5 rounded-full bg-line-dark" />
+            <i className="block h-2.5 w-2.5 rounded-full bg-line-dark" />
           </span>
-          <span className="font-semibold text-[#e7eaee]">Signal One Guard · {screen}</span>
+          <span className="font-semibold text-text-inv">Signal One Guard · {screen}</span>
           <span>Synthetic demo data</span>
         </div>
         <ProofImage shot={shot} priority={priority} />
@@ -82,8 +82,8 @@ export function ProductWindow({
       <div className="md:hidden">
         <div className="phone-frame mx-auto w-full max-w-[var(--phone-w)]">
           <div className="phone-screen">
-            <p className="flex justify-between px-3 pb-2 pt-3 text-[0.75rem] text-[#9aa3ad]">
-              <span className="font-semibold text-[#e7eaee]">{screen}</span>
+            <p className="flex justify-between px-3 pb-2 pt-3 text-[0.875rem] text-text-inv-3">
+              <span className="font-semibold text-text-inv">{screen}</span>
               <span>Synthetic demo data</span>
             </p>
             <ProofImage shot={shot} priority={priority} />
@@ -139,8 +139,8 @@ export default function ProductProof({ initial = "control" }: { initial?: string
               className={
                 "min-h-[48px] rounded-ui border px-4 text-[1rem] font-semibold transition-colors " +
                 (selected
-                  ? "border-ink bg-ink text-text-inv"
-                  : "border-[#b9b2a6] bg-transparent text-text hover:bg-paper-2")
+                  ? "border-base bg-base text-text-inv"
+                  : "border-line-strong bg-transparent text-text hover:bg-light-2")
               }
             >
               {item.tab}

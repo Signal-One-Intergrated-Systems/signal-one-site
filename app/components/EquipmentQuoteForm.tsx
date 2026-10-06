@@ -207,7 +207,7 @@ export default function EquipmentQuoteForm() {
           <legend className="field-label mb-2">{label}</legend>
           <div className="grid grid-cols-1 gap-2 min-[420px]:grid-cols-3">
             {field.options?.map((option) => (
-              <label key={option} className="choice text-signal">
+              <label key={option} className="choice text-signal-ink">
                 <input
                   type="radio"
                   name={field.name}
@@ -284,7 +284,7 @@ export default function EquipmentQuoteForm() {
         <legend className="t-h3">What do you need a quote for?</legend>
         <div className="mt-4 grid gap-2 sm:grid-cols-3">
           {(Object.keys(categories) as Category[]).map((key) => (
-            <label key={key} className="choice text-signal">
+            <label key={key} className="choice text-signal-ink">
               <input
                 type="radio"
                 name="category"

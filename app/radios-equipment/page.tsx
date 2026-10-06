@@ -44,7 +44,7 @@ const catalogue = [
 export default function RadiosEquipmentPage() {
   return (
     <main id="main">
-      <section className="surface-ink">
+      <section className="surface-base">
         <div className="wrap grid gap-10 py-14 md:py-20 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-end lg:gap-16">
           <div>
             <div className="flex flex-wrap items-center gap-3">
@@ -67,7 +67,7 @@ export default function RadiosEquipmentPage() {
         </div>
       </section>
 
-      <section className="surface-paper section">
+      <section className="surface-light section">
         <div className="wrap">
           <h2 className="t-h2">The catalogue</h2>
           <p className="t-body measure mt-3 text-text-2">
@@ -78,7 +78,7 @@ export default function RadiosEquipmentPage() {
           <div className="mt-12 grid gap-16">
             {catalogue.map((group) => (
               <section key={group.id} id={group.id} aria-labelledby={group.id + "-h"} className="scroll-mt-[72px]">
-                <div className="grid gap-4 border-t-2 border-ink pt-6 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
+                <div className="grid gap-4 border-t-2 border-base pt-6 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
                   <div>
                     <h3 id={group.id + "-h"} className="t-h3">
                       {group.category}
@@ -100,7 +100,7 @@ export default function RadiosEquipmentPage() {
             ))}
           </div>
 
-          <div className="mt-16 rounded-card bg-paper-2 p-6 sm:p-8">
+          <div className="mt-16 rounded-card bg-light-2 p-6 sm:p-8">
             <div className="flex flex-wrap items-center gap-3">
               <h2 className="t-h4">Equipment and the Signal One platform</h2>
               <Status kind="soon">Coming soon</Status>

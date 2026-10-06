@@ -21,12 +21,12 @@ const examples = [
 export default function PricingPage() {
   return (
     <main id="main">
-      <section className="surface-ink">
+      <section className="surface-base">
         <div className="wrap grid gap-10 py-14 md:py-20 lg:grid-cols-[minmax(0,6fr)_minmax(0,6fr)] lg:items-end lg:gap-16">
           <div>
             <Kicker tone="dark">Signal One Security pricing</Kicker>
             <h1 className="mt-6 flex flex-wrap items-end gap-x-5 gap-y-2">
-              <span className="t-num text-[7rem] text-signal-bright sm:text-[10rem] lg:text-[12rem]">R2</span>
+              <span className="t-num text-[7rem] text-signal-400 sm:text-[10rem] lg:text-[12rem]">R2</span>
               <span className="pb-4 font-display text-[1.75rem] font-semibold leading-tight sm:text-[2.25rem]">
                 per guard
                 <br />
@@ -45,7 +45,7 @@ export default function PricingPage() {
                 ["1", "guard day"],
               ].map(([num, label], index) => (
                 <div key={label} className="contents">
-                  <div className="rounded-card border border-line-dark bg-graphite px-2 py-4 sm:px-4">
+                  <div className="rounded-card border border-line-dark bg-raised px-2 py-4 sm:px-4">
                     <p className="t-num text-[2.5rem] text-text-inv">{num}</p>
                     <p className="mt-2 text-[0.9375rem] leading-snug text-text-inv-2">{label}</p>
                   </div>
@@ -64,7 +64,7 @@ export default function PricingPage() {
         </div>
       </section>
 
-      <section id="calculator" className="surface-paper section scroll-mt-[72px]">
+      <section id="calculator" className="surface-light section scroll-mt-[72px]">
         <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-16">
           <GuardDayCalculator heading="Calculate your guard cost" />
 
@@ -95,7 +95,7 @@ export default function PricingPage() {
           <div className="mt-8 overflow-hidden rounded-card ring-1 ring-line">
             <table className="w-full border-collapse text-left">
               <caption className="sr-only">Guard day cost examples</caption>
-              <thead className="bg-paper-2 text-[0.9375rem]">
+              <thead className="bg-light-2 text-[0.9375rem]">
                 <tr>
                   <th scope="col" className="px-4 py-3 font-semibold sm:px-6">Guards</th>
                   <th scope="col" className="px-4 py-3 font-semibold sm:px-6">Days</th>
@@ -118,7 +118,7 @@ export default function PricingPage() {
         </div>
       </section>
 
-      <section className="surface-paper section">
+      <section className="surface-light section">
         <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
           <div>
             <h2 className="t-h2">Priced separately</h2>
@@ -137,7 +137,7 @@ export default function PricingPage() {
                   <h3 className="t-h4">{item.name}</h3>
                   <p className="t-small mt-1 text-text-2">{item.body}</p>
                   {item.href ? (
-                    <Link href={item.href} className="link-arrow text-signal">
+                    <Link href={item.href} className="link-arrow text-signal-ink">
                       Radios & Tracking <Arrow />
                     </Link>
                   ) : null}
@@ -149,7 +149,7 @@ export default function PricingPage() {
         </div>
       </section>
 
-      <section className="surface-ink section">
+      <section className="surface-base section">
         <div className="wrap flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-2xl">
             <h2 className="t-h2">Ready to start with guard days?</h2>

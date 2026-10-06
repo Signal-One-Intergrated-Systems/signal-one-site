@@ -16,7 +16,7 @@ export default function LegalPage({
   footer?: ReactNode;
 }) {
   return (
-    <main id="main" className="surface-paper">
+    <main id="main" className="surface-light">
       <article className="wrap-narrow py-12 md:py-20">
         <Kicker>{kicker}</Kicker>
         <h1 className="t-h1 mt-4">{title}</h1>

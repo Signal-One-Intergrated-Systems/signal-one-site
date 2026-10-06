@@ -7,7 +7,7 @@ import { Check } from "../ui";
 import { Consent, JMulti, JRadio, JSelect, JText, ReviewList } from "./fields";
 import { useJourney } from "./useJourney";
 
-const ACCENT = "text-field";
+const ACCENT = "text-signal-ink";
 
 const provinces = [
   "Gauteng",
@@ -47,7 +47,7 @@ function StepShell({
   return (
     <>
       <h1 className="font-display text-[2rem] font-bold leading-[1.1] tracking-[-0.02em] sm:text-[2.5rem]">{title}</h1>
-      <div className="mt-4 rounded-card bg-field-tint p-4 text-[1.0625rem] leading-relaxed">
+      <div className="mt-4 rounded-card bg-signal-tint p-4 text-[1.0625rem] leading-relaxed">
         <span className="font-semibold">Why we ask: </span>
         {why}
       </div>
@@ -108,7 +108,7 @@ export default function GuardJoin() {
     return (
       <div className="world-guard mx-auto max-w-[720px] px-4 py-12 sm:px-6 md:py-16">
         <div role="status">
-          <span className="grid h-14 w-14 place-items-center rounded-full bg-field text-white">
+          <span className="grid h-14 w-14 place-items-center rounded-full bg-signal text-deep">
             <Check />
           </span>
           <h1 className="mt-6 font-display text-[2.25rem] font-bold leading-tight tracking-[-0.02em]">
@@ -124,7 +124,7 @@ export default function GuardJoin() {
             ["We contact you", "Using the contact details you gave, to confirm your details and PSiRA registration. We cannot say when."],
           ].map(([title, body], index) => (
             <li key={title} className="grid grid-cols-[2.75rem_1fr] gap-4 border-t border-line py-5">
-              <span className="t-num text-[1.75rem] text-field">{index + 1}</span>
+              <span className="t-num text-[1.75rem] text-signal-600">{index + 1}</span>
               <div>
                 <h2 className="text-[1.1875rem] font-semibold">{title}</h2>
                 <p className="mt-1 text-[1.0625rem] text-text-2">{body}</p>
@@ -137,12 +137,12 @@ export default function GuardJoin() {
         </p>
         <p className="mt-4 text-[1.0625rem] text-text-2">
           Want something corrected or removed? Email{" "}
-          <a href="mailto:sales@signalone.co.za" className="link-inline font-semibold text-field">
+          <a href="mailto:sales@signalone.co.za" className="link-inline font-semibold text-signal-ink">
             sales@signalone.co.za
           </a>
           .
         </p>
-        <Link href="/guards" className="btn btn-field btn-lg mt-8">
+        <Link href="/guards" className="btn btn-primary btn-lg mt-8">
           Back to Signal One for guards
         </Link>
       </div>
@@ -171,7 +171,7 @@ export default function GuardJoin() {
         aria-valuetext={"Step " + (j.stepIndex + 1) + " of " + steps.length + ", " + current.label}
       >
         {steps.map((step, index) => (
-          <span key={step.id} className={"h-2 rounded-full " + (index <= j.stepIndex ? "bg-field" : "bg-line")} />
+          <span key={step.id} className={"h-2 rounded-full " + (index <= j.stepIndex ? "bg-signal" : "bg-line")} />
         ))}
       </div>
 
@@ -193,7 +193,7 @@ export default function GuardJoin() {
                   "The areas you can travel to for work",
                 ].map((item) => (
                   <li key={item} className="flex gap-3">
-                    <Check className="mt-1 text-field" />
+                    <Check className="mt-1 text-signal-ink" />
                     {item}
                   </li>
                 ))}
@@ -202,7 +202,7 @@ export default function GuardJoin() {
                 <h2 className="text-[1.125rem] font-semibold">Your profile is private</h2>
                 <p className="mt-1 text-[1.0625rem] text-text-2">
                   We save your profile and Signal One reviews it. When Guard Marketplace launches, signed-in Signal One client companies will be able to find your profile and send you a hire request, which you accept or decline. Your profile is never shown on a public website.{" "}
-                  <Link href="/guards#your-information" className="link-inline text-field">
+                  <Link href="/guards#your-information" className="link-inline text-signal-ink">
                     How we use your information
                   </Link>
                 </p>
@@ -439,7 +439,7 @@ export default function GuardJoin() {
           ) : (
             <span />
           )}
-          <button type="submit" disabled={j.status === "sending"} className="btn btn-field btn-lg">
+          <button type="submit" disabled={j.status === "sending"} className="btn btn-primary btn-lg">
             {current.id === "learn"
               ? "Start my profile"
               : current.id === "review"

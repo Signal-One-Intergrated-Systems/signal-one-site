@@ -16,7 +16,7 @@ export function Kicker({
   className?: string;
 }) {
   return (
-    <p className={"t-kicker " + (tone === "dark" ? "text-signal-bright" : "text-signal") + " " + className}>
+    <p className={"t-kicker " + (tone === "dark" ? "text-signal-400" : "text-signal-ink") + " " + className}>
       {children}
     </p>
   );
@@ -27,7 +27,7 @@ const statusStyles = {
   beta: { light: "bg-beta-tint text-beta", dark: "bg-white/8 text-beta-inv" },
   mvp: { light: "bg-beta-tint text-beta", dark: "bg-white/8 text-beta-inv" },
   soon: { light: "bg-soon-tint text-soon", dark: "bg-white/8 text-soon-inv" },
-  quote: { light: "bg-signal-tint text-signal", dark: "bg-white/8 text-signal-bright" },
+  quote: { light: "bg-signal-tint text-signal-ink", dark: "bg-white/8 text-signal-400" },
 } as const;
 
 /**
@@ -149,7 +149,7 @@ export function Photo({
 export function Steps({
   items,
   tone = "light",
-  accentClass = "text-signal",
+  accentClass = "text-signal-ink",
 }: {
   items: ReadonlyArray<readonly [string, string]>;
   tone?: Tone;
@@ -214,7 +214,7 @@ export function PhotoBand({
   sizes?: string;
 }) {
   return (
-    <section className="surface-ink relative">
+    <section className="surface-base relative">
       <div className="relative mx-auto" style={{ maxWidth: src.width }}>
         <div className="relative h-[max(300px,72vw)] overflow-hidden md:h-[clamp(420px,40vw,680px)]" style={edgeFade(src.width)}>
           <Image
@@ -227,14 +227,14 @@ export function PhotoBand({
             className="object-cover"
             style={{ objectPosition }}
           />
-          <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 via-35% to-transparent to-70%" />
+          <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-base from-0% via-base/85 via-30% to-transparent to-80%" />
           <div
             aria-hidden="true"
             className={
               "absolute inset-0 hidden md:block " +
               (textSide === "left"
-                ? "bg-gradient-to-r from-ink/70 via-transparent via-45% to-transparent"
-                : "bg-gradient-to-l from-ink/70 via-transparent via-45% to-transparent")
+                ? "bg-gradient-to-r from-base/70 via-transparent via-45% to-transparent"
+                : "bg-gradient-to-l from-base/70 via-transparent via-45% to-transparent")
             }
           />
         </div>
@@ -242,7 +242,7 @@ export function PhotoBand({
       <div className="absolute inset-0 flex items-end">
         <div className={"wrap pb-8 md:pb-14 " + (textSide === "right" ? "md:flex md:justify-end" : "")}>
           <div className="max-w-[40rem]">
-            {kicker ? <div className="mb-3">{kicker}</div> : null}
+            {kicker ? <div className="mb-4 inline-flex rounded-ui bg-base px-3 py-2">{kicker}</div> : null}
             <h2 className="t-h2 text-text-inv">{headline}</h2>
             {caption ? <p className="t-caption mt-4 text-text-inv-2">{caption}</p> : null}
           </div>
@@ -281,7 +281,7 @@ export function SplitHero({
       ? ({ ["--ph-l" as string]: inset, ["--ph-r" as string]: "0px" } as React.CSSProperties)
       : ({ ["--ph-l" as string]: "0px", ["--ph-r" as string]: inset } as React.CSSProperties);
   return (
-    <section className="relative bg-[#0B1118] text-text-inv" style={box}>
+    <section className="relative bg-deep text-text-inv" style={box}>
       <div className="relative h-[56vw] lg:absolute lg:inset-y-0 lg:left-[var(--ph-l)] lg:right-[var(--ph-r)] lg:h-auto">
         <div className="relative mx-auto h-full" style={{ maxWidth: src.width }}>
           <Image
@@ -295,14 +295,14 @@ export function SplitHero({
             className="object-cover [object-position:var(--pos-m)] lg:[object-position:var(--pos-d)]"
             style={{ ["--pos-m" as string]: objectPositionMobile, ["--pos-d" as string]: objectPosition }}
           />
-          <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#0B1118] via-transparent to-transparent via-40% lg:hidden" />
+          <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-deep via-transparent to-transparent via-40% lg:hidden" />
           <div
             aria-hidden="true"
             className={
               "absolute inset-0 hidden lg:block " +
               (side === "right"
-                ? "bg-gradient-to-r from-[#0B1118] from-0% via-[#0B1118]/60 via-6% to-transparent to-16%"
-                : "bg-gradient-to-l from-[#0B1118] from-0% via-[#0B1118]/60 via-6% to-transparent to-16%")
+                ? "bg-gradient-to-r from-deep from-0% via-deep/60 via-6% to-transparent to-16%"
+                : "bg-gradient-to-l from-deep from-0% via-deep/60 via-6% to-transparent to-16%")
             }
           />
         </div>

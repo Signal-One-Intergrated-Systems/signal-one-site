@@ -27,7 +27,7 @@ export default function SecurityTrustPage() {
       sections={sections}
       footer={
         <>
-          Procurement or security review? Contact <a href="mailto:sales@signalone.co.za" className="link-inline font-semibold text-signal">sales@signalone.co.za</a>. Contractual support hours, data-location commitments, backup retention and recovery objectives are confirmed in the applicable customer agreement rather than invented on the public website.
+          Procurement or security review? Contact <a href="mailto:sales@signalone.co.za" className="link-inline font-semibold text-signal-ink">sales@signalone.co.za</a>. Contractual support hours, data-location commitments, backup retention and recovery objectives are confirmed in the applicable customer agreement rather than invented on the public website.
         </>
       }
     />

@@ -1,6 +1,6 @@
 # Signal One brand: logo definition
 
-Source: the Signal One quotation standard. Reproduce it exactly; do not redesign.
+Source: the Signal One quotation standard. Reproduce it exactly; do not redesign. Website palette and type: `docs/DESIGN_SYSTEM.md` (the lockup colours below are the standard's own and are exempt from the site contrast rules, as logotypes).
 
 ## Mark
 
@@ -61,7 +61,7 @@ No new shapes, no filled square, no rotation, no outlines, no gradients, no reco
 | `app/components/brand/SignalOneMark.tsx` | Mark. Props: `size`, `tone`, `pulse`. |
 | `app/components/brand/SignalOneLogo.tsx` | Lockup. Props: `size`, `tone`, `pulse`. |
 | `public/brand/signal-one-mark.svg` | Static mark. |
-| `public/brand/signal-one-logo-light.svg`, `signal-one-logo-dark.svg` | Static lockups. Text is live SVG text using Archivo, then Inter, then a system sans; outline it before sending to print. |
+| `public/brand/signal-one-logo-light.svg`, `signal-one-logo-dark.svg` | Static lockups. Text is live SVG text in Inter (then a system sans); outline it before sending to print. |
 | `app/favicon.ico` (16/32/48), `app/icon.png` (512), `app/apple-icon.png` (180) | The dark-tone static mark on `#0B1118`. The Apple icon is a full-bleed square (iOS applies its own rounding). |
 | `public/og-image.jpg` | 1200×630, dark lockup. |
 

@@ -33,7 +33,7 @@ export default function SecurityPlatformPage() {
 
   return (
     <main id="main">
-      <section className="surface-ink">
+      <section className="surface-base">
         <div className="wrap grid gap-12 py-14 md:py-20 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:items-center lg:gap-14">
           <div>
             <div className="flex flex-wrap items-center gap-3">
@@ -61,7 +61,7 @@ export default function SecurityPlatformPage() {
       </section>
 
       {/* Coverage */}
-      <section className="surface-paper section">
+      <section className="surface-light section">
         <div className="wrap grid gap-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-14">
           <div>
             <Kicker>Coverage and supervision</Kicker>
@@ -70,7 +70,7 @@ export default function SecurityPlatformPage() {
             <ul className="m-0 mt-6 grid list-none gap-3 p-0">
               {["Sites, posts and shifts", "Roster or map view", "Shortfalls per post", "Guards on duty now"].map((item) => (
                 <li key={item} className="t-body flex gap-3">
-                  <Check className="mt-1 text-signal" />
+                  <Check className="mt-1 text-signal-ink" />
                   {item}
                 </li>
               ))}
@@ -122,7 +122,7 @@ export default function SecurityPlatformPage() {
       </section>
 
       {/* PSiRA */}
-      <section className="surface-paper-2 section">
+      <section className="surface-light-2 section">
         <div className="wrap grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-14">
           <div>
             <Kicker>PSiRA</Kicker>
@@ -145,7 +145,7 @@ export default function SecurityPlatformPage() {
       </section>
 
       {/* Proof + client portal */}
-      <section className="surface-ink section">
+      <section className="surface-base section">
         <div className="wrap">
           <div className="grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-14">
             <div>
@@ -175,7 +175,7 @@ export default function SecurityPlatformPage() {
       </section>
 
       {/* People & access */}
-      <section className="surface-paper section">
+      <section className="surface-light section">
         <div className="wrap grid gap-10 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-center lg:gap-14">
           <ProductWindow screen={people.screen} shot={people.shots[0]} className="order-2 lg:order-1" />
           <div className="order-1 lg:order-2">
@@ -186,7 +186,7 @@ export default function SecurityPlatformPage() {
         </div>
       </section>
 
-      <section className="surface-ink section">
+      <section className="surface-base section">
         <div className="wrap flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-2xl">
             <h2 className="t-h2">See it on your own operation.</h2>

@@ -37,10 +37,10 @@ const worlds: Record<
       { href: "/join/sales", label: "Careers" },
     ],
     cta: { href: "/#product", label: "See Signal One in action" },
-    shell: "bg-ink text-text-inv border-b border-line-dark",
+    shell: "bg-base text-text-inv border-b border-line-dark",
     link: "text-text-inv hover:bg-white/8",
     cta_class: "btn btn-primary",
-    sheet: "bg-ink text-text-inv",
+    sheet: "bg-base text-text-inv",
   },
   guard: {
     identity: "For security officers",
@@ -52,10 +52,10 @@ const worlds: Record<
     ],
     secondary: [{ href: "/", label: "For security companies" }],
     cta: { href: "/guards/join", label: "Create your profile" },
-    shell: "bg-sand text-text border-b border-line",
+    shell: "bg-light text-text border-b border-line",
     link: "text-text hover:bg-black/5",
-    cta_class: "btn btn-field",
-    sheet: "bg-sand text-text",
+    cta_class: "btn btn-primary",
+    sheet: "bg-light text-text",
   },
   careers: {
     identity: "Careers",
@@ -66,10 +66,10 @@ const worlds: Record<
     ],
     secondary: [{ href: "/", label: "About Signal One" }],
     cta: { href: "/join/sales#apply", label: "Apply" },
-    shell: "bg-paper text-text border-b border-line",
+    shell: "bg-light text-text border-b border-line",
     link: "text-text hover:bg-black/5",
-    cta_class: "btn btn-brass",
-    sheet: "bg-paper text-text",
+    cta_class: "btn btn-primary",
+    sheet: "bg-light text-text",
   },
 };
 
@@ -161,7 +161,7 @@ export default function Header() {
           aria-controls="mobile-nav"
           className={
             "flex min-h-[44px] items-center gap-2 rounded-ui border px-3.5 text-[1rem] font-semibold lg:hidden " +
-            (dark ? "border-white/30" : "border-[#b9b2a6]")
+            (dark ? "border-white/30" : "border-line-strong")
           }
         >
           <span>{open ? "Close" : "Menu"}</span>

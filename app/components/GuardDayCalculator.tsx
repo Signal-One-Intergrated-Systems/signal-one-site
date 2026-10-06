@@ -96,7 +96,7 @@ export default function GuardDayCalculator({ heading = "Calculate your guard cos
           </div>
           <div className="text-right">
             <p className="t-small text-text-2">Total, excl. VAT</p>
-            <p className="t-num mt-2 text-[2.75rem] text-signal sm:text-[3.25rem]">{money(result.exVat)}</p>
+            <p className="t-num mt-2 text-[2.75rem] text-signal-600 sm:text-[3.25rem]">{money(result.exVat)}</p>
           </div>
         </div>
         <p className="t-small mt-4 text-text-2">
