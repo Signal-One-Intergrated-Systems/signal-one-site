@@ -1,48 +1,29 @@
 import type { MetadataRoute } from "next";
+import { siteUrl } from "./lib/site";
 
-const base =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://signalone.co.za";
+// /join/sales is intentionally excluded (noindex careers page).
+const routes: ReadonlyArray<[string, MetadataRoute.Sitemap[number]["changeFrequency"], number]> = [
+  ["", "weekly", 1],
+  ["/solutions/security", "monthly", 0.9],
+  ["/pricing", "monthly", 0.9],
+  ["/radios-equipment", "monthly", 0.85],
+  ["/guard-marketplace", "monthly", 0.8],
+  ["/contact", "monthly", 0.8],
+  ["/get-started", "monthly", 0.7],
+  ["/guards", "monthly", 0.7],
+  ["/guards/join", "monthly", 0.6],
+  ["/security-trust", "yearly", 0.4],
+  ["/popia", "yearly", 0.3],
+  ["/privacy", "yearly", 0.3],
+  ["/terms", "yearly", 0.3],
+];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = [
-    "",
-    "/guard-marketplace",
-    "/radios-equipment",
-    "/pricing",
-    "/solutions/security",
-    "/get-started",
-    "/contact",
-    "/guards",
-    "/guards/join",
-    "/security-trust",
-    "/privacy",
-    "/popia",
-    "/terms",
-  ];
-
-  return routes.map((route) => ({
-    url: base + route,
-    lastModified: new Date(),
-    changeFrequency:
-      route === "" ||
-      route === "/guard-marketplace" ||
-      route === "/radios-equipment" ||
-      route === "/pricing"
-        ? "weekly"
-        : "monthly",
-    priority:
-      route === ""
-        ? 1
-        : route === "/pricing" ||
-            route === "/guard-marketplace" ||
-            route === "/radios-equipment"
-          ? 0.9
-          : route === "/solutions/security" ||
-              route === "/get-started" ||
-              route === "/contact"
-            ? 0.85
-            : route.startsWith("/guards")
-              ? 0.7
-              : 0.45,
+  const lastModified = new Date();
+  return routes.map(([route, changeFrequency, priority]) => ({
+    url: siteUrl + route,
+    lastModified,
+    changeFrequency,
+    priority,
   }));
 }
