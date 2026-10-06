@@ -24,7 +24,7 @@ Final gates, all passing on this branch: `npm run check:branding`, `npx tsc --no
 
 ## W1: Permanent QA suite
 
-**Status: done.** `npm run qa` (build, then Playwright, which starts the site on :3100, the site with a mock intake on :3101 and the mock on :4010). 103 tests, all passing, about 50s.
+**Status: done.** `npm run qa` (build, then Playwright, which starts the site on :3100, the site with a mock intake on :3101 and the mock on :4010). 135 tests (103 at first run, plus SEO, OG, JSON-LD and redirect tests added in W4), all passing, about a minute.
 
 | Area | Tests |
 |---|---|
