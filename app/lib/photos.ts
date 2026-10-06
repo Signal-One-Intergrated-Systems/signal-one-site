@@ -14,7 +14,6 @@ import logisticsGate from "../../public/images/photo/logistics-gate.webp";
 import officeParkAccess from "../../public/images/photo/office-park-access.webp";
 import checkpoint from "../../public/images/story/checkpoint.webp";
 import femaleGuard from "../../public/images/story/female-guard.webp";
-import fieldSupervisor from "../../public/images/story/field-supervisor.webp";
 import careersDesk from "../../public/images/story/sales.webp";
 
 export const photos = {
@@ -42,10 +41,6 @@ export const photos = {
   guardPatrol: {
     src: checkpoint,
     alt: "A security officer on patrol scanning a checkpoint mounted beside a gate",
-  },
-  supervisor: {
-    src: fieldSupervisor,
-    alt: "A site supervisor walking the yard with a clipboard tablet while an officer stands at the guardhouse",
   },
   careersDesk: {
     src: careersDesk,

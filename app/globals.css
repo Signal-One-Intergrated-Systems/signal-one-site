@@ -597,3 +597,28 @@
     animation: s1-enter 320ms var(--ease-out-soft) both;
   }
 }
+
+/* World accents for form focus states */
+@layer components {
+  .world-guard .field-input:focus {
+    border-color: var(--color-field);
+    box-shadow: 0 0 0 3px rgba(15, 90, 70, 0.22);
+  }
+  .world-guard .check input {
+    accent-color: var(--color-field);
+  }
+  .world-guard .field-input {
+    font-size: 1.125rem;
+    min-height: 56px;
+  }
+  .world-guard .field-label {
+    font-size: 1.0625rem;
+  }
+  .world-careers .field-input:focus {
+    border-color: var(--color-brass);
+    box-shadow: 0 0 0 3px rgba(133, 87, 15, 0.22);
+  }
+  .world-careers .check input {
+    accent-color: var(--color-brass);
+  }
+}
