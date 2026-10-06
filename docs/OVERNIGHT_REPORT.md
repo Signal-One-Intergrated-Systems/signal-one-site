@@ -1,6 +1,26 @@
 # Overnight hardening report
 
-_Verdict is written at the end of the run; see the top of this file once the PR is open._
+## Verdict
+
+| Workstream | Result |
+|---|---|
+| W1 Permanent QA suite | **Done.** 135 Playwright tests (routes, redirects, five forms on both paths, 14 analytics events, 390px overflow, branding on rendered HTML, axe at 390 and 1440 with zero serious or critical), stable over four consecutive full runs. `npm run qa`, `Dockerfile.qa`, new README. Docker image written but not built (no Docker daemon in this environment). |
+| W2 Remaining pages | **Done.** All pages on tokens and Inter, split heroes and `PageHero`, hardware-led typographic radios catalogue, legal layout with "Under legal review." (wording untouched), wide-screen type scale, on-brand 404 and error pages. Screenshots in `docs/qa/overnight/`. |
+| W3 Speed | **Done.** Perf 99 on all four pages, CLS 0, LCP medians 1.96 to 2.19 s (target 2.5 s). Before and after below. |
+| W4 Search and sharing | **Done.** Unique titles and descriptions, per-page OG images (next/og, dark lockup), JSON-LD (Organization, SoftwareApplication with the R2 offer, no ratings), three product-true landing pages linked from the footer, `CANONICAL_REDIRECT=1` host redirect (off by default, tested). |
+| W5 Copy and truth sweep | **Done.** Present-tense Marketplace promises removed, status labels unified, en-ZA checked, numbers not derived from R2 or the 10-day minimum listed. |
+
+Final gates, all passing on this branch: `npm run check:branding`, `npx tsc --noEmit`, `npm run lint`, `npm run build`, `npm run qa` (135 of 135).
+
+**Waiting on Simon**
+- **DNS** for the canonical domain; then set `NEXT_PUBLIC_SITE_URL` and `CANONICAL_REDIRECT=1` on the deployed service (not touched here).
+- **Intake destination:** `SIGNAL_ONE_INTAKE_URL` and token, and the receiver contract in `SITE_INTEGRATION.md`. Until then every form shows the email fallback.
+- **Careers status:** `SALES_RECRUITMENT_STATUS`, open roles and the Sales OS sign-in URL are still env-driven defaults (open, no count, placeholder link).
+- **Demo-tenant capture:** product screenshots are the cleanest regions of test-tenant captures; "My operation" and the proof detail list are not shown. Run `scripts/capture-product.mjs` once the curated tenant is on staging (`docs/PHOTOGRAPHY_BRIEF.md`, "Product capture").
+- **Photography:** every photograph is AI-generated and captioned "Illustrative scene"; commissioned replacements per `docs/PHOTOGRAPHY_BRIEF.md`.
+- **Product photos** for the radios, trackers and body camera, so the catalogue can move beyond typographic cards.
+- **Legal review** of privacy, POPIA, terms and the security and trust page (they now say "Under legal review." where agreed; wording is unchanged).
+- Confirm the journey time estimates and the 15% VAT line listed under W5.
 
 ## W1: Permanent QA suite
 
@@ -41,22 +61,24 @@ Also added: `Dockerfile.qa` (Playwright 1.56.1 image; `npm run qa:docker`), a re
 
 ## W3: Speed
 
-**Status: done, with two pages at the edge of the LCP target.** Lighthouse 13, local Chromium, mobile profile (default simulated throttling), production build. Scores are the median of three runs; the first run of each page before and after is saved in `docs/qa/lighthouse/` (trimmed to the headline metrics).
+**Status: done, targets met on the final run.** Lighthouse 13, local Chromium, mobile profile (default simulated throttling), production build. Scores are the median of three runs. The first run of each page before and after is saved in `docs/qa/lighthouse/` (trimmed to the headline metrics; `final-*` is the last full run).
 
-| Page | Perf before | Perf after | LCP before | LCP after (median) | CLS | TBT after |
+| Page | Perf before | Perf final | LCP before | LCP final (median, range) | CLS | TBT final |
 |---|---|---|---|---|---|---|
-| `/` | 96 | 98 | 2.74 s | 2.38 s | 0 | 32 ms |
-| `/pricing` | 97 | 99 | 2.51 s | 1.96 s | 0 | 33 ms |
-| `/guards` | 99 | 97 | 2.03 s | 2.58 s (runs 2.48 to 2.67) | 0 | 32 ms |
-| `/radios-equipment` | 99 | 97 | 1.96 s | 2.50 s (runs 2.44 to 2.52) | 0 | 30 ms |
+| `/` | 96 | 99 | 2.74 s | 2.19 s (2.19 to 2.34) | 0 | 50 ms |
+| `/pricing` | 97 | 99 | 2.51 s | 1.96 s (1.96 to 2.49) | 0 | 30 ms |
+| `/guards` | 99 | 99 | 2.03 s | 2.04 s (2.03 to 2.37) | 0 | 28 ms |
+| `/radios-equipment` | 99 | 99 | 1.96 s | 2.11 s (1.96 to 2.44) | 0 | 41 ms |
 
-Targets: performance at least 90 (met on all four), CLS under 0.05 (met, 0), LCP under 2.5 s (met on `/` and `/pricing`; `/guards` and `/radios-equipment` sit at 2.5 to 2.6 s on simulated throttling, within run-to-run noise of the target but not clearly under it).
+Targets: performance at least 90 (met), CLS under 0.05 (met, 0), LCP under 2.5 s (met on the median of every page; single runs vary by up to about 0.5 s on simulated throttling, so an individual run can land just over 2.5 s).
+
+An intermediate run, taken before the copy changes and the new pages, put `/guards` at 2.58 s and `/radios-equipment` at 2.50 s; the final run above is the one to trust, and the run-to-run spread is the honest uncertainty.
 
 **What changed**
-- `next/font` Inter now uses `display: "optional"`: the page never waits for or reflows to the web font (the metric-matched fallback shows if the font is not ready in 100 ms). This is what moved `/pricing` (LCP is the "R2" text) from 2.51 s to 1.96 s.
+- `next/font` Inter now uses `display: "optional"`: the page never waits for or reflows to the web font (the metric-matched fallback shows if the font is not ready in 100 ms). This is what moved `/pricing` (LCP is the "R2" text) from 2.51 s to under 2 s.
 - Hero photograph: `fetchPriority="high"`, quality 70; photo bands and `Photo` at quality 75. `images.qualities` is now `[70, 75, 90]` (it was `[75, 90, 92, 94]`, which also silently rounded the requested 85 up to 90). Product screenshots stay at 90.
 
-**Where it stopped.** Measured (non-simulated) LCP sub-parts are tiny (first byte 14 ms, resource load 12 to 27 ms, render delay 80 ms), and the remaining 1.8 s between FCP and LCP in the simulation comes from simulated 4G transfer of the render-blocking CSS, the 70 KB React runtime chunk, the 48 KB font and the hero image together. Further gains need a smaller framework payload (not available without dropping Next features) or a smaller hero image, which would cost visible quality. Left as is.
+**Where it stopped.** Measured (non-simulated) LCP sub-parts are small (first byte about 14 ms, resource load 12 to 27 ms, render delay about 80 ms). The remaining time between FCP and LCP in the simulation comes from simulated 4G transfer of the render-blocking CSS, the 70 KB React runtime chunk, the 48 KB font and the hero image together. Going lower needs a smaller framework payload or a smaller hero image (visible quality cost). Left as is.
 
 ## W4: Search and sharing
 
