@@ -1,81 +1,82 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import { premiumImages } from "../lib/premiumImages";
 import IntakeForm, { type IntakeField } from "../components/IntakeForm";
+import { Kicker, Steps } from "../components/ui";
 
 export const metadata: Metadata = {
   title: "Talk to Signal One",
-  description: "Talk to Signal One about Guard, Guard Marketplace, PTT radios, tracking, client proof and your security operation.",
+  description:
+    "Talk to a Signal One representative about security guard management software, guard pricing, Guard Marketplace, PTT radio rental and tracking for your security company.",
   alternates: { canonical: "/contact" },
 };
 
 const fields: IntakeField[] = [
-  { name: "companyName", label: "Security company", required: true, placeholder: "Company name" },
-  { name: "contactName", label: "Your name", required: true, placeholder: "Full name" },
-  { name: "email", label: "Business email", type: "email", required: true, placeholder: "name@company.co.za" },
-  { name: "mobile", label: "Mobile number", type: "tel", required: true, placeholder: "+27" },
+  { name: "contactName", label: "Your name", required: true, autoComplete: "name" },
+  { name: "companyName", label: "Security company", required: true, autoComplete: "organization" },
+  { name: "email", label: "Work email", type: "email", required: true, autoComplete: "email" },
+  { name: "mobile", label: "Mobile number", type: "tel", required: true, autoComplete: "tel", placeholder: "+27" },
   {
-    name: "need",
-    label: "What do you need better control of?",
-    type: "textarea",
+    name: "topic",
+    label: "What would you like to talk about?",
+    type: "select",
     required: true,
-    placeholder: "For example: post coverage, attendance, patrol proof, Control Room visibility, client reporting, devices or a multi-site rollout.",
+    wide: true,
+    options: [
+      "A walkthrough of the platform",
+      "Guard pricing and getting started",
+      "Radios, PTT, tracking or body cameras",
+      "Guard Marketplace",
+      "Something else",
+    ],
+  },
+  {
+    name: "message",
+    label: "Anything we should know",
+    type: "textarea",
+    placeholder: "Number of sites and guards, a contract you are bidding on, or what is not working today.",
   },
 ];
 
 export default function ContactPage() {
   return (
-    <main className="min-h-screen bg-[var(--s1-bg)] px-5 pb-16 pt-28 text-white md:pt-32">
-      <div className="mx-auto max-w-[90rem]">
-        <section className="relative overflow-hidden rounded-[24px] border border-white/12 bg-[#0A0D12] shadow-[var(--s1-shadow-panel)]">
-          <Image
-            src={premiumImages.siteOperations}
-            alt="Security operations control room"
-            fill
-            priority
-            className="object-cover object-center"
-            sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,13,18,.99)_0%,rgba(10,13,18,.95)_48%,rgba(10,13,18,.72)_100%)]" />
-          <div className="relative grid gap-8 p-6 md:p-10 lg:grid-cols-[.78fr_1.22fr] lg:p-12">
-            <div className="flex flex-col justify-between py-2">
-              <div>
-                <p className="s1-mono text-[9px] font-semibold text-[#38BDF8]">Operational review</p>
-                <h1 className="mt-5 text-4xl font-semibold tracking-[-.04em] md:text-6xl">
-                  Start with the operation, not a software demo.
-                </h1>
-                <p className="mt-6 max-w-xl text-base leading-7 text-white/60">
-                  Tell us where you need stronger visibility or evidence. Signal One can then frame the relevant sites, people, workflows and rollout instead of forcing a generic product conversation.
-                </p>
-              </div>
+    <main id="main" className="surface-paper">
+      <div className="wrap grid gap-12 py-12 md:py-20 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
+        <div>
+          <Kicker>Talk to Signal One</Kicker>
+          <h1 className="t-h1 mt-4">Talk to a person who knows security operations.</h1>
+          <p className="t-lead mt-5 text-text-2">
+            A short form. A Signal One representative replies by email or phone.
+          </p>
 
-              <div className="mt-10 space-y-5 border-t border-white/10 pt-7">
-                {[
-                  ["Coverage & staffing", "Posts, shortfalls, roster and verified presence."],
-                  ["Patrol & field evidence", "Routes, checkpoints, incidents and offline field work."],
-                  ["Control & client proof", "SOS, exceptions, occurrence records and service evidence."],
-                ].map(([title, body]) => (
-                  <div key={title}>
-                    <h2 className="text-sm font-semibold text-white/86">{title}</h2>
-                    <p className="mt-1 text-sm leading-6 text-white/44">{body}</p>
-                  </div>
-                ))}
-              </div>
-
-              <p className="mt-8 text-xs leading-5 text-white/32">
-                Signal One serves South African security operators. Company and rollout details are confirmed directly during onboarding rather than inferred from a public form.
-              </p>
-            </div>
-
-            <IntakeForm
-              kind="client"
-              title="Request an operational review"
-              intro="Give us enough context to understand the operational problem. This does not create platform access or commit you to a rollout."
-              fields={fields}
-              submitLabel="Request review"
+          <h2 className="t-h3 mt-12">What happens next</h2>
+          <div className="mt-4">
+            <Steps
+              items={[
+                ["We read your message", "A representative looks at your sites, guards and what you asked about."],
+                ["We get in touch", "By email or phone, using the details you give us."],
+                ["We show you the platform", "On your operation, not a generic demo. You decide what happens after that."],
+              ]}
             />
           </div>
-        </section>
+
+          <div className="mt-10 border-t border-line pt-6">
+            <p className="t-small text-text-2">Prefer email?</p>
+            <a href="mailto:sales@signalone.co.za" className="mt-1 inline-flex min-h-[44px] items-center text-[1.25rem] font-semibold text-signal underline underline-offset-4">
+              sales@signalone.co.za
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <IntakeForm
+            intent="consultation"
+            fields={fields}
+            submitLabel="Send to Signal One"
+            events={{ start: "consultation_start", complete: "consultation_complete" }}
+            consentText="I agree that Signal One may use these details to reply to me about this request."
+            successTitle="Thanks. A Signal One representative will be in touch."
+            successBody="We reply by email or phone using the details you gave us. Nothing else happens until we have spoken."
+          />
+        </div>
       </div>
     </main>
   );

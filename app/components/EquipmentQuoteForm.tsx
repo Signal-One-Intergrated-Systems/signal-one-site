@@ -1,278 +1,330 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useId, useRef, useState } from "react";
 import { trackEvent } from "../lib/analytics";
 
-type QuoteState = "idle" | "sending" | "done" | "error";
+type Category = "radio" | "tracking" | "bodycam";
+type State = "idle" | "sending" | "done" | "error";
 
-const products = [
-  "PNC360S radio rental",
-  "P30 Lite PoC radio rental",
-  "E600 PoC LTE radio",
-  "PTT platform + SIM & data",
-  "FMC920 vehicle tracker",
-  "FMB920 vehicle tracker",
-  "SC780 body camera rental",
-  "Other / mixed requirement",
-] as const;
+type Field = {
+  name: string;
+  label: string;
+  type: "text" | "number" | "select" | "textarea" | "radio";
+  options?: string[];
+  required?: boolean;
+  hint?: string;
+  placeholder?: string;
+  wide?: boolean;
+};
 
-const periods = ["12 months", "24 months", "36 months"] as const;
+const categories: Record<Category, { label: string; intent: string; summary: string; fields: Field[] }> = {
+  radio: {
+    label: "Radios and PTT",
+    intent: "equipment-rental-quote",
+    summary: "PoC radios on the cellular network, with or without SIM, data and the PTT platform.",
+    fields: [
+      {
+        name: "product",
+        label: "Radio",
+        type: "select",
+        required: true,
+        options: ["Hytera PNC360S", "P30 Lite PoC", "E600 PoC LTE", "PTT platform + SIM only (I have radios)", "Not sure yet"],
+      },
+      { name: "quantity", label: "How many radios?", type: "number", required: true, placeholder: "e.g. 24" },
+      {
+        name: "rentalTerm",
+        label: "Rental term",
+        type: "radio",
+        required: true,
+        options: ["12 months", "24 months", "36 months"],
+      },
+      {
+        name: "pttNeed",
+        label: "SIM, data and PTT",
+        type: "select",
+        required: true,
+        options: ["Radios with SIM, data and PTT platform", "Radios only, we have SIMs", "PTT platform and SIMs for our own radios", "Not sure, advise us"],
+      },
+      {
+        name: "deployment",
+        label: "Where will they be used?",
+        type: "text",
+        required: true,
+        placeholder: "e.g. 6 sites in Midrand and Centurion",
+        wide: true,
+      },
+    ],
+  },
+  tracking: {
+    label: "Tracking",
+    intent: "tracking-quote",
+    summary: "Vehicle and asset trackers, scoped to what you need to see and who needs to see it.",
+    fields: [
+      {
+        name: "assetType",
+        label: "What do you want to track?",
+        type: "radio",
+        required: true,
+        options: ["Vehicles", "Assets", "Both"],
+      },
+      { name: "quantity", label: "How many vehicles or assets?", type: "number", required: true, placeholder: "e.g. 8" },
+      {
+        name: "product",
+        label: "Tracker",
+        type: "select",
+        required: true,
+        options: ["FMC920", "FMB920", "Not sure, advise us"],
+      },
+      { name: "region", label: "Operating region", type: "text", required: true, placeholder: "e.g. Gauteng, mostly Tshwane" },
+      {
+        name: "installation",
+        label: "Do you need installation?",
+        type: "radio",
+        required: true,
+        options: ["Yes", "No", "Not sure"],
+      },
+      {
+        name: "visibility",
+        label: "Who needs to see the positions?",
+        type: "select",
+        required: true,
+        options: ["Our control room", "Managers and supervisors", "Control room and managers", "Not sure yet"],
+      },
+    ],
+  },
+  bodycam: {
+    label: "Body cameras",
+    intent: "bodycam-rental-quote",
+    summary: "SC780 body-camera rental for officers on patrol, at access points or at events.",
+    fields: [
+      { name: "quantity", label: "How many cameras?", type: "number", required: true, placeholder: "e.g. 10" },
+      {
+        name: "environment",
+        label: "Where will officers wear them?",
+        type: "select",
+        required: true,
+        options: ["Patrol", "Access control", "Retail or mall", "Events", "Mixed sites"],
+      },
+      {
+        name: "requirement",
+        label: "What do you need the footage for?",
+        type: "textarea",
+        required: true,
+        placeholder: "e.g. a client contract requires recorded incident handling at two retail sites",
+        wide: true,
+      },
+    ],
+  },
+};
+
+const contactFields: Field[] = [
+  { name: "companyName", label: "Company", type: "text", required: true },
+  { name: "contactName", label: "Your name", type: "text", required: true },
+  { name: "email", label: "Email", type: "text", required: true },
+  { name: "mobile", label: "Mobile", type: "text", required: true },
+];
 
 export default function EquipmentQuoteForm() {
-  const [state, setState] = useState<QuoteState>("idle");
-  const [message, setMessage] = useState("");
+  const id = useId();
+  const [category, setCategory] = useState<Category>("radio");
+  const [values, setValues] = useState<Record<string, string>>({});
   const [consent, setConsent] = useState(false);
-  const [values, setValues] = useState({
-    companyName: "",
-    contactName: "",
-    email: "",
-    mobile: "",
-    product: products[0] as string,
-    quantity: "1",
-    rentalPeriod: periods[0],
-    notes: "",
-  });
+  const [state, setState] = useState<State>("idle");
+  const [message, setMessage] = useState("");
+  const started = useRef(false);
+  const statusRef = useRef<HTMLDivElement>(null);
+  const config = categories[category];
 
-  const isTracking =
-    values.product === "FMC920 vehicle tracker" ||
-    values.product === "FMB920 vehicle tracker";
+  function markStarted() {
+    if (started.current) return;
+    started.current = true;
+    trackEvent("equipment_quote_start", { category });
+  }
 
-  function update(name: keyof typeof values, value: string) {
+  function update(name: string, value: string) {
+    markStarted();
     setValues((current) => ({ ...current, [name]: value }));
   }
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!consent || state === "sending") return;
-
+    if (state === "sending") return;
+    if (!consent) {
+      setState("error");
+      setMessage("Please tick the consent box so we can prepare your quote.");
+      return;
+    }
     setState("sending");
     setMessage("");
-    trackEvent("equipment_quote_begin", { product: values.product });
+
+    const relevant = [...config.fields, ...contactFields, { name: "notes" } as Field].map((field) => field.name);
+    const data: Record<string, string> = { category: config.label, intent: config.intent };
+    for (const name of relevant) if (values[name]) data[name] = values[name];
 
     try {
       const response = await fetch("/api/intake", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          kind: "client",
-          data: {
-            ...values,
-            rentalPeriod: isTracking ? "" : values.rentalPeriod,
-            intent: isTracking ? "tracking-quote" : "equipment-rental-quote",
-          },
-        }),
+        body: JSON.stringify({ kind: "client", data }),
       });
-
-      const body = (await response.json().catch(() => ({}))) as {
-        message?: string;
-      };
-
-      if (!response.ok) {
-        throw new Error(body.message || "We could not send the quote request.");
-      }
-
+      const body = (await response.json().catch(() => ({}))) as { message?: string };
+      if (!response.ok) throw new Error(body.message || "We could not send the quote request. Please try again.");
       setState("done");
-      trackEvent("equipment_quote_complete", { product: values.product });
-      setMessage(
-        body.message ||
-          "Your quote request has been received. Signal One will confirm availability, rental terms and pricing.",
-      );
+      trackEvent("equipment_quote_complete", { category });
     } catch (error) {
       setState("error");
-      setMessage(
-        error instanceof Error
-          ? error.message
-          : "We could not send the quote request.",
-      );
+      setMessage(error instanceof Error ? error.message : "We could not send the quote request. Please try again.");
+      requestAnimationFrame(() => statusRef.current?.focus());
     }
   }
 
   if (state === "done") {
     return (
-      <div className="rounded-[18px] border border-[#22C55E]/20 bg-[#22C55E]/[.045] p-7">
-        <p className="s1-mono text-[11px] font-semibold text-[#86EFAC]">
-          Quote request received
+      <div role="status" className="card p-6 sm:p-8">
+        <p className="t-kicker text-live">Quote request received</p>
+        <h3 className="t-h3 mt-3">We have your {config.label.toLowerCase()} requirement.</h3>
+        <p className="t-body mt-3 text-text-2">
+          A Signal One representative will confirm the product, availability and terms, then send a written quote by
+          email. Nothing is supplied until you accept it.
         </p>
-        <h3 className="mt-4 text-2xl font-semibold">We have your requirement.</h3>
-        <p className="mt-3 text-sm leading-7 text-white/70">{message}</p>
       </div>
     );
   }
 
-  const fieldClass =
-    "w-full rounded-[12px] border border-white/12 bg-[#0A0D12] px-4 py-3.5 text-sm text-white outline-none transition placeholder:text-white/24 focus:border-[#38BDF8]/60 focus:ring-4 focus:ring-[#0EA5E9]/[.08]";
+  function renderField(field: Field) {
+    const fieldId = id + "-" + field.name;
+    const value = values[field.name] || "";
+    const label = (
+      <>
+        {field.label}
+        {field.required ? null : <span className="font-normal text-text-2"> (optional)</span>}
+      </>
+    );
 
-  return (
-    <form onSubmit={submit} className="rounded-[20px] border border-white/10 bg-[#0F131A] p-6 md:p-8">
-      <p className="s1-eyebrow">Rental quote</p>
-      <h2 className="mt-4 text-2xl font-semibold tracking-[-.03em]">
-        Tell us what the contract needs.
-      </h2>
-      <p className="mt-3 text-sm leading-7 text-white/66">
-        Signal One confirms availability, final product specification and commercial terms before any rental is accepted.
-      </p>
+    if (field.type === "radio") {
+      return (
+        <fieldset key={field.name} className={"field m-0 border-0 p-0 " + (field.wide ? "sm:col-span-2" : "sm:col-span-2")}>
+          <legend className="field-label mb-2">{label}</legend>
+          <div className="grid grid-cols-1 gap-2 min-[420px]:grid-cols-3">
+            {field.options?.map((option) => (
+              <label key={option} className="choice text-signal">
+                <input
+                  type="radio"
+                  name={field.name}
+                  value={option}
+                  required={field.required}
+                  checked={value === option}
+                  onChange={() => update(field.name, option)}
+                />
+                <span className="text-text">{option}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+      );
+    }
 
-      <div className="mt-7 grid gap-5 sm:grid-cols-2">
-        <label>
-          <span className="mb-2 block text-[11px] font-semibold uppercase tracking-[.12em] text-white/70">
-            Company
-          </span>
-          <input
-            required
-            value={values.companyName}
-            onChange={(event) => update("companyName", event.target.value)}
-            placeholder="Security company"
-            className={fieldClass}
-          />
+    return (
+      <div key={field.name} className={"field " + (field.wide || field.type === "textarea" ? "sm:col-span-2" : "")}>
+        <label htmlFor={fieldId} className="field-label">
+          {label}
         </label>
-
-        <label>
-          <span className="mb-2 block text-[11px] font-semibold uppercase tracking-[.12em] text-white/70">
-            Contact person
-          </span>
-          <input
-            required
-            value={values.contactName}
-            onChange={(event) => update("contactName", event.target.value)}
-            placeholder="Full name"
-            className={fieldClass}
-          />
-        </label>
-
-        <label>
-          <span className="mb-2 block text-[11px] font-semibold uppercase tracking-[.12em] text-white/70">
-            Email
-          </span>
-          <input
-            required
-            type="email"
-            value={values.email}
-            onChange={(event) => update("email", event.target.value)}
-            placeholder="name@company.co.za"
-            className={fieldClass}
-          />
-        </label>
-
-        <label>
-          <span className="mb-2 block text-[11px] font-semibold uppercase tracking-[.12em] text-white/70">
-            Phone
-          </span>
-          <input
-            required
-            type="tel"
-            value={values.mobile}
-            onChange={(event) => update("mobile", event.target.value)}
-            placeholder="+27"
-            className={fieldClass}
-          />
-        </label>
-
-        <label>
-          <span className="mb-2 block text-[11px] font-semibold uppercase tracking-[.12em] text-white/70">
-            Product
-          </span>
+        {field.type === "select" ? (
           <select
-            value={values.product}
-            onChange={(event) => update("product", event.target.value)}
-            className={fieldClass}
+            id={fieldId}
+            name={field.name}
+            required={field.required}
+            value={value}
+            onChange={(event) => update(field.name, event.target.value)}
+            className="field-input"
           >
-            {products.map((product) => (
-              <option key={product} value={product}>
-                {product}
+            <option value="">Choose one</option>
+            {field.options?.map((option) => (
+              <option key={option} value={option}>
+                {option}
               </option>
             ))}
           </select>
-        </label>
-
-        <label>
-          <span className="mb-2 block text-[11px] font-semibold uppercase tracking-[.12em] text-white/70">
-            Quantity
-          </span>
-          <input
-            required
-            min="1"
-            step="1"
-            type="number"
-            inputMode="numeric"
-            value={values.quantity}
-            onChange={(event) => update("quantity", event.target.value)}
-            className={fieldClass}
-          />
-        </label>
-
-        {isTracking ? (
-          <div className="sm:col-span-2 rounded-[12px] border border-[#38BDF8]/18 bg-[#0EA5E9]/[.04] px-4 py-3 text-sm leading-6 text-white/70">
-            Tracking is scoped by deployment. Tell us the vehicle or asset count,
-            operating area and required visibility in the notes below; commercial
-            terms are confirmed in the quote.
-          </div>
-        ) : (
-          <label className="sm:col-span-2">
-            <span className="mb-2 block text-[11px] font-semibold uppercase tracking-[.12em] text-white/70">
-              Rental period
-            </span>
-            <select
-              value={values.rentalPeriod}
-              onChange={(event) => update("rentalPeriod", event.target.value)}
-              className={fieldClass}
-            >
-              {periods.map((period) => (
-                <option key={period} value={period}>
-                  {period}
-                </option>
-              ))}
-            </select>
-          </label>
-        )}
-
-        <label className="sm:col-span-2">
-          <span className="mb-2 block text-[11px] font-semibold uppercase tracking-[.12em] text-white/70">
-            Notes
-          </span>
+        ) : field.type === "textarea" ? (
           <textarea
+            id={fieldId}
+            name={field.name}
+            required={field.required}
             rows={4}
-            value={values.notes}
-            onChange={(event) => update("notes", event.target.value)}
-            placeholder="Sites, use case, deployment timing, accessories or other requirements."
-            className={fieldClass}
+            value={value}
+            placeholder={field.placeholder}
+            onChange={(event) => update(field.name, event.target.value)}
+            className="field-input"
           />
-        </label>
+        ) : (
+          <input
+            id={fieldId}
+            name={field.name}
+            type={field.type === "number" ? "number" : field.name === "email" ? "email" : field.name === "mobile" ? "tel" : "text"}
+            inputMode={field.type === "number" ? "numeric" : undefined}
+            min={field.type === "number" ? 1 : undefined}
+            autoComplete={
+              field.name === "email" ? "email" : field.name === "mobile" ? "tel" : field.name === "contactName" ? "name" : field.name === "companyName" ? "organization" : undefined
+            }
+            required={field.required}
+            value={value}
+            placeholder={field.placeholder}
+            onChange={(event) => update(field.name, event.target.value)}
+            className="field-input"
+          />
+        )}
+        {field.hint ? <p className="field-hint">{field.hint}</p> : null}
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={submit} className="card p-5 sm:p-8">
+      <fieldset className="m-0 border-0 p-0">
+        <legend className="t-h3">What do you need a quote for?</legend>
+        <div className="mt-4 grid gap-2 sm:grid-cols-3">
+          {(Object.keys(categories) as Category[]).map((key) => (
+            <label key={key} className="choice text-signal">
+              <input
+                type="radio"
+                name="category"
+                value={key}
+                checked={category === key}
+                onChange={() => {
+                  markStarted();
+                  setCategory(key);
+                }}
+              />
+              <span className="text-text">{categories[key].label}</span>
+            </label>
+          ))}
+        </div>
+        <p className="t-small mt-3 text-text-2">{config.summary}</p>
+      </fieldset>
+
+      <div key={category} className="animate-enter mt-8 grid gap-5 border-t border-line pt-8 sm:grid-cols-2">
+        {config.fields.map(renderField)}
       </div>
 
-      <label className="mt-5 flex items-start gap-3 rounded-[12px] border border-white/8 bg-black/15 p-4 text-sm leading-6 text-white/68">
-        <input
-          type="checkbox"
-          checked={consent}
-          onChange={(event) => setConsent(event.target.checked)}
-          className="mt-1 accent-[#0EA5E9]"
-        />
-        <span>
-          I consent to Signal One processing these details to prepare and follow
-          up on this rental quote.
-        </span>
+      <div className="mt-8 grid gap-5 border-t border-line pt-8 sm:grid-cols-2">
+        <p className="t-h4 sm:col-span-2">Where should we send the quote?</p>
+        {contactFields.map(renderField)}
+        {renderField({ name: "notes", label: "Anything else", type: "textarea", placeholder: "Timing, accessories, site conditions…", wide: true })}
+      </div>
+
+      <label className="check mt-6">
+        <input type="checkbox" checked={consent} onChange={(event) => setConsent(event.target.checked)} />
+        <span className="text-text-2">I agree that Signal One may use these details to prepare and follow up on this quote.</span>
       </label>
 
-      {message ? (
-        <p
-          role="alert"
-          className={
-            "mt-5 rounded-[12px] border px-4 py-3 text-sm " +
-            (state === "error"
-              ? "border-[#F59E0B]/20 bg-[#F59E0B]/[.05] text-[#FCD34D]"
-              : "border-white/10 text-white/70")
-          }
-        >
-          {message}
-        </p>
-      ) : null}
+      <div ref={statusRef} tabIndex={-1} aria-live="polite" className="outline-none">
+        {state === "error" && message ? <p className="field-error mt-4">{message}</p> : null}
+      </div>
 
-      <button
-        type="submit"
-        disabled={!consent || state === "sending"}
-        className="s1-primary-action mt-6 w-full px-5 py-3.5 text-sm font-semibold disabled:cursor-not-allowed disabled:opacity-40"
-      >
-        {state === "sending" ? "Sending…" : "Request rental quote"}
+      <button type="submit" disabled={state === "sending"} className="btn btn-primary btn-lg mt-6 w-full sm:w-auto">
+        {state === "sending" ? "Sending…" : "Request a quote"}
       </button>
+      <p className="t-caption mt-3 text-text-2">No prices online. We reply with a written quote; nothing is supplied until you accept it.</p>
     </form>
   );
 }

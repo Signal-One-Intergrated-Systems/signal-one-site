@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 const ALLOWED_KINDS = new Set(["client", "sales", "guard"]);
+const MAX_PAYLOAD_CHARS = 20_000;
 
 export async function POST(request: Request) {
   let body: unknown;
@@ -15,15 +16,18 @@ export async function POST(request: Request) {
   }
 
   const { kind, data } = body as { kind?: string; data?: unknown };
-  if (!kind || !ALLOWED_KINDS.has(kind) || !data || typeof data !== "object") {
+  if (!kind || !ALLOWED_KINDS.has(kind) || !data || typeof data !== "object" || Array.isArray(data)) {
     return NextResponse.json({ message: "Invalid application." }, { status: 400 });
+  }
+  if (JSON.stringify(data).length > MAX_PAYLOAD_CHARS) {
+    return NextResponse.json({ message: "This submission is too long. Please shorten it or email sales@signalone.co.za." }, { status: 413 });
   }
 
   const target = process.env.SIGNAL_ONE_INTAKE_URL;
   const token = process.env.SIGNAL_ONE_INTAKE_TOKEN;
   if (!target) {
     return NextResponse.json(
-      { message: "Online applications are being connected to Signal One operations. Please use the Contact page while onboarding is being activated." },
+      { message: "Online forms are not connected yet, so nothing was sent. Please email sales@signalone.co.za and we will reply directly." },
       { status: 503 }
     );
   }
@@ -54,6 +58,6 @@ export async function POST(request: Request) {
           : "Your application has been received. Signal One will continue the onboarding process with you.",
     });
   } catch {
-    return NextResponse.json({ message: "The onboarding service is temporarily unavailable." }, { status: 502 });
+    return NextResponse.json({ message: "Our form service is temporarily unavailable. Please try again, or email sales@signalone.co.za." }, { status: 502 });
   }
 }

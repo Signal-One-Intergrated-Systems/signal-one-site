@@ -1,202 +1,248 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
-import { premiumImages } from "../lib/premiumImages";
+import IntakeForm, { type IntakeField } from "../components/IntakeForm";
+import { ButtonLink, Check, Kicker, Status, Steps } from "../components/ui";
 
 export const metadata: Metadata = {
-  title: "Guard Marketplace",
+  title: "Guard Marketplace: Hire Guards for New Contracts",
   description:
-    "Signal One Guard Marketplace is an MVP hiring workspace for security companies to find eligible guards, shortlist them and send hire requests.",
+    "Guard Marketplace is the hiring step being built into Signal One Security: filter by location, PSiRA grade, availability, experience and skills, shortlist, send a hire request and allocate accepted guards to sites and shifts.",
   alternates: { canonical: "/guard-marketplace" },
 };
 
-const fields = [
-  ["Location", "Where the guard is available to work"],
-  ["PSiRA grade", "The grade recorded against the guard profile"],
-  ["Experience", "Relevant security work history"],
-  ["Availability", "Whether the guard is available for opportunities"],
-  ["Skills", "Operational skills recorded on the profile"],
-  ["Profile photo", "A current profile image supplied by the guard"],
+const flow = [
+  ["Contract won", "You have a new site, or more posts on an existing one."],
+  ["Staffing need", "Post count, grade and shift pattern the contract needs."],
+  ["Filter", "Location, PSiRA grade, availability, experience and skills."],
+  ["View profile", "See the recorded PSiRA details, experience, skills and areas."],
+  ["Shortlist", "Keep the guards you want to approach."],
+  ["Request hire", "Send a hire request from your company workspace."],
+  ["Guard accepts or declines", "The guard decides on their phone. No one is placed without saying yes."],
+  ["Add to workforce", "Accepted guards join your company in Signal One Guard."],
+  ["Allocate to a site", "PSiRA rules apply: missing or expired registration blocks the assignment."],
+  ["Allocate to a shift", "From here it is a normal shift: clock in, patrol, report."],
 ] as const;
 
-const flow = [
-  ["Browse", "A paying Signal One security company opens the private Guard Marketplace."],
-  ["Request hire", "The company selects an eligible guard and sends a request to hire."],
-  ["Guard accepts", "The guard receives the request in the Guard app and accepts or declines from their phone."],
-  ["Allocate", "Once hired, the company can bring the guard into its workforce and allocate shifts."],
+const demoProfiles = [
+  { tag: "Sample A", area: "Midrand, Gauteng", grade: "C", availability: "Available now", years: "4 years", skills: ["Access control", "Patrol"] },
+  { tag: "Sample B", area: "Kempton Park, Gauteng", grade: "B", availability: "Available in 2 weeks", years: "7 years", skills: ["Control room", "CCTV"] },
+  { tag: "Sample C", area: "Centurion, Gauteng", grade: "C", availability: "Available now", years: "2 years", skills: ["Access control", "Reception"] },
 ] as const;
+
+const interestFields: IntakeField[] = [
+  { name: "contactName", label: "Your name", required: true, autoComplete: "name" },
+  { name: "companyName", label: "Security company", required: true, autoComplete: "organization" },
+  { name: "email", label: "Work email", type: "email", required: true, autoComplete: "email" },
+  { name: "mobile", label: "Mobile number", type: "tel", autoComplete: "tel", placeholder: "+27" },
+  {
+    name: "need",
+    label: "What would you hire for?",
+    type: "textarea",
+    placeholder: "e.g. 12 Grade C officers for a new logistics contract in Germiston from March.",
+  },
+];
+
+function DemoChip({ children }: { children: React.ReactNode }) {
+  return <span className="rounded-full bg-paper-2 px-3 py-1 text-[0.875rem] font-medium">{children}</span>;
+}
 
 export default function GuardMarketplacePage() {
   return (
-    <main className="min-h-screen bg-[var(--s1-surface-base)] px-5 pb-16 pt-28 text-white md:pt-32">
-      <div className="mx-auto max-w-[1280px]">
-        <section className="grid gap-10 border-b border-white/10 pb-12 lg:grid-cols-[.9fr_1.1fr] lg:items-end md:pb-16">
+    <main id="main">
+      <section className="surface-ink">
+        <div className="wrap grid gap-10 py-14 md:py-20 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-end lg:gap-16">
           <div>
             <div className="flex flex-wrap items-center gap-3">
-              <p className="s1-eyebrow">Guard Marketplace</p>
-              <span className="s1-mono rounded-[8px] border border-[#38BDF8]/22 bg-[#0EA5E9]/[.055] px-2.5 py-1 text-[11px] font-semibold text-[#7DD3FC]">
-                MVP
-              </span>
+              <Kicker tone="dark">Guard Marketplace</Kicker>
+              <Status kind="mvp" tone="dark">
+                MVP in development
+              </Status>
             </div>
-            <h1 className="s1-display mt-5 max-w-4xl font-semibold">
-              Win the contract.
-              <span className="block text-[#38BDF8]">Then staff it.</span>
-            </h1>
+            <h1 className="t-h1 mt-5">Win the contract. Then staff it from the same system.</h1>
+            <p className="t-lead measure mt-6 text-text-inv-2">
+              Find guards near the site, check what they have recorded, send a hire request and allocate the guards who
+              accept. Inside your company workspace, next to the sites and shifts they will work.
+            </p>
           </div>
+          <div className="rounded-card border border-line-dark bg-graphite p-6">
+            <h2 className="t-h4">Where Marketplace is today</h2>
+            <p className="t-small mt-2 text-text-inv-2">
+              Marketplace is not live yet. We are building the MVP described on this page. Register interest and we will
+              tell you when your company can use it.
+            </p>
+            <ButtonLink href="#interest" className="mt-5">
+              Register interest
+            </ButtonLink>
+          </div>
+        </div>
+      </section>
+
+      <section className="surface-paper section">
+        <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
           <div>
-            <p className="text-lg leading-8 text-white/62">
-              Guard Marketplace is part of the Signal One MVP. Paying security-company clients will use it to browse eligible guard profiles, shortlist candidates and send hire requests inside an authenticated workspace—guard profiles will never be publicly browsable.
-            </p>
-            <p className="mt-4 text-sm leading-7 text-white/68">
-              The public page explains the workflow. It does not expose real guard identities, employment documents or private profile data.
+            <h2 className="t-h2">From contract to shift, in ten steps.</h2>
+            <p className="t-body mt-4 text-text-2">
+              The hiring workflow ends where your operation already lives: a guard allocated to a site and a shift in Signal
+              One Guard.
             </p>
           </div>
-        </section>
-
-        <section className="py-8 md:py-10">
-          <div className="relative aspect-[16/9] max-h-[680px] overflow-hidden rounded-[24px] border border-white/10 bg-[#0A0D12]">
-            <Image
-              src={premiumImages.marketplace}
-              alt="Illustrative security-team briefing and workforce-readiness scene for a fictional security company"
-              fill
-              quality={92}
-              className="object-cover object-center"
-              sizes="(min-width:1280px) 1280px, 100vw"
-            />
-            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,13,18,.02)_52%,rgba(10,13,18,.82)_100%)]" />
-            <div className="absolute bottom-5 left-5 rounded-[10px] border border-white/12 bg-[#0A0D12]/78 px-4 py-2.5 text-xs text-white/72 backdrop-blur-[14px]">
-              Illustrative workforce-readiness scene · fictional security company
-            </div>
-          </div>
-        </section>
-
-        <section className="grid gap-10 py-12 lg:grid-cols-[.82fr_1.18fr] lg:items-start md:py-16">
-          <div>
-            <p className="s1-eyebrow">Private client workspace</p>
-            <h2 className="s1-h2 mt-5 max-w-xl font-semibold">
-              The marketplace only opens after the security company is a Signal One client.
-            </h2>
-            <p className="s1-body mt-5 max-w-xl">
-              A company first buys guard days and activates its Signal One environment. Marketplace access can then sit inside that authenticated company relationship rather than behaving like a public job board.
-            </p>
-            <div className="mt-7 rounded-[14px] border border-[#22C55E]/20 bg-[#22C55E]/[.045] p-5">
-              <p className="s1-mono text-[11px] font-semibold text-[#86EFAC]">Current Guard foundation</p>
-              <p className="mt-3 text-sm leading-7 text-white/68">
-                Guard already supports mobile offers that a guard can accept or decline. The Marketplace MVP adds the missing browse → shortlist → request hire → workforce allocation experience around that proven downstream flow.
-              </p>
-            </div>
-          </div>
-
-          <div className="relative overflow-hidden rounded-[20px] border border-white/10 bg-[#0A0D12]">
-            <div className="flex items-center justify-between gap-4 border-b border-white/10 px-6 py-5">
-              <div>
-                <p className="s1-mono text-[11px] text-white/64">Authenticated preview</p>
-                <p className="mt-2 text-sm font-semibold text-white/80">Guard profile anatomy</p>
-              </div>
-              <span className="rounded-[8px] border border-white/10 px-2.5 py-1 text-[11px] font-medium text-white/68">
-                MVP structure
-              </span>
-            </div>
-
-            <div className="grid gap-3 p-6 sm:grid-cols-2">
-              {fields.map(([title, body]) => (
-                <div key={title} className="rounded-[14px] border border-white/[.075] bg-white/[.025] p-4">
-                  <p className="text-sm font-semibold text-white/74">{title}</p>
-                  <p className="mt-2 text-xs leading-6 text-white/66">{body}</p>
-                </div>
+          <div className="grid gap-x-10 md:grid-cols-2">
+            <Steps items={flow.slice(0, 5)} />
+            <ol start={6} className="m-0 grid list-none gap-0 p-0">
+              {flow.slice(5).map(([title, body], index) => (
+                <li key={title} className="grid grid-cols-[2.5rem_1fr] gap-4 border-t border-line py-5">
+                  <span className="t-num pt-0.5 text-[1.5rem] text-signal">{index + 6}</span>
+                  <div>
+                    <h3 className="t-h4">{title}</h3>
+                    <p className="t-small mt-1 text-text-2">{body}</p>
+                  </div>
+                </li>
               ))}
-              <div className="rounded-[14px] border border-[#38BDF8]/18 bg-[#0EA5E9]/[.04] p-4 sm:col-span-2">
-                <div className="flex items-center justify-between gap-4">
-                  <p className="text-sm font-semibold text-white/74">Rating</p>
-                  <span className="s1-mono text-[11px] text-[#7DD3FC]">Coming later</span>
-                </div>
-                <p className="mt-2 text-xs leading-6 text-white/66">
-                  Ratings are not part of the initial MVP. Signal One will not display a score until the data source, methodology and safeguards are defined and implemented.
-                </p>
-              </div>
-            </div>
-
-            <div className="absolute inset-0 grid place-items-center bg-[#0A0D12]/36 backdrop-blur-[2px]">
-              <div className="rounded-[14px] border border-white/12 bg-[#0F131A]/94 px-5 py-4 text-center shadow-[0_18px_50px_rgba(0,0,0,.38)]">
-                <p className="s1-mono text-[11px] text-[#38BDF8]">Client only</p>
-                <p className="mt-2 text-sm font-semibold text-white/78">Guard profiles stay behind authenticated access.</p>
-              </div>
-            </div>
+            </ol>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section className="border-y border-white/10 py-12 md:py-16">
-          <div className="grid gap-8 lg:grid-cols-[.78fr_1.22fr] lg:items-start">
+      <section className="surface-white section" aria-labelledby="demo-h">
+        <div className="wrap">
+          <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div>
-              <p className="s1-eyebrow">Hiring flow</p>
-              <h2 className="s1-h2 mt-5 max-w-xl font-semibold">
-                Request to hire, then let the guard decide.
+              <h2 id="demo-h" className="t-h2">
+                What it will look like
               </h2>
-              <p className="s1-body mt-5 max-w-xl">
-                Signal One is the rail between the security company and the guard. Employment documents remain between the guard and the company that hires them.
+              <p className="t-body measure mt-3 text-text-2">
+                A design preview of the MVP. These profiles are invented, and nothing on this page connects to a real
+                guard.
               </p>
             </div>
+            <p className="shrink-0 rounded-full bg-beta-tint px-4 py-2 text-[0.9375rem] font-semibold text-beta">
+              Illustrative demo · synthetic data
+            </p>
+          </div>
 
-            <div className="grid gap-3 sm:grid-cols-2">
-              {flow.map(([title, body], index) => (
-                <article key={title} className="rounded-[16px] border border-white/10 bg-[#0F131A] p-5">
-                  <p className="s1-mono text-[11px] text-[#38BDF8]">0{index + 1}</p>
-                  <h3 className="mt-4 text-lg font-semibold">{title}</h3>
-                  <p className="mt-2 text-sm leading-7 text-white/68">{body}</p>
-                </article>
-              ))}
+          <div
+            className="mt-10 overflow-hidden rounded-card ring-1 ring-line"
+            role="img"
+            aria-label="Illustrative Marketplace design preview with synthetic data: filters for location, PSiRA grade, availability, experience and skills, and three sample guard profiles with shortlist and hire request buttons"
+          >
+            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-line bg-paper px-4 py-3 text-[0.875rem] sm:px-6">
+              <span className="font-semibold">Guard Marketplace · design preview</span>
+              <span className="text-text-2">Illustrative demo · synthetic data</span>
+            </div>
+            <div className="grid md:grid-cols-[minmax(0,4fr)_minmax(0,8fr)]">
+              <div className="border-b border-line bg-paper/60 p-4 sm:p-6 md:border-b-0 md:border-r">
+                <p className="t-h4">Filters</p>
+                <dl className="mt-4 grid gap-3 text-[0.9375rem]">
+                  {[
+                    ["Location", "Within 25 km of Midrand"],
+                    ["PSiRA grade", "C or higher"],
+                    ["Availability", "Available now"],
+                    ["Experience", "2+ years"],
+                    ["Skills", "Access control"],
+                  ].map(([term, value]) => (
+                    <div key={term} className="rounded-ui bg-white px-3 py-2 ring-1 ring-line">
+                      <dt className="text-text-2">{term}</dt>
+                      <dd className="m-0 font-semibold">{value}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+              <ul className="m-0 list-none divide-y divide-line p-0">
+                {demoProfiles.map((profile) => (
+                  <li key={profile.tag} className="grid gap-4 p-4 sm:grid-cols-[1fr_auto] sm:items-center sm:p-6">
+                    <div className="flex gap-4">
+                      <span aria-hidden="true" className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-paper-2 font-display text-[1.125rem] font-bold">
+                        {profile.tag.slice(-1)}
+                      </span>
+                      <div>
+                        <p className="font-semibold">{profile.tag} · {profile.area}</p>
+                        <p className="t-small text-text-2">
+                          PSiRA grade {profile.grade} recorded · {profile.years} · {profile.availability}
+                        </p>
+                        <div className="mt-2 flex flex-wrap gap-2">
+                          {profile.skills.map((skill) => (
+                            <DemoChip key={skill}>{skill}</DemoChip>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex gap-2">
+                      <span className="btn btn-ghost-light pointer-events-none min-h-[44px] px-4 text-[0.9375rem]">Shortlist</span>
+                      <span className="btn btn-primary pointer-events-none min-h-[44px] px-4 text-[0.9375rem]">Request hire</span>
+                    </div>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
-        </section>
+          <p className="t-caption mt-3 text-text-2">
+            Design preview, not the live product. No ratings, scores or badges will be shown on profiles.
+          </p>
+        </div>
+      </section>
 
-        <section className="grid gap-10 py-12 lg:grid-cols-[1fr_.9fr] lg:items-start md:py-16">
+      <section className="surface-paper section">
+        <div className="wrap grid gap-12 md:grid-cols-2 lg:gap-16">
           <div>
-            <p className="s1-eyebrow">PSiRA eligibility</p>
-            <h2 className="s1-h2 mt-5 max-w-2xl font-semibold">
-              Eligibility starts with recorded PSiRA status.
-            </h2>
-            <p className="s1-body mt-5 max-w-2xl">
-              Guard records the PSiRA number, grade and expiry used for operational eligibility and can block invalid assignments. Signal One does not claim external official PSiRA verification until that integration is confirmed and proven.
-            </p>
-            <p className="mt-4 max-w-2xl text-sm leading-7 text-white/68">
-              The Marketplace MVP will expose the eligibility facts the platform can actually support. It will not use a blanket “verified” badge for checks that have not been completed.
-            </p>
-          </div>
-
-          <div className="rounded-[16px] border border-white/10 bg-[#0F131A] p-6">
-            <p className="s1-eyebrow">Not a public job board</p>
-            <ul className="mt-5 space-y-4 text-sm leading-7 text-white/68">
-              <li>• No public guard search.</li>
-              <li>• No public profile identities.</li>
-              <li>• No public employment documents.</li>
-              <li>• No invented “verified” badges.</li>
-              <li>• Hiring requests go through the authenticated Signal One relationship.</li>
+            <h2 className="t-h2">Private by design.</h2>
+            <ul className="m-0 mt-6 grid list-none gap-4 p-0">
+              {[
+                "Profiles are only visible inside a signed-in Signal One company workspace.",
+                "There is no public guard search and no public jobs board.",
+                "Guards choose whether to accept a hire request.",
+                "PSiRA number, grade and expiry are shown as recorded. Signal One does not check them with PSiRA.",
+                "No ratings, readiness scores or badges.",
+              ].map((item) => (
+                <li key={item} className="t-body flex gap-3">
+                  <Check className="mt-1 text-signal" />
+                  {item}
+                </li>
+              ))}
             </ul>
           </div>
-        </section>
-
-        <section className="rounded-[20px] border border-[#0EA5E9]/20 bg-[#0EA5E9]/[.045] p-7 md:p-10">
-          <div className="flex flex-col gap-7 lg:flex-row lg:items-end lg:justify-between">
-            <div>
-              <p className="s1-eyebrow">Become a Signal One client</p>
-              <h2 className="mt-4 max-w-3xl text-3xl font-semibold tracking-[-.035em]">
-                Marketplace access starts with the operating platform.
-              </h2>
-              <p className="mt-4 max-w-2xl text-sm leading-7 text-white/68">
-                Buy guard days, activate the company environment and bring the hiring workflow into the same system used to allocate and operate the guard force.
-              </p>
+          <div className="rounded-card bg-white p-6 ring-1 ring-line sm:p-8">
+            <div className="flex flex-wrap items-center gap-3">
+              <h2 className="t-h3">Already live in Signal One Guard</h2>
+              <Status kind="live">Live</Status>
             </div>
-            <div className="flex flex-wrap gap-3">
-              <Link href="/pricing" className="s1-secondary-action px-6 py-3 text-sm font-semibold">
-                See Guard pricing
-              </Link>
-              <Link href="/get-started" data-analytics-event="marketplace_interest" data-analytics-label="Marketplace get started" className="s1-primary-action px-6 py-3 text-sm font-semibold">
-                Get started
-              </Link>
-            </div>
+            <p className="t-body mt-4 text-text-2">
+              You can already offer open posts to your own guards. Each guard sees the offer in the Guard app and accepts
+              or declines it. Marketplace extends the same accept-or-decline step to guards outside your company.
+            </p>
+            <ButtonLink href="/solutions/security" variant="ghost-light" className="mt-6">
+              See the live platform
+            </ButtonLink>
           </div>
-        </section>
-      </div>
+        </div>
+      </section>
+
+      <section id="interest" className="surface-white section scroll-mt-[72px]">
+        <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
+          <div>
+            <h2 className="t-h2">Register interest</h2>
+            <p className="t-body mt-4 text-text-2">
+              Tell us what you would hire for. We will let you know when Marketplace is ready for your company, and use your
+              answers to shape the MVP.
+            </p>
+            <p className="t-small mt-6 text-text-2">
+              Are you a guard?{" "}
+              <Link href="/guards" className="link-inline font-semibold text-field">
+                Create your profile here
+              </Link>
+              .
+            </p>
+          </div>
+          <IntakeForm
+            intent="marketplace-interest"
+            fields={interestFields}
+            submitLabel="Register interest"
+            events={{ complete: "marketplace_interest" }}
+            consentText="I agree that Signal One may contact me about Guard Marketplace."
+            successTitle="You are on the list."
+            successBody="We will email you when Guard Marketplace is ready for your company."
+          />
+        </div>
+      </section>
     </main>
   );
 }

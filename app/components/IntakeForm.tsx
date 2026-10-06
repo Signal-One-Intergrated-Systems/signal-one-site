@@ -1,141 +1,174 @@
 "use client";
 
-import { FormEvent, useMemo, useState } from "react";
-import { trackEvent } from "../lib/analytics";
+import { FormEvent, useId, useRef, useState } from "react";
+import { trackEvent, type SignalOneEvent } from "../lib/analytics";
 
 export type IntakeField = {
   name: string;
   label: string;
-  type?: "text" | "email" | "tel" | "number" | "textarea" | "select";
+  type?: "text" | "email" | "tel" | "textarea" | "select";
   placeholder?: string;
   required?: boolean;
   options?: string[];
+  hint?: string;
+  autoComplete?: string;
+  wide?: boolean;
 };
 
+type State = "idle" | "sending" | "done" | "error";
+
+/**
+ * Short public intake form. Posts { kind, data } to /api/intake, which
+ * forwards to SIGNAL_ONE_INTAKE_URL or answers 503 while that is unset.
+ */
 export default function IntakeForm({
-  kind,
-  title,
-  intro,
+  kind = "client",
+  intent,
   fields,
   submitLabel,
+  events,
+  consentText,
+  successTitle,
+  successBody,
 }: {
-  kind: "client" | "sales" | "guard";
-  title: string;
-  intro: string;
+  kind?: "client" | "guard" | "sales";
+  intent: string;
   fields: IntakeField[];
   submitLabel: string;
+  events: { start?: SignalOneEvent; complete: SignalOneEvent };
+  consentText: string;
+  successTitle: string;
+  successBody: string;
 }) {
-  const initial = useMemo(
-    () => Object.fromEntries(fields.map((field) => [field.name, ""])),
-    [fields],
-  );
-  const [values, setValues] = useState<Record<string, string>>(initial);
+  const id = useId();
+  const [values, setValues] = useState<Record<string, string>>({});
   const [consent, setConsent] = useState(false);
-  const [state, setState] = useState<"idle" | "sending" | "done" | "error">("idle");
+  const [state, setState] = useState<State>("idle");
   const [message, setMessage] = useState("");
+  const started = useRef(false);
+  const statusRef = useRef<HTMLDivElement>(null);
+
+  function update(name: string, value: string) {
+    if (!started.current) {
+      started.current = true;
+      if (events.start) trackEvent(events.start, { intent });
+    }
+    setValues((current) => ({ ...current, [name]: value }));
+  }
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!consent || state === "sending") return;
+    if (state === "sending") return;
+    if (!consent) {
+      setState("error");
+      setMessage("Please tick the consent box so we can reply to you.");
+      return;
+    }
     setState("sending");
     setMessage("");
-    trackEvent(kind === "client" ? "contact_begin" : kind + "_intake_begin");
     try {
       const response = await fetch("/api/intake", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ kind, data: values }),
+        body: JSON.stringify({ kind, data: { ...values, intent } }),
       });
       const body = (await response.json().catch(() => ({}))) as { message?: string };
-      if (!response.ok) throw new Error(body.message || "We could not send this application.");
+      if (!response.ok) throw new Error(body.message || "We could not send this. Please try again.");
       setState("done");
-      trackEvent(kind === "client" ? "contact_complete" : kind + "_intake_complete");
-      setMessage(body.message || "Application received.");
+      trackEvent(events.complete, { intent });
     } catch (error) {
       setState("error");
-      setMessage(error instanceof Error ? error.message : "We could not send this application.");
+      setMessage(error instanceof Error ? error.message : "We could not send this. Please try again.");
+      requestAnimationFrame(() => statusRef.current?.focus());
     }
   }
 
   if (state === "done") {
     return (
-      <div className="rounded-[18px] border border-[#0EA5E9]/25 bg-[#0EA5E9]/[.065] p-8 shadow-[var(--s1-shadow-card)]">
-        <p className="s1-mono text-[11px] font-semibold text-[#38BDF8]">Received</p>
-        <h2 className="mt-3 text-2xl font-semibold text-white">{title}</h2>
-        <p className="mt-4 text-sm leading-6 text-white/62">{message}</p>
+      <div role="status" className="card p-6 sm:p-8">
+        <p className="t-kicker text-live">Received</p>
+        <h3 className="t-h3 mt-3">{successTitle}</h3>
+        <p className="t-body mt-3 text-text-2">{successBody}</p>
       </div>
     );
   }
 
-  const fieldClass =
-    "w-full rounded-[12px] border border-white/12 bg-[#0A0D12]/90 px-4 py-3.5 text-sm text-white outline-none transition duration-200 placeholder:text-white/26 focus:border-[#0EA5E9]/70 focus:ring-4 focus:ring-[#0EA5E9]/[.08]";
-
   return (
-    <form onSubmit={submit} className="s1-glass rounded-[18px] p-5 md:p-8">
-      <p className="s1-mono text-[11px] font-semibold text-[#38BDF8]">Secure intake</p>
-      <h2 className="mt-3 text-2xl font-semibold tracking-[-.025em] text-white">{title}</h2>
-      <p className="mt-3 max-w-2xl text-sm leading-6 text-white/68">{intro}</p>
-
-      <div className="mt-8 grid gap-5 md:grid-cols-2">
-        {fields.map((field) => (
-          <label key={field.name} className={field.type === "textarea" ? "md:col-span-2" : ""}>
-            <span className="mb-2 block text-[11px] font-semibold uppercase tracking-[.14em] text-white/68">
-              {field.label}
-            </span>
-            {field.type === "textarea" ? (
-              <textarea
-                required={field.required}
-                rows={5}
-                value={values[field.name] || ""}
-                onChange={(e) => setValues((current) => ({ ...current, [field.name]: e.target.value }))}
-                placeholder={field.placeholder}
-                className={fieldClass}
-              />
-            ) : field.type === "select" ? (
-              <select
-                required={field.required}
-                value={values[field.name] || ""}
-                onChange={(e) => setValues((current) => ({ ...current, [field.name]: e.target.value }))}
-                className={fieldClass}
-              >
-                <option value="">Select</option>
-                {(field.options || []).map((option) => <option key={option} value={option}>{option}</option>)}
-              </select>
-            ) : (
-              <input
-                type={field.type || "text"}
-                required={field.required}
-                value={values[field.name] || ""}
-                onChange={(e) => setValues((current) => ({ ...current, [field.name]: e.target.value }))}
-                placeholder={field.placeholder}
-                className={fieldClass}
-              />
-            )}
-          </label>
-        ))}
+    <form onSubmit={submit} noValidate={false} className="card p-5 sm:p-8">
+      <div className="grid gap-5 sm:grid-cols-2">
+        {fields.map((field) => {
+          const fieldId = id + "-" + field.name;
+          const hintId = field.hint ? fieldId + "-hint" : undefined;
+          const wide = field.wide || field.type === "textarea";
+          return (
+            <div key={field.name} className={"field " + (wide ? "sm:col-span-2" : "")}>
+              <label htmlFor={fieldId} className="field-label">
+                {field.label}
+                {field.required ? null : <span className="font-normal text-text-2"> (optional)</span>}
+              </label>
+              {field.type === "textarea" ? (
+                <textarea
+                  id={fieldId}
+                  name={field.name}
+                  required={field.required}
+                  rows={4}
+                  aria-describedby={hintId}
+                  value={values[field.name] || ""}
+                  onChange={(event) => update(field.name, event.target.value)}
+                  placeholder={field.placeholder}
+                  className="field-input"
+                />
+              ) : field.type === "select" ? (
+                <select
+                  id={fieldId}
+                  name={field.name}
+                  required={field.required}
+                  aria-describedby={hintId}
+                  value={values[field.name] || ""}
+                  onChange={(event) => update(field.name, event.target.value)}
+                  className="field-input"
+                >
+                  <option value="">Choose one</option>
+                  {(field.options || []).map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+              ) : (
+                <input
+                  id={fieldId}
+                  name={field.name}
+                  type={field.type || "text"}
+                  required={field.required}
+                  autoComplete={field.autoComplete}
+                  aria-describedby={hintId}
+                  value={values[field.name] || ""}
+                  onChange={(event) => update(field.name, event.target.value)}
+                  placeholder={field.placeholder}
+                  className="field-input"
+                />
+              )}
+              {field.hint ? (
+                <p id={hintId} className="field-hint">
+                  {field.hint}
+                </p>
+              ) : null}
+            </div>
+          );
+        })}
       </div>
 
-      <label className="mt-6 flex items-start gap-3 rounded-[12px] border border-white/8 bg-black/15 p-4 text-sm leading-6 text-white/68">
-        <input
-          type="checkbox"
-          checked={consent}
-          onChange={(e) => setConsent(e.target.checked)}
-          className="mt-1 accent-[#0EA5E9]"
-        />
-        <span>I consent to Signal One processing this information for onboarding, verification and contacting me about this application.</span>
+      <label className="check mt-6">
+        <input type="checkbox" checked={consent} onChange={(event) => setConsent(event.target.checked)} />
+        <span className="text-text-2">{consentText}</span>
       </label>
 
-      {message ? (
-        <p role="alert" className={"mt-5 rounded-[12px] border px-4 py-3 text-sm " + (state === "error" ? "border-amber-300/20 bg-amber-300/5 text-amber-100" : "border-white/10 text-white/70")}>
-          {message}
-        </p>
-      ) : null}
+      <div ref={statusRef} tabIndex={-1} aria-live="polite" className="outline-none">
+        {state === "error" && message ? <p className="field-error mt-4">{message}</p> : null}
+      </div>
 
-      <button
-        type="submit"
-        disabled={!consent || state === "sending"}
-        className="s1-primary-action mt-6 w-full px-5 py-3.5 text-sm font-semibold disabled:cursor-not-allowed disabled:opacity-40"
-      >
+      <button type="submit" disabled={state === "sending"} className="btn btn-primary btn-lg mt-6 w-full sm:w-auto">
         {state === "sending" ? "Sending…" : submitLabel}
       </button>
     </form>
