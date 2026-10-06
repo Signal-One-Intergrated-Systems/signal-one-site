@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ProductWindow, ProofImage } from "../../components/ProductProof";
+import { ProductWindow } from "../../components/ProductProof";
 import { ButtonLink, Check, Kicker, Photo, Status } from "../../components/ui";
 import { illustrativeCaption, photos } from "../../lib/photos";
 import { proofViews } from "../../lib/productProof";
@@ -56,9 +56,7 @@ export default function SecurityPlatformPage() {
               </ButtonLink>
             </div>
           </div>
-          <ProductWindow screen={control.screen}>
-            <ProofImage shot={control.shots[0]} priority />
-          </ProductWindow>
+          <ProductWindow screen={control.screen} shot={control.shots[0]} priority />
         </div>
       </section>
 
@@ -101,17 +99,17 @@ export default function SecurityPlatformPage() {
               Guards use the Signal One Guard app on their own phone or an authorised Central Device.
             </p>
           </div>
-          <div className="mt-12 grid gap-12 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-14">
+          <div className="mt-12 grid gap-12 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-start lg:gap-16">
             <Photo
               src={photos.guardPatrol.src}
               alt={photos.guardPatrol.alt}
-              sizes="(min-width: 1024px) 400px, (min-width: 640px) 480px, 100vw"
-              className="w-full max-w-[480px]"
-              aspect="aspect-[4/5]"
-              imgClassName="object-cover object-[45%_50%]"
+              sizes="(min-width: 1320px) 720px, (min-width: 1024px) 58vw, 100vw"
+              className="w-full"
+              aspect="aspect-[16/10]"
+              imgClassName="object-cover object-[50%_50%]"
               caption={illustrativeCaption}
             />
-            <ul className="m-0 grid list-none gap-x-10 p-0 sm:grid-cols-2">
+            <ul className="m-0 grid list-none p-0">
               {fieldCapabilities.map(([title, body]) => (
                 <li key={title} className="border-t border-line py-5">
                   <h3 className="t-h4">{title}</h3>
@@ -171,9 +169,7 @@ export default function SecurityPlatformPage() {
                 A live map, clock-in status and live patrol progress for client users.
               </p>
             </div>
-            <ProductWindow screen={proof.screen}>
-              <ProofImage shot={proof.shots[0]} />
-            </ProductWindow>
+            <ProductWindow screen={proof.screen} shot={proof.shots[0]} />
           </div>
         </div>
       </section>
@@ -181,9 +177,7 @@ export default function SecurityPlatformPage() {
       {/* People & access */}
       <section className="surface-paper section">
         <div className="wrap grid gap-10 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-center lg:gap-14">
-          <ProductWindow screen={people.screen} className="order-2 lg:order-1">
-            <ProofImage shot={people.shots[0]} />
-          </ProductWindow>
+          <ProductWindow screen={people.screen} shot={people.shots[0]} className="order-2 lg:order-1" />
           <div className="order-1 lg:order-2">
             <Kicker>People and access</Kicker>
             <h2 className="t-h2 mt-4">Supervisors see their sites. Nobody sees more than they should.</h2>

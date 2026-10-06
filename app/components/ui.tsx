@@ -175,3 +175,124 @@ export function Steps({
     </ol>
   );
 }
+
+/**
+ * CSS for a photograph that never stretches past its native width: on a
+ * viewport wider than `native` px the image is centred and its edges fade
+ * into the section colour instead of upscaling.
+ */
+function edgeFade(native: number): React.CSSProperties {
+  const mask = "linear-gradient(to right, transparent 0, #000 var(--fade), #000 calc(100% - var(--fade)), transparent 100%)";
+  return {
+    ["--fade" as string]: "clamp(0px, calc(100vw - " + native + "px), 200px)",
+    maskImage: mask,
+    WebkitMaskImage: mask,
+  };
+}
+
+/**
+ * Full-bleed photographic band with a one-line headline over it.
+ * Height is capped so very wide screens get a wider surround, not a taller crop.
+ */
+export function PhotoBand({
+  src,
+  alt,
+  headline,
+  kicker,
+  objectPosition = "50% 50%",
+  textSide = "left",
+  caption,
+  sizes,
+}: {
+  src: StaticImageData;
+  alt: string;
+  headline: ReactNode;
+  kicker?: ReactNode;
+  objectPosition?: string;
+  textSide?: "left" | "right";
+  caption?: string;
+  sizes?: string;
+}) {
+  return (
+    <section className="surface-ink relative">
+      <div className="relative mx-auto" style={{ maxWidth: src.width }}>
+        <div className="relative h-[max(300px,72vw)] overflow-hidden md:h-[clamp(420px,40vw,680px)]" style={edgeFade(src.width)}>
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            sizes={sizes || "(min-width: " + src.width + "px) " + src.width + "px, 100vw"}
+            quality={82}
+            placeholder="blur"
+            className="object-cover"
+            style={{ objectPosition }}
+          />
+          <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 via-35% to-transparent to-70%" />
+          <div
+            aria-hidden="true"
+            className={
+              "absolute inset-0 hidden md:block " +
+              (textSide === "left"
+                ? "bg-gradient-to-r from-ink/70 via-transparent via-45% to-transparent"
+                : "bg-gradient-to-l from-ink/70 via-transparent via-45% to-transparent")
+            }
+          />
+        </div>
+      </div>
+      <div className="absolute inset-0 flex items-end">
+        <div className={"wrap pb-8 md:pb-14 " + (textSide === "right" ? "md:flex md:justify-end" : "")}>
+          <div className="max-w-[40rem]">
+            {kicker ? <div className="mb-3">{kicker}</div> : null}
+            <h2 className="t-h2 text-text-inv">{headline}</h2>
+            {caption ? <p className="t-caption mt-4 text-text-inv-2">{caption}</p> : null}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/**
+ * Hero photograph: behind the text on desktop (dark gradient only where the
+ * text sits), full width on top of it on mobile at 56vw tall.
+ */
+export function HeroPhoto({
+  src,
+  alt,
+  objectPositionMobile = "64% 45%",
+  objectPosition = "72% 40%",
+  gradient = "left",
+}: {
+  src: StaticImageData;
+  alt: string;
+  objectPositionMobile?: string;
+  objectPosition?: string;
+  gradient?: "left" | "right";
+}) {
+  return (
+    <div className="relative h-[56vw] lg:absolute lg:inset-0 lg:h-auto">
+      <div className="relative mx-auto h-full" style={{ maxWidth: src.width, ...edgeFade(src.width) }}>
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          priority
+          sizes={"(min-width: " + src.width + "px) " + src.width + "px, 100vw"}
+          quality={85}
+          placeholder="blur"
+          className="object-cover [object-position:var(--pos-m)] lg:[object-position:var(--pos-d)]"
+          style={{ ["--pos-m" as string]: objectPositionMobile, ["--pos-d" as string]: objectPosition }}
+        />
+        <div
+          aria-hidden="true"
+          className={
+            "absolute inset-0 bg-gradient-to-t from-ink via-transparent to-transparent " +
+            (gradient === "left"
+              ? "lg:bg-gradient-to-r lg:from-ink lg:via-ink/75 lg:via-35% lg:to-transparent lg:to-65%"
+              : "lg:bg-gradient-to-l lg:from-ink lg:via-ink/75 lg:via-35% lg:to-transparent lg:to-65%")
+          }
+        />
+      </div>
+    </div>
+  );
+}

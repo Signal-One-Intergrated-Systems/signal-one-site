@@ -1,4 +1,5 @@
 import Link from "next/link";
+import SignalOneLogo from "./brand/SignalOneLogo";
 
 const groups = [
   {
@@ -42,8 +43,7 @@ export default function Footer() {
     <footer className="surface-ink border-t border-line-dark">
       <div className="wrap grid gap-12 py-14 md:py-16 lg:grid-cols-[1.1fr_2fr]">
         <div>
-          <p className="font-display text-[1.25rem] font-bold tracking-[0.06em]">SIGNAL ONE</p>
-          <p className="t-small text-text-inv-2">Integrated Systems</p>
+          <SignalOneLogo size={22} tone="dark" />
           <p className="t-small measure-tight mt-6 text-text-inv-2">
             Signal One Security is the operating system for South African security companies: sites, shifts, patrols,
             control room and client proof of service.

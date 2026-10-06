@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import GuardDayCalculator from "./components/GuardDayCalculator";
-import ProductProof, { ProductWindow, ProofImage } from "./components/ProductProof";
-import { Arrow, ButtonLink, Check, Kicker, Photo, Status } from "./components/ui";
+import ProductProof, { ProductWindow } from "./components/ProductProof";
+import { Arrow, ButtonLink, Check, HeroPhoto, Kicker, Photo, PhotoBand, Status } from "./components/ui";
 import { illustrativeCaption, photos } from "./lib/photos";
 import { proofViews } from "./lib/productProof";
 
@@ -81,9 +81,10 @@ export default function Home() {
   return (
     <main id="main">
       {/* 1 · HERO */}
-      <section className="surface-ink">
-        <div className="wrap grid items-center gap-10 pb-14 pt-10 md:pb-20 md:pt-16 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-14 lg:pb-24 lg:pt-20">
-          <div>
+      <section className="surface-ink relative">
+        <HeroPhoto src={photos.hero.src} alt={photos.hero.alt} objectPositionMobile="66% 45%" objectPosition="74% 40%" />
+        <div className="wrap relative pb-14 pt-10 lg:flex lg:min-h-[clamp(620px,44vw,780px)] lg:items-center lg:pb-24 lg:pt-24">
+          <div className="max-w-[48rem]">
             <Kicker tone="dark">For growing South African security companies</Kicker>
             <h1 className="t-display mt-5">
               Win more contracts.
@@ -101,25 +102,15 @@ export default function Home() {
                 See Signal One in action
               </ButtonLink>
               <ButtonLink href="/pricing#calculator" variant="ghost-dark" size="lg" event="hero_pricing" eventLabel="Hero secondary">
-                Calculate guard cost · R2 per guard per day
+                <span className="sm:hidden">Calculate guard cost · R2/day</span>
+                <span className="hidden sm:inline">Calculate guard cost · R2 per guard per day</span>
               </ButtonLink>
             </div>
             <p className="t-small mt-6 text-text-inv-2">
               Your guards can use their own phones or an authorised Central Device.
             </p>
+            <p className="t-caption mt-3 text-text-inv-2/80">{illustrativeCaption}</p>
           </div>
-
-          <Photo
-            src={photos.businessParkGate.mobile}
-            alt={photos.businessParkGate.alt}
-            priority
-            sizes="(min-width: 1320px) 520px, (min-width: 1024px) 40vw, 100vw"
-            className="mx-auto w-full max-w-[560px]"
-            aspect="aspect-[4/3] lg:aspect-[4/5]"
-            imgClassName="object-cover object-[50%_40%]"
-            caption={illustrativeCaption}
-            captionTone="dark"
-          />
         </div>
       </section>
 
@@ -164,35 +155,35 @@ export default function Home() {
       </section>
 
       {/* 4 · HIRE */}
+      <PhotoBand
+        src={photos.warehouse.src}
+        alt={photos.warehouse.alt}
+        objectPosition="50% 38%"
+        kicker={
+          <span className="flex flex-wrap items-center gap-3">
+            <Kicker tone="dark">Hire</Kicker>
+            <Status kind="mvp" tone="dark">
+              Guard Marketplace · MVP in development
+            </Status>
+          </span>
+        }
+        headline="Won the contract? Staff it."
+        caption={illustrativeCaption}
+      />
       <section className="surface-ink section">
-        <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
-          <div className="order-2 lg:order-1">
-            <Photo
-              src={photos.logisticsGate.src}
-              alt={photos.logisticsGate.alt}
-              sizes="(min-width: 1320px) 500px, (min-width: 1024px) 38vw, 100vw"
-              className="w-full"
-              aspect="aspect-[4/3] lg:aspect-[4/5]"
-              imgClassName="object-cover object-[20%_50%]"
-              caption={illustrativeCaption}
-              captionTone="dark"
-            />
-          </div>
-          <div className="order-1 lg:order-2">
-            <div className="flex flex-wrap items-center gap-3">
-              <Kicker tone="dark">Hire</Kicker>
-              <Status kind="mvp" tone="dark">
-                Guard Marketplace · MVP in development
-              </Status>
-            </div>
-            <h2 className="t-h2 mt-4">Won the contract? Staff it.</h2>
-            <p className="t-lead measure mt-5 text-text-inv-2">
+        <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-20">
+          <div>
+            <p className="t-lead measure text-text-inv-2">
               Guard Marketplace is the hiring step we are building into Signal One. Find guards near the site, shortlist
               them and send a hire request. The guard accepts or declines on their phone, and accepted guards join your
               workforce, ready for a site and a shift.
             </p>
-
-            <ol aria-label="Marketplace hiring flow" className="m-0 mt-8 flex list-none flex-wrap gap-x-2 gap-y-3 p-0">
+            <Link href="/guard-marketplace" className="link-arrow mt-8 text-signal-bright">
+              See how Marketplace will work <Arrow />
+            </Link>
+          </div>
+          <div>
+            <ol aria-label="Marketplace hiring flow" className="m-0 flex list-none flex-wrap gap-x-2 gap-y-3 p-0">
               {hireFlow.map((step, index) => (
                 <li key={step} className="flex items-center gap-2 text-[1rem] font-medium">
                   <span className="rounded-ui border border-line-dark bg-graphite px-3 py-2">{step}</span>
@@ -201,7 +192,7 @@ export default function Home() {
               ))}
             </ol>
 
-            <dl className="mt-10 grid gap-6 border-t border-line-dark pt-8 sm:grid-cols-2">
+            <dl className="mt-12 grid gap-6 border-t border-line-dark pt-8 sm:grid-cols-2">
               <div>
                 <dt className="t-h4">Five filters, nothing else</dt>
                 <dd className="t-small m-0 mt-2 text-text-inv-2">Location, PSiRA grade, availability, experience and skills.</dd>
@@ -222,50 +213,44 @@ export default function Home() {
               </div>
             </dl>
 
-            <Link href="/guard-marketplace" className="link-arrow mt-8 text-signal-bright">
-              See how Marketplace will work <Arrow />
-            </Link>
           </div>
         </div>
       </section>
 
       {/* 5 · RUN */}
+      <PhotoBand
+        src={photos.estateNight.src}
+        alt={photos.estateNight.alt}
+        objectPosition="50% 20%"
+        textSide="right"
+        kicker={
+          <span className="flex flex-wrap items-center gap-3">
+            <Kicker tone="dark">Run</Kicker>
+            <Status kind="live" tone="dark">
+              Live
+            </Status>
+          </span>
+        }
+        headline="Run every site from one record."
+        caption={illustrativeCaption}
+      />
       <section className="surface-paper section">
         <div className="wrap">
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-end lg:gap-16">
-            <div>
-              <div className="flex flex-wrap items-center gap-3">
-                <Kicker>Run</Kicker>
-                <Status kind="live">Live</Status>
-              </div>
-              <h2 className="t-h2 mt-4">Run every site from one record.</h2>
-            </div>
-            <p className="t-lead text-text-2">
-              Sites, shifts, attendance, patrols, incidents and SOS feed the same operational record your control room,
-              managers and clients work from.
-            </p>
-          </div>
+          <p className="t-lead measure text-text-2">
+            Sites, shifts, attendance, patrols, incidents and SOS feed the same operational record your control room,
+            managers and clients work from.
+          </p>
 
-          <div className="mt-12 grid gap-10 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-16">
-            <div className="grid grid-cols-[3fr_2fr] gap-3 sm:gap-4">
-              <Photo
-                src={photos.officeParkAccess.src}
-                alt={photos.officeParkAccess.alt}
-                sizes="(min-width: 1320px) 440px, (min-width: 1024px) 34vw, 60vw"
-                className="w-full"
-                aspect="aspect-[4/5]"
-                imgClassName="object-cover object-[8%_50%]"
-              />
-              <Photo
-                src={photos.estateGateDusk.src}
-                alt={photos.estateGateDusk.alt}
-                sizes="(min-width: 1320px) 300px, (min-width: 1024px) 22vw, 40vw"
-                className="h-full w-full"
-                imgClassName="object-cover object-[72%_50%]"
-              />
-              <p className="photo-caption col-span-2">{illustrativeCaption}. Day shift at an office park, night shift at an estate gate.</p>
-            </div>
-
+          <div className="mt-14 grid gap-12 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-16">
+            <Photo
+              src={photos.siteOperations.src}
+              alt={photos.siteOperations.alt}
+              sizes="(min-width: 1320px) 720px, (min-width: 1024px) 58vw, 100vw"
+              className="w-full self-start"
+              aspect="aspect-[4/3]"
+              imgClassName="object-cover object-[30%_50%]"
+              caption={illustrativeCaption + ". Day shift at an office park."}
+            />
             <div>
               <ul className="m-0 grid list-none p-0">
                 {runCapabilities.map(([title, body]) => (
@@ -379,9 +364,7 @@ export default function Home() {
           </div>
 
           {proveShot ? (
-            <ProductWindow screen="Proof of service" className="mt-12 max-w-[860px]">
-              <ProofImage shot={proveShot} />
-            </ProductWindow>
+            <ProductWindow screen="Proof of service" shot={proveShot} className="mt-14" />
           ) : null}
         </div>
       </section>

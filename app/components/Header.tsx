@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import SignalOneLogo from "./brand/SignalOneLogo";
 
 type World = "buyer" | "guard" | "careers";
 
@@ -78,15 +79,6 @@ function worldFor(pathname: string): World {
   return "buyer";
 }
 
-function Mark({ dark }: { dark: boolean }) {
-  return (
-    <svg aria-hidden="true" width="30" height="30" viewBox="0 0 32 32" className="shrink-0">
-      <rect x="1" y="1" width="30" height="30" rx="7" fill="none" stroke={dark ? "#5cc6f5" : "#0369a1"} strokeWidth="2" />
-      <rect x="12" y="7" width="8" height="18" rx="1.5" fill={dark ? "#f3f4f6" : "#14181e"} />
-    </svg>
-  );
-}
-
 export default function Header() {
   const pathname = usePathname() || "/";
   const world = worldFor(pathname);
@@ -124,13 +116,7 @@ export default function Header() {
           className="flex min-h-[44px] min-w-0 items-center gap-3"
           aria-label={"Signal One " + config.identity + " home"}
         >
-          <Mark dark={dark} />
-          <span className="min-w-0 leading-tight">
-            <span className="block font-display text-[1.0625rem] font-bold tracking-[0.06em]">SIGNAL ONE</span>
-            <span className={"block truncate text-[0.875rem] " + (dark ? "text-text-inv-2" : "text-text-2")}>
-              {config.identity}
-            </span>
-          </span>
+          <SignalOneLogo size={20} tone={dark ? "dark" : "light"} pulse />
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">

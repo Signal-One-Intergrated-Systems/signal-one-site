@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Fraunces } from "next/font/google";
 import SalesApplication from "../../components/journey/SalesApplication";
-import { Photo } from "../../components/ui";
+import { HeroPhoto } from "../../components/ui";
 import { getCareersConfig } from "../../lib/careers";
 import { photos } from "../../lib/photos";
 
@@ -49,14 +49,15 @@ export default function SalesCareersPage() {
 
   return (
     <main id="main" className={serif.variable + " bg-paper text-text"}>
-      <section>
-        <div className="wrap grid gap-10 py-12 md:py-20 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-center lg:gap-16">
-          <div>
-            <p className="t-kicker text-brass">Careers at Signal One</p>
-            <h1 className="mt-4 font-serif text-[2.75rem] font-semibold leading-[1.04] tracking-[-0.02em] sm:text-[4rem]">
+      <section className="surface-ink relative">
+        <HeroPhoto src={photos.controlRoomTeam.src} alt={photos.controlRoomTeam.alt} objectPositionMobile="50% 30%" objectPosition="70% 35%" />
+        <div className="wrap relative pb-14 pt-10 lg:flex lg:min-h-[clamp(560px,40vw,700px)] lg:items-center lg:pb-24 lg:pt-24">
+          <div className="max-w-[40rem]">
+            <p className="t-kicker text-[#e2b86b]">Careers at Signal One</p>
+            <h1 className="mt-4 font-serif text-[3.1rem] font-semibold leading-[1.04] tracking-[-0.02em] sm:text-[4.6rem]">
               Sell the system security companies run on.
             </h1>
-            <p className="t-lead measure mt-6 text-text-2">
+            <p className="t-lead measure mt-6 text-text-inv-2">
               We are building a sales team to work for Signal One itself, bringing South African security companies onto
               Signal One Security.
             </p>
@@ -79,23 +80,14 @@ export default function SalesCareersPage() {
                 </a>
               ) : null}
             </p>
+            <p className="t-caption mt-6 text-text-inv-2/80">Illustrative scene · fictional security company</p>
           </div>
-          <Photo
-            src={photos.careersDesk.src}
-            alt={photos.careersDesk.alt}
-            priority
-            sizes="(min-width: 1024px) 480px, 100vw"
-            className="mx-auto w-full max-w-[480px]"
-            aspect="aspect-[4/3]"
-            imgClassName="object-cover object-[60%_50%]"
-            caption="Illustrative scene"
-          />
         </div>
       </section>
 
       <section id="role" className="scroll-mt-[72px] bg-white py-16 md:py-24">
         <div className="wrap">
-          <h2 className="font-serif text-[2.25rem] font-semibold leading-tight sm:text-[2.75rem]">The role</h2>
+          <h2 className="font-serif text-[2.6rem] font-semibold leading-tight sm:text-[3.2rem]">The role</h2>
           <p className="t-lead measure mt-4 text-text-2">Sales representative, selling to security companies.</p>
           <div className="mt-10 grid gap-12 md:grid-cols-2">
             <div>
@@ -128,7 +120,7 @@ export default function SalesCareersPage() {
 
       <section id="process" className="scroll-mt-[72px] py-16 md:py-24">
         <div className="wrap">
-          <h2 className="font-serif text-[2.25rem] font-semibold leading-tight sm:text-[2.75rem]">How hiring works</h2>
+          <h2 className="font-serif text-[2.6rem] font-semibold leading-tight sm:text-[3.2rem]">How hiring works</h2>
           <ol className="m-0 mt-10 grid list-none gap-x-8 gap-y-8 p-0 sm:grid-cols-2 lg:grid-cols-3">
             {process.map(([title, body], index) => (
               <li key={title} className="border-t-2 border-brass pt-4">
@@ -144,7 +136,7 @@ export default function SalesCareersPage() {
       <section id="apply" className="scroll-mt-[72px] bg-night py-16 text-text-inv md:py-24">
         <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
           <div>
-            <h2 className="font-serif text-[2.25rem] font-semibold leading-tight sm:text-[2.75rem]">
+            <h2 className="font-serif text-[2.6rem] font-semibold leading-tight sm:text-[3.2rem]">
               {open ? "Apply" : "Applications are closed"}
             </h2>
             <p className="t-body mt-4 text-text-inv-2">
