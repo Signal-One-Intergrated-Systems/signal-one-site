@@ -1,5 +1,6 @@
 "use client";
 
+import IntakeError from "../IntakeError";
 import Link from "next/link";
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
 import { Check } from "../ui";
@@ -418,7 +419,7 @@ export default function GuardJoin() {
                   corrected or deleted at any time.
                 </Consent>
               </div>
-              <div aria-live="polite">{j.status === "error" && j.message ? <p className="field-error mt-4">{j.message}</p> : null}</div>
+              <div aria-live="polite">{j.status === "error" ? <IntakeError message={j.message} fallback={j.fallback} /> : null}</div>
             </>
           ) : null}
         </div>

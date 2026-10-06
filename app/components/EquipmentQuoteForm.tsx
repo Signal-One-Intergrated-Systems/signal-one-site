@@ -2,6 +2,8 @@
 
 import { FormEvent, useId, useRef, useState } from "react";
 import { trackEvent } from "../lib/analytics";
+import { submitIntake, type IntakeFallback } from "../lib/intake";
+import IntakeError from "./IntakeError";
 
 type Category = "radio" | "tracking" | "bodycam";
 type State = "idle" | "sending" | "done" | "error";
@@ -131,6 +133,7 @@ export default function EquipmentQuoteForm() {
   const [consent, setConsent] = useState(false);
   const [state, setState] = useState<State>("idle");
   const [message, setMessage] = useState("");
+  const [fallback, setFallback] = useState<IntakeFallback | null>(null);
   const started = useRef(false);
   const statusRef = useRef<HTMLDivElement>(null);
   const config = categories[category];
@@ -156,26 +159,23 @@ export default function EquipmentQuoteForm() {
     }
     setState("sending");
     setMessage("");
+    setFallback(null);
 
     const relevant = [...config.fields, ...contactFields, { name: "notes" } as Field].map((field) => field.name);
     const data: Record<string, string> = { category: config.label, intent: config.intent };
     for (const name of relevant) if (values[name]) data[name] = values[name];
 
-    try {
-      const response = await fetch("/api/intake", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ kind: "client", data }),
-      });
-      const body = (await response.json().catch(() => ({}))) as { message?: string };
-      if (!response.ok) throw new Error(body.message || "We could not send the quote request. Please try again.");
-      setState("done");
-      trackEvent("equipment_quote_complete", { category });
-    } catch (error) {
+    const labels = Object.fromEntries([...config.fields, ...contactFields].map((field) => [field.name, field.label]));
+    const result = await submitIntake("client", data, labels);
+    if (!result.ok) {
       setState("error");
-      setMessage(error instanceof Error ? error.message : "We could not send the quote request. Please try again.");
+      setMessage(result.message);
+      setFallback(result.fallback);
       requestAnimationFrame(() => statusRef.current?.focus());
+      return;
     }
+    setState("done");
+    trackEvent("equipment_quote_complete", { category });
   }
 
   if (state === "done") {
@@ -318,7 +318,7 @@ export default function EquipmentQuoteForm() {
       </label>
 
       <div ref={statusRef} tabIndex={-1} aria-live="polite" className="outline-none">
-        {state === "error" && message ? <p className="field-error mt-4">{message}</p> : null}
+        {state === "error" ? <IntakeError message={message} fallback={fallback} /> : null}
       </div>
 
       <button type="submit" disabled={state === "sending"} className="btn btn-primary btn-lg mt-6 w-full sm:w-auto">

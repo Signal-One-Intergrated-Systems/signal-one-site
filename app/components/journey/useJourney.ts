@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { trackEvent, type SignalOneEvent } from "../../lib/analytics";
+import { submitIntake, type IntakeFallback } from "../../lib/intake";
 
 export type JourneyStatus = "idle" | "sending" | "done" | "error";
 
@@ -41,6 +42,7 @@ export function useJourney({
   const [hydrated, setHydrated] = useState(false);
   const [status, setStatus] = useState<JourneyStatus>("idle");
   const [message, setMessage] = useState("");
+  const [fallback, setFallback] = useState<IntakeFallback | null>(null);
   const started = useRef(false);
 
   useEffect(() => {
@@ -92,6 +94,7 @@ export function useJourney({
   const goTo = useCallback(
     (index: number) => {
       setMessage("");
+      setFallback(null);
       setStatus((current) => (current === "error" ? "idle" : current));
       setStepIndex(Math.max(0, Math.min(stepCount - 1, index)));
     },
@@ -117,27 +120,22 @@ export function useJourney({
     }
     setStatus("sending");
     setMessage("");
-    try {
-      const response = await fetch("/api/intake", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ kind, data: { ...values, intent } }),
-      });
-      const body = (await response.json().catch(() => ({}))) as { message?: string };
-      if (!response.ok) throw new Error(body.message || "We could not send this. Please try again.");
-      setStatus("done");
-      trackEvent(events.complete, { kind });
-      try {
-        window.localStorage.removeItem(storageKey);
-      } catch {
-        // Completion must not fail because storage is unavailable.
-      }
-      return true;
-    } catch (error) {
+    setFallback(null);
+    const result = await submitIntake(kind, { ...values, intent });
+    if (!result.ok) {
       setStatus("error");
-      setMessage(error instanceof Error ? error.message : "We could not send this. Please try again.");
+      setMessage(result.message);
+      setFallback(result.fallback);
       return false;
     }
+    setStatus("done");
+    trackEvent(events.complete, { kind });
+    try {
+      window.localStorage.removeItem(storageKey);
+    } catch {
+      // Completion must not fail because storage is unavailable.
+    }
+    return true;
   }, [consent, events.complete, intent, kind, status, storageKey, values]);
 
   return {
@@ -148,6 +146,7 @@ export function useJourney({
     hydrated,
     status,
     message,
+    fallback,
     set,
     toggle,
     has,

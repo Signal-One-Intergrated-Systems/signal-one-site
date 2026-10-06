@@ -1,5 +1,6 @@
 "use client";
 
+import IntakeError from "../IntakeError";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Consent, JMulti, JRadio, JSelect, JText, JTextarea, ReviewList } from "./fields";
 import { useJourney } from "./useJourney";
@@ -285,7 +286,7 @@ export default function SalesApplication({ roleCount }: { roleCount: number | nu
               <Consent j={j}>
                 I agree that Signal One may use this information to assess my application and contact me about it.
               </Consent>
-              <div aria-live="polite">{j.status === "error" && j.message ? <p className="field-error">{j.message}</p> : null}</div>
+              <div aria-live="polite">{j.status === "error" ? <IntakeError message={j.message} fallback={j.fallback} /> : null}</div>
             </>
           ) : null}
         </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import IntakeError from "../IntakeError";
 import Link from "next/link";
 import { useEffect, useRef, type FormEvent } from "react";
 import { Check, Steps } from "../ui";
@@ -229,7 +230,7 @@ export default function ClientOnboarding() {
                 ]}
               />
               <Consent j={j}>I agree that Signal One may use these details to contact me about onboarding my company.</Consent>
-              <div aria-live="polite">{j.status === "error" && j.message ? <p className="field-error">{j.message}</p> : null}</div>
+              <div aria-live="polite">{j.status === "error" ? <IntakeError message={j.message} fallback={j.fallback} /> : null}</div>
             </>
           ) : null}
         </div>

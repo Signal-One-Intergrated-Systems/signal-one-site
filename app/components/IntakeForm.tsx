@@ -2,6 +2,8 @@
 
 import { FormEvent, useId, useRef, useState } from "react";
 import { trackEvent, type SignalOneEvent } from "../lib/analytics";
+import { submitIntake, type IntakeFallback } from "../lib/intake";
+import IntakeError from "./IntakeError";
 
 export type IntakeField = {
   name: string;
@@ -45,6 +47,7 @@ export default function IntakeForm({
   const [consent, setConsent] = useState(false);
   const [state, setState] = useState<State>("idle");
   const [message, setMessage] = useState("");
+  const [fallback, setFallback] = useState<IntakeFallback | null>(null);
   const started = useRef(false);
   const statusRef = useRef<HTMLDivElement>(null);
 
@@ -66,21 +69,18 @@ export default function IntakeForm({
     }
     setState("sending");
     setMessage("");
-    try {
-      const response = await fetch("/api/intake", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ kind, data: { ...values, intent } }),
-      });
-      const body = (await response.json().catch(() => ({}))) as { message?: string };
-      if (!response.ok) throw new Error(body.message || "We could not send this. Please try again.");
-      setState("done");
-      trackEvent(events.complete, { intent });
-    } catch (error) {
+    setFallback(null);
+    const labels = Object.fromEntries(fields.map((field) => [field.name, field.label]));
+    const result = await submitIntake(kind, { ...values, intent }, labels);
+    if (!result.ok) {
       setState("error");
-      setMessage(error instanceof Error ? error.message : "We could not send this. Please try again.");
+      setMessage(result.message);
+      setFallback(result.fallback);
       requestAnimationFrame(() => statusRef.current?.focus());
+      return;
     }
+    setState("done");
+    trackEvent(events.complete, { intent });
   }
 
   if (state === "done") {
@@ -165,7 +165,7 @@ export default function IntakeForm({
       </label>
 
       <div ref={statusRef} tabIndex={-1} aria-live="polite" className="outline-none">
-        {state === "error" && message ? <p className="field-error mt-4">{message}</p> : null}
+        {state === "error" ? <IntakeError message={message} fallback={fallback} /> : null}
       </div>
 
       <button type="submit" disabled={state === "sending"} className="btn btn-primary btn-lg mt-6 w-full sm:w-auto">
