@@ -65,6 +65,24 @@ export function GuardStatus({ tone = "light", children }: { tone?: Tone; childre
   );
 }
 
+/** A short definition list on a raised dark panel: plain facts, no mock interface. */
+export function FactPanel({ title, facts, tone = "dark" }: { title?: ReactNode; facts: ReadonlyArray<readonly [string, string]>; tone?: Tone }) {
+  const dark = tone === "dark";
+  return (
+    <div className={"overflow-hidden rounded-card border " + (dark ? "border-line-dark bg-raised text-text-inv" : "border-line bg-white text-text")}>
+      {title ? <div className={"border-b px-5 py-4 font-semibold sm:px-6 " + (dark ? "border-line-dark" : "border-line")}>{title}</div> : null}
+      <dl className="m-0">
+        {facts.map(([term, detail]) => (
+          <div key={term} className={"border-b px-5 py-4 last:border-0 sm:px-6 " + (dark ? "border-line-dark" : "border-line")}>
+            <dt className="t-h4">{term}</dt>
+            <dd className={"t-small m-0 mt-1 " + (dark ? "text-text-inv-2" : "text-text-2")}>{detail}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  );
+}
+
 export function ButtonLink({
   href,
   children,

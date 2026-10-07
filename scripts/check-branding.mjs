@@ -1,6 +1,8 @@
 /**
  * Public-truth gate. Runs before every build (prebuild) and, with --built,
- * after it (postbuild) against the rendered output in .next/server.
+ * after it (postbuild) against the rendered output in .next/server. With
+ * --ocr it reads the text inside every image under public/images (see
+ * scripts/ocr-images.mjs); the QA suite runs that mode.
  *
  * Fails on:
  *  - the internal platform codename, anywhere in public source, file paths,
@@ -13,6 +15,7 @@ import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 
 const builtMode = process.argv.includes("--built");
+const ocrMode = process.argv.includes("--ocr");
 const sourceRoots = ["app", "public"];
 const builtRoot = ".next/server/app";
 
@@ -87,6 +90,14 @@ if (builtMode) {
     if (scanned === 0) failures.push(`no rendered files found under ${builtRoot}`);
     else console.log(`Scanned ${scanned} rendered files.`);
   }
+}
+
+// 4. Text inside images (addendum A1).
+if (ocrMode) {
+  const { ocrImages } = await import("./ocr-images.mjs");
+  const problems = await ocrImages("public/images");
+  for (const problem of problems) failures.push(`image text: ${problem}`);
+  if (!problems.length) console.log("Image OCR gate passed (public/images).");
 }
 
 if (failures.length) {

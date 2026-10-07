@@ -4,11 +4,9 @@ import GuardDayCalculator from "./components/GuardDayCalculator";
 import { HardwareRail } from "./components/Hardware";
 import PatrolStory from "./components/PatrolStory";
 import { catalogue } from "./lib/catalogue";
-import ProductProof, { ProductWindow } from "./components/ProductProof";
 import { Arrow, ButtonLink, Check, Kicker, Photo, PhotoBand, SplitHero, Status, GuardStatus } from "./components/ui";
 import { guardIsLive, guardOnboardingLine, guardStatusLabel } from "./lib/guardStatus";
 import { illustrativeCaption, photos } from "./lib/photos";
-import { proofViews } from "./lib/productProof";
 import { carryOverPhrase, guardDayPrice, guardDayPricePhrase, guardDayPriceShort, minimumPhrase } from "./lib/pricing";
 
 export const metadata: Metadata = {
@@ -17,12 +15,12 @@ export const metadata: Metadata = {
 };
 
 const ownerQuestions = [
-  "Who is on site right now?",
-  "Did the guard arrive, and on time?",
-  "Was the patrol actually walked?",
-  "What happened overnight?",
-  "Can I prove it to my client?",
-  "How fast can I staff the next contract?",
+  ["Who is on site right now?", "Guards clock in at the post on their own phone or an authorised Central Device, so the roster shows who is on duty."],
+  ["Did the guard arrive, and on time?", "Each clock-in and clock-out is recorded against the shift and the post."],
+  ["Was the patrol actually walked?", "Every QR or NFC checkpoint scan is recorded with its time and GPS position. Missed and late checkpoints show up in proof of service."],
+  ["What happened overnight?", "The occurrence book keeps one chronological record of the site, with incidents logged as they happen."],
+  ["Can I prove it to my client?", "Each scheduled service is marked proven, partly proven, unresolved or not proven, with the reason."],
+  ["How fast can I staff the next contract?", "Offer open posts to your own guards in the app. Guard Marketplace, in development, will reach guards outside your company."],
 ] as const;
 
 const hireFlow = [
@@ -63,8 +61,6 @@ const clientSees = [
 ] as const;
 
 export default function Home() {
-  const proveShot = proofViews.find((view) => view.id === "proof")?.shots[0];
-
   return (
     <main id="main">
       {/* 1 · HERO */}
@@ -122,7 +118,7 @@ export default function Home() {
           <p className="t-caption mt-3 text-text-inv-2">{illustrativeCaption}</p>
       </SplitHero>
 
-      {/* 2 + 3 · PROBLEM → REAL PRODUCT */}
+      {/* 2 + 3 · PROBLEM → ANSWERS (product screens return after the demo-tenant capture) */}
       <section id="product" className="surface-light section scroll-mt-[72px]">
         <div className="wrap">
           <div className="grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
@@ -134,31 +130,22 @@ export default function Home() {
                 chats, spreadsheets, paper OBs and phone calls.
               </p>
             </div>
-            <ul className="m-0 grid list-none gap-0 p-0 sm:grid-cols-2 sm:gap-x-10">
-              {ownerQuestions.map((question) => (
-                <li key={question} className="border-t border-line py-4 font-display text-[1.25rem] font-semibold leading-snug md:text-[1.375rem]">
-                  {question}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="mt-14 border-t-2 border-base pt-10 md:mt-16">
-            <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-              <div>
-                <h2 className="t-h2">Signal One answers them from one record.</h2>
-                <p className="t-body measure mt-4 text-text-2">
-                  These are real Signal One Guard screens, not mock-ups. The data is synthetic.
-                </p>
-              </div>
-              <Link href="/solutions/security" className="link-arrow shrink-0 text-signal-ink">
+            <div>
+              <h2 className="sr-only">Signal One answers them from one record</h2>
+              <dl className="m-0 grid gap-0 sm:grid-cols-2 sm:gap-x-10">
+                {ownerQuestions.map(([question, answer]) => (
+                  <div key={question} className="border-t border-line py-5">
+                    <dt className="font-display text-[1.1875rem] font-semibold leading-snug md:text-[1.25rem]">{question}</dt>
+                    <dd className="t-small m-0 mt-2 text-text-2">{answer}</dd>
+                  </div>
+                ))}
+              </dl>
+              <Link href="/solutions/security" className="link-arrow mt-4 text-signal-ink">
                 Everything the platform does <Arrow />
               </Link>
             </div>
-            <div className="mt-10">
-              <ProductProof />
-            </div>
           </div>
+
         </div>
       </section>
 
@@ -377,9 +364,6 @@ export default function Home() {
             </div>
           </div>
 
-          {proveShot ? (
-            <ProductWindow screen="Proof of service" shot={proveShot} className="mt-14" />
-          ) : null}
         </div>
       </section>
 

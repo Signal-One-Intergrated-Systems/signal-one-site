@@ -10,6 +10,7 @@
     "check:branding": "node scripts/check-branding.mjs",
     "prebuild": "npm run check:branding",
     "check:built": "node scripts/check-branding.mjs --built",
+    "check:images": "node scripts/check-branding.mjs --ocr",
     "postbuild": "npm run check:built",
     "qa": "npm run build && playwright test",
     "qa:run": "playwright test",
