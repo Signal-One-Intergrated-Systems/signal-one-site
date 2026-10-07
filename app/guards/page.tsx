@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Check, SplitHero } from "../components/ui";
 import { photos } from "../lib/photos";
+import { guardApp, guardAppAvailable } from "../lib/acquisition";
 
 export const metadata: Metadata = {
   title: "Security Officer App: Clock In, Patrol and SOS",
@@ -35,13 +36,25 @@ export default function GuardsPage() {
             Signal One Guard is the app you use on shift. Guard Marketplace is not live yet. When it launches,
             signed-in security companies will be able to send you hire requests. You will always decide whether to accept.
           </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <Link href="/guards/join" className="btn btn-primary btn-lg">
               Create your profile
             </Link>
-            <Link href="#how-it-works" className="btn btn-ghost-dark btn-lg">
-              How it works
-            </Link>
+            {guardApp.android ? (
+              <a href={guardApp.android} className="btn btn-ghost-dark btn-lg" rel="noopener">
+                Download Signal One Guard · Android
+              </a>
+            ) : null}
+            {guardApp.ios ? (
+              <a href={guardApp.ios} className="btn btn-ghost-dark btn-lg" rel="noopener">
+                Download Signal One Guard · iPhone
+              </a>
+            ) : null}
+            {guardAppAvailable ? null : (
+              <Link href="#how-it-works" className="btn btn-ghost-dark btn-lg">
+                How it works
+              </Link>
+            )}
           </div>
           <p className="t-caption mt-6 text-text-inv-2">Illustrative scene · fictional security company</p>
       </SplitHero>

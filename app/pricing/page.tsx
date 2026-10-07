@@ -161,8 +161,8 @@ export default function PricingPage() {
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row">
-            <ButtonLink href="/contact" variant="ghost-dark" size="lg">
-              Talk to Signal One
+            <ButtonLink href="/contact" variant="ghost-dark" size="lg" event="buy_guard_days" eventLabel="Pricing closing">
+              Talk to us to buy guard days
             </ButtonLink>
             <ButtonLink href="/get-started" size="lg">
               Start company onboarding

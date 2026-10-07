@@ -400,9 +400,14 @@ export default function Home() {
                 </div>
               ))}
             </dl>
-            <Link href="/pricing" className="link-arrow mt-4 text-signal-ink">
-              Full pricing details <Arrow />
-            </Link>
+            <div className="mt-4 flex flex-wrap gap-x-8 gap-y-2">
+              <Link href="/pricing" className="link-arrow text-signal-ink">
+                Full pricing details <Arrow />
+              </Link>
+              <Link href="/contact" className="link-arrow text-signal-ink">
+                Talk to us to buy guard days <Arrow />
+              </Link>
+            </div>
           </div>
           <GuardDayCalculator />
         </div>

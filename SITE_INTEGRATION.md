@@ -30,7 +30,9 @@ The site forwards it to `SIGNAL_ONE_INTAKE_URL` as `{ kind, data, source: "signa
 - **CV upload for sales applicants:** the form says "we'll request your CV by email".
 - **Interview-slot booking:** the form collects day, time and format preferences, and the copy says slots are offered by email.
 - **Vacancy admin:** recruitment status and role count come from env (`SALES_RECRUITMENT_STATUS`, `SALES_OPEN_ROLES`).
-- **Sales OS sign-in URL:** set `SALES_OS_URL`. Until then, `/join/sales` shows a placeholder.
+- **Sales OS sign-in URL:** set `SALES_OS_URL` (https). Until then, `/join/sales` shows "use the link from your onboarding email" as plain text; it never renders a placeholder link. Sales OS is Signal One's internal tool for its own representatives; it is never offered to customers.
+- **Signal One Guard store listings:** set `GUARD_APP_ANDROID_URL` (https://play.google.com/...) and/or `GUARD_APP_IOS_URL` (https://apps.apple.com/...), then rebuild. Until then "Download Signal One Guard" does not render and guards see "Create your profile" only.
+- **Buying guard days online:** no checkout exists (see "Guard Day pricing"). CTAs say "Talk to us to buy guard days" and go to /contact.
 - **Guard Marketplace data:** not built. The public site **must never** publish guard profiles. `/api/marketplace` was removed on purpose.
 
 ## Guard Day pricing
