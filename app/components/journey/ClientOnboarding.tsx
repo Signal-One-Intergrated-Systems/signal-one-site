@@ -6,6 +6,7 @@ import { useEffect, useRef, type FormEvent } from "react";
 import { Check, Steps } from "../ui";
 import { Consent, JMulti, JRadio, JSelect, JText, ReviewList } from "./fields";
 import { useJourney } from "./useJourney";
+import { guardDayPricePhrase, minimumPhrase } from "../../lib/pricing";
 
 const ACCENT = "text-signal-ink";
 
@@ -57,7 +58,7 @@ export default function ClientOnboarding() {
             items={[
               ["We contact you", "By email or phone, to confirm your company details and what you want to start with."],
               ["We set up your workspace", "Sites, posts and your first users, with you."],
-              ["You buy guard days", "R2 per guard per day, excl. VAT, under your customer terms. Minimum 10 guard days."],
+              ["You buy guard days", guardDayPricePhrase + ", excl. VAT, under your customer terms. Minimum " + minimumPhrase + "."],
               ["Your guards start using the app", "On their own phones or an authorised Central Device."],
             ]}
           />

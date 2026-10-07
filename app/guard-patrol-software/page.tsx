@@ -3,11 +3,12 @@ import LandingPage from "../components/LandingPage";
 import { ProductWindow } from "../components/ProductProof";
 import { ButtonLink } from "../components/ui";
 import { proofViews } from "../lib/productProof";
+import { guardDayPricePhrase } from "../lib/pricing";
 
 export const metadata: Metadata = {
   title: "Guard Patrol Software for Security Companies",
   description:
-    "QR and NFC checkpoint patrols, with scans saved on the phone when signal drops, and missed and late checkpoints in proof of service. Signal One Guard is R2 per guard per day, excl. VAT.",
+    "QR and NFC checkpoint patrols, with scans saved on the phone when signal drops, and missed and late checkpoints in proof of service. Signal One Guard is " + guardDayPricePhrase + ", excl. VAT.",
   alternates: { canonical: "/guard-patrol-software" },
 };
 
@@ -55,7 +56,7 @@ export default function GuardPatrolSoftwarePage() {
       related={[
         ["/guard-attendance-software", "Guard attendance and clock-in"],
         ["/solutions/security", "The Signal One Security platform"],
-        ["/pricing", "Pricing: R2 per guard per day"],
+        ["/pricing", "Pricing: " + guardDayPricePhrase],
       ]}
     />
   );

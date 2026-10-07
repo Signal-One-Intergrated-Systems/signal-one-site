@@ -4,11 +4,12 @@ import GuardDayCalculator from "../components/GuardDayCalculator";
 import { Arrow, ButtonLink, Kicker, Status } from "../components/ui";
 import { guardOnboardingLine } from "../lib/guardStatus";
 import { num, rand } from "../lib/format";
+import { exVat, guardDayPrice, guardDayPricePhrase, minimumPhrase } from "../lib/pricing";
 
 export const metadata: Metadata = {
-  title: "Security Guard Software Pricing: R2 per Guard per Day",
+  title: "Security Guard Software Pricing: " + guardDayPrice + " per Guard per Day",
   description:
-    "Signal One Security is R2 per guard per day, excluding VAT. No tiers or packages. Minimum 10 guard days; unused days carry over. Calculate your cost.",
+    "Signal One Security is " + guardDayPricePhrase + ", excluding VAT. No tiers or packages. Minimum " + minimumPhrase + "; unused days carry over. Calculate your cost.",
   alternates: { canonical: "/pricing" },
 };
 
@@ -27,7 +28,7 @@ export default function PricingPage() {
           <div>
             <Kicker tone="dark">Signal One Security pricing</Kicker>
             <h1 className="mt-6 flex flex-wrap items-end gap-x-5 gap-y-2">
-              <span className="t-num text-[7rem] text-signal-400 sm:text-[10rem] lg:text-[12rem]">R2</span>
+              <span className="t-num text-[7rem] text-signal-400 sm:text-[10rem] lg:text-[12rem]">{guardDayPrice}</span>
               <span className="pb-4 font-display text-[1.75rem] font-semibold leading-tight sm:text-[2.25rem]">
                 per guard
                 <br />
@@ -74,8 +75,8 @@ export default function PricingPage() {
             <h2 className="t-h2">The rules, in full.</h2>
             <dl className="mt-8">
               {[
-                ["Price", "R2 per guard per day, excluding VAT."],
-                ["Minimum purchase", "10 guard days."],
+                ["Price", guardDayPricePhrase + ", excluding VAT."],
+                ["Minimum purchase", minimumPhrase + "."],
                 ["Unused guard days", "Carry over. They stay available to your company."],
                 ["Tiers or packages", "None. The rate is the same for 10 guard days or 10 000."],
                 ["No-shows, cancellations, partial and multiple shifts", "Handled under your customer terms, agreed before you start."],
@@ -93,7 +94,7 @@ export default function PricingPage() {
       <section className="surface-white section">
         <div className="wrap">
           <h2 className="t-h2">Worked examples</h2>
-          <p className="t-body mt-3 text-text-2">Plain arithmetic: guards × days × R2, excluding VAT.</p>
+          <p className="t-body mt-3 text-text-2">Plain arithmetic: guards × days × {guardDayPrice}, excluding VAT.</p>
           <div className="mt-8 overflow-hidden rounded-card ring-1 ring-line">
             <table className="w-full border-collapse text-left">
               <caption className="sr-only">Guard day cost examples</caption>
@@ -111,7 +112,7 @@ export default function PricingPage() {
                     <td className="px-4 py-4 sm:px-6">{guards}</td>
                     <td className="px-4 py-4 sm:px-6">{days}</td>
                     <td className="px-4 py-4 sm:px-6">{num(guards * days)}</td>
-                    <td className="px-4 py-4 text-right font-semibold sm:px-6">{rand(guards * days * 2)}</td>
+                    <td className="px-4 py-4 text-right font-semibold sm:px-6">{rand(exVat(guards * days))}</td>
                   </tr>
                 ))}
               </tbody>
@@ -125,7 +126,7 @@ export default function PricingPage() {
           <div>
             <h2 className="t-h2">Priced separately</h2>
             <p className="t-body mt-4 text-text-2">
-              Guard days cover the platform. These are optional and are never bundled into the R2 rate.
+              Guard days cover the platform. These are optional and are never bundled into the {guardDayPrice} rate.
             </p>
           </div>
           <ul className="m-0 list-none p-0">

@@ -3,11 +3,12 @@ import LandingPage from "../components/LandingPage";
 import { ProductWindow } from "../components/ProductProof";
 import { ButtonLink } from "../components/ui";
 import { proofViews } from "../lib/productProof";
+import { guardDayPricePhrase } from "../lib/pricing";
 
 export const metadata: Metadata = {
   title: "Guard Attendance and Clock-In Software",
   description:
-    "Clock-in at the post on the guard's phone or a Central Device, the roster against every post, and PSiRA rules built in. R2 per guard per day, excl. VAT.",
+    "Clock-in at the post on the guard's phone or a Central Device, the roster against every post, and PSiRA rules built in. " + guardDayPricePhrase + ", excl. VAT.",
   alternates: { canonical: "/guard-attendance-software" },
 };
 
@@ -55,7 +56,7 @@ export default function GuardAttendanceSoftwarePage() {
       related={[
         ["/guard-patrol-software", "Guard patrol software"],
         ["/solutions/security", "The Signal One Security platform"],
-        ["/pricing", "Pricing: R2 per guard per day"],
+        ["/pricing", "Pricing: " + guardDayPricePhrase],
       ]}
     />
   );

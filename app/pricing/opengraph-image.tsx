@@ -1,9 +1,10 @@
 import { ogContentType, ogSize, renderOg } from "../lib/og";
+import { guardDayPricePhrase } from "../lib/pricing";
 
-export const alt = "R2 per guard per day";
+export const alt = guardDayPricePhrase;
 export const size = ogSize;
 export const contentType = ogContentType;
 
 export default function Image() {
-  return renderOg("R2 per guard per day", "Excluding VAT. No tiers or packages.");
+  return renderOg(guardDayPricePhrase, "Excluding VAT. No tiers or packages.");
 }

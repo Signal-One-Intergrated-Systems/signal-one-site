@@ -4,6 +4,7 @@ import { ButtonLink, Check, Kicker, Photo, SplitHero, Status, GuardStatus } from
 import { guardOnboardingLine } from "../../lib/guardStatus";
 import { illustrativeCaption, photos } from "../../lib/photos";
 import { proofViews } from "../../lib/productProof";
+import { guardDayPricePhrase } from "../../lib/pricing";
 
 export const metadata: Metadata = {
   title: "Security Company Software: Patrols, Attendance, SOS",
@@ -50,7 +51,7 @@ export default function SecurityPlatformPage() {
             Talk to Signal One
           </ButtonLink>
           <ButtonLink href="/pricing" variant="ghost-dark" size="lg">
-            R2 per guard per day
+            {guardDayPricePhrase}
           </ButtonLink>
         </div>
         <p className="t-caption mt-6 text-text-inv-2">{illustrativeCaption}</p>

@@ -33,6 +33,13 @@ The site forwards it to `SIGNAL_ONE_INTAKE_URL` as `{ kind, data, source: "signa
 - **Sales OS sign-in URL:** set `SALES_OS_URL`. Until then, `/join/sales` shows a placeholder.
 - **Guard Marketplace data:** not built. The public site **must never** publish guard profiles. `/api/marketplace` was removed on purpose.
 
+## Guard Day pricing
+
+- The website's single source is `app/lib/pricing.ts`: price per guard day, currency, VAT rate, minimum guard days, carry-over and effective date. Every price on the site reads from it, and `tests/e2e/pricing.spec.ts` fails if any rendered page shows a guard-day price it did not produce.
+- **Current value:** R2.00 per guard per day, excluding VAT. **R2.50 is pending founder confirmation**; the change is one line (`pricePerGuardDay`) plus `effectiveDate`.
+- **Sales OS and Admin hold their own price books** in other repositories (lancesat-enterprise-platform). They are not coupled to this file and must be aligned separately whenever the price changes.
+- **Online purchase of guard days:** no payment backend or checkout contract exists. The site says "Talk to us to buy guard days" and links to /contact. A checkout needs: a payment provider, an order API that creates the company's guard-day balance, VAT invoicing and a confirmation contract.
+
 ## Upstream contract we need (proposal)
 
 `POST $SIGNAL_ONE_INTAKE_URL` with `Authorization: Bearer <token>` and JSON `{ kind: "client"|"guard"|"sales", data: { <field>: string, intent: string }, source: "signal-one-site" }`. Reply `2xx` with optional `{ message }` shown to the visitor, or `4xx/5xx` with `{ message }`. It should be idempotent per submission and must not return personal data. Until it exists, the mailto fallback is the only route and mail volume depends on the visitor's own mail client.

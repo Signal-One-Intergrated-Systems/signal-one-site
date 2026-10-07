@@ -3,10 +3,8 @@
 import { useId, useMemo, useRef, useState } from "react";
 import { trackEvent } from "../lib/analytics";
 import { num, rand as money } from "../lib/format";
+import { billableGuardDays, exVat, guardDayPrice, incVat, minimumPhrase, pricing, vatPercent } from "../lib/pricing";
 
-const PRICE_PER_GUARD_DAY = 2;
-const MINIMUM_GUARD_DAYS = 10;
-const VAT_RATE = 0.15;
 
 function normalise(value: string) {
   const parsed = Number.parseInt(value, 10);
@@ -15,8 +13,8 @@ function normalise(value: string) {
 }
 
 /**
- * Pure arithmetic: guards × days × R2, with the 10 guard-day minimum.
- * Shows the result ex VAT (the public price) and incl. 15% VAT for reference.
+ * Pure arithmetic: guards × days × the guard-day price (lib/pricing.ts), with
+ * the minimum applied. Shows the result ex VAT (the public price) and incl. VAT.
  */
 export default function GuardDayCalculator({ heading = "Calculate your guard cost" }: { heading?: string }) {
   const [guards, setGuards] = useState("20");
@@ -32,14 +30,14 @@ export default function GuardDayCalculator({ heading = "Calculate your guard cos
 
   const result = useMemo(() => {
     const requested = normalise(guards) * normalise(days);
-    const billable = requested > 0 ? Math.max(requested, MINIMUM_GUARD_DAYS) : 0;
-    const exVat = billable * PRICE_PER_GUARD_DAY;
+    const billable = billableGuardDays(requested);
+    const amount = exVat(billable);
     return {
       requested,
       billable,
-      exVat,
-      incVat: exVat * (1 + VAT_RATE),
-      minimumApplied: requested > 0 && requested < MINIMUM_GUARD_DAYS,
+      exVat: amount,
+      incVat: incVat(amount),
+      minimumApplied: requested > 0 && requested < pricing.minimumGuardDays,
     };
   }, [guards, days]);
 
@@ -102,17 +100,20 @@ export default function GuardDayCalculator({ heading = "Calculate your guard cos
         <p className="t-small mt-4 text-text-2">
           {result.billable > 0
             ? num(result.billable) +
-              " guard days × R2 = " +
+              " guard days × " +
+              guardDayPrice +
+              " = " +
               money(result.exVat) +
               " excl. VAT (" +
               money(result.incVat) +
-              " incl. 15% VAT)."
+              " incl. " +
+              vatPercent +
+              " VAT)."
             : "Enter the number of guards and days you want to cover."}
         </p>
         {result.minimumApplied ? (
           <p className="t-small mt-4 rounded-ui bg-beta-tint px-4 py-3 font-medium text-beta">
-            That is {result.requested} guard {result.requested === 1 ? "day" : "days"}. The minimum purchase is 10 guard
-            days, so this estimate uses 10.
+            That is {result.requested} guard {result.requested === 1 ? "day" : "days"}. The minimum purchase is {minimumPhrase}, so this estimate uses {pricing.minimumGuardDays}.
           </p>
         ) : null}
       </div>

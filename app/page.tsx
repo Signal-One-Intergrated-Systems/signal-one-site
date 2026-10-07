@@ -6,6 +6,7 @@ import { Arrow, ButtonLink, Check, Kicker, Photo, PhotoBand, SplitHero, Status, 
 import { guardIsLive, guardOnboardingLine, guardStatusLabel } from "./lib/guardStatus";
 import { illustrativeCaption, photos } from "./lib/photos";
 import { proofViews } from "./lib/productProof";
+import { carryOverPhrase, guardDayPrice, guardDayPricePhrase, guardDayPriceShort, minimumPhrase } from "./lib/pricing";
 
 export const metadata: Metadata = {
   title: { absolute: "Security Guard Management Software South Africa | Signal One" },
@@ -100,8 +101,8 @@ export default function Home() {
               See Signal One in action
             </ButtonLink>
             <ButtonLink href="/pricing#calculator" variant="ghost-dark" size="lg" event="hero_pricing" eventLabel="Hero secondary">
-              <span className="sm:hidden">Calculate guard cost · R2/day</span>
-              <span className="hidden sm:inline">Calculate guard cost · R2 per guard per day</span>
+              <span className="sm:hidden">Calculate guard cost · {guardDayPriceShort}</span>
+              <span className="hidden sm:inline">Calculate guard cost · {guardDayPricePhrase}</span>
             </ButtonLink>
           </div>
           <p className="t-small mt-6 text-text-inv-2">
@@ -366,9 +367,9 @@ export default function Home() {
         <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:items-start lg:gap-16">
           <div>
             <Kicker>Pricing</Kicker>
-            <h2 className="sr-only">R2 per guard per day, excluding VAT</h2>
+            <h2 className="sr-only">{guardDayPricePhrase}, excluding VAT</h2>
             <p aria-hidden="true" className="mt-6 flex items-end gap-4">
-              <span className="t-num text-[6.5rem] text-signal-600 sm:text-[8.5rem]">R2</span>
+              <span className="t-num text-[6.5rem] text-signal-600 sm:text-[8.5rem]">{guardDayPrice}</span>
               <span className="pb-3 font-display text-[1.375rem] font-semibold leading-tight sm:text-[1.625rem]">
                 per guard
                 <br />
@@ -381,8 +382,8 @@ export default function Home() {
             <dl className="mt-8 grid gap-0">
               {[
                 ["A guard day", "One allocated guard clocking in and out of one on-site shift."],
-                ["Minimum purchase", "10 guard days."],
-                ["Unused days", "Carry over."],
+                ["Minimum purchase", minimumPhrase + "."],
+                ["Unused days", carryOverPhrase],
                 ["Exceptions", "No-shows, cancellations, partial and multiple shifts follow your customer terms."],
               ].map(([term, detail]) => (
                 <div key={term} className="grid gap-1 border-t border-line py-4 sm:grid-cols-[10rem_1fr] sm:gap-4">
@@ -414,7 +415,7 @@ export default function Home() {
               },
               {
                 title: "Calculate guard cost",
-                body: "Guards × days × R2. See the number before you talk to anyone.",
+                body: "Guards × days × " + guardDayPrice + ". See the number before you talk to anyone.",
                 href: "/pricing#calculator",
                 cta: "Open the calculator",
                 variant: "ghost-dark" as const,
