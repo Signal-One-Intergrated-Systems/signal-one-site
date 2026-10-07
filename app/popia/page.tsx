@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import LegalPage from "../components/LegalPage";
 
 export const metadata: Metadata = {
-  title: "POPIA & Data Handling",
-  description: "Signal One's POPIA and data-handling approach for public enquiries and operational product data.",
+  title: "POPIA and Data Handling for Security Software",
+  description:
+    "How Signal One approaches POPIA and data handling for public enquiries, guard profiles and operational product data in security guard management software.",
   alternates: { canonical: "/popia" },
 };
 
@@ -20,6 +21,7 @@ const sections = [
 export default function PopiaPage() {
   return (
     <LegalPage
+      reviewNote
       kicker="POPIA"
       title="POPIA and data handling"
       intro="Signal One is designed to minimise unnecessary exposure of operational and personal information. Product-specific privacy notices, operator responsibilities and retention requirements are confirmed in the relevant customer and service documentation."

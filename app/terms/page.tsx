@@ -3,7 +3,8 @@ import LegalPage from "../components/LegalPage";
 
 export const metadata: Metadata = {
   title: "Website Terms",
-  description: "Signal One public website terms for product information, pricing and acceptable use.",
+  description:
+    "Terms for using the Signal One public website: product information, pricing and acceptable use.",
   alternates: { canonical: "/terms" },
 };
 
@@ -18,6 +19,7 @@ const sections = [
 export default function TermsPage() {
   return (
     <LegalPage
+      reviewNote
       kicker="Website terms"
       title="Website terms"
       intro="These website terms govern use of the public Signal One site. Product orders, rentals, Guard access and other paid services remain subject to the applicable quotation, order, rental or service agreement."

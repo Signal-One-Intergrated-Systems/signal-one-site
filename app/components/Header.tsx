@@ -52,10 +52,10 @@ const worlds: Record<
     ],
     secondary: [{ href: "/", label: "For security companies" }],
     cta: { href: "/guards/join", label: "Create your profile" },
-    shell: "bg-light text-text border-b border-line",
-    link: "text-text hover:bg-black/5",
+    shell: "bg-base text-text-inv border-b border-line-dark",
+    link: "text-text-inv hover:bg-white/8",
     cta_class: "btn btn-primary",
-    sheet: "bg-light text-text",
+    sheet: "bg-base text-text-inv",
   },
   careers: {
     identity: "Careers",
@@ -66,10 +66,10 @@ const worlds: Record<
     ],
     secondary: [{ href: "/", label: "About Signal One" }],
     cta: { href: "/join/sales#apply", label: "Apply" },
-    shell: "bg-light text-text border-b border-line",
-    link: "text-text hover:bg-black/5",
+    shell: "bg-base text-text-inv border-b border-line-dark",
+    link: "text-text-inv hover:bg-white/8",
     cta_class: "btn btn-primary",
-    sheet: "bg-light text-text",
+    sheet: "bg-base text-text-inv",
   },
 };
 
@@ -83,7 +83,7 @@ export default function Header() {
   const pathname = usePathname() || "/";
   const world = worldFor(pathname);
   const config = worlds[world];
-  const dark = world === "buyer";
+  const dark = true; // the header is always dark: the lockup's light-surface colours are for light backgrounds only
   const [open, setOpen] = useState(false);
   const sheetRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);

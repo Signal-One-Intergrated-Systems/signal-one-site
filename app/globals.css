@@ -160,6 +160,15 @@
     grid-template-columns: minmax(0, 1fr);
   }
 
+  .split-hero {
+    --hero-col: 38rem;
+  }
+  @media (min-width: 1600px) {
+    .split-hero {
+      --hero-col: 46rem;
+    }
+  }
+
   .wrap {
     width: 100%;
     max-width: 1320px;
@@ -237,6 +246,14 @@
     line-height: 0.98;
     letter-spacing: -0.03em;
   }
+  /* Hero headline: sized for the split hero's text column */
+  .t-hero {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(2.6rem, 1.6rem + 3.4vw, 3.8rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
   .t-h1 {
     font-family: var(--font-display);
     font-weight: 700;
@@ -291,6 +308,27 @@
     font-weight: 650;
     line-height: 1.4;
     letter-spacing: 0.005em;
+  }
+  /* Wide screens: scale display type up so heroes do not look small */
+  @media (min-width: 1600px) {
+    .t-display {
+      font-size: 6.75rem;
+    }
+    .t-hero {
+      font-size: clamp(4.4rem, 3.4vw, 5.6rem);
+    }
+    .t-h1 {
+      font-size: 5.4rem;
+    }
+    .t-h2 {
+      font-size: 4.25rem;
+    }
+    .t-h3 {
+      font-size: 1.75rem;
+    }
+    .t-lead {
+      font-size: 1.5rem;
+    }
   }
   .t-num {
     font-family: var(--font-display);

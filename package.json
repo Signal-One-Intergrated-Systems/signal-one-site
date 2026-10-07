@@ -10,7 +10,10 @@
     "check:branding": "node scripts/check-branding.mjs",
     "prebuild": "npm run check:branding",
     "check:built": "node scripts/check-branding.mjs --built",
-    "postbuild": "npm run check:built"
+    "postbuild": "npm run check:built",
+    "qa": "npm run build && playwright test",
+    "qa:run": "playwright test",
+    "qa:docker": "docker build -f Dockerfile.qa -t signal-one-qa . && docker run --rm signal-one-qa"
   },
   "dependencies": {
     "next": "16.1.0",
@@ -18,6 +21,8 @@
     "react-dom": "19.2.3"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.56.1",
     "@tailwindcss/postcss": "^4.1.18",
     "@types/node": "^20",
     "@types/react": "^19",

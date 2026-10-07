@@ -4,17 +4,17 @@ import { Check, SplitHero } from "../components/ui";
 import { photos } from "../lib/photos";
 
 export const metadata: Metadata = {
-  title: "For Security Officers: Signal One Guard and Guard Marketplace",
+  title: "Security Officer App: Clock In, Patrol and SOS",
   description:
-    "For security officers in South Africa: how the Signal One Guard app works on shift, what Guard Marketplace is planned to do, what PSiRA details we ask for and why, and how your information is kept private.",
+    "How the Signal One Guard app works on shift for security officers: clock in, QR and NFC patrols, occurrence book and SOS. What PSiRA details we ask for and why.",
   alternates: { canonical: "/guards" },
 };
 
 const onShift = [
   ["Clock in and out", "At your post, on your own phone or the site's authorised Central Device."],
-  ["Walk your patrol", "Scan each checkpoint with QR or NFC. No signal? It keeps recording and sends later."],
+  ["Walk your patrol", "Scan each checkpoint with QR or NFC. No signal? The scan is saved on your phone and sent when signal returns."],
   ["Report what happens", "Write in the occurrence book and log incidents as they happen."],
-  ["Press SOS", "One button sends an alert to your control room."],
+  ["Press SOS", "One button sends an alert to your control room. SOS needs a mobile signal to reach the control room."],
   ["Accept or decline offers", "Your company can offer you open shifts. You choose."],
 ] as const;
 
@@ -30,7 +30,7 @@ export default function GuardsPage() {
     <main id="main" className="bg-light text-text">
       <SplitHero src={photos.siteOperations.src} alt={photos.siteOperations.alt} side="left" objectPositionMobile="0% 8%" objectPosition="0% 12%">
           <p className="text-[1.0625rem] font-semibold text-signal-400">For security officers</p>
-          <h1 className="t-h1 mt-4">Your work, on record. Your next job, your choice.</h1>
+          <h1 className="t-hero mt-4">Your work, on record. Your next job, your choice.</h1>
           <p className="mt-6 text-[1.25rem] leading-relaxed text-text-inv-2">
             Signal One Guard is the app you use on shift. Guard Marketplace is not live yet. When it launches,
             signed-in security companies will be able to send you hire requests. You will always decide whether to accept.
@@ -65,7 +65,7 @@ export default function GuardsPage() {
           <div>
             <div className="flex flex-wrap items-center gap-3">
               <h2 className="t-h2">Planned: Guard Marketplace</h2>
-              <span className="rounded-full bg-beta-tint px-3 py-1 text-[0.9375rem] font-semibold text-beta">Coming soon</span>
+              <span className="rounded-full bg-beta-tint px-3 py-1 text-[0.9375rem] font-semibold text-beta">MVP in development</span>
             </div>
             <p className="mt-4 text-[1.1875rem] leading-relaxed text-text-2">
               We are building Marketplace. When it launches, signed-in Signal One client companies will be able to find profiles by:

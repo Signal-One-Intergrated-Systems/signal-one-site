@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import GuardJoin from "../../components/journey/GuardJoin";
 
 export const metadata: Metadata = {
-  title: "Create Your Guard Profile",
+  title: "Create Your Security Officer Profile",
   description:
-    "Security officers: create a private Signal One guard profile with your PSiRA details, experience, skills, areas and availability. Never shown on a public website. Signal One reviews it and contacts you.",
+    "Create a private Signal One guard profile with your PSiRA details, experience, skills and availability. Never shown on a public website; Signal One reviews it and contacts you.",
   alternates: { canonical: "/guards/join" },
 };
 

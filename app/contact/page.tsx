@@ -3,9 +3,9 @@ import IntakeForm, { type IntakeField } from "../components/IntakeForm";
 import { Kicker, Steps } from "../components/ui";
 
 export const metadata: Metadata = {
-  title: "Talk to Signal One",
+  title: "Talk to Signal One About Security Guard Software",
   description:
-    "Talk to a Signal One representative about security guard management software, guard pricing, Guard Marketplace, PTT radio rental and tracking for your security company.",
+    "Talk to a Signal One specialist about guard management software: R2 per guard per day, a walkthrough on your operation, radios, tracking and Guard Marketplace.",
   alternates: { canonical: "/contact" },
 };
 

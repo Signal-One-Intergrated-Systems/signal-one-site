@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import GuardDayCalculator from "./components/GuardDayCalculator";
 import ProductProof, { ProductWindow } from "./components/ProductProof";
-import { Arrow, ButtonLink, Check, Kicker, Photo, PhotoBand, SplitHero, Status } from "./components/ui";
+import { Arrow, ButtonLink, Check, Kicker, Photo, PhotoBand, SplitHero, Status, GuardStatus } from "./components/ui";
+import { guardIsLive, guardOnboardingLine, guardStatusLabel } from "./lib/guardStatus";
 import { illustrativeCaption, photos } from "./lib/photos";
 import { proofViews } from "./lib/productProof";
 
 export const metadata: Metadata = {
-  title: { absolute: "Security Guard Management Software South Africa | Signal One: Integrated Systems" },
+  title: { absolute: "Security Guard Management Software South Africa | Signal One" },
   alternates: { canonical: "/" },
 };
 
@@ -35,9 +36,9 @@ const hireFlow = [
 const runCapabilities = [
   ["Sites, posts and shifts", "Set up each site's posts, build shifts and allocate guards. The roster shows where you are short before the shift starts."],
   ["Clock in and out", "Guards clock in at the post on their own phone or an authorised Central Device."],
-  ["Patrols", "QR or NFC checkpoints. If signal drops, the patrol keeps recording and syncs when it is back."],
+  ["Patrols", "QR or NFC checkpoints. Scans are saved on the phone and sent when signal returns."],
   ["Occurrence book and incidents", "One chronological record of what happened on site, with incidents logged as they happen."],
-  ["SOS to the control room", "An SOS lands in the control-room queue to acknowledge, navigate to and resolve."],
+  ["SOS to the control room", "The control room acknowledges, navigates to and resolves each SOS. It needs a mobile signal."],
   ["People and access", "Invite supervisors, limit each one to their sites, and switch access off without deleting history."],
 ] as const;
 
@@ -83,7 +84,7 @@ export default function Home() {
       {/* 1 · HERO */}
       <SplitHero src={photos.hero.src} alt={photos.hero.alt} objectPositionMobile="66% 45%" objectPosition="80% 40%">
           <Kicker tone="dark">For growing South African security companies</Kicker>
-          <h1 className="t-display mt-5 text-[clamp(2.6rem,4.3vw,3.8rem)]">
+          <h1 className="t-hero mt-5">
             Win more contracts.
             <br />
             Run every site.
@@ -169,9 +170,9 @@ export default function Home() {
         <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-20">
           <div>
             <p className="t-lead measure text-text-inv-2">
-              Guard Marketplace is the hiring step we are building into Signal One. Find guards near the site, shortlist
-              them and send a hire request. The guard accepts or declines on their phone, and accepted guards join your
-              workforce, ready for a site and a shift.
+              Guard Marketplace is the hiring step we are building into Signal One. When it launches, you will be able to find
+              guards near the site, shortlist them and send a hire request. The guard will accept or decline on their phone,
+              and accepted guards will join your workforce, ready for a site and a shift.
             </p>
             <Link href="/guard-marketplace" className="link-arrow mt-8 text-signal-400">
               See how Marketplace will work <Arrow />
@@ -189,18 +190,18 @@ export default function Home() {
 
             <dl className="mt-12 grid gap-6 border-t border-line-dark pt-8 sm:grid-cols-2">
               <div>
-                <dt className="t-h4">Five filters, nothing else</dt>
+                <dt className="t-h4">Planned: five filters, nothing else</dt>
                 <dd className="t-small m-0 mt-2 text-text-inv-2">Location, PSiRA grade, availability, experience and skills.</dd>
               </div>
               <div>
                 <dt className="t-h4">Private, not a jobs board</dt>
                 <dd className="t-small m-0 mt-2 text-text-inv-2">
-                  Profiles stay inside your signed-in company workspace. Nothing is published publicly.
+                  Profiles will stay inside your signed-in company workspace. Nothing will be published publicly.
                 </dd>
               </div>
               <div className="sm:col-span-2">
                 <dt className="t-h4 flex flex-wrap items-center gap-3">
-                  Already live <Status kind="live" tone="dark">Live</Status>
+                  {guardIsLive ? "Already live" : "In the Guard pilot"} <GuardStatus tone="dark" />
                 </dt>
                 <dd className="t-small m-0 mt-2 text-text-inv-2">
                   Offer open posts to your own guards in Signal One Guard. They accept or decline in the app.
@@ -221,9 +222,7 @@ export default function Home() {
         kicker={
           <span className="flex flex-wrap items-center gap-3">
             <Kicker tone="dark">Run</Kicker>
-            <Status kind="live" tone="dark">
-              Live
-            </Status>
+            <GuardStatus tone="dark" />
           </span>
         }
         headline="Run every site from one record."
@@ -317,9 +316,7 @@ export default function Home() {
           <div className="max-w-3xl">
             <div className="flex flex-wrap items-center gap-3">
               <Kicker tone="dark">Prove</Kicker>
-              <Status kind="live" tone="dark">
-                Client portal · Live
-              </Status>
+              <GuardStatus tone="dark">Client portal · {guardStatusLabel}</GuardStatus>
             </div>
             <h2 className="t-h2 mt-4">Transparency without giving away the operation.</h2>
             <p className="t-lead mt-5 text-text-inv-2">
@@ -379,6 +376,7 @@ export default function Home() {
               </span>
             </p>
             <p className="t-body mt-4 text-text-2">Excluding VAT. One price, no tiers or packages.</p>
+            {guardOnboardingLine ? <p className="t-small mt-2 font-semibold text-text-2">{guardOnboardingLine}</p> : null}
 
             <dl className="mt-8 grid gap-0">
               {[

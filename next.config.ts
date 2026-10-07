@@ -20,9 +20,11 @@ const legacyRedirects = [
 ] as const;
 
 const nextConfig: NextConfig = {
+  // QA builds a second copy (GUARD_STATUS=live) beside the normal one.
+  distDir: process.env.NEXT_DIST_DIR || ".next",
   images: {
     formats: ["image/avif", "image/webp"],
-    qualities: [75, 90, 92, 94],
+    qualities: [70, 75, 90],
   },
   async redirects() {
     return legacyRedirects.map(([source, destination]) => ({

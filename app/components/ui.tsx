@@ -2,6 +2,7 @@ import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import type { SignalOneEvent } from "../lib/analytics";
+import { guardStatusKind, guardStatusLabel } from "../lib/guardStatus";
 
 type Tone = "light" | "dark";
 
@@ -23,6 +24,7 @@ export function Kicker({
 }
 
 const statusStyles = {
+  pilot: { light: "bg-signal-tint text-signal-ink ring-1 ring-signal-ink/25", dark: "bg-signal-400/12 text-signal-400 ring-1 ring-signal-400/30" },
   live: { light: "bg-live-tint text-live", dark: "bg-white/8 text-live-inv" },
   beta: { light: "bg-beta-tint text-beta", dark: "bg-white/8 text-beta-inv" },
   mvp: { light: "bg-beta-tint text-beta", dark: "bg-white/8 text-beta-inv" },
@@ -51,6 +53,15 @@ export function Status({
     >
       {children}
     </span>
+  );
+}
+
+/** Status of a Guard capability: Pilot or Live, from lib/guardStatus.ts. Server components only. */
+export function GuardStatus({ tone = "light", children }: { tone?: Tone; children?: ReactNode }) {
+  return (
+    <Status kind={guardStatusKind} tone={tone}>
+      {children ?? guardStatusLabel}
+    </Status>
   );
 }
 
@@ -132,7 +143,7 @@ export function Photo({
           sizes={sizes}
           priority={priority}
           placeholder="blur"
-          quality={80}
+          quality={75}
           className={imgClassName}
         />
       </div>
@@ -222,7 +233,7 @@ export function PhotoBand({
             alt={alt}
             fill
             sizes={sizes || "(min-width: " + src.width + "px) " + src.width + "px, 100vw"}
-            quality={82}
+            quality={75}
             placeholder="blur"
             className="object-cover"
             style={{ objectPosition }}
@@ -275,13 +286,13 @@ export function SplitHero({
   objectPositionMobile?: string;
   objectPosition?: string;
 }) {
-  const inset = "calc(max(0px, (100vw - 1320px) / 2) + 40px + 38rem + 40px)";
+  const inset = "calc(max(0px, (100vw - 1320px) / 2) + 40px + var(--hero-col) + 40px)";
   const box: React.CSSProperties =
     side === "right"
       ? ({ ["--ph-l" as string]: inset, ["--ph-r" as string]: "0px" } as React.CSSProperties)
       : ({ ["--ph-l" as string]: "0px", ["--ph-r" as string]: inset } as React.CSSProperties);
   return (
-    <section className="relative bg-deep text-text-inv" style={box}>
+    <section className="split-hero relative bg-deep text-text-inv" style={box}>
       <div className="relative h-[56vw] lg:absolute lg:inset-y-0 lg:left-[var(--ph-l)] lg:right-[var(--ph-r)] lg:h-auto">
         <div className="relative mx-auto h-full" style={{ maxWidth: src.width }}>
           <Image
@@ -289,8 +300,9 @@ export function SplitHero({
             alt={alt}
             fill
             priority
+            fetchPriority="high"
             sizes={"(min-width: 1024px) 52vw, 100vw"}
-            quality={85}
+            quality={70}
             placeholder="blur"
             className="object-cover [object-position:var(--pos-m)] lg:[object-position:var(--pos-d)]"
             style={{ ["--pos-m" as string]: objectPositionMobile, ["--pos-d" as string]: objectPosition }}
@@ -308,7 +320,47 @@ export function SplitHero({
         </div>
       </div>
       <div className={"wrap relative pb-14 pt-10 lg:flex lg:min-h-[clamp(600px,44vw,760px)] lg:items-center lg:pb-24 lg:pt-24 " + (side === "left" ? "lg:justify-end" : "")}>
-        <div className="max-w-[38rem] lg:w-[38rem]">{children}</div>
+        <div className="max-w-[38rem] lg:w-[var(--hero-col)] lg:max-w-none">{children}</div>
+      </div>
+    </section>
+  );
+}
+
+/**
+ * Standard page hero for pages without a hero photograph: text on solid dark
+ * on the left, a panel (product frame, status, figure) on the right. Same
+ * column widths and scale as SplitHero.
+ */
+export function PageHero({
+  kicker,
+  status,
+  title,
+  lead,
+  actions,
+  aside,
+}: {
+  kicker?: ReactNode;
+  status?: ReactNode;
+  title: ReactNode;
+  lead?: ReactNode;
+  actions?: ReactNode;
+  aside?: ReactNode;
+}) {
+  return (
+    <section className="split-hero surface-deep">
+      <div className="wrap grid gap-12 py-16 md:py-24 lg:grid-cols-[minmax(0,var(--hero-col))_minmax(0,1fr)] lg:items-center lg:gap-20 lg:py-32">
+        <div>
+          {kicker || status ? (
+            <div className="flex flex-wrap items-center gap-3">
+              {kicker ? <Kicker tone="dark">{kicker}</Kicker> : null}
+              {status}
+            </div>
+          ) : null}
+          <h1 className="t-hero mt-5">{title}</h1>
+          {lead ? <p className="t-lead measure mt-6 text-text-inv-2">{lead}</p> : null}
+          {actions ? <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">{actions}</div> : null}
+        </div>
+        {aside ? <div>{aside}</div> : null}
       </div>
     </section>
   );

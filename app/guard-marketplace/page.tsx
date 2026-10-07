@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import IntakeForm, { type IntakeField } from "../components/IntakeForm";
-import { ButtonLink, Check, Kicker, Status, Steps } from "../components/ui";
+import { ButtonLink, Check, PageHero, Status, Steps, GuardStatus } from "../components/ui";
+import { guardIsLive } from "../lib/guardStatus";
 
 export const metadata: Metadata = {
-  title: "Guard Marketplace: Hire Guards for New Contracts",
+  title: "Guard Marketplace: Staff New Contracts (in development)",
   description:
-    "Guard Marketplace is the hiring step being built into Signal One Security: filter by location, PSiRA grade, availability, experience and skills, shortlist, send a hire request and allocate accepted guards to sites and shifts.",
+    "Guard Marketplace is being built into Signal One Security: filter by location, PSiRA grade, availability and skills, shortlist and send hire requests. Register interest.",
   alternates: { canonical: "/guard-marketplace" },
 };
 
@@ -49,40 +50,35 @@ function DemoChip({ children }: { children: React.ReactNode }) {
 export default function GuardMarketplacePage() {
   return (
     <main id="main">
-      <section className="surface-base">
-        <div className="wrap grid gap-10 py-14 md:py-20 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-end lg:gap-16">
-          <div>
-            <div className="flex flex-wrap items-center gap-3">
-              <Kicker tone="dark">Guard Marketplace</Kicker>
-              <Status kind="mvp" tone="dark">
-                MVP in development
-              </Status>
-            </div>
-            <h1 className="t-h1 mt-5">Win the contract. Then staff it from the same system.</h1>
-            <p className="t-lead measure mt-6 text-text-inv-2">
-              Find guards near the site, check what they have recorded, send a hire request and allocate the guards who
-              accept. Inside your company workspace, next to the sites and shifts they will work.
-            </p>
-          </div>
-          <div className="rounded-card border border-line-dark bg-raised p-6">
-            <h2 className="t-h4">Where Marketplace is today</h2>
-            <p className="t-small mt-2 text-text-inv-2">
+      <PageHero
+        kicker="Guard Marketplace"
+        status={
+          <Status kind="mvp" tone="dark">
+            MVP in development
+          </Status>
+        }
+        title="Win the contract. Then staff it from the same system."
+        lead="When it launches, you will be able to find guards near the site, check what they have recorded, send a hire request and allocate the guards who accept. Inside your company workspace, next to the sites and shifts they will work."
+        aside={
+          <div className="rounded-card border border-line-dark bg-raised p-6 sm:p-8">
+            <h2 className="t-h3">Where Marketplace is today</h2>
+            <p className="t-body mt-3 text-text-inv-2">
               Marketplace is not live yet. We are building the MVP described on this page. Register interest and we will
               tell you when your company can use it.
             </p>
-            <ButtonLink href="#interest" className="mt-5">
+            <ButtonLink href="#interest" size="lg" className="mt-6">
               Register interest
             </ButtonLink>
           </div>
-        </div>
-      </section>
+        }
+      />
 
       <section className="surface-light section">
         <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
           <div>
             <h2 className="t-h2">From contract to shift, in ten steps.</h2>
             <p className="t-body mt-4 text-text-2">
-              The hiring workflow ends where your operation already lives: a guard allocated to a site and a shift in Signal
+              The planned hiring workflow ends where your operation already lives: a guard allocated to a site and a shift in Signal
               One Guard.
             </p>
           </div>
@@ -187,11 +183,11 @@ export default function GuardMarketplacePage() {
             <h2 className="t-h2">Private by design.</h2>
             <ul className="m-0 mt-6 grid list-none gap-4 p-0">
               {[
-                "Profiles are only visible inside a signed-in Signal One company workspace.",
+                "Profiles will only be visible inside a signed-in Signal One company workspace.",
                 "There is no public guard search and no public jobs board.",
-                "Guards choose whether to accept a hire request.",
-                "PSiRA number, grade and expiry are shown as recorded. Signal One does not check them with PSiRA.",
-                "No ratings, readiness scores or badges.",
+                "Guards will choose whether to accept a hire request.",
+                "PSiRA number, grade and expiry will be shown as recorded. Signal One does not check them with PSiRA.",
+                "There will be no ratings, readiness scores or badges.",
               ].map((item) => (
                 <li key={item} className="t-body flex gap-3">
                   <Check className="mt-1 text-signal-ink" />
@@ -202,15 +198,15 @@ export default function GuardMarketplacePage() {
           </div>
           <div className="rounded-card bg-white p-6 ring-1 ring-line sm:p-8">
             <div className="flex flex-wrap items-center gap-3">
-              <h2 className="t-h3">Already live in Signal One Guard</h2>
-              <Status kind="live">Live</Status>
+              <h2 className="t-h3">{guardIsLive ? "Already live in Signal One Guard" : "In the Signal One Guard pilot"}</h2>
+              <GuardStatus />
             </div>
             <p className="t-body mt-4 text-text-2">
-              You can already offer open posts to your own guards. Each guard sees the offer in the Guard app and accepts
-              or declines it. Marketplace extends the same accept-or-decline step to guards outside your company.
+              {guardIsLive ? "You can already offer open posts to your own guards." : "Pilot companies can offer open posts to their own guards."} Each guard sees the offer in the Guard app and accepts
+              or declines it. Marketplace will extend the same accept-or-decline step to guards outside your company.
             </p>
             <ButtonLink href="/solutions/security" variant="ghost-light" className="mt-6">
-              See the live platform
+              See the platform
             </ButtonLink>
           </div>
         </div>

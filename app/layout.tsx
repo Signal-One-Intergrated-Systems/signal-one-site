@@ -3,13 +3,15 @@ import { Inter } from "next/font/google";
 import Analytics from "./components/Analytics";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import { guardAvailability, guardIsLive } from "./lib/guardStatus";
 import { brand, salesEmail, siteUrl } from "./lib/site";
 import "./globals.css";
 
 const body = Inter({
   subsets: ["latin"],
   variable: "--font-body",
-  display: "swap",
+  // "optional": the page never waits for or reflows to the web font. With the metric-matched fallback this keeps LCP and CLS low.
+  display: "optional",
 });
 
 const description =
@@ -17,8 +19,8 @@ const description =
 
 export const metadata: Metadata = {
   title: {
-    default: "Security Guard Management Software South Africa | " + brand.master,
-    template: "%s | " + brand.master,
+    default: "Security Guard Management Software South Africa | Signal One",
+    template: "%s | Signal One",
   },
   description,
   metadataBase: new URL(siteUrl),
@@ -43,13 +45,13 @@ export const metadata: Metadata = {
     siteName: brand.master,
     locale: "en_ZA",
     url: "/",
-    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Signal One: Integrated Systems" }],
+    
   },
   twitter: {
     card: "summary_large_image",
     title: "Signal One Security: run every site and prove the service",
     description,
-    images: ["/og-image.jpg"],
+    
   },
   robots: { index: true, follow: true },
 };
@@ -73,6 +75,7 @@ const structuredData = {
       name: brand.master,
       url: siteUrl,
       email: salesEmail,
+      logo: siteUrl + "/icon.png",
       areaServed: { "@type": "Country", name: "South Africa" },
       contactPoint: {
         "@type": "ContactPoint",
@@ -85,18 +88,29 @@ const structuredData = {
     {
       "@type": "SoftwareApplication",
       "@id": siteUrl + "/#software",
-      name: brand.product,
+      name: "Signal One Guard",
+      alternateName: brand.product,
       applicationCategory: "BusinessApplication",
       applicationSubCategory: "Security guard management software",
       operatingSystem: "Web, Android, iOS",
       publisher: { "@id": siteUrl + "/#organization" },
-      description,
+      description: guardIsLive ? description : description + " Signal One Guard is in pilot with its first security companies.",
       offers: {
         "@type": "Offer",
+        url: siteUrl + "/pricing",
+        availability: guardAvailability,
         price: "2.00",
         priceCurrency: "ZAR",
         description: "R2 per guard per day, excluding VAT. Minimum purchase 10 guard days.",
         eligibleRegion: { "@type": "Country", name: "South Africa" },
+        priceSpecification: {
+          "@type": "UnitPriceSpecification",
+          price: "2.00",
+          priceCurrency: "ZAR",
+          unitText: "per guard per day",
+          valueAddedTaxIncluded: false,
+          eligibleQuantity: { "@type": "QuantitativeValue", minValue: 10, unitText: "guard days" },
+        },
       },
     },
   ],

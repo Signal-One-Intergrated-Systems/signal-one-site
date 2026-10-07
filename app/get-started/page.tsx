@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import ClientOnboarding from "../components/journey/ClientOnboarding";
 
 export const metadata: Metadata = {
-  title: "Start Company Onboarding",
+  title: "Start Onboarding Your Security Company",
   description:
-    "Start onboarding your security company onto Signal One Security: company, contact, operation and what you want to start with. About three minutes.",
+    "Start onboarding your security company onto Signal One Security: company, contact, operation and what you want to start with. About three minutes, saved as you go.",
   alternates: { canonical: "/get-started" },
 };
 

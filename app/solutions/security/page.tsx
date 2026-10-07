@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import { ProductWindow } from "../../components/ProductProof";
-import { ButtonLink, Check, Kicker, Photo, Status } from "../../components/ui";
+import { ButtonLink, Check, Kicker, Photo, SplitHero, Status, GuardStatus } from "../../components/ui";
+import { guardOnboardingLine } from "../../lib/guardStatus";
 import { illustrativeCaption, photos } from "../../lib/photos";
 import { proofViews } from "../../lib/productProof";
 
 export const metadata: Metadata = {
-  title: "Security Company Software: Guard Attendance, Patrols & Control Room",
+  title: "Security Company Software: Patrols, Attendance, SOS",
   description:
-    "Signal One Security is guard management software for South African security companies: sites, shifts, guard attendance, QR and NFC patrols that work offline, incidents, SOS, control room and client proof of service.",
+    "Guard management software for South African security companies: sites, shifts, attendance, QR and NFC patrols, SOS, control room and proof of service.",
   alternates: { canonical: "/solutions/security" },
 };
 
@@ -20,9 +21,9 @@ function view(id: string) {
 const fieldCapabilities = [
   ["Clock in and out at the post", "On the guard's own phone or an authorised Central Device at the site. The attendance record belongs to the shift and the post."],
   ["Patrols with QR or NFC checkpoints", "Guards scan each checkpoint on the route. Missed and late checkpoints show up in proof of service."],
-  ["Keeps working offline", "Scans, clock events, SOS, incidents and occurrence entries queue on the phone and sync when signal returns."],
+  ["Keeps working offline", "Scans, clock events, incidents and occurrence entries are saved on the phone and sent when signal returns. SOS needs a mobile signal to reach the control room."],
   ["Occurrence book and incidents", "A chronological record of the shift, with incidents logged as they happen instead of written up afterwards."],
-  ["SOS", "One press sends an alert to the control-room queue, with the guard's last known position."],
+  ["SOS", "One press sends an alert to the control room with the guard's position when the phone has a fix. It needs a mobile signal."],
   ["Shift offers", "Offer an open post to your own guards. They accept or decline in the app."],
 ] as const;
 
@@ -33,32 +34,27 @@ export default function SecurityPlatformPage() {
 
   return (
     <main id="main">
-      <section className="surface-base">
-        <div className="wrap grid gap-12 py-14 md:py-20 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:items-center lg:gap-14">
-          <div>
-            <div className="flex flex-wrap items-center gap-3">
-              <Kicker tone="dark">Signal One Security · the platform</Kicker>
-              <Status kind="live" tone="dark">
-                Live
-              </Status>
-            </div>
-            <h1 className="t-h1 mt-5">Run security operations from the record, not the group chat.</h1>
-            <p className="t-lead mt-6 text-text-inv-2">
-              Sites, posts, shifts, attendance, patrols, incidents, SOS, the control room and client proof of service. One
-              system for owners, supervisors, control-room operators, guards and your clients.
-            </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <ButtonLink href="/contact" size="lg">
-                Talk to Signal One
-              </ButtonLink>
-              <ButtonLink href="/pricing" variant="ghost-dark" size="lg">
-                R2 per guard per day
-              </ButtonLink>
-            </div>
-          </div>
-          <ProductWindow screen={control.screen} shot={control.shots[0]} priority />
+      <SplitHero src={photos.teamBriefing.src} alt={photos.teamBriefing.alt} objectPositionMobile="55% 50%" objectPosition="62% 45%">
+        <div className="flex flex-wrap items-center gap-3">
+          <Kicker tone="dark">Signal One Security · the platform</Kicker>
+          <GuardStatus tone="dark" />
         </div>
-      </section>
+        <h1 className="t-hero mt-5">Run security operations from the record, not the group chat.</h1>
+        <p className="t-lead measure mt-6 text-text-inv-2">
+          Sites, posts, shifts, attendance, patrols, incidents, SOS, the control room and client proof of service. One
+          system for owners, supervisors, control-room operators, guards and your clients.
+        </p>
+        {guardOnboardingLine ? <p className="t-small mt-4 font-semibold text-text-inv">{guardOnboardingLine}</p> : null}
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <ButtonLink href="/contact" size="lg">
+            Talk to Signal One
+          </ButtonLink>
+          <ButtonLink href="/pricing" variant="ghost-dark" size="lg">
+            R2 per guard per day
+          </ButtonLink>
+        </div>
+        <p className="t-caption mt-6 text-text-inv-2">{illustrativeCaption}</p>
+      </SplitHero>
 
       {/* Coverage */}
       <section className="surface-light section">
@@ -76,7 +72,8 @@ export default function SecurityPlatformPage() {
               ))}
             </ul>
           </div>
-          <div className="grid content-start gap-4 lg:pt-2">
+          <div className="grid content-start gap-6">
+            <ProductWindow screen={control.screen} shot={control.shots[0]} priority />
             <h3 className="t-h3">The control room sees every SOS in order.</h3>
             <p className="t-body text-text-2">{control.body}</p>
             <p className="t-body text-text-2">
@@ -151,9 +148,7 @@ export default function SecurityPlatformPage() {
             <div>
               <div className="flex flex-wrap items-center gap-3">
                 <Kicker tone="dark">Proof of service and client portal</Kicker>
-                <Status kind="live" tone="dark">
-                  Live
-                </Status>
+                <GuardStatus tone="dark" />
               </div>
               <h2 className="t-h2 mt-4">Show the client what was delivered.</h2>
               <p className="t-body mt-5 text-text-inv-2">{proof.body}</p>

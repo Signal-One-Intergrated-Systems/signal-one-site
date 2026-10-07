@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import GuardDayCalculator from "../components/GuardDayCalculator";
 import { Arrow, ButtonLink, Kicker, Status } from "../components/ui";
+import { guardOnboardingLine } from "../lib/guardStatus";
 import { num, rand } from "../lib/format";
 
 export const metadata: Metadata = {
-  title: "Pricing: R2 per Guard per Day",
+  title: "Security Guard Software Pricing: R2 per Guard per Day",
   description:
-    "Signal One Security costs R2 per guard per day, excluding VAT. No tiers or packages. Minimum purchase 10 guard days; unused guard days carry over. Calculate your guard cost.",
+    "Signal One Security is R2 per guard per day, excluding VAT. No tiers or packages. Minimum 10 guard days; unused days carry over. Calculate your cost.",
   alternates: { canonical: "/pricing" },
 };
 
@@ -21,8 +22,8 @@ const examples = [
 export default function PricingPage() {
   return (
     <main id="main">
-      <section className="surface-base">
-        <div className="wrap grid gap-10 py-14 md:py-20 lg:grid-cols-[minmax(0,6fr)_minmax(0,6fr)] lg:items-end lg:gap-16">
+      <section className="split-hero surface-deep">
+        <div className="wrap grid gap-12 py-16 md:py-24 lg:grid-cols-[minmax(0,var(--hero-col))_minmax(0,1fr)] lg:items-center lg:gap-20 lg:py-32">
           <div>
             <Kicker tone="dark">Signal One Security pricing</Kicker>
             <h1 className="mt-6 flex flex-wrap items-end gap-x-5 gap-y-2">
@@ -34,6 +35,7 @@ export default function PricingPage() {
               </span>
             </h1>
             <p className="t-lead mt-4 text-text-inv-2">Excluding VAT. One price for the whole platform. No tiers, no packages.</p>
+            {guardOnboardingLine ? <p className="t-small mt-3 font-semibold text-text-inv">{guardOnboardingLine}</p> : null}
           </div>
 
           <div>
@@ -75,7 +77,7 @@ export default function PricingPage() {
                 ["Price", "R2 per guard per day, excluding VAT."],
                 ["Minimum purchase", "10 guard days."],
                 ["Unused guard days", "Carry over. They stay available to your company."],
-                ["Tiers or packages", "None. The rate is the same for 10 guard days or 10,000."],
+                ["Tiers or packages", "None. The rate is the same for 10 guard days or 10 000."],
                 ["No-shows, cancellations, partial and multiple shifts", "Handled under your customer terms, agreed before you start."],
               ].map(([term, detail]) => (
                 <div key={term} className="border-t border-line py-4">
@@ -128,7 +130,7 @@ export default function PricingPage() {
           </div>
           <ul className="m-0 list-none p-0">
             {[
-              { name: "Radios, PTT, tracking and body cameras", status: <Status kind="quote">By quote</Status>, body: "Rental on 12, 24 or 36 month terms for radios. Quoted for your deployment.", href: "/radios-equipment" },
+              { name: "Radios, PTT, tracking and body cameras", status: <Status kind="quote">By quote</Status>, body: "Rental on 12, 24 or 36-month terms for radios. Quoted for your deployment.", href: "/radios-equipment" },
               { name: "Accounting", status: <Status kind="beta">Beta</Status>, body: "Priced separately when activated for your company." },
               { name: "Payroll", status: <Status kind="soon">Coming soon</Status>, body: "Not available yet. Priced separately when it launches." },
             ].map((item) => (
