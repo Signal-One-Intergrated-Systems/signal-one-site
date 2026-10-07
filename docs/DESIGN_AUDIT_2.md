@@ -125,3 +125,36 @@ Mobile (<768px):
 - `scripts/check-branding.mjs`: an OCR scan of `public/images/**`.
 - Tests: pricing, image-scale and acquisition specs.
 - Docs: `docs/DESIGN_SYSTEM.md`, `docs/ASSET_PROVENANCE.md` (new) and `SITE_INTEGRATION.md`.
+
+---
+
+## Outcome (branch `feat/founder-design-correction`)
+
+| Step | Result |
+| --- | --- |
+| Pricing | `app/lib/pricing.ts` is the only source. `tests/e2e/pricing.spec.ts` fails on any stray guard-day price. **R2.50 pending founder confirmation**; R2.00 kept |
+| Density / scale | Section 80/96/112. Calmer ≥1600 type. 1440px wrap at ≥1600. Hero photo capped at source size. Desktop pages are 8–14% shorter (home 10,455 → 9,637 at 1920; platform 6,676 → 5,790; pricing 4,040 → 3,521) |
+| Image quality | `tests/e2e/image-scale.spec.ts`: no image renders above its source resolution at 1440/1920/2560 (all 17 routes) |
+| Glass | Nav, hero information panel and photo-band overlays. Solid on mobile (nav only, lightly blurred), without support and under reduced transparency. `DESIGN_SYSTEM.md` rule changed |
+| Hardware | Real Hytera PNC360S and Teltonika FMB920/FMC920 cut-outs; image-led catalogue; home hardware rail. Provenance in `docs/ASSET_PROVENANCE.md` |
+| Patrol story | Physical action → digital event → control room → proof, on home and `/guard-patrol-software` |
+| Product captures | OCR gate (`npm run check:images`, in QA). All six old crops failed it and were withdrawn |
+| Motion | Sequenced rise (transform only) for the patrol story; rail controls. Off under reduced motion and below 640px |
+| Acquisition | Store links only via `GUARD_APP_*_URL`; Sales OS only via `SALES_OS_URL`; "Talk to us to buy guard days" |
+
+Evidence:
+- **Screenshots:** `docs/qa/founder/after/` (320, 360, 390, 768, 1440, 1920 and 2560 for home, platform, pricing, radios & equipment, guards and sales careers). No horizontal overflow at any width.
+- **Before/after pairs:** `docs/qa/founder/pairs/`.
+- **Glass:** `glass-*` (normal, blur forced off, no backdrop-filter support), mobile and desktop.
+- **Lighthouse mobile:** `docs/qa/founder/lighthouse/`. `/` 98, `/pricing` 98, `/radios-equipment` 99; CLS 0 on all three; accessibility 100.
+
+## Blocked
+
+- **Product capture (Guard):** Guard staging has no curated synthetic demo tenant (seed and smoke companies only), and no `GUARD_CAPTURE_*` credentials are in this environment. The site currently shows no product screenshots.
+- **Product capture (Sales OS):** no non-production Sales OS environment with synthetic data is known, and no `SALES_CAPTURE_*` is set. Not captured, as A1 requires.
+- **Manufacturer domains:** hytera.co.za, hytera.ae, hytera-europe.com, store.hytera.com, img-cdn.hytera.com and www.teltonika-gps.com are refused by the egress policy. P30 Lite and SC780 media were not found on the reachable Hytera pages.
+- **E600:** the manufacturer is unconfirmed; no supplier documentation was found.
+- **Store URLs:** no Signal One Guard listing exists yet, so `GUARD_APP_ANDROID_URL` / `GUARD_APP_IOS_URL` are unset.
+- **Price:** R2.50 awaits founder confirmation.
+- **Photography:** no source is ≥2560px. Every photo is display-capped at its native width (1170–1916px). A commissioned shoot is still needed (`docs/PHOTOGRAPHY_BRIEF.md`).
+- **Checkout:** no payment backend or order contract exists.

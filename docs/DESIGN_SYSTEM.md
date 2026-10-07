@@ -74,9 +74,9 @@ Precision glass: a slightly translucent optical surface over **real content** (p
 
 - **Utilities**: `.glass` (dark), `.glass-light` (light), `.glass-nav` (sticky navigation). Defined in `app/globals.css`.
 - **Where**: the sticky navigation; the home hero information panel; status overlays on photo bands; hardware cards; selective screenshot framing; floating contextual controls.
-- **Desktop (768px+)**: `blur(16–18px) saturate(140–150%)`, dark surface at 62% (nav 72%), white at 70%, 1px hairline border, 1px inner top highlight, one soft shadow. No coloured glow.
-- **Mobile (<768px)**: only the navigation blurs (8px, 88% opacity). Every other glass surface renders solid (95–96% opacity, no backdrop filter), so blurred layers never stack and low-end Android scrolls smoothly.
-- **Fallbacks**: without `backdrop-filter` support, and under `prefers-reduced-transparency`, every glass surface is solid. Both must still look finished.
+- **Desktop (768px+)**: `blur(16–18px) saturate(140–150%)`, dark surface at 72% (nav 84%), white at 78%, 1px hairline border, 1px inner top highlight, one soft shadow. No coloured glow.
+- **Mobile (<768px)**: only the navigation blurs (8px, 94% opacity). Every other glass surface renders solid (95–96% opacity, no backdrop filter), so blurred layers never stack and low-end Android scrolls smoothly.
+- **Fallbacks**: without `backdrop-filter` support, and under `prefers-reduced-transparency`, every glass surface is solid. Opacities are high enough that a surface stays readable even if the blur is dropped. Both must still look finished.
 - **Text on glass** keeps the same contrast rules as text on the matching solid surface.
 
 ### Motion
