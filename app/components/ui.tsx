@@ -205,7 +205,7 @@ function edgeFade(native: number): React.CSSProperties {
 function verticalFade(native: number): React.CSSProperties {
   const mask = "linear-gradient(to bottom, transparent 0, #000 var(--vfade), #000 calc(100% - var(--vfade)), transparent 100%)";
   return {
-    ["--vfade" as string]: "clamp(0px, calc(100% - " + (native - 120) + "px), 120px)",
+    ["--vfade" as string]: "clamp(0px, calc(100% - " + (native - 60) + "px), 80px)",
     maskImage: mask,
     WebkitMaskImage: mask,
   };
@@ -263,7 +263,7 @@ export function PhotoBand({
       <div className="absolute inset-0 flex items-end">
         <div className={"wrap pb-8 md:pb-14 " + (textSide === "right" ? "md:flex md:justify-end" : "")}>
           <div className="max-w-[40rem]">
-            {kicker ? <div className="mb-4 inline-flex rounded-ui bg-base px-3 py-2">{kicker}</div> : null}
+            {kicker ? <div className="glass mb-4 inline-flex rounded-ui px-3 py-2">{kicker}</div> : null}
             <h2 className="t-h2 text-text-inv">{headline}</h2>
             {caption ? <p className="t-caption mt-4 text-text-inv-2">{caption}</p> : null}
           </div>
@@ -287,6 +287,7 @@ export function SplitHero({
   side = "right",
   objectPositionMobile = "50% 40%",
   objectPosition = "50% 40%",
+  panel,
 }: {
   src: StaticImageData;
   alt: string;
@@ -295,6 +296,8 @@ export function SplitHero({
   side?: "left" | "right";
   objectPositionMobile?: string;
   objectPosition?: string;
+  /** Desktop only: a glass information panel floating over the photograph's lower edge. */
+  panel?: ReactNode;
 }) {
   const inset = "calc(max(0px, (100vw - var(--wrap-max)) / 2) + var(--wrap-pad) + var(--hero-col) + 40px)";
   const box: React.CSSProperties =
@@ -329,6 +332,11 @@ export function SplitHero({
             }
           />
         </div>
+        {panel ? (
+          <div className={"absolute bottom-8 hidden w-[min(24rem,calc(100%-4rem))] lg:block " + (side === "right" ? "right-8" : "left-8")}>
+            {panel}
+          </div>
+        ) : null}
       </div>
       <div className={"wrap relative pb-14 pt-10 lg:flex lg:min-h-[clamp(600px,44vw,760px)] lg:items-center lg:pb-24 lg:pt-24 " + (side === "left" ? "lg:justify-end" : "")}>
         <div className="max-w-[38rem] lg:w-[var(--hero-col)] lg:max-w-none">{children}</div>

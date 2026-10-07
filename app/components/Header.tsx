@@ -37,7 +37,7 @@ const worlds: Record<
       { href: "/join/sales", label: "Careers" },
     ],
     cta: { href: "/#product", label: "See Signal One in action" },
-    shell: "bg-base text-text-inv border-b border-line-dark",
+    shell: "glass-nav text-text-inv border-b border-line-dark",
     link: "text-text-inv hover:bg-white/8",
     cta_class: "btn btn-primary",
     sheet: "bg-base text-text-inv",
@@ -52,7 +52,7 @@ const worlds: Record<
     ],
     secondary: [{ href: "/", label: "For security companies" }],
     cta: { href: "/guards/join", label: "Create your profile" },
-    shell: "bg-base text-text-inv border-b border-line-dark",
+    shell: "glass-nav text-text-inv border-b border-line-dark",
     link: "text-text-inv hover:bg-white/8",
     cta_class: "btn btn-primary",
     sheet: "bg-base text-text-inv",
@@ -66,7 +66,7 @@ const worlds: Record<
     ],
     secondary: [{ href: "/", label: "About Signal One" }],
     cta: { href: "/join/sales#apply", label: "Apply" },
-    shell: "bg-base text-text-inv border-b border-line-dark",
+    shell: "glass-nav text-text-inv border-b border-line-dark",
     link: "text-text-inv hover:bg-white/8",
     cta_class: "btn btn-primary",
     sheet: "bg-base text-text-inv",
@@ -85,6 +85,14 @@ export default function Header() {
   const config = worlds[world];
   const dark = true; // the header is always dark: the lockup's light-surface colours are for light backgrounds only
   const [open, setOpen] = useState(false);
+  // Solid at the top of the page; glass once content scrolls underneath it.
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
   const sheetRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
 
@@ -109,7 +117,7 @@ export default function Header() {
   const isCurrent = (href: string) => !href.includes("#") && href !== "/" && pathname.startsWith(href);
 
   return (
-    <header className={"sticky top-0 z-50 " + config.shell}>
+    <header data-scrolled={scrolled ? "" : undefined} className={"sticky top-0 z-50 " + config.shell}>
       <div className="wrap flex h-[72px] items-center justify-between gap-4">
         <Link
           href={config.homeHref}
