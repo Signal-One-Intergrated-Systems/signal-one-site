@@ -36,8 +36,8 @@ export const proofViews: ProofView[] = [
     id: "control",
     tab: "Control room",
     screen: "Control room",
-    title: "Every SOS in a queue, with acknowledge, navigate and resolve.",
-    body: "An SOS lands in the queue. The control room acknowledges, navigates and resolves it, and every step is recorded.",
+    title: "Every SOS with acknowledge, navigate and resolve.",
+    body: "The control room acknowledges, navigates to and resolves each SOS, and every step is recorded.",
     shots: [
       {
         desktop: controlRoomDesktop,

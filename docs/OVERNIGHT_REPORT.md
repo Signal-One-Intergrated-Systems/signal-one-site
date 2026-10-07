@@ -117,3 +117,13 @@ An intermediate run, taken before the copy changes and the new pages, put `/guar
 - Worked examples (10, 50 and 200 guards) are plain arithmetic: guards × days × R2, checked.
 
 **Not changed, flagged:** the home hero caption and every photograph still say "Illustrative scene · fictional security company" (all photography is AI-generated).
+
+## Truth fixes (PR #20 follow-up)
+
+Verified against signal-one-guard `main` (a8887a2). Guard docs/DEPLOYMENT.md says production "does not exist": only a demo staging, so "today" means the code on main.
+
+- Queued on the phone and replayed: checkpoint scans (`offline/scanQueue.ts`), clock in/out (`offline/shiftQueue.ts`, `shift-store.ts`), incidents (`incidentQueue.ts`), occurrence entries (`occurrenceQueue.ts`).
+- SOS: the app keeps an unsent SOS and retries, but tells the guard it has NOT gone ("a queued SOS is a backup, never a substitute", `src/sos/sos-rules.ts`). The site therefore says: SOS needs a mobile signal to reach the control room.
+- SOS position: kept. `src/sos/raise.ts` sends optional latitude/longitude; `apps/api/src/sos/sos.service.ts` stores them; `apps/api/src/map/map.service.ts` and `apps/web/components/watch.tsx` draw them on the control-room map. Worded as "position when the phone has a fix", not "last known".
+- To confirm before launch: nothing is in production yet; confirm on a real handset that the four queues replay against the staging API.
+- Landing pages <768px: no phone frame; flat header bar plus the record at full width.

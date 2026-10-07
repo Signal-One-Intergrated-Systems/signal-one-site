@@ -7,7 +7,7 @@ import { proofViews } from "../../lib/productProof";
 export const metadata: Metadata = {
   title: "Security Company Software: Patrols, Attendance, SOS",
   description:
-    "Guard management software for South African security companies: sites, shifts, attendance, offline QR and NFC patrols, SOS, control room and proof of service.",
+    "Guard management software for South African security companies: sites, shifts, attendance, QR and NFC patrols, SOS, control room and proof of service.",
   alternates: { canonical: "/solutions/security" },
 };
 
@@ -20,9 +20,9 @@ function view(id: string) {
 const fieldCapabilities = [
   ["Clock in and out at the post", "On the guard's own phone or an authorised Central Device at the site. The attendance record belongs to the shift and the post."],
   ["Patrols with QR or NFC checkpoints", "Guards scan each checkpoint on the route. Missed and late checkpoints show up in proof of service."],
-  ["Keeps working offline", "Scans, clock events, SOS, incidents and occurrence entries queue on the phone and sync when signal returns."],
+  ["Keeps working offline", "Scans, clock events, incidents and occurrence entries are saved on the phone and sent when signal returns. SOS needs a mobile signal to reach the control room."],
   ["Occurrence book and incidents", "A chronological record of the shift, with incidents logged as they happen instead of written up afterwards."],
-  ["SOS", "One press sends an alert to the control-room queue, with the guard's last known position."],
+  ["SOS", "One press sends an alert to the control room with the guard's position when the phone has a fix. It needs a mobile signal."],
   ["Shift offers", "Offer an open post to your own guards. They accept or decline in the app."],
 ] as const;
 

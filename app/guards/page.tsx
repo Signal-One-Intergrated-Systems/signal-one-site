@@ -12,9 +12,9 @@ export const metadata: Metadata = {
 
 const onShift = [
   ["Clock in and out", "At your post, on your own phone or the site's authorised Central Device."],
-  ["Walk your patrol", "Scan each checkpoint with QR or NFC. No signal? It keeps recording and sends later."],
+  ["Walk your patrol", "Scan each checkpoint with QR or NFC. No signal? The scan is saved on your phone and sent when signal returns."],
   ["Report what happens", "Write in the occurrence book and log incidents as they happen."],
-  ["Press SOS", "One button sends an alert to your control room."],
+  ["Press SOS", "One button sends an alert to your control room. SOS needs a mobile signal to reach the control room."],
   ["Accept or decline offers", "Your company can offer you open shifts. You choose."],
 ] as const;
 

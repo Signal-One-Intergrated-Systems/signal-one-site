@@ -7,7 +7,7 @@ import { proofViews } from "../lib/productProof";
 export const metadata: Metadata = {
   title: "Guard Patrol Software for Security Companies",
   description:
-    "QR and NFC checkpoint patrols that keep recording offline, with missed and late checkpoints in proof of service. Signal One Guard is R2 per guard per day, excl. VAT.",
+    "QR and NFC checkpoint patrols, with scans saved on the phone when signal drops, and missed and late checkpoints in proof of service. Signal One Guard is R2 per guard per day, excl. VAT.",
   alternates: { canonical: "/guard-patrol-software" },
 };
 
@@ -18,7 +18,7 @@ export default function GuardPatrolSoftwarePage() {
     <LandingPage
       kicker="Guard patrol software"
       title="Prove the patrol was walked."
-      lead="Signal One Guard turns each patrol into a record: QR or NFC checkpoints on the route, scanned on the guard's own phone or an authorised Central Device. If signal drops, the patrol keeps recording and syncs when it is back."
+      lead="Signal One Guard turns each patrol into a record: QR or NFC checkpoints on the route, scanned on the guard's own phone or an authorised Central Device. Scans taken without signal are saved on the phone and sent when it returns."
       actions={
         <>
           <ButtonLink href="/contact" size="lg">
@@ -29,21 +29,21 @@ export default function GuardPatrolSoftwarePage() {
           </ButtonLink>
         </>
       }
-      aside={<ProductWindow screen={proof.screen} shot={proof.shots[0]} />}
+      aside={<ProductWindow screen={proof.screen} shot={proof.shots[0]} flatOnMobile />}
       capabilitiesTitle="What a patrol gives you"
       capabilities={[
         ["QR or NFC checkpoints", "Set up the checkpoints for each site. Guards scan each one on the route."],
-        ["Works offline", "Scans, clock events, SOS, incidents and occurrence entries queue on the phone and sync when signal returns."],
+        ["Works offline", "Scans, clock events, incidents and occurrence entries are saved on the phone and sent when signal returns. SOS needs a mobile signal to reach the control room."],
         ["Missed and late checkpoints", "They show up in proof of service, with the reason."],
         ["Incidents as they happen", "Log an incident from the patrol into the occurrence book instead of writing it up afterwards."],
-        ["SOS from the route", "One press sends an alert to the control-room queue, with the guard's last known position."],
+        ["SOS from the route", "One press sends an alert to the control room with the guard's position when the phone has a fix. It needs a mobile signal."],
         ["Evidence your client can see", "Client users see patrol and checkpoint evidence for their own sites and can generate proof-of-service reports themselves."],
       ]}
       stepsTitle="From route to proof"
       steps={[
         ["Set up the route", "Add the site's checkpoints, QR or NFC."],
         ["The guard walks it", "Scans each checkpoint on their own phone or an authorised Central Device."],
-        ["Signal drops, nothing is lost", "The patrol keeps recording and syncs when signal is back."],
+        ["Scans survive a dropped signal", "Checkpoint scans are saved on the phone and sent when signal returns."],
         ["Supervisors see what needs action", "Late patrols and SOS wait for action in the supervisor's list and the control room."],
         ["The proof is generated", "Each scheduled service is marked proven, partly proven, unresolved or not proven, with the reason. The screenshot above is a real record from our demo environment; the data is synthetic."],
       ]}

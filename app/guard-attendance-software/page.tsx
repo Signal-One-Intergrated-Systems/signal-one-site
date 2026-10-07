@@ -29,14 +29,14 @@ export default function GuardAttendanceSoftwarePage() {
           </ButtonLink>
         </>
       }
-      aside={<ProductWindow screen={proof.screen} shot={proof.shots[0]} />}
+      aside={<ProductWindow screen={proof.screen} shot={proof.shots[0]} flatOnMobile />}
       capabilitiesTitle="Attendance as a record, not a timesheet"
       capabilities={[
         ["Clock in and out at the post", "The attendance record belongs to the shift and the post, not to a sheet typed up later."],
         ["The roster against every post", "Sites, posts and shifts, with shortfalls visible before the shift starts."],
         ["Guards on duty now", "See who is clocked in across your sites."],
         ["PSiRA rules built in", "Each officer's PSiRA number, grade and expiry are recorded. A missing or expired registration blocks the assignment. Only a grade mismatch can be overridden, and every override is logged with a reason. Signal One does not check registrations with PSiRA itself."],
-        ["Works offline", "Clock events queue on the phone and sync when signal returns."],
+        ["Works offline", "Clock-in and clock-out are saved on the phone and sent when signal returns."],
         ["Attendance as evidence", "Each scheduled service is marked proven, partly proven, unresolved or not proven, with the reason, for example attendance verified at both ends."],
       ]}
       stepsTitle="From roster to proof"

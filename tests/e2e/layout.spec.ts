@@ -27,3 +27,11 @@ test("rendered pages never show forbidden wording", async ({ request }) => {
     for (const pattern of forbidden) expect(text, `${route} ${pattern}`).not.toMatch(pattern);
   }
 });
+
+test("SOS is never described as offline or queued", async ({ request }) => {
+  for (const route of routes) {
+    const html = (await (await request.get(route)).text()).replace(/<script[\s\S]*?<\/script>/g, " ").replace(/<style[\s\S]*?<\/style>/g, " ");
+    const text = html.replace(/<[^>]+>/g, " ");
+    expect(text, route).not.toMatch(/SOS[^.]*(offline|queue)/i);
+  }
+});

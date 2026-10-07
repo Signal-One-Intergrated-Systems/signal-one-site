@@ -35,9 +35,9 @@ const hireFlow = [
 const runCapabilities = [
   ["Sites, posts and shifts", "Set up each site's posts, build shifts and allocate guards. The roster shows where you are short before the shift starts."],
   ["Clock in and out", "Guards clock in at the post on their own phone or an authorised Central Device."],
-  ["Patrols", "QR or NFC checkpoints. If signal drops, the patrol keeps recording and syncs when it is back."],
+  ["Patrols", "QR or NFC checkpoints. Scans are saved on the phone and sent when signal returns."],
   ["Occurrence book and incidents", "One chronological record of what happened on site, with incidents logged as they happen."],
-  ["SOS to the control room", "An SOS lands in the control-room queue to acknowledge, navigate to and resolve."],
+  ["SOS to the control room", "The control room acknowledges, navigates to and resolves each SOS. It needs a mobile signal."],
   ["People and access", "Invite supervisors, limit each one to their sites, and switch access off without deleting history."],
 ] as const;
 

@@ -55,11 +55,14 @@ export function ProductWindow({
   shot,
   priority = false,
   className = "",
+  flatOnMobile = false,
 }: {
   screen: string;
   shot: ProofShot;
   priority?: boolean;
   className?: string;
+  /** Below md: no phone frame, a plain header bar and the record at full width. */
+  flatOnMobile?: boolean;
 }) {
   const frameWidth = Math.min(1200, Math.round(shot.desktop.width * 1.25));
   const phoneWidth = Math.min(340, Math.round(shot.mobile.width * 1.1) + 20);
@@ -78,7 +81,17 @@ export function ProductWindow({
         </div>
         <ProofImage shot={shot} priority={priority} />
       </div>
-      {/* Phone frame, below md */}
+      {/* Below md: a flat record with a header bar, or the phone frame */}
+      {flatOnMobile ? (
+        <div className="md:hidden">
+          <div className="product-window">
+            <div className="product-window-bar">
+              <span className="text-[0.75rem] font-semibold text-text-inv">Signal One Guard · {screen} · Synthetic demo data</span>
+            </div>
+            <ProofImage shot={shot} priority={priority} />
+          </div>
+        </div>
+      ) : (
       <div className="md:hidden">
         <div className="phone-frame mx-auto w-full max-w-[var(--phone-w)]">
           <div className="phone-screen">
@@ -90,6 +103,7 @@ export function ProductWindow({
           </div>
         </div>
       </div>
+      )}
     </figure>
   );
 }
