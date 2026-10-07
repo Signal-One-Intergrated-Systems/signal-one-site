@@ -20,6 +20,7 @@ export default function LandingPage({
   limits,
   closing,
   related,
+  story,
 }: {
   kicker: string;
   title: string;
@@ -33,10 +34,13 @@ export default function LandingPage({
   limits: ReadonlyArray<string>;
   closing: string;
   related: ReadonlyArray<readonly [string, string]>;
+  /** Optional full-width visual story after the hero. */
+  story?: ReactNode;
 }) {
   return (
     <main id="main">
       <PageHero kicker={kicker} title={title} lead={lead} actions={actions} aside={aside} />
+      {story}
 
       <section className="surface-light section">
         <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">

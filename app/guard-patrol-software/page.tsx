@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import LandingPage from "../components/LandingPage";
+import PatrolStory from "../components/PatrolStory";
 import { ProductWindow } from "../components/ProductProof";
 import { ButtonLink } from "../components/ui";
 import { proofViews } from "../lib/productProof";
@@ -31,6 +32,16 @@ export default function GuardPatrolSoftwarePage() {
         </>
       }
       aside={<ProductWindow screen={proof.screen} shot={proof.shots[0]} flatOnMobile />}
+      story={
+        <section className="surface-white section">
+          <div className="wrap">
+            <h2 className="t-h2 max-w-3xl">From the checkpoint to the client&apos;s report.</h2>
+            <div className="mt-10">
+              <PatrolStory />
+            </div>
+          </div>
+        </section>
+      }
       capabilitiesTitle="What a patrol gives you"
       capabilities={[
         ["QR or NFC checkpoints", "Set up the checkpoints for each site. Guards scan each one on the route."],

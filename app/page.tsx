@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import GuardDayCalculator from "./components/GuardDayCalculator";
 import { HardwareRail } from "./components/Hardware";
+import PatrolStory from "./components/PatrolStory";
 import { catalogue } from "./lib/catalogue";
 import ProductProof, { ProductWindow } from "./components/ProductProof";
 import { Arrow, ButtonLink, Check, Kicker, Photo, PhotoBand, SplitHero, Status, GuardStatus } from "./components/ui";
@@ -274,6 +275,24 @@ export default function Home() {
                 </p>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5b · PATROL STORY: physical action → digital event → control room → proof */}
+      <section className="surface-white section">
+        <div className="wrap">
+          <div className="grid gap-4 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-end lg:gap-16">
+            <div>
+              <Kicker>How a patrol becomes proof</Kicker>
+              <h2 className="t-h2 mt-4">From the checkpoint to the client&apos;s report.</h2>
+            </div>
+            <p className="t-body text-text-2">
+              A scan at the gate becomes a record the control room acts on and the client can see. Nothing is retyped.
+            </p>
+          </div>
+          <div className="mt-10">
+            <PatrolStory />
           </div>
         </div>
       </section>
