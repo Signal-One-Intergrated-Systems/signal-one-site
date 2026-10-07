@@ -45,8 +45,7 @@ export function ProofImage({ shot, priority = false }: { shot: ProofShot; priori
  * Product frame: a browser frame from md up, a phone frame below.
  *
  * Width follows the capture: full container width (about 1200px) once real
- * 2x captures exist, and no more than 1.25x a small crop's native width so
- * a crop is never blown up. TODO(recapture): the current crops are the
+ * 2x captures exist, and never more than a crop's native width. TODO(recapture): the current crops are the
  * largest clean regions of the test-tenant captures; replace them with
  * scripts/capture-product.mjs output once the demo tenant is on staging.
  */
@@ -64,8 +63,9 @@ export function ProductWindow({
   /** Below md: no phone frame, a plain header bar and the record at full width. */
   flatOnMobile?: boolean;
 }) {
-  const frameWidth = Math.min(1200, Math.round(shot.desktop.width * 1.25));
-  const phoneWidth = Math.min(340, Math.round(shot.mobile.width * 1.1) + 20);
+  // Never wider than the capture itself: no upscaling (brief §5, A6).
+  const frameWidth = Math.min(1200, shot.desktop.width);
+  const phoneWidth = Math.min(340, shot.mobile.width + 20);
   return (
     <figure className={"m-0 " + className} style={{ ["--frame-w" as string]: frameWidth + "px", ["--phone-w" as string]: phoneWidth + "px" }}>
       {/* Browser frame, md and up */}

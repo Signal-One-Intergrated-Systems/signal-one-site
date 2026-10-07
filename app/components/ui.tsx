@@ -201,6 +201,16 @@ function edgeFade(native: number): React.CSSProperties {
   };
 }
 
+/** Fades the top and bottom edges when a box reaches the photo's native height. */
+function verticalFade(native: number): React.CSSProperties {
+  const mask = "linear-gradient(to bottom, transparent 0, #000 var(--vfade), #000 calc(100% - var(--vfade)), transparent 100%)";
+  return {
+    ["--vfade" as string]: "clamp(0px, calc(100% - " + (native - 120) + "px), 120px)",
+    maskImage: mask,
+    WebkitMaskImage: mask,
+  };
+}
+
 /**
  * Full-bleed photographic band with a one-line headline over it.
  * Height is capped so very wide screens get a wider surround, not a taller crop.
@@ -286,7 +296,7 @@ export function SplitHero({
   objectPositionMobile?: string;
   objectPosition?: string;
 }) {
-  const inset = "calc(max(0px, (100vw - 1320px) / 2) + 40px + var(--hero-col) + 40px)";
+  const inset = "calc(max(0px, (100vw - var(--wrap-max)) / 2) + var(--wrap-pad) + var(--hero-col) + 40px)";
   const box: React.CSSProperties =
     side === "right"
       ? ({ ["--ph-l" as string]: inset, ["--ph-r" as string]: "0px" } as React.CSSProperties)
@@ -294,7 +304,8 @@ export function SplitHero({
   return (
     <section className="split-hero relative bg-deep text-text-inv" style={box}>
       <div className="relative h-[56vw] lg:absolute lg:inset-y-0 lg:left-[var(--ph-l)] lg:right-[var(--ph-r)] lg:h-auto">
-        <div className="relative mx-auto h-full" style={{ maxWidth: src.width }}>
+        {/* Never taller or wider than the source: on a tall hero the photo is centred and fades into the surface. */}
+        <div className="relative mx-auto h-full lg:top-1/2 lg:-translate-y-1/2" style={{ maxWidth: src.width, maxHeight: src.height, ...verticalFade(src.height) }}>
           <Image
             src={src}
             alt={alt}

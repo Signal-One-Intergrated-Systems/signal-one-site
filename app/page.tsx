@@ -132,7 +132,7 @@ export default function Home() {
             </ul>
           </div>
 
-          <div className="mt-16 border-t-2 border-base pt-10 md:mt-20">
+          <div className="mt-14 border-t-2 border-base pt-10 md:mt-16">
             <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
               <div>
                 <h2 className="t-h2">Signal One answers them from one record.</h2>

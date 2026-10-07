@@ -67,6 +67,27 @@
 }
 
 @layer base {
+  :root {
+    --wrap-max: 1320px;
+    --wrap-pad: 16px;
+  }
+  @media (min-width: 640px) {
+    :root {
+      --wrap-pad: 24px;
+    }
+  }
+  @media (min-width: 1024px) {
+    :root {
+      --wrap-pad: 40px;
+    }
+  }
+  @media (min-width: 1600px) {
+    :root {
+      --wrap-max: 1440px;
+      --wrap-pad: 48px;
+    }
+  }
+
   *,
   *::before,
   *::after {
@@ -165,25 +186,17 @@
   }
   @media (min-width: 1600px) {
     .split-hero {
-      --hero-col: 46rem;
+      --hero-col: 40rem;
     }
   }
 
+  /* Container. At 1600+ it widens (and sections do not grow taller), so wide
+     screens get more content side by side instead of more empty height. */
   .wrap {
     width: 100%;
-    max-width: 1320px;
+    max-width: var(--wrap-max);
     margin-inline: auto;
-    padding-inline: 16px;
-  }
-  @media (min-width: 640px) {
-    .wrap {
-      padding-inline: 24px;
-    }
-  }
-  @media (min-width: 1024px) {
-    .wrap {
-      padding-inline: 40px;
-    }
+    padding-inline: var(--wrap-pad);
   }
 
   .wrap-narrow {
@@ -198,17 +211,19 @@
     }
   }
 
+  /* Section rhythm: 80 on phones (unchanged), 96 on tablets, 112 on desktop.
+     Was 128/160, which cost 320px of padding at every chapter boundary. */
   .section {
     padding-block: 80px;
   }
   @media (min-width: 768px) {
     .section {
-      padding-block: 128px;
+      padding-block: 96px;
     }
   }
   @media (min-width: 1280px) {
     .section {
-      padding-block: 160px;
+      padding-block: 112px;
     }
   }
 
@@ -264,7 +279,7 @@
   .t-h2 {
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: clamp(2.15rem, 1.55rem + 2.4vw, 3.6rem);
+    font-size: clamp(2.15rem, 1.6rem + 1.9vw, 3.25rem);
     line-height: 1.05;
     letter-spacing: -0.03em;
   }
@@ -309,25 +324,26 @@
     line-height: 1.4;
     letter-spacing: 0.005em;
   }
-  /* Wide screens: scale display type up so heroes do not look small */
+  /* Wide screens: a measured step up, not a jump. Headlines stay on two or
+     three lines in their column; the wider container carries the extra width. */
   @media (min-width: 1600px) {
     .t-display {
-      font-size: 6.75rem;
+      font-size: 5.75rem;
     }
     .t-hero {
-      font-size: clamp(4.4rem, 3.4vw, 5.6rem);
+      font-size: clamp(3.9rem, 2.6vw, 4.5rem);
     }
     .t-h1 {
-      font-size: 5.4rem;
+      font-size: 4.5rem;
     }
     .t-h2 {
-      font-size: 4.25rem;
+      font-size: 3.5rem;
     }
     .t-h3 {
-      font-size: 1.75rem;
+      font-size: 1.625rem;
     }
     .t-lead {
-      font-size: 1.5rem;
+      font-size: 1.375rem;
     }
   }
   .t-num {
