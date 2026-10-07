@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { ProductWindow } from "../../components/ProductProof";
-import { ButtonLink, Check, Kicker, Photo, SplitHero, Status, GuardStatus } from "../../components/ui";
+import { ButtonLink, Check, FactPanel, Kicker, Photo, SplitHero, Status, GuardStatus } from "../../components/ui";
 import { guardOnboardingLine } from "../../lib/guardStatus";
 import { illustrativeCaption, photos } from "../../lib/photos";
 import { proofViews } from "../../lib/productProof";
+import { guardDayPricePhrase } from "../../lib/pricing";
 
 export const metadata: Metadata = {
   title: "Security Company Software: Patrols, Attendance, SOS",
@@ -50,7 +50,7 @@ export default function SecurityPlatformPage() {
             Talk to Signal One
           </ButtonLink>
           <ButtonLink href="/pricing" variant="ghost-dark" size="lg">
-            R2 per guard per day
+            {guardDayPricePhrase}
           </ButtonLink>
         </div>
         <p className="t-caption mt-6 text-text-inv-2">{illustrativeCaption}</p>
@@ -73,7 +73,14 @@ export default function SecurityPlatformPage() {
             </ul>
           </div>
           <div className="grid content-start gap-6">
-            <ProductWindow screen={control.screen} shot={control.shots[0]} priority />
+            <Photo
+              src={photos.controlRoomTeam.src}
+              alt={photos.controlRoomTeam.alt}
+              sizes="(min-width: 1320px) 860px, (min-width: 1024px) 64vw, 100vw"
+              aspect="aspect-[16/10]"
+              imgClassName="object-cover"
+              caption={illustrativeCaption}
+            />
             <h3 className="t-h3">The control room sees every SOS in order.</h3>
             <p className="t-body text-text-2">{control.body}</p>
             <p className="t-body text-text-2">
@@ -164,7 +171,15 @@ export default function SecurityPlatformPage() {
                 A live map, clock-in status and live patrol progress for client users.
               </p>
             </div>
-            <ProductWindow screen={proof.screen} shot={proof.shots[0]} />
+            <FactPanel
+              title="Every scheduled service gets an outcome"
+              facts={[
+                ["Four outcomes", "Proven, partly proven, unresolved or not proven."],
+                ["Always with the reason", "Each outcome records why, including the ones that are not proven."],
+                ["Reports on demand", "Generate a report for the period your client asks about."],
+                ["Client access", "Client users see the record for their own sites only."],
+              ]}
+            />
           </div>
         </div>
       </section>
@@ -172,7 +187,16 @@ export default function SecurityPlatformPage() {
       {/* People & access */}
       <section className="surface-light section">
         <div className="wrap grid gap-10 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-center lg:gap-14">
-          <ProductWindow screen={people.screen} shot={people.shots[0]} className="order-2 lg:order-1" />
+          <div className="order-2 lg:order-1">
+            <FactPanel
+              tone="light"
+              facts={[
+                ["Invite supervisors", "Company admins invite supervisors and other users."],
+                ["Limit each one to their sites", "A supervisor sees only the sites ticked for them."],
+                ["Switch access off", "Deactivating someone ends their access within seconds. Nothing they did is deleted."],
+              ]}
+            />
+          </div>
           <div className="order-1 lg:order-2">
             <Kicker>People and access</Kicker>
             <h2 className="t-h2 mt-4">Supervisors see their sites. Nobody sees more than they should.</h2>

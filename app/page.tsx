@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import GuardDayCalculator from "./components/GuardDayCalculator";
-import ProductProof, { ProductWindow } from "./components/ProductProof";
+import { HardwareRail } from "./components/Hardware";
+import RailControls from "./components/RailControls";
+import PatrolStory from "./components/PatrolStory";
+import { catalogue } from "./lib/catalogue";
 import { Arrow, ButtonLink, Check, Kicker, Photo, PhotoBand, SplitHero, Status, GuardStatus } from "./components/ui";
 import { guardIsLive, guardOnboardingLine, guardStatusLabel } from "./lib/guardStatus";
 import { illustrativeCaption, photos } from "./lib/photos";
-import { proofViews } from "./lib/productProof";
+import { carryOverPhrase, guardDayPrice, guardDayPricePhrase, guardDayPriceShort, minimumPhrase } from "./lib/pricing";
 
 export const metadata: Metadata = {
   title: { absolute: "Security Guard Management Software South Africa | Signal One" },
@@ -13,12 +16,12 @@ export const metadata: Metadata = {
 };
 
 const ownerQuestions = [
-  "Who is on site right now?",
-  "Did the guard arrive, and on time?",
-  "Was the patrol actually walked?",
-  "What happened overnight?",
-  "Can I prove it to my client?",
-  "How fast can I staff the next contract?",
+  ["Who is on site right now?", "Guards clock in at the post on their own phone or an authorised Central Device, so the roster shows who is on duty."],
+  ["Did the guard arrive, and on time?", "Each clock-in and clock-out is recorded against the shift and the post."],
+  ["Was the patrol actually walked?", "Every QR or NFC checkpoint scan is recorded with its time and GPS position. Missed and late checkpoints show up in proof of service."],
+  ["What happened overnight?", "The occurrence book keeps one chronological record of the site, with incidents logged as they happen."],
+  ["Can I prove it to my client?", "Each scheduled service is marked proven, partly proven, unresolved or not proven, with the reason."],
+  ["How fast can I staff the next contract?", "Offer open posts to your own guards in the app. Guard Marketplace, in development, will reach guards outside your company."],
 ] as const;
 
 const hireFlow = [
@@ -42,24 +45,6 @@ const runCapabilities = [
   ["People and access", "Invite supervisors, limit each one to their sites, and switch access off without deleting history."],
 ] as const;
 
-const equipment = [
-  {
-    category: "Radios and PTT",
-    items: ["Hytera PNC360S", "P30 Lite PoC", "E600 PoC LTE", "PTT platform with SIM and data"],
-    terms: "Rental, 12, 24 or 36 months",
-  },
-  {
-    category: "Vehicle and asset tracking",
-    items: ["FMC920 tracker", "FMB920 tracker"],
-    terms: "Scoped per vehicle or asset",
-  },
-  {
-    category: "Body cameras",
-    items: ["SC780 body camera"],
-    terms: "Rental",
-  },
-] as const;
-
 const companySees = [
   "Every site, post, guard and shift",
   "The control-room queue and SOS",
@@ -77,12 +62,36 @@ const clientSees = [
 ] as const;
 
 export default function Home() {
-  const proveShot = proofViews.find((view) => view.id === "proof")?.shots[0];
-
   return (
     <main id="main">
       {/* 1 · HERO */}
-      <SplitHero src={photos.hero.src} alt={photos.hero.alt} objectPositionMobile="66% 45%" objectPosition="80% 40%">
+      <SplitHero
+        src={photos.hero.src}
+        alt={photos.hero.alt}
+        objectPositionMobile="66% 45%"
+        objectPosition="80% 40%"
+        panel={
+          <div className="glass rounded-card p-5 text-text-inv">
+            <div className="flex items-center justify-between gap-3">
+              <p className="font-semibold">Signal One Guard</p>
+              <GuardStatus tone="dark" />
+            </div>
+            <dl className="mt-4 grid gap-0 text-[0.9375rem]">
+              {[
+                ["Price", guardDayPricePhrase + ", excl. VAT"],
+                ["Devices", "The guard's own phone or a Central Device"],
+                ["Patrols", "QR and NFC checkpoints"],
+                ["Proof", "Client portal and proof-of-service reports"],
+              ].map(([term, detail]) => (
+                <div key={term} className="grid grid-cols-[5rem_1fr] gap-3 border-t border-white/10 py-2.5">
+                  <dt className="text-text-inv-2">{term}</dt>
+                  <dd className="m-0">{detail}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        }
+      >
           <Kicker tone="dark">For growing South African security companies</Kicker>
           <h1 className="t-hero mt-5">
             Win more contracts.
@@ -100,8 +109,8 @@ export default function Home() {
               See Signal One in action
             </ButtonLink>
             <ButtonLink href="/pricing#calculator" variant="ghost-dark" size="lg" event="hero_pricing" eventLabel="Hero secondary">
-              <span className="sm:hidden">Calculate guard cost · R2/day</span>
-              <span className="hidden sm:inline">Calculate guard cost · R2 per guard per day</span>
+              <span className="sm:hidden">Calculate guard cost · {guardDayPriceShort}</span>
+              <span className="hidden sm:inline">Calculate guard cost · {guardDayPricePhrase}</span>
             </ButtonLink>
           </div>
           <p className="t-small mt-6 text-text-inv-2">
@@ -110,7 +119,7 @@ export default function Home() {
           <p className="t-caption mt-3 text-text-inv-2">{illustrativeCaption}</p>
       </SplitHero>
 
-      {/* 2 + 3 · PROBLEM → REAL PRODUCT */}
+      {/* 2 + 3 · PROBLEM → ANSWERS (product screens return after the demo-tenant capture) */}
       <section id="product" className="surface-light section scroll-mt-[72px]">
         <div className="wrap">
           <div className="grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
@@ -122,31 +131,22 @@ export default function Home() {
                 chats, spreadsheets, paper OBs and phone calls.
               </p>
             </div>
-            <ul className="m-0 grid list-none gap-0 p-0 sm:grid-cols-2 sm:gap-x-10">
-              {ownerQuestions.map((question) => (
-                <li key={question} className="border-t border-line py-4 font-display text-[1.25rem] font-semibold leading-snug md:text-[1.375rem]">
-                  {question}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="mt-16 border-t-2 border-base pt-10 md:mt-20">
-            <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-              <div>
-                <h2 className="t-h2">Signal One answers them from one record.</h2>
-                <p className="t-body measure mt-4 text-text-2">
-                  These are real Signal One Guard screens, not mock-ups. The data is synthetic.
-                </p>
-              </div>
-              <Link href="/solutions/security" className="link-arrow shrink-0 text-signal-ink">
+            <div>
+              <h2 className="sr-only">Signal One answers them from one record</h2>
+              <dl className="m-0 grid gap-0 sm:grid-cols-2 sm:gap-x-10">
+                {ownerQuestions.map(([question, answer]) => (
+                  <div key={question} className="border-t border-line py-5">
+                    <dt className="font-display text-[1.1875rem] font-semibold leading-snug md:text-[1.25rem]">{question}</dt>
+                    <dd className="t-small m-0 mt-2 text-text-2">{answer}</dd>
+                  </div>
+                ))}
+              </dl>
+              <Link href="/solutions/security" className="link-arrow mt-4 text-signal-ink">
                 Everything the platform does <Arrow />
               </Link>
             </div>
-            <div className="mt-10">
-              <ProductProof />
-            </div>
           </div>
+
         </div>
       </section>
 
@@ -267,6 +267,24 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 5b · PATROL STORY: physical action → digital event → control room → proof */}
+      <section className="surface-white section">
+        <div className="wrap">
+          <div className="grid gap-4 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-end lg:gap-16">
+            <div>
+              <Kicker>How a patrol becomes proof</Kicker>
+              <h2 className="t-h2 mt-4">From the checkpoint to the client&apos;s report.</h2>
+            </div>
+            <p className="t-body text-text-2">
+              A scan at the gate becomes a record the control room acts on and the client can see. Nothing is retyped.
+            </p>
+          </div>
+          <div className="mt-10">
+            <PatrolStory />
+          </div>
+        </div>
+      </section>
+
       {/* 6 · EQUIP */}
       <section className="surface-light-2 section">
         <div className="wrap">
@@ -284,18 +302,12 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="mt-12 border-b border-line">
-            {equipment.map((group) => (
-              <div key={group.category} className="grid gap-3 border-t border-line py-6 md:grid-cols-[minmax(0,4fr)_minmax(0,5fr)_minmax(0,3fr)] md:gap-8">
-                <h3 className="t-h3">{group.category}</h3>
-                <ul className="m-0 flex list-none flex-wrap gap-x-6 gap-y-1 p-0 text-[1.0625rem] font-medium">
-                  {group.items.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-                <p className="t-small text-text-2 md:text-right">{group.terms}</p>
-              </div>
-            ))}
+          <div className="mt-8">
+            <RailControls label="rental hardware">
+            <HardwareRail
+              products={[...catalogue.flatMap((group) => group.products)].sort((a, b) => Number(Boolean(b.image)) - Number(Boolean(a.image)))}
+            />
+            </RailControls>
           </div>
 
           <div className="mt-8 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
@@ -355,9 +367,6 @@ export default function Home() {
             </div>
           </div>
 
-          {proveShot ? (
-            <ProductWindow screen="Proof of service" shot={proveShot} className="mt-14" />
-          ) : null}
         </div>
       </section>
 
@@ -366,9 +375,9 @@ export default function Home() {
         <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:items-start lg:gap-16">
           <div>
             <Kicker>Pricing</Kicker>
-            <h2 className="sr-only">R2 per guard per day, excluding VAT</h2>
+            <h2 className="sr-only">{guardDayPricePhrase}, excluding VAT</h2>
             <p aria-hidden="true" className="mt-6 flex items-end gap-4">
-              <span className="t-num text-[6.5rem] text-signal-600 sm:text-[8.5rem]">R2</span>
+              <span className="t-num text-[6.5rem] text-signal-600 sm:text-[8.5rem]">{guardDayPrice}</span>
               <span className="pb-3 font-display text-[1.375rem] font-semibold leading-tight sm:text-[1.625rem]">
                 per guard
                 <br />
@@ -381,8 +390,8 @@ export default function Home() {
             <dl className="mt-8 grid gap-0">
               {[
                 ["A guard day", "One allocated guard clocking in and out of one on-site shift."],
-                ["Minimum purchase", "10 guard days."],
-                ["Unused days", "Carry over."],
+                ["Minimum purchase", minimumPhrase + "."],
+                ["Unused days", carryOverPhrase],
                 ["Exceptions", "No-shows, cancellations, partial and multiple shifts follow your customer terms."],
               ].map(([term, detail]) => (
                 <div key={term} className="grid gap-1 border-t border-line py-4 sm:grid-cols-[10rem_1fr] sm:gap-4">
@@ -391,9 +400,14 @@ export default function Home() {
                 </div>
               ))}
             </dl>
-            <Link href="/pricing" className="link-arrow mt-4 text-signal-ink">
-              Full pricing details <Arrow />
-            </Link>
+            <div className="mt-4 flex flex-wrap gap-x-8 gap-y-2">
+              <Link href="/pricing" className="link-arrow text-signal-ink">
+                Full pricing details <Arrow />
+              </Link>
+              <Link href="/contact" className="link-arrow text-signal-ink">
+                Talk to us to buy guard days <Arrow />
+              </Link>
+            </div>
           </div>
           <GuardDayCalculator />
         </div>
@@ -414,7 +428,7 @@ export default function Home() {
               },
               {
                 title: "Calculate guard cost",
-                body: "Guards × days × R2. See the number before you talk to anyone.",
+                body: "Guards × days × " + guardDayPrice + ". See the number before you talk to anyone.",
                 href: "/pricing#calculator",
                 cta: "Open the calculator",
                 variant: "ghost-dark" as const,

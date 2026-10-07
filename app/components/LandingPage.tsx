@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { ButtonLink, Check, PageHero, Steps } from "./ui";
+import { priceSentence } from "../lib/pricing";
 
 /**
  * Product-true landing page: hero, what it does, how it works, what it does
@@ -19,6 +20,7 @@ export default function LandingPage({
   limits,
   closing,
   related,
+  story,
 }: {
   kicker: string;
   title: string;
@@ -32,10 +34,13 @@ export default function LandingPage({
   limits: ReadonlyArray<string>;
   closing: string;
   related: ReadonlyArray<readonly [string, string]>;
+  /** Optional full-width visual story after the hero. */
+  story?: ReactNode;
 }) {
   return (
     <main id="main">
       <PageHero kicker={kicker} title={title} lead={lead} actions={actions} aside={aside} />
+      {story}
 
       <section className="surface-light section">
         <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
@@ -78,7 +83,7 @@ export default function LandingPage({
         <div className="wrap grid gap-10 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-end lg:gap-16">
           <div>
             <h2 className="t-h2">{closing}</h2>
-            <p className="t-lead measure mt-5 text-text-inv-2">R2 per guard per day, excluding VAT. Minimum purchase 10 guard days.</p>
+            <p className="t-lead measure mt-5 text-text-inv-2">{priceSentence}</p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <ButtonLink href="/contact" size="lg">
                 Talk to Signal One

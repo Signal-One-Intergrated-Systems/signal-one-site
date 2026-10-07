@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import IntakeForm, { type IntakeField } from "../components/IntakeForm";
 import { Kicker, Steps } from "../components/ui";
+import { guardDayPricePhrase } from "../lib/pricing";
 
 export const metadata: Metadata = {
   title: "Talk to Signal One About Security Guard Software",
   description:
-    "Talk to a Signal One specialist about guard management software: R2 per guard per day, a walkthrough on your operation, radios, tracking and Guard Marketplace.",
+    "Talk to a Signal One specialist about guard management software: " + guardDayPricePhrase + ", a walkthrough on your operation, radios, tracking and Guard Marketplace.",
   alternates: { canonical: "/contact" },
 };
 

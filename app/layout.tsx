@@ -3,9 +3,11 @@ import { Inter } from "next/font/google";
 import Analytics from "./components/Analytics";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import Reveal from "./components/Reveal";
 import { guardAvailability, guardIsLive } from "./lib/guardStatus";
 import { brand, salesEmail, siteUrl } from "./lib/site";
 import "./globals.css";
+import { guardDayPricePhrase, minimumPhrase, pricing, schemaPrice } from "./lib/pricing";
 
 const body = Inter({
   subsets: ["latin"],
@@ -15,7 +17,7 @@ const body = Inter({
 });
 
 const description =
-  "Security guard management software for South African security companies: sites, shifts, attendance, patrols, incidents, control room and client proof of service. R2 per guard per day, excl. VAT.";
+  "Security guard management software for South African security companies: sites, shifts, attendance, patrols, incidents, control room and client proof of service. " + guardDayPricePhrase + ", excl. VAT.";
 
 export const metadata: Metadata = {
   title: {
@@ -40,7 +42,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Signal One Security: run every site and prove the service",
     description:
-      "Sites, shifts, patrols, incidents, control room and client proof of service for South African security companies. R2 per guard per day, excl. VAT.",
+      "Sites, shifts, patrols, incidents, control room and client proof of service for South African security companies. " + guardDayPricePhrase + ", excl. VAT.",
     type: "website",
     siteName: brand.master,
     locale: "en_ZA",
@@ -99,17 +101,17 @@ const structuredData = {
         "@type": "Offer",
         url: siteUrl + "/pricing",
         availability: guardAvailability,
-        price: "2.00",
-        priceCurrency: "ZAR",
-        description: "R2 per guard per day, excluding VAT. Minimum purchase 10 guard days.",
+        price: schemaPrice,
+        priceCurrency: pricing.currency,
+        description: guardDayPricePhrase + ", excluding VAT. Minimum purchase " + minimumPhrase + ".",
         eligibleRegion: { "@type": "Country", name: "South Africa" },
         priceSpecification: {
           "@type": "UnitPriceSpecification",
-          price: "2.00",
-          priceCurrency: "ZAR",
+          price: schemaPrice,
+          priceCurrency: pricing.currency,
           unitText: "per guard per day",
           valueAddedTaxIncluded: false,
-          eligibleQuantity: { "@type": "QuantitativeValue", minValue: 10, unitText: "guard days" },
+          eligibleQuantity: { "@type": "QuantitativeValue", minValue: pricing.minimumGuardDays, unitText: "guard days" },
         },
       },
     },
@@ -134,6 +136,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {children}
         <Footer />
         <Analytics />
+        <Reveal />
       </body>
     </html>
   );

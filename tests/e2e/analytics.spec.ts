@@ -4,6 +4,7 @@ import { fillVisible, OK_BASE, walkJourney } from "./helpers";
 const all = [
   "hero_product_proof",
   "hero_pricing",
+  "buy_guard_days",
   "guard_pricing_interaction",
   "consultation_start",
   "consultation_complete",
@@ -37,6 +38,13 @@ test("hero buttons fire hero_product_proof and hero_pricing", async ({ page }) =
   await page.goto("/");
   await page.locator('[data-analytics-event="hero_pricing"]').first().click();
   await expect.poll(() => seen).toContain("hero_pricing");
+});
+
+test("pricing closing fires buy_guard_days", async ({ page }) => {
+  const seen = await record(page);
+  await page.goto("/pricing");
+  await page.locator('[data-analytics-event="buy_guard_days"]').first().click();
+  await expect.poll(() => seen).toContain("buy_guard_days");
 });
 
 test("calculator fires guard_pricing_interaction", async ({ page }) => {
@@ -99,5 +107,5 @@ test("sales application fires start and complete", async ({ page }) => {
 });
 
 test("the event vocabulary has exactly 14 names", async () => {
-  expect(new Set(all).size).toBe(14);
+  expect(new Set(all).size).toBe(15);
 });

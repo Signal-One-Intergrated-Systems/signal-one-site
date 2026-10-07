@@ -6,6 +6,7 @@
 export const signalOneEvents = [
   "hero_product_proof",
   "hero_pricing",
+  "buy_guard_days",
   "guard_pricing_interaction",
   "consultation_start",
   "consultation_complete",

@@ -66,7 +66,18 @@ Rules: nothing important under 14px (the lockup descriptor is the one exception,
 - **Cards**: `.card` (light) and `.card-dark` (`raised`), 14px radius, 1px border, no shadow.
 - **Focus**: 3px `signal-600` outline with 3px offset on every focusable element.
 - **Product frames**: `ProductWindow` (browser frame from md up, phone frame below) on `abyss`.
-- **Layout**: `.wrap` 1320px max; `.section` 80, 128 (md) and 160px (xl) vertical padding. Worlds (buyer, guard, careers) are distinguished by layout, type scale, photography and tone, not by accent colours.
+- **Layout**: `.wrap` 1320px max (1440px from 1600px, set by `--wrap-max`/`--wrap-pad`); `.section` 80, 96 (md) and 112px (xl) vertical padding. Desktop type steps up at 1600px by a measured amount (`.t-hero` at most 4.5rem, `.t-h2` 3.5rem, `.t-lead` 1.375rem). Wide screens get a wider container, not taller sections. No raster image renders above its source resolution (QA: `tests/e2e/image-scale.spec.ts`). Worlds (buyer, guard, careers) are distinguished by layout, type scale, photography and tone, not by accent colours.
+
+### Glass
+
+Precision glass: a slightly translucent optical surface over **real content** (photography, product screens, the page under the sticky navigation). Never whole pages of translucent cards, never over flat colour where it adds nothing.
+
+- **Utilities**: `.glass` (dark), `.glass-light` (light), `.glass-nav` (sticky navigation). Defined in `app/globals.css`.
+- **Where**: the sticky navigation; the home hero information panel; status overlays on photo bands; hardware cards; selective screenshot framing; floating contextual controls.
+- **Desktop (768px+)**: `blur(16–18px) saturate(140–150%)`, dark surface at 72% (nav 84%), white at 78%, 1px hairline border, 1px inner top highlight, one soft shadow. No coloured glow.
+- **Mobile (<768px)**: only the navigation blurs (8px, 94% opacity). Every other glass surface renders solid (95–96% opacity, no backdrop filter), so blurred layers never stack and low-end Android scrolls smoothly.
+- **Fallbacks**: without `backdrop-filter` support, and under `prefers-reduced-transparency`, every glass surface is solid. Opacities are high enough that a surface stays readable even if the blur is dropped. Both must still look finished.
+- **Text on glass** keeps the same contrast rules as text on the matching solid surface.
 
 ### Motion
 
@@ -78,7 +89,7 @@ Rules: nothing important under 14px (the lockup descriptor is the one exception,
 
 The website departs from the Signal One standard in these ways only:
 
-- (a) No glassmorphism, no glow shadows, no background grids.
+- (a) **Restrained glass is allowed; glassmorphism is not.** No glow shadows, no background grids, no neon. See "Glass" below. (Founder direction, 2026-10-07, `docs/FOUNDER_BRIEF_2026-10-07.md` §3. This replaces the earlier "no glassmorphism" rule; do not strip glass out again without a new founder decision.)
 - (b) No mono or ALL-CAPS labels, except the SIGNAL ONE / INTEGRATED SYSTEMS lockup.
 - (c) Light sections alternate with dark ones.
 - (d) Minimum text sizes and accessibility rules stay as set out here.

@@ -4,7 +4,8 @@
  * Signal One website design system.
  * Source of truth: the Signal One standard (SIGNAL_ONE_QUOTATION_STANDARD,
  * "Signal One Integrated Systems: Global Stylesheet"). Approved website
- * departures are listed in docs/DESIGN_SYSTEM.md. No glass, no glow, no grids.
+ * departures are listed in docs/DESIGN_SYSTEM.md. Restrained glass only where it
+ * sits over real content; no glow, no grids.
  */
 
 @theme inline {
@@ -67,6 +68,27 @@
 }
 
 @layer base {
+  :root {
+    --wrap-max: 1320px;
+    --wrap-pad: 16px;
+  }
+  @media (min-width: 640px) {
+    :root {
+      --wrap-pad: 24px;
+    }
+  }
+  @media (min-width: 1024px) {
+    :root {
+      --wrap-pad: 40px;
+    }
+  }
+  @media (min-width: 1600px) {
+    :root {
+      --wrap-max: 1440px;
+      --wrap-pad: 48px;
+    }
+  }
+
   *,
   *::before,
   *::after {
@@ -165,25 +187,17 @@
   }
   @media (min-width: 1600px) {
     .split-hero {
-      --hero-col: 46rem;
+      --hero-col: 40rem;
     }
   }
 
+  /* Container. At 1600+ it widens (and sections do not grow taller), so wide
+     screens get more content side by side instead of more empty height. */
   .wrap {
     width: 100%;
-    max-width: 1320px;
+    max-width: var(--wrap-max);
     margin-inline: auto;
-    padding-inline: 16px;
-  }
-  @media (min-width: 640px) {
-    .wrap {
-      padding-inline: 24px;
-    }
-  }
-  @media (min-width: 1024px) {
-    .wrap {
-      padding-inline: 40px;
-    }
+    padding-inline: var(--wrap-pad);
   }
 
   .wrap-narrow {
@@ -198,18 +212,99 @@
     }
   }
 
+  /* Section rhythm: 80 on phones (unchanged), 96 on tablets, 112 on desktop.
+     Was 128/160, which cost 320px of padding at every chapter boundary. */
   .section {
     padding-block: 80px;
   }
   @media (min-width: 768px) {
     .section {
-      padding-block: 128px;
+      padding-block: 96px;
     }
   }
   @media (min-width: 1280px) {
     .section {
-      padding-block: 160px;
+      padding-block: 112px;
     }
+  }
+
+  /*
+   * Restrained glass (docs/DESIGN_SYSTEM.md, "Glass"). Optical, not decorative:
+   * only where it sits over real content (photography, screens, the page under
+   * the sticky navigation). Mobile and no-backdrop-filter browsers get a solid,
+   * near-opaque surface so layers never stack and scrolling stays smooth.
+   */
+  .glass {
+    background: rgb(21 26 33 / 0.95);
+    border: 1px solid rgb(255 255 255 / 0.1);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.07),
+      0 24px 48px -28px rgb(0 0 0 / 0.65);
+  }
+  .glass-light {
+    background: rgb(255 255 255 / 0.96);
+    border: 1px solid var(--color-line);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.9),
+      0 20px 40px -30px rgb(11 27 43 / 0.35);
+  }
+  .glass-nav {
+    background: var(--color-base);
+    transition: background-color 200ms ease;
+  }
+  @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    /* Phones: the navigation is the only blurred layer, and lightly. */
+    .glass-nav[data-scrolled] {
+      background: rgb(21 26 33 / 0.94);
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+    }
+    @media (min-width: 768px) {
+      .glass-nav[data-scrolled] {
+        background: rgb(21 26 33 / 0.84);
+        -webkit-backdrop-filter: blur(18px) saturate(150%);
+        backdrop-filter: blur(18px) saturate(150%);
+      }
+      .glass {
+        background: rgb(21 26 33 / 0.72);
+        -webkit-backdrop-filter: blur(16px) saturate(140%);
+        backdrop-filter: blur(16px) saturate(140%);
+      }
+      .glass-light {
+        background: rgb(255 255 255 / 0.78);
+        -webkit-backdrop-filter: blur(16px) saturate(140%);
+        backdrop-filter: blur(16px) saturate(140%);
+      }
+    }
+  }
+  @media (prefers-reduced-transparency: reduce) {
+    .glass,
+    .glass-nav {
+      background: var(--color-base);
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+    }
+    .glass-light {
+      background: #fff;
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+    }
+  }
+
+  /* Sequenced reveal (components/Reveal.tsx). Only groups below the fold are armed. */
+  /* A sequenced rise, no fade: text is always at full contrast. */
+  .reveal-group[data-reveal] .reveal {
+    transition: transform 560ms cubic-bezier(0.2, 0.7, 0.2, 1) var(--reveal-delay, 0ms);
+  }
+  .reveal-group[data-reveal="waiting"] .reveal {
+    transform: translateY(20px);
+  }
+
+  /* Hardware rail: thin, quiet scrollbar; snap handles alignment. */
+  .hardware-rail {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-line-strong) transparent;
+    scroll-padding-inline: 0;
   }
 
   /* Surfaces */
@@ -264,7 +359,7 @@
   .t-h2 {
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: clamp(2.15rem, 1.55rem + 2.4vw, 3.6rem);
+    font-size: clamp(2.15rem, 1.6rem + 1.9vw, 3.25rem);
     line-height: 1.05;
     letter-spacing: -0.03em;
   }
@@ -309,25 +404,26 @@
     line-height: 1.4;
     letter-spacing: 0.005em;
   }
-  /* Wide screens: scale display type up so heroes do not look small */
+  /* Wide screens: a measured step up, not a jump. Headlines stay on two or
+     three lines in their column; the wider container carries the extra width. */
   @media (min-width: 1600px) {
     .t-display {
-      font-size: 6.75rem;
+      font-size: 5.75rem;
     }
     .t-hero {
-      font-size: clamp(4.4rem, 3.4vw, 5.6rem);
+      font-size: clamp(3.9rem, 2.6vw, 4.5rem);
     }
     .t-h1 {
-      font-size: 5.4rem;
+      font-size: 4.5rem;
     }
     .t-h2 {
-      font-size: 4.25rem;
+      font-size: 3.5rem;
     }
     .t-h3 {
-      font-size: 1.75rem;
+      font-size: 1.625rem;
     }
     .t-lead {
-      font-size: 1.5rem;
+      font-size: 1.375rem;
     }
   }
   .t-num {

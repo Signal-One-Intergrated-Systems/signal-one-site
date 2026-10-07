@@ -1,17 +1,14 @@
 import type { Metadata } from "next";
 import LandingPage from "../components/LandingPage";
-import { ProductWindow } from "../components/ProductProof";
-import { ButtonLink } from "../components/ui";
-import { proofViews } from "../lib/productProof";
+import { ButtonLink, FactPanel } from "../components/ui";
+import { guardDayPricePhrase } from "../lib/pricing";
 
 export const metadata: Metadata = {
   title: "Guard Attendance and Clock-In Software",
   description:
-    "Clock-in at the post on the guard's phone or a Central Device, the roster against every post, and PSiRA rules built in. R2 per guard per day, excl. VAT.",
+    "Clock-in at the post on the guard's phone or a Central Device, the roster against every post, and PSiRA rules built in. " + guardDayPricePhrase + ", excl. VAT.",
   alternates: { canonical: "/guard-attendance-software" },
 };
-
-const proof = proofViews.find((view) => view.id === "proof")!;
 
 export default function GuardAttendanceSoftwarePage() {
   return (
@@ -29,7 +26,17 @@ export default function GuardAttendanceSoftwarePage() {
           </ButtonLink>
         </>
       }
-      aside={<ProductWindow screen={proof.screen} shot={proof.shots[0]} flatOnMobile />}
+      aside={
+        <FactPanel
+          title="Signal One Guard · attendance"
+          facts={[
+            ["Clock in at the post", "On the guard's own phone or an authorised Central Device."],
+            ["Against the shift and post", "The attendance record belongs to the shift and the post."],
+            ["PSiRA rules built in", "A missing or expired registration blocks the assignment."],
+            ["No signal", "Clock-in and clock-out are saved on the phone and sent when signal returns."],
+          ]}
+        />
+      }
       capabilitiesTitle="Attendance as a record, not a timesheet"
       capabilities={[
         ["Clock in and out at the post", "The attendance record belongs to the shift and the post, not to a sheet typed up later."],
@@ -55,7 +62,7 @@ export default function GuardAttendanceSoftwarePage() {
       related={[
         ["/guard-patrol-software", "Guard patrol software"],
         ["/solutions/security", "The Signal One Security platform"],
-        ["/pricing", "Pricing: R2 per guard per day"],
+        ["/pricing", "Pricing: " + guardDayPricePhrase],
       ]}
     />
   );

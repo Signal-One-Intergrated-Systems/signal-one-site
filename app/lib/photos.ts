@@ -4,7 +4,8 @@
  * Every photograph here is an AI-generated ENVIRONMENT image of a fictional
  * guarding company, pending the commissioned shoot in
  * docs/PHOTOGRAPHY_BRIEF.md. None of them depicts the Signal One product:
- * product evidence is always a real screenshot (see lib/productProof.ts).
+ * product evidence is always a real screenshot (see lib/productProof.ts),
+ * and only once it passes the image OCR gate.
  * Sources are 1170–1916px wide. Never render a photograph wider than its
  * native width: bands cap their width and fade into the section colour
  * instead of stretching.

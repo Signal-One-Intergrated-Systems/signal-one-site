@@ -17,6 +17,12 @@
  * Output (2x): my-operation.png, control-room.png, proof-of-service.png,
  * people-access.png (1440 viewport, 2880px wide) and guard-mobile.png
  * (390 viewport, 780px wide). Then cut the crops listed in app/lib/productProof.ts.
+ *
+ * Safety (addendum A1): only a non-production environment seeded with the
+ * curated synthetic tenant. Before committing anything, inspect every image
+ * by eye AND run `node scripts/ocr-images.mjs <output dir>`; it rejects the
+ * codename, "Smoke", "Test", "QA", ".local", raw enum codes, phone numbers
+ * and US-format dates. `npm run check:images` then guards public/images.
  */
 import { mkdir } from "node:fs/promises";
 import path from "node:path";

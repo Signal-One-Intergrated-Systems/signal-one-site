@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { schemaPrice } from "../../app/lib/pricing";
 import { routes } from "./routes";
 
 const indexable = routes.filter((r) => r !== "/join/sales");
@@ -42,7 +43,7 @@ test("JSON-LD: Organization and SoftwareApplication, no ratings or reviews", asy
   expect(org.email).toBe("sales@signalone.co.za");
   expect(app.name).toBe("Signal One Guard");
   const spec = (app.offers as Record<string, unknown>).priceSpecification as Record<string, unknown>;
-  expect(spec.price).toBe("2.00");
+  expect(spec.price).toBe(schemaPrice);
   expect(spec.priceCurrency).toBe("ZAR");
   expect(spec.unitText).toBe("per guard per day");
   expect(spec.valueAddedTaxIncluded).toBe(false);

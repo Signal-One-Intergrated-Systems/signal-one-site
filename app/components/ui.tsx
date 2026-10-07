@@ -65,6 +65,24 @@ export function GuardStatus({ tone = "light", children }: { tone?: Tone; childre
   );
 }
 
+/** A short definition list on a raised dark panel: plain facts, no mock interface. */
+export function FactPanel({ title, facts, tone = "dark" }: { title?: ReactNode; facts: ReadonlyArray<readonly [string, string]>; tone?: Tone }) {
+  const dark = tone === "dark";
+  return (
+    <div className={"overflow-hidden rounded-card border " + (dark ? "border-line-dark bg-raised text-text-inv" : "border-line bg-white text-text")}>
+      {title ? <div className={"border-b px-5 py-4 font-semibold sm:px-6 " + (dark ? "border-line-dark" : "border-line")}>{title}</div> : null}
+      <dl className="m-0">
+        {facts.map(([term, detail]) => (
+          <div key={term} className={"border-b px-5 py-4 last:border-0 sm:px-6 " + (dark ? "border-line-dark" : "border-line")}>
+            <dt className="t-h4">{term}</dt>
+            <dd className={"t-small m-0 mt-1 " + (dark ? "text-text-inv-2" : "text-text-2")}>{detail}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  );
+}
+
 export function ButtonLink({
   href,
   children,
@@ -201,6 +219,16 @@ function edgeFade(native: number): React.CSSProperties {
   };
 }
 
+/** Fades the top and bottom edges when a box reaches the photo's native height. */
+function verticalFade(native: number): React.CSSProperties {
+  const mask = "linear-gradient(to bottom, transparent 0, #000 var(--vfade), #000 calc(100% - var(--vfade)), transparent 100%)";
+  return {
+    ["--vfade" as string]: "clamp(0px, calc(100% - " + (native - 60) + "px), 80px)",
+    maskImage: mask,
+    WebkitMaskImage: mask,
+  };
+}
+
 /**
  * Full-bleed photographic band with a one-line headline over it.
  * Height is capped so very wide screens get a wider surround, not a taller crop.
@@ -253,7 +281,7 @@ export function PhotoBand({
       <div className="absolute inset-0 flex items-end">
         <div className={"wrap pb-8 md:pb-14 " + (textSide === "right" ? "md:flex md:justify-end" : "")}>
           <div className="max-w-[40rem]">
-            {kicker ? <div className="mb-4 inline-flex rounded-ui bg-base px-3 py-2">{kicker}</div> : null}
+            {kicker ? <div className="glass mb-4 inline-flex rounded-ui px-3 py-2">{kicker}</div> : null}
             <h2 className="t-h2 text-text-inv">{headline}</h2>
             {caption ? <p className="t-caption mt-4 text-text-inv-2">{caption}</p> : null}
           </div>
@@ -277,6 +305,7 @@ export function SplitHero({
   side = "right",
   objectPositionMobile = "50% 40%",
   objectPosition = "50% 40%",
+  panel,
 }: {
   src: StaticImageData;
   alt: string;
@@ -285,8 +314,10 @@ export function SplitHero({
   side?: "left" | "right";
   objectPositionMobile?: string;
   objectPosition?: string;
+  /** Desktop only: a glass information panel floating over the photograph's lower edge. */
+  panel?: ReactNode;
 }) {
-  const inset = "calc(max(0px, (100vw - 1320px) / 2) + 40px + var(--hero-col) + 40px)";
+  const inset = "calc(max(0px, (100vw - var(--wrap-max)) / 2) + var(--wrap-pad) + var(--hero-col) + 40px)";
   const box: React.CSSProperties =
     side === "right"
       ? ({ ["--ph-l" as string]: inset, ["--ph-r" as string]: "0px" } as React.CSSProperties)
@@ -294,7 +325,8 @@ export function SplitHero({
   return (
     <section className="split-hero relative bg-deep text-text-inv" style={box}>
       <div className="relative h-[56vw] lg:absolute lg:inset-y-0 lg:left-[var(--ph-l)] lg:right-[var(--ph-r)] lg:h-auto">
-        <div className="relative mx-auto h-full" style={{ maxWidth: src.width }}>
+        {/* Never taller or wider than the source: on a tall hero the photo is centred and fades into the surface. */}
+        <div className="relative mx-auto h-full lg:top-1/2 lg:-translate-y-1/2" style={{ maxWidth: src.width, maxHeight: src.height, ...verticalFade(src.height) }}>
           <Image
             src={src}
             alt={alt}
@@ -318,6 +350,11 @@ export function SplitHero({
             }
           />
         </div>
+        {panel ? (
+          <div className={"absolute bottom-8 hidden w-[min(24rem,calc(100%-4rem))] lg:block " + (side === "right" ? "right-8" : "left-8")}>
+            {panel}
+          </div>
+        ) : null}
       </div>
       <div className={"wrap relative pb-14 pt-10 lg:flex lg:min-h-[clamp(600px,44vw,760px)] lg:items-center lg:pb-24 lg:pt-24 " + (side === "left" ? "lg:justify-end" : "")}>
         <div className="max-w-[38rem] lg:w-[var(--hero-col)] lg:max-w-none">{children}</div>

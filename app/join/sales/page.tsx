@@ -154,11 +154,11 @@ export default function SalesCareersPage() {
         <div className="wrap flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
             <h2 className="t-h4">Already a Signal One representative?</h2>
-            <p className="t-small text-text-2">Sign in to Sales OS with the account your manager set up for you.</p>
+            <p className="t-small text-text-2">Open Sales OS and sign in with the account your manager set up for you.</p>
           </div>
           {config.salesOsUrl ? (
             <a href={config.salesOsUrl} className="btn btn-ghost-light" rel="noopener">
-              Sign in to Sales OS
+              Open Sales OS
             </a>
           ) : (
             <p className="t-small rounded-ui bg-light-2 px-4 py-3 text-text-2">

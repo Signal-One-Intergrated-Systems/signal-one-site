@@ -1,17 +1,15 @@
 import type { Metadata } from "next";
 import LandingPage from "../components/LandingPage";
-import { ProductWindow } from "../components/ProductProof";
-import { ButtonLink } from "../components/ui";
-import { proofViews } from "../lib/productProof";
+import PatrolStory from "../components/PatrolStory";
+import { ButtonLink, FactPanel } from "../components/ui";
+import { guardDayPricePhrase } from "../lib/pricing";
 
 export const metadata: Metadata = {
   title: "Guard Patrol Software for Security Companies",
   description:
-    "QR and NFC checkpoint patrols, with scans saved on the phone when signal drops, and missed and late checkpoints in proof of service. Signal One Guard is R2 per guard per day, excl. VAT.",
+    "QR and NFC checkpoint patrols, with scans saved on the phone when signal drops, and missed and late checkpoints in proof of service. Signal One Guard is " + guardDayPricePhrase + ", excl. VAT.",
   alternates: { canonical: "/guard-patrol-software" },
 };
-
-const proof = proofViews.find((view) => view.id === "proof")!;
 
 export default function GuardPatrolSoftwarePage() {
   return (
@@ -29,7 +27,27 @@ export default function GuardPatrolSoftwarePage() {
           </ButtonLink>
         </>
       }
-      aside={<ProductWindow screen={proof.screen} shot={proof.shots[0]} flatOnMobile />}
+      aside={
+        <FactPanel
+          title="Signal One Guard · patrols"
+          facts={[
+            ["QR or NFC checkpoints", "Set per site; scanned on the route."],
+            ["Time and GPS on every scan", "Recorded with the checkpoint and the patrol."],
+            ["Missed and late checkpoints", "Shown in proof of service, with the reason."],
+            ["Proof for the client", "Client users see the record for their own sites."],
+          ]}
+        />
+      }
+      story={
+        <section className="surface-white section">
+          <div className="wrap">
+            <h2 className="t-h2 max-w-3xl">From the checkpoint to the client&apos;s report.</h2>
+            <div className="mt-10">
+              <PatrolStory />
+            </div>
+          </div>
+        </section>
+      }
       capabilitiesTitle="What a patrol gives you"
       capabilities={[
         ["QR or NFC checkpoints", "Set up the checkpoints for each site. Guards scan each one on the route."],
@@ -45,7 +63,7 @@ export default function GuardPatrolSoftwarePage() {
         ["The guard walks it", "Scans each checkpoint on their own phone or an authorised Central Device."],
         ["Scans survive a dropped signal", "Checkpoint scans are saved on the phone and sent when signal returns."],
         ["Supervisors see what needs action", "Late patrols and SOS wait for action in the supervisor's list and the control room."],
-        ["The proof is generated", "Each scheduled service is marked proven, partly proven, unresolved or not proven, with the reason. The screenshot above is a real record from our demo environment; the data is synthetic."],
+        ["The proof is generated", "Each scheduled service is marked proven, partly proven, unresolved or not proven, with the reason."],
       ]}
       limits={[
         "Live patrol progress, a live map and clock-in status for client users are coming soon. Today clients see patrol and checkpoint evidence and proof-of-service reports.",
@@ -55,7 +73,7 @@ export default function GuardPatrolSoftwarePage() {
       related={[
         ["/guard-attendance-software", "Guard attendance and clock-in"],
         ["/solutions/security", "The Signal One Security platform"],
-        ["/pricing", "Pricing: R2 per guard per day"],
+        ["/pricing", "Pricing: " + guardDayPricePhrase],
       ]}
     />
   );

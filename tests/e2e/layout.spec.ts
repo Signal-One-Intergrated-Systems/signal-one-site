@@ -19,6 +19,12 @@ test("branding check passes on rendered HTML", () => {
   expect(out).toContain("passed");
 });
 
+test("image OCR gate passes on public/images", () => {
+  test.setTimeout(180_000);
+  const out = execFileSync("node", ["scripts/check-branding.mjs", "--ocr"], { encoding: "utf8" });
+  expect(out).toContain("Image OCR gate passed");
+});
+
 test("rendered pages never show forbidden wording", async ({ request }) => {
   const forbidden = [/\bLEOS\b/, /shared[\s-]+phones?/i, /\bVerified\b/, /\b(Starter|Enterprise)\b/];
   for (const route of routes) {

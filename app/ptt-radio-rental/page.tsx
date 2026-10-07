@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import LandingPage from "../components/LandingPage";
 import { ButtonLink, Status } from "../components/ui";
 import { catalogue } from "../lib/catalogue";
+import { guardDayPricePhrase } from "../lib/pricing";
 
 export const metadata: Metadata = {
   title: "PTT Radio Rental for Security Companies",
@@ -62,7 +63,7 @@ export default function PttRadioRentalPage() {
       ]}
       limits={[
         "Renting a radio does not yet connect it to Signal One Guard. Activating devices and viewing tracking from inside Signal One Guard is coming soon.",
-        "Equipment is rented alongside Signal One Security, and priced separately from the R2 per guard per day platform rate.",
+        "Equipment is rented alongside Signal One Security, and priced separately from the " + guardDayPricePhrase + " platform rate.",
       ]}
       closing="Radios for the contract, by quote."
       related={[
