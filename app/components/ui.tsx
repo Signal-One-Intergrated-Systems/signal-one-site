@@ -2,6 +2,7 @@ import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import type { SignalOneEvent } from "../lib/analytics";
+import { guardStatusKind, guardStatusLabel } from "../lib/guardStatus";
 
 type Tone = "light" | "dark";
 
@@ -23,6 +24,7 @@ export function Kicker({
 }
 
 const statusStyles = {
+  pilot: { light: "bg-signal-tint text-signal-ink ring-1 ring-signal-ink/25", dark: "bg-signal-400/12 text-signal-400 ring-1 ring-signal-400/30" },
   live: { light: "bg-live-tint text-live", dark: "bg-white/8 text-live-inv" },
   beta: { light: "bg-beta-tint text-beta", dark: "bg-white/8 text-beta-inv" },
   mvp: { light: "bg-beta-tint text-beta", dark: "bg-white/8 text-beta-inv" },
@@ -51,6 +53,15 @@ export function Status({
     >
       {children}
     </span>
+  );
+}
+
+/** Status of a Guard capability: Pilot or Live, from lib/guardStatus.ts. Server components only. */
+export function GuardStatus({ tone = "light", children }: { tone?: Tone; children?: ReactNode }) {
+  return (
+    <Status kind={guardStatusKind} tone={tone}>
+      {children ?? guardStatusLabel}
+    </Status>
   );
 }
 

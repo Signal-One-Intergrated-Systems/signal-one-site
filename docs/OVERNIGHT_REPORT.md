@@ -127,3 +127,7 @@ Verified against signal-one-guard `main` (a8887a2). Guard docs/DEPLOYMENT.md say
 - SOS position: kept. `src/sos/raise.ts` sends optional latitude/longitude; `apps/api/src/sos/sos.service.ts` stores them; `apps/api/src/map/map.service.ts` and `apps/web/components/watch.tsx` draw them on the control-room map. Worded as "position when the phone has a fix", not "last known".
 - To confirm before launch: nothing is in production yet; confirm on a real handset that the four queues replay against the staging API.
 - Landing pages <768px: no phone frame; flat header bar plus the record at full width.
+
+## Status truth fix: Guard is "Pilot"
+
+Guard has no production environment (DEPLOYMENT.md: demo staging only), so Guard capabilities read "Pilot" until a first customer runs on production. One place changes it: `app/lib/guardStatus.ts`, driven by `GUARD_STATUS=pilot|live` (build-time, default pilot). Beta, MVP in development, Coming soon and By quote are unchanged.

@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import GuardDayCalculator from "./components/GuardDayCalculator";
 import ProductProof, { ProductWindow } from "./components/ProductProof";
-import { Arrow, ButtonLink, Check, Kicker, Photo, PhotoBand, SplitHero, Status } from "./components/ui";
+import { Arrow, ButtonLink, Check, Kicker, Photo, PhotoBand, SplitHero, Status, GuardStatus } from "./components/ui";
+import { guardIsLive, guardOnboardingLine, guardStatusLabel } from "./lib/guardStatus";
 import { illustrativeCaption, photos } from "./lib/photos";
 import { proofViews } from "./lib/productProof";
 
@@ -200,7 +201,7 @@ export default function Home() {
               </div>
               <div className="sm:col-span-2">
                 <dt className="t-h4 flex flex-wrap items-center gap-3">
-                  Already live <Status kind="live" tone="dark">Live</Status>
+                  {guardIsLive ? "Already live" : "In the Guard pilot"} <GuardStatus tone="dark" />
                 </dt>
                 <dd className="t-small m-0 mt-2 text-text-inv-2">
                   Offer open posts to your own guards in Signal One Guard. They accept or decline in the app.
@@ -221,9 +222,7 @@ export default function Home() {
         kicker={
           <span className="flex flex-wrap items-center gap-3">
             <Kicker tone="dark">Run</Kicker>
-            <Status kind="live" tone="dark">
-              Live
-            </Status>
+            <GuardStatus tone="dark" />
           </span>
         }
         headline="Run every site from one record."
@@ -317,9 +316,7 @@ export default function Home() {
           <div className="max-w-3xl">
             <div className="flex flex-wrap items-center gap-3">
               <Kicker tone="dark">Prove</Kicker>
-              <Status kind="live" tone="dark">
-                Client portal · Live
-              </Status>
+              <GuardStatus tone="dark">Client portal · {guardStatusLabel}</GuardStatus>
             </div>
             <h2 className="t-h2 mt-4">Transparency without giving away the operation.</h2>
             <p className="t-lead mt-5 text-text-inv-2">
@@ -379,6 +376,7 @@ export default function Home() {
               </span>
             </p>
             <p className="t-body mt-4 text-text-2">Excluding VAT. One price, no tiers or packages.</p>
+            {guardOnboardingLine ? <p className="t-small mt-2 font-semibold text-text-2">{guardOnboardingLine}</p> : null}
 
             <dl className="mt-8 grid gap-0">
               {[

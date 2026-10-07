@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ProductWindow } from "../../components/ProductProof";
-import { ButtonLink, Check, Kicker, Photo, SplitHero, Status } from "../../components/ui";
+import { ButtonLink, Check, Kicker, Photo, SplitHero, Status, GuardStatus } from "../../components/ui";
+import { guardOnboardingLine } from "../../lib/guardStatus";
 import { illustrativeCaption, photos } from "../../lib/photos";
 import { proofViews } from "../../lib/productProof";
 
@@ -36,15 +37,14 @@ export default function SecurityPlatformPage() {
       <SplitHero src={photos.teamBriefing.src} alt={photos.teamBriefing.alt} objectPositionMobile="55% 50%" objectPosition="62% 45%">
         <div className="flex flex-wrap items-center gap-3">
           <Kicker tone="dark">Signal One Security · the platform</Kicker>
-          <Status kind="live" tone="dark">
-            Live
-          </Status>
+          <GuardStatus tone="dark" />
         </div>
         <h1 className="t-hero mt-5">Run security operations from the record, not the group chat.</h1>
         <p className="t-lead measure mt-6 text-text-inv-2">
           Sites, posts, shifts, attendance, patrols, incidents, SOS, the control room and client proof of service. One
           system for owners, supervisors, control-room operators, guards and your clients.
         </p>
+        {guardOnboardingLine ? <p className="t-small mt-4 font-semibold text-text-inv">{guardOnboardingLine}</p> : null}
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <ButtonLink href="/contact" size="lg">
             Talk to Signal One
@@ -148,9 +148,7 @@ export default function SecurityPlatformPage() {
             <div>
               <div className="flex flex-wrap items-center gap-3">
                 <Kicker tone="dark">Proof of service and client portal</Kicker>
-                <Status kind="live" tone="dark">
-                  Live
-                </Status>
+                <GuardStatus tone="dark" />
               </div>
               <h2 className="t-h2 mt-4">Show the client what was delivered.</h2>
               <p className="t-body mt-5 text-text-inv-2">{proof.body}</p>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import GuardDayCalculator from "../components/GuardDayCalculator";
 import { Arrow, ButtonLink, Kicker, Status } from "../components/ui";
+import { guardOnboardingLine } from "../lib/guardStatus";
 import { num, rand } from "../lib/format";
 
 export const metadata: Metadata = {
@@ -34,6 +35,7 @@ export default function PricingPage() {
               </span>
             </h1>
             <p className="t-lead mt-4 text-text-inv-2">Excluding VAT. One price for the whole platform. No tiers, no packages.</p>
+            {guardOnboardingLine ? <p className="t-small mt-3 font-semibold text-text-inv">{guardOnboardingLine}</p> : null}
           </div>
 
           <div>

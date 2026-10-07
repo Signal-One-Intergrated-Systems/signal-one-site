@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import Analytics from "./components/Analytics";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import { guardAvailability, guardIsLive } from "./lib/guardStatus";
 import { brand, salesEmail, siteUrl } from "./lib/site";
 import "./globals.css";
 
@@ -93,10 +94,11 @@ const structuredData = {
       applicationSubCategory: "Security guard management software",
       operatingSystem: "Web, Android, iOS",
       publisher: { "@id": siteUrl + "/#organization" },
-      description,
+      description: guardIsLive ? description : description + " Signal One Guard is in pilot with its first security companies.",
       offers: {
         "@type": "Offer",
         url: siteUrl + "/pricing",
+        availability: guardAvailability,
         price: "2.00",
         priceCurrency: "ZAR",
         description: "R2 per guard per day, excluding VAT. Minimum purchase 10 guard days.",

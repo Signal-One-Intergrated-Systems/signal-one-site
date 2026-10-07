@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import IntakeForm, { type IntakeField } from "../components/IntakeForm";
-import { ButtonLink, Check, PageHero, Status, Steps } from "../components/ui";
+import { ButtonLink, Check, PageHero, Status, Steps, GuardStatus } from "../components/ui";
+import { guardIsLive } from "../lib/guardStatus";
 
 export const metadata: Metadata = {
   title: "Guard Marketplace: Staff New Contracts (in development)",
@@ -197,15 +198,15 @@ export default function GuardMarketplacePage() {
           </div>
           <div className="rounded-card bg-white p-6 ring-1 ring-line sm:p-8">
             <div className="flex flex-wrap items-center gap-3">
-              <h2 className="t-h3">Already live in Signal One Guard</h2>
-              <Status kind="live">Live</Status>
+              <h2 className="t-h3">{guardIsLive ? "Already live in Signal One Guard" : "In the Signal One Guard pilot"}</h2>
+              <GuardStatus />
             </div>
             <p className="t-body mt-4 text-text-2">
-              You can already offer open posts to your own guards. Each guard sees the offer in the Guard app and accepts
+              {guardIsLive ? "You can already offer open posts to your own guards." : "Pilot companies can offer open posts to their own guards."} Each guard sees the offer in the Guard app and accepts
               or declines it. Marketplace will extend the same accept-or-decline step to guards outside your company.
             </p>
             <ButtonLink href="/solutions/security" variant="ghost-light" className="mt-6">
-              See the live platform
+              See the platform
             </ButtonLink>
           </div>
         </div>
