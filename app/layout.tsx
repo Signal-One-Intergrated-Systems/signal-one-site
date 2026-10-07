@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import Analytics from "./components/Analytics";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import Reveal from "./components/Reveal";
 import { guardAvailability, guardIsLive } from "./lib/guardStatus";
 import { brand, salesEmail, siteUrl } from "./lib/site";
 import "./globals.css";
@@ -135,6 +136,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {children}
         <Footer />
         <Analytics />
+        <Reveal />
       </body>
     </html>
   );

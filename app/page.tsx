@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import GuardDayCalculator from "./components/GuardDayCalculator";
 import { HardwareRail } from "./components/Hardware";
+import RailControls from "./components/RailControls";
 import PatrolStory from "./components/PatrolStory";
 import { catalogue } from "./lib/catalogue";
 import { Arrow, ButtonLink, Check, Kicker, Photo, PhotoBand, SplitHero, Status, GuardStatus } from "./components/ui";
@@ -301,10 +302,12 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="mt-10">
+          <div className="mt-8">
+            <RailControls label="rental hardware">
             <HardwareRail
               products={[...catalogue.flatMap((group) => group.products)].sort((a, b) => Number(Boolean(b.image)) - Number(Boolean(a.image)))}
             />
+            </RailControls>
           </div>
 
           <div className="mt-8 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
