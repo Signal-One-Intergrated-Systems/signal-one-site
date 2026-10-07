@@ -291,6 +291,13 @@
     }
   }
 
+  /* Hardware rail: thin, quiet scrollbar; snap handles alignment. */
+  .hardware-rail {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-line-strong) transparent;
+    scroll-padding-inline: 0;
+  }
+
   /* Surfaces */
   .surface-deep {
     background: var(--color-deep);

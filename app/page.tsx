@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import GuardDayCalculator from "./components/GuardDayCalculator";
+import { HardwareRail } from "./components/Hardware";
+import { catalogue } from "./lib/catalogue";
 import ProductProof, { ProductWindow } from "./components/ProductProof";
 import { Arrow, ButtonLink, Check, Kicker, Photo, PhotoBand, SplitHero, Status, GuardStatus } from "./components/ui";
 import { guardIsLive, guardOnboardingLine, guardStatusLabel } from "./lib/guardStatus";
@@ -41,24 +43,6 @@ const runCapabilities = [
   ["Occurrence book and incidents", "One chronological record of what happened on site, with incidents logged as they happen."],
   ["SOS to the control room", "The control room acknowledges, navigates to and resolves each SOS. It needs a mobile signal."],
   ["People and access", "Invite supervisors, limit each one to their sites, and switch access off without deleting history."],
-] as const;
-
-const equipment = [
-  {
-    category: "Radios and PTT",
-    items: ["Hytera PNC360S", "P30 Lite PoC", "E600 PoC LTE", "PTT platform with SIM and data"],
-    terms: "Rental, 12, 24 or 36 months",
-  },
-  {
-    category: "Vehicle and asset tracking",
-    items: ["FMC920 tracker", "FMB920 tracker"],
-    terms: "Scoped per vehicle or asset",
-  },
-  {
-    category: "Body cameras",
-    items: ["SC780 body camera"],
-    terms: "Rental",
-  },
 ] as const;
 
 const companySees = [
@@ -311,18 +295,10 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="mt-12 border-b border-line">
-            {equipment.map((group) => (
-              <div key={group.category} className="grid gap-3 border-t border-line py-6 md:grid-cols-[minmax(0,4fr)_minmax(0,5fr)_minmax(0,3fr)] md:gap-8">
-                <h3 className="t-h3">{group.category}</h3>
-                <ul className="m-0 flex list-none flex-wrap gap-x-6 gap-y-1 p-0 text-[1.0625rem] font-medium">
-                  {group.items.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-                <p className="t-small text-text-2 md:text-right">{group.terms}</p>
-              </div>
-            ))}
+          <div className="mt-10">
+            <HardwareRail
+              products={[...catalogue.flatMap((group) => group.products)].sort((a, b) => Number(Boolean(b.image)) - Number(Boolean(a.image)))}
+            />
           </div>
 
           <div className="mt-8 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
