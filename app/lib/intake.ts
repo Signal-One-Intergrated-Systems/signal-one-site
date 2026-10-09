@@ -21,6 +21,7 @@ const subjects: Record<string, string> = {
 
 // Mail clients and some OSes truncate very long mailto: links.
 const MAX_BODY_CHARS = 1500;
+const INTAKE_TIMEOUT_MS = 15_000;
 
 function humanise(name: string): string {
   const words = name.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/[-_]/g, " ").toLowerCase();
@@ -42,8 +43,8 @@ export function buildMailto(data: Record<string, string>, labels: Record<string,
 
 /**
  * POSTs to /api/intake. When the form service is unavailable (503 until an
- * upstream is configured, 502, or the network is down) the result carries a
- * mailto: fallback so a form never dead-ends.
+ * upstream is configured, 502, a timeout, or the network is down) the result
+ * carries a mailto: fallback so a form never dead-ends.
  */
 export async function submitIntake(
   kind: IntakeKind,
@@ -51,13 +52,31 @@ export async function submitIntake(
   labels?: Record<string, string>,
 ): Promise<IntakeResult> {
   const fallback = () => buildMailto(data, labels);
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), INTAKE_TIMEOUT_MS);
+
   try {
     const response = await fetch("/api/intake", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ kind, data }),
+      signal: controller.signal,
     });
-    const body = (await response.json().catch(() => ({}))) as { message?: string };
+
+    let body: { message?: string };
+    try {
+      body = (await response.json()) as { message?: string };
+    } catch {
+      if (response.ok) {
+        return {
+          ok: false,
+          message: "We could not confirm whether your request was received. Please use the email option below.",
+          fallback: fallback(),
+        };
+      }
+      body = {};
+    }
+
     if (response.ok) return { ok: true, message: body.message || "" };
     const unavailable = response.status >= 500;
     return {
@@ -66,6 +85,15 @@ export async function submitIntake(
       fallback: unavailable ? fallback() : null,
     };
   } catch {
+    if (controller.signal.aborted) {
+      return {
+        ok: false,
+        message: "This request took too long, so we could not confirm it was received. Please try again or use the email option below.",
+        fallback: fallback(),
+      };
+    }
     return { ok: false, message: "We could not reach our form service.", fallback: fallback() };
+  } finally {
+    clearTimeout(timeout);
   }
 }
