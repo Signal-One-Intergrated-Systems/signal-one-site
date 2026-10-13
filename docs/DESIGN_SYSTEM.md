@@ -82,7 +82,8 @@ Precision glass: a slightly translucent optical surface over **real content** (p
 ### Motion
 
 - The **signal-pulse** on the header logo mark is part of the brand: a ring radiating from the dot, 2.8s ease-out, infinite, header mark only. It is off under `prefers-reduced-motion`.
-- Everything else is minimal: `.animate-enter` (320ms fade and 6px rise) on tabs and steps, and colour transitions on buttons and inputs.
+- The baseline motion language remains minimal for ordinary controls: `.animate-enter` (320ms fade and 6px rise) on tabs and steps, and colour transitions on buttons and inputs.
+- **Approved experience extension (13 October 2026):** The public homepage may contain the four-stage, truthful field-to-proof interactive sequence in `OperationalJourney.tsx`, with step changes, a moving connection indicator, restrained surface transitions and an optional timed presentation mode. The photographic hero may use the companion step indicator. These operate on actual GUARD capability statements, not fabricated screenshots or live records. All other motion stays restrained and must have reduced-motion, pause and touch-compatible alternatives. Animation never changes the logo or core brand tokens.
 - `prefers-reduced-motion` turns all motion off, including smooth scrolling.
 
 ## Approved website departures
