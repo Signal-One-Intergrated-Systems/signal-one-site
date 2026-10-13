@@ -4,6 +4,7 @@ import GuardDayCalculator from "./components/GuardDayCalculator";
 import { HardwareRail } from "./components/Hardware";
 import RailControls from "./components/RailControls";
 import PatrolStory from "./components/PatrolStory";
+import OperationalJourney, { FieldSignalPanel } from "./components/OperationalJourney";
 import { catalogue } from "./lib/catalogue";
 import { Arrow, ButtonLink, Check, Kicker, Photo, PhotoBand, SplitHero, Status, GuardStatus } from "./components/ui";
 import { guardIsLive, guardOnboardingLine, guardStatusLabel } from "./lib/guardStatus";
@@ -70,27 +71,7 @@ export default function Home() {
         alt={photos.hero.alt}
         objectPositionMobile="66% 45%"
         objectPosition="80% 40%"
-        panel={
-          <div className="glass rounded-card p-5 text-text-inv">
-            <div className="flex items-center justify-between gap-3">
-              <p className="font-semibold">Signal One Guard</p>
-              <GuardStatus tone="dark" />
-            </div>
-            <dl className="mt-4 grid gap-0 text-[0.9375rem]">
-              {[
-                ["Price", guardDayPricePhrase + ", excl. VAT"],
-                ["Devices", "The guard's own phone or a Central Device"],
-                ["Patrols", "QR and NFC checkpoints"],
-                ["Proof", "Client portal and proof-of-service reports"],
-              ].map(([term, detail]) => (
-                <div key={term} className="grid grid-cols-[5rem_1fr] gap-3 border-t border-white/10 py-2.5">
-                  <dt className="text-text-inv-2">{term}</dt>
-                  <dd className="m-0">{detail}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-        }
+        panel={<FieldSignalPanel />}
       >
           <Kicker tone="dark">For growing South African security companies</Kicker>
           <h1 className="t-hero mt-5">
@@ -118,6 +99,9 @@ export default function Home() {
           </p>
           <p className="t-caption mt-3 text-text-inv-2">{illustrativeCaption}</p>
       </SplitHero>
+
+      {/* Interactive flagship: a truthful, guided field-to-proof journey. */}
+      <OperationalJourney />
 
       {/* 2 + 3 · PROBLEM → ANSWERS (product screens return after the demo-tenant capture) */}
       <section id="product" className="surface-light section scroll-mt-[72px]">
