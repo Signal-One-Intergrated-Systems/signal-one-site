@@ -77,10 +77,9 @@ function useMotionPreference() {
 
 function useOnScreen<T extends HTMLElement>() {
   const target = useRef<T>(null);
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(true);
   useEffect(() => {
     if (!target.current || !("IntersectionObserver" in window)) {
-      setVisible(true);
       return;
     }
     const observer = new IntersectionObserver(
@@ -136,7 +135,7 @@ export function FieldSignalPanel() {
         <p className="t-caption mt-1 text-text-inv-2">{scene.bottom}</p>
       </div>
       <div className="mt-4 flex items-center justify-between gap-3 border-t border-white/15 pt-3">
-        <p className="t-caption text-text-inv-2">01 / 04 — select any stage</p>
+        <p className="t-caption text-text-inv-2">0{active + 1} / 04 — select any stage</p>
         <button
           type="button"
           className="s1-panel-play"
