@@ -24,9 +24,10 @@ jobs:
           cache: "npm"
       - run: npm ci
       - run: npm run lint
-      - run: npx tsc --noEmit
+      # Next generates image-module declarations and route types during build.
       - run: npx playwright install --with-deps chromium
       - run: npm run qa
+      - run: npx tsc --noEmit
       - name: Capture reviewable homepage evidence
         if: success()
         run: |
