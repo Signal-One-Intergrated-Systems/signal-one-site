@@ -183,7 +183,7 @@ export default function OperationalJourney() {
   }
 
   return (
-    <section ref={target} className="s1-journey-section surface-base" aria-labelledby="s1-journey-heading">
+    <section id="experience" ref={target} className="s1-journey-section surface-base scroll-mt-[72px]" aria-labelledby="s1-journey-heading">
       <div className="wrap py-20 md:py-24 xl:py-28">
         <div className="grid items-end gap-8 lg:grid-cols-[minmax(0,6fr)_minmax(0,4fr)] lg:gap-20">
           <div>
