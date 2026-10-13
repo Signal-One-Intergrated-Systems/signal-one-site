@@ -17,7 +17,7 @@ const groups = [
   {
     title: "Get started",
     links: [
-      ["/#product", "See the product"],
+      ["/solutions/security#experience", "Experience GUARD"],
       ["/contact", "Talk to Signal One"],
       ["/get-started", "Start company onboarding"],
     ],
@@ -48,24 +48,35 @@ export default function Footer() {
         <div>
           <SignalOneLogo size={24} tone="dark" descriptorMin={11} />
           <p className="t-small measure-tight mt-6 text-text-inv-2">
-            Signal One Security is the operating system for South African security companies: sites, shifts, patrols,
-            control room and client proof of service.
+            Signal One Security is the operating system for South African
+            security companies: sites, shifts, patrols, control room and client
+            proof of service.
           </p>
           <p className="t-body mt-6">
-            <a href="mailto:sales@signalone.co.za" className="link-inline font-semibold">
+            <a
+              href="mailto:sales@signalone.co.za"
+              className="link-inline font-semibold"
+            >
               sales@signalone.co.za
             </a>
           </p>
         </div>
 
-        <nav aria-label="Footer" className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4">
+        <nav
+          aria-label="Footer"
+          className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4"
+        >
           {groups.map((group) => (
             <div key={group.title}>
-              <h2 className="font-sans text-[0.9375rem] font-semibold text-text-inv">{group.title}</h2>
+              <h2 className="font-sans text-[0.9375rem] font-semibold text-text-inv">
+                {group.title}
+              </h2>
               <ul className="m-0 mt-3 list-none p-0">
                 {group.links.map(([href, label]) => (
                   <li key={href}>
                     <Link
+                      prefetch={false}
+                      data-route-intent=""
                       href={href}
                       className="flex min-h-[44px] items-center text-[0.9375rem] text-text-inv-2 hover:text-text-inv hover:underline hover:underline-offset-4"
                     >
@@ -80,7 +91,10 @@ export default function Footer() {
       </div>
 
       <div className="wrap flex flex-col gap-2 border-t border-line-dark py-6 text-[0.875rem] text-text-inv-2 sm:flex-row sm:justify-between">
-        <span>© {new Date().getFullYear()} Signal One: Integrated Systems. South Africa.</span>
+        <span>
+          © {new Date().getFullYear()} Signal One: Integrated Systems. South
+          Africa.
+        </span>
         <span>Prices exclude VAT unless stated.</span>
       </div>
     </footer>

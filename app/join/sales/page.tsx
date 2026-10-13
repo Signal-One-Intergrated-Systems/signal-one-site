@@ -43,10 +43,10 @@ export default function SalesCareersPage() {
   const open = config.status === "open";
 
   return (
-    <main id="main" className="bg-light text-text">
+    <main id="main" className="careers-main bg-light text-text">
       <SplitHero src={photos.controlRoomTeam.src} alt={photos.controlRoomTeam.alt} objectPositionMobile="50% 30%" objectPosition="60% 35%">
           <p className="t-kicker text-signal-400">Careers at Signal One</p>
-          <h1 className="mt-4 font-display text-[2.9rem] font-bold leading-[1.04] tracking-[-0.02em] sm:text-[3.6rem]">
+          <h1 className="t-hero mt-4">
             Sell the system security companies run on.
           </h1>
           <p className="t-lead measure mt-6 text-text-inv-2">
@@ -75,9 +75,9 @@ export default function SalesCareersPage() {
           <p className="t-caption mt-6 text-text-inv-2">Illustrative scene · fictional security company</p>
       </SplitHero>
 
-      <section id="role" className="scroll-mt-[72px] bg-white py-16 md:py-24">
+      <section id="role" className="scroll-mt-[72px] bg-white section">
         <div className="wrap">
-          <h2 className="font-display text-[2.6rem] font-bold leading-tight sm:text-[3.2rem]">The role</h2>
+          <h2 className="t-h2">The role</h2>
           <p className="t-lead measure mt-4 text-text-2">Sales representative, selling to security companies.</p>
           <div className="mt-10 grid gap-12 md:grid-cols-2">
             <div>
@@ -108,12 +108,12 @@ export default function SalesCareersPage() {
         </div>
       </section>
 
-      <section id="process" className="scroll-mt-[72px] py-16 md:py-24">
+      <section id="process" className="scroll-mt-[72px] section">
         <div className="wrap">
-          <h2 className="font-display text-[2.6rem] font-bold leading-tight sm:text-[3.2rem]">How hiring works</h2>
+          <h2 className="t-h2">How hiring works</h2>
           <ol className="m-0 mt-10 grid list-none gap-x-8 gap-y-8 p-0 sm:grid-cols-2 lg:grid-cols-3">
             {process.map(([title, body], index) => (
-              <li key={title} className="border-t-2 border-brass pt-4">
+              <li key={title} className="border-t-2 border-signal-ink pt-4">
                 <span className="font-display text-[2rem] font-bold text-signal-ink">{index + 1}</span>
                 <h3 className="t-h4 mt-1">{title}</h3>
                 <p className="t-small mt-1 text-text-2">{body}</p>
@@ -126,7 +126,7 @@ export default function SalesCareersPage() {
       <section id="apply" className="scroll-mt-[72px] bg-deep py-16 text-text-inv md:py-24">
         <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
           <div>
-            <h2 className="font-display text-[2.6rem] font-bold leading-tight sm:text-[3.2rem]">
+            <h2 className="t-h2">
               {open ? "Apply" : "Applications are closed"}
             </h2>
             <p className="t-body mt-4 text-text-inv-2">

@@ -1,0 +1,13 @@
+{
+  "observations_current": true,
+  "spec_revision": "21",
+  "network_policy": {
+    "mode": "restricted",
+    "state": "enforced",
+    "allowed_hosts": [],
+    "presets": [
+      "package_managers"
+    ]
+  },
+  "verdict": "ATEX, public Signal One and Railway preview are absent from the enforced allowed hosts."
+}

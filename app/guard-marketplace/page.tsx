@@ -24,12 +24,6 @@ const flow = [
   ["Allocate to a shift", "From here it is a normal shift: clock in, patrol, report."],
 ] as const;
 
-const demoProfiles = [
-  { tag: "Sample A", area: "Midrand, Gauteng", grade: "C", availability: "Available now", years: "4 years", skills: ["Access control", "Patrol"] },
-  { tag: "Sample B", area: "Kempton Park, Gauteng", grade: "B", availability: "Available in 2 weeks", years: "7 years", skills: ["Control room", "CCTV"] },
-  { tag: "Sample C", area: "Centurion, Gauteng", grade: "C", availability: "Available now", years: "2 years", skills: ["Access control", "Reception"] },
-] as const;
-
 const interestFields: IntakeField[] = [
   { name: "contactName", label: "Your name", required: true, autoComplete: "name" },
   { name: "companyName", label: "Security company", required: true, autoComplete: "organization" },
@@ -43,13 +37,9 @@ const interestFields: IntakeField[] = [
   },
 ];
 
-function DemoChip({ children }: { children: React.ReactNode }) {
-  return <span className="rounded-full bg-light-2 px-3 py-1 text-[0.875rem] font-medium">{children}</span>;
-}
-
 export default function GuardMarketplacePage() {
   return (
-    <main id="main">
+    <main id="main" className="landing-main marketplace-main">
       <PageHero
         kicker="Guard Marketplace"
         status={
@@ -57,11 +47,11 @@ export default function GuardMarketplacePage() {
             MVP in development
           </Status>
         }
-        title="Win the contract. Then staff it from the same system."
+        title="Your next workforce. Connected to the work."
         lead="When it launches, you will be able to find guards near the site, check what they have recorded, send a hire request and allocate the guards who accept. Inside your company workspace, next to the sites and shifts they will work."
         aside={
-          <div className="rounded-card border border-line-dark bg-raised p-6 sm:p-8">
-            <h2 className="t-h3">Where Marketplace is today</h2>
+          <div className="access-plate">
+            <p>Marketplace · MVP in development</p><h2 className="t-h3 mt-4">Built around a guard’s choice.</h2>
             <p className="t-body mt-3 text-text-inv-2">
               Marketplace is not live yet. We are building the MVP described on this page. Register interest and we will
               tell you when your company can use it.
@@ -76,7 +66,7 @@ export default function GuardMarketplacePage() {
       <section className="surface-light section">
         <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
           <div>
-            <h2 className="t-h2">From contract to shift, in ten steps.</h2>
+            <h2 className="t-h2">A planned path from contract to shift.</h2>
             <p className="t-body mt-4 text-text-2">
               The planned hiring workflow ends where your operation already lives: a guard allocated to a site and a shift in Signal
               One Guard.
@@ -96,84 +86,6 @@ export default function GuardMarketplacePage() {
               ))}
             </ol>
           </div>
-        </div>
-      </section>
-
-      <section className="surface-white section" aria-labelledby="demo-h">
-        <div className="wrap">
-          <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-            <div>
-              <h2 id="demo-h" className="t-h2">
-                What it will look like
-              </h2>
-              <p className="t-body measure mt-3 text-text-2">
-                A design preview of the MVP. These profiles are invented, and nothing on this page connects to a real
-                guard.
-              </p>
-            </div>
-            <p className="shrink-0 rounded-full bg-beta-tint px-4 py-2 text-[0.9375rem] font-semibold text-beta">
-              Illustrative demo · synthetic data
-            </p>
-          </div>
-
-          <div
-            className="mt-10 overflow-hidden rounded-card ring-1 ring-line"
-            role="img"
-            aria-label="Illustrative Marketplace design preview with synthetic data: filters for location, PSiRA grade, availability, experience and skills, and three sample guard profiles with shortlist and hire request buttons"
-          >
-            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-line bg-light px-4 py-3 text-[0.875rem] sm:px-6">
-              <span className="font-semibold">Guard Marketplace · design preview</span>
-              <span className="text-text-2">Illustrative demo · synthetic data</span>
-            </div>
-            <div className="grid md:grid-cols-[minmax(0,4fr)_minmax(0,8fr)]">
-              <div className="border-b border-line bg-light/60 p-4 sm:p-6 md:border-b-0 md:border-r">
-                <p className="t-h4">Filters</p>
-                <dl className="mt-4 grid gap-3 text-[0.9375rem]">
-                  {[
-                    ["Location", "Within 25 km of Midrand"],
-                    ["PSiRA grade", "C or higher"],
-                    ["Availability", "Available now"],
-                    ["Experience", "2+ years"],
-                    ["Skills", "Access control"],
-                  ].map(([term, value]) => (
-                    <div key={term} className="rounded-ui bg-white px-3 py-2 ring-1 ring-line">
-                      <dt className="text-text-2">{term}</dt>
-                      <dd className="m-0 font-semibold">{value}</dd>
-                    </div>
-                  ))}
-                </dl>
-              </div>
-              <ul className="m-0 list-none divide-y divide-line p-0">
-                {demoProfiles.map((profile) => (
-                  <li key={profile.tag} className="grid gap-4 p-4 sm:grid-cols-[1fr_auto] sm:items-center sm:p-6">
-                    <div className="flex gap-4">
-                      <span aria-hidden="true" className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-light-2 font-display text-[1.125rem] font-bold">
-                        {profile.tag.slice(-1)}
-                      </span>
-                      <div>
-                        <p className="font-semibold">{profile.tag} · {profile.area}</p>
-                        <p className="t-small text-text-2">
-                          PSiRA grade {profile.grade} recorded · {profile.years} · {profile.availability}
-                        </p>
-                        <div className="mt-2 flex flex-wrap gap-2">
-                          {profile.skills.map((skill) => (
-                            <DemoChip key={skill}>{skill}</DemoChip>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex gap-2">
-                      <span className="btn btn-ghost-light pointer-events-none min-h-[44px] px-4 text-[0.9375rem]">Shortlist</span>
-                      <span className="btn btn-primary pointer-events-none min-h-[44px] px-4 text-[0.9375rem]">Request hire</span>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-          <p className="t-caption mt-3 text-text-2">
-            Design preview, not the live product. No ratings, scores or badges will be shown on profiles.
-          </p>
         </div>
       </section>
 

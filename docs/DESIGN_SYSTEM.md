@@ -106,3 +106,13 @@ Resolved in favour of accessibility, with the smallest possible change:
 | Wordmark `ONE` `#0EA5E9` on light | 2.6:1 | Kept: logotypes are exempt from the text-contrast rules, and the lockup must not be altered |
 
 `docs/CONTRAST.md` lists every text and background pair in use with its measured ratio.
+
+## Operations in motion (founder mission, 2026-10-13)
+
+The mission authorises a coordinated operational demonstration and equipment gallery within the existing brand. `app/experience.css` provides their presentation. Inter, Signal blue, surfaces and the logo remain unchanged.
+
+- Desktop sections use 76px (84px at wide desktop), with local section-specific rhythm; headings are bounded at 3rem and shared heroes at 4rem. Homepage mobile uses 44px sections and a distinct image/composition arrangement.
+- Operational stages and equipment model changes have 320–480ms transform-only arrivals. The guided tour advances at 6.5 seconds, is opt-in, pauses off-screen or when the tab is hidden, and ends at the last stage. Controls remain available manually.
+- Reduced motion removes stage/image arrival animations and product hover transforms; autoplay controls are omitted. Touch and keyboard interactions use the same manual controls.
+- Native dialog is used for the hero demonstration, including modal focus containment, Escape and focus restoration. Mobile backdrop blur is removed.
+- Editorial field guides must be labelled and never imitate an actual GUARD screen. Authentic screens still require approved non-production synthetic captures and the image safety gate.

@@ -28,11 +28,11 @@ const joinSteps = [
 
 export default function GuardsPage() {
   return (
-    <main id="main" className="bg-light text-text">
+    <main id="main" className="guard-main bg-light text-text">
       <SplitHero src={photos.siteOperations.src} alt={photos.siteOperations.alt} side="left" objectPositionMobile="0% 8%" objectPosition="0% 12%">
           <p className="text-[1.0625rem] font-semibold text-signal-400">For security officers</p>
           <h1 className="t-hero mt-4">Your work, on record. Your next job, your choice.</h1>
-          <p className="mt-6 text-[1.25rem] leading-relaxed text-text-inv-2">
+          <p className="t-lead mt-6 text-text-inv-2">
             Signal One Guard is the app you use on shift. Guard Marketplace is not live yet. When it launches,
             signed-in security companies will be able to send you hire requests. You will always decide whether to accept.
           </p>
@@ -59,10 +59,10 @@ export default function GuardsPage() {
           <p className="t-caption mt-6 text-text-inv-2">Illustrative scene · fictional security company</p>
       </SplitHero>
 
-      <section id="how-it-works" className="scroll-mt-[72px] bg-white py-16 md:py-24">
+      <section id="how-it-works" className="scroll-mt-[72px] bg-white section">
         <div className="wrap grid gap-12 lg:grid-cols-2 lg:gap-16">
           <div>
-            <h2 className="t-h2">On shift: the Guard app</h2>
+            <p className="t-kicker text-signal-ink">On shift</p><h2 className="t-h2 mt-4">Your work.<br />A clear sequence.</h2>
             <p className="mt-4 text-[1.1875rem] leading-relaxed text-text-2">
               If your company uses Signal One, this is what you do in the app.
             </p>
@@ -98,7 +98,7 @@ export default function GuardsPage() {
         </div>
       </section>
 
-      <section id="psira" className="scroll-mt-[72px] py-16 md:py-24">
+      <section id="psira" className="scroll-mt-[72px] section">
         <div className="wrap grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
           <div>
             <h2 className="t-h2">PSiRA: what we ask and why</h2>
@@ -119,7 +119,7 @@ export default function GuardsPage() {
         </div>
       </section>
 
-      <section id="your-information" className="scroll-mt-[72px] bg-white py-16 md:py-24">
+      <section id="your-information" className="scroll-mt-[72px] bg-white section">
         <div className="wrap grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
           <div>
             <h2 className="t-h2">Your information</h2>

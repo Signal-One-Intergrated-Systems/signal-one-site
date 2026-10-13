@@ -17,19 +17,32 @@ export function Kicker({
   className?: string;
 }) {
   return (
-    <p className={"t-kicker " + (tone === "dark" ? "text-signal-400" : "text-signal-ink") + " " + className}>
+    <p
+      className={
+        "t-kicker " +
+        (tone === "dark" ? "text-signal-400" : "text-signal-ink") +
+        " " +
+        className
+      }
+    >
       {children}
     </p>
   );
 }
 
 const statusStyles = {
-  pilot: { light: "bg-signal-tint text-signal-ink ring-1 ring-signal-ink/25", dark: "bg-signal-400/12 text-signal-400 ring-1 ring-signal-400/30" },
+  pilot: {
+    light: "bg-signal-tint text-signal-ink ring-1 ring-signal-ink/25",
+    dark: "bg-signal-400/12 text-signal-400 ring-1 ring-signal-400/30",
+  },
   live: { light: "bg-live-tint text-live", dark: "bg-white/8 text-live-inv" },
   beta: { light: "bg-beta-tint text-beta", dark: "bg-white/8 text-beta-inv" },
   mvp: { light: "bg-beta-tint text-beta", dark: "bg-white/8 text-beta-inv" },
   soon: { light: "bg-soon-tint text-soon", dark: "bg-white/8 text-soon-inv" },
-  quote: { light: "bg-signal-tint text-signal-ink", dark: "bg-white/8 text-signal-400" },
+  quote: {
+    light: "bg-signal-tint text-signal-ink",
+    dark: "bg-white/8 text-signal-400",
+  },
 } as const;
 
 /**
@@ -57,7 +70,13 @@ export function Status({
 }
 
 /** Status of a Guard capability: Pilot or Live, from lib/guardStatus.ts. Server components only. */
-export function GuardStatus({ tone = "light", children }: { tone?: Tone; children?: ReactNode }) {
+export function GuardStatus({
+  tone = "light",
+  children,
+}: {
+  tone?: Tone;
+  children?: ReactNode;
+}) {
   return (
     <Status kind={guardStatusKind} tone={tone}>
       {children ?? guardStatusLabel}
@@ -66,16 +85,52 @@ export function GuardStatus({ tone = "light", children }: { tone?: Tone; childre
 }
 
 /** A short definition list on a raised dark panel: plain facts, no mock interface. */
-export function FactPanel({ title, facts, tone = "dark" }: { title?: ReactNode; facts: ReadonlyArray<readonly [string, string]>; tone?: Tone }) {
+export function FactPanel({
+  title,
+  facts,
+  tone = "dark",
+}: {
+  title?: ReactNode;
+  facts: ReadonlyArray<readonly [string, string]>;
+  tone?: Tone;
+}) {
   const dark = tone === "dark";
   return (
-    <div className={"overflow-hidden rounded-card border " + (dark ? "border-line-dark bg-raised text-text-inv" : "border-line bg-white text-text")}>
-      {title ? <div className={"border-b px-5 py-4 font-semibold sm:px-6 " + (dark ? "border-line-dark" : "border-line")}>{title}</div> : null}
+    <div
+      className={
+        "overflow-hidden rounded-card border " +
+        (dark
+          ? "border-line-dark bg-raised text-text-inv"
+          : "border-line bg-white text-text")
+      }
+    >
+      {title ? (
+        <div
+          className={
+            "border-b px-5 py-4 font-semibold sm:px-6 " +
+            (dark ? "border-line-dark" : "border-line")
+          }
+        >
+          {title}
+        </div>
+      ) : null}
       <dl className="m-0">
         {facts.map(([term, detail]) => (
-          <div key={term} className={"border-b px-5 py-4 last:border-0 sm:px-6 " + (dark ? "border-line-dark" : "border-line")}>
+          <div
+            key={term}
+            className={
+              "border-b px-5 py-4 last:border-0 sm:px-6 " +
+              (dark ? "border-line-dark" : "border-line")
+            }
+          >
             <dt className="t-h4">{term}</dt>
-            <dd className={"t-small m-0 mt-1 " + (dark ? "text-text-inv-2" : "text-text-2")}>{detail}</dd>
+            <dd
+              className={
+                "t-small m-0 mt-1 " + (dark ? "text-text-inv-2" : "text-text-2")
+              }
+            >
+              {detail}
+            </dd>
           </div>
         ))}
       </dl>
@@ -102,10 +157,14 @@ export function ButtonLink({
 }) {
   return (
     <Link
+      prefetch={false}
+      data-route-intent=""
       href={href}
       data-analytics-event={event}
       data-analytics-label={eventLabel}
-      className={"btn btn-" + variant + (size ? " btn-" + size : "") + " " + className}
+      className={
+        "btn btn-" + variant + (size ? " btn-" + size : "") + " " + className
+      }
     >
       {children}
     </Link>
@@ -114,7 +173,17 @@ export function ButtonLink({
 
 export function Arrow() {
   return (
-    <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      aria-hidden="true"
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M5 12h14M13 6l6 6-6 6" />
     </svg>
   );
@@ -122,7 +191,18 @@ export function Arrow() {
 
 export function Check({ className = "" }: { className?: string }) {
   return (
-    <svg aria-hidden="true" className={"shrink-0 " + className} width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      aria-hidden="true"
+      className={"shrink-0 " + className}
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="m5 12.5 4.5 4.5L19 7.5" />
     </svg>
   );
@@ -166,7 +246,12 @@ export function Photo({
         />
       </div>
       {caption ? (
-        <figcaption className={"photo-caption mt-2 " + (captionTone === "dark" ? "text-text-inv-2" : "")}>
+        <figcaption
+          className={
+            "photo-caption mt-2 " +
+            (captionTone === "dark" ? "text-text-inv-2" : "")
+          }
+        >
           {caption}
         </figcaption>
       ) : null}
@@ -194,10 +279,19 @@ export function Steps({
             (tone === "dark" ? "border-line-dark" : "border-line")
           }
         >
-          <span className={"t-num pt-0.5 text-[1.5rem] " + accentClass}>{index + 1}</span>
+          <span className={"t-num pt-0.5 text-[1.5rem] " + accentClass}>
+            {index + 1}
+          </span>
           <div>
             <h3 className="t-h4">{title}</h3>
-            <p className={"t-small mt-1 " + (tone === "dark" ? "text-text-inv-2" : "text-text-2")}>{body}</p>
+            <p
+              className={
+                "t-small mt-1 " +
+                (tone === "dark" ? "text-text-inv-2" : "text-text-2")
+              }
+            >
+              {body}
+            </p>
           </div>
         </li>
       ))}
@@ -211,7 +305,8 @@ export function Steps({
  * into the section colour instead of upscaling.
  */
 function edgeFade(native: number): React.CSSProperties {
-  const mask = "linear-gradient(to right, transparent 0, #000 var(--fade), #000 calc(100% - var(--fade)), transparent 100%)";
+  const mask =
+    "linear-gradient(to right, transparent 0, #000 var(--fade), #000 calc(100% - var(--fade)), transparent 100%)";
   return {
     ["--fade" as string]: "clamp(0px, calc(100vw - " + native + "px), 200px)",
     maskImage: mask,
@@ -221,9 +316,11 @@ function edgeFade(native: number): React.CSSProperties {
 
 /** Fades the top and bottom edges when a box reaches the photo's native height. */
 function verticalFade(native: number): React.CSSProperties {
-  const mask = "linear-gradient(to bottom, transparent 0, #000 var(--vfade), #000 calc(100% - var(--vfade)), transparent 100%)";
+  const mask =
+    "linear-gradient(to bottom, transparent 0, #000 var(--vfade), #000 calc(100% - var(--vfade)), transparent 100%)";
   return {
-    ["--vfade" as string]: "clamp(0px, calc(100% - " + (native - 60) + "px), 80px)",
+    ["--vfade" as string]:
+      "clamp(0px, calc(100% - " + (native - 60) + "px), 80px)",
     maskImage: mask,
     WebkitMaskImage: mask,
   };
@@ -255,18 +352,27 @@ export function PhotoBand({
   return (
     <section className="surface-base relative">
       <div className="relative mx-auto" style={{ maxWidth: src.width }}>
-        <div className="relative h-[max(300px,72vw)] overflow-hidden md:h-[clamp(420px,40vw,680px)]" style={edgeFade(src.width)}>
+        <div
+          className="relative h-[max(300px,72vw)] overflow-hidden md:h-[clamp(420px,40vw,680px)]"
+          style={edgeFade(src.width)}
+        >
           <Image
             src={src}
             alt={alt}
             fill
-            sizes={sizes || "(min-width: " + src.width + "px) " + src.width + "px, 100vw"}
+            sizes={
+              sizes ||
+              "(min-width: " + src.width + "px) " + src.width + "px, 100vw"
+            }
             quality={75}
             placeholder="blur"
             className="object-cover"
             style={{ objectPosition }}
           />
-          <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-base from-0% via-base/85 via-30% to-transparent to-80%" />
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 bg-gradient-to-t from-base from-0% via-base/85 via-30% to-transparent to-80%"
+          />
           <div
             aria-hidden="true"
             className={
@@ -279,11 +385,22 @@ export function PhotoBand({
         </div>
       </div>
       <div className="absolute inset-0 flex items-end">
-        <div className={"wrap pb-8 md:pb-14 " + (textSide === "right" ? "md:flex md:justify-end" : "")}>
+        <div
+          className={
+            "wrap pb-8 md:pb-14 " +
+            (textSide === "right" ? "md:flex md:justify-end" : "")
+          }
+        >
           <div className="max-w-[40rem]">
-            {kicker ? <div className="glass mb-4 inline-flex rounded-ui px-3 py-2">{kicker}</div> : null}
+            {kicker ? (
+              <div className="glass mb-4 inline-flex rounded-ui px-3 py-2">
+                {kicker}
+              </div>
+            ) : null}
             <h2 className="t-h2 text-text-inv">{headline}</h2>
-            {caption ? <p className="t-caption mt-4 text-text-inv-2">{caption}</p> : null}
+            {caption ? (
+              <p className="t-caption mt-4 text-text-inv-2">{caption}</p>
+            ) : null}
           </div>
         </div>
       </div>
@@ -317,16 +434,33 @@ export function SplitHero({
   /** Desktop only: a glass information panel floating over the photograph's lower edge. */
   panel?: ReactNode;
 }) {
-  const inset = "calc(max(0px, (100vw - var(--wrap-max)) / 2) + var(--wrap-pad) + var(--hero-col) + 40px)";
+  const inset =
+    "calc(max(0px, (100vw - var(--wrap-max)) / 2) + var(--wrap-pad) + var(--hero-col) + 40px)";
   const box: React.CSSProperties =
     side === "right"
-      ? ({ ["--ph-l" as string]: inset, ["--ph-r" as string]: "0px" } as React.CSSProperties)
-      : ({ ["--ph-l" as string]: "0px", ["--ph-r" as string]: inset } as React.CSSProperties);
+      ? ({
+          ["--ph-l" as string]: inset,
+          ["--ph-r" as string]: "0px",
+        } as React.CSSProperties)
+      : ({
+          ["--ph-l" as string]: "0px",
+          ["--ph-r" as string]: inset,
+        } as React.CSSProperties);
   return (
-    <section className="split-hero relative bg-deep text-text-inv" style={box}>
+    <section
+      className="split-hero mission-split relative bg-deep text-text-inv"
+      style={box}
+    >
       <div className="relative h-[56vw] lg:absolute lg:inset-y-0 lg:left-[var(--ph-l)] lg:right-[var(--ph-r)] lg:h-auto">
         {/* Never taller or wider than the source: on a tall hero the photo is centred and fades into the surface. */}
-        <div className="relative mx-auto h-full lg:top-1/2 lg:-translate-y-1/2" style={{ maxWidth: src.width, maxHeight: src.height, ...verticalFade(src.height) }}>
+        <div
+          className="relative mx-auto h-full lg:top-1/2 lg:-translate-y-1/2"
+          style={{
+            maxWidth: src.width,
+            maxHeight: src.height,
+            ...verticalFade(src.height),
+          }}
+        >
           <Image
             src={src}
             alt={alt}
@@ -337,9 +471,15 @@ export function SplitHero({
             quality={70}
             placeholder="blur"
             className="object-cover [object-position:var(--pos-m)] lg:[object-position:var(--pos-d)]"
-            style={{ ["--pos-m" as string]: objectPositionMobile, ["--pos-d" as string]: objectPosition }}
+            style={{
+              ["--pos-m" as string]: objectPositionMobile,
+              ["--pos-d" as string]: objectPosition,
+            }}
           />
-          <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-deep via-transparent to-transparent via-40% lg:hidden" />
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 bg-gradient-to-t from-deep via-transparent to-transparent via-40% lg:hidden"
+          />
           <div
             aria-hidden="true"
             className={
@@ -351,13 +491,25 @@ export function SplitHero({
           />
         </div>
         {panel ? (
-          <div className={"absolute bottom-8 hidden w-[min(24rem,calc(100%-4rem))] lg:block " + (side === "right" ? "right-8" : "left-8")}>
+          <div
+            className={
+              "absolute bottom-8 hidden w-[min(24rem,calc(100%-4rem))] lg:block " +
+              (side === "right" ? "right-8" : "left-8")
+            }
+          >
             {panel}
           </div>
         ) : null}
       </div>
-      <div className={"wrap relative pb-14 pt-10 lg:flex lg:min-h-[clamp(600px,44vw,760px)] lg:items-center lg:pb-24 lg:pt-24 " + (side === "left" ? "lg:justify-end" : "")}>
-        <div className="max-w-[38rem] lg:w-[var(--hero-col)] lg:max-w-none">{children}</div>
+      <div
+        className={
+          "wrap relative pb-14 pt-10 lg:flex lg:min-h-[clamp(600px,44vw,760px)] lg:items-center lg:pb-24 lg:pt-24 " +
+          (side === "left" ? "lg:justify-end" : "")
+        }
+      >
+        <div className="max-w-[38rem] lg:w-[var(--hero-col)] lg:max-w-none">
+          {children}
+        </div>
       </div>
     </section>
   );
@@ -384,8 +536,8 @@ export function PageHero({
   aside?: ReactNode;
 }) {
   return (
-    <section className="split-hero surface-deep">
-      <div className="wrap grid gap-12 py-16 md:py-24 lg:grid-cols-[minmax(0,var(--hero-col))_minmax(0,1fr)] lg:items-center lg:gap-20 lg:py-32">
+    <section className="split-hero page-hero surface-deep">
+      <div className="wrap page-hero-layout">
         <div>
           {kicker || status ? (
             <div className="flex flex-wrap items-center gap-3">
@@ -394,10 +546,16 @@ export function PageHero({
             </div>
           ) : null}
           <h1 className="t-hero mt-5">{title}</h1>
-          {lead ? <p className="t-lead measure mt-6 text-text-inv-2">{lead}</p> : null}
-          {actions ? <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">{actions}</div> : null}
+          {lead ? (
+            <p className="t-lead measure mt-6 text-text-inv-2">{lead}</p>
+          ) : null}
+          {actions ? (
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              {actions}
+            </div>
+          ) : null}
         </div>
-        {aside ? <div>{aside}</div> : null}
+        {aside ? <div className="page-hero-aside">{aside}</div> : null}
       </div>
     </section>
   );

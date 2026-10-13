@@ -1,0 +1,6 @@
+
+> signal-one-site@0.1.0 check:images
+> node scripts/check-branding.mjs --ocr
+
+Image OCR gate passed (public/images).
+Signal One public-truth check passed (source).

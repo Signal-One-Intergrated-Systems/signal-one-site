@@ -1,0 +1,166 @@
+[2m[WebServer] [22m(node:24418) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:24428) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:24441) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:24456) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:24470) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:24486) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:24499) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 102 tests using 3 workers
+
+(node:24513) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:24515) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:24514) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:24513) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:24515) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:24514) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓    2 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /guard-marketplace (6.4s)
+  ✓    1 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › / (7.2s)
+  ✓    3 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /solutions/security (6.1s)
+  ✓    6 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /guard-attendance-software (5.7s)
+  ✓    5 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /guard-patrol-software (7.1s)
+  ✓    4 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /radios-equipment (8.8s)
+  ✓    7 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /ptt-radio-rental (4.7s)
+  ✓    8 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /pricing (6.0s)
+  ✓    9 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /contact (5.1s)
+  ✓   10 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /get-started (4.9s)
+  ✓   11 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /guards (4.8s)
+  ✓   12 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /guards/join (5.1s)
+  ✓   13 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /join/sales (5.6s)
+  ✓   15 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /privacy (4.8s)
+  ✓   14 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /security-trust (5.5s)
+  ✓   16 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /popia (5.6s)
+  ✓   17 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /terms (5.5s)
+  ✓   18 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › / (9.6s)
+  ✓   19 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /solutions/security (8.3s)
+  ✓   20 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /guard-marketplace (6.7s)
+  ✓   21 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /radios-equipment (7.5s)
+  ✓   22 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /guard-patrol-software (6.6s)
+  ✓   23 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /guard-attendance-software (6.4s)
+  ✓   24 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /ptt-radio-rental (6.8s)
+  ✓   25 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /pricing (6.6s)
+  ✓   26 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /contact (6.4s)
+  ✓   27 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /get-started (6.2s)
+  ✓   29 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /guards/join (6.9s)
+  ✓   28 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /guards (7.2s)
+  ✓   30 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /join/sales (6.9s)
+  ✓   32 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /privacy (7.1s)
+  ✓   31 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /security-trust (8.4s)
+  ✓   33 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /popia (7.4s)
+  ✓   35 tests/e2e/experience.spec.ts:4:5 › hero opens a real modal, keeps keyboard focus inside and restores it on Escape (4.2s)
+  ✓   34 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /terms (7.3s)
+  ✓   37 tests/e2e/experience.spec.ts:29:5 › QR/NFC interaction advances to recorded evidence and tabs support arrow keys (4.4s)
+  ✓   36 tests/e2e/experience.spec.ts:57:5 › SOS cannot be acknowledged without signal; restoring signal restarts the example (5.7s)
+  ✓   38 tests/e2e/experience.spec.ts:87:7 › reduced motion and mobile touch › manual workflow stays usable without autoplay or animations (4.3s)
+  ✓   39 tests/e2e/experience.spec.ts:107:7 › reduced motion and mobile touch › equipment model selection reaches the correctly prefilled quote (3.7s)
+  ✓   40 tests/e2e/experience.spec.ts:119:7 › guided demo and equipment remain contained at 320 (5.0s)
+  ✓   41 tests/e2e/experience.spec.ts:119:7 › guided demo and equipment remain contained at 360 (5.6s)
+  ✓   42 tests/e2e/experience.spec.ts:119:7 › guided demo and equipment remain contained at 390 (5.1s)
+  ✓   43 tests/e2e/experience.spec.ts:119:7 › guided demo and equipment remain contained at 430 (5.1s)
+  ✓   44 tests/e2e/experience.spec.ts:119:7 › guided demo and equipment remain contained at 768 (4.7s)
+  ✓   45 tests/e2e/experience.spec.ts:119:7 › guided demo and equipment remain contained at 1024 (5.1s)
+  ✓   47 tests/e2e/experience.spec.ts:119:7 › guided demo and equipment remain contained at 1920 (5.9s)
+  ✓   46 tests/e2e/experience.spec.ts:119:7 › guided demo and equipment remain contained at 1440 (7.7s)
+  ✓   48 tests/e2e/experience.spec.ts:119:7 › guided demo and equipment remain contained at 2560 (6.3s)
+  ✓   51 tests/e2e/experience.spec.ts:178:5 › mobile navigation traps keyboard focus and restores the page on Escape (3.7s)
+  ✓   52 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › / (2.5s)
+  ✓   53 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /solutions/security (3.6s)
+  ✓   54 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /guard-marketplace (2.3s)
+  ✓   55 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /radios-equipment (4.0s)
+  ✓   49 tests/e2e/experience.spec.ts:145:7 › all guided-demo stages pass accessibility checks at 390 (20.7s)
+  ✓   56 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /guard-patrol-software (2.9s)
+  ✓   57 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /guard-attendance-software (2.3s)
+  ✓   58 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /ptt-radio-rental (2.1s)
+  ✘   50 tests/e2e/experience.spec.ts:145:7 › all guided-demo stages pass accessibility checks at 1440 (22.7s)
+  ✓   59 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /pricing (2.2s)
+(node:28215) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   60 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /contact (2.7s)
+  ✓   61 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /guards (3.0s)
+(node:28215) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   62 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /guards/join (2.2s)
+  ✓   63 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /join/sales (2.7s)
+  ✓   64 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /security-trust (2.1s)
+  ✓   66 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /privacy (2.4s)
+  ✓   65 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /get-started (2.4s)
+  ✓   67 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /popia (2.9s)
+  ✓   68 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /terms (2.4s)
+  ✓   70 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /solutions/security (3.5s)
+  ✓   69 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › / (4.1s)
+  ✓   71 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /guard-marketplace (2.4s)
+  ✓   73 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /guard-patrol-software (3.4s)
+  ✓   74 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /guard-attendance-software (3.1s)
+  ✓   72 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /radios-equipment (4.4s)
+  ✓   76 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /pricing (2.2s)
+  ✓   75 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /ptt-radio-rental (2.7s)
+  ✓   77 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /contact (2.5s)
+  ✓   78 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /get-started (2.3s)
+  ✓   79 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /guards (2.6s)
+  ✓   80 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /guards/join (2.5s)
+  ✓   81 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /join/sales (2.9s)
+  ✓   82 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /security-trust (2.5s)
+  ✓   83 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /privacy (2.7s)
+  ✓   84 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /popia (2.4s)
+  ✓   85 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /terms (2.3s)
+  ✓   86 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › / (3.3s)
+  ✓   88 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /guard-marketplace (2.1s)
+  ✓   87 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /solutions/security (3.5s)
+  ✓   90 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /guard-patrol-software (3.1s)
+  ✓   91 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /guard-attendance-software (2.3s)
+  ✓   89 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /radios-equipment (4.3s)
+  ✓   92 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /ptt-radio-rental (2.5s)
+  ✓   93 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /pricing (2.4s)
+  ✓   94 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /contact (2.6s)
+  ✓   96 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /guards (2.6s)
+  ✓   95 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /get-started (3.0s)
+  ✓   97 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /guards/join (2.8s)
+  ✓   98 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /join/sales (2.6s)
+  ✓   99 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /security-trust (2.3s)
+  ✓  100 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /privacy (2.7s)
+  ✓  102 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /terms (1.8s)
+  ✓  101 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /popia (2.0s)
+
+
+  1) tests/e2e/experience.spec.ts:145:7 › all guided-demo stages pass accessibility checks at 1440 ─
+
+    Error: locator.click: Error: strict mode violation: getByRole('tab', { name: '05 Prove', exact: true }) resolved to 2 elements:
+        1) <button role="tab" type="button" tabindex="-1" aria-selected="false" id="guided-demo-tab-4" aria-controls="guided-demo-panel">…</button> aka getByText('05Prove', { exact: true })
+        2) <button role="tab" type="button" tabindex="-1" id="business-tab-4" aria-selected="false" aria-controls="business-panel">…</button> aka getByText('05Prove→')
+
+    Call log:
+    [2m  - waiting for getByRole('tab', { name: '05 Prove', exact: true })[22m
+
+
+      158 |       "05 Prove",
+      159 |     ]) {
+    > 160 |       await page.getByRole("tab", { name, exact: true }).click();
+          |                                                          ^
+      161 |       const results = await new AxeBuilder({
+      162 |         page: page as unknown as ConstructorParameters<
+      163 |           typeof AxeBuilder
+        at /workspace/signal-one-site/tests/e2e/experience.spec.ts:160:58
+
+    Error Context: test-results/experience-all-guided-demo-184fe-ccessibility-checks-at-1440/error-context.md
+
+  1 failed
+    tests/e2e/experience.spec.ts:145:7 › all guided-demo stages pass accessibility checks at 1440 ──
+  101 passed (2.9m)
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice

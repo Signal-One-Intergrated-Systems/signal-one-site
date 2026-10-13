@@ -72,8 +72,8 @@ export default function ClientOnboarding() {
 
   return (
     <div className="grid gap-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
-      <aside className="lg:sticky lg:top-[104px] lg:self-start">
-        <p className="t-kicker text-signal-ink">Company onboarding</p>
+      <aside className="onboarding-guide lg:sticky lg:top-[104px] lg:self-start">
+        <p className="t-kicker text-signal-400">Company onboarding</p>
         <p className="mt-2 font-display text-[1.5rem] font-bold leading-tight">Set up your security company on Signal One.</p>
         <ol className="m-0 mt-6 hidden list-none p-0 lg:block" aria-label="Onboarding steps">
           {steps.map((step, index) => (
@@ -97,7 +97,7 @@ export default function ClientOnboarding() {
             </li>
           ))}
         </ol>
-        <p className="t-small mt-6 text-text-2">
+        <p className="t-small mt-6 text-text-inv-2">
           Takes about three minutes. Nothing is charged and no workspace is created until you have spoken to us.
         </p>
       </aside>

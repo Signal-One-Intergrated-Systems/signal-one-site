@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import LandingPage from "../components/LandingPage";
-import PatrolStory from "../components/PatrolStory";
-import { ButtonLink, FactPanel } from "../components/ui";
+import OperationsExperience from "../components/OperationsExperience";
+import { ButtonLink } from "../components/ui";
 import { guardDayPricePhrase } from "../lib/pricing";
 
 export const metadata: Metadata = {
@@ -27,23 +27,12 @@ export default function GuardPatrolSoftwarePage() {
           </ButtonLink>
         </>
       }
-      aside={
-        <FactPanel
-          title="Signal One Guard · patrols"
-          facts={[
-            ["QR or NFC checkpoints", "Set per site; scanned on the route."],
-            ["Time and GPS on every scan", "Recorded with the checkpoint and the patrol."],
-            ["Missed and late checkpoints", "Shown in proof of service, with the reason."],
-            ["Proof for the client", "Client users see the record for their own sites."],
-          ]}
-        />
-      }
       story={
         <section className="surface-white section">
           <div className="wrap">
             <h2 className="t-h2 max-w-3xl">From the checkpoint to the client&apos;s report.</h2>
             <div className="mt-10">
-              <PatrolStory />
+              <OperationsExperience id="patrol-experience" />
             </div>
           </div>
         </section>

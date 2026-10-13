@@ -24,7 +24,7 @@ const nextConfig: NextConfig = {
   distDir: process.env.NEXT_DIST_DIR || ".next",
   images: {
     formats: ["image/avif", "image/webp"],
-    qualities: [70, 75, 90],
+    qualities: [70, 75, 80, 90],
   },
   async redirects() {
     return legacyRedirects.map(([source, destination]) => ({

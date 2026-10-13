@@ -126,10 +126,12 @@ const contactFields: Field[] = [
   { name: "mobile", label: "Mobile", type: "text", required: true },
 ];
 
-export default function EquipmentQuoteForm() {
+export default function EquipmentQuoteForm({ initialModel = "" }: { initialModel?: string }) {
   const id = useId();
-  const [category, setCategory] = useState<Category>("radio");
-  const [values, setValues] = useState<Record<string, string>>({});
+  const initialCategory: Category = ["FMC920", "FMB920"].includes(initialModel) ? "tracking" : initialModel === "SC780" ? "bodycam" : "radio";
+  const safeModel = categories[initialCategory].fields.find(field => field.name === "product")?.options?.includes(initialModel) ? initialModel : "";
+  const [category, setCategory] = useState<Category>(initialCategory);
+  const [values, setValues] = useState<Record<string, string>>(safeModel ? { product: safeModel } : {});
   const [consent, setConsent] = useState(false);
   const [state, setState] = useState<State>("idle");
   const [message, setMessage] = useState("");
