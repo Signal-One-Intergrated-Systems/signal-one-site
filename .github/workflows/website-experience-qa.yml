@@ -1,0 +1,64 @@
+name: Website Experience QA
+
+on:
+  pull_request:
+    paths:
+      - "app/**"
+      - "tests/**"
+      - "package*.json"
+      - ".github/workflows/website-experience-qa.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-visual-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+      - run: npm ci
+      - run: npm run lint
+      - run: npx tsc --noEmit
+      - run: npx playwright install --with-deps chromium
+      - run: npm run qa
+      - name: Capture reviewable homepage evidence
+        if: success()
+        run: |
+          mkdir -p evidence
+          node - <<'NODE'
+          const { chromium } = require("@playwright/test");
+          (async () => {
+            const browser = await chromium.launch();
+            const { spawn } = require("node:child_process");
+            const server = spawn("npx", ["next", "start", "-p", "3150"], { stdio: "ignore" });
+            try {
+              let ready = false;
+              for (let i = 0; i < 60; i++) {
+                try { const r = await fetch("http://localhost:3150"); if (r.ok) { ready = true; break; } } catch {}
+                await new Promise((resolve) => setTimeout(resolve, 500));
+              }
+              if (!ready) throw new Error("Screenshot server did not start");
+              for (const width of [390, 768, 1440, 1920]) {
+                const page = await browser.newPage({ viewport: { width, height: 900 }, reducedMotion: "reduce", deviceScaleFactor: 1 });
+                await page.goto("http://localhost:3150", { waitUntil: "networkidle" });
+                await page.screenshot({ path: "evidence/home-" + width + ".png", fullPage: true });
+                await page.close();
+              }
+            } finally {
+              server.kill("SIGTERM");
+              await browser.close();
+            }
+          })().catch((err) => { console.error(err); process.exitCode = 1; });
+          NODE
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: website-experience-evidence
+          path: evidence/
+          if-no-files-found: ignore
