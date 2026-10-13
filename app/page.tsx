@@ -86,7 +86,7 @@ export default function Home() {
             and the proof your clients ask for.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <ButtonLink href="#product" size="lg" event="hero_product_proof" eventLabel="Hero primary">
+            <ButtonLink href="#experience" size="lg" event="hero_product_proof" eventLabel="Hero primary">
               See Signal One in action
             </ButtonLink>
             <ButtonLink href="/pricing#calculator" variant="ghost-dark" size="lg" event="hero_pricing" eventLabel="Hero secondary">
