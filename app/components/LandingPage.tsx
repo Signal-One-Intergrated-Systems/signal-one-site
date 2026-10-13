@@ -38,14 +38,14 @@ export default function LandingPage({
   story?: ReactNode;
 }) {
   return (
-    <main id="main">
+    <main id="main" className="landing-main">
       <PageHero kicker={kicker} title={title} lead={lead} actions={actions} aside={aside} />
       {story}
 
       <section className="surface-light section">
         <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
           <h2 className="t-h2">{capabilitiesTitle}</h2>
-          <ul className="m-0 grid list-none gap-x-12 p-0 md:grid-cols-2">
+          <ul className="capability-grid m-0 grid list-none gap-x-12 p-0 md:grid-cols-2">
             {capabilities.map(([name, body]) => (
               <li key={name} className="border-t border-line py-6">
                 <h3 className="t-h4 flex gap-3">
@@ -59,7 +59,7 @@ export default function LandingPage({
         </div>
       </section>
 
-      <section className="surface-light-2 section">
+      <section className="surface-light-2 steps-section section">
         <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
           <h2 className="t-h2">{stepsTitle}</h2>
           <Steps items={steps} />

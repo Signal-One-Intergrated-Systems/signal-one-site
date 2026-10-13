@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import EquipmentQuoteForm from "../components/EquipmentQuoteForm";
+import EquipmentGallery from "../components/EquipmentGallery";
 import { HardwareCard } from "../components/Hardware";
 import { catalogue } from "../lib/catalogue";
 import { ButtonLink, PageHero, Status, Steps } from "../components/ui";
@@ -11,9 +12,10 @@ export const metadata: Metadata = {
   alternates: { canonical: "/radios-equipment" },
 };
 
-export default function RadiosEquipmentPage() {
+export default async function RadiosEquipmentPage({ searchParams }: { searchParams: Promise<{ model?: string }> }) {
+  const { model } = await searchParams;
   return (
-    <main id="main">
+    <main id="main" className="equipment-main">
       <PageHero
         kicker="Radios & Tracking"
         status={
@@ -21,39 +23,26 @@ export default function RadiosEquipmentPage() {
             By quote
           </Status>
         }
-        title="Radios, PTT, tracking and body cameras. Rented, not sold online."
+        title="Equip the people. Connect the field."
         lead="Choose the product, tell us the requirement and quantity, and where it will be deployed. We reply with a written quote."
         actions={
           <ButtonLink href="#quote" size="lg">
             Request a quote
           </ButtonLink>
         }
-        aside={
-          <dl className="m-0 grid gap-px overflow-hidden rounded-card border border-line-dark bg-line-dark">
-            {[
-              ["Radios and PTT", "Hytera PNC360S, P30 Lite PoC, E600 PoC LTE, PTT platform with SIM and data"],
-              ["Vehicle and asset tracking", "FMC920 and FMB920 trackers"],
-              ["Body cameras", "SC780 body camera"],
-            ].map(([term, detail]) => (
-              <div key={term} className="bg-raised p-5 sm:p-6">
-                <dt className="t-h4">{term}</dt>
-                <dd className="t-small m-0 mt-1 text-text-inv-2">{detail}</dd>
-              </div>
-            ))}
-          </dl>
-        }
       />
 
       <section className="surface-light section">
         <div className="wrap">
-          <h2 className="t-h2">The catalogue</h2>
+          <h2 className="t-h2">Equipment, considered.</h2>
           <p className="t-body measure mt-3 text-text-2">
             Named products we rent today. Final specification, availability and price are confirmed in the quote; we do
             not publish prices, stock or delivery dates.
           </p>
 
-          <div className="mt-12 grid gap-16">
-            {catalogue.map((group) => (
+          <div className="mt-8"><EquipmentGallery /></div>
+          <div className="mt-12 grid gap-12">
+            {catalogue.filter(group => group.products.some(product => !product.image)).map((group) => (
               <section key={group.id} id={group.id} aria-labelledby={group.id + "-h"} className="scroll-mt-[72px]">
                 <div className="grid gap-4 border-t-2 border-base pt-6 lg:grid-cols-[minmax(0,3fr)_minmax(0,9fr)] lg:gap-12">
                   <div>
@@ -64,7 +53,7 @@ export default function RadiosEquipmentPage() {
                     <p className="t-small mt-3 font-semibold">{group.terms}</p>
                   </div>
                   <ul className="m-0 grid list-none gap-4 p-0 sm:grid-cols-2">
-                    {group.products.map((product) => (
+                    {group.products.filter(product => !product.image).map((product) => (
                       <li key={product.model}>
                         <HardwareCard product={product} headingLevel={4} />
                       </li>
@@ -107,7 +96,7 @@ export default function RadiosEquipmentPage() {
               />
             </div>
           </div>
-          <EquipmentQuoteForm />
+          <EquipmentQuoteForm key={model || "default"} initialModel={model} />
         </div>
       </section>
     </main>

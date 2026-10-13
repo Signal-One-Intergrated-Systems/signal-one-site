@@ -29,3 +29,7 @@ Originals are kept unmodified in `assets/hardware/originals/`. They are not serv
 ## Photography
 
 The documentary photographs under `public/images/photo/` and `public/images/story/` are illustrative scenes of fictional security companies. They are captioned as such on the site and listed in `docs/PHOTOGRAPHY_BRIEF.md`. None of them is a Signal One product image.
+
+## Mission assets (2026-10-13)
+
+No new photographic, software or hardware assets were generated or acquired. The mission reuses the existing three approved hardware cut-outs and labelled fictional illustrations. `app/lib/fonts/Inter-Variable.woff2` is the Latin variable-weight Inter font from `@fontsource-variable/inter` 5.3.0 (npm, 2026-10-13), covered by the bundled `app/lib/fonts/OFL.txt`. It preserves the approved Inter typography and is hosted locally. No font service subscription or media purchase was made.

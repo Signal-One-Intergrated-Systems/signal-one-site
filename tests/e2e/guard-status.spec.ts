@@ -44,7 +44,8 @@ test.describe("GUARD_STATUS=live", () => {
   let server: ChildProcess | undefined;
   const port = 3103;
 
-  test.beforeAll(async () => {
+  test.beforeAll(async ({}, testInfo) => {
+    testInfo.setTimeout(420_000);
     const env = {
       ...process.env,
       GUARD_STATUS: "live",

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import Analytics from "./components/Analytics";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
@@ -9,8 +9,8 @@ import { brand, salesEmail, siteUrl } from "./lib/site";
 import "./globals.css";
 import { guardDayPricePhrase, minimumPhrase, pricing, schemaPrice } from "./lib/pricing";
 
-const body = Inter({
-  subsets: ["latin"],
+const body = localFont({
+  src: "./lib/fonts/Inter-Variable.woff2",
   variable: "--font-body",
   // "optional": the page never waits for or reflows to the web font. With the metric-matched fallback this keeps LCP and CLS low.
   display: "optional",

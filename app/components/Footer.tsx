@@ -17,7 +17,7 @@ const groups = [
   {
     title: "Get started",
     links: [
-      ["/#product", "See the product"],
+      ["/solutions/security#experience", "Experience GUARD"],
       ["/contact", "Talk to Signal One"],
       ["/get-started", "Start company onboarding"],
     ],

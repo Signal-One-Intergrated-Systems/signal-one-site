@@ -1,8 +1,17 @@
 import type { Metadata } from "next";
-import { ButtonLink, Check, FactPanel, Kicker, Photo, SplitHero, Status, GuardStatus } from "../../components/ui";
+import Link from "next/link";
+import Image from "next/image";
+import OperationsExperience from "../../components/OperationsExperience";
+import {
+  Arrow,
+  ButtonLink,
+  Kicker,
+  PageHero,
+  GuardStatus,
+  Status,
+} from "../../components/ui";
 import { guardOnboardingLine } from "../../lib/guardStatus";
 import { illustrativeCaption, photos } from "../../lib/photos";
-import { proofViews } from "../../lib/productProof";
 import { guardDayPricePhrase } from "../../lib/pricing";
 
 export const metadata: Metadata = {
@@ -11,214 +20,236 @@ export const metadata: Metadata = {
     "Guard management software for South African security companies: sites, shifts, attendance, QR and NFC patrols, SOS, control room and proof of service.",
   alternates: { canonical: "/solutions/security" },
 };
-
-function view(id: string) {
-  const found = proofViews.find((item) => item.id === id);
-  if (!found) throw new Error("Unknown proof view " + id);
-  return found;
-}
-
-const fieldCapabilities = [
-  ["Clock in and out at the post", "On the guard's own phone or an authorised Central Device at the site. The attendance record belongs to the shift and the post."],
-  ["Patrols with QR or NFC checkpoints", "Guards scan each checkpoint on the route. Missed and late checkpoints show up in proof of service."],
-  ["Keeps working offline", "Scans, clock events, incidents and occurrence entries are saved on the phone and sent when signal returns. SOS needs a mobile signal to reach the control room."],
-  ["Occurrence book and incidents", "A chronological record of the shift, with incidents logged as they happen instead of written up afterwards."],
-  ["SOS", "One press sends an alert to the control room with the guard's position when the phone has a fix. It needs a mobile signal."],
-  ["Shift offers", "Offer an open post to your own guards. They accept or decline in the app."],
+const capabilities = [
+  [
+    "Sites, posts & shifts",
+    "Build the roster and allocate guards to posts. See shortfalls before a shift starts.",
+    "/guard-attendance-software",
+  ],
+  [
+    "Attendance",
+    "Clock in and out at the post, on the guard’s own phone or an authorised Central Device.",
+    "/guard-attendance-software",
+  ],
+  [
+    "QR & NFC patrols",
+    "Associate checkpoint scans with their patrol, capture time and applicable GPS evidence.",
+    "/guard-patrol-software",
+  ],
+  [
+    "Occurrence records",
+    "Keep a chronological site record, with incidents logged as they happen.",
+    "/contact",
+  ],
+  [
+    "SOS & control room",
+    "Acknowledge, navigate to and resolve an SOS. Delivery requires a mobile signal.",
+    "#experience",
+  ],
+  [
+    "Client proof",
+    "Assess scheduled service with a reason. Let authorised clients generate reports for their sites.",
+    "#proof",
+  ],
 ] as const;
 
 export default function SecurityPlatformPage() {
-  const control = view("control");
-  const proof = view("proof");
-  const people = view("people");
-
   return (
-    <main id="main">
-      <SplitHero src={photos.teamBriefing.src} alt={photos.teamBriefing.alt} objectPositionMobile="55% 50%" objectPosition="62% 45%">
-        <div className="flex flex-wrap items-center gap-3">
-          <Kicker tone="dark">Signal One Security · the platform</Kicker>
-          <GuardStatus tone="dark" />
-        </div>
-        <h1 className="t-hero mt-5">Run security operations from the record, not the group chat.</h1>
-        <p className="t-lead measure mt-6 text-text-inv-2">
-          Sites, posts, shifts, attendance, patrols, incidents, SOS, the control room and client proof of service. One
-          system for owners, supervisors, control-room operators, guards and your clients.
-        </p>
-        {guardOnboardingLine ? <p className="t-small mt-4 font-semibold text-text-inv">{guardOnboardingLine}</p> : null}
-        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-          <ButtonLink href="/contact" size="lg">
-            Talk to Signal One
-          </ButtonLink>
-          <ButtonLink href="/pricing" variant="ghost-dark" size="lg">
-            {guardDayPricePhrase}
-          </ButtonLink>
-        </div>
-        <p className="t-caption mt-6 text-text-inv-2">{illustrativeCaption}</p>
-      </SplitHero>
-
-      {/* Coverage */}
-      <section className="surface-light section">
-        <div className="wrap grid gap-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-14">
-          <div>
-            <Kicker>Coverage and supervision</Kicker>
-            <h2 className="t-h2 mt-4">Know which posts are short before the client does.</h2>
-            <p className="t-body mt-5 text-text-2">The supervisor&rsquo;s day in one place: your sites, the roster against each post, shortfalls, and every SOS or late patrol waiting for action.</p>
-            <ul className="m-0 mt-6 grid list-none gap-3 p-0">
-              {["Sites, posts and shifts", "Roster or map view", "Shortfalls per post", "Guards on duty now"].map((item) => (
-                <li key={item} className="t-body flex gap-3">
-                  <Check className="mt-1 text-signal-ink" />
-                  {item}
+    <main id="main" className="landing-main">
+      <PageHero
+        kicker="Signal One GUARD"
+        status={<GuardStatus tone="dark" />}
+        title="Your operation. One connected record."
+        lead="Bring your sites, guards, supervisors and control room together. Build an operational record that your clients can use as evidence of service."
+        actions={
+          <>
+            <ButtonLink href="#experience" size="lg">
+              Explore the workflow <Arrow />
+            </ButtonLink>
+            <ButtonLink href="/contact" variant="ghost-dark" size="lg">
+              Request a walkthrough
+            </ButtonLink>
+          </>
+        }
+        aside={
+          <div className="access-plate">
+            <p>Built around your operation</p>
+            <h3>
+              From allocation
+              <br />
+              to service evidence.
+            </h3>
+            <ul>
+              {[
+                "Sites → posts → shifts",
+                "Guards → attendance → activity",
+                "Supervision → action → evidence",
+              ].map((text, i) => (
+                <li key={text}>
+                  <span>0{i + 1}</span>
+                  {text}
                 </li>
               ))}
             </ul>
+            <p>
+              Own phone or Central Device · {guardDayPricePhrase}, excl. VAT
+            </p>
+            {guardOnboardingLine && <p>{guardOnboardingLine}</p>}
           </div>
-          <div className="grid content-start gap-6">
-            <Photo
-              src={photos.controlRoomTeam.src}
-              alt={photos.controlRoomTeam.alt}
-              sizes="(min-width: 1320px) 860px, (min-width: 1024px) 64vw, 100vw"
-              aspect="aspect-[16/10]"
-              imgClassName="object-cover"
-              caption={illustrativeCaption}
-            />
-            <h3 className="t-h3">The control room sees every SOS in order.</h3>
-            <p className="t-body text-text-2">{control.body}</p>
-            <p className="t-body text-text-2">
-              Supervisors see each post&rsquo;s roster and any shortfall before the shift starts, and the map shows the last known
-              position of each guard with its age.
+        }
+      />
+      <section className="surface-light mission-section">
+        <div className="wrap">
+          <div className="mission-section-head">
+            <div>
+              <Kicker>See the operational sequence</Kicker>
+              <h2>
+                A checkpoint is
+                <br />
+                just the beginning.
+              </h2>
+            </div>
+            <p>
+              Explore the physical action, the evidence GUARD records, the
+              supervisor’s role and the information your client can access.
             </p>
           </div>
+          <OperationsExperience />
         </div>
       </section>
-
-      {/* Field */}
       <section className="surface-white section">
         <div className="wrap">
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,8fr)_minmax(0,4fr)] lg:items-end lg:gap-14">
+          <div className="mission-section-head">
             <div>
-              <Kicker>On site</Kicker>
-              <h2 className="t-h2 mt-4">What the guard does, on record.</h2>
+              <Kicker>The working platform</Kicker>
+              <h2>
+                The everyday work,
+                <br />
+                brought together.
+              </h2>
             </div>
-            <p className="t-body text-text-2">
-              Guards use the Signal One Guard app on their own phone or an authorised Central Device.
+            <p>
+              Scans, clock events, incidents and occurrence entries are saved on
+              the phone and sent when signal returns. SOS needs a mobile signal
+              to reach the control room.
             </p>
           </div>
-          <div className="mt-12 grid gap-12 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-start lg:gap-16">
-            <Photo
-              src={photos.guardPatrol.src}
-              alt={photos.guardPatrol.alt}
-              sizes="(min-width: 1320px) 720px, (min-width: 1024px) 58vw, 100vw"
-              className="w-full"
-              aspect="aspect-[16/10]"
-              imgClassName="object-cover object-[50%_50%]"
-              caption={illustrativeCaption}
-            />
-            <ul className="m-0 grid list-none p-0">
-              {fieldCapabilities.map(([title, body]) => (
-                <li key={title} className="border-t border-line py-5">
-                  <h3 className="t-h4">{title}</h3>
-                  <p className="t-small mt-1 text-text-2">{body}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* PSiRA */}
-      <section className="surface-light-2 section">
-        <div className="wrap grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-14">
-          <div>
-            <Kicker>PSiRA</Kicker>
-            <h2 className="t-h2 mt-4">Every assignment checks PSiRA status.</h2>
-          </div>
-          <dl className="m-0">
-            {[
-              ["What is recorded", "Each officer's PSiRA registration number, grade and expiry date."],
-              ["Missing or expired registration", "Blocks the assignment. It cannot be overridden."],
-              ["Grade below what the post needs", "Can be overridden by an authorised user, who must give a reason. The override is logged."],
-              ["What Signal One does not do", "Check registrations with PSiRA or run background checks. Records are as entered by your company."],
-            ].map(([term, detail]) => (
-              <div key={term} className="grid gap-1 border-t border-line py-4 sm:grid-cols-[14rem_1fr] sm:gap-6">
-                <dt className="font-semibold">{term}</dt>
-                <dd className="t-body m-0 text-text-2">{detail}</dd>
-              </div>
+          <ul className="capability-grid m-0 grid list-none p-0 md:grid-cols-2 lg:grid-cols-3">
+            {capabilities.map(([title, body, href], i) => (
+              <li key={title}>
+                <p className="t-caption text-signal-ink">0{i + 1}</p>
+                <h3 className="t-h4 mt-3">{title}</h3>
+                <p className="t-small text-text-2 mt-3">{body}</p>
+                <Link href={href} className="link-arrow text-signal-ink mt-5">
+                  {href === "/contact" ? "Discuss this workflow" : "Explore"}
+                  <span className="sr-only"> {title}</span>
+                  <Arrow />
+                </Link>
+              </li>
             ))}
-          </dl>
+          </ul>
         </div>
       </section>
-
-      {/* Proof + client portal */}
-      <section className="surface-base section">
-        <div className="wrap">
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-14">
-            <div>
-              <div className="flex flex-wrap items-center gap-3">
-                <Kicker tone="dark">Proof of service and client portal</Kicker>
-                <GuardStatus tone="dark" />
-              </div>
-              <h2 className="t-h2 mt-4">Show the client what was delivered.</h2>
-              <p className="t-body mt-5 text-text-inv-2">{proof.body}</p>
-              <p className="t-body mt-4 text-text-inv-2">
-                Your clients get their own sign-in. They see only their authorised sites: service coverage, patrol and
-                checkpoint evidence, incidents, and proof-of-service reports that client users can generate themselves.
-                They never see the rest of your operation.
-              </p>
-              <p className="t-small mt-6 border-t border-line-dark pt-4 text-text-inv-2">
-                <Status kind="soon" tone="dark">
-                  Coming soon
-                </Status>{" "}
-                A live map, clock-in status and live patrol progress for client users.
-              </p>
-            </div>
-            <FactPanel
-              title="Every scheduled service gets an outcome"
-              facts={[
-                ["Four outcomes", "Proven, partly proven, unresolved or not proven."],
-                ["Always with the reason", "Each outcome records why, including the ones that are not proven."],
-                ["Reports on demand", "Generate a report for the period your client asks about."],
-                ["Client access", "Client users see the record for their own sites only."],
-              ]}
-            />
+      <section id="proof" className="surface-base section scroll-mt-[72px]">
+        <div className="wrap grid gap-10 lg:grid-cols-2 lg:gap-16">
+          <div>
+            <Kicker tone="dark">People, access & client proof</Kicker>
+            <h2 className="t-h2 mt-4">
+              The right evidence.
+              <br />
+              For the right people.
+            </h2>
+            <p className="t-body text-text-inv-2 mt-5">
+              Company administrators control invitations and site access.
+              Supervisors work within assigned sites. Clients see the sites
+              authorised for them and can generate proof-of-service reports.
+            </p>
+            <p className="t-small text-text-inv-2 mt-4">
+              Deactivating a person ends their access without deleting the
+              history of their work.
+            </p>
+            <ButtonLink href="/contact" variant="ghost-dark" className="mt-6">
+              See a scoped-access walkthrough <Arrow />
+            </ButtonLink>
+          </div>
+          <div className="access-plate">
+            <p>Access model · editorial guide</p>
+            <h3>
+              One company.
+              <br />
+              Defined boundaries.
+            </h3>
+            <ul>
+              <li>
+                <span>01</span>Company → operation across its clients
+              </li>
+              <li>
+                <span>02</span>Supervisor → assigned sites
+              </li>
+              <li>
+                <span>03</span>Client → authorised sites and reports
+              </li>
+            </ul>
+            <p>Live patrol progress and a live client map are coming soon.</p>
           </div>
         </div>
       </section>
-
-      {/* People & access */}
       <section className="surface-light section">
-        <div className="wrap grid gap-10 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-center lg:gap-14">
-          <div className="order-2 lg:order-1">
-            <FactPanel
-              tone="light"
-              facts={[
-                ["Invite supervisors", "Company admins invite supervisors and other users."],
-                ["Limit each one to their sites", "A supervisor sees only the sites ticked for them."],
-                ["Switch access off", "Deactivating someone ends their access within seconds. Nothing they did is deleted."],
-              ]}
+        <div className="wrap grid gap-10 lg:grid-cols-2 lg:gap-16">
+          <div className="relative aspect-[16/10] overflow-hidden rounded-card">
+            <Image
+              src={photos.teamBriefing.src}
+              alt={photos.teamBriefing.alt}
+              fill
+              sizes="(min-width: 1024px) 600px, 100vw"
+              quality={90}
+              className="object-cover"
             />
-          </div>
-          <div className="order-1 lg:order-2">
-            <Kicker>People and access</Kicker>
-            <h2 className="t-h2 mt-4">Supervisors see their sites. Nobody sees more than they should.</h2>
-            <p className="t-body mt-5 text-text-2">{people.body}</p>
-          </div>
-        </div>
-      </section>
-
-      <section className="surface-base section">
-        <div className="wrap flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-          <div className="max-w-2xl">
-            <h2 className="t-h2">See it on your own operation.</h2>
-            <p className="t-lead mt-4 text-text-inv-2">
-              Tell us your sites and guard numbers. We walk you through the platform using your setup, not a generic demo.
+            <p className="absolute bottom-0 inset-x-0 bg-deep p-3 t-caption text-text-inv">
+              {illustrativeCaption}
             </p>
           </div>
-          <div className="flex flex-col gap-3 sm:flex-row">
-            <ButtonLink href="/pricing#calculator" variant="ghost-dark" size="lg">
-              Calculate guard cost
+          <div>
+            <Kicker>Assignment safeguards</Kicker>
+            <h2 className="t-h2 mt-4">
+              Registration details.
+              <br />
+              Clear rules.
+            </h2>
+            <p className="t-body text-text-2 mt-5">
+              Record each officer’s PSiRA number, grade and expiry. Missing or
+              expired registration blocks assignment. Only a grade mismatch can
+              be overridden, with a recorded reason.
+            </p>
+            <p className="t-small text-text-2 mt-4">
+              Signal One records the details provided. It does not verify
+              registrations with PSiRA itself.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Status kind="mvp">Marketplace · MVP in development</Status>
+              <Status kind="soon">Payroll · coming soon</Status>
+              <Status kind="beta">Accounting · beta, separately priced</Status>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="surface-deep section">
+        <div className="wrap mission-closing">
+          <div>
+            <Kicker tone="dark">Your operation is the starting point</Kicker>
+            <h2 className="t-h2 mt-4">
+              Let’s walk through
+              <br />
+              your first sites.
+            </h2>
+            <p>{guardDayPricePhrase}, excluding VAT.</p>
+          </div>
+          <div className="mission-closing-links">
+            <ButtonLink href="/get-started" size="lg">
+              Start company onboarding
             </ButtonLink>
-            <ButtonLink href="/contact" size="lg">
-              Talk to Signal One
+            <ButtonLink href="/pricing" variant="ghost-dark" size="lg">
+              Explore pricing
             </ButtonLink>
           </div>
         </div>

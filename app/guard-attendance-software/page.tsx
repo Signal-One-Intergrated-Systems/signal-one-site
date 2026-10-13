@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import LandingPage from "../components/LandingPage";
-import { ButtonLink, FactPanel } from "../components/ui";
+import { ButtonLink } from "../components/ui";
 import { guardDayPricePhrase } from "../lib/pricing";
 
 export const metadata: Metadata = {
@@ -26,17 +26,7 @@ export default function GuardAttendanceSoftwarePage() {
           </ButtonLink>
         </>
       }
-      aside={
-        <FactPanel
-          title="Signal One Guard · attendance"
-          facts={[
-            ["Clock in at the post", "On the guard's own phone or an authorised Central Device."],
-            ["Against the shift and post", "The attendance record belongs to the shift and the post."],
-            ["PSiRA rules built in", "A missing or expired registration blocks the assignment."],
-            ["No signal", "Clock-in and clock-out are saved on the phone and sent when signal returns."],
-          ]}
-        />
-      }
+      aside={<div className="access-plate"><p>Attendance · editorial field guide</p><h3>A shift has a beginning.<br />And an evidence trail.</h3><ul><li><span>01</span>Site and post → allocated guard</li><li><span>02</span>Clock-in → attendance event</li><li><span>03</span>Clock-out → service assessment</li></ul><p>Events are saved offline and sent when signal returns.</p></div>}
       capabilitiesTitle="Attendance as a record, not a timesheet"
       capabilities={[
         ["Clock in and out at the post", "The attendance record belongs to the shift and the post, not to a sheet typed up later."],

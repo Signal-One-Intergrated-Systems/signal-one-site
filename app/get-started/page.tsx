@@ -10,7 +10,8 @@ export const metadata: Metadata = {
 
 export default function GetStartedPage() {
   return (
-    <main id="main" className="surface-light">
+    <main id="main" className="surface-light conversion-main">
+      <div className="conversion-banner"><div className="wrap"><span>Your company → your sites → your first users</span><a href="/contact">Talk through onboarding →</a></div></div>
       <div className="wrap py-10 md:py-16">
         <ClientOnboarding />
       </div>

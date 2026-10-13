@@ -1,2 +1,1 @@
-Inter (Regular-weight family files used only by the generated Open Graph images in `app/lib/og.tsx`).
-Inter is licensed under the SIL Open Font License 1.1: https://openfontlicense.org. The website itself loads Inter through `next/font/google`.
+Inter is the approved site typeface. Inter-Variable.woff2 (Latin variable weight, 48 KB) is bundled from @fontsource-variable/inter 5.3.0 and loaded with next/font/local. No build-time Google Fonts fetch. The bundled OFL.txt applies to Inter. Bold and SemiBold TTF files support Open Graph images.

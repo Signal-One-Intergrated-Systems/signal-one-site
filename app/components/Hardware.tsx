@@ -19,7 +19,7 @@ export function HardwareCard({
 }) {
   const Heading = headingLevel === 4 ? "h4" : "h3";
   return (
-    <article className="card relative flex h-full flex-col overflow-hidden">
+    <article className="hardware-card card relative flex h-full flex-col overflow-hidden">
       <div className={"relative aspect-[4/3] " + (product.image ? "bg-gradient-to-b from-light-2 to-white" : "surface-raised")}>
         {product.image ? (
           <Image

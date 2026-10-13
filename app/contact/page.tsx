@@ -39,7 +39,8 @@ const fields: IntakeField[] = [
 
 export default function ContactPage() {
   return (
-    <main id="main" className="surface-light">
+    <main id="main" className="surface-light conversion-main">
+      <div className="conversion-banner"><div className="wrap"><span>GUARD · equipment · your next contract</span><a href="/solutions/security#experience">Explore the workflow →</a></div></div>
       <div className="wrap grid gap-12 py-12 md:py-20 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
         <div>
           <Kicker>Talk to Signal One</Kicker>

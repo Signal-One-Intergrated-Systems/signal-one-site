@@ -1,0 +1,35 @@
+name: Website QA
+on:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: sudo apt-get update -qq && sudo apt-get install -y tesseract-ocr
+      - run: npx playwright install --with-deps chromium
+      - run: npm run lint
+      - run: npm run qa
+      - run: npx tsc --noEmit
+      - name: Capture browser evidence
+        run: |
+          npx next start -p 3150 > /tmp/site.log 2>&1 &
+          for i in $(seq 1 30); do curl -sf http://localhost:3150 > /dev/null && break; sleep 1; done
+          PW_CHROMIUM=$(find "$HOME/.cache/ms-playwright" -path '*/chrome-linux*/chrome' | head -1) node scripts/mission-visual.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: website-qa-evidence
+          path: |
+            docs/qa/mission/after
+            docs/qa/mission/video
+            test-results

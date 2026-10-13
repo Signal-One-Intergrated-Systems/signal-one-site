@@ -109,23 +109,27 @@ export function ProductWindow({
 }
 
 export default function ProductProof({ initial = "control" }: { initial?: string }) {
+  const availableViews = proofViews.filter(view => view.shots.length > 0);
   const [active, setActive] = useState(initial);
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
-  const index = Math.max(0, proofViews.findIndex((view) => view.id === active));
-  const view = proofViews[index];
+  const index = Math.max(0, availableViews.findIndex((view) => view.id === active));
+  const view = availableViews[index];
 
   function onKeyDown(event: KeyboardEvent<HTMLDivElement>) {
     const keys = ["ArrowRight", "ArrowLeft", "Home", "End"];
     if (!keys.includes(event.key)) return;
     event.preventDefault();
     let next = index;
-    if (event.key === "ArrowRight") next = (index + 1) % proofViews.length;
-    if (event.key === "ArrowLeft") next = (index - 1 + proofViews.length) % proofViews.length;
+    if (!availableViews.length) return;
+    if (event.key === "ArrowRight") next = (index + 1) % availableViews.length;
+    if (event.key === "ArrowLeft") next = (index - 1 + availableViews.length) % availableViews.length;
     if (event.key === "Home") next = 0;
-    if (event.key === "End") next = proofViews.length - 1;
-    setActive(proofViews[next].id);
+    if (event.key === "End") next = availableViews.length - 1;
+    setActive(availableViews[next].id);
     tabRefs.current[next]?.focus();
   }
+
+  if (!view) return null;
 
   return (
     <div>
@@ -135,7 +139,7 @@ export default function ProductProof({ initial = "control" }: { initial?: string
         onKeyDown={onKeyDown}
         className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap"
       >
-        {proofViews.map((item, i) => {
+        {availableViews.map((item, i) => {
           const selected = item.id === view.id;
           return (
             <button

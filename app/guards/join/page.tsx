@@ -10,7 +10,8 @@ export const metadata: Metadata = {
 
 export default function GuardJoinPage() {
   return (
-    <main id="main" className="min-h-[calc(100vh-72px)] bg-light text-text">
+    <main id="main" className="conversion-main min-h-[calc(100vh-72px)] bg-light text-text">
+      <div className="conversion-banner"><div className="wrap"><span>Private profile · your details · your choice</span><a href="/guards#your-information">How we use your information →</a></div></div>
       <GuardJoin />
     </main>
   );

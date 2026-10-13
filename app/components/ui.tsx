@@ -323,7 +323,7 @@ export function SplitHero({
       ? ({ ["--ph-l" as string]: inset, ["--ph-r" as string]: "0px" } as React.CSSProperties)
       : ({ ["--ph-l" as string]: "0px", ["--ph-r" as string]: inset } as React.CSSProperties);
   return (
-    <section className="split-hero relative bg-deep text-text-inv" style={box}>
+    <section className="split-hero mission-split relative bg-deep text-text-inv" style={box}>
       <div className="relative h-[56vw] lg:absolute lg:inset-y-0 lg:left-[var(--ph-l)] lg:right-[var(--ph-r)] lg:h-auto">
         {/* Never taller or wider than the source: on a tall hero the photo is centred and fades into the surface. */}
         <div className="relative mx-auto h-full lg:top-1/2 lg:-translate-y-1/2" style={{ maxWidth: src.width, maxHeight: src.height, ...verticalFade(src.height) }}>
@@ -384,8 +384,8 @@ export function PageHero({
   aside?: ReactNode;
 }) {
   return (
-    <section className="split-hero surface-deep">
-      <div className="wrap grid gap-12 py-16 md:py-24 lg:grid-cols-[minmax(0,var(--hero-col))_minmax(0,1fr)] lg:items-center lg:gap-20 lg:py-32">
+    <section className="split-hero page-hero surface-deep">
+      <div className="wrap page-hero-layout">
         <div>
           {kicker || status ? (
             <div className="flex flex-wrap items-center gap-3">
@@ -397,7 +397,7 @@ export function PageHero({
           {lead ? <p className="t-lead measure mt-6 text-text-inv-2">{lead}</p> : null}
           {actions ? <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">{actions}</div> : null}
         </div>
-        {aside ? <div>{aside}</div> : null}
+        {aside ? <div className="page-hero-aside">{aside}</div> : null}
       </div>
     </section>
   );
