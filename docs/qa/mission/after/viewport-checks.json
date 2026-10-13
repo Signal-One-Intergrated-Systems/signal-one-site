@@ -1,0 +1,866 @@
+[
+  {
+    "route": "/",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clientWidth": 320,
+    "height": 6511
+  },
+  {
+    "route": "/solutions/security",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clientWidth": 320,
+    "height": 8295
+  },
+  {
+    "route": "/guard-patrol-software",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clientWidth": 320,
+    "height": 6510
+  },
+  {
+    "route": "/guard-attendance-software",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clientWidth": 320,
+    "height": 5717
+  },
+  {
+    "route": "/guard-marketplace",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clientWidth": 320,
+    "height": 6100
+  },
+  {
+    "route": "/radios-equipment",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clientWidth": 320,
+    "height": 9047
+  },
+  {
+    "route": "/pricing",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clientWidth": 320,
+    "height": 5076
+  },
+  {
+    "route": "/get-started",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clientWidth": 320,
+    "height": 2262
+  },
+  {
+    "route": "/contact",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clientWidth": 320,
+    "height": 3186
+  },
+  {
+    "route": "/guards",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clientWidth": 320,
+    "height": 6687
+  },
+  {
+    "route": "/guards/join",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clientWidth": 320,
+    "height": 2617
+  },
+  {
+    "route": "/join/sales",
+    "width": 320,
+    "status": 200,
+    "scrollWidth": 320,
+    "clientWidth": 320,
+    "height": 5762
+  },
+  {
+    "route": "/",
+    "width": 360,
+    "status": 200,
+    "scrollWidth": 360,
+    "clientWidth": 360,
+    "height": 6183
+  },
+  {
+    "route": "/solutions/security",
+    "width": 360,
+    "status": 200,
+    "scrollWidth": 360,
+    "clientWidth": 360,
+    "height": 7928
+  },
+  {
+    "route": "/guard-patrol-software",
+    "width": 360,
+    "status": 200,
+    "scrollWidth": 360,
+    "clientWidth": 360,
+    "height": 6182
+  },
+  {
+    "route": "/guard-attendance-software",
+    "width": 360,
+    "status": 200,
+    "scrollWidth": 360,
+    "clientWidth": 360,
+    "height": 5460
+  },
+  {
+    "route": "/guard-marketplace",
+    "width": 360,
+    "status": 200,
+    "scrollWidth": 360,
+    "clientWidth": 360,
+    "height": 5731
+  },
+  {
+    "route": "/radios-equipment",
+    "width": 360,
+    "status": 200,
+    "scrollWidth": 360,
+    "clientWidth": 360,
+    "height": 8610
+  },
+  {
+    "route": "/pricing",
+    "width": 360,
+    "status": 200,
+    "scrollWidth": 360,
+    "clientWidth": 360,
+    "height": 4836
+  },
+  {
+    "route": "/get-started",
+    "width": 360,
+    "status": 200,
+    "scrollWidth": 360,
+    "clientWidth": 360,
+    "height": 2188
+  },
+  {
+    "route": "/contact",
+    "width": 360,
+    "status": 200,
+    "scrollWidth": 360,
+    "clientWidth": 360,
+    "height": 3094
+  },
+  {
+    "route": "/guards",
+    "width": 360,
+    "status": 200,
+    "scrollWidth": 360,
+    "clientWidth": 360,
+    "height": 6203
+  },
+  {
+    "route": "/guards/join",
+    "width": 360,
+    "status": 200,
+    "scrollWidth": 360,
+    "clientWidth": 360,
+    "height": 2451
+  },
+  {
+    "route": "/join/sales",
+    "width": 360,
+    "status": 200,
+    "scrollWidth": 360,
+    "clientWidth": 360,
+    "height": 5449
+  },
+  {
+    "route": "/",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "height": 6010
+  },
+  {
+    "route": "/solutions/security",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "height": 7605
+  },
+  {
+    "route": "/guard-patrol-software",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "height": 5837
+  },
+  {
+    "route": "/guard-attendance-software",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "height": 5040
+  },
+  {
+    "route": "/guard-marketplace",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "height": 5578
+  },
+  {
+    "route": "/radios-equipment",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "height": 8249
+  },
+  {
+    "route": "/pricing",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "height": 4655
+  },
+  {
+    "route": "/get-started",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "height": 2085
+  },
+  {
+    "route": "/contact",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "height": 3017
+  },
+  {
+    "route": "/guards",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "height": 6025
+  },
+  {
+    "route": "/guards/join",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "height": 2370
+  },
+  {
+    "route": "/join/sales",
+    "width": 390,
+    "status": 200,
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "height": 5242
+  },
+  {
+    "route": "/",
+    "width": 430,
+    "status": 200,
+    "scrollWidth": 430,
+    "clientWidth": 430,
+    "height": 5813
+  },
+  {
+    "route": "/solutions/security",
+    "width": 430,
+    "status": 200,
+    "scrollWidth": 430,
+    "clientWidth": 430,
+    "height": 7370
+  },
+  {
+    "route": "/guard-patrol-software",
+    "width": 430,
+    "status": 200,
+    "scrollWidth": 430,
+    "clientWidth": 430,
+    "height": 5688
+  },
+  {
+    "route": "/guard-attendance-software",
+    "width": 430,
+    "status": 200,
+    "scrollWidth": 430,
+    "clientWidth": 430,
+    "height": 4887
+  },
+  {
+    "route": "/guard-marketplace",
+    "width": 430,
+    "status": 200,
+    "scrollWidth": 430,
+    "clientWidth": 430,
+    "height": 5421
+  },
+  {
+    "route": "/radios-equipment",
+    "width": 430,
+    "status": 200,
+    "scrollWidth": 430,
+    "clientWidth": 430,
+    "height": 7972
+  },
+  {
+    "route": "/pricing",
+    "width": 430,
+    "status": 200,
+    "scrollWidth": 430,
+    "clientWidth": 430,
+    "height": 4513
+  },
+  {
+    "route": "/get-started",
+    "width": 430,
+    "status": 200,
+    "scrollWidth": 430,
+    "clientWidth": 430,
+    "height": 2085
+  },
+  {
+    "route": "/contact",
+    "width": 430,
+    "status": 200,
+    "scrollWidth": 430,
+    "clientWidth": 430,
+    "height": 2940
+  },
+  {
+    "route": "/guards",
+    "width": 430,
+    "status": 200,
+    "scrollWidth": 430,
+    "clientWidth": 430,
+    "height": 5963
+  },
+  {
+    "route": "/guards/join",
+    "width": 430,
+    "status": 200,
+    "scrollWidth": 430,
+    "clientWidth": 430,
+    "height": 2262
+  },
+  {
+    "route": "/join/sales",
+    "width": 430,
+    "status": 200,
+    "scrollWidth": 430,
+    "clientWidth": 430,
+    "height": 5185
+  },
+  {
+    "route": "/",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clientWidth": 768,
+    "height": 4537
+  },
+  {
+    "route": "/solutions/security",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clientWidth": 768,
+    "height": 5862
+  },
+  {
+    "route": "/guard-patrol-software",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clientWidth": 768,
+    "height": 4676
+  },
+  {
+    "route": "/guard-attendance-software",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clientWidth": 768,
+    "height": 3865
+  },
+  {
+    "route": "/guard-marketplace",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clientWidth": 768,
+    "height": 3731
+  },
+  {
+    "route": "/radios-equipment",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clientWidth": 768,
+    "height": 6424
+  },
+  {
+    "route": "/pricing",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clientWidth": 768,
+    "height": 4296
+  },
+  {
+    "route": "/get-started",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clientWidth": 768,
+    "height": 1813
+  },
+  {
+    "route": "/contact",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clientWidth": 768,
+    "height": 2395
+  },
+  {
+    "route": "/guards",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clientWidth": 768,
+    "height": 4902
+  },
+  {
+    "route": "/guards/join",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clientWidth": 768,
+    "height": 1807
+  },
+  {
+    "route": "/join/sales",
+    "width": 768,
+    "status": 200,
+    "scrollWidth": 768,
+    "clientWidth": 768,
+    "height": 4137
+  },
+  {
+    "route": "/",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clientWidth": 1024,
+    "height": 4296
+  },
+  {
+    "route": "/solutions/security",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clientWidth": 1024,
+    "height": 4526
+  },
+  {
+    "route": "/guard-patrol-software",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clientWidth": 1024,
+    "height": 4141
+  },
+  {
+    "route": "/guard-attendance-software",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clientWidth": 1024,
+    "height": 3302
+  },
+  {
+    "route": "/guard-marketplace",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clientWidth": 1024,
+    "height": 3185
+  },
+  {
+    "route": "/radios-equipment",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clientWidth": 1024,
+    "height": 5301
+  },
+  {
+    "route": "/pricing",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clientWidth": 1024,
+    "height": 3201
+  },
+  {
+    "route": "/get-started",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clientWidth": 1024,
+    "height": 1444
+  },
+  {
+    "route": "/contact",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clientWidth": 1024,
+    "height": 1632
+  },
+  {
+    "route": "/guards",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clientWidth": 1024,
+    "height": 3841
+  },
+  {
+    "route": "/guards/join",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clientWidth": 1024,
+    "height": 1626
+  },
+  {
+    "route": "/join/sales",
+    "width": 1024,
+    "status": 200,
+    "scrollWidth": 1024,
+    "clientWidth": 1024,
+    "height": 3364
+  },
+  {
+    "route": "/",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "height": 4228
+  },
+  {
+    "route": "/solutions/security",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "height": 4376
+  },
+  {
+    "route": "/guard-patrol-software",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "height": 3867
+  },
+  {
+    "route": "/guard-attendance-software",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "height": 3033
+  },
+  {
+    "route": "/guard-marketplace",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "height": 3013
+  },
+  {
+    "route": "/radios-equipment",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "height": 5107
+  },
+  {
+    "route": "/pricing",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "height": 2958
+  },
+  {
+    "route": "/get-started",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "height": 1331
+  },
+  {
+    "route": "/contact",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "height": 1585
+  },
+  {
+    "route": "/guards",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "height": 3491
+  },
+  {
+    "route": "/guards/join",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "height": 1566
+  },
+  {
+    "route": "/join/sales",
+    "width": 1440,
+    "status": 200,
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "height": 3247
+  },
+  {
+    "route": "/",
+    "width": 1920,
+    "status": 200,
+    "scrollWidth": 1920,
+    "clientWidth": 1920,
+    "height": 4298
+  },
+  {
+    "route": "/solutions/security",
+    "width": 1920,
+    "status": 200,
+    "scrollWidth": 1920,
+    "clientWidth": 1920,
+    "height": 4379
+  },
+  {
+    "route": "/guard-patrol-software",
+    "width": 1920,
+    "status": 200,
+    "scrollWidth": 1920,
+    "clientWidth": 1920,
+    "height": 3830
+  },
+  {
+    "route": "/guard-attendance-software",
+    "width": 1920,
+    "status": 200,
+    "scrollWidth": 1920,
+    "clientWidth": 1920,
+    "height": 3018
+  },
+  {
+    "route": "/guard-marketplace",
+    "width": 1920,
+    "status": 200,
+    "scrollWidth": 1920,
+    "clientWidth": 1920,
+    "height": 2951
+  },
+  {
+    "route": "/radios-equipment",
+    "width": 1920,
+    "status": 200,
+    "scrollWidth": 1920,
+    "clientWidth": 1920,
+    "height": 5116
+  },
+  {
+    "route": "/pricing",
+    "width": 1920,
+    "status": 200,
+    "scrollWidth": 1920,
+    "clientWidth": 1920,
+    "height": 2964
+  },
+  {
+    "route": "/get-started",
+    "width": 1920,
+    "status": 200,
+    "scrollWidth": 1920,
+    "clientWidth": 1920,
+    "height": 1331
+  },
+  {
+    "route": "/contact",
+    "width": 1920,
+    "status": 200,
+    "scrollWidth": 1920,
+    "clientWidth": 1920,
+    "height": 1593
+  },
+  {
+    "route": "/guards",
+    "width": 1920,
+    "status": 200,
+    "scrollWidth": 1920,
+    "clientWidth": 1920,
+    "height": 3501
+  },
+  {
+    "route": "/guards/join",
+    "width": 1920,
+    "status": 200,
+    "scrollWidth": 1920,
+    "clientWidth": 1920,
+    "height": 1566
+  },
+  {
+    "route": "/join/sales",
+    "width": 1920,
+    "status": 200,
+    "scrollWidth": 1920,
+    "clientWidth": 1920,
+    "height": 3205
+  },
+  {
+    "route": "/",
+    "width": 2560,
+    "status": 200,
+    "scrollWidth": 2560,
+    "clientWidth": 2560,
+    "height": 4298
+  },
+  {
+    "route": "/solutions/security",
+    "width": 2560,
+    "status": 200,
+    "scrollWidth": 2560,
+    "clientWidth": 2560,
+    "height": 4379
+  },
+  {
+    "route": "/guard-patrol-software",
+    "width": 2560,
+    "status": 200,
+    "scrollWidth": 2560,
+    "clientWidth": 2560,
+    "height": 3830
+  },
+  {
+    "route": "/guard-attendance-software",
+    "width": 2560,
+    "status": 200,
+    "scrollWidth": 2560,
+    "clientWidth": 2560,
+    "height": 3018
+  },
+  {
+    "route": "/guard-marketplace",
+    "width": 2560,
+    "status": 200,
+    "scrollWidth": 2560,
+    "clientWidth": 2560,
+    "height": 2951
+  },
+  {
+    "route": "/radios-equipment",
+    "width": 2560,
+    "status": 200,
+    "scrollWidth": 2560,
+    "clientWidth": 2560,
+    "height": 5116
+  },
+  {
+    "route": "/pricing",
+    "width": 2560,
+    "status": 200,
+    "scrollWidth": 2560,
+    "clientWidth": 2560,
+    "height": 2964
+  },
+  {
+    "route": "/get-started",
+    "width": 2560,
+    "status": 200,
+    "scrollWidth": 2560,
+    "clientWidth": 2560,
+    "height": 1331
+  },
+  {
+    "route": "/contact",
+    "width": 2560,
+    "status": 200,
+    "scrollWidth": 2560,
+    "clientWidth": 2560,
+    "height": 1593
+  },
+  {
+    "route": "/guards",
+    "width": 2560,
+    "status": 200,
+    "scrollWidth": 2560,
+    "clientWidth": 2560,
+    "height": 3501
+  },
+  {
+    "route": "/guards/join",
+    "width": 2560,
+    "status": 200,
+    "scrollWidth": 2560,
+    "clientWidth": 2560,
+    "height": 1566
+  },
+  {
+    "route": "/join/sales",
+    "width": 2560,
+    "status": 200,
+    "scrollWidth": 2560,
+    "clientWidth": 2560,
+    "height": 3205
+  }
+]

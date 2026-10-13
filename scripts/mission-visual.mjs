@@ -1,5 +1,5 @@
 import { chromium } from "@playwright/test";
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, writeFile, rename, readFile } from "node:fs/promises";
 const dir = "docs/qa/mission/after";
 await mkdir(dir, { recursive: true });
 const browser = await chromium.launch({
@@ -21,12 +21,15 @@ const routes = [
   "/join/sales",
 ];
 const checks = [];
-for (const width of [320, 360, 390, 430, 768, 1024, 1440, 1920, 2560]) {
+const captureRoutes = process.env.MISSION_ROUTES?.split(",") || routes;
+for (const width of process.env.MISSION_INTERACTIONS_ONLY
+  ? []
+  : [320, 360, 390, 430, 768, 1024, 1440, 1920, 2560]) {
   const page = await browser.newPage({
     viewport: { width, height: 900 },
     reducedMotion: "reduce",
   });
-  for (const route of routes) {
+  for (const route of captureRoutes) {
     const response = await page.goto("http://localhost:3150" + route, {
       waitUntil: "networkidle",
     });
@@ -39,6 +42,13 @@ for (const width of [320, 360, 390, 430, 768, 1024, 1440, 1920, 2560]) {
     }
     await page.evaluate(() => scrollTo(0, 0));
     await page.waitForLoadState("networkidle");
+    await page.evaluate(() => document.fonts.ready);
+    await page.evaluate(
+      () =>
+        new Promise((resolve) =>
+          requestAnimationFrame(() => requestAnimationFrame(resolve)),
+        ),
+    );
     const layout = await page.evaluate(() => ({
       scrollWidth: document.documentElement.scrollWidth,
       clientWidth: document.documentElement.clientWidth,
@@ -59,7 +69,20 @@ for (const width of [320, 360, 390, 430, 768, 1024, 1440, 1920, 2560]) {
   }
   await page.close();
 }
-await writeFile(dir + "/viewport-checks.json", JSON.stringify(checks, null, 2));
+if (process.env.MISSION_ROUTES && checks.length) {
+  const previous = JSON.parse(
+    await readFile(dir + "/viewport-checks.json", "utf8"),
+  );
+  checks.push(
+    ...previous.filter((check) => !captureRoutes.includes(check.route)),
+  );
+}
+if (checks.length) {
+  await writeFile(
+    dir + "/viewport-checks.json",
+    JSON.stringify(checks, null, 2),
+  );
+}
 const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
 await page.goto("http://localhost:3150", { waitUntil: "networkidle" });
 await page.screenshot({ path: dir + "/hero-desktop.png" });
@@ -83,6 +106,11 @@ await reduced.goto("http://localhost:3150/solutions/security", {
 });
 await reduced.locator("#experience").scrollIntoViewIfNeeded();
 await reduced.screenshot({ path: dir + "/reduced-motion.png" });
+await reduced.addStyleTag({
+  content:
+    "*{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}",
+});
+await reduced.screenshot({ path: dir + "/glass-disabled-mobile.png" });
 await reduced.close();
 const context = await browser.newContext({
   viewport: { width: 1280, height: 900 },
@@ -103,7 +131,10 @@ await videoPage.waitForTimeout(600);
 await videoPage.getByRole("button", { name: "Record the NFC scan" }).click();
 await videoPage.waitForTimeout(1200);
 for (const name of ["03 Supervise", "04 Respond", "05 Prove"]) {
-  await videoPage.getByRole("tab", { name }).click();
+  await videoPage
+    .getByRole("dialog")
+    .getByRole("tab", { name, exact: true })
+    .click();
   await videoPage.waitForTimeout(1100);
 }
 await videoPage.getByRole("button", { name: "Company scope" }).click();
@@ -111,13 +142,23 @@ await videoPage.waitForTimeout(700);
 await videoPage.getByRole("button", { name: "Close", exact: true }).click();
 await videoPage.getByRole("tab", { name: "02 Hire" }).click();
 await videoPage.waitForTimeout(1000);
+await videoPage.locator(".deferred-equipment").scrollIntoViewIfNeeded();
 await videoPage.getByRole("button", { name: "Next equipment model" }).click();
 await videoPage.waitForTimeout(1200);
 const videoPath = await videoPage.video().path();
 await context.close();
+await rename(videoPath, "docs/qa/mission/video/motion.webm");
 await writeFile(
   "docs/qa/mission/video/recording.json",
-  JSON.stringify({ videoPath }, null, 2),
+  JSON.stringify(
+    {
+      videoPath: "motion.webm",
+      description:
+        "Actual Chromium recording of checkpoint workflow, scope, business chapters and equipment controls",
+    },
+    null,
+    2,
+  ),
 );
 await browser.close();
 console.log(

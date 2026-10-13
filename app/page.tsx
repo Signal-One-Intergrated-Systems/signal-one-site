@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import Image, { getImageProps } from "next/image";
 import Link from "next/link";
 import GuardDayCalculator from "./components/GuardDayCalculator";
 import BusinessJourney from "./components/BusinessJourney";
-import EquipmentGallery from "./components/EquipmentGallery";
-import { DemoLauncher } from "./components/OperationsExperience";
+import EquipmentShowcase from "./components/EquipmentShowcase";
+import DemoLauncher from "./components/DemoLauncher";
 import { Arrow, ButtonLink, Kicker, GuardStatus } from "./components/ui";
 import { catalogue } from "./lib/catalogue";
 import {
@@ -24,8 +24,26 @@ export const metadata: Metadata = {
 
 export default function Home() {
   const radio = catalogue[0].products[0];
+  // Keep Next's responsive optimisation, but paint the critical photograph without image hydration.
+  const { props: heroImage } = getImageProps({
+    src: photos.guardPatrol.src,
+    alt: photos.guardPatrol.alt,
+    fill: true,
+    sizes: "(min-width: 768px) 960px, 320px",
+    quality: 80,
+    fetchPriority: "high",
+    decoding: "sync",
+    loading: "eager",
+  });
   return (
     <main id="main">
+      <link
+        rel="preload"
+        as="image"
+        imageSrcSet={heroImage.srcSet}
+        imageSizes={heroImage.sizes}
+        fetchPriority="high"
+      />
       <section className="mission-hero" aria-labelledby="home-heading">
         <div className="wrap">
           <div className="mission-hero-grid">
@@ -63,28 +81,25 @@ export default function Home() {
             </div>
             <div className="mission-hero-scene">
               <div className="mission-hero-photo">
-                <Image
-                  src={photos.hero.src}
-                  alt={photos.hero.alt}
-                  fill
-                  priority
-                  fetchPriority="high"
-                  sizes="(min-width: 1600px) 620px, (min-width: 768px) 46vw, 100vw"
-                  quality={90}
-                  placeholder="blur"
-                />
+                <picture><img {...heroImage} alt={heroImage.alt} /></picture>
               </div>
               <div className="mission-scene-top">
-                <span>Your people. Your operation.</span>
+                <span>Where the record begins.</span>
                 <span aria-hidden="true">→</span>
               </div>
               <p className="mission-scene-caption">{illustrativeCaption}</p>
-              <Link href="/radios-equipment" className="mission-device">
+              <Link
+                prefetch={false}
+                data-route-intent=""
+                href="/radios-equipment"
+                className="mission-device"
+              >
                 <Image
                   src={radio.image!.src}
                   alt={radio.image!.alt}
                   width={130}
                   height={135}
+                  sizes="80px"
                   quality={90}
                 />
                 <strong>Hytera PNC360S</strong>
@@ -122,6 +137,8 @@ export default function Home() {
               </li>
             </ol>
             <Link
+              prefetch={false}
+              data-route-intent=""
               href="/solutions/security"
               className="link-arrow text-signal-400"
             >
@@ -170,13 +187,15 @@ export default function Home() {
               sites. Choose a model and start a rental or deployment enquiry.
             </p>
           </div>
-          <EquipmentGallery compact />
+          <EquipmentShowcase compact />
           <div className="mt-6 flex flex-wrap justify-between gap-3">
             <p className="t-caption text-text-2">
               Equipment is supplied alongside GUARD. In-platform device
               activation and tracking are coming soon.
             </p>
             <Link
+              prefetch={false}
+              data-route-intent=""
               href="/radios-equipment"
               className="link-arrow text-signal-ink"
             >
@@ -216,7 +235,12 @@ export default function Home() {
                   : guardOnboardingLine}
               </p>
             )}
-            <Link href="/pricing" className="link-arrow text-signal-ink mt-6">
+            <Link
+              prefetch={false}
+              data-route-intent=""
+              href="/pricing"
+              className="link-arrow text-signal-ink mt-6"
+            >
               Pricing and all commercial terms <Arrow />
             </Link>
             <span className="sr-only">Minimum purchase {minimumPhrase}.</span>

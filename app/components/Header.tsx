@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import SignalOneLogo from "./brand/SignalOneLogo";
 
@@ -81,6 +81,7 @@ function worldFor(pathname: string): World {
 
 export default function Header() {
   const pathname = usePathname() || "/";
+  const router = useRouter();
   const world = worldFor(pathname);
   const config = worlds[world];
   const dark = true; // the header is always dark: the lockup's light-surface colours are for light backgrounds only
@@ -93,6 +94,33 @@ export default function Header() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+  // Warm the route the visitor intends to open, rather than fetching every visible destination.
+  useEffect(() => {
+    const warmed = new Set<string>();
+    const onIntent = (event: Event) => {
+      const link =
+        event.target instanceof Element
+          ? event.target.closest<HTMLAnchorElement>("a[data-route-intent]")
+          : null;
+      const href = link?.getAttribute("href");
+      if (
+        !href?.startsWith("/") ||
+        href.split(/[?#]/)[0] === pathname ||
+        warmed.has(href)
+      )
+        return;
+      warmed.add(href);
+      router.prefetch(href);
+    };
+    document.addEventListener("pointerover", onIntent);
+    document.addEventListener("focusin", onIntent);
+    document.addEventListener("touchstart", onIntent, { passive: true });
+    return () => {
+      document.removeEventListener("pointerover", onIntent);
+      document.removeEventListener("focusin", onIntent);
+      document.removeEventListener("touchstart", onIntent);
+    };
+  }, [pathname, router]);
   const sheetRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
 
@@ -151,6 +179,8 @@ export default function Header() {
     >
       <div className="wrap flex h-[72px] items-center justify-between gap-4">
         <Link
+          prefetch={false}
+          data-route-intent=""
           href={config.homeHref}
           className="flex min-h-[44px] min-w-0 items-center gap-3"
           aria-label={
@@ -168,6 +198,8 @@ export default function Header() {
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
           {config.primary.map((item) => (
             <Link
+              prefetch={false}
+              data-route-intent=""
               key={item.href}
               href={item.href}
               aria-current={isCurrent(item.href) ? "page" : undefined}
@@ -184,6 +216,8 @@ export default function Header() {
         <div className="hidden items-center gap-1 lg:flex">
           {config.secondary.map((item) => (
             <Link
+              prefetch={false}
+              data-route-intent=""
               key={item.href}
               href={item.href}
               className={
@@ -196,7 +230,12 @@ export default function Header() {
               {item.label}
             </Link>
           ))}
-          <Link href={config.cta.href} className={config.cta_class + " ml-3"}>
+          <Link
+            prefetch={false}
+            data-route-intent=""
+            href={config.cta.href}
+            className={config.cta_class + " ml-3"}
+          >
             {config.cta.label}
           </Link>
         </div>
@@ -254,6 +293,8 @@ export default function Header() {
                   }
                 >
                   <Link
+                    prefetch={false}
+                    data-route-intent=""
                     href={item.href}
                     onClick={() => setOpen(false)}
                     className="flex min-h-[60px] items-center justify-between font-display text-[1.5rem] font-semibold"
@@ -272,6 +313,8 @@ export default function Header() {
 
             <div className="mt-8 grid gap-3">
               <Link
+                prefetch={false}
+                data-route-intent=""
                 href={config.cta.href}
                 onClick={() => setOpen(false)}
                 className={config.cta_class + " btn-lg w-full"}
@@ -280,6 +323,8 @@ export default function Header() {
               </Link>
               {world === "buyer" ? (
                 <Link
+                  prefetch={false}
+                  data-route-intent=""
                   href="/contact"
                   onClick={() => setOpen(false)}
                   className="btn btn-ghost-dark btn-lg w-full"
@@ -293,6 +338,8 @@ export default function Header() {
               {config.secondary.map((item) => (
                 <li key={item.href}>
                   <Link
+                    prefetch={false}
+                    data-route-intent=""
                     href={item.href}
                     onClick={() => setOpen(false)}
                     className={

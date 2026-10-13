@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import EquipmentQuoteForm from "../components/EquipmentQuoteForm";
-import EquipmentGallery from "../components/EquipmentGallery";
+import EquipmentShowcase from "../components/EquipmentShowcase";
 import { HardwareCard } from "../components/Hardware";
 import { catalogue } from "../lib/catalogue";
 import { ButtonLink, PageHero, Status, Steps } from "../components/ui";
@@ -12,8 +13,13 @@ export const metadata: Metadata = {
   alternates: { canonical: "/radios-equipment" },
 };
 
-export default async function RadiosEquipmentPage({ searchParams }: { searchParams: Promise<{ model?: string }> }) {
+export default async function RadiosEquipmentPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ model?: string }>;
+}) {
   const { model } = await searchParams;
+  const featured = catalogue[0].products[0];
   return (
     <main id="main" className="equipment-main">
       <PageHero
@@ -30,38 +36,76 @@ export default async function RadiosEquipmentPage({ searchParams }: { searchPara
             Request a quote
           </ButtonLink>
         }
+        aside={
+          <figure className="equipment-hero-product">
+            <figcaption>
+              <span>Hytera</span>
+              <span>Field communications · by quote</span>
+            </figcaption>
+            <div className="equipment-hero-image">
+              <Image
+                src={featured.image!.src}
+                alt={featured.image!.alt}
+                fill
+                priority
+                sizes="(min-width: 1024px) 180px, 140px"
+                quality={90}
+                className="object-contain"
+              />
+            </div>
+            <p>
+              PNC360S <span>Mini PoC radio</span>
+            </p>
+          </figure>
+        }
       />
 
       <section className="surface-light section">
         <div className="wrap">
           <h2 className="t-h2">Equipment, considered.</h2>
           <p className="t-body measure mt-3 text-text-2">
-            Named products we rent today. Final specification, availability and price are confirmed in the quote; we do
-            not publish prices, stock or delivery dates.
+            Named products we rent today. Final specification, availability and
+            price are confirmed in the quote; we do not publish prices, stock or
+            delivery dates.
           </p>
 
-          <div className="mt-8"><EquipmentGallery /></div>
+          <div className="mt-8">
+            <EquipmentShowcase />
+          </div>
           <div className="mt-12 grid gap-12">
-            {catalogue.filter(group => group.products.some(product => !product.image)).map((group) => (
-              <section key={group.id} id={group.id} aria-labelledby={group.id + "-h"} className="scroll-mt-[72px]">
-                <div className="grid gap-4 border-t-2 border-base pt-6 lg:grid-cols-[minmax(0,3fr)_minmax(0,9fr)] lg:gap-12">
-                  <div>
-                    <h3 id={group.id + "-h"} className="t-h3">
-                      {group.category}
-                    </h3>
-                    <p className="t-small mt-3 text-text-2">{group.lead}</p>
-                    <p className="t-small mt-3 font-semibold">{group.terms}</p>
+            {catalogue
+              .filter((group) =>
+                group.products.some((product) => !product.image),
+              )
+              .map((group) => (
+                <section
+                  key={group.id}
+                  id={group.id}
+                  aria-labelledby={group.id + "-h"}
+                  className="scroll-mt-[72px]"
+                >
+                  <div className="grid gap-4 border-t-2 border-base pt-6 lg:grid-cols-[minmax(0,3fr)_minmax(0,9fr)] lg:gap-12">
+                    <div>
+                      <h3 id={group.id + "-h"} className="t-h3">
+                        {group.category}
+                      </h3>
+                      <p className="t-small mt-3 text-text-2">{group.lead}</p>
+                      <p className="t-small mt-3 font-semibold">
+                        {group.terms}
+                      </p>
+                    </div>
+                    <ul className="m-0 grid list-none gap-4 p-0 sm:grid-cols-2">
+                      {group.products
+                        .filter((product) => !product.image)
+                        .map((product) => (
+                          <li key={product.model}>
+                            <HardwareCard product={product} headingLevel={4} />
+                          </li>
+                        ))}
+                    </ul>
                   </div>
-                  <ul className="m-0 grid list-none gap-4 p-0 sm:grid-cols-2">
-                    {group.products.filter(product => !product.image).map((product) => (
-                      <li key={product.model}>
-                        <HardwareCard product={product} headingLevel={4} />
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </section>
-            ))}
+                </section>
+              ))}
           </div>
 
           <div className="mt-16 rounded-card bg-light-2 p-6 sm:p-8">
@@ -70,8 +114,10 @@ export default async function RadiosEquipmentPage({ searchParams }: { searchPara
               <Status kind="soon">Coming soon</Status>
             </div>
             <p className="t-small measure mt-2 text-text-2">
-              You can rent this equipment today alongside Signal One Security. Activating devices and viewing tracking from
-              inside Signal One Guard is coming soon; renting a device does not yet connect it to the platform.
+              You can rent this equipment today alongside Signal One Security.
+              Activating devices and viewing tracking from inside Signal One
+              Guard is coming soon; renting a device does not yet connect it to
+              the platform.
             </p>
           </div>
         </div>
@@ -82,16 +128,25 @@ export default async function RadiosEquipmentPage({ searchParams }: { searchPara
           <div>
             <h2 className="t-h2">Request a quote</h2>
             <p className="t-body mt-4 text-text-2">
-              Product, requirement, quantity, deployment. The form changes with what you choose, so you only answer what
-              matters.
+              Product, requirement, quantity, deployment. The form changes with
+              what you choose, so you only answer what matters.
             </p>
             <div className="mt-8">
               <Steps
                 items={[
                   ["You send the requirement", "Takes about two minutes."],
-                  ["We confirm fit", "Network, accessories, installation and availability for your sites."],
-                  ["You get a written quote", "Term, quantities and price, by email."],
-                  ["You decide", "Nothing is supplied until you accept the quote."],
+                  [
+                    "We confirm fit",
+                    "Network, accessories, installation and availability for your sites.",
+                  ],
+                  [
+                    "You get a written quote",
+                    "Term, quantities and price, by email.",
+                  ],
+                  [
+                    "You decide",
+                    "Nothing is supplied until you accept the quote.",
+                  ],
                 ]}
               />
             </div>

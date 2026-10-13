@@ -1,5 +1,7 @@
 "use client";
 
+import "./operations-experience.css";
+
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
@@ -98,6 +100,8 @@ export default function OperationsExperience({
   function choose(index: number) {
     setPlaying(false);
     setActive(index);
+    // Manual actions can replace their own button; keep keyboard focus on the new stage.
+    tabs.current[index]?.focus({ preventScroll: true });
   }
   function keyboard(event: KeyboardEvent<HTMLDivElement>) {
     if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
@@ -220,12 +224,11 @@ export default function OperationsExperience({
                     ["04", "Sync state", "Saved offline or submitted"],
                   ].map(([n, term, detail]) => (
                     <div key={n}>
-                      <span>{n}</span>
                       <dt>
+                        <span aria-hidden="true">{n} </span>
                         {term}
-                        <small>{detail}</small>
                       </dt>
-                      <dd aria-label="Associated with the record">→</dd>
+                      <dd>{detail}</dd>
                     </div>
                   ))}
                 </dl>
@@ -435,69 +438,5 @@ export default function OperationsExperience({
         live operation.
       </p>
     </div>
-  );
-}
-
-export function DemoLauncher() {
-  const dialog = useRef<HTMLDialogElement>(null);
-  const trigger = useRef<HTMLButtonElement>(null);
-  const close = useRef<HTMLButtonElement>(null);
-  function dismiss() {
-    dialog.current?.close();
-    trigger.current?.focus();
-  }
-  useEffect(() => {
-    const node = dialog.current;
-    if (!node) return;
-    const observer = new MutationObserver(() => {
-      document.body.style.overflow = node.open ? "hidden" : "";
-    });
-    observer.observe(node, { attributes: true, attributeFilter: ["open"] });
-    return () => {
-      observer.disconnect();
-      document.body.style.overflow = "";
-    };
-  }, []);
-  return (
-    <>
-      <button
-        ref={trigger}
-        type="button"
-        className="btn btn-primary btn-lg"
-        data-analytics-event="hero_product_proof"
-        data-analytics-label="Hero primary"
-        onClick={() => {
-          dialog.current?.showModal();
-          close.current?.focus();
-        }}
-      >
-        Experience GUARD <span aria-hidden="true">▷</span>
-      </button>
-      <dialog
-        ref={dialog}
-        className="ops-dialog"
-        aria-labelledby="demo-title"
-        onCancel={(event) => {
-          event.preventDefault();
-          dismiss();
-        }}
-        onClick={(event) => {
-          if (event.target === event.currentTarget) dismiss();
-        }}
-      >
-        <div className="ops-dialog-heading">
-          <h2 id="demo-title">From the checkpoint to the client.</h2>
-          <button
-            ref={close}
-            type="button"
-            className="ops-text-button"
-            onClick={dismiss}
-          >
-            Close <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <OperationsExperience id="guided-demo" />
-      </dialog>
-    </>
   );
 }

@@ -1,0 +1,32 @@
+[
+  {
+    "name": "atex",
+    "width": 390,
+    "error": "Error: page.goto: net::ERR_TUNNEL_CONNECTION_FAILED at https://atexsolutions.io/\nCall log:\n\u001b[2m  - navigating to \"https://atexsolutions.io/\", waiting until \"networkidle\"\u001b[22m\n"
+  },
+  {
+    "name": "atex",
+    "width": 768,
+    "error": "Error: page.goto: net::ERR_TUNNEL_CONNECTION_FAILED at https://atexsolutions.io/\nCall log:\n\u001b[2m  - navigating to \"https://atexsolutions.io/\", waiting until \"networkidle\"\u001b[22m\n"
+  },
+  {
+    "name": "atex",
+    "width": 1440,
+    "error": "Error: page.goto: net::ERR_TUNNEL_CONNECTION_FAILED at https://atexsolutions.io/\nCall log:\n\u001b[2m  - navigating to \"https://atexsolutions.io/\", waiting until \"networkidle\"\u001b[22m\n"
+  },
+  {
+    "name": "production",
+    "width": 390,
+    "error": "Error: page.goto: net::ERR_TUNNEL_CONNECTION_FAILED at https://www.signalone.co.za/\nCall log:\n\u001b[2m  - navigating to \"https://www.signalone.co.za/\", waiting until \"networkidle\"\u001b[22m\n"
+  },
+  {
+    "name": "production",
+    "width": 768,
+    "error": "Error: page.goto: net::ERR_TUNNEL_CONNECTION_FAILED at https://www.signalone.co.za/\nCall log:\n\u001b[2m  - navigating to \"https://www.signalone.co.za/\", waiting until \"networkidle\"\u001b[22m\n"
+  },
+  {
+    "name": "production",
+    "width": 1440,
+    "error": "Error: page.goto: net::ERR_TUNNEL_CONNECTION_FAILED at https://www.signalone.co.za/\nCall log:\n\u001b[2m  - navigating to \"https://www.signalone.co.za/\", waiting until \"networkidle\"\u001b[22m\n"
+  }
+]

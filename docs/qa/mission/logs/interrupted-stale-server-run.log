@@ -1,0 +1,875 @@
+[2m[WebServer] [22m(node:30464) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:30473) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:30486) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:30501) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:30514) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:30536) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:30557) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 212 tests using 3 workers
+
+(node:30574) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:30572) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:30573) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:30574) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:30573) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:30572) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓    1 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /solutions/security (7.1s)
+  ✓    3 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › / (7.0s)
+  ✓    2 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /guard-marketplace (6.7s)
+  ✓    6 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /guard-attendance-software (5.4s)
+  ✓    5 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /guard-patrol-software (5.9s)
+  ✓    4 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /radios-equipment (7.2s)
+  ✓    8 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /pricing (5.1s)
+  ✓    7 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /ptt-radio-rental (5.8s)
+  ✓    9 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /contact (5.0s)
+  ✓   12 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /guards/join (3.8s)
+  ✓   10 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /get-started (5.1s)
+  ✓   11 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /guards (5.5s)
+  ✓   14 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /security-trust (3.4s)
+  ✓   13 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /join/sales (3.9s)
+  ✓   15 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /privacy (3.2s)
+  ✓   16 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /popia (4.0s)
+  ✓   17 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /terms (3.9s)
+  ✓   18 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › / (5.6s)
+  ✓   19 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /solutions/security (5.8s)
+  ✓   20 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /guard-marketplace (5.8s)
+  ✓   21 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /radios-equipment (7.5s)
+  ✓   22 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /guard-patrol-software (6.9s)
+  ✓   23 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /guard-attendance-software (7.2s)
+  ✓   24 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /ptt-radio-rental (5.9s)
+  ✓   26 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /contact (6.4s)
+  ✓   25 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /pricing (6.9s)
+  ✓   27 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /get-started (5.8s)
+  ✓   29 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /guards/join (4.7s)
+  ✓   28 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /guards (6.0s)
+  ✓   30 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /join/sales (5.3s)
+  ✓   31 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /security-trust (4.9s)
+  ✓   32 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /privacy (3.9s)
+  ✓   33 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /popia (4.8s)
+  ✓   36 tests/e2e/analytics.spec.ts:43:5 › pricing closing fires buy_guard_days (2.1s)
+  ✓   35 tests/e2e/analytics.spec.ts:33:5 › hero buttons fire hero_product_proof and hero_pricing (4.0s)
+  ✓   34 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /terms (5.3s)
+  ✓   37 tests/e2e/analytics.spec.ts:50:5 › calculator fires guard_pricing_interaction (1.3s)
+  ✓   38 tests/e2e/analytics.spec.ts:57:5 › contact fires consultation_start and consultation_complete (4.3s)
+  ✓   40 tests/e2e/analytics.spec.ts:66:5 › marketplace interest fires marketplace_interest (4.8s)
+  ✓   39 tests/e2e/analytics.spec.ts:75:5 › equipment quote fires start and complete (6.7s)
+  ✓   41 tests/e2e/analytics.spec.ts:84:5 › client onboarding fires start and complete (9.2s)
+  ✓   44 tests/e2e/analytics.spec.ts:109:5 › the event vocabulary has exactly 14 names (2ms)
+  ✓   45 tests/e2e/experience.spec.ts:4:5 › hero opens a real modal, keeps keyboard focus inside and restores it on Escape (1.6s)
+  ✓   46 tests/e2e/experience.spec.ts:29:5 › QR/NFC interaction advances to recorded evidence and tabs support arrow keys (1.9s)
+  ✓   42 tests/e2e/analytics.spec.ts:92:5 › guard join fires start and complete (11.9s)
+  ✓   43 tests/e2e/analytics.spec.ts:101:5 › sales application fires start and complete (10.8s)
+  ✓   47 tests/e2e/experience.spec.ts:57:5 › SOS cannot be acknowledged without signal; restoring signal restarts the example (2.3s)
+  ✓   48 tests/e2e/experience.spec.ts:87:7 › reduced motion and mobile touch › manual workflow stays usable without autoplay or animations (2.1s)
+  ✓   49 tests/e2e/experience.spec.ts:107:7 › reduced motion and mobile touch › equipment model selection reaches the correctly prefilled quote (3.3s)
+  ✓   50 tests/e2e/experience.spec.ts:119:7 › guided demo and equipment remain contained at 320 (3.8s)
+  ✓   51 tests/e2e/experience.spec.ts:119:7 › guided demo and equipment remain contained at 360 (3.5s)
+  ✓   52 tests/e2e/experience.spec.ts:119:7 › guided demo and equipment remain contained at 390 (3.9s)
+  ✓   53 tests/e2e/experience.spec.ts:119:7 › guided demo and equipment remain contained at 430 (4.7s)
+  ✓   54 tests/e2e/experience.spec.ts:119:7 › guided demo and equipment remain contained at 768 (4.6s)
+  ✓   55 tests/e2e/experience.spec.ts:119:7 › guided demo and equipment remain contained at 1024 (5.4s)
+  ✓   56 tests/e2e/experience.spec.ts:119:7 › guided demo and equipment remain contained at 1440 (6.2s)
+  ✓   57 tests/e2e/experience.spec.ts:119:7 › guided demo and equipment remain contained at 1920 (7.0s)
+  ✓   58 tests/e2e/experience.spec.ts:119:7 › guided demo and equipment remain contained at 2560 (6.1s)
+  ✘   59 tests/e2e/experience.spec.ts:145:7 › all guided-demo stages pass accessibility checks at 390 (1.5m)
+(node:34246) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:34246) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘   60 tests/e2e/experience.spec.ts:145:7 › all guided-demo stages pass accessibility checks at 1440 (1.5m)
+(node:34370) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:34370) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘   61 tests/e2e/experience.spec.ts:178:5 › mobile navigation traps keyboard focus and restores the page on Escape (1.5m)
+  ✓   62 tests/e2e/forms.spec.ts:57:7 › 503 fallback: contact (3.0s)
+(node:34501) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:34501) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   63 tests/e2e/forms.spec.ts:70:7 › success with mocked upstream: contact (4.0s)
+  ✓   64 tests/e2e/forms.spec.ts:70:7 › success with mocked upstream: marketplace interest (4.5s)
+  ✓   65 tests/e2e/forms.spec.ts:57:7 › 503 fallback: marketplace interest (5.3s)
+  ✓   67 tests/e2e/forms.spec.ts:70:7 › success with mocked upstream: equipment quote: Radios and PTT (6.1s)
+  ✓   66 tests/e2e/forms.spec.ts:57:7 › 503 fallback: equipment quote: Radios and PTT (7.9s)
+  ✓   68 tests/e2e/forms.spec.ts:57:7 › 503 fallback: equipment quote: Tracking (6.1s)
+  ✓   70 tests/e2e/forms.spec.ts:57:7 › 503 fallback: equipment quote: Body cameras (6.1s)
+  ✓   69 tests/e2e/forms.spec.ts:70:7 › success with mocked upstream: equipment quote: Tracking (7.5s)
+  ✓   71 tests/e2e/forms.spec.ts:70:7 › success with mocked upstream: equipment quote: Body cameras (6.0s)
+  ✓   72 tests/e2e/forms.spec.ts:57:7 › 503 fallback: client onboarding (10.2s)
+  ✓   73 tests/e2e/forms.spec.ts:70:7 › success with mocked upstream: client onboarding (10.3s)
+  ✓   74 tests/e2e/forms.spec.ts:57:7 › 503 fallback: guard join (13.2s)
+  ✓   76 tests/e2e/forms.spec.ts:57:7 › 503 fallback: sales application (11.1s)
+  ✓   78 tests/e2e/guard-status.spec.ts:19:5 › GUARD_STATUS unset: Guard capabilities are Pilot, never Live (251ms)
+  ✓   75 tests/e2e/forms.spec.ts:70:7 › success with mocked upstream: guard join (13.2s)
+  ✓   79 tests/e2e/guard-status.spec.ts:30:5 › acquisition links stay hidden until their URLs are configured (550ms)
+  ✓   77 tests/e2e/forms.spec.ts:70:7 › success with mocked upstream: sales application (11.6s)
+  ✘   82 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /solutions/security (7.4s)
+(node:35843) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:35843) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘   81 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › / (15.1s)
+(node:35919) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   83 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /guard-marketplace (1.4s)
+(node:35919) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘   84 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /guard-patrol-software (1.7s)
+(node:36079) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:36079) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘   85 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /radios-equipment (1.7s)
+(node:36270) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   86 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /guard-attendance-software (1.5s)
+(node:36270) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   87 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /pricing (1.2s)
+  ✓   89 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /contact (1.3s)
+  ✓   90 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /get-started (1.5s)
+  ✓   88 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /ptt-radio-rental (2.0s)
+  ✓   91 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /guards (1.8s)
+  ✓   92 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /guards/join (2.0s)
+  ✘   93 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /join/sales (1.7s)
+  ✓   94 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /security-trust (1.6s)
+(node:36697) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   95 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /popia (975ms)
+(node:36697) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   96 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /terms (1.2s)
+  ✘   97 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › / (1.6s)
+(node:36893) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:36893) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   98 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /privacy (1.5s)
+  ✓  100 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /guard-marketplace (1.2s)
+  ✘  101 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /radios-equipment (2.0s)
+  ✘   99 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /solutions/security (2.3s)
+(node:37250) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:37264) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:37250) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:37264) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  103 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /guard-attendance-software (2.1s)
+  ✘  102 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /guard-patrol-software (2.3s)
+(node:37571) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  104 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /ptt-radio-rental (1.3s)
+(node:37571) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  105 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /contact (1.4s)
+  ✓  106 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /get-started (1.1s)
+  ✘  108 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /guards (1.9s)
+  ✓  107 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /pricing (1.6s)
+(node:37825) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:37825) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  109 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /join/sales (1.8s)
+(node:37877) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:37877) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  110 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /guards/join (1.3s)
+  ✓  112 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /privacy (1.1s)
+  ✓  113 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /popia (2.2s)
+  ✓  111 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /security-trust (2.8s)
+  ✓  114 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /terms (2.6s)
+  ✘  115 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › / (3.9s)
+(node:38351) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  116 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /solutions/security (2.9s)
+(node:38371) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:38351) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:38371) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   80 tests/e2e/guard-status.spec.ts:85:7 › GUARD_STATUS=live › configured store and Sales OS URLs render as links (476ms)
+  ✓  117 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /guard-marketplace (1.3s)
+  ✓  119 tests/e2e/guard-status.spec.ts:95:7 › GUARD_STATUS=live › renders Live pills and Already live, without the pilot line (1.7s)
+  ✘  120 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /guard-patrol-software (1.9s)
+  ✘  118 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /radios-equipment (2.8s)
+(node:38702) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  121 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /guard-attendance-software (1.3s)
+(node:38714) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  122 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /contact (981ms)
+(node:38714) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:38702) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  123 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /get-started (977ms)
+  ✘  126 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /guards (1.3s)
+  ✓  124 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /pricing (1.4s)
+(node:39059) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  125 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /ptt-radio-rental (1.6s)
+(node:39059) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  128 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /security-trust (1.3s)
+  ✘  127 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /join/sales (1.7s)
+(node:39150) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  129 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /privacy (888ms)
+(node:39150) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  131 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /terms (826ms)
+  ✓  133 tests/e2e/layout.spec.ts:8:9 › no horizontal scroll at 390px › / (1.3s)
+  ✓  130 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /guards/join (1.9s)
+  ✓  134 tests/e2e/layout.spec.ts:8:9 › no horizontal scroll at 390px › /solutions/security (1.7s)
+  ✓  135 tests/e2e/layout.spec.ts:8:9 › no horizontal scroll at 390px › /guard-marketplace (1.7s)
+  ✓  132 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /popia (2.2s)
+  ✓  136 tests/e2e/layout.spec.ts:8:9 › no horizontal scroll at 390px › /radios-equipment (1.5s)
+  ✓  137 tests/e2e/layout.spec.ts:8:9 › no horizontal scroll at 390px › /guard-patrol-software (1.6s)
+  ✓  138 tests/e2e/layout.spec.ts:8:9 › no horizontal scroll at 390px › /guard-attendance-software (1.7s)
+  ✓  139 tests/e2e/layout.spec.ts:8:9 › no horizontal scroll at 390px › /ptt-radio-rental (1.7s)
+  ✓  140 tests/e2e/layout.spec.ts:8:9 › no horizontal scroll at 390px › /pricing (1.6s)
+  ✓  141 tests/e2e/layout.spec.ts:8:9 › no horizontal scroll at 390px › /contact (1.5s)
+  ✓  142 tests/e2e/layout.spec.ts:8:9 › no horizontal scroll at 390px › /get-started (1.5s)
+  ✓  143 tests/e2e/layout.spec.ts:8:9 › no horizontal scroll at 390px › /guards (1.5s)
+  ✓  144 tests/e2e/layout.spec.ts:8:9 › no horizontal scroll at 390px › /guards/join (1.6s)
+  ✓  145 tests/e2e/layout.spec.ts:8:9 › no horizontal scroll at 390px › /join/sales (1.7s)
+  ✓  146 tests/e2e/layout.spec.ts:8:9 › no horizontal scroll at 390px › /security-trust (1.6s)
+  ✓  147 tests/e2e/layout.spec.ts:8:9 › no horizontal scroll at 390px › /privacy (1.5s)
+  ✓  148 tests/e2e/layout.spec.ts:8:9 › no horizontal scroll at 390px › /popia (1.6s)
+  ✓  149 tests/e2e/layout.spec.ts:8:9 › no horizontal scroll at 390px › /terms (1.1s)
+  ✓  150 tests/e2e/layout.spec.ts:17:5 › branding check passes on rendered HTML (641ms)
+  ✓  153 tests/e2e/layout.spec.ts:37:5 › SOS is never described as offline or queued (339ms)
+  ✓  152 tests/e2e/layout.spec.ts:28:5 › rendered pages never show forbidden wording (524ms)
+  ✓  155 tests/e2e/pricing.spec.ts:35:5 › JSON-LD and pricing OG use the same price (124ms)
+  ✓  154 tests/e2e/pricing.spec.ts:22:5 › every rendered guard-day price comes from lib/pricing.ts (669ms)
+  ✓  156 tests/e2e/routes.spec.ts:5:7 › route /: 200, one h1, title, canonical (1.2s)
+  ✓  157 tests/e2e/routes.spec.ts:5:7 › route /solutions/security: 200, one h1, title, canonical (1.6s)
+  ✓  158 tests/e2e/routes.spec.ts:5:7 › route /guard-marketplace: 200, one h1, title, canonical (1.3s)
+  ✓  159 tests/e2e/routes.spec.ts:5:7 › route /radios-equipment: 200, one h1, title, canonical (1.4s)
+  ✓  160 tests/e2e/routes.spec.ts:5:7 › route /guard-patrol-software: 200, one h1, title, canonical (1.3s)
+  ✓  161 tests/e2e/routes.spec.ts:5:7 › route /guard-attendance-software: 200, one h1, title, canonical (1.6s)
+  ✓  162 tests/e2e/routes.spec.ts:5:7 › route /ptt-radio-rental: 200, one h1, title, canonical (1.7s)
+  ✓  163 tests/e2e/routes.spec.ts:5:7 › route /pricing: 200, one h1, title, canonical (1.4s)
+  ✓  164 tests/e2e/routes.spec.ts:5:7 › route /contact: 200, one h1, title, canonical (1.5s)
+  ✓  165 tests/e2e/routes.spec.ts:5:7 › route /get-started: 200, one h1, title, canonical (1.5s)
+  ✓  166 tests/e2e/routes.spec.ts:5:7 › route /guards: 200, one h1, title, canonical (1.7s)
+  ✓  167 tests/e2e/routes.spec.ts:5:7 › route /guards/join: 200, one h1, title, canonical (1.3s)
+  ✓  168 tests/e2e/routes.spec.ts:5:7 › route /join/sales: 200, one h1, title, canonical (1.5s)
+  ✓  169 tests/e2e/routes.spec.ts:5:7 › route /security-trust: 200, one h1, title, canonical (1.4s)
+  ✓  170 tests/e2e/routes.spec.ts:5:7 › route /privacy: 200, one h1, title, canonical (1.4s)
+  ✓  171 tests/e2e/routes.spec.ts:5:7 › route /popia: 200, one h1, title, canonical (1.5s)
+  ✓  173 tests/e2e/routes.spec.ts:17:7 › redirect /connectivity -> /radios-equipment is a 308 (17ms)
+  ✓  174 tests/e2e/routes.spec.ts:17:7 › redirect /connectivity/anything/else -> /radios-equipment is a 308 (10ms)
+  ✓  175 tests/e2e/routes.spec.ts:17:7 › redirect /devices -> /radios-equipment is a 308 (7ms)
+  ✓  176 tests/e2e/routes.spec.ts:17:7 › redirect /devices/abc -> /radios-equipment is a 308 (53ms)
+  ✓  177 tests/e2e/routes.spec.ts:17:7 › redirect /platforms -> / is a 308 (60ms)
+  ✓  178 tests/e2e/routes.spec.ts:17:7 › redirect /platforms/aiot-management -> / is a 308 (13ms)
+  ✓  179 tests/e2e/routes.spec.ts:17:7 › redirect /platforms/push-to-talk -> /radios-equipment is a 308 (48ms)
+  ✓  180 tests/e2e/routes.spec.ts:17:7 › redirect /solutions -> /solutions/security is a 308 (13ms)
+  ✓  181 tests/e2e/routes.spec.ts:17:7 › redirect /solutions/agriculture -> /solutions/security is a 308 (43ms)
+  ✓  182 tests/e2e/routes.spec.ts:17:7 › redirect /solutions/construction -> /solutions/security is a 308 (21ms)
+  ✓  172 tests/e2e/routes.spec.ts:5:7 › route /terms: 200, one h1, title, canonical (1.2s)
+  ✓  183 tests/e2e/routes.spec.ts:17:7 › redirect /solutions/logistics -> /solutions/security is a 308 (7ms)
+  ✓  184 tests/e2e/routes.spec.ts:17:7 › redirect /solutions/utilities -> /solutions/security is a 308 (16ms)
+  ✓  186 tests/e2e/routes.spec.ts:17:7 › redirect /systems -> / is a 308 (10ms)
+  ✓  185 tests/e2e/routes.spec.ts:17:7 › redirect /solutions/public-safety -> /solutions/security is a 308 (49ms)
+  ✓  188 tests/e2e/routes.spec.ts:17:7 › redirect /partners -> /contact is a 308 (5ms)
+  ✓  187 tests/e2e/routes.spec.ts:17:7 › redirect /marketplace -> /guard-marketplace is a 308 (13ms)
+  ✓  189 tests/e2e/routes.spec.ts:24:5 › removed marketplace API returns 404 (70ms)
+  ✓  191 tests/e2e/routes.spec.ts:35:5 › sitemap and robots (117ms)
+  ✓  192 tests/e2e/routes.spec.ts:49:5 › intake API validates input (60ms)
+  ✓  190 tests/e2e/routes.spec.ts:28:5 › unknown route shows the branded 404 (1.2s)
+  ✓  194 tests/e2e/seo.spec.ts:25:7 › og image for / (1.8s)
+  ✓  195 tests/e2e/seo.spec.ts:25:7 › og image for /solutions/security (1.8s)
+  ✓  196 tests/e2e/seo.spec.ts:25:7 › og image for /guard-marketplace (1.7s)
+  ✓  197 tests/e2e/seo.spec.ts:25:7 › og image for /radios-equipment (1.6s)
+  ✓  198 tests/e2e/seo.spec.ts:25:7 › og image for /guard-patrol-software (1.6s)
+  ✓  193 tests/e2e/seo.spec.ts:7:5 › titles and descriptions are unique and security-focused (10.9s)
+  ✓  199 tests/e2e/seo.spec.ts:25:7 › og image for /guard-attendance-software (2.1s)
+  ✓  200 tests/e2e/seo.spec.ts:25:7 › og image for /ptt-radio-rental (1.6s)
+  ✓  201 tests/e2e/seo.spec.ts:25:7 › og image for /pricing (1.7s)
+  ✓  202 tests/e2e/seo.spec.ts:25:7 › og image for /contact (1.3s)
+  ✓  203 tests/e2e/seo.spec.ts:25:7 › og image for /get-started (1.6s)
+  ✓  204 tests/e2e/seo.spec.ts:25:7 › og image for /guards (1.6s)
+  ✓  205 tests/e2e/seo.spec.ts:25:7 › og image for /guards/join (1.3s)
+  ✓  206 tests/e2e/seo.spec.ts:25:7 › og image for /security-trust (1.3s)
+  ✓  208 tests/e2e/seo.spec.ts:25:7 › og image for /popia (1.1s)
+  ✓  207 tests/e2e/seo.spec.ts:25:7 › og image for /privacy (1.6s)
+  ✓  209 tests/e2e/seo.spec.ts:25:7 › og image for /terms (1.3s)
+  ✓  211 tests/e2e/seo.spec.ts:53:5 › canonical host redirect is off by default (48ms)
+  ✓  210 tests/e2e/seo.spec.ts:36:5 › JSON-LD: Organization and SoftwareApplication, no ratings or reviews (1.5s)
+  ✓  212 tests/e2e/seo.spec.ts:58:5 › canonical host redirect sends railway.app hosts to the canonical domain when enabled (190ms)
+  ✓  151 tests/e2e/layout.spec.ts:22:5 › image OCR gate passes on public/images (48.9s)
+
+
+  1) tests/e2e/experience.spec.ts:145:7 › all guided-demo stages pass accessibility checks at 390 ──
+
+    [31mTest timeout of 90000ms exceeded.[39m
+
+    Error: locator.click: Test timeout of 90000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: 'Experience GUARD', exact: true })[22m
+    [2m    - locator resolved to <button type="button" class="btn btn-primary btn-lg" data-analytics-label="Hero primary" data-analytics-event="hero_product_proof">…</button>[22m
+    [2m  - attempting click action[22m
+    [2m    2 × waiting for element to be visible, enabled and stable[22m
+    [2m      - element is visible, enabled and stable[22m
+    [2m      - scrolling into view if needed[22m
+    [2m      - done scrolling[22m
+    [2m      - <img loading="lazy" decoding="async" data-nimg="fill" class="object-contain" sizes="(min-width: 1024px) 600px, 90vw" alt="Hytera PNC360S mini PoC radio, front view" src="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhytera-pnc360s.91bacfe7.webp&w=3840&q=90" srcset="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhytera-pnc360s.91bacfe7.webp&w=640&q=90 640w, /_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhytera-pnc360s.91bacfe7.webp&w=750&q=90 750w, /_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhytera-pnc3…/> from <section class="surface-white mission-section">…</section> subtree intercepts pointer events[22m
+    [2m    - retrying click action[22m
+    [2m    - waiting 20ms[22m
+    [2m    2 × waiting for element to be visible, enabled and stable[22m
+    [2m      - element is visible, enabled and stable[22m
+    [2m      - scrolling into view if needed[22m
+    [2m      - done scrolling[22m
+    [2m      - <img loading="lazy" decoding="async" data-nimg="fill" class="object-contain" sizes="(min-width: 1024px) 600px, 90vw" alt="Hytera PNC360S mini PoC radio, front view" src="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhytera-pnc360s.91bacfe7.webp&w=3840&q=90" srcset="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhytera-pnc360s.91bacfe7.webp&w=640&q=90 640w, /_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhytera-pnc360s.91bacfe7.webp&w=750&q=90 750w, /_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhytera-pnc3…/> from <section class="surface-white mission-section">…</section> subtree intercepts pointer events[22m
+    [2m    - retrying click action[22m
+    [2m      - waiting 100ms[22m
+    [2m    163 × waiting for element to be visible, enabled and stable[22m
+    [2m        - element is visible, enabled and stable[22m
+    [2m        - scrolling into view if needed[22m
+    [2m        - done scrolling[22m
+    [2m        - <img loading="lazy" decoding="async" data-nimg="fill" class="object-contain" sizes="(min-width: 1024px) 600px, 90vw" alt="Hytera PNC360S mini PoC radio, front view" src="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhytera-pnc360s.91bacfe7.webp&w=3840&q=90" srcset="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhytera-pnc360s.91bacfe7.webp&w=640&q=90 640w, /_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhytera-pnc360s.91bacfe7.webp&w=750&q=90 750w, /_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhytera-pnc3…/> from <section class="surface-white mission-section">…</section> subtree intercepts pointer events[22m
+    [2m      - retrying click action[22m
+    [2m        - waiting 500ms[22m
+
+
+      150 |     await page
+      151 |       .getByRole("button", { name: "Experience GUARD", exact: true })
+    > 152 |       .click();
+          |        ^
+      153 |     for (const name of [
+      154 |       "01 Scan",
+      155 |       "02 Record",
+        at /workspace/signal-one-site/tests/e2e/experience.spec.ts:152:8
+
+    Error Context: test-results/experience-all-guided-demo-0b728-accessibility-checks-at-390/error-context.md
+
+  2) tests/e2e/experience.spec.ts:145:7 › all guided-demo stages pass accessibility checks at 1440 ─
+
+    [31mTest timeout of 90000ms exceeded.[39m
+
+    Error: locator.click: Test timeout of 90000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: 'Experience GUARD', exact: true })[22m
+    [2m    - locator resolved to <button type="button" class="btn btn-primary btn-lg" data-analytics-label="Hero primary" data-analytics-event="hero_product_proof">…</button>[22m
+    [2m  - attempting click action[22m
+    [2m    2 × waiting for element to be visible, enabled and stable[22m
+    [2m      - element is visible, enabled and stable[22m
+    [2m      - scrolling into view if needed[22m
+    [2m      - done scrolling[22m
+    [2m      - <img loading="lazy" decoding="async" data-nimg="fill" class="object-contain" sizes="(min-width: 1024px) 600px, 90vw" alt="Hytera PNC360S mini PoC radio, front view" src="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhytera-pnc360s.91bacfe7.webp&w=3840&q=90" srcset="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhytera-pnc360s.91bacfe7.webp&w=640&q=90 640w, /_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhytera-pnc360s.91bacfe7.webp&w=750&q=90 750w, /_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhytera-pnc3…/> from <section class="surface-white mission-section">…</section> subtree intercepts pointer events[22m
+    [2m    - retrying click action[22m
+    [2m    - waiting 20ms[22m
+    [2m    2 × waiting for element to be visible, enabled and stable[22m
+    [2m      - element is visible, enabled and stable[22m
+    [2m      - scrolling into view if needed[22m
+    [2m      - done scrolling[22m
+    [2m      - <img loading="lazy" decoding="async" data-nimg="fill" class="object-contain" sizes="(min-width: 1024px) 600px, 90vw" alt="Hytera PNC360S mini PoC radio, front view" src="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhytera-pnc360s.91bacfe7.webp&w=3840&q=90" srcset="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhytera-pnc360s.91bacfe7.webp&w=640&q=90 640w, /_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhytera-pnc360s.91bacfe7.webp&w=750&q=90 750w, /_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhytera-pnc3…/> from <section class="surface-white mission-section">…</section> subtree intercepts pointer events[22m
+    [2m    - retrying click action[22m
+    [2m      - waiting 100ms[22m
+    [2m    160 × waiting for element to be visible, enabled and stable[22m
+    [2m        - element is visible, enabled and stable[22m
+    [2m        - scrolling into view if needed[22m
+    [2m        - done scrolling[22m
+    [2m        - <img loading="lazy" decoding="async" data-nimg="fill" class="object-contain" sizes="(min-width: 1024px) 600px, 90vw" alt="Hytera PNC360S mini PoC radio, front view" src="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhytera-pnc360s.91bacfe7.webp&w=3840&q=90" srcset="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhytera-pnc360s.91bacfe7.webp&w=640&q=90 640w, /_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhytera-pnc360s.91bacfe7.webp&w=750&q=90 750w, /_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhytera-pnc3…/> from <section class="surface-white mission-section">…</section> subtree intercepts pointer events[22m
+    [2m      - retrying click action[22m
+    [2m        - waiting 500ms[22m
+    [2m    - waiting for element to be visible, enabled and stable[22m
+
+
+      150 |     await page
+      151 |       .getByRole("button", { name: "Experience GUARD", exact: true })
+    > 152 |       .click();
+          |        ^
+      153 |     for (const name of [
+      154 |       "01 Scan",
+      155 |       "02 Record",
+        at /workspace/signal-one-site/tests/e2e/experience.spec.ts:152:8
+
+    Error Context: test-results/experience-all-guided-demo-184fe-ccessibility-checks-at-1440/error-context.md
+
+  3) tests/e2e/experience.spec.ts:178:5 › mobile navigation traps keyboard focus and restores the page on Escape 
+
+    [31mTest timeout of 90000ms exceeded.[39m
+
+    Error: locator.click: Test timeout of 90000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: 'Menu', exact: true })[22m
+    [2m    - locator resolved to <button type="button" aria-expanded="false" aria-controls="mobile-nav" class="flex min-h-[44px] items-center gap-2 rounded-ui border px-3.5 text-[1rem] font-semibold lg:hidden border-white/30">…</button>[22m
+    [2m  - attempting click action[22m
+    [2m    2 × waiting for element to be visible, enabled and stable[22m
+    [2m      - element is visible, enabled and stable[22m
+    [2m      - scrolling into view if needed[22m
+    [2m      - done scrolling[22m
+    [2m      - <img loading="lazy" decoding="async" data-nimg="fill" class="object-contain" sizes="(min-width: 1024px) 600px, 90vw" alt="Hytera PNC360S mini PoC radio, front view" src="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhytera-pnc360s.91bacfe7.webp&w=3840&q=90" srcset="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhytera-pnc360s.91bacfe7.webp&w=640&q=90 640w, /_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhytera-pnc360s.91bacfe7.webp&w=750&q=90 750w, /_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhytera-pnc3…/> from <main id="main">…</main> subtree intercepts pointer events[22m
+    [2m    - retrying click action[22m
+    [2m    - waiting 20ms[22m
+    [2m    2 × waiting for element to be visible, enabled and stable[22m
+    [2m      - element is visible, enabled and stable[22m
+    [2m      - scrolling into view if needed[22m
+    [2m      - done scrolling[22m
+    [2m      - <img loading="lazy" decoding="async" data-nimg="fill" class="object-contain" sizes="(min-width: 1024px) 600px, 90vw" alt="Hytera PNC360S mini PoC radio, front view" src="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhytera-pnc360s.91bacfe7.webp&w=3840&q=90" srcset="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhytera-pnc360s.91bacfe7.webp&w=640&q=90 640w, /_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhytera-pnc360s.91bacfe7.webp&w=750&q=90 750w, /_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhytera-pnc3…/> from <main id="main">…</main> subtree intercepts pointer events[22m
+    [2m    - retrying click action[22m
+    [2m      - waiting 100ms[22m
+    [2m    166 × waiting for element to be visible, enabled and stable[22m
+    [2m        - element is visible, enabled and stable[22m
+    [2m        - scrolling into view if needed[22m
+    [2m        - done scrolling[22m
+    [2m        - <img loading="lazy" decoding="async" data-nimg="fill" class="object-contain" sizes="(min-width: 1024px) 600px, 90vw" alt="Hytera PNC360S mini PoC radio, front view" src="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhytera-pnc360s.91bacfe7.webp&w=3840&q=90" srcset="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhytera-pnc360s.91bacfe7.webp&w=640&q=90 640w, /_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhytera-pnc360s.91bacfe7.webp&w=750&q=90 750w, /_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhytera-pnc3…/> from <main id="main">…</main> subtree intercepts pointer events[22m
+    [2m      - retrying click action[22m
+    [2m        - waiting 500ms[22m
+
+
+      181 |   await page.setViewportSize({ width: 390, height: 844 });
+      182 |   await page.goto("/");
+    > 183 |   await page.getByRole("button", { name: "Menu", exact: true }).click();
+          |                                                                 ^
+      184 |   await expect(page.locator("main")).toHaveAttribute("inert", "");
+      185 |   const menu = page.getByRole("navigation", { name: "Mobile", exact: true });
+      186 |   const last = menu.getByRole("link").last();
+        at /workspace/signal-one-site/tests/e2e/experience.spec.ts:183:65
+
+    Error Context: test-results/experience-mobile-navigati-49080-restores-the-page-on-Escape/error-context.md
+
+  4) tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › / ─────────────────
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 1[39m
+    [31m+ Received  + 3[39m
+
+    [32m- Array [][39m
+    [31m+ Array [[39m
+    [31m+   "hytera-pnc360s.91bacfe7.webp 1440x1000 from 539x1043 (2.67x)",[39m
+    [31m+ ][39m
+
+      44 |           return out;
+      45 |         });
+    > 46 |         expect(problems).toEqual([]);
+         |                          ^
+      47 |       });
+      48 |     }
+      49 |   });
+        at /workspace/signal-one-site/tests/e2e/image-scale.spec.ts:46:26
+
+    Error Context: test-results/image-scale-images-at-1440px-are-never-upscaled-/error-context.md
+
+  5) tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /solutions/security 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 1[39m
+    [31m+ Received  + 3[39m
+
+    [32m- Array [][39m
+    [31m+ Array [[39m
+    [31m+   "checkpoint.ac96c24d.webp 1440x1000 from 960x540 (1.50x)",[39m
+    [31m+ ][39m
+
+      44 |           return out;
+      45 |         });
+    > 46 |         expect(problems).toEqual([]);
+         |                          ^
+      47 |       });
+      48 |     }
+      49 |   });
+        at /workspace/signal-one-site/tests/e2e/image-scale.spec.ts:46:26
+
+    Error Context: test-results/image-scale-images-at-1440-9763c-upscaled-solutions-security/error-context.md
+
+  6) tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /radios-equipment ─
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 1[39m
+    [31m+ Received  + 3[39m
+
+    [32m- Array [][39m
+    [31m+ Array [[39m
+    [31m+   "hytera-pnc360s.91bacfe7.webp 1440x1000 from 539x1043 (2.67x)",[39m
+    [31m+ ][39m
+
+      44 |           return out;
+      45 |         });
+    > 46 |         expect(problems).toEqual([]);
+         |                          ^
+      47 |       });
+      48 |     }
+      49 |   });
+        at /workspace/signal-one-site/tests/e2e/image-scale.spec.ts:46:26
+
+    Error Context: test-results/image-scale-images-at-1440-972c1-r-upscaled-radios-equipment/error-context.md
+
+  7) tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /guard-patrol-software 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 1[39m
+    [31m+ Received  + 3[39m
+
+    [32m- Array [][39m
+    [31m+ Array [[39m
+    [31m+   "checkpoint.ac96c24d.webp 1440x1000 from 960x540 (1.50x)",[39m
+    [31m+ ][39m
+
+      44 |           return out;
+      45 |         });
+    > 46 |         expect(problems).toEqual([]);
+         |                          ^
+      47 |       });
+      48 |     }
+      49 |   });
+        at /workspace/signal-one-site/tests/e2e/image-scale.spec.ts:46:26
+
+    Error Context: test-results/image-scale-images-at-1440-91816-caled-guard-patrol-software/error-context.md
+
+  8) tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /join/sales ───────
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 1[39m
+    [31m+ Received  + 3[39m
+
+    [32m- Array [][39m
+    [31m+ Array [[39m
+    [31m+   "control-room-team.fc9d8cb5.webp 1440x1000 from 1170x751 (1.23x)",[39m
+    [31m+ ][39m
+
+      44 |           return out;
+      45 |         });
+    > 46 |         expect(problems).toEqual([]);
+         |                          ^
+      47 |       });
+      48 |     }
+      49 |   });
+        at /workspace/signal-one-site/tests/e2e/image-scale.spec.ts:46:26
+
+    Error Context: test-results/image-scale-images-at-1440px-are-never-upscaled-join-sales/error-context.md
+
+  9) tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › / ─────────────────
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 1[39m
+    [31m+ Received  + 3[39m
+
+    [32m- Array [][39m
+    [31m+ Array [[39m
+    [31m+   "hytera-pnc360s.91bacfe7.webp 1920x1000 from 539x1043 (3.56x)",[39m
+    [31m+ ][39m
+
+      44 |           return out;
+      45 |         });
+    > 46 |         expect(problems).toEqual([]);
+         |                          ^
+      47 |       });
+      48 |     }
+      49 |   });
+        at /workspace/signal-one-site/tests/e2e/image-scale.spec.ts:46:26
+
+    Error Context: test-results/image-scale-images-at-1920px-are-never-upscaled-/error-context.md
+
+  10) tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /solutions/security 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 1[39m
+    [31m+ Received  + 4[39m
+
+    [32m- Array [][39m
+    [31m+ Array [[39m
+    [31m+   "checkpoint.ac96c24d.webp 1920x1000 from 960x540 (2.00x)",[39m
+    [31m+   "team-briefing.22994cd3.webp 1920x1000 from 1672x731 (1.15x)",[39m
+    [31m+ ][39m
+
+      44 |           return out;
+      45 |         });
+    > 46 |         expect(problems).toEqual([]);
+         |                          ^
+      47 |       });
+      48 |     }
+      49 |   });
+        at /workspace/signal-one-site/tests/e2e/image-scale.spec.ts:46:26
+
+    Error Context: test-results/image-scale-images-at-1920-0506d-upscaled-solutions-security/error-context.md
+
+  11) tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /radios-equipment 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 1[39m
+    [31m+ Received  + 3[39m
+
+    [32m- Array [][39m
+    [31m+ Array [[39m
+    [31m+   "hytera-pnc360s.91bacfe7.webp 1920x1000 from 539x1043 (3.56x)",[39m
+    [31m+ ][39m
+
+      44 |           return out;
+      45 |         });
+    > 46 |         expect(problems).toEqual([]);
+         |                          ^
+      47 |       });
+      48 |     }
+      49 |   });
+        at /workspace/signal-one-site/tests/e2e/image-scale.spec.ts:46:26
+
+    Error Context: test-results/image-scale-images-at-1920-bc805-r-upscaled-radios-equipment/error-context.md
+
+  12) tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /guard-patrol-software 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 1[39m
+    [31m+ Received  + 3[39m
+
+    [32m- Array [][39m
+    [31m+ Array [[39m
+    [31m+   "checkpoint.ac96c24d.webp 1920x1000 from 960x540 (2.00x)",[39m
+    [31m+ ][39m
+
+      44 |           return out;
+      45 |         });
+    > 46 |         expect(problems).toEqual([]);
+         |                          ^
+      47 |       });
+      48 |     }
+      49 |   });
+        at /workspace/signal-one-site/tests/e2e/image-scale.spec.ts:46:26
+
+    Error Context: test-results/image-scale-images-at-1920-7bed7-caled-guard-patrol-software/error-context.md
+
+  13) tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /guards ──────────
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 1[39m
+    [31m+ Received  + 3[39m
+
+    [32m- Array [][39m
+    [31m+ Array [[39m
+    [31m+   "guard-site-operations.13091e81.webp 1920x1000 from 1448x1086 (1.33x)",[39m
+    [31m+ ][39m
+
+      44 |           return out;
+      45 |         });
+    > 46 |         expect(problems).toEqual([]);
+         |                          ^
+      47 |       });
+      48 |     }
+      49 |   });
+        at /workspace/signal-one-site/tests/e2e/image-scale.spec.ts:46:26
+
+    Error Context: test-results/image-scale-images-at-1920px-are-never-upscaled-guards/error-context.md
+
+  14) tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /join/sales ──────
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 1[39m
+    [31m+ Received  + 3[39m
+
+    [32m- Array [][39m
+    [31m+ Array [[39m
+    [31m+   "control-room-team.fc9d8cb5.webp 1920x1000 from 1170x751 (1.64x)",[39m
+    [31m+ ][39m
+
+      44 |           return out;
+      45 |         });
+    > 46 |         expect(problems).toEqual([]);
+         |                          ^
+      47 |       });
+      48 |     }
+      49 |   });
+        at /workspace/signal-one-site/tests/e2e/image-scale.spec.ts:46:26
+
+    Error Context: test-results/image-scale-images-at-1920px-are-never-upscaled-join-sales/error-context.md
+
+  15) tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › / ────────────────
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 1[39m
+    [31m+ Received  + 5[39m
+
+    [32m- Array [][39m
+    [31m+ Array [[39m
+    [31m+   "hero-integrated-security.6d18b774.webp 2560x1000 from 1916x821 (1.34x)",[39m
+    [31m+   "hero-integrated-security.6d18b774.webp 2560x1000 from 1916x821 (1.34x)",[39m
+    [31m+   "hytera-pnc360s.91bacfe7.webp 2560x1000 from 539x1043 (4.75x)",[39m
+    [31m+ ][39m
+
+      44 |           return out;
+      45 |         });
+    > 46 |         expect(problems).toEqual([]);
+         |                          ^
+      47 |       });
+      48 |     }
+      49 |   });
+        at /workspace/signal-one-site/tests/e2e/image-scale.spec.ts:46:26
+
+    Error Context: test-results/image-scale-images-at-2560px-are-never-upscaled-/error-context.md
+
+  16) tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /solutions/security 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 1[39m
+    [31m+ Received  + 4[39m
+
+    [32m- Array [][39m
+    [31m+ Array [[39m
+    [31m+   "checkpoint.ac96c24d.webp 2560x1000 from 960x540 (2.67x)",[39m
+    [31m+   "team-briefing.22994cd3.webp 2560x1000 from 1672x731 (1.53x)",[39m
+    [31m+ ][39m
+
+      44 |           return out;
+      45 |         });
+    > 46 |         expect(problems).toEqual([]);
+         |                          ^
+      47 |       });
+      48 |     }
+      49 |   });
+        at /workspace/signal-one-site/tests/e2e/image-scale.spec.ts:46:26
+
+    Error Context: test-results/image-scale-images-at-2560-5cee5-upscaled-solutions-security/error-context.md
+
+  17) tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /radios-equipment 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 1[39m
+    [31m+ Received  + 3[39m
+
+    [32m- Array [][39m
+    [31m+ Array [[39m
+    [31m+   "hytera-pnc360s.91bacfe7.webp 2560x1000 from 539x1043 (4.75x)",[39m
+    [31m+ ][39m
+
+      44 |           return out;
+      45 |         });
+    > 46 |         expect(problems).toEqual([]);
+         |                          ^
+      47 |       });
+      48 |     }
+      49 |   });
+        at /workspace/signal-one-site/tests/e2e/image-scale.spec.ts:46:26
+
+    Error Context: test-results/image-scale-images-at-2560-d9f9b-r-upscaled-radios-equipment/error-context.md
+
+  18) tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /guard-patrol-software 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 1[39m
+    [31m+ Received  + 3[39m
+
+    [32m- Array [][39m
+    [31m+ Array [[39m
+    [31m+   "checkpoint.ac96c24d.webp 2560x1000 from 960x540 (2.67x)",[39m
+    [31m+ ][39m
+
+      44 |           return out;
+      45 |         });
+    > 46 |         expect(problems).toEqual([]);
+         |                          ^
+      47 |       });
+      48 |     }
+      49 |   });
+        at /workspace/signal-one-site/tests/e2e/image-scale.spec.ts:46:26
+
+    Error Context: test-results/image-scale-images-at-2560-dde06-caled-guard-patrol-software/error-context.md
+
+  19) tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /guards ──────────
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 1[39m
+    [31m+ Received  + 3[39m
+
+    [32m- Array [][39m
+    [31m+ Array [[39m
+    [31m+   "guard-site-operations.13091e81.webp 2560x1000 from 1448x1086 (1.77x)",[39m
+    [31m+ ][39m
+
+      44 |           return out;
+      45 |         });
+    > 46 |         expect(problems).toEqual([]);
+         |                          ^
+      47 |       });
+      48 |     }
+      49 |   });
+        at /workspace/signal-one-site/tests/e2e/image-scale.spec.ts:46:26
+
+    Error Context: test-results/image-scale-images-at-2560px-are-never-upscaled-guards/error-context.md
+
+  20) tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /join/sales ──────
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 1[39m
+    [31m+ Received  + 3[39m
+
+    [32m- Array [][39m
+    [31m+ Array [[39m
+    [31m+   "control-room-team.fc9d8cb5.webp 2560x1000 from 1170x751 (2.19x)",[39m
+    [31m+ ][39m
+
+      44 |           return out;
+      45 |         });
+    > 46 |         expect(problems).toEqual([]);
+         |                          ^
+      47 |       });
+      48 |     }
+      49 |   });
+        at /workspace/signal-one-site/tests/e2e/image-scale.spec.ts:46:26
+
+    Error Context: test-results/image-scale-images-at-2560px-are-never-upscaled-join-sales/error-context.md
+
+  20 failed
+    tests/e2e/experience.spec.ts:145:7 › all guided-demo stages pass accessibility checks at 390 ───
+    tests/e2e/experience.spec.ts:145:7 › all guided-demo stages pass accessibility checks at 1440 ──
+    tests/e2e/experience.spec.ts:178:5 › mobile navigation traps keyboard focus and restores the page on Escape 
+    tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › / ──────────────────
+    tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /solutions/security 
+    tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /radios-equipment ──
+    tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /guard-patrol-software 
+    tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /join/sales ────────
+    tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › / ──────────────────
+    tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /solutions/security 
+    tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /radios-equipment ──
+    tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /guard-patrol-software 
+    tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /guards ────────────
+    tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /join/sales ────────
+    tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › / ──────────────────
+    tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /solutions/security 
+    tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /radios-equipment ──
+    tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /guard-patrol-software 
+    tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /guards ────────────
+    tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /join/sales ────────
+  192 passed (6.4m)
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice

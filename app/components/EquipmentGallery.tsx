@@ -1,7 +1,6 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
+import EquipmentFeature from "./EquipmentFeature";
 import { useState } from "react";
 import { catalogue } from "../lib/catalogue";
 
@@ -68,66 +67,11 @@ export default function EquipmentGallery({
           ))}
         </div>
       )}
-      <div className="equipment-feature">
-        <div className="equipment-display">
-          <p className="equipment-maker">
-            {product.manufacturer}
-            <span>{product.type}</span>
-          </p>
-          <span aria-hidden="true" className="equipment-model-backdrop">
-            {product.model.replace("Hytera ", "")}
-          </span>
-          <div key={product.model} className="equipment-cutout">
-            <Image
-              src={product.image!.src}
-              alt={product.image!.alt}
-              fill
-              sizes="(min-width: 1024px) 600px, 90vw"
-              quality={90}
-              className="object-contain"
-            />
-          </div>
-          <div className="equipment-display-bottom">
-            <span>Manufacturer product image</span>
-            <span>
-              {String(index + 1).padStart(2, "0")} /{" "}
-              {String(products.length).padStart(2, "0")}
-            </span>
-          </div>
-        </div>
-        <div className="equipment-detail">
-          <p className="t-kicker text-signal-ink">For the field · by quote</p>
-          <h3 key={product.model}>{product.model}</h3>
-          <p className="t-lead text-text-2">{product.role}</p>
-          <p className="t-body text-text-2 mt-5">{product.detail}</p>
-          <dl>
-            <div>
-              <dt>Deployment</dt>
-              <dd>Specified for your sites</dd>
-            </div>
-            <div>
-              <dt>Commercial terms</dt>
-              <dd>
-                {product.categoryId === "radios"
-                  ? "12, 24 or 36-month rental"
-                  : "Confirmed in your quote"}
-              </dd>
-            </div>
-            <div>
-              <dt>GUARD integration</dt>
-              <dd>Device activation and tracking coming soon</dd>
-            </div>
-          </dl>
-          <Link
-            href={
-              "/radios-equipment?model=" +
-              encodeURIComponent(product.model) +
-              "#quote"
-            }
-            className="btn btn-primary"
-          >
-            Enquire about this model <span aria-hidden="true">→</span>
-          </Link>
+      <EquipmentFeature
+        product={product}
+        index={index}
+        total={products.length}
+        controls={
           <div className="equipment-arrows">
             <button
               type="button"
@@ -146,8 +90,8 @@ export default function EquipmentGallery({
               →
             </button>
           </div>
-        </div>
-      </div>
+        }
+      />
       <div className="equipment-selector" aria-label="Choose equipment model">
         {products.map((item) => (
           <button

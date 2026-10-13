@@ -1,0 +1,91 @@
+
+> signal-one-site@0.1.0 prebuild
+> npm run check:branding
+
+
+> signal-one-site@0.1.0 check:branding
+> node scripts/check-branding.mjs
+
+Signal One public-truth check passed (source).
+
+> signal-one-site@0.1.0 build
+> next build
+
+▲ Next.js 16.1.0 (Turbopack)
+
+  Creating an optimized production build ...
+Browserslist: browsers data (caniuse-lite) is 10 months old. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+✓ Compiled successfully in 7.2s
+  Running TypeScript ...
+  Collecting page data using 2 workers ...
+  Generating static pages using 2 workers (0/40) ...
+  Generating static pages using 2 workers (10/40) 
+  Generating static pages using 2 workers (20/40) 
+  Generating static pages using 2 workers (30/40) 
+✓ Generating static pages using 2 workers (40/40) in 1691.9ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /api/intake
+├ ○ /apple-icon.png
+├ ○ /contact
+├ ○ /contact/opengraph-image
+├ ○ /get-started
+├ ○ /get-started/opengraph-image
+├ ○ /guard-attendance-software
+├ ○ /guard-attendance-software/opengraph-image
+├ ○ /guard-marketplace
+├ ○ /guard-marketplace/opengraph-image
+├ ○ /guard-patrol-software
+├ ○ /guard-patrol-software/opengraph-image
+├ ○ /guards
+├ ○ /guards/join
+├ ○ /guards/join/opengraph-image
+├ ○ /guards/opengraph-image
+├ ○ /icon.png
+├ ƒ /join/sales
+├ ○ /opengraph-image
+├ ○ /popia
+├ ○ /popia/opengraph-image
+├ ○ /pricing
+├ ○ /pricing/opengraph-image
+├ ○ /privacy
+├ ○ /privacy/opengraph-image
+├ ○ /ptt-radio-rental
+├ ○ /ptt-radio-rental/opengraph-image
+├ ƒ /radios-equipment
+├ ○ /radios-equipment/opengraph-image
+├ ○ /robots.txt
+├ ○ /security-trust
+├ ○ /security-trust/opengraph-image
+├ ○ /sitemap.xml
+├ ○ /solutions/security
+├ ○ /solutions/security/opengraph-image
+├ ○ /terms
+└ ○ /terms/opengraph-image
+
+
+ƒ Proxy (Middleware)
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+
+> signal-one-site@0.1.0 postbuild
+> npm run check:built
+
+
+> signal-one-site@0.1.0 check:built
+> node scripts/check-branding.mjs --built
+
+Scanned 195 rendered files.
+Signal One public-truth check passed (source + rendered output).
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice

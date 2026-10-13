@@ -118,7 +118,8 @@ export default function BusinessJourney({
             alt={chapter.photo.alt}
             fill
             sizes="(min-width: 1024px) 600px, 100vw"
-            quality={90}
+            quality={active === 0 ? 80 : 90}
+            fetchPriority="low"
             className="object-cover"
           />
           <p>{illustrativeCaption}</p>
@@ -132,7 +133,12 @@ export default function BusinessJourney({
           <p className="t-small text-text-2 mt-5">{chapter.question}</p>
           <h3>{chapter.title}</h3>
           <p className="t-body mt-5 text-text-2">{chapter.body}</p>
-          <Link href={chapter.href} className="link-arrow text-signal-ink mt-7">
+          <Link
+            prefetch={false}
+            data-route-intent=""
+            href={chapter.href}
+            className="link-arrow text-signal-ink mt-7"
+          >
             {chapter.cta} <span aria-hidden="true">→</span>
           </Link>
         </div>

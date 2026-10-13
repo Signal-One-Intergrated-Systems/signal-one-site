@@ -108,6 +108,7 @@ test.describe("reduced motion and mobile touch", () => {
     page,
   }) => {
     await page.goto("/radios-equipment");
+    await page.locator(".deferred-equipment").scrollIntoViewIfNeeded();
     await page.getByRole("button", { name: "Tracking", exact: true }).tap();
     await page.getByRole("button", { name: "Teltonika FMB920" }).tap();
     await page.getByRole("link", { name: "Enquire about this model" }).tap();
@@ -132,12 +133,14 @@ for (const width of [320, 360, 390, 430, 768, 1024, 1440, 1920, 2560]) {
     const box = await page.getByRole("dialog").boundingBox();
     expect(box!.width).toBeLessThanOrEqual(width);
     await page.keyboard.press("Escape");
-    await page.goto("/radios-equipment");
-    expect(
-      await page.evaluate(
-        () => document.documentElement.scrollWidth <= innerWidth,
-      ),
-    ).toBe(true);
+    for (const route of ["/radios-equipment", "/pricing"]) {
+      await page.goto(route);
+      expect(
+        await page.evaluate(
+          () => document.documentElement.scrollWidth <= innerWidth,
+        ),
+      ).toBe(true);
+    }
   });
 }
 
@@ -157,7 +160,10 @@ for (const width of [390, 1440]) {
       "04 Respond",
       "05 Prove",
     ]) {
-      await page.getByRole("tab", { name, exact: true }).click();
+      await page
+        .getByRole("dialog")
+        .getByRole("tab", { name, exact: true })
+        .click();
       const results = await new AxeBuilder({
         page: page as unknown as ConstructorParameters<
           typeof AxeBuilder
@@ -194,4 +200,13 @@ test("mobile navigation traps keyboard focus and restores the page on Escape", a
     page.getByRole("button", { name: "Menu", exact: true }),
   ).toBeFocused();
   await expect(page.locator("main")).not.toHaveAttribute("inert", "");
+});
+
+test('equipment has a genuine presentation and quotation links without JavaScript', async ({ browser }) => {
+  const context = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
+  const page = await context.newPage();
+  await page.goto('http://localhost:3100/radios-equipment');
+  await expect(page.locator('.deferred-equipment').getByRole('heading', { name: 'Hytera PNC360S' })).toBeVisible();
+  await expect(page.locator('.deferred-equipment').getByRole('link', { name: 'Enquire about this model' })).toHaveAttribute('href', '/radios-equipment?model=Hytera%20PNC360S#quote');
+  await context.close();
 });

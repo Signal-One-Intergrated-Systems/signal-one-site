@@ -1,0 +1,320 @@
+[2m[WebServer] [22m(node:14871) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:14880) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:14893) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:14908) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:14921) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:14936) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:14949) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 212 tests using 3 workers
+
+(node:14964) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:14963) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:14970) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:14964) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:14963) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:14970) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓    1 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /guard-marketplace (4.5s)
+  ✓    2 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /solutions/security (5.7s)
+  ✓    3 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › / (5.5s)
+  ✓    6 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /guard-attendance-software (4.9s)
+  ✓    5 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /guard-patrol-software (5.1s)
+  ✓    4 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /radios-equipment (6.2s)
+  ✓    9 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /contact (3.9s)
+  ✓    7 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /ptt-radio-rental (4.2s)
+  ✓    8 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /pricing (4.5s)
+  ✓   10 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /get-started (4.2s)
+  ✓   12 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /guards/join (4.1s)
+  ✓   11 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /guards (4.7s)
+  ✓   15 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /privacy (3.6s)
+  ✓   14 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /security-trust (3.9s)
+  ✓   13 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /join/sales (4.6s)
+  ✓   17 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /terms (4.5s)
+  ✓   16 tests/e2e/a11y.spec.ts:9:11 › axe at 390px › /popia (4.8s)
+  ✓   18 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › / (7.3s)
+  ✓   20 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /guard-marketplace (6.1s)
+  ✓   19 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /solutions/security (6.5s)
+  ✓   21 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /radios-equipment (6.5s)
+  ✓   23 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /guard-attendance-software (5.2s)
+  ✓   22 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /guard-patrol-software (6.2s)
+  ✓   24 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /ptt-radio-rental (5.5s)
+  ✓   25 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /pricing (5.8s)
+  ✓   26 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /contact (5.6s)
+  ✓   27 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /get-started (4.5s)
+  ✓   29 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /guards/join (5.0s)
+  ✓   28 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /guards (6.0s)
+  ✓   30 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /join/sales (7.7s)
+  ✓   31 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /security-trust (5.8s)
+  ✓   32 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /privacy (5.9s)
+  ✓   33 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /popia (4.5s)
+  ✓   35 tests/e2e/analytics.spec.ts:33:5 › hero buttons fire hero_product_proof and hero_pricing (4.8s)
+  ✓   34 tests/e2e/a11y.spec.ts:9:11 › axe at 1440px › /terms (5.6s)
+  ✓   36 tests/e2e/analytics.spec.ts:43:5 › pricing closing fires buy_guard_days (3.2s)
+  ✓   37 tests/e2e/analytics.spec.ts:50:5 › calculator fires guard_pricing_interaction (2.0s)
+  ✓   39 tests/e2e/analytics.spec.ts:66:5 › marketplace interest fires marketplace_interest (5.6s)
+  ✓   38 tests/e2e/analytics.spec.ts:57:5 › contact fires consultation_start and consultation_complete (5.8s)
+  ✓   40 tests/e2e/analytics.spec.ts:75:5 › equipment quote fires start and complete (6.2s)
+  ✓   41 tests/e2e/analytics.spec.ts:84:5 › client onboarding fires start and complete (9.8s)
+  ✓   44 tests/e2e/analytics.spec.ts:109:5 › the event vocabulary has exactly 14 names (2ms)
+  ✓   45 tests/e2e/experience.spec.ts:4:5 › hero opens a real modal, keeps keyboard focus inside and restores it on Escape (2.2s)
+  ✓   42 tests/e2e/analytics.spec.ts:92:5 › guard join fires start and complete (13.7s)
+  ✓   43 tests/e2e/analytics.spec.ts:101:5 › sales application fires start and complete (12.8s)
+  ✓   46 tests/e2e/experience.spec.ts:29:5 › QR/NFC interaction advances to recorded evidence and tabs support arrow keys (3.3s)
+  ✓   48 tests/e2e/experience.spec.ts:87:7 › reduced motion and mobile touch › manual workflow stays usable without autoplay or animations (2.5s)
+  ✓   47 tests/e2e/experience.spec.ts:57:5 › SOS cannot be acknowledged without signal; restoring signal restarts the example (4.1s)
+  ✓   49 tests/e2e/experience.spec.ts:107:7 › reduced motion and mobile touch › equipment model selection reaches the correctly prefilled quote (3.1s)
+  ✓   50 tests/e2e/experience.spec.ts:119:7 › guided demo and equipment remain contained at 320 (3.6s)
+  ✓   51 tests/e2e/experience.spec.ts:119:7 › guided demo and equipment remain contained at 360 (3.5s)
+  ✓   52 tests/e2e/experience.spec.ts:119:7 › guided demo and equipment remain contained at 390 (3.1s)
+  ✓   53 tests/e2e/experience.spec.ts:119:7 › guided demo and equipment remain contained at 430 (3.5s)
+  ✓   54 tests/e2e/experience.spec.ts:119:7 › guided demo and equipment remain contained at 768 (3.9s)
+  ✓   55 tests/e2e/experience.spec.ts:119:7 › guided demo and equipment remain contained at 1024 (4.4s)
+  ✓   56 tests/e2e/experience.spec.ts:119:7 › guided demo and equipment remain contained at 1440 (4.7s)
+  ✓   57 tests/e2e/experience.spec.ts:119:7 › guided demo and equipment remain contained at 1920 (4.0s)
+  ✓   58 tests/e2e/experience.spec.ts:119:7 › guided demo and equipment remain contained at 2560 (4.5s)
+  ✓   61 tests/e2e/experience.spec.ts:178:5 › mobile navigation traps keyboard focus and restores the page on Escape (3.1s)
+  ✓   62 tests/e2e/forms.spec.ts:57:7 › 503 fallback: contact (3.4s)
+  ✘   59 tests/e2e/experience.spec.ts:145:7 › all guided-demo stages pass accessibility checks at 390 (8.5s)
+  ✘   60 tests/e2e/experience.spec.ts:145:7 › all guided-demo stages pass accessibility checks at 1440 (8.9s)
+(node:18537) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:18549) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:18537) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:18549) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   63 tests/e2e/forms.spec.ts:70:7 › success with mocked upstream: contact (3.8s)
+  ✓   66 tests/e2e/forms.spec.ts:57:7 › 503 fallback: equipment quote: Radios and PTT (5.1s)
+  ✓   65 tests/e2e/forms.spec.ts:70:7 › success with mocked upstream: marketplace interest (5.6s)
+  ✓   64 tests/e2e/forms.spec.ts:57:7 › 503 fallback: marketplace interest (5.8s)
+  ✓   67 tests/e2e/forms.spec.ts:70:7 › success with mocked upstream: equipment quote: Radios and PTT (6.3s)
+  ✓   69 tests/e2e/forms.spec.ts:70:7 › success with mocked upstream: equipment quote: Tracking (6.3s)
+  ✓   68 tests/e2e/forms.spec.ts:57:7 › 503 fallback: equipment quote: Tracking (7.7s)
+  ✓   70 tests/e2e/forms.spec.ts:57:7 › 503 fallback: equipment quote: Body cameras (5.5s)
+  ✓   71 tests/e2e/forms.spec.ts:70:7 › success with mocked upstream: equipment quote: Body cameras (6.3s)
+  ✓   72 tests/e2e/forms.spec.ts:57:7 › 503 fallback: client onboarding (10.4s)
+  ✓   73 tests/e2e/forms.spec.ts:70:7 › success with mocked upstream: client onboarding (10.0s)
+  ✓   74 tests/e2e/forms.spec.ts:57:7 › 503 fallback: guard join (13.6s)
+  ✓   75 tests/e2e/forms.spec.ts:70:7 › success with mocked upstream: guard join (11.6s)
+  ✓   78 tests/e2e/guard-status.spec.ts:19:5 › GUARD_STATUS unset: Guard capabilities are Pilot, never Live (200ms)
+  ✓   79 tests/e2e/guard-status.spec.ts:30:5 › acquisition links stay hidden until their URLs are configured (362ms)
+  ✓   76 tests/e2e/forms.spec.ts:57:7 › 503 fallback: sales application (10.8s)
+  ✓   81 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › / (1.8s)
+  ✓   82 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /solutions/security (1.9s)
+  ✓   83 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /guard-marketplace (1.5s)
+  ✓   77 tests/e2e/forms.spec.ts:70:7 › success with mocked upstream: sales application (10.8s)
+  ✓   84 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /radios-equipment (2.3s)
+  ✓   85 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /guard-patrol-software (2.5s)
+  ✓   86 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /guard-attendance-software (2.4s)
+  ✓   87 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /ptt-radio-rental (2.1s)
+  ✓   89 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /contact (2.2s)
+  ✓   88 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /pricing (2.3s)
+  ✓   90 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /get-started (1.7s)
+  ✓   91 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /guards (2.2s)
+  ✓   92 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /guards/join (2.2s)
+  ✓   93 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /join/sales (1.9s)
+  ✓   94 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /security-trust (1.5s)
+  ✓   95 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /privacy (1.7s)
+  ✓   96 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /popia (1.8s)
+  ✓   97 tests/e2e/image-scale.spec.ts:11:11 › images at 1440px are never upscaled › /terms (1.6s)
+  ✓   98 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › / (1.9s)
+  ✓   99 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /solutions/security (2.5s)
+  ✓  100 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /guard-marketplace (1.6s)
+  ✓  101 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /radios-equipment (2.4s)
+  ✓  102 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /guard-patrol-software (2.6s)
+  ✓  103 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /guard-attendance-software (1.8s)
+  ✓  104 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /ptt-radio-rental (2.0s)
+  ✓  105 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /pricing (2.5s)
+  ✓  106 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /contact (2.9s)
+  ✓  107 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /get-started (1.9s)
+  ✓  109 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /guards/join (1.6s)
+  ✓  108 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /guards (2.2s)
+  ✓  111 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /security-trust (1.8s)
+  ✓  110 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /join/sales (2.2s)
+  ✓  113 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /popia (1.5s)
+  ✓  112 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /privacy (2.1s)
+  ✓  114 tests/e2e/image-scale.spec.ts:11:11 › images at 1920px are never upscaled › /terms (1.6s)
+  ✓  115 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › / (2.3s)
+  ✓  116 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /solutions/security (2.3s)
+  ✓  117 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /guard-marketplace (2.5s)
+  ✓  118 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /radios-equipment (2.5s)
+  ✓  119 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /guard-patrol-software (2.1s)
+  ✓  120 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /guard-attendance-software (2.0s)
+  ✓  121 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /ptt-radio-rental (2.1s)
+  ✓  122 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /pricing (1.8s)
+  ✓  123 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /contact (1.7s)
+  ✓  124 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /get-started (1.9s)
+  ✓  125 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /guards (1.9s)
+  ✓  126 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /guards/join (1.4s)
+  ✓  127 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /join/sales (2.0s)
+  ✓  128 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /security-trust (1.5s)
+  ✓  129 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /privacy (2.2s)
+  ✓  130 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /popia (2.5s)
+  ✓  131 tests/e2e/image-scale.spec.ts:11:11 › images at 2560px are never upscaled › /terms (1.9s)
+  ✓  132 tests/e2e/layout.spec.ts:8:9 › no horizontal scroll at 390px › / (2.0s)
+  ✓  133 tests/e2e/layout.spec.ts:8:9 › no horizontal scroll at 390px › /solutions/security (2.3s)
+  ✓  134 tests/e2e/layout.spec.ts:8:9 › no horizontal scroll at 390px › /guard-marketplace (2.2s)
+  ✓  135 tests/e2e/layout.spec.ts:8:9 › no horizontal scroll at 390px › /radios-equipment (2.5s)
+  ✓  136 tests/e2e/layout.spec.ts:8:9 › no horizontal scroll at 390px › /guard-patrol-software (2.4s)
+  ✓  137 tests/e2e/layout.spec.ts:8:9 › no horizontal scroll at 390px › /guard-attendance-software (1.9s)
+  ✓  138 tests/e2e/layout.spec.ts:8:9 › no horizontal scroll at 390px › /ptt-radio-rental (1.6s)
+  ✓  140 tests/e2e/layout.spec.ts:8:9 › no horizontal scroll at 390px › /contact (1.4s)
+  ✓  139 tests/e2e/layout.spec.ts:8:9 › no horizontal scroll at 390px › /pricing (2.2s)
+  ✓  142 tests/e2e/layout.spec.ts:8:9 › no horizontal scroll at 390px › /guards (1.2s)
+  ✓  141 tests/e2e/layout.spec.ts:8:9 › no horizontal scroll at 390px › /get-started (1.7s)
+  ✓  143 tests/e2e/layout.spec.ts:8:9 › no horizontal scroll at 390px › /guards/join (2.1s)
+  ✓  144 tests/e2e/layout.spec.ts:8:9 › no horizontal scroll at 390px › /join/sales (2.0s)
+  ✓  145 tests/e2e/layout.spec.ts:8:9 › no horizontal scroll at 390px › /security-trust (1.7s)
+  ✓  146 tests/e2e/layout.spec.ts:8:9 › no horizontal scroll at 390px › /privacy (1.9s)
+  ✓  148 tests/e2e/layout.spec.ts:8:9 › no horizontal scroll at 390px › /terms (1.7s)
+  ✓  147 tests/e2e/layout.spec.ts:8:9 › no horizontal scroll at 390px › /popia (1.9s)
+  ✓  149 tests/e2e/layout.spec.ts:17:5 › branding check passes on rendered HTML (264ms)
+  ✓  151 tests/e2e/layout.spec.ts:28:5 › rendered pages never show forbidden wording (388ms)
+  ✓  152 tests/e2e/layout.spec.ts:37:5 › SOS is never described as offline or queued (407ms)
+  ✓  153 tests/e2e/pricing.spec.ts:22:5 › every rendered guard-day price comes from lib/pricing.ts (616ms)
+  ✓  154 tests/e2e/pricing.spec.ts:35:5 › JSON-LD and pricing OG use the same price (57ms)
+  ✓  155 tests/e2e/routes.spec.ts:5:7 › route /: 200, one h1, title, canonical (1.5s)
+  ✓  156 tests/e2e/routes.spec.ts:5:7 › route /solutions/security: 200, one h1, title, canonical (1.6s)
+  ✓  157 tests/e2e/routes.spec.ts:5:7 › route /guard-marketplace: 200, one h1, title, canonical (1.0s)
+  ✓  158 tests/e2e/routes.spec.ts:5:7 › route /radios-equipment: 200, one h1, title, canonical (2.1s)
+  ✓  159 tests/e2e/routes.spec.ts:5:7 › route /guard-patrol-software: 200, one h1, title, canonical (2.0s)
+  ✓  160 tests/e2e/routes.spec.ts:5:7 › route /guard-attendance-software: 200, one h1, title, canonical (1.2s)
+  ✓  161 tests/e2e/routes.spec.ts:5:7 › route /ptt-radio-rental: 200, one h1, title, canonical (982ms)
+  ✓  162 tests/e2e/routes.spec.ts:5:7 › route /pricing: 200, one h1, title, canonical (1.3s)
+  ✓  163 tests/e2e/routes.spec.ts:5:7 › route /contact: 200, one h1, title, canonical (1.4s)
+  ✓   80 tests/e2e/guard-status.spec.ts:85:7 › GUARD_STATUS=live › configured store and Sales OS URLs render as links (513ms)
+  ✓  164 tests/e2e/routes.spec.ts:5:7 › route /get-started: 200, one h1, title, canonical (1.7s)
+  ✓  165 tests/e2e/guard-status.spec.ts:95:7 › GUARD_STATUS=live › renders Live pills and Already live, without the pilot line (1.8s)
+  ✓  166 tests/e2e/routes.spec.ts:5:7 › route /guards: 200, one h1, title, canonical (1.5s)
+  ✓  167 tests/e2e/routes.spec.ts:5:7 › route /guards/join: 200, one h1, title, canonical (1.8s)
+  ✓  168 tests/e2e/routes.spec.ts:5:7 › route /join/sales: 200, one h1, title, canonical (1.9s)
+  ✓  169 tests/e2e/routes.spec.ts:5:7 › route /security-trust: 200, one h1, title, canonical (1.6s)
+  ✓  170 tests/e2e/routes.spec.ts:5:7 › route /privacy: 200, one h1, title, canonical (1.8s)
+  ✓  171 tests/e2e/routes.spec.ts:5:7 › route /popia: 200, one h1, title, canonical (1.7s)
+  ✓  173 tests/e2e/routes.spec.ts:17:7 › redirect /connectivity -> /radios-equipment is a 308 (21ms)
+  ✓  174 tests/e2e/routes.spec.ts:17:7 › redirect /connectivity/anything/else -> /radios-equipment is a 308 (68ms)
+  ✓  175 tests/e2e/routes.spec.ts:17:7 › redirect /devices -> /radios-equipment is a 308 (27ms)
+  ✓  176 tests/e2e/routes.spec.ts:17:7 › redirect /devices/abc -> /radios-equipment is a 308 (22ms)
+  ✓  177 tests/e2e/routes.spec.ts:17:7 › redirect /platforms -> / is a 308 (47ms)
+  ✓  178 tests/e2e/routes.spec.ts:17:7 › redirect /platforms/aiot-management -> / is a 308 (13ms)
+  ✓  179 tests/e2e/routes.spec.ts:17:7 › redirect /platforms/push-to-talk -> /radios-equipment is a 308 (17ms)
+  ✓  180 tests/e2e/routes.spec.ts:17:7 › redirect /solutions -> /solutions/security is a 308 (23ms)
+  ✓  172 tests/e2e/routes.spec.ts:5:7 › route /terms: 200, one h1, title, canonical (1.2s)
+  ✓  181 tests/e2e/routes.spec.ts:17:7 › redirect /solutions/agriculture -> /solutions/security is a 308 (65ms)
+  ✓  182 tests/e2e/routes.spec.ts:17:7 › redirect /solutions/construction -> /solutions/security is a 308 (17ms)
+  ✓  184 tests/e2e/routes.spec.ts:17:7 › redirect /solutions/public-safety -> /solutions/security is a 308 (12ms)
+  ✓  183 tests/e2e/routes.spec.ts:17:7 › redirect /solutions/logistics -> /solutions/security is a 308 (19ms)
+  ✓  185 tests/e2e/routes.spec.ts:17:7 › redirect /solutions/utilities -> /solutions/security is a 308 (12ms)
+  ✓  186 tests/e2e/routes.spec.ts:17:7 › redirect /systems -> / is a 308 (9ms)
+  ✓  187 tests/e2e/routes.spec.ts:17:7 › redirect /marketplace -> /guard-marketplace is a 308 (11ms)
+  ✓  189 tests/e2e/routes.spec.ts:24:5 › removed marketplace API returns 404 (29ms)
+  ✓  188 tests/e2e/routes.spec.ts:17:7 › redirect /partners -> /contact is a 308 (59ms)
+  ✓  190 tests/e2e/routes.spec.ts:35:5 › sitemap and robots (156ms)
+  ✓  192 tests/e2e/routes.spec.ts:49:5 › intake API validates input (79ms)
+  ✓  191 tests/e2e/routes.spec.ts:28:5 › unknown route shows the branded 404 (1.6s)
+  ✓  194 tests/e2e/seo.spec.ts:25:7 › og image for / (2.2s)
+  ✓  195 tests/e2e/seo.spec.ts:25:7 › og image for /solutions/security (1.6s)
+  ✓  196 tests/e2e/seo.spec.ts:25:7 › og image for /guard-marketplace (1.5s)
+  ✓  197 tests/e2e/seo.spec.ts:25:7 › og image for /radios-equipment (2.0s)
+  ✓  198 tests/e2e/seo.spec.ts:25:7 › og image for /guard-patrol-software (1.5s)
+  ✓  193 tests/e2e/seo.spec.ts:7:5 › titles and descriptions are unique and security-focused (11.5s)
+  ✓  199 tests/e2e/seo.spec.ts:25:7 › og image for /guard-attendance-software (1.9s)
+  ✓  200 tests/e2e/seo.spec.ts:25:7 › og image for /ptt-radio-rental (1.8s)
+  ✓  201 tests/e2e/seo.spec.ts:25:7 › og image for /pricing (1.6s)
+  ✓  202 tests/e2e/seo.spec.ts:25:7 › og image for /contact (1.9s)
+  ✓  203 tests/e2e/seo.spec.ts:25:7 › og image for /get-started (1.6s)
+  ✓  204 tests/e2e/seo.spec.ts:25:7 › og image for /guards (1.5s)
+  ✓  205 tests/e2e/seo.spec.ts:25:7 › og image for /guards/join (1.5s)
+  ✓  206 tests/e2e/seo.spec.ts:25:7 › og image for /security-trust (1.3s)
+  ✓  207 tests/e2e/seo.spec.ts:25:7 › og image for /privacy (1.6s)
+  ✓  208 tests/e2e/seo.spec.ts:25:7 › og image for /popia (2.0s)
+  ✓  209 tests/e2e/seo.spec.ts:25:7 › og image for /terms (1.7s)
+  ✓  211 tests/e2e/seo.spec.ts:53:5 › canonical host redirect is off by default (98ms)
+  ✓  212 tests/e2e/seo.spec.ts:58:5 › canonical host redirect sends railway.app hosts to the canonical domain when enabled (486ms)
+  ✓  210 tests/e2e/seo.spec.ts:36:5 › JSON-LD: Organization and SoftwareApplication, no ratings or reviews (1.7s)
+  ✓  150 tests/e2e/layout.spec.ts:22:5 › image OCR gate passes on public/images (1.1m)
+
+
+  1) tests/e2e/experience.spec.ts:145:7 › all guided-demo stages pass accessibility checks at 390 ──
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  -  1[39m
+    [31m+ Received  + 10[39m
+
+    [32m- Array [][39m
+    [31m+ Array [[39m
+    [31m+   Object {[39m
+    [31m+     "id": "definition-list",[39m
+    [31m+     "targets": Array [[39m
+    [31m+       Array [[39m
+    [31m+         ".ops-evidence-sheet > dl",[39m
+    [31m+       ],[39m
+    [31m+     ],[39m
+    [31m+   },[39m
+    [31m+ ][39m
+
+      171 |           targets: item.nodes.map((node) => node.target),
+      172 |         })),
+    > 173 |       ).toEqual([]);
+          |         ^
+      174 |     }
+      175 |   });
+      176 | }
+        at /workspace/signal-one-site/tests/e2e/experience.spec.ts:173:9
+
+    Error Context: test-results/experience-all-guided-demo-0b728-accessibility-checks-at-390/error-context.md
+
+  2) tests/e2e/experience.spec.ts:145:7 › all guided-demo stages pass accessibility checks at 1440 ─
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  -  1[39m
+    [31m+ Received  + 10[39m
+
+    [32m- Array [][39m
+    [31m+ Array [[39m
+    [31m+   Object {[39m
+    [31m+     "id": "definition-list",[39m
+    [31m+     "targets": Array [[39m
+    [31m+       Array [[39m
+    [31m+         ".ops-evidence-sheet > dl",[39m
+    [31m+       ],[39m
+    [31m+     ],[39m
+    [31m+   },[39m
+    [31m+ ][39m
+
+      171 |           targets: item.nodes.map((node) => node.target),
+      172 |         })),
+    > 173 |       ).toEqual([]);
+          |         ^
+      174 |     }
+      175 |   });
+      176 | }
+        at /workspace/signal-one-site/tests/e2e/experience.spec.ts:173:9
+
+    Error Context: test-results/experience-all-guided-demo-184fe-ccessibility-checks-at-1440/error-context.md
+
+  2 failed
+    tests/e2e/experience.spec.ts:145:7 › all guided-demo stages pass accessibility checks at 390 ───
+    tests/e2e/experience.spec.ts:145:7 › all guided-demo stages pass accessibility checks at 1440 ──
+  210 passed (4.8m)
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice
