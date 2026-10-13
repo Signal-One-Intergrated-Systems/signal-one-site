@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { catalogue } from "../lib/catalogue";
 import EquipmentFeature from "./EquipmentFeature";
@@ -49,6 +50,15 @@ export default function EquipmentShowcase({
                 "#quote"
               }
             >
+              <Image
+                className="equipment-thumbnail"
+                src={product.image!.src}
+                alt=""
+                width={48}
+                height={48}
+                sizes="48px"
+                quality={90}
+              />
               <span>{product.manufacturer}</span>
               {product.model}
               <span aria-hidden="true">→</span>

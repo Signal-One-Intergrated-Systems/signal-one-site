@@ -1,6 +1,62 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
+test("homepage exposes the field-to-evidence story without a modal and keeps the field anchored", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const flow = page.locator("#home-workflow");
+  await expect(
+    flow.getByRole("heading", {
+      name: "The action becomes part of the record.",
+    }),
+  ).toBeVisible();
+  const photograph = flow.locator(".home-field-photo img");
+  const source = await photograph.getAttribute("src");
+  await flow.getByRole("button", { name: "NFC tag", exact: true }).click();
+  await flow.getByRole("button", { name: "Follow the NFC record" }).click();
+  await expect(flow.locator("h2")).toBeFocused();
+  await expect(
+    flow.locator("dt").filter({ hasText: "Position & accuracy" }),
+  ).toBeVisible();
+  await expect(photograph).toHaveAttribute("src", source!);
+  await flow.getByRole("tab", { name: "02 GUARD record" }).focus();
+  await page.keyboard.press("End");
+  await expect(
+    flow.getByRole("tab", { name: "03 Service evidence" }),
+  ).toHaveAttribute("aria-selected", "true");
+  await expect(
+    flow.getByText("A checkpoint scan contributes evidence.", { exact: false }),
+  ).toBeVisible();
+  await flow.getByRole("button", { name: "Client scope" }).click();
+  await expect(
+    flow.getByText("The company reviews service evidence across its clients."),
+  ).toBeVisible();
+  await expect(page.getByRole("dialog")).not.toBeVisible();
+});
+
+test("all visible homepage workflow states pass mobile accessibility checks", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/");
+  for (const name of [
+    "01 Field action",
+    "02 GUARD record",
+    "03 Service evidence",
+  ]) {
+    await page.locator("#home-workflow").getByRole("tab", { name }).click();
+    const result = await new AxeBuilder({
+      page: page as unknown as ConstructorParameters<
+        typeof AxeBuilder
+      >[0]["page"],
+    })
+      .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
+      .analyze();
+    expect(result.violations).toEqual([]);
+  }
+});
+
 test("hero opens a real modal, keeps keyboard focus inside and restores it on Escape", async ({
   page,
 }) => {
@@ -202,11 +258,24 @@ test("mobile navigation traps keyboard focus and restores the page on Escape", a
   await expect(page.locator("main")).not.toHaveAttribute("inert", "");
 });
 
-test('equipment has a genuine presentation and quotation links without JavaScript', async ({ browser }) => {
-  const context = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
+test("equipment has a genuine presentation and quotation links without JavaScript", async ({
+  browser,
+}) => {
+  const context = await browser.newContext({
+    javaScriptEnabled: false,
+    viewport: { width: 390, height: 844 },
+  });
   const page = await context.newPage();
-  await page.goto('http://localhost:3100/radios-equipment');
-  await expect(page.locator('.deferred-equipment').getByRole('heading', { name: 'Hytera PNC360S' })).toBeVisible();
-  await expect(page.locator('.deferred-equipment').getByRole('link', { name: 'Enquire about this model' })).toHaveAttribute('href', '/radios-equipment?model=Hytera%20PNC360S#quote');
+  await page.goto("http://localhost:3100/radios-equipment");
+  await expect(
+    page
+      .locator(".deferred-equipment")
+      .getByRole("heading", { name: "Hytera PNC360S" }),
+  ).toBeVisible();
+  await expect(
+    page
+      .locator(".deferred-equipment")
+      .getByRole("link", { name: "Enquire about this model" }),
+  ).toHaveAttribute("href", "/radios-equipment?model=Hytera%20PNC360S#quote");
   await context.close();
 });

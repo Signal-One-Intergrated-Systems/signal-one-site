@@ -233,7 +233,7 @@ export default function Header() {
           <Link
             prefetch={false}
             data-route-intent=""
-            href={config.cta.href}
+            href={pathname === "/" ? "/#home-workflow" : config.cta.href}
             className={config.cta_class + " ml-3"}
           >
             {config.cta.label}
@@ -315,7 +315,7 @@ export default function Header() {
               <Link
                 prefetch={false}
                 data-route-intent=""
-                href={config.cta.href}
+                href={pathname === "/" ? "/#home-workflow" : config.cta.href}
                 onClick={() => setOpen(false)}
                 className={config.cta_class + " btn-lg w-full"}
               >

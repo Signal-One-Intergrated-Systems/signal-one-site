@@ -1,0 +1,10 @@
+{
+  "environment_id": "ccarenv_b64_Y2NhcmVudl8zNDI3YmRjZDhjYzA4MTkxYWFlNzU0MmRkMDg5Y2M3OQ",
+  "spec_revision": "24",
+  "observations_current": true,
+  "policy": {
+    "mode": "restricted",
+    "state": "enforced",
+    "allowed_hosts": []
+  }
+}

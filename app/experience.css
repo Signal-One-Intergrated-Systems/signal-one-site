@@ -4,13 +4,6 @@
   color: var(--color-text-inv);
   overflow: clip;
 }
-.mission-hero-grid {
-  display: grid;
-  grid-template-columns: 1.02fr 1fr;
-  gap: 54px;
-  align-items: center;
-  padding-block: 66px 58px;
-}
 .mission-hero h1 {
   font-size: clamp(2.7rem, 4.7vw, 4.5rem);
   line-height: 1.04;
@@ -33,99 +26,6 @@
 }
 .mission-hero-actions .btn {
   font-size: 16px;
-}
-.mission-hero-scene {
-  position: relative;
-  min-width: 0;
-  aspect-ratio: 1.08;
-  border-radius: 14px;
-  isolation: isolate;
-}
-.mission-hero-photo {
-  position: absolute;
-  inset: 0 0 42px;
-  border-radius: 14px;
-  overflow: hidden;
-}
-.mission-hero-photo img {
-  object-fit: cover;
-  object-position: 62% 50%;
-}
-.mission-hero-photo::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 45%, var(--color-deep));
-}
-.mission-scene-top {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  right: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-}
-.mission-scene-top > span {
-  background: var(--color-deep);
-  border: 1px solid var(--color-line-dark);
-  padding: 7px 12px;
-  border-radius: 40px;
-}
-.mission-scene-caption {
-  position: absolute;
-  bottom: 66px;
-  left: 22px;
-  right: 22px;
-  font-size: 14px;
-  color: var(--color-text-inv-2);
-}
-.mission-device {
-  position: absolute;
-  right: -16px;
-  bottom: 0;
-  width: 160px;
-  height: 215px;
-  background: var(--color-light);
-  border: 1px solid var(--color-line);
-  border-radius: 12px;
-  box-shadow: 0 18px 50px #0004;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 14px;
-  color: var(--color-text);
-}
-.mission-device img {
-  object-fit: contain;
-  position: relative !important;
-  width: 100% !important;
-  height: 135px !important;
-}
-.mission-device strong {
-  font-size: 14px;
-}
-.mission-device small {
-  font-size: 14px;
-  color: var(--color-text-2);
-}
-.mission-scene-bottom {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 160px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  color: var(--color-text-inv);
-  font-size: 15px;
-  font-weight: 600;
-}
-.mission-scene-bottom svg {
-  flex: none;
-  color: var(--color-signal-400);
 }
 .mission-hero-foot {
   border-top: 1px solid var(--color-line-dark);
@@ -408,7 +308,7 @@
 .equipment-cutout {
   position: absolute;
   inset: 65px 55px 65px;
-  animation: equipment-arrive 480ms var(--ease-out-soft);
+  animation: equipment-arrive 300ms var(--ease-out-soft);
 }
 .equipment-cutout img {
   transition: transform 350ms var(--ease-out-soft);
@@ -493,8 +393,8 @@
   font-weight: 600;
   min-height: 72px;
 }
-.equipment-selector button span:first-child,
-.equipment-selector a span:first-child {
+.equipment-selector button span:first-of-type,
+.equipment-selector a span:first-of-type {
   grid-column: 1 / -1;
   font-size: 14px;
   font-weight: 400;
@@ -720,24 +620,8 @@
   }
 }
 @media (max-width: 1023px) {
-  .mission-hero-grid {
-    gap: 32px;
-    padding-block: 48px;
-  }
   .mission-hero h1 {
     font-size: clamp(2.6rem, 5.7vw, 4rem);
-  }
-  .mission-device {
-    right: 0;
-    width: 130px;
-    height: 180px;
-  }
-  .mission-device img {
-    height: 103px !important;
-  }
-  .mission-scene-bottom {
-    right: 135px;
-    font-size: 14px;
   }
   .mission-section-head {
     gap: 30px;
@@ -767,11 +651,6 @@
   }
 }
 @media (max-width: 767px) {
-  .mission-hero-grid {
-    grid-template-columns: minmax(0, 1fr);
-    padding-block: 30px;
-    gap: 28px;
-  }
   .mission-hero h1 {
     font-size: clamp(2.7rem, 9.5vw, 4rem);
     max-width: 13ch;
@@ -787,52 +666,6 @@
   }
   .mission-hero-copy > .t-lead {
     font-size: 17px;
-  }
-  .mission-hero-scene {
-    aspect-ratio: 1.4;
-    margin-right: 0;
-  }
-  .mission-hero-photo {
-    inset: 0 0 32px;
-  }
-  .mission-scene-top {
-    top: 14px;
-    left: 14px;
-    right: 14px;
-    font-size: 14px;
-  }
-  .mission-scene-top > span {
-    padding: 5px 10px;
-  }
-  .mission-scene-caption {
-    bottom: 54px;
-    left: 16px;
-    right: 125px;
-    font-size: 14px;
-    line-height: 1.4;
-  }
-  .mission-device {
-    width: 110px;
-    height: 145px;
-    padding: 8px;
-    bottom: 0;
-    right: 6px;
-  }
-  .mission-device img {
-    height: 85px !important;
-  }
-  .mission-device strong,
-  .mission-device small {
-    font-size: 14px;
-  }
-  .mission-scene-bottom {
-    right: 120px;
-    font-size: 14px;
-    line-height: 1.3;
-    gap: 8px;
-  }
-  .mission-scene-bottom svg {
-    width: 24px;
   }
   .mission-hero-foot {
     flex-direction: column;
@@ -961,8 +794,8 @@
   .equipment-selector a span:last-child {
     display: none;
   }
-  .equipment-selector button span:first-child,
-  .equipment-selector a span:first-child {
+  .equipment-selector button span:first-of-type,
+  .equipment-selector a span:first-of-type {
     font-size: 14px;
   }
   .equipment-filters button,
@@ -1080,30 +913,6 @@
   color: var(--color-deep);
 }
 
-.mission-device {
-  height: auto;
-  min-height: 215px;
-}
-.mission-device img {
-  flex: none;
-}
-.mission-device strong,
-.mission-device small {
-  text-align: center;
-  line-height: 1.35;
-  width: 100%;
-}
-@media (max-width: 1023px) {
-  .mission-device {
-    min-height: 180px;
-  }
-}
-@media (max-width: 767px) {
-  .mission-device {
-    min-height: 145px;
-  }
-}
-
 .guard-day-equation {
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
 }
@@ -1193,43 +1002,586 @@
   color: var(--color-signal-ink);
 }
 
-@media (min-width: 768px) {
-  .mission-hero-scene {
-    aspect-ratio: 1.22;
+/* Mobile gets two clear physical subjects, rather than an overlapping desktop composition. */
+
+/* Visible physical → record → evidence narrative: one anchored field scene. */
+.mission-hero-intro {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  align-items: end;
+  gap: 64px;
+  padding-block: 44px 32px;
+}
+.mission-hero-intro h1 {
+  max-width: 20ch;
+  font-size: clamp(2.7rem, 4.5vw, 4.5rem);
+  margin-bottom: 0;
+}
+.mission-hero-intro .mission-hero-actions {
+  margin-top: 24px;
+}
+.mission-hero-intro .btn {
+  font-size: 15px;
+}
+.home-workflow {
+  scroll-margin-top: 88px;
+  border: 1px solid var(--color-line-dark);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--color-base);
+}
+.home-workflow-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-bottom: 1px solid var(--color-line-dark);
+}
+.home-workflow-tabs button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 17px 24px;
+  min-height: 60px;
+  background: none;
+  border: 0;
+  border-right: 1px solid var(--color-line-dark);
+  border-bottom: 2px solid transparent;
+  color: var(--color-text-inv-2);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 180ms,
+    border-color 180ms;
+}
+.home-workflow-tabs button:last-child {
+  border-right: 0;
+}
+.home-workflow-tabs button[aria-selected="true"] {
+  color: var(--color-signal-400);
+  background: var(--color-raised);
+  border-bottom-color: var(--color-signal);
+}
+.home-workflow-tabs button span:first-child {
+  font-size: 14px;
+  color: var(--color-text-inv-3);
+}
+.home-workflow-tabs button span:last-child {
+  margin-left: auto;
+}
+.home-workflow-stage {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+}
+.home-workflow-field {
+  position: relative;
+  isolation: isolate;
+  min-width: 0;
+}
+.home-field-photo {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.home-field-photo img {
+  object-fit: cover;
+  object-position: 62% center;
+}
+.home-field-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 40%, #0f131af5);
+}
+.home-field-label {
+  position: absolute;
+  left: 30px;
+  bottom: 62px;
+  z-index: 1;
+}
+.home-field-label span {
+  font-size: 14px;
+  color: var(--color-text-inv-2);
+}
+.home-field-label strong {
+  display: block;
+  margin-top: 12px;
+  font-size: clamp(1.9rem, 3vw, 2.8rem);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+}
+.home-field-caption {
+  position: absolute;
+  left: 30px;
+  right: 24px;
+  bottom: 22px;
+  z-index: 1;
+  color: var(--color-text-inv-2);
+  font-size: 14px;
+}
+.home-signal-path {
+  position: absolute;
+  top: 50%;
+  right: -26px;
+  width: 80px;
+  height: 2px;
+  z-index: 2;
+  background: var(--color-line-dark);
+}
+.home-signal-path i {
+  display: block;
+  width: 26px;
+  height: 2px;
+  background: var(--color-signal-400);
+  animation: evidence-connect 520ms var(--ease-out-soft) both;
+}
+.home-workflow-guide {
+  position: relative;
+  border-left: 1px solid var(--color-line-dark);
+  padding: 24px 32px;
+  min-height: 422px;
+  box-shadow: inset 3px 0 var(--color-raised);
+}
+.home-guide-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-inv);
+  margin-bottom: 26px;
+}
+.home-guide-label span {
+  color: var(--color-text-inv-3);
+  font-weight: 400;
+}
+.home-guide-content {
+  animation: ops-arrive 240ms var(--ease-out-soft);
+}
+.home-guide-number {
+  color: var(--color-signal-400);
+  font-size: 14px;
+}
+.home-guide-content h2 {
+  font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  margin: 12px 0 16px;
+}
+.home-guide-content > p:not(.home-guide-number) {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--color-text-inv-2);
+}
+.home-method {
+  display: flex;
+  gap: 8px;
+  margin-block: 18px 12px;
+}
+.home-method button,
+.home-scope {
+  min-height: 44px;
+  padding: 9px 16px;
+  border: 1px solid var(--color-line-dark);
+  border-radius: 7px;
+  background: none;
+  color: var(--color-text-inv-2);
+  font-size: 14px;
+  cursor: pointer;
+}
+.home-method button[aria-pressed="true"] {
+  background: var(--color-light);
+  color: var(--color-text);
+  border-color: var(--color-light);
+}
+.home-guide-content > .home-method-note {
+  font-size: 14px !important;
+}
+.home-guide-next {
+  border: 0;
+  border-top: 1px solid var(--color-line-dark);
+  background: none;
+  color: var(--color-signal-400);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 44px;
+  width: 100%;
+  margin-top: 18px;
+  padding-top: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+}
+.home-record-fields {
+  margin-top: 20px;
+}
+.home-record-fields > div {
+  border-top: 1px solid var(--color-line-dark);
+  padding: 9px 0;
+  animation: ops-arrive 240ms var(--ease-out-soft) both;
+}
+.home-record-fields > div:nth-child(2) {
+  animation-delay: 35ms;
+}
+.home-record-fields > div:nth-child(3) {
+  animation-delay: 70ms;
+}
+.home-record-fields > div:nth-child(4) {
+  animation-delay: 105ms;
+}
+.home-record-fields dt {
+  font-size: 15px;
+  font-weight: 600;
+}
+.home-record-fields dt span {
+  color: var(--color-signal-400);
+  font-size: 14px;
+  margin-right: 12px;
+}
+.home-record-fields dd {
+  color: var(--color-text-inv-3);
+  font-size: 14px;
+  margin-left: 32px;
+}
+.home-proof-outcomes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  list-style: none;
+  padding: 0;
+  gap: 0 16px;
+  margin-block: 16px;
+}
+.home-proof-outcomes li {
+  font-size: 14px;
+  padding: 9px 0;
+  border-top: 1px solid var(--color-line-dark);
+}
+.home-scope {
+  margin-bottom: 10px;
+}
+.home-scope span {
+  margin-left: 18px;
+  color: var(--color-signal-400);
+}
+.home-workflow-disclosure {
+  padding: 13px 24px;
+  font-size: 14px;
+  color: var(--color-text-inv-3);
+  border-top: 1px solid var(--color-line-dark);
+}
+@keyframes evidence-connect {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(54px);
   }
 }
-
-/* Mobile gets two clear physical subjects, rather than an overlapping desktop composition. */
+@media (max-width: 1023px) {
+  .mission-hero-intro {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding-block: 32px;
+  }
+  .mission-hero-intro h1 {
+    font-size: 3.4rem;
+  }
+  .mission-hero-intro .mission-hero-copy {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+  .mission-hero-intro .mission-hero-actions {
+    margin-top: 0;
+    align-content: center;
+  }
+  .home-workflow-stage {
+    grid-template-columns: 1fr 1fr;
+  }
+  .home-workflow-guide {
+    padding: 24px;
+  }
+  .home-workflow-tabs button {
+    padding: 16px;
+    gap: 8px;
+  }
+}
 @media (max-width: 767px) {
-  .mission-hero-scene {
-    aspect-ratio: auto;
-    height: 234px;
+  .mission-hero-intro {
+    padding-block: 28px;
+    gap: 22px;
   }
-  .mission-hero-photo {
-    inset: 0 116px 54px 0;
+  .mission-hero-intro h1 {
+    font-size: clamp(2.55rem, 9.5vw, 3.5rem);
   }
-  .mission-hero-photo img {
-    object-position: 50% 50%;
+  .mission-hero-intro .mission-hero-copy {
+    display: block;
   }
-  .mission-device {
-    top: 0;
-    right: 0;
-    bottom: auto;
-    width: 100px;
-    height: 180px;
-    min-height: 180px;
-    justify-content: center;
+  .mission-hero-intro .mission-hero-copy > p {
+    font-size: 16px;
   }
-  .mission-scene-top,
-  .mission-scene-bottom {
+  .mission-hero-intro .mission-hero-actions {
+    margin-top: 20px;
+  }
+  .mission-hero-intro .mission-hero-actions .btn {
+    min-width: 0;
+    flex: 1;
+    padding-inline: 12px;
+    font-size: 14px;
+  }
+  .home-workflow-tabs button {
+    flex-wrap: wrap;
+    padding: 12px 8px;
+    font-size: 14px;
+    gap: 4px 6px;
+    line-height: 1.25;
+    text-align: left;
+  }
+  .home-workflow-tabs button span:last-child {
     display: none;
   }
-  .mission-scene-caption {
-    bottom: 0;
-    left: 0;
-    right: 0;
-    min-height: 40px;
+  .home-workflow-stage {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .home-workflow-field {
+    height: 210px;
+  }
+  .home-field-photo img {
+    object-position: 62% 44%;
+  }
+  .home-field-label {
+    left: 20px;
+    bottom: 52px;
+  }
+  .home-field-label strong {
+    font-size: 1.8rem;
+    margin-top: 8px;
+  }
+  .home-field-caption {
+    left: 20px;
+    right: 20px;
+    bottom: 14px;
     font-size: 14px;
-    line-height: 1.4;
+  }
+  .home-signal-path {
+    top: auto;
+    bottom: -16px;
+    right: 26px;
+    transform: rotate(90deg);
+    transform-origin: right;
+    width: 54px;
+  }
+  .home-signal-path i {
+    width: 18px;
+  }
+  .home-workflow-guide {
+    border-left: 0;
+    border-top: 1px solid var(--color-line-dark);
+    padding: 22px 20px;
+    min-height: 398px;
+    box-shadow: none;
+  }
+  .home-guide-label {
+    margin-bottom: 20px;
+  }
+  .home-guide-label span {
+    font-size: 14px;
+  }
+  .home-guide-content h2 {
+    font-size: 2rem;
+  }
+  .home-workflow-disclosure {
+    padding: 12px 20px;
+    line-height: 1.45;
+  }
+  .mission-hero-foot > p {
+    font-size: 14px;
+  }
+  .mission-hero-foot .btn {
+    width: 100%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-guide-content,
+  .home-record-fields > div,
+  .home-signal-path i {
+    animation: none;
+  }
+  .home-workflow-tabs button {
+    transition: none;
+  }
+}
+@media (max-width: 767px) {
+  .home-workflow-tabs button {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    min-height: 84px;
+  }
+  .home-workflow-field {
+    height: 228px;
+  }
+  .home-field-label {
+    top: 14px;
+    bottom: auto;
+  }
+  .home-field-label span {
+    display: inline-block;
+    background: var(--color-deep);
+    border: 1px solid var(--color-line-dark);
+    border-radius: 30px;
+    padding: 6px 10px;
+    color: var(--color-text-inv);
+  }
+  .home-field-label strong {
+    display: none;
+  }
+  .home-field-photo::after {
+    background: linear-gradient(180deg, transparent 65%, #0f131af5);
+  }
+}
+.ops-demo-loading ol {
+  list-style: none;
+  padding: 0;
+  margin: 26px 0 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.ops-demo-loading li {
+  padding-top: 14px;
+  border-top: 2px solid var(--color-signal);
+  color: var(--color-text-inv);
+}
+.equipment-selector button,
+.equipment-selector a {
+  position: relative;
+  grid-template-columns: 1fr auto;
+  padding-left: 84px;
+}
+.equipment-thumbnail {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+.equipment-detail h3 {
+  animation: ops-arrive 240ms var(--ease-out-soft);
+}
+@media (max-width: 767px) {
+  .equipment-selector button,
+  .equipment-selector a {
+    padding: 62px 8px 12px;
+    min-height: 116px;
+  }
+  .equipment-thumbnail {
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .equipment-detail h3 {
+    animation: none;
+  }
+}
+.home-workflow-guide {
+  min-height: 480px;
+}
+.home-record-fields > div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  align-items: center;
+  padding-block: 10px;
+}
+.home-record-fields dd {
+  margin-left: 0;
+}
+@media (max-width: 1023px) and (min-width: 768px) {
+  .home-workflow-guide {
+    min-height: 540px;
+  }
+}
+@media (max-width: 767px) {
+  .home-workflow-guide {
+    min-height: 540px;
+  }
+  .home-record-fields > div {
+    display: block;
+    padding-block: 7px;
+  }
+  .home-record-fields dd {
+    margin-left: 32px;
+  }
+}
+@media (max-width: 1023px) and (min-width: 768px) {
+  .home-workflow-stage {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .home-workflow-field {
+    height: 320px;
+  }
+  .home-workflow-guide {
+    min-height: 480px;
+    border-left: 0;
+    border-top: 1px solid var(--color-line-dark);
+  }
+  .home-signal-path {
+    display: none;
+  }
+}
+@media (max-width: 767px) {
+  .ops-demo-loading ol {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+  .ops-demo-loading li {
+    padding-top: 8px;
+    border-top-width: 1px;
+  }
+}
+@media (min-width: 1024px) {
+  .home-workflow-guide {
+    min-height: 500px;
+  }
+}
+@media (max-width: 767px) {
+  .home-workflow-guide {
+    min-height: 550px;
+  }
+}
+.equipment-display {
+  scroll-margin-top: 88px;
+}
+.equipment-preview-controls {
+  position: absolute;
+  right: 24px;
+  bottom: 58px;
+  z-index: 3;
+}
+.equipment-preview-controls .equipment-arrows {
+  margin-top: 0;
+}
+.equipment-preview-controls button {
+  background: var(--color-light);
+}
+.equipment-preview-controls a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid var(--color-line-strong);
+  border-radius: 10px;
+  background: var(--color-light);
+  font-size: 14px;
+}
+@media (max-width: 767px) {
+  .equipment-preview-controls {
+    right: 20px;
+    bottom: 52px;
   }
 }

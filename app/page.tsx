@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import Image, { getImageProps } from "next/image";
+import { getImageProps } from "next/image";
 import Link from "next/link";
 import GuardDayCalculator from "./components/GuardDayCalculator";
 import BusinessJourney from "./components/BusinessJourney";
 import EquipmentShowcase from "./components/EquipmentShowcase";
 import DemoLauncher from "./components/DemoLauncher";
 import { Arrow, ButtonLink, Kicker, GuardStatus } from "./components/ui";
-import { catalogue } from "./lib/catalogue";
+import HomeWorkflow from "./components/HomeWorkflow";
 import {
   guardOnboardingLine,
   guardIsLive,
@@ -23,7 +23,6 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  const radio = catalogue[0].products[0];
   // Keep Next's responsive optimisation, but paint the critical photograph without image hydration.
   const { props: heroImage } = getImageProps({
     src: photos.guardPatrol.src,
@@ -46,8 +45,8 @@ export default function Home() {
       />
       <section className="mission-hero" aria-labelledby="home-heading">
         <div className="wrap">
-          <div className="mission-hero-grid">
-            <div className="mission-hero-copy">
+          <div className="mission-hero-intro">
+            <div>
               <div className="flex flex-wrap items-center gap-3">
                 <Kicker tone="dark">Technology for security operations</Kicker>
                 <GuardStatus tone="dark" />
@@ -57,93 +56,46 @@ export default function Home() {
                 <br />
                 To <em>proof of service.</em>
               </h1>
+            </div>
+            <div className="mission-hero-copy">
               <p className="t-lead text-text-inv-2">
                 Connect your guards, sites and control room through Signal One
                 GUARD. Turn everyday operational activity into evidence your
                 clients can use.
               </p>
               <div className="mission-hero-actions">
-                <DemoLauncher />
-                <ButtonLink
-                  href="/pricing#calculator"
-                  variant="ghost-dark"
-                  size="lg"
-                  event="hero_pricing"
-                  eventLabel="Hero secondary"
+                <a
+                  className="btn btn-primary btn-lg"
+                  href="#home-workflow"
+                  data-analytics-event="hero_product_proof"
+                  data-analytics-label="Visible workflow"
                 >
-                  Calculate guard cost <Arrow />
-                </ButtonLink>
-              </div>
-              <p className="t-caption mt-5 text-text-inv-3">
-                Software for your security company. Equipment for your
-                contracts.
-              </p>
-            </div>
-            <div className="mission-hero-scene">
-              <div className="mission-hero-photo">
-                <picture><img {...heroImage} alt={heroImage.alt} /></picture>
-              </div>
-              <div className="mission-scene-top">
-                <span>Where the record begins.</span>
-                <span aria-hidden="true">→</span>
-              </div>
-              <p className="mission-scene-caption">{illustrativeCaption}</p>
-              <Link
-                prefetch={false}
-                data-route-intent=""
-                href="/radios-equipment"
-                className="mission-device"
-              >
-                <Image
-                  src={radio.image!.src}
-                  alt={radio.image!.alt}
-                  width={130}
-                  height={135}
-                  sizes="80px"
-                  quality={90}
-                />
-                <strong>Hytera PNC360S</strong>
-                <small>By quote</small>
-              </Link>
-              <div className="mission-scene-bottom">
-                <svg
-                  aria-hidden="true"
-                  width="32"
-                  height="32"
-                  viewBox="0 0 32 32"
-                  fill="none"
-                  stroke="currentColor"
-                >
-                  <path d="M4 16h24M20 8l8 8-8 8" />
-                </svg>
-                <span>
-                  Field activity.
-                  <br />
-                  Connected evidence.
-                </span>
+                  Follow the evidence <span aria-hidden="true">↓</span>
+                </a>
+                <DemoLauncher secondary />
               </div>
             </div>
           </div>
+          <HomeWorkflow>
+            <div className="home-field-photo">
+              <picture>
+                <img {...heroImage} alt={heroImage.alt} />
+              </picture>
+            </div>
+            <p className="home-field-caption">{illustrativeCaption}</p>
+          </HomeWorkflow>
           <div className="mission-hero-foot">
-            <ol aria-label="Operational sequence">
-              <li>
-                <span>01</span> Field action
-              </li>
-              <li>
-                <span>02</span> Operational record
-              </li>
-              <li>
-                <span>03</span> Client evidence
-              </li>
-            </ol>
-            <Link
-              prefetch={false}
-              data-route-intent=""
-              href="/solutions/security"
-              className="link-arrow text-signal-400"
+            <p>
+              Software for your security company. Equipment for your contracts.
+            </p>
+            <ButtonLink
+              href="/pricing#calculator"
+              variant="ghost-dark"
+              event="hero_pricing"
+              eventLabel="Hero secondary"
             >
-              Explore GUARD <Arrow />
-            </Link>
+              Calculate guard cost <Arrow />
+            </ButtonLink>
           </div>
         </div>
       </section>

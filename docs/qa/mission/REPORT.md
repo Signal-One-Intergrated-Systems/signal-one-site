@@ -1,5 +1,7 @@
 # Verdict: BLOCKED for complete design acceptance
 
+**Latest visual refinement:** see the [independent-review response, new screenshots and annotated desktop/mobile recordings](refinement/REVIEW.md). The homepage now exposes an inline physical → GUARD record → service evidence story, with the modal retained as an expanded option. The numerical results below document the `09ba68f` baseline; final refinement measurements are recorded separately so methods/builds are not mixed.
+
 The implementation is reviewable in **draft PR #26**, with an isolated Railway preview. Production is unchanged.
 
 Local verification: **213/213 Playwright checks pass**; production build, TypeScript, lint, brand/public-truth and image OCR gates pass. 108 route/width combinations have no horizontal overflow. See the detailed evidence below.

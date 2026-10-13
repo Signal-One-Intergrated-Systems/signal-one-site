@@ -5,14 +5,23 @@ import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 
 const Experience = dynamic(() => import("./OperationsExperience"), {
   loading: () => (
-    <p className="ops-demo-loading" role="status">
-      Opening the field-to-evidence demonstration…
-    </p>
+    <div className="ops-demo-loading" role="status">
+      <p>Opening the field-to-evidence demonstration…</p>
+      <ol>
+        <li>At the checkpoint</li>
+        <li>The GUARD record</li>
+        <li>Service evidence</li>
+      </ol>
+    </div>
   ),
 });
 
 /** Load the full demonstration on intent, rather than hydrating an invisible product story. */
-export default function DemoLauncher() {
+export default function DemoLauncher({
+  secondary = false,
+}: {
+  secondary?: boolean;
+}) {
   const dialog = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
   const close = useRef<HTMLButtonElement>(null);
@@ -36,14 +45,19 @@ export default function DemoLauncher() {
   }
   function containFocus(event: KeyboardEvent<HTMLDialogElement>) {
     if (event.key !== "Tab") return;
-    const nodes = Array.from(event.currentTarget.querySelectorAll<HTMLElement>("a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]"))
-      .filter(node => node.tabIndex >= 0 && node.getClientRects().length > 0);
+    const nodes = Array.from(
+      event.currentTarget.querySelectorAll<HTMLElement>(
+        "a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]",
+      ),
+    ).filter((node) => node.tabIndex >= 0 && node.getClientRects().length > 0);
     const first = nodes[0];
     const last = nodes[nodes.length - 1];
     if (event.shiftKey && document.activeElement === first) {
-      event.preventDefault(); last?.focus();
+      event.preventDefault();
+      last?.focus();
     } else if (!event.shiftKey && document.activeElement === last) {
-      event.preventDefault(); first?.focus();
+      event.preventDefault();
+      first?.focus();
     }
   }
   useEffect(
@@ -57,7 +71,7 @@ export default function DemoLauncher() {
       <button
         ref={trigger}
         type="button"
-        className="btn btn-primary btn-lg"
+        className={`btn ${secondary ? "btn-ghost-dark" : "btn-primary"} btn-lg`}
         data-analytics-event="hero_product_proof"
         data-analytics-label="Hero primary"
         onPointerEnter={warm}
@@ -71,7 +85,7 @@ export default function DemoLauncher() {
         ref={dialog}
         className="ops-dialog"
         aria-labelledby="demo-title"
-      onKeyDown={containFocus}
+        onKeyDown={containFocus}
         onCancel={(event) => {
           event.preventDefault();
           dismiss();

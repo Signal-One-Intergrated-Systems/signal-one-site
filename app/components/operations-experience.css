@@ -77,7 +77,7 @@
 .ops-visual-inner {
   position: absolute;
   inset: 0;
-  animation: ops-arrive 420ms var(--ease-out-soft);
+  animation: ops-arrive 280ms var(--ease-out-soft);
 }
 .ops-scene-image {
   object-fit: cover;
@@ -92,7 +92,7 @@
 }
 .ops-scan-focus {
   position: absolute;
-  inset: 18% 28% 35%;
+  inset: 35% 10% 30% 70%;
   z-index: 1;
 }
 .ops-scan-focus span {
@@ -181,7 +181,7 @@
   line-height: 1.1;
   letter-spacing: -0.04em;
   max-width: 18ch;
-  animation: ops-arrive 320ms var(--ease-out-soft);
+  animation: ops-arrive 240ms var(--ease-out-soft);
 }
 .ops-body {
   font-size: 16px;

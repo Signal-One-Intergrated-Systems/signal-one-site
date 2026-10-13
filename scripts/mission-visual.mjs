@@ -83,6 +83,11 @@ if (checks.length) {
     JSON.stringify(checks, null, 2),
   );
 }
+if (process.env.MISSION_MATRIX_ONLY) {
+  console.log(JSON.stringify({ checks: checks.length, overflow: checks.filter(check => check.scrollWidth > check.clientWidth), badStatus: checks.filter(check => check.status !== 200) }));
+  await browser.close();
+  process.exit(0);
+}
 const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
 await page.goto("http://localhost:3150", { waitUntil: "networkidle" });
 await page.screenshot({ path: dir + "/hero-desktop.png" });

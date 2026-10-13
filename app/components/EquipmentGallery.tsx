@@ -1,7 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import EquipmentFeature from "./EquipmentFeature";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { catalogue } from "../lib/catalogue";
 
 const available = catalogue.flatMap((group) =>
@@ -21,6 +22,7 @@ export default function EquipmentGallery({
   compact?: boolean;
 }) {
   const [category, setCategory] = useState("all");
+  const root = useRef<HTMLDivElement>(null);
   const [model, setModel] = useState(available[0].model);
   const products =
     category === "all"
@@ -37,7 +39,7 @@ export default function EquipmentGallery({
     );
   }
   return (
-    <div className="equipment-gallery">
+    <div className="equipment-gallery" ref={root}>
       {!compact && (
         <div
           className="equipment-filters"
@@ -98,8 +100,30 @@ export default function EquipmentGallery({
             key={item.model}
             type="button"
             aria-pressed={item.model === product.model}
-            onClick={() => setModel(item.model)}
+            onClick={() => {
+              setModel(item.model);
+              if (matchMedia("(max-width: 767px)").matches) {
+                root.current
+                  ?.querySelector(".equipment-display")
+                  ?.scrollIntoView({
+                    block: "start",
+                    behavior: matchMedia("(prefers-reduced-motion: reduce)")
+                      .matches
+                      ? "instant"
+                      : "smooth",
+                  });
+              }
+            }}
           >
+            <Image
+              className="equipment-thumbnail"
+              src={item.image!.src}
+              alt=""
+              width={48}
+              height={48}
+              sizes="48px"
+              quality={90}
+            />
             <span>{item.manufacturer}</span>
             {item.model}
             <span aria-hidden="true">→</span>

@@ -1,0 +1,17 @@
+[
+  {
+    "name": "atex",
+    "url": "https://atexsolutions.io/",
+    "error": "Error: page.goto: net::ERR_TUNNEL_CONNECTION_FAILED at https://atexsolutions.io/"
+  },
+  {
+    "name": "public",
+    "url": "https://www.signalone.co.za/",
+    "error": "Error: page.goto: net::ERR_TUNNEL_CONNECTION_FAILED at https://www.signalone.co.za/"
+  },
+  {
+    "name": "preview",
+    "url": "https://atex-experience-preview-production.up.railway.app",
+    "error": "Error: page.goto: net::ERR_TUNNEL_CONNECTION_FAILED at https://atex-experience-preview-production.up.railway.app/"
+  }
+]

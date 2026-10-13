@@ -45,6 +45,7 @@ export default function EquipmentFeature({
             {String(total).padStart(2, "0")}
           </span>
         </div>
+        <div className="equipment-preview-controls">{controls}</div>
       </div>
       <div className="equipment-detail">
         <p className="t-kicker text-signal-ink">For the field · by quote</p>
@@ -81,7 +82,6 @@ export default function EquipmentFeature({
         >
           Enquire about this model <span aria-hidden="true">→</span>
         </Link>
-        {controls}
       </div>
     </div>
   );
