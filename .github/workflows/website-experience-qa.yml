@@ -52,9 +52,32 @@ jobs:
               for (const width of [390, 768, 1440, 1920]) {
                 const page = await browser.newPage({ viewport: { width, height: 900 }, reducedMotion: "reduce", deviceScaleFactor: 1 });
                 await page.goto("http://localhost:3150", { waitUntil: "networkidle" });
+                // Visit every section to load the deferred photographic assets.
+                const docHeight = await page.evaluate(() => document.documentElement.scrollHeight);
+                for (let y = 0; y < docHeight; y += 700) {
+                  await page.evaluate((top) => window.scrollTo(0, top), y);
+                  await page.waitForTimeout(85);
+                }
+                await page.evaluate(() => window.scrollTo(0, 0));
+                await page.waitForLoadState("networkidle");
                 await page.screenshot({ path: "evidence/home-" + width + ".png", fullPage: true });
                 await page.close();
               }
+              // Record the actual interactive sequence in a real browser.
+              const recording = await browser.newContext({
+                viewport: { width: 1280, height: 720 },
+                deviceScaleFactor: 1,
+                recordVideo: { dir: "evidence", size: { width: 1280, height: 720 } },
+              });
+              const motionPage = await recording.newPage();
+              await motionPage.goto("http://localhost:3150", { waitUntil: "networkidle" });
+              await motionPage.locator("#experience").scrollIntoViewIfNeeded();
+              await motionPage.waitForTimeout(700);
+              for (const stage of [1, 2, 3, 0]) {
+                await motionPage.locator(".s1-journey-step").nth(stage).click();
+                await motionPage.waitForTimeout(1400);
+              }
+              await recording.close();
             } finally {
               server.kill("SIGTERM");
               await browser.close();
