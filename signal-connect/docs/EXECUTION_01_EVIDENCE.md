@@ -1,6 +1,6 @@
 # Execution 01 evidence — 2026-10-23
 
-Implementation status: foundation written. Release status: STOP — mobile/e2e and real-device gates pending; Vercel preview blocked by team authorization.
+Implementation status: foundation complete. GitHub Actions run #39953982218 at commit e2f7dc60 PASS (install, 6 contracts, lint, build, typecheck, 10 Playwright tests and artifact upload). Release status: STOP — Vercel preview, actual iPhone/Android QA and real QR remain pending.
 
 ## Source and boundaries
 
@@ -31,6 +31,6 @@ Managed cloud browser visually displayed the desktop founder presentation: canon
 
 ## Remaining validation
 
-CI workflow runs install/contracts/lint/build/typecheck and Chromium tests at 320, 360, 390, 430, 768, 1024 and 1440; collects screenshots, axe results, reduced-motion/keyboard, routes/vCard, runtime errors and offline shell. Results pending. No 360/390/430 screenshots yet. Computed Inter on mobile, offline shell, physical iPhone/Android contact import and standalone installation remain unverified. Real QR is intentionally deferred to Execution 02. Photography/hardware narrative is deferred to Execution 03; canonical provenance is retained.
+CI workflow runs install/contracts/lint/build/typecheck and Chromium tests at 320, 360, 390, 430, 768, 1024 and 1440; collects screenshots, axe results, reduced-motion/keyboard, routes/vCard, runtime errors and offline shell. GitHub CI COMPLETED SUCCESSFULLY (2026-10-23 12:32:47 UTC). Seven screenshots (320/360/390/430/768/1024/1440) and Playwright HTML report were uploaded as artifact 12502160396. Three phone-sized screenshots were independently retrieved and reviewed; there was no visible clipping. CI Chromium tests PASSED checks for computed Inter, axe accessibility, mobile overflow, reduced motion, offline shell, vCard and routes. Physical iPhone/Android import and standalone installation remain unverified. Real QR is intentionally deferred to Execution 02. Photography/hardware narrative is deferred to Execution 03; canonical provenance is retained.
 
 Vercel project creation for signal-connect-v3-clean was denied (403) for team_VdJwlldmyXbQBkyuCRECZEYn. The connection can list projects but cannot create in that scope. The API requested authorize_team_access; that tool is not exposed. No project, preview URL or production deployment was created. Sites publication is not used as a substitute because it is a production deployment.
