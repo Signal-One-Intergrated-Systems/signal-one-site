@@ -1,4 +1,4 @@
-import { getProfile, profilePath } from "./profiles";
+import { getProfile, profilePath } from "./profiles.ts";
 
 /**
  * Signal Connect URL authority — SC-PLAN-003, Execution 02A.
