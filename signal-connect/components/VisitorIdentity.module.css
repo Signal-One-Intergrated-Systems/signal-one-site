@@ -54,9 +54,9 @@
 .contactRows { display: grid; }
 .contactRow {
   display: grid;
-  grid-template-columns: 77px minmax(0,1fr) 16px;
+  grid-template-columns: 58px minmax(0,1fr) 12px;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   min-height: 40px;
   padding: 5px 2px;
   color: var(--color-text-inv);
@@ -97,13 +97,26 @@
 .soon { color: var(--color-text-inv-3); font-size: 14px; white-space: nowrap; }
 .discovery > p { color: var(--color-text-inv-2); font-size: 14px; line-height: 1.5; }
 .discovery .discoveryNote { color: var(--color-text-inv-3); }
+@media (max-width: 380px) {
+  /* Keep long company email intact by stacking its label rather than clipping. */
+  .contactRow {
+    grid-template-columns: minmax(0,1fr) 14px;
+    grid-template-areas: "label arrow" "value arrow";
+    row-gap: 1px;
+    column-gap: 8px;
+    min-height: 54px;
+    padding-block: 7px;
+  }
+  .contactLabel { grid-area: label; }
+  .contactValue { grid-area: value; font-size: 14px; }
+  .contactArrow { grid-area: arrow; align-self: center; }
+}
 @media (max-width: 359px) {
   .root { gap: 14px; padding-top: 18px; }
   .businessCard { padding: 15px; }
   .cardDescriptor { font-size: 14px; }
   .name { font-size: 25px; }
   .portrait { width: 70px; height: 86px; }
-  .contactRow { grid-template-columns: 71px minmax(0,1fr) 14px; gap: 5px; }
   .contactValue { font-size: 14px; }
   .quickAction { padding-inline: 12px; }
 }

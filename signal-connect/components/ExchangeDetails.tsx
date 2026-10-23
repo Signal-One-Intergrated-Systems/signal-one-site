@@ -76,13 +76,14 @@ export function ExchangeDetails({ profile }: { profile: FounderProfile }) {
         className={styles.openAction}
         aria-expanded={open}
         aria-controls={panelId}
+        aria-label="Share my details"
         onClick={toggle}
       >
-        <span className={styles.actionTitle}>Share my details <span aria-hidden="true">{open ? "−" : "+"}</span></span>
+        <span className={styles.actionTitle}>Share details <span aria-hidden="true">{open ? "−" : "+"}</span></span>
         <span className={styles.actionSub}>Optional introduction</span>
       </button>
-      <a className={styles.siteAction} href={profile.website} target="_blank" rel="noopener noreferrer">
-        <span className={styles.actionTitle}>Visit Signal One <span aria-hidden="true">↗</span></span>
+      <a className={styles.siteAction} href={profile.website} target="_blank" rel="noopener noreferrer" aria-label="Visit Signal One">
+        <span className={styles.actionTitle}>Visit website <span aria-hidden="true">↗</span></span>
         <span className={styles.actionSub}>Explore the website</span>
       </a>
 
