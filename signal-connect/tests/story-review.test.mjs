@@ -22,12 +22,18 @@ test("actual story route must check server-only review gate", () => {
   assert.match(visitorCard, /Coming soon/);
 });
 
-test("story always uses neutral placeholders and no unapproved photographic media", () => {
+test("gated story images are truthful, internal and isolated from public routes", () => {
   const panel = readFileSync("components/StoryPanel.tsx", "utf8");
   const story = readFileSync("components/SignalStory.tsx", "utf8");
-  assert.match(panel, /data-review-media="neutral-placeholder"/);
-  assert.doesNotMatch(panel + story, /approvedMediaPath|draftAssetPath|<img|<Image|\/media\/hardware\//);
-  const css = readFileSync("components/SignalStory.module.css", "utf8");
-  assert.doesNotMatch(css, /!important|backdrop-filter|box-shadow|linear-gradient|radial-gradient/);
-  assert.match(css, /prefers-reduced-motion: no-preference/);
+  const mediaRoute = readFileSync("app/review/story-media/[chapter]/route.ts", "utf8");
+  const mapping = readFileSync("lib/story-review-media.ts", "utf8");
+  assert.match(panel, /data-review-media="illustrative-photography"/);
+  assert.match(panel, /review\/story-media/);
+  assert.match(mediaRoute, /isStoryReviewEnabled/);
+  assert.match(mediaRoute, /no-store/);
+  assert.match(mapping, /Manufacturer image/);
+  assert.doesNotMatch(panel + story, /approvedMediaPath|draftAssetPath/);
+  const styles = readFileSync("components/SignalStory.module.css", "utf8");
+  assert.doesNotMatch(styles, /!important|box-shadow|backdrop-filter|linear-gradient/);
+  assert.match(styles, /prefers-reduced-motion: no-preference/);
 });
