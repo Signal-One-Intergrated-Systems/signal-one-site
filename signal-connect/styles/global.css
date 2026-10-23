@@ -39,9 +39,6 @@ header { display: flex; align-items: center; justify-content: space-between; gap
 .secondary { background: transparent; border-color: rgba(255,255,255,.34); color: #fff; }
 .secondary:hover { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.6); }
 footer { border-top: 1px solid var(--color-line-dark); padding-top: 20px; font-size: 14px; color: var(--color-text-inv-3); }
-.visitor { flex: 1; display: grid; align-content: center; gap: 24px; max-width: 650px; padding-block: 56px; }
-.visitor > p { color: var(--color-text-inv-2); }
-.lead { font-size: 21px; }
 .skip { position: absolute; top: -100px; padding: 12px; background: var(--color-base); z-index: 2; }
 .skip:focus { top: 0; }
 /* Small utility bridge required by the byte-identical canonical brand modules. */
