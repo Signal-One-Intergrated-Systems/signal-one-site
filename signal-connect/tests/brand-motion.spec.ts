@@ -74,3 +74,28 @@ test("presenter keeps actual scannable QR static while header pulses", async ({ 
   const qrAnimation = await qr.evaluate(el => getComputedStyle(el).animationName);
   expect(qrAnimation).toBe("none");
 });
+
+test("opt-in exchange and story transitions use the same short arrival, never a second pulse", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("/connect/andisiwe");
+  await page.getByRole("button", { name: "Share my details" }).click();
+  const panel = page.getByRole("heading", { name: "Introduce yourself" }).locator("..");
+  const panelState = await panel.evaluate(el => {
+    const s = getComputedStyle(el);
+    return { name: s.animationName, duration: s.animationDuration, count: s.animationIterationCount };
+  });
+  expect(panelState.name).toContain("signal-arrival");
+  expect(panelState.duration).toBe("0.32s");
+  expect(panelState.count).toBe("1");
+  await expect(page.getByRole("link", { name: "Save Andisiwe’s contact" })).toBeVisible();
+
+  await page.goto("/review/story/andisiwe");
+  const mediaState = await page.locator("[data-review-media]").evaluate(el => {
+    const s = getComputedStyle(el);
+    return { name: s.animationName, duration: s.animationDuration, count: s.animationIterationCount };
+  });
+  expect(mediaState.name).toContain("signal-arrival");
+  expect(mediaState.duration).toBe("0.32s");
+  expect(mediaState.count).toBe("1");
+  await expect(page.getByRole("button", { name: "Next chapter" })).toBeEnabled();
+});
