@@ -1,8 +1,7 @@
-import { resolveVisitorLink } from "../lib/links";
+import type { VisitorLink } from "../lib/links";
 
-/** A server component: untrusted request hosts cannot influence the QR code. */
-export function QRDisplay({ profileId }: { profileId: string }) {
-  const visitor = resolveVisitorLink(profileId, process.env.CONNECT_PUBLIC_ORIGIN);
+/** Server component. QR and share buttons use the same resolved visitor link. */
+export function QRDisplay({ profileId, visitor }: { profileId: string; visitor: VisitorLink | null }) {
   if (!visitor) {
     return (
       <div className="qr-slot" aria-label="QR sharing unavailable">
@@ -15,6 +14,8 @@ export function QRDisplay({ profileId }: { profileId: string }) {
   return (
     <div className="qr-slot">
       <p className="slot-title">Scan to connect.</p>
+      {/* Native img: fixed-size, same-origin SVG QR must never be blurred or reencoded. */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         className="qr-image"
         src={`/qr/${encodeURIComponent(profileId)}`}
@@ -23,7 +24,7 @@ export function QRDisplay({ profileId }: { profileId: string }) {
         alt="QR code opening Andisiwe Satshwa’s public Signal Connect visitor page"
         decoding="sync"
       />
-      <p className="caption">Preview link only · Not for printing</p>
+      <p className="caption">Point another phone’s camera at this code</p>
     </div>
   );
 }
