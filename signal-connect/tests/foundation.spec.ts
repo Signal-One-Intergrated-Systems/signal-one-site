@@ -32,7 +32,8 @@ test('vCard, manifest, route distinction and unknown profile', async ({ request,
   expect(manifest.start_url).toBe('/present/andisiwe');
   for (const path of ['/icon.png', '/apple-icon.png']) { const icon = await request.get(path); expect(icon.status()).toBe(200); expect(icon.headers()['content-type']).toContain('image/png'); }
   await page.goto('/connect/andisiwe');
-  await expect(page.getByRole('heading', { name: 'Every connection begins with a signal.' })).toBeVisible();
+  await expect(page.getByRole('heading', { level: 1, name: 'Andisiwe Satshwa' })).toBeVisible();
+  await expect(page.getByText('Every connection begins with a signal.')).toBeVisible();
   await expect(page.locator('form')).toHaveCount(0);
 });
 test('reduced motion and keyboard access', async ({ page }) => {
