@@ -1,5 +1,5 @@
 // Public profile only. No form, visitor data, API writes or third-party requests cached.
-const CACHE = "signal-connect-presenter-v3-02c";
+const CACHE = "signal-connect-card-v3-20261023";
 const SHELL = ["/present/andisiwe", "/contact/andisiwe", "/icon.png", "/apple-icon.png"];
 self.addEventListener("install", event => { event.waitUntil(caches.open(CACHE).then(async cache => {
   await cache.addAll(SHELL);
