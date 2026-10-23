@@ -47,7 +47,9 @@ test("visitor can save a real vCard without story, email or login", async ({ pag
   const vcf = await response.text();
   expect(vcf).toContain("FN:Andisiwe Satshwa\r\n");
   expect(vcf).toContain("TITLE:Founder\r\n");
-  expect(vcf).not.toContain("TEL:");
+  expect(vcf).toContain("TEL;TYPE=CELL:+27606335870");
+  expect(vcf).toContain("TEL;TYPE=WORK,VOICE:+27100231810");
+  expect(vcf).toContain("EMAIL;TYPE=WORK:andisiwe@signalone.co.za");
   expect(await page.locator("form").count()).toBe(0);
 });
 
@@ -97,4 +99,41 @@ test("unknown profile fails closed and no personal data form is introduced", asy
   await page.goto("/connect/andisiwe");
   await expect(page.getByText("Viewing this card does not submit your contact details or create a lead.")).toBeVisible();
   await expect(page.locator("input, textarea, form")).toHaveCount(0);
+});
+
+test("recipient sees a compact physical-card composition with small black-and-white portrait", async ({ page, request }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/connect/andisiwe");
+  const card = page.locator('section[aria-label="Andisiwe Satshwa digital business card"]');
+  await expect(card).toBeVisible();
+  await expect(card.getByRole("heading", { level: 1, name: "Andisiwe Satshwa" })).toBeVisible();
+  const photo = card.getByRole("img", { name: "Black-and-white portrait of Andisiwe Satshwa" });
+  await expect(photo).toBeVisible();
+  await expect.poll(() => photo.evaluate(el => (el as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
+  const photoBox = await photo.boundingBox();
+  expect(photoBox!.width).toBeLessThanOrEqual(110);
+  const bounds = await card.boundingBox();
+  expect(bounds!.height).toBeLessThanOrEqual(410);
+  const saveBounds = await page.getByRole("link", { name: "Save Andisiwe’s contact" }).boundingBox();
+  expect(saveBounds!.y + saveBounds!.height).toBeLessThanOrEqual(844);
+  const media = await request.get("/people/andisiwe-bw.webp");
+  expect(media.status()).toBe(200);
+  expect(media.headers()["content-type"]).toContain("image/webp");
+  expect((await media.body()).length).toBeLessThan(12000);
+});
+
+test("email WhatsApp and office telephone are actionable; CTA affordances read as buttons", async ({ page }) => {
+  await page.goto("/connect/andisiwe");
+  const card = page.locator('section[aria-label="Andisiwe Satshwa digital business card"]');
+  await expect(card.getByRole("link", { name: /andisiwe@signalone.co.za/i })).toHaveAttribute("href", "mailto:andisiwe@signalone.co.za");
+  await expect(card.getByRole("link", { name: /060 633 5870/ })).toHaveAttribute("href", "https://wa.me/27606335870");
+  await expect(card.getByRole("link", { name: /010 023 1810/ })).toHaveAttribute("href", "tel:+27100231810");
+  await expect(page.getByRole("link", { name: /^Call/i })).toHaveAttribute("href", "tel:+27100231810");
+  await expect(page.getByRole("link", { name: /^WhatsApp/i }).last()).toHaveAttribute("href", "https://wa.me/27606335870");
+  for (const control of [page.getByRole("link", { name: "Save Andisiwe’s contact" }), page.getByRole("button", { name: /Share my details/i })]) {
+    const m = await control.evaluate(el => ({ cursor:getComputedStyle(el).cursor, height:el.getBoundingClientRect().height, radius:getComputedStyle(el).borderRadius }));
+    expect(m.cursor).toBe("pointer");
+    expect(m.height).toBeGreaterThanOrEqual(48);
+    expect(m.radius).toBe("10px");
+  }
 });

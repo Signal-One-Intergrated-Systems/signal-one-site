@@ -26,14 +26,15 @@ test('vCard, manifest, route distinction and unknown profile', async ({ request,
   expect(card.status()).toBe(200);
   expect(card.headers()['content-type']).toContain('text/vcard');
   expect(await card.text()).toContain('FN:Andisiwe Satshwa\r\nORG:Signal One Integrated Systems\r\nTITLE:Founder');
-  expect(await card.text()).not.toContain('TEL:');
+  expect(await card.text()).toContain('TEL;TYPE=CELL:+27606335870');
+  expect(await card.text()).toContain('TEL;TYPE=WORK,VOICE:+27100231810');
   expect((await request.get('/contact/unknown')).status()).toBe(404);
   const manifest = await (await request.get('/manifest.webmanifest')).json();
   expect(manifest.start_url).toBe('/present/andisiwe');
   for (const path of ['/icon.png', '/apple-icon.png']) { const icon = await request.get(path); expect(icon.status()).toBe(200); expect(icon.headers()['content-type']).toContain('image/png'); }
   await page.goto('/connect/andisiwe');
   await expect(page.getByRole('heading', { level: 1, name: 'Andisiwe Satshwa' })).toBeVisible();
-  await expect(page.getByText('Every connection begins with a signal.')).toBeVisible();
+  await expect(page.getByText('andisiwe@signalone.co.za')).toBeVisible();
   await expect(page.locator('form')).toHaveCount(0);
 });
 test('reduced motion and keyboard access', async ({ page }) => {

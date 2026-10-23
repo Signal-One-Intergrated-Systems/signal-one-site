@@ -34,7 +34,7 @@ test("valid email produces only a user-controlled mailto handoff", async ({ page
   const link = page.getByRole("link", { name: "Open email app" });
   await expect(link).toBeVisible();
   const href = await link.getAttribute("href");
-  expect(href).toMatch(/^mailto:sales@signalone\.co\.za\?/);
+  expect(href).toMatch(/^mailto:andisiwe@signalone\.co\.za\?/);
   const mailto = new URL(href!);
   expect(mailto.searchParams.get("subject")).toContain("Andisiwe Satshwa");
   expect(mailto.searchParams.get("body")).toContain("Lerato Molefe");
