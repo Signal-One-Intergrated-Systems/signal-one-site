@@ -97,6 +97,19 @@
 .soon { color: var(--color-text-inv-3); font-size: 14px; white-space: nowrap; }
 .discovery > p { color: var(--color-text-inv-2); font-size: 14px; line-height: 1.5; }
 .discovery .discoveryNote { color: var(--color-text-inv-3); }
+/*
+ * Opening sequence follows the real header mark's Signal One pulse.
+ * Each stage is a single 320ms arrival, not an extra ring animation.
+ * Primary contact access remains immediate; no splash or layout reflow.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .businessCard { animation: signal-arrival 320ms var(--ease-out-soft) both; }
+  .connect { animation: signal-arrival 320ms var(--ease-out-soft) 70ms both; }
+  .discovery { animation: signal-arrival 320ms var(--ease-out-soft) 140ms both; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .businessCard, .connect, .discovery { animation: none; }
+}
 @media (max-width: 380px) {
   /* Keep long company email intact by stacking its label rather than clipping. */
   .contactRow {
