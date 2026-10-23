@@ -1,76 +1,109 @@
-/* Visitor identity-first experience. One surface ownership; canonical tokens only. */
+/* V3 recipient: compact premium business card; one card, no poster layout. */
 .root {
   flex: 1;
+  width: min(100%, 580px);
+  margin-inline: auto;
+  padding-block: clamp(22px, 4svh, 50px) 44px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  width: min(100%, 680px);
-  margin-inline: auto;
-  padding-block: clamp(28px, 6svh, 76px);
-  gap: 28px;
+  gap: 18px;
   min-width: 0;
 }
-.identity { display: grid; gap: 5px; }
-.eyebrow {
-  margin-bottom: 8px;
-  color: var(--color-signal-400);
-  font-size: 15px;
-  font-weight: 650;
-  letter-spacing: 0.005em;
+.businessCard {
+  min-width: 0;
+  padding: clamp(18px, 4.7vw, 27px);
+  border: 1px solid var(--color-line-dark);
+  border-radius: var(--radius-card);
+  background: var(--color-base);
 }
+.cardHeader { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; }
+.cardBrand { color: var(--color-text-inv); font-weight: 700; font-size: 14px; letter-spacing: .07em; }
+.brandAccent { color: var(--color-signal); }
+.cardDescriptor { color: var(--color-text-inv-3); font-size: 14px; letter-spacing: .04em; }
+.cardIdentity {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: clamp(8px, 3vw, 18px);
+  align-items: center;
+  min-width: 0;
+  margin-top: 19px;
+}
+.person { min-width: 0; }
 .name {
-  font-size: clamp(36px, 8vw, 62px);
+  color: var(--color-text-inv);
+  font-size: clamp(26px, 6.5vw, 40px);
+  line-height: 1.08;
+  letter-spacing: -.035em;
   font-weight: 700;
-  line-height: 1.06;
-  letter-spacing: -0.035em;
   text-wrap: balance;
 }
-.title {
-  margin-top: 7px;
-  color: var(--color-text-inv-2);
-  font-size: 20px;
-  font-weight: 600;
+.title { margin-top: 7px; font-size: 17px; color: var(--color-text-inv-2); font-weight: 650; }
+.company { margin-top: 2px; color: var(--color-text-inv-3); font-size: 14px; line-height: 1.45; }
+.portrait {
+  width: clamp(72px, 22vw, 100px);
+  height: clamp(88px, 26vw, 115px);
+  border: 1px solid var(--color-line-dark);
+  border-radius: var(--radius-ui);
+  background: var(--color-raised-2);
+  overflow: hidden;
+  flex: none;
+  align-self: center;
 }
-.company { color: var(--color-text-inv-3); font-size: 15px; }
-.statement {
-  margin-top: 18px;
-  color: var(--color-text-inv-2);
-  font-size: clamp(17px, 4.4vw, 20px);
-  line-height: 1.45;
-  font-weight: 450;
+.portrait img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: center bottom; }
+.hairline { height: 1px; width: 100%; margin: 18px 0 10px; background: var(--color-line-dark); }
+.contactRows { display: grid; }
+.contactRow {
+  display: grid;
+  grid-template-columns: 77px minmax(0,1fr) 16px;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 5px 2px;
+  color: var(--color-text-inv);
+  border-radius: 5px;
+  text-decoration: none;
+  cursor: pointer;
 }
-.connect { display: grid; gap: 10px; }
+.contactRow:hover { background: var(--color-raised); }
+.contactLabel { font-size: 14px; color: var(--color-text-inv-3); }
+.contactValue { min-width: 0; overflow-wrap: anywhere; font-size: 15px; line-height: 1.4; font-weight: 550; }
+.contactArrow { color: var(--color-signal-400); font-size: 16px; text-align: right; }
+.connect { display: grid; gap: 11px; min-width: 0; }
 .contactAction :global(.actions) { margin: 0; }
-.contactAction :global(.primary) { min-height: 56px; font-size: 17px; }
-.actionHint {
-  color: var(--color-text-inv-3);
-  font-size: 14px;
-  line-height: 1.5;
-  text-align: center;
+.contactAction :global(.primary) { min-height: 54px; font-size: 17px; }
+.quickActions { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
+.quickAction {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 48px;
+  padding: 11px 15px;
+  background: var(--color-raised);
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-ui);
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 650;
+  color: var(--color-text-inv);
 }
-.secondaryActions {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-  margin-top: 10px;
-}
-.emailNote { color: var(--color-text-inv-3); font-size: 14px; line-height: 1.5; }
-.discovery {
-  border-top: 1px solid var(--color-line-dark);
-  padding-top: 20px;
-  display: grid;
-  gap: 7px;
-}
+.quickAction span { color: var(--color-signal-400); }
+.quickAction:hover { background: var(--color-raised-2); }
+.secondaryActions { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
+.emailNote, .privacy { font-size: 14px; line-height: 1.5; color: var(--color-text-inv-3); }
+.discovery { display: grid; gap: 7px; padding-top: 19px; border-top: 1px solid var(--color-line-dark); }
 .discoveryHeading { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
-.discoveryHeading h2 { font-size: 18px; font-weight: 700; line-height: 1.3; letter-spacing: -0.01em; }
-.soon { font-size: 14px; color: var(--color-text-inv-3); white-space: nowrap; }
-.discovery > p { font-size: 14px; line-height: 1.45; letter-spacing: 0.015em; color: var(--color-text-inv-2); }
-.discovery .discoveryNote { color: var(--color-text-inv-3); letter-spacing: 0; }
-.privacy { color: var(--color-text-inv-3); font-size: 14px; line-height: 1.5; }
-@media (max-width: 767px) {
-  .root { justify-content: flex-start; padding-block: 28px 36px; gap: 24px; }
-  .name { font-size: clamp(35px, 9vw, 44px); }
-}
+.discoveryHeading h2 { font-size: 18px; line-height: 1.3; font-weight: 700; }
+.soon { color: var(--color-text-inv-3); font-size: 14px; white-space: nowrap; }
+.discovery > p { color: var(--color-text-inv-2); font-size: 14px; line-height: 1.5; }
+.discovery .discoveryNote { color: var(--color-text-inv-3); }
 @media (max-width: 359px) {
-  .root { gap: 20px; padding-block: 22px 30px; }
+  .root { gap: 14px; padding-top: 18px; }
+  .businessCard { padding: 15px; }
+  .cardDescriptor { font-size: 14px; }
+  .name { font-size: 25px; }
+  .portrait { width: 70px; height: 86px; }
+  .contactRow { grid-template-columns: 71px minmax(0,1fr) 14px; gap: 5px; }
+  .contactValue { font-size: 14px; }
+  .quickAction { padding-inline: 12px; }
 }

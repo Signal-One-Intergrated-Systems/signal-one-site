@@ -1,6 +1,6 @@
 import type { FounderProfile } from "../lib/profiles";
 
-/** Public vCard saving is never gated by reverse exchange or discovery. */
+/** Download triggers the native vCard flow; it does not claim contact was saved. */
 export function ContactExchange({
   profile,
   mode = "visitor",
@@ -14,8 +14,9 @@ export function ContactExchange({
         className={mode === "presenter" ? "button secondary" : "button primary"}
         href={`/contact/${profile.id}`}
         download={`${profile.id}.vcf`}
+        aria-label="Save Andisiwe’s contact"
       >
-        Save Andisiwe’s contact
+        {mode === "visitor" ? "Save Contact" : "Save Andisiwe’s contact"}
       </a>
       {mode === "presenter" && (
         <a className="contact-site-link" href={profile.website}>
