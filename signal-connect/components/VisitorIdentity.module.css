@@ -1,0 +1,100 @@
+/* Visitor identity-first experience. One surface ownership; canonical tokens only. */
+.root {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: min(100%, 680px);
+  margin-inline: auto;
+  padding-block: clamp(28px, 6svh, 76px);
+  gap: 28px;
+  min-width: 0;
+}
+.identity { display: grid; gap: 5px; }
+.eyebrow {
+  margin-bottom: 8px;
+  color: var(--color-signal-400);
+  font-size: 15px;
+  font-weight: 650;
+  letter-spacing: 0.005em;
+}
+.name {
+  font-size: clamp(36px, 8vw, 62px);
+  font-weight: 700;
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+.title {
+  margin-top: 7px;
+  color: var(--color-text-inv-2);
+  font-size: 20px;
+  font-weight: 600;
+}
+.company { color: var(--color-text-inv-3); font-size: 15px; }
+.statement {
+  margin-top: 18px;
+  color: var(--color-text-inv-2);
+  font-size: clamp(17px, 4.4vw, 20px);
+  line-height: 1.45;
+  font-weight: 450;
+}
+.connect { display: grid; gap: 10px; }
+.contactAction :global(.actions) { margin: 0; }
+.contactAction :global(.primary) { min-height: 56px; font-size: 17px; }
+.actionHint {
+  color: var(--color-text-inv-3);
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: center;
+}
+.secondaryActions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 10px;
+}
+.secondaryAction {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1px;
+  min-height: 76px;
+  padding: 12px 14px;
+  border: 1px solid var(--color-line-dark);
+  border-radius: var(--radius-ui);
+  background: var(--color-base);
+  text-decoration: none;
+  transition: background-color 140ms ease, border-color 140ms ease;
+}
+.secondaryAction:hover, .secondaryAction:focus-visible {
+  background: var(--color-raised);
+  border-color: var(--color-line-strong);
+}
+.secondaryTitle { color: var(--color-text-inv); font-size: 15px; line-height: 1.35; font-weight: 650; }
+.secondaryDescription { color: var(--color-text-inv-3); font-size: 14px; line-height: 1.35; }
+.emailNote { color: var(--color-text-inv-3); font-size: 14px; line-height: 1.5; }
+.discovery {
+  border-top: 1px solid var(--color-line-dark);
+  padding-top: 20px;
+  display: grid;
+  gap: 7px;
+}
+.discoveryHeading { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.discoveryHeading h2 { font-size: 18px; font-weight: 700; line-height: 1.3; letter-spacing: -0.01em; }
+.soon { font-size: 14px; color: var(--color-text-inv-3); white-space: nowrap; }
+.discovery > p { font-size: 14px; line-height: 1.45; letter-spacing: 0.015em; color: var(--color-text-inv-2); }
+.discovery .discoveryNote { color: var(--color-text-inv-3); letter-spacing: 0; }
+.privacy { color: var(--color-text-inv-3); font-size: 14px; line-height: 1.5; }
+@media (max-width: 767px) {
+  .root { justify-content: flex-start; padding-block: 28px 36px; gap: 24px; }
+  .name { font-size: clamp(35px, 9vw, 44px); }
+}
+@media (max-width: 359px) {
+  .root { gap: 20px; padding-block: 22px 30px; }
+  .secondaryAction { padding-inline: 10px; min-height: 78px; }
+  .secondaryTitle { font-size: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .secondaryAction { transition: none; }
+}
