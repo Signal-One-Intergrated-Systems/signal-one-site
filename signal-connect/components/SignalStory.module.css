@@ -129,15 +129,11 @@
 .keyHint { font-size: 14px; color: var(--color-text-inv-3); text-align: center; }
 @media (prefers-reduced-motion: no-preference) {
   .media, .copy {
-    animation: story-enter 300ms var(--ease-out-soft) both;
+    animation: signal-arrival 320ms var(--ease-out-soft) both;
   }
   .primaryButton, .secondaryButton {
     transition: background-color 140ms ease, border-color 140ms ease;
   }
-}
-@keyframes story-enter {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: none; }
 }
 @media (max-width: 359px) {
   .layout { gap: 16px; }
