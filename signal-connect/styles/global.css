@@ -51,8 +51,23 @@ footer { border-top: 1px solid var(--color-line-dark); padding-top: 20px; font-s
 .s1-mark > svg { display: block; }
 .s1-pulse::after { content: ""; position: absolute; inset: 0; border: 1px solid var(--color-signal); border-radius: 9999px; opacity: 0; pointer-events: none; }
 @keyframes signal-pulse { 0% { transform: scale(.9); opacity: .8; } 70% { transform: scale(1.5); opacity: 0; } 100% { opacity: 0; } }
-@keyframes enter { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-@media (prefers-reduced-motion: no-preference) { .s1-pulse::after { animation: signal-pulse 2.8s ease-out infinite; } main { animation: enter 320ms var(--ease-out-soft) both; } }
+/*
+ * SC-MOTION-001. The sole repeating brand motion is the canonical header mark.
+ * A short one-time content arrival follows the mark, without hiding the CTA or
+ * adding a separate pulse/overlay. Pages own their own reveal sequence.
+ */
+@keyframes signal-arrival {
+  from { opacity: .94; transform: translateY(5px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .s1-pulse::after { animation: signal-pulse 2.8s ease-out infinite; }
+  .presenter { animation: signal-arrival 320ms var(--ease-out-soft) both; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .s1-pulse::after, .presenter { animation: none; }
+  html { scroll-behavior: auto; }
+}
 @media (max-width: 767px) {
   .context { display: none; }
   .presenter { align-content: start; gap: 22px; padding-block: 26px; }
