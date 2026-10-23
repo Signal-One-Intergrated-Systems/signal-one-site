@@ -50,7 +50,7 @@ export function SignalStory({
         <h1 className={styles.title}>The Signal One journey</h1>
         <p className={styles.intro}>
           Five chapters. One connected operating vision.
-          <span className={styles.warning}> Neutral media only — not approved for public release.</span>
+          <span className={styles.warning}> Illustrative photography for internal review only.</span>
         </p>
       </div>
 
