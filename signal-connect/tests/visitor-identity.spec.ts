@@ -137,3 +137,19 @@ test("email WhatsApp and office telephone are actionable; CTA affordances read a
     expect(m.radius).toBe("10px");
   }
 });
+
+for (const width of [320, 360, 390]) {
+  test(`contact email stays readable on narrow ${width}px viewports`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 844 });
+    await page.goto("/connect/andisiwe");
+    await page.evaluate(() => document.fonts.ready);
+    const email = page.getByText("andisiwe@signalone.co.za", { exact: true });
+    const lines = await email.evaluate(el => {
+      const range = document.createRange();
+      range.selectNodeContents(el);
+      return [...range.getClientRects()].filter(rect => rect.width > 0).length;
+    });
+    expect(lines).toBe(1);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  });
+}
