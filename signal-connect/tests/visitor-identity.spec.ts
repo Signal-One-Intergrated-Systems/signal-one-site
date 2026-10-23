@@ -153,3 +153,14 @@ for (const width of [320, 360, 390]) {
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   });
 }
+
+test("WhatsApp label and phone number never overlap on standard mobile", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/connect/andisiwe");
+  const row = page.locator('section[aria-label="Andisiwe Satshwa digital business card"] a[href="https://wa.me/27606335870"]');
+  const label = await row.locator("span").nth(0).boundingBox();
+  const value = await row.locator("span").nth(1).boundingBox();
+  expect(label).not.toBeNull();
+  expect(value).not.toBeNull();
+  expect(label!.x + label!.width + 3).toBeLessThanOrEqual(value!.x);
+});
