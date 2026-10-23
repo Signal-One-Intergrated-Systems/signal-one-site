@@ -19,6 +19,8 @@ export function ShareLink({ url, founderName }: ShareLinkProps) {
     return <p className="share-unavailable" role="status">Sharing is unavailable until the preview link is configured.</p>;
   }
 
+  const visitorUrl: string = url;
+
   const reveal = () => {
     setRevealUrl(true);
     setStatus("Use the link below to share this card.");
@@ -31,7 +33,7 @@ export function ShareLink({ url, founderName }: ShareLinkProps) {
       return;
     }
     // Invoke the clipboard within this click, not after awaiting state changes.
-    void navigator.clipboard.writeText(url!).then(() => {
+    void navigator.clipboard.writeText(visitorUrl).then(() => {
       setRevealUrl(false);
       setStatus("Link copied.");
     }).catch(reveal);
@@ -47,7 +49,7 @@ export function ShareLink({ url, founderName }: ShareLinkProps) {
     void navigator.share({
       title: `${founderName} · Signal One Integrated Systems`,
       text: `Connect with ${founderName} from Signal One Integrated Systems.`,
-      url,
+      url: visitorUrl,
     }).then(() => {
       setStatus("");
     }).catch((error: unknown) => {
@@ -67,10 +69,10 @@ export function ShareLink({ url, founderName }: ShareLinkProps) {
       {revealUrl && (
         <div className="share-fallback">
           <label htmlFor="visitor-share-url">Visitor link</label>
-          <input id="visitor-share-url" type="text" readOnly value={url} onFocus={event => event.currentTarget.select()} />
+          <input id="visitor-share-url" type="text" readOnly value={visitorUrl} onFocus={event => event.currentTarget.select()} />
         </div>
       )}
-      <a className="preview-link" href={url} target="_blank" rel="noopener noreferrer">
+      <a className="preview-link" href={visitorUrl} target="_blank" rel="noopener noreferrer">
         Preview the visitor card <span aria-hidden="true">↗</span>
       </a>
       <p className="caption preview-warning">Preview URL only · Not for printed QR or NFC cards</p>
