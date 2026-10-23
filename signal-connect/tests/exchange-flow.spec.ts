@@ -13,7 +13,7 @@ test("closed by default; preparing an invalid email never launches or stores any
   await openForm(page);
   await expect(page.getByRole("link", { name: "Open email app" })).toHaveCount(0);
   await page.getByRole("button", { name: "Prepare email" }).click();
-  await expect(page.getByRole("alert")).toContainText("Correct the highlighted fields");
+  await expect(page.locator("p[role=alert]")).toContainText("Correct the highlighted fields");
   await expect(page.getByText("Enter your full name (2–80 characters).")).toBeVisible();
   await expect(page.getByText("Confirm that you choose to include your details")).toBeVisible();
   await expect(page.getByRole("link", { name: "Open email app" })).toHaveCount(0);
