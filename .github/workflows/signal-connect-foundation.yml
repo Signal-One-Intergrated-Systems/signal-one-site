@@ -26,7 +26,8 @@ jobs:
       - run: npm run build
       - run: npm run typecheck
       - run: npx playwright install --with-deps chromium
-      - run: npx playwright test
+      # Story QA is enabled for local CI only, never for Vercel public production.
+      - run: CONNECT_STORY_QA=enabled npx playwright test
       - name: Verify actual QR payload with independent ZBar decoder
         run: |
           sudo apt-get update -qq
