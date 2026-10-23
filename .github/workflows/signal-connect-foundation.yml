@@ -1,0 +1,35 @@
+name: Signal Connect foundation
+on:
+  pull_request:
+    paths: ['signal-connect/**', '.github/workflows/signal-connect-foundation.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  foundation:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: signal-connect
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: signal-connect/package-lock.json
+      - run: npm ci
+      - run: npm test
+      - run: npm run lint
+      - run: npm run build
+      - run: npm run typecheck
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: signal-connect-foundation-evidence
+          path: |
+            signal-connect/test-results/
+            signal-connect/playwright-report/
+          retention-days: 14

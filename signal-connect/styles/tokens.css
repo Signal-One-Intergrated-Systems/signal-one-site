@@ -1,0 +1,54 @@
+/* Canonical adapter: app/globals.css at c68d966. Verified by contracts.test.mjs. */
+:root {
+  /* Dark surfaces (the standard's dark scale) */
+  --color-base: #151a21;
+  --color-deep: #0f131a;
+  --color-raised: #1c222b;
+  --color-raised-2: #232b36;
+  --color-abyss: #0a0d12;
+  --color-line-dark: #2a3340;
+
+  /* Light surfaces: cool neutral, slate family */
+  --color-light: #f5f7fa;
+  --color-light-2: #e9eef4;
+  --color-line: #d5dde6;
+  --color-line-strong: #7c8da0;
+
+  /* Text on light */
+  --color-text: #0b1b2b;
+  --color-text-2: #33475b;
+  /* Text on dark: solid colours, never opacity */
+  --color-text-inv: #f1f5f9;
+  --color-text-inv-2: #cbd5e1;
+  --color-text-inv-3: #94a3b8;
+
+  /* Signal blue */
+  --color-signal: #0ea5e9;
+  --color-signal-600: #0284c7;
+  --color-signal-400: #38bdf8;
+  --color-signal-300: #7dd3fc;
+  /* Signal blue as text on light surfaces: darkened until it passes 4.5:1 */
+  --color-signal-ink: #0270a8;
+  --color-signal-tint: #e6f4fb;
+  --color-on-signal: #0b1118;
+
+  /* Status */
+  --color-live: #166534;
+  --color-live-tint: #e5f2e9;
+  --color-live-inv: #6ee7a0;
+  --color-beta: #92400e;
+  --color-beta-tint: #fbf0dc;
+  --color-beta-inv: #fcd47a;
+  --color-soon: #374151;
+  --color-soon-tint: #e8e9ec;
+  --color-soon-inv: #d1d5db;
+  --color-danger: #b42318;
+
+  /* Radii */
+  --radius-ui: 10px;
+  --radius-card: 14px;
+  --radius-frame: 12px;
+
+  /* Motion */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
