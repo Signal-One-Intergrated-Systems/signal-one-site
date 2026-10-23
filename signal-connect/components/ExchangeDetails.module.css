@@ -102,6 +102,10 @@
   .openAction, .siteAction { padding-inline: 10px; min-height: 78px; }
   .actionTitle { font-size: 14px; }
 }
+@media (prefers-reduced-motion: no-preference) {
+  .panel, .handoff { animation: signal-arrival 320ms var(--ease-out-soft) both; }
+}
 @media (prefers-reduced-motion: reduce) {
   .openAction, .siteAction { transition: none; }
+  .panel, .handoff { animation: none; }
 }
