@@ -18,7 +18,7 @@ for (const width of [320, 360, 390, 430, 768, 1024, 1440]) {
     await expect(page.getByRole("heading", { name: "Discover Signal One" })).toBeVisible();
     await expect(page.getByText("Coming soon", { exact: true })).toBeVisible();
     await expect(page.locator("form")).toHaveCount(0);
-    await expect(page.locator("button")).toHaveCount(0);
+    await expect(page.getByRole("button", { name: /Share my details/i })).toHaveCount(1);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     expect(await page.locator("body").evaluate(el => getComputedStyle(el).fontFamily)).toMatch(/Inter/i);
     const dimensions = await save.evaluate(el => {
@@ -51,19 +51,17 @@ test("visitor can save a real vCard without story, email or login", async ({ pag
   expect(await page.locator("form").count()).toBe(0);
 });
 
-test("email introduction is user controlled, never claimed submitted", async ({ page }) => {
+test("email introduction opens only after visitor opts in; no automatic send", async ({ page }) => {
   await page.goto("/connect/andisiwe");
-  const mail = page.getByRole("link", { name: /Share my details/i });
-  const href = await mail.getAttribute("href");
-  expect(href).toMatch(/^mailto:sales@signalone\.co\.za\?/);
-  const mailto = new URL(href!);
-  expect(mailto.searchParams.get("subject")).toContain("Andisiwe Satshwa");
-  const body = mailto.searchParams.get("body") ?? "";
-  expect(body).toContain("My name:");
-  expect(body).toContain("Best way to reach me:");
-  await expect(page.getByText("Nothing is sent until you choose Send.", { exact: false })).toBeVisible();
+  const share = page.getByRole("button", { name: /Share my details/i });
+  await expect(share).toHaveAttribute("aria-expanded", "false");
   await expect(page.locator("form")).toHaveCount(0);
-  await expect(page.getByText("Saved", { exact: true })).toHaveCount(0);
+  await share.click();
+  await expect(share).toHaveAttribute("aria-expanded", "true");
+  await expect(page.getByRole("heading", { name: "Introduce yourself" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Prepare email" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Open email app" })).toHaveCount(0);
+  await expect(page.getByText(/Nothing is sent automatically/)).toBeVisible();
 });
 
 test("story is accurately marked unavailable rather than a fake CTA", async ({ page }) => {
