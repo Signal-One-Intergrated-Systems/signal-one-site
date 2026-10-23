@@ -30,6 +30,7 @@ test('vCard, manifest, route distinction and unknown profile', async ({ request,
   expect((await request.get('/contact/unknown')).status()).toBe(404);
   const manifest = await (await request.get('/manifest.webmanifest')).json();
   expect(manifest.start_url).toBe('/present/andisiwe');
+  for (const path of ['/icon.png', '/apple-icon.png']) { const icon = await request.get(path); expect(icon.status()).toBe(200); expect(icon.headers()['content-type']).toContain('image/png'); }
   await page.goto('/connect/andisiwe');
   await expect(page.getByRole('heading', { name: 'Every connection begins with a signal.' })).toBeVisible();
   await expect(page.locator('form')).toHaveCount(0);
