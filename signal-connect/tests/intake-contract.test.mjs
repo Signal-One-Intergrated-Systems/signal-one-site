@@ -83,5 +83,5 @@ test("04B contract is inert: no direct browser CRM credentials, API calls or per
   assert.doesNotMatch(source, /fetch\(|XMLHttpRequest|localStorage|sessionStorage|process\.env|Bearer |api\/v1/);
   assert.doesNotMatch(visitor + exchange, /intake-contract|\/api\/intake|createLead\(|submitLead\(/);
   assert.match(exchange, /createExchangeEmail/);
-  assert.match(visitor, /Save Contact/);
+  assert.match(readFileSync("components/ContactExchange.tsx", "utf8"), /Save Contact/);
 });
