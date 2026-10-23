@@ -1,0 +1,47 @@
+name: Signal Connect foundation
+on:
+  pull_request:
+    paths: ['signal-connect/**', '.github/workflows/signal-connect-foundation.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  foundation:
+    runs-on: ubuntu-latest
+    env:
+      CONNECT_PUBLIC_ORIGIN: https://signal-connect-v3-source-preview.vercel.app
+    defaults:
+      run:
+        working-directory: signal-connect
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: signal-connect/package-lock.json
+      - run: npm ci
+      - run: npm test
+      - run: npm run lint
+      - run: npm run build
+      - run: npm run typecheck
+      - run: npx playwright install --with-deps chromium
+      # Story QA is enabled for local CI only, never for Vercel public production.
+      - run: CONNECT_STORY_QA=enabled npx playwright test
+      - name: Verify actual QR payload with independent ZBar decoder
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq --no-install-recommends zbar-tools
+          test -s test-results/qr-andisiwe.png
+          decoded="$(zbarimg --quiet --raw test-results/qr-andisiwe.png)"
+          expected="https://signal-connect-v3-source-preview.vercel.app/connect/andisiwe"
+          test "$decoded" = "$expected"
+          printf 'Decoded approved preview URL: %s\n' "$decoded"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: signal-connect-foundation-evidence
+          path: |
+            signal-connect/test-results/
+            signal-connect/playwright-report/
+          retention-days: 14

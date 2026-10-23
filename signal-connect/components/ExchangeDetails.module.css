@@ -1,0 +1,111 @@
+/* Execution 04A: owned, progressive disclosure, no new surface system. */
+.openAction, .siteAction {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1px;
+  min-width: 0;
+  min-height: 76px;
+  padding: 12px 14px;
+  border: 1px solid var(--color-line-dark);
+  border-radius: var(--radius-ui);
+  background: var(--color-base);
+  color: var(--color-text-inv);
+  text-decoration: none;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+  transition: background-color 140ms ease, border-color 140ms ease;
+}
+.openAction:hover, .siteAction:hover,
+.openAction:focus-visible, .siteAction:focus-visible {
+  background: var(--color-raised);
+  border-color: var(--color-line-strong);
+}
+.actionTitle { display: flex; width: 100%; align-items: center; justify-content: space-between; gap: 6px; color: var(--color-text-inv); font-size: 15px; font-weight: 650; line-height: 1.35; }
+.actionTitle > span { flex: none; }
+.actionSub { color: var(--color-text-inv-3); font-size: 14px; line-height: 1.35; }
+.panel {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  padding: clamp(16px, 4vw, 24px);
+  background: var(--color-raised);
+  border: 1px solid var(--color-line-dark);
+  border-radius: var(--radius-card);
+}
+.heading { font-size: 22px; font-weight: 700; line-height: 1.2; }
+.intro, .notice, .fieldHint {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--color-text-inv-2);
+}
+.form { display: grid; gap: 15px; }
+.field { display: grid; gap: 6px; min-width: 0; }
+.field > label, .consentRow > label { font-size: 15px; line-height: 1.45; font-weight: 600; }
+.field > input, .field > select, .field > textarea,
+.handoff textarea {
+  width: 100%;
+  min-width: 0;
+  min-height: 48px;
+  padding: 10px 12px;
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-ui);
+  background: var(--color-abyss);
+  color: var(--color-text-inv);
+  font: inherit;
+  font-size: 16px;
+  line-height: 1.4;
+}
+.field > textarea, .handoff textarea { min-height: 100px; resize: vertical; }
+.field > select { appearance: auto; }
+.field > input[aria-invalid="true"],
+.field > textarea[aria-invalid="true"] { border-color: var(--color-danger); }
+.fieldPair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.optional { color: var(--color-text-inv-3); font-size: 14px; font-weight: 400; }
+.consentRow { display: flex; align-items: flex-start; gap: 10px; }
+.consentRow input { width: 20px; height: 20px; flex: 0 0 20px; accent-color: var(--color-signal); margin: 2px 0 0; }
+.consentRow > label { font-weight: 450; }
+.error, .errorSummary { color: var(--color-beta-inv); font-size: 14px; line-height: 1.45; }
+.errorSummary { border-left: 2px solid var(--color-beta-inv); padding-left: 10px; }
+.prepare, .mailAction, .copyAction {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 48px;
+  padding: 11px 14px;
+  border-radius: var(--radius-ui);
+  font: inherit;
+  font-size: 16px;
+  font-weight: 650;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+}
+.prepare, .mailAction { background: var(--color-signal); color: var(--color-on-signal); border: 1px solid transparent; }
+.copyAction { background: transparent; color: var(--color-text-inv); border: 1px solid var(--color-line-strong); }
+.prepare:hover, .mailAction:hover { background: var(--color-signal-400); }
+.copyAction:hover { background: var(--color-base); }
+.handoff {
+  display: grid;
+  gap: 10px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-line-dark);
+}
+.handoff h3 { font-size: 18px; line-height: 1.3; }
+.handoff > p { color: var(--color-text-inv-2); font-size: 14px; line-height: 1.5; }
+.handoff .status:empty { display: none; }
+@media (max-width: 500px) { .fieldPair { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 359px) {
+  .openAction, .siteAction { padding-inline: 10px; min-height: 78px; }
+  .actionTitle { font-size: 14px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .panel, .handoff { animation: signal-arrival 320ms var(--ease-out-soft) both; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .openAction, .siteAction { transition: none; }
+  .panel, .handoff { animation: none; }
+}

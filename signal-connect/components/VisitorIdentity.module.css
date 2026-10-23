@@ -1,0 +1,135 @@
+/* V3 recipient: compact premium business card; one card, no poster layout. */
+.root {
+  flex: 1;
+  width: min(100%, 580px);
+  margin-inline: auto;
+  padding-block: clamp(22px, 4svh, 50px) 44px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-width: 0;
+}
+.businessCard {
+  min-width: 0;
+  padding: clamp(18px, 4.7vw, 27px);
+  border: 1px solid var(--color-line-dark);
+  border-radius: var(--radius-card);
+  background: var(--color-base);
+}
+.cardHeader { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; }
+.cardBrand { color: var(--color-text-inv); font-weight: 700; font-size: 14px; letter-spacing: .07em; }
+.brandAccent { color: var(--color-signal); }
+.cardDescriptor { color: var(--color-text-inv-3); font-size: 14px; letter-spacing: .04em; }
+.cardIdentity {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: clamp(8px, 3vw, 18px);
+  align-items: center;
+  min-width: 0;
+  margin-top: 19px;
+}
+.person { min-width: 0; }
+.name {
+  color: var(--color-text-inv);
+  font-size: clamp(26px, 6.5vw, 40px);
+  line-height: 1.08;
+  letter-spacing: -.035em;
+  font-weight: 700;
+  text-wrap: balance;
+}
+.title { margin-top: 7px; font-size: 17px; color: var(--color-text-inv-2); font-weight: 650; }
+.company { margin-top: 2px; color: var(--color-text-inv-3); font-size: 14px; line-height: 1.45; }
+.portrait {
+  width: clamp(72px, 22vw, 100px);
+  height: clamp(88px, 26vw, 115px);
+  border: 1px solid var(--color-line-dark);
+  border-radius: var(--radius-ui);
+  background: var(--color-raised-2);
+  overflow: hidden;
+  flex: none;
+  align-self: center;
+}
+.portrait img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: center bottom; }
+.hairline { height: 1px; width: 100%; margin: 18px 0 10px; background: var(--color-line-dark); }
+.contactRows { display: grid; }
+.contactRow {
+  display: grid;
+  grid-template-columns: 72px minmax(0,1fr) 12px;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 5px 2px;
+  color: var(--color-text-inv);
+  border-radius: 5px;
+  text-decoration: none;
+  cursor: pointer;
+}
+.contactRow:hover { background: var(--color-raised); }
+.contactLabel { font-size: 14px; color: var(--color-text-inv-3); }
+.contactValue { min-width: 0; overflow-wrap: anywhere; font-size: 15px; line-height: 1.4; font-weight: 550; }
+.contactArrow { color: var(--color-signal-400); font-size: 16px; text-align: right; }
+.connect { display: grid; gap: 11px; min-width: 0; }
+.contactAction :global(.actions) { margin: 0; }
+.contactAction :global(.primary) { min-height: 54px; font-size: 17px; }
+.quickActions { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
+.quickAction {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 48px;
+  padding: 11px 15px;
+  background: var(--color-raised);
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-ui);
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 650;
+  color: var(--color-text-inv);
+}
+.quickAction span { color: var(--color-signal-400); }
+.quickAction:hover { background: var(--color-raised-2); }
+.secondaryActions { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
+.emailNote, .privacy { font-size: 14px; line-height: 1.5; color: var(--color-text-inv-3); }
+.discovery { display: grid; gap: 7px; padding-top: 19px; border-top: 1px solid var(--color-line-dark); }
+.discoveryHeading { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.discoveryHeading h2 { font-size: 18px; line-height: 1.3; font-weight: 700; }
+.soon { color: var(--color-text-inv-3); font-size: 14px; white-space: nowrap; }
+.discovery > p { color: var(--color-text-inv-2); font-size: 14px; line-height: 1.5; }
+.discovery .discoveryNote { color: var(--color-text-inv-3); }
+/*
+ * Opening sequence follows the real header mark's Signal One pulse.
+ * Each stage is a single 320ms arrival, not an extra ring animation.
+ * Primary contact access remains immediate; no splash or layout reflow.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .businessCard { animation: signal-arrival 320ms var(--ease-out-soft) both; }
+  .connect { animation: signal-arrival 320ms var(--ease-out-soft) 70ms both; }
+  .discovery { animation: signal-arrival 320ms var(--ease-out-soft) 140ms both; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .businessCard, .connect, .discovery { animation: none; }
+}
+@media (max-width: 380px) {
+  /* Keep long company email intact by stacking its label rather than clipping. */
+  .contactRow {
+    grid-template-columns: minmax(0,1fr) 14px;
+    grid-template-areas: "label arrow" "value arrow";
+    row-gap: 1px;
+    column-gap: 8px;
+    min-height: 54px;
+    padding-block: 7px;
+  }
+  .contactLabel { grid-area: label; }
+  .contactValue { grid-area: value; font-size: 14px; }
+  .contactArrow { grid-area: arrow; align-self: center; }
+}
+@media (max-width: 359px) {
+  .root { gap: 14px; padding-top: 18px; }
+  .businessCard { padding: 15px; }
+  .cardDescriptor { font-size: 14px; }
+  .name { font-size: 25px; }
+  .portrait { width: 70px; height: 86px; }
+  .contactValue { font-size: 14px; }
+  .quickAction { padding-inline: 12px; }
+}
