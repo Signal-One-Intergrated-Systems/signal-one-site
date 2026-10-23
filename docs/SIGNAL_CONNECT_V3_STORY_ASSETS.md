@@ -4,7 +4,7 @@
 **Phase:** 03A · **Public story approval: BLOCKED**
 **Authority:** `docs/SIGNAL_CONNECT_V3_EXPERIENCE_ARCHITECTURE.md`, `docs/SIGNAL_CONNECT_V3_SURGICAL_EXECUTION_PLAN.md`, `docs/PHOTOGRAPHY_BRIEF.md`, `docs/ASSET_PROVENANCE.md`, `docs/FOUNDER_BRIEF_2026-10-07.md`.
 **Story copy source:** `signal-connect/lib/story.ts`.
-**Important:** Story UI and interaction (03B) have NOT been implemented or deployed. This document is the release gate for media, not permission to launch illustrative scenes.
+**Current status (23 October 2026):** Execution 03B is implemented. Following owner approval of the photography direction, illustrative scene imagery was integrated into a **separate staging review** with explicit fictional/manufacturer-source labels. See `docs/SIGNAL_CONNECT_V3_PHOTOGRAPHY_REVIEW_EVIDENCE.md`. This does not approve real-world provenance, third-party usage rights or public story release.
 
 ## 1. Primary finding — image origin and actual product proof
 
@@ -114,3 +114,8 @@ Do not move directly into the polished 03B story based on these provisional imag
 This execution modifies no presenter, visitor, animation, CSS, backend, Vercel config, V2 or public production route. The two vendor product images are staged in V3 `public/media/hardware/` but **not linked or displayed by any V3 public page**. Real-world media are intentionally staged outside `public/`.
 
 Next **separate** mission before 03B design: acquire and inspect approved originals, capture real synthetic demo software evidence and update `storyChapters` paths/status only after independent review. The underlying card/QR/vCard/Share flow remains stable.
+
+
+## 7. Subsequent review status — still not production photography
+
+The later photo-led staging review uses the four existing illustrative people/operations binaries and the conditional manufacturer Hytera device image behind a non-production server gate. This lets the founder evaluate composition, typography, focus and transitions before commissioning real replacements. **The 03A final-media release matrix above stays RED.** The approval to proceed is creative approval, not independent rights/release documentation.
