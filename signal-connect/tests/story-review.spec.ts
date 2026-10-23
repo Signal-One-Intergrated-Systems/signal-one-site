@@ -13,7 +13,7 @@ const titles = [
 test("five chapters use frozen editorial copy, progress and reversible navigation", async ({ page }) => {
   await page.goto(review);
   await expect(page.getByRole("heading", { level: 1, name: "The Signal One journey" })).toBeVisible();
-  await expect(page.getByText(/Neutral media only/)).toBeVisible();
+  await expect(page.getByText(/Illustrative photography for internal review only/)).toBeVisible();
   await expect(page.getByRole("status")).toHaveText("Chapter 1 of 5");
   await expect(page.getByRole("button", { name: "Previous" })).toBeDisabled();
 
@@ -22,9 +22,11 @@ test("five chapters use frozen editorial copy, progress and reversible navigatio
     await expect(page.getByRole("heading", { level: 2, name: heading })).toBeVisible();
     await expect(page.getByRole("status")).toHaveText(`Chapter ${i + 1} of 5`);
     await expect(page.locator('nav[aria-label="Story chapter progress"] li').nth(i)).toHaveAttribute("aria-current", "step");
-    await expect(page.locator("[data-review-media=neutral-placeholder]")).toHaveCount(1);
-    await expect(page.getByRole("img", { name: new RegExp(`Neutral media placeholder for ${id}`) })).toBeVisible();
-    expect(await page.locator("img, picture, video, canvas").count()).toBe(0);
+    await expect(page.locator("[data-review-media=illustrative-photography]")).toHaveCount(1);
+    const photo = page.locator("[data-review-media] img");
+    await expect(photo).toBeVisible();
+    await expect(photo).toHaveAttribute("src", `/review/story-media/${id.toLowerCase()}`);
+    await expect.poll(() => photo.evaluate(e => (e as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
     if (i < titles.length - 1) {
       await page.getByRole("button", { name: "Next chapter" }).click();
       await expect(page.getByRole("heading", { level: 2, name: titles[i + 1][1] })).toBeFocused();
@@ -103,7 +105,8 @@ for (const width of [320, 360, 390, 430, 768, 1024, 1440]) {
     });
     expect(metrics.height).toBeGreaterThanOrEqual(48);
     expect(metrics.radius).toBe("10px");
-    expect(await page.locator("article img").count()).toBe(0);
+    expect(await page.locator("article img").count()).toBe(1);
+    await expect.poll(() => page.locator("article img").evaluate(e => (e as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
     const violations = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa"]).analyze();
     expect(violations.violations).toEqual([]);
     expect(errors).toEqual([]);
@@ -114,8 +117,21 @@ for (const width of [320, 360, 390, 430, 768, 1024, 1440]) {
 test("short iPhone viewport scrolls, stays in one media surface and preserves controls", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 667 });
   await page.goto(review);
-  await expect(page.locator("[data-review-media=neutral-placeholder]")).toBeVisible();
+  await expect(page.locator("[data-review-media=illustrative-photography]")).toBeVisible();
   await expect(page.getByRole("button", { name: "Next chapter" })).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   await page.screenshot({ path: "test-results/story-review-short-390.png", fullPage: true });
+});
+
+test("all gated photographic references respond with WebP and unknown chapters 404", async ({ request }) => {
+  for (const [id] of titles) {
+    const response = await request.get(`/review/story-media/${id.toLowerCase()}`);
+    expect(response.status()).toBe(200);
+    expect(response.headers()["content-type"]).toContain("image/webp");
+    expect(response.headers()["cache-control"]).toContain("no-store");
+    const bytes = await response.body();
+    expect(bytes.toString("ascii", 0, 4)).toBe("RIFF");
+    expect(bytes.toString("ascii", 8, 12)).toBe("WEBP");
+  }
+  expect((await request.get("/review/story-media/unknown")).status()).toBe(404);
 });
