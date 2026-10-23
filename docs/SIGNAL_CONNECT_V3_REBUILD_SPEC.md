@@ -5,6 +5,7 @@
 **First founder profile:** Andisiwe Satshwa — **Founder** (not Co-Founder)
 **Base:** `main` at `c68d96604441bace329f0494bcddf2385b5745d5`
 **Scope:** fresh application architecture. NO CSS/HTML/JS copy from previous Signal Connect prototype or from branch `feat/signal-connect-andisiwe-20261023`.
+**Experience update (SC-UX-001):** connection-first identity card and immediate contact saving, with optional story and voluntary reverse exchange; documented in `docs/SIGNAL_CONNECT_V3_EXPERIENCE_ARCHITECTURE.md`.
 
 ## 0. The reset contract
 1. This is a source rebuild, **not** a CSS patch or visual reskin.
@@ -93,15 +94,17 @@ signal-connect/
 5. Presentation mode is read-only; accidental touch must not navigate into the visitor form.
 6. Source profile routes are distinct: `/present/andisiwe` for the installed app; `/connect/andisiwe` for QR visitor. Older QR paths should redirect when migration is complete.
 
-### Visitor
-1. Scans with any phone camera, opens `/connect/andisiwe`; never opens presenter view.
-2. Sees Signal One pulse/wordmark and the concise framing "Every connection begins with a signal.".
-3. Chooses "Meet Signal One" (story) or "Connect now" (skip). Nothing is forced.
-4. Explores five photographic chapters: **WIN → HIRE → RUN → EQUIP → PROVE**.
-5. Single continuous story surface: image flush to panel edge, no inset double border. One simple action per scene. Genuine device visuals in EQUIP.
-6. Short form: full name, company (optional), email OR telephone required, selectable interests, notes (optional), explicit enquiry-contact consent, separate unticked marketing checkbox.
-7. On confirmed durable submission: say connected and offer **Save Andisiwe's Contact** as a downloaded `.vcf`. Can save contact at any time, including without submitting.
-8. If server unavailable, do **not** claim saved: show a concise service-unavailable panel and an explicit mail-app alternative. Never silently lose data.
+### Visitor — updated identity-first flow (SC-UX-001)
+1. Scans with any phone camera and opens `/connect/andisiwe` — **never** the presenter's `/present/andisiwe` view; no installation or registration required.
+2. Sees Andisiwe Satshwa, **Founder**, Signal One Integrated Systems, brand lockup and immediate **Save Andisiwe's contact** CTA.
+3. Saving the public vCard is independent of every form, story chapter or reverse-contact exchange. Visitor controls whether the phone imports it.
+4. Sees distinct optional choices: **Share my details** (explicit consent, honest manual email alternative until durable intake exists) and **Discover Signal One** (five-chapter story). Site visit is tertiary.
+5. Story is always skippable or exit-able: **WIN → HIRE → RUN → EQUIP → PROVE**. One continuous story panel, locally bundled imagery and verified hardware. Exit always returns to the contact-first view.
+6. A later exchange form requests name and email OR phone, with optional company, interests and notes, explicit reply consent and a separate default-off marketing checkbox.
+7. On server-confirmed durable write only, say the introduction was received; if receiver unavailable, no false success, with explicitly user-sent email fallback. No passive contact capture.
+8. QR, share/copy and visitor link all derive from one validated, allowlisted HTTPS origin; never from incoming Host header or third-party QR services.
+
+**Implementation authority:** `docs/SIGNAL_CONNECT_V3_EXPERIENCE_ARCHITECTURE.md` and `docs/SIGNAL_CONNECT_V3_SURGICAL_EXECUTION_PLAN.md`. These supersede earlier story-first ordering without altering the five original story chapters.
 
 ### Approved interest options
 Guard operations platform; PTT radios & communications; Body-worn cameras; Vehicle & asset tracking; SOS & response workflows; SIMs & connectivity; Guard Marketplace (in development); Complete integrated solution.
@@ -146,13 +149,21 @@ Build on a **new preview** from GitHub, never by uploading assembled HTML direct
 - Visual sign-off compares to actual canonical Signal One website/product system, not an assistant-created artistic reference.
 - Review preview before production promotion. Preserve prior deployment as rollback until sign-off.
 
-## 9. Sequence / milestones
-1. **Architecture & tokens freeze:** standalone app root, canonical brand adapter, ADR for deployment and QR generation, routes and data contracts. Gate: correct provenance, no old CSS.
-2. **UI primitives:** Inter, mark and wordmark, button, input, glass/solid surface, app shell, progress, photo panel. Gate: screenshot + component visual parity with website.
-3. **Presenter flow:** founder profile, QR, share, vCard and installable PWA. Gate: physical iPhone scan/import; standalone opens.
-4. **Visitor story:** five chapters + skip + integrated local imagery. Gate: all viewport screenshot and image checks.
-5. **Lead capture:** schema, server write, consent, error recovery, duplication, Sales OS bridge. Gate: verified real lead.
-6. **Full QA / controlled deployment:** performance, screen-reader/keyboard, iOS/Android, preview -> release and rollback test.
+## 9. Sequence / milestones — surgical execution gates
+
+**Execution 01 (complete):** isolated Next.js/TypeScript foundation, canonical Inter and logo, typed founder profile, vCard and baseline CI. Do not regress this foundation.
+
+**Execution 02 (ordered 02A → 02B → 02C → 02D):** validate immutable URL/origin; generate locally scannable QR; build real presenter share/copy; deliver recipient identity-first Save Contact view. Each sub-step requires independent unit/browser QA before the next.
+
+**Execution 03 (03A → 03B):** lock licensed/provenance-verified five-scene photography and factual chapter copy; then build the optional story, one-image/one-surface, with accessible navigation and reduced motion.
+
+**Execution 04 (04A → 04B):** honest optional reverse exchange/email first; only later add durable lead storage with verified Sales OS server-to-server integration. No simulated success.
+
+**Execution 05 (later):** Wallet signing, NFC physical distribution, team provisioning. Wallet is not a PWA capability.
+
+**Release:** GitHub CI, real iPhone/Android scan/contact/standalone testing, screenshot acceptance, verified stable origin and source-controlled Vercel deployment. V2 remains rollback/reference.
+
+**Strict file boundaries and acceptance tests:** see `docs/SIGNAL_CONNECT_V3_SURGICAL_EXECUTION_PLAN.md`.
 
 ## 10. Implementation boundaries
 - No user data collection or production deploy until endpoint verification.
