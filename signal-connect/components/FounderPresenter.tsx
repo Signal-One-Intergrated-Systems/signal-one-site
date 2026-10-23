@@ -19,7 +19,7 @@ export function FounderPresenter({ profile }: { profile: FounderProfile }) {
       <section className="exchange" aria-label="Contact exchange">
         <QRDisplay profileId={profile.id} visitor={visitor} />
         <ShareLink url={visitor?.url ?? null} founderName={profile.fullName} />
-        <ContactExchange profile={profile} />
+        <ContactExchange profile={profile} mode="presenter" />
         <p className="caption inbox">Company enquiries · {profile.publicEmail}</p>
       </section>
     </main>
