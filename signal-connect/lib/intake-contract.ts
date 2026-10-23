@@ -1,7 +1,7 @@
 import {
   validateExchange,
   type ExchangeFields,
-} from "./exchange";
+} from "./exchange.ts";
 
 /**
  * SC-04B-1 — data contract ONLY. This module NEVER sends a request, collects
