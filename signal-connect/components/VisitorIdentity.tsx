@@ -1,23 +1,7 @@
 import type { FounderProfile } from "../lib/profiles";
 import { ContactExchange } from "./ContactExchange";
+import { ExchangeDetails } from "./ExchangeDetails";
 import styles from "./VisitorIdentity.module.css";
-
-function introductionEmail(profile: FounderProfile): string {
-  const subject = "Introduction via Signal Connect — Andisiwe Satshwa";
-  const body = [
-    "Hello Andisiwe,",
-    "",
-    "I found your Signal Connect card and would like to connect.",
-    "",
-    "My name:",
-    "Company (optional):",
-    "Best way to reach me:",
-    "What I would like to discuss:",
-    "",
-    "Kind regards,",
-  ].join("\n");
-  return `mailto:${profile.publicEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-}
 
 /**
  * A public, identity-first card. Viewing it never submits personal information.
@@ -41,16 +25,9 @@ export function VisitorIdentity({ profile }: { profile: FounderProfile }) {
         <p className={styles.actionHint}>Open her contact card and choose whether to save it.</p>
 
         <div className={styles.secondaryActions}>
-          <a className={styles.secondaryAction} href={introductionEmail(profile)}>
-            <span className={styles.secondaryTitle}>Share my details <span aria-hidden="true">↗</span></span>
-            <span className={styles.secondaryDescription}>Write an introduction</span>
-          </a>
-          <a className={styles.secondaryAction} href={profile.website} target="_blank" rel="noopener noreferrer">
-            <span className={styles.secondaryTitle}>Visit Signal One <span aria-hidden="true">↗</span></span>
-            <span className={styles.secondaryDescription}>Explore the website</span>
-          </a>
+          <ExchangeDetails profile={profile} />
         </div>
-        <p className={styles.emailNote}>Sharing your details opens your email app. Nothing is sent until you choose Send.</p>
+        <p className={styles.emailNote}>Share your details only if you choose. The introduction is prepared locally and sent through your own email app.</p>
       </section>
 
       <section className={styles.discovery} aria-labelledby="discovery-heading">
