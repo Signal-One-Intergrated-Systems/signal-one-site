@@ -8,7 +8,7 @@ test("presenter QR is local, legible and encodes a visitor route", async ({ page
   page.on("pageerror", e => errors.push(e.message));
   await page.goto("/present/andisiwe");
   await expect(page.getByRole("heading", { name: "Andisiwe Satshwa" })).toBeVisible();
-  await expect(page.getByText("Preview link only")).toBeVisible();
+  await expect(page.getByText(/Preview URL only/)).toBeVisible();
   const code = page.locator(".qr-image");
   await expect(code).toBeVisible();
   expect(await code.getAttribute("src")).toBe("/qr/andisiwe");
