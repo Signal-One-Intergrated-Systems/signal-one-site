@@ -1,0 +1,55 @@
+name: Existing website Connect live verification
+on:
+  push:
+    branches: [main]
+    paths: ['app/**', 'public/connect-assets/**', 'next.config.ts', 'tests/live/**', 'playwright.live.config.ts', 'scripts/wait-connect-release.mjs', '.github/workflows/connect-live.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: connect-existing-production-verification
+  cancel-in-progress: false
+jobs:
+  live-browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      EXPECTED_RELEASE: ${{ github.sha }}
+      NEXT_TELEMETRY_DISABLED: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - name: Install exact locked test dependencies
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Install Chromium and independent QR decoder
+        run: |
+          npx playwright install --with-deps chromium
+          sudo apt-get update
+          sudo apt-get install -y zbar-tools librsvg2-bin
+      - name: Observe exact existing-service HTTPS deployment
+        run: node scripts/wait-connect-release.mjs
+      - name: Actual HTTPS browser, desktop/tablet/mobile and accessibility
+        run: npx playwright test --config playwright.live.config.ts
+      - name: Independently decode actual live QR
+        run: |
+          set -euo pipefail
+          count=0
+          while IFS= read -r image; do
+            test "$(zbarimg --quiet --raw "$image" 2>/dev/null)" = 'https://www.signalone.co.za/connect/andisiwe'
+            count=$((count + 1))
+          done < <(find test-results/live -name live-qr.png -type f)
+          test "$count" -eq 3
+          printf '<svg xmlns="http://www.w3.org/2000/svg" width="264" height="264"><rect width="264" height="264" fill="white"/></svg>' | rsvg-convert -o /tmp/connect-blank-control.png
+          if zbarimg --quiet --raw /tmp/connect-blank-control.png > /tmp/connect-blank-result 2>/dev/null; then
+            echo 'Unexpected QR in blank control'; exit 1
+          fi
+          test ! -s /tmp/connect-blank-result
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: actual-https-connect-${{ github.sha }}
+          path: test-results/live/
+          retention-days: 14

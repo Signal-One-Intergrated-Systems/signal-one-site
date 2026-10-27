@@ -45,3 +45,6 @@ next-env.d.ts
 # playwright
 /test-results/
 /playwright-report/
+
+# Isolated Connect regression output
+/connect-test-results/

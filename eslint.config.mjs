@@ -7,6 +7,7 @@ const eslintConfig = defineConfig([
   ...nextTs,
   // Override default ignores of eslint-config-next.
   globalIgnores([
+    "app/_connect/lib/vendor/qrcodegen.ts",
     // Default ignores of eslint-config-next:
     ".next/**",
     ".next-*/**",

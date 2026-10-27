@@ -20,14 +20,7 @@ const sourceRoots = ["app", "public"];
 const builtRoot = ".next/server/app";
 
 const codename = /l[.\s]?e[.\s]?o[.\s]?s/i;
-const truthRules = [
-  [/shared[\s-]+phones?/i, '"Shared Phone" (say "Central Device")'],
-  [/\bVerified\b/, '"Verified" badge or claim'],
-  [/\b(Starter|Enterprise)\b/, "software tier name"],
-  [/\bProfessional (plan|tier|package)\b/i, "software tier name"],
-  [/Irongate|98\.6%|4\.8\s*\/\s*5|3:41|180\+\s*countries/i, "invented metric from the retired fake dashboard"],
-  [/\b(Toronto|Vancouver|Montreal|Calgary|Ottawa|New York|Chicago|Los Angeles|San Francisco|Seattle|Boston|Dallas|Houston|Miami)\b/, "overseas city name"],
-];
+import { truthRules } from "./public-truth-rules.mjs";
 
 const textExtensions = new Set([".ts", ".tsx", ".js", ".jsx", ".mjs", ".json", ".md", ".txt", ".css", ".html", ".svg", ".xml", ".rsc", ".body", ".meta"]);
 const failures = [];
