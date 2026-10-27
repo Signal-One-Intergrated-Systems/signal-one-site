@@ -1,11 +1,13 @@
 "use client";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useRef, useState, type FormEvent } from "react";
 import { InterestSelect } from "./InterestSelect";
 import { type InterestId } from "../lib/interests";
 import { NOTICE_VERSION, isReceipt, parseIntroduction } from "../lib/introduction";
 import styles from "./IntroductionForm.module.css";
 export function IntroductionForm({enabled,alreadyConnected=false}:{enabled:boolean;alreadyConnected?:boolean}) {
+  const router=useRouter();
   const [interests,setInterests]=useState<InterestId[]>([]),[interestError,setInterestError]=useState<string>();
   const [phase,setPhase]=useState<"ready"|"sending"|"unknown"|"saved">(alreadyConnected?"saved":"ready");
   const [error,setError]=useState("");
@@ -29,7 +31,7 @@ export function IntroductionForm({enabled,alreadyConnected=false}:{enabled:boole
       const response=await fetch("/api/contact-intake",{method:"POST",credentials:"same-origin",cache:"no-store",headers:{"Content-Type":"application/json"},body:attempt.raw,signal:controller.signal});
       const body:unknown=await response.json();
       if((response.status!==200 && response.status!==201) || !isReceipt(body,attempt.id) || (response.status===201)!==(body.status==="created"))throw Error("No confirmed receipt");
-      pending.current=null;form.reset();setInterests([]);setPhase("saved");
+      pending.current=null;form.reset();setInterests([]);setPhase("saved");router.refresh();
     }catch{setPhase("unknown");setError("Your introduction has not been confirmed. Keep this page open and retry to check the same introduction safely.");}
     finally{inFlight.current=false;clearTimeout(timer);}
   }
@@ -38,7 +40,7 @@ export function IntroductionForm({enabled,alreadyConnected=false}:{enabled:boole
   const frozen=phase!=="ready";
   return <form method="post" action="/api/contact-intake" className={styles.form} aria-labelledby="introduction-heading" onSubmit={submit}>
     <div><h2 id="introduction-heading">Let’s connect.</h2><p className={styles.hint}>A few details so Andisiwe can follow up personally.</p></div>
-    <noscript><p>Please enable JavaScript to send an introduction, or use the business contact details above.</p></noscript>
+    <noscript><p>Please enable JavaScript to send an introduction.</p></noscript>
     <fieldset disabled={frozen}><legend className={styles.srOnly}>Your introduction</legend>
       <label htmlFor="intro-name">Full name <span aria-hidden="true">*</span></label><input id="intro-name" name="name" required maxLength={160} autoComplete="name" />
       <div className={styles.contactGrid}><div><label htmlFor="intro-email">Email</label><input id="intro-email" name="email" type="email" maxLength={320} autoComplete="email" aria-describedby="contact-hint" /></div><div><label htmlFor="intro-phone">Phone</label><input id="intro-phone" name="phone" type="tel" maxLength={32} autoComplete="tel" aria-describedby="contact-hint" /></div></div>

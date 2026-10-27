@@ -1,6 +1,11 @@
 import {test,expect,type Page} from '@playwright/test';
 import {readFile} from 'node:fs/promises';
 import AxeBuilder from '@axe-core/playwright';
+async function expectContacts(page:Page, visible:boolean) {
+  for(const selector of ['a[href^="mailto:"]','a[href^="tel:"]','a[href^="https://wa.me/"]']) {
+    await expect(page.locator(selector)).toHaveCount(visible?1:0);
+  }
+}
 async function choose(page:Page,labels=['Signal One Guard — Security operations','DMR & two-way radios']) {
   await page.getByRole('button',{name:/What can Signal One help you with/}).click();
   for(const label of labels)await page.getByRole('checkbox',{name:label,exact:true}).check();
@@ -16,6 +21,9 @@ test('identity and form appear together; photo stays compact; grouped interests 
   await expect(page.getByRole('heading',{name:'Andisiwe Satshwa'})).toBeVisible();await expect(page.getByLabel('Full name')).toBeVisible();
   await expect(page.getByRole('button',{name:'Connect with Andisiwe',exact:true})).toBeVisible();
   await expect(page.getByRole('link',{name:'Save Contact',exact:true})).toHaveCount(0);
+  await expectContacts(page,false);
+  const initialHtml=await (await page.request.get('/connect/andisiwe')).text();
+  expect(initialHtml).not.toMatch(/andisiwe@signalone\.co\.za|606335870|010 023 1810|mailto:|wa\.me\//);
   const photo=await page.getByAltText('Black-and-white portrait of Andisiwe Satshwa').boundingBox();expect(photo!.width).toBeLessThanOrEqual(100);expect(photo!.height).toBeLessThanOrEqual(115);
   await expect(page.getByRole('checkbox',{name:/I acknowledge/})).not.toBeChecked();await expect(page.getByRole('checkbox',{name:/news and offers/})).not.toBeChecked();
   await expect(page.getByRole('dialog')).toHaveCount(0);await expect(page.getByText(/locked|unlock|padlock/i)).toHaveCount(0);
@@ -49,7 +57,7 @@ test('phone-only introduction commits all selected interests and separate market
   await page.goto('/connect/andisiwe');await fill(page);await choose(page,['Other / Not sure yet']);await page.getByLabel('Anything specific?').fill('Synthetic service question');
   const responsePromise=page.waitForResponse(r=>r.url().endsWith('/api/contact-intake'));await page.getByRole('button',{name:'Connect with Andisiwe',exact:true}).click();const response=await responsePromise;expect(response.status()).toBe(201);const receipt=await response.json();
   const proof=await (await request.get('/__synthetic-proof?submission='+receipt.submissionId)).json();expect(proof.receipts).toBe(1);expect(proof.email).toBe(null);expect(proof.phone).toBe('+27110000000');expect(proof.interests.map((v:{id:string})=>v.id)).toEqual(['guard','dmr','other']);expect(proof.marketingConsent.affirmative).toBe(false);expect(proof.proofInterests).toEqual(proof.interests);expect(proof.otherSpecification).toBe('Synthetic service question');expect(proof.contractVersion).toBe(2);
-  await expect(page.getByText('Your introduction has been recorded.')).toBeVisible();const [download]=await Promise.all([page.waitForEvent('download'),page.getByRole('link',{name:'Save Contact',exact:true}).click()]);expect(download.suggestedFilename()).toBe('andisiwe.vcf');await download.saveAs(info.outputPath('synthetic-andisiwe.vcf'));const card=await readFile(info.outputPath('synthetic-andisiwe.vcf'),'utf8');expect(card).toContain('FN:Andisiwe Satshwa\r\n');expect(card).toContain('EMAIL;TYPE=WORK:andisiwe@signalone.co.za\r\n');expect(card).not.toMatch(/(?<!\r)\n/u);
+  await expect(page.getByText('Your introduction has been recorded.')).toBeVisible();await expectContacts(page,true);const [download]=await Promise.all([page.waitForEvent('download'),page.getByRole('link',{name:'Save Contact',exact:true}).click()]);expect(download.suggestedFilename()).toBe('andisiwe.vcf');await download.saveAs(info.outputPath('synthetic-andisiwe.vcf'));const card=await readFile(info.outputPath('synthetic-andisiwe.vcf'),'utf8');expect(card).toContain('FN:Andisiwe Satshwa\r\n');expect(card).toContain('EMAIL;TYPE=WORK:andisiwe@signalone.co.za\r\n');expect(card).not.toMatch(/(?<!\r)\n/u);
   await page.reload();await expect(page.getByRole('link',{name:'Save Contact',exact:true})).toBeVisible();expect((await request.get('/contact/andisiwe?persisted=true')).status()).toBe(403);
   await page.screenshot({path:info.outputPath('synthetic-recorded.png'),fullPage:true});
 });
@@ -61,7 +69,7 @@ test('email-only and all 20 interests persist in one record, with separately cho
 });
 test('withheld acknowledgement preserves byte-identical retry payload and one committed record; no premature Save Contact',async({page,request})=>{
   const bodies:string[]=[];let dropped=false;await page.route('**/api/contact-intake',async route=>{bodies.push(route.request().postData()!);if(!dropped){dropped=true;await route.continue({headers:{...route.request().headers(),'x-synthetic-drop-ack':'true'}});}else await route.continue();});
-  await page.goto('/connect/andisiwe');await fill(page);await page.getByRole('button',{name:'Connect with Andisiwe',exact:true}).click();await expect(page.getByRole('alert').filter({hasText:/\S/})).toContainText('not been confirmed');await expect(page.getByRole('link',{name:'Save Contact',exact:true})).toHaveCount(0);await expect(page.getByLabel('Full name')).toBeDisabled();
+  await page.goto('/connect/andisiwe');await fill(page);await page.getByRole('button',{name:'Connect with Andisiwe',exact:true}).click();await expect(page.getByRole('alert').filter({hasText:/\S/})).toContainText('not been confirmed');await expect(page.getByRole('link',{name:'Save Contact',exact:true})).toHaveCount(0);await expect(page.getByLabel('Full name')).toBeDisabled();await expectContacts(page,false);
   const original=JSON.parse(bodies[0]);const proof=await(await request.get('/__synthetic-proof?submission='+original.submissionId)).json();expect(proof.receipts).toBe(1);
   const wait=page.waitForResponse(r=>r.url().endsWith('/api/contact-intake'));await page.getByRole('button',{name:'Retry introduction',exact:true}).click();const response=await wait;expect(response.status()).toBe(200);expect((await response.json()).status).toBe('existing');expect(bodies).toHaveLength(2);expect(bodies[1]).toBe(bodies[0]);await expect(page.getByRole('link',{name:'Save Contact',exact:true})).toBeVisible();
   expect((await(await request.get('/__synthetic-proof?submission='+original.submissionId)).json()).receipts).toBe(1);
@@ -70,7 +78,9 @@ test('withheld acknowledgement preserves byte-identical retry payload and one co
 test('a new browser and fabricated cookies cannot retrieve any vCard',async({request,page})=>{
   const cookieCases:Record<string,string>[]=[{},{Cookie:'__Host-s1-exchange=fabricated'}];
   for(const headers of cookieCases){const res=await request.get('/contact/andisiwe',{headers});expect(res.status()).toBe(403);expect(await res.text()).not.toContain('BEGIN:VCARD');}
-  await page.goto('/present/andisiwe');await expect(page.locator('a[href="/contact/andisiwe"]')).toHaveCount(0);await expect(page.getByRole('link',{name:'Connect with Andisiwe',exact:true})).toHaveAttribute('href','/connect/andisiwe');
+  await page.goto('/connect/andisiwe');await expectContacts(page,false);
+  await page.goto('/present/andisiwe');await expect(page.getByText(/andisiwe@signalone\.co\.za/)).toHaveCount(0);
+  const html=await (await request.get('/present/andisiwe')).text();expect(html).not.toContain('andisiwe@signalone.co.za');await expect(page.locator('a[href="/contact/andisiwe"]')).toHaveCount(0);await expect(page.getByRole('link',{name:'Connect with Andisiwe',exact:true})).toHaveAttribute('href','/connect/andisiwe');
 });
 
 test('JavaScript-disabled submission uses POST and cannot leak fields into the URL or imply persistence',async({browser})=>{

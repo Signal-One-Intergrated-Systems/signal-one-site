@@ -4,7 +4,7 @@ import { ContactExchange } from "./ContactExchange";
 import { QRDisplay } from "./QRDisplay";
 import { ShareLink } from "./ShareLink";
 
-export function FounderPresenter({ profile }: { profile: FounderProfile }) {
+export function FounderPresenter({ profile, showContactDetails=true }: { profile: FounderProfile; showContactDetails?:boolean }) {
   // One trusted resolution is shared by the QR and both share controls.
   const visitor = resolveVisitorLink(profile.id, undefined);
 
@@ -20,7 +20,7 @@ export function FounderPresenter({ profile }: { profile: FounderProfile }) {
         <QRDisplay profileId={profile.id} visitor={visitor} />
         <ShareLink url={visitor?.url ?? null} founderName={profile.fullName} />
         <ContactExchange profile={profile} mode="presenter" />
-        <p className="caption inbox">Company enquiries · {profile.publicEmail}</p>
+        {showContactDetails && <p className="caption inbox">Company enquiries · {profile.publicEmail}</p>}
       </section>
     </main>
   );

@@ -4,9 +4,10 @@ import styles from "./VisitorIdentity.module.css";
 
 /**
  * Recipient lands on a recognisable digital business card, not a hero poster.
- * All visible contact actions use real mailto/tel/HTTPS links.
+ * Active exchange contact details are rendered only after the server verifies a receipt grant.
  */
 export function VisitorIdentity({ profile, exchangeEnabled=false, alreadyConnected=false }: { profile: FounderProfile; exchangeEnabled?:boolean; alreadyConnected?:boolean }) {
+  const showContactDetails = !exchangeEnabled || alreadyConnected;
   const whatsapp = `https://wa.me/${profile.whatsappPhone.replace(/\D/g, "")}`;
 
   return (
@@ -38,7 +39,7 @@ export function VisitorIdentity({ profile, exchangeEnabled=false, alreadyConnect
 
         <div className={styles.hairline} aria-hidden="true" />
 
-        <div className={styles.contactRows} aria-label="Business contact details">
+        {showContactDetails && <div className={styles.contactRows} aria-label="Business contact details">
           <a className={styles.contactRow} href={`mailto:${profile.publicEmail}`}>
             <span className={styles.contactLabel}>Email</span>
             <span className={styles.contactValue}>{profile.publicEmail}</span>
@@ -54,7 +55,7 @@ export function VisitorIdentity({ profile, exchangeEnabled=false, alreadyConnect
             <span className={styles.contactValue}>010 023 1810</span>
             <span className={styles.contactArrow} aria-hidden="true">↗</span>
           </a>
-        </div>
+        </div>}
       </section>
 
       <section className={styles.connect} aria-label="Personal introduction">
