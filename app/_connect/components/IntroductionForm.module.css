@@ -1,0 +1,32 @@
+.form { display:grid; gap:14px; min-width:0; }
+.form h2,.unavailable h2 { font-size:22px; font-weight:650; letter-spacing:-.025em; line-height:1.2; }
+.form fieldset { display:grid; gap:9px; min-width:0; border:0; margin:0; padding:0; }
+.form label,.interests>label { display:block; font-size:15px; font-weight:550; line-height:1.4; }
+.form input:not([type=checkbox]),.form textarea,.dropdown input[type=search] { width:100%; min-width:0; min-height:44px; padding:10px 12px; border:1px solid var(--color-line-strong); border-radius:8px; background:var(--color-raised); color:var(--color-text-inv); font:inherit; font-size:16px; }
+.form textarea { resize:vertical; }
+.form input:focus-visible,.form textarea:focus-visible,.form button:focus-visible { outline:2px solid var(--color-signal-400); outline-offset:3px; }
+.contactGrid { display:grid; grid-template-columns:1fr 1fr; gap:10px; min-width:0; }
+.contactGrid>div { display:grid; gap:9px; min-width:0; }
+.hint,.optional,.unavailable p { font-size:14px; line-height:1.5; color:var(--color-text-inv-3); }
+.form .check { display:flex; align-items:flex-start; gap:11px; min-height:44px; padding-block:6px; font-size:14px; font-weight:400; }
+.check input,.option input { width:20px; height:20px; flex-shrink:0; accent-color:var(--color-signal); margin-top:2px; }
+.check a { text-decoration:underline; text-underline-offset:3px; }
+.interests { display:grid; gap:9px; position:relative; min-width:0; }
+.picker { position:relative; min-width:0; }
+.trigger { display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:46px; width:100%; padding:10px 12px; font:inherit; font-size:15px; color:var(--color-text-inv); background:var(--color-raised); border:1px solid var(--color-line-strong); border-radius:8px; cursor:pointer; }
+.dropdown { position:absolute; z-index:5; inset:100% 0 auto; margin-top:5px; background:var(--color-raised); border:1px solid var(--color-line-strong); border-radius:10px; box-shadow:0 12px 32px #0008; padding:12px; display:grid; gap:9px; min-width:0; }
+.searchLabel { font-size:14px; }
+.options { max-height:min(300px,45svh); overflow-y:auto; overscroll-behavior:contain; }
+.options fieldset { display:block; border:0; padding:0; margin:0 0 12px; }
+.options legend { font-size:13px; font-weight:650; padding-block:8px; color:var(--color-text-inv-3); }
+.options .option { display:flex; align-items:center; gap:10px; min-height:46px; padding:7px 3px; font-size:14px; font-weight:400; cursor:pointer; }
+.option span { min-width:0; overflow-wrap:anywhere; }
+.done { min-height:44px; border:1px solid var(--color-line-strong); border-radius:8px; color:var(--color-text-inv); background:var(--color-raised-2); font:inherit; cursor:pointer; }
+.selections { max-height:144px; overflow-y:auto; overscroll-behavior:contain; display:flex; flex-wrap:wrap; gap:6px; list-style:none; padding:0; margin:0; min-width:0; }
+.selections li { min-width:0; max-width:100%; }
+.selections button { display:flex; align-items:center; gap:7px; min-height:44px; max-width:100%; padding:6px 10px; color:var(--color-text-inv); background:var(--color-raised-2); border:1px solid var(--color-line-strong); border-radius:8px; font:inherit; font-size:13px; cursor:pointer; }
+.selections button span:first-child { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.error { color:#ffb8b8; font-size:14px; line-height:1.5; }
+.unavailable { display:grid; gap:8px; }
+.srOnly { position:absolute; height:1px; width:1px; overflow:hidden; clip-path:inset(50%); }
+@media(max-width:400px) { .contactGrid { grid-template-columns:1fr; } }

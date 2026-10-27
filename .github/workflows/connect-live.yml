@@ -24,6 +24,8 @@ jobs:
           cache: npm
       - name: Install exact locked test dependencies
         run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Private gate, receipt and download-grant regression tests
+        run: node --test --test-isolation=none tests/connect/*.test.mjs
       - name: Install Chromium and independent QR decoder
         run: |
           npx playwright install --with-deps chromium

@@ -8,7 +8,7 @@ test("visitor opening follows the Signal One mark, not an unrelated global entra
   const motion = await page.evaluate(() => {
     const mark = document.querySelector("header .s1-pulse")!;
     const card = document.querySelector('[aria-label="Andisiwe Satshwa digital business card"]')!;
-    const actions = document.querySelector('[aria-label="Contact actions"]')!;
+    const actions = document.querySelector('[aria-label="Personal introduction"]')!;
     const discovery = document.querySelector('section[aria-labelledby="discovery-heading"]')!;
     const pulsing = getComputedStyle(mark, "::after");
     const cardStyle = getComputedStyle(card);
@@ -40,7 +40,7 @@ test("visitor opening follows the Signal One mark, not an unrelated global entra
   expect(motion.discoveryName).toContain("signal-arrival");
   expect(motion.discoveryDelay).toBe("0.14s");
   expect(motion.genericMainName).toBe("none");
-  await expect(page.getByRole("link", { name: "Save Andisiwe’s contact" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Let’s connect." })).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });
 
@@ -51,7 +51,7 @@ test("reduced motion renders complete card with zero entrance or pulse animation
   const state = await page.evaluate(() => ({
     pulse: getComputedStyle(document.querySelector("header .s1-pulse")!, "::after").animationName,
     card: getComputedStyle(document.querySelector('[aria-label="Andisiwe Satshwa digital business card"]')!).animationName,
-    actions: getComputedStyle(document.querySelector('[aria-label="Contact actions"]')!).animationName,
+    actions: getComputedStyle(document.querySelector('[aria-label="Personal introduction"]')!).animationName,
     discovery: getComputedStyle(document.querySelector('section[aria-labelledby="discovery-heading"]')!).animationName,
     scroll: document.documentElement.scrollWidth <= innerWidth,
   }));
@@ -59,7 +59,7 @@ test("reduced motion renders complete card with zero entrance or pulse animation
     pulse: "none", card: "none", actions: "none", discovery: "none", scroll: true,
   });
   await expect(page.getByRole("heading", { name: "Andisiwe Satshwa" })).toBeVisible();
-  await expect(page.getByRole("link", { name: "Save Andisiwe’s contact" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Let’s connect." })).toBeVisible();
 });
 
 test("presenter keeps actual scannable QR static while header pulses", async ({ page }) => {
@@ -75,19 +75,11 @@ test("presenter keeps actual scannable QR static while header pulses", async ({ 
   expect(qrAnimation).toBe("none");
 });
 
-test("opt-in exchange uses the short arrival and unqualified story remains unavailable", async ({ page }) => {
+test("unarmed exchange preserves the short arrival and unqualified story remains unavailable", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "no-preference" });
   await page.goto("/connect/andisiwe");
-  await page.getByRole("button", { name: "Share my details" }).click();
-  const panel = page.getByRole("heading", { name: "Introduce yourself" }).locator("..");
-  const panelState = await panel.evaluate(el => {
-    const s = getComputedStyle(el);
-    return { name: s.animationName, duration: s.animationDuration, count: s.animationIterationCount };
-  });
-  expect(panelState.name).toContain("signal-arrival");
-  expect(panelState.duration).toBe("0.32s");
-  expect(panelState.count).toBe("1");
-  await expect(page.getByRole("link", { name: "Save Andisiwe’s contact" })).toBeVisible();
+  await expect(page.getByRole("heading",{name:"Let’s connect."})).toBeVisible();
+  await expect(page.locator("form")).toHaveCount(0);
 
   // Unqualified story is deliberately absent from the existing live app.
   expect((await page.request.get("/review/story/andisiwe")).status()).toBe(404);

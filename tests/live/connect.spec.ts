@@ -17,7 +17,7 @@ test('actual HTTPS response belongs to the exact reviewed release; review gates 
   const response = await request.get('/api/connect-status');
   expect(response.status()).toBe(200);
   expect(await response.json()).toEqual({ release, mode:'review-only', backendIntake:'disabled', automaticSubmission:false, offlineShell:'disabled' });
-  for(const path of ['/connect/andisiwe','/present/andisiwe','/contact/andisiwe','/qr/andisiwe']) {
+  for(const path of ['/connect/andisiwe','/present/andisiwe','/qr/andisiwe']) {
     const response = await request.get(path, {maxRedirects:0}); expect(response.status()).toBe(200);
     expect(response.headers()['x-signal-connect-release']).toBe(release);
     expect(response.headers()['x-robots-tag']).toContain('noindex');
@@ -40,7 +40,7 @@ test('live marketing home/contact/navigation are preserved and Connect is unlist
   const sitemap=await request.get('/sitemap.xml'); expect(sitemap.status()).toBe(200);
   expect(await sitemap.text()).not.toContain('/connect/'); expect(await sitemap.text()).not.toContain('/present/');
 });
-test('live visitor brand, vCard download and direct business contact actions', async ({ page, context }, info) => {
+test('live visitor brand, safe collection gate and direct business contact actions', async ({ page, context }, info) => {
   await page.goto('/connect/andisiwe'); await page.evaluate(()=>document.fonts.ready);
   await expect(page.getByRole('heading',{name:'Andisiwe Satshwa',exact:true})).toBeVisible();
   await expect(page.getByText('Founder',{exact:true})).toBeVisible();
@@ -55,10 +55,11 @@ test('live visitor brand, vCard download and direct business contact actions', a
   const fonts = await cdp.send('CSS.getPlatformFontsForNode',{nodeId:heading.nodeId});
   expect(fonts.fonts.some(font=>font.isCustomFont && /Inter/i.test(font.familyName) && font.glyphCount>0)).toBe(true);
   expect(await page.locator('a[href="mailto:andisiwe@signalone.co.za"]').count()).toBe(1);
-  expect(await page.locator('a[href="tel:+27100231810"]').count()).toBe(2);
-  expect(await page.locator('a[href="https://wa.me/27606335870"]').count()).toBe(2);
-  const [download] = await Promise.all([page.waitForEvent('download'),page.getByRole('link',{name:/Save Andisiwe/}).click()]);
-  expect(download.suggestedFilename()).toBe('andisiwe.vcf'); await download.saveAs(info.outputPath('andisiwe.vcf'));
+  expect(await page.locator('a[href="tel:+27100231810"]').count()).toBe(1);
+  expect(await page.locator('a[href="https://wa.me/27606335870"]').count()).toBe(1);
+  await expect(page.getByRole('link',{name:/Save.*contact/i})).toHaveCount(0);
+  await expect(page.locator('form,input,textarea')).toHaveCount(0);
+  const photo=await image.boundingBox();expect(photo!.width).toBeLessThanOrEqual(100);expect(photo!.height).toBeLessThanOrEqual(115);
   expect((await new AxeBuilder({page: page as unknown as ConstructorParameters<typeof AxeBuilder>[0]["page"]}).withTags(['wcag2a','wcag2aa','wcag21aa']).analyze()).violations).toEqual([]);
   await page.screenshot({path:info.outputPath('live-visitor.png'),fullPage:true});
 });
@@ -73,33 +74,17 @@ test('website action returns to the existing marketing application without Conne
   expect(await page.getByRole('heading',{level:1}).innerText()).not.toBe('Andisiwe Satshwa');
   await expect(page.locator('header')).toBeVisible();
 });
-test('live optional sales email is only a user-controlled draft; no HTTP submission or persistence', async ({ page }, info) => {
-  const leaked:string[]=[];const marker='SignalOneSyntheticReview';
-  page.on('request',r=>{if(r.url().includes(marker)||r.postData()?.includes(marker)||r.url().includes('/api/contact-intake'))leaked.push(r.method());});
-  await page.addInitScript(()=>Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async()=>{throw Error('Denied by synthetic QA policy');}}}));
-  for(const method of ['phone','email']) {
-    await page.goto('/connect/andisiwe'); await page.getByRole('button',{name:'Share my details',exact:true}).click();
-    const consent=page.getByRole('checkbox'); await expect(consent).not.toBeChecked();
-    await page.getByLabel('Full name').fill(marker);
-    if(method==='phone')await page.getByLabel('Phone number',{exact:true}).fill('+27110000000');
-    else await page.getByLabel('Email address',{exact:true}).fill('qa@example.invalid');
-    await page.getByRole('button',{name:'Prepare email',exact:true}).click();
-    await expect(page.getByRole('link',{name:'Open email app',exact:true})).toHaveCount(0);
-    await consent.check();await page.getByRole('button',{name:'Prepare email',exact:true}).click();
-    const action=page.getByRole('link',{name:'Open email app',exact:true});const href=new URL((await action.getAttribute('href'))!);
-    expect(href.protocol).toBe('mailto:');expect(href.pathname).toBe('sales@signalone.co.za');expect(href.searchParams.get('body')).toContain(marker);
-    expect(href.searchParams.get('body')).toContain(method==='phone'?'Phone: +27110000000':'Email: qa@example.invalid');
-    await expect(page.getByText('The message is prepared, not sent or saved.',{exact:false})).toBeVisible();
-    await page.getByRole('button',{name:'Copy email instead',exact:true}).click();
-    await expect(page.getByLabel('Copy this message manually')).toHaveValue(/To: sales@signalone.co.za/);
-    expect((await new AxeBuilder({page: page as unknown as ConstructorParameters<typeof AxeBuilder>[0]["page"]}).withTags(['wcag2a','wcag2aa','wcag21aa']).analyze()).violations).toEqual([]);
-    await page.screenshot({path:info.outputPath('live-manual-'+method+'.png'),fullPage:true});
-    await page.getByRole('button',{name:'Share my details',exact:true}).click();await page.getByRole('button',{name:'Share my details',exact:true}).click();
-    await expect(page.getByLabel('Full name')).toHaveValue('');await expect(consent).not.toBeChecked();await expect(action).toHaveCount(0);
-    expect(await page.evaluate(async()=>JSON.stringify({local:{...localStorage},session:{...sessionStorage},db:await indexedDB.databases()}))).not.toContain(marker);
-    expect(await page.evaluate(async()=>(await navigator.serviceWorker.getRegistrations()).length)).toBe(0);
-  }
-  expect(leaked).toEqual([]);
+test('live reciprocal exchange is unarmed: no PII form, fake receipt, locked controls or browser storage', async ({page},info)=>{
+  await page.goto('/connect/andisiwe');
+  await expect(page.getByRole('heading',{name:'Let’s connect.'})).toBeVisible();
+  await expect(page.getByText('Online introductions are not available yet.',{exact:false})).toBeVisible();
+  await expect(page.locator('form,input,textarea')).toHaveCount(0);
+  await expect(page.getByRole('button',{name:'Connect with Andisiwe',exact:true})).toHaveCount(0);
+  await expect(page.getByRole('link',{name:'Save Contact',exact:true})).toHaveCount(0);
+  await expect(page.getByText(/locked|unlock|padlock/i)).toHaveCount(0);
+  expect(await page.evaluate(async()=>(await navigator.serviceWorker.getRegistrations()).length)).toBe(0);
+  expect((await new AxeBuilder({page:page as unknown as ConstructorParameters<typeof AxeBuilder>[0]["page"]}).withTags(['wcag2a','wcag2aa','wcag21aa']).analyze()).violations).toEqual([]);
+  await page.screenshot({path:info.outputPath('live-exchange-gate.png'),fullPage:true});
 });
 test('live presenter, QR and share/copy fallback use exact same review visitor URL', async ({ page }, info) => {
   await page.addInitScript(()=>{
@@ -116,8 +101,10 @@ test('live presenter, QR and share/copy fallback use exact same review visitor U
   expect((await new AxeBuilder({page: page as unknown as ConstructorParameters<typeof AxeBuilder>[0]["page"]}).withTags(['wcag2a','wcag2aa','wcag21aa']).analyze()).violations).toEqual([]);
   await image.screenshot({path:info.outputPath('live-qr.png')});await page.screenshot({path:info.outputPath('live-presenter.png'),fullPage:true});
 });
-test('unknown contacts fail closed and vCard identity remains exact CRLF', async ({ request }) => {
+test('unknown contacts fail closed and vCard delivery requires a persisted exchange', async ({ request }) => {
   for(const path of ['/connect/unknown','/present/unknown','/contact/unknown','/qr/unknown'])expect((await request.get(path)).status()).toBe(404);
-  const card=await request.get('/contact/andisiwe');expect(card.headers()['content-type']).toContain('text/vcard');
-  const text=await card.text();expect(text).toContain('FN:Andisiwe Satshwa\r\n');expect(text).toContain('TITLE:Founder\r\n');expect(text).toContain('EMAIL;TYPE=WORK:andisiwe@signalone.co.za\r\n');expect(text).not.toMatch(/(?<!\r)\n/);
+  for(const suffix of ['', '?scope=platform','?persisted=true']) {
+    const card=await request.get('/contact/andisiwe'+suffix);expect(card.status()).toBe(403);
+    expect(card.headers()['cache-control']).toContain('no-store');expect(await card.text()).not.toContain('BEGIN:VCARD');
+  }
 });

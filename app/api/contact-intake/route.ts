@@ -1,2 +1,5 @@
-// Review frontend only. No receiver/config/credential lookup or submission path.
-export function POST() { return Response.json({ code: "CONTACT_INTAKE_DISABLED", message: "Online submission is disabled. Prepare an email instead." }, { status: 503, headers: { "Cache-Control": "no-store" } }); }
+import { exchangeConfig } from "../../_connect/lib/server/exchange-gate";
+import { createReciprocalHandler } from "../../_connect/lib/server/reciprocal-handler";
+export const runtime="nodejs";
+const receive=createReciprocalHandler(exchangeConfig());
+export async function POST(request:Request) { return receive(request); }

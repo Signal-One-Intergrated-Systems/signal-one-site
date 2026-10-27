@@ -1,13 +1,12 @@
 import type { FounderProfile } from "../lib/profiles";
-import { ContactExchange } from "./ContactExchange";
-import { ExchangeDetails } from "./ExchangeDetails";
+import { IntroductionForm } from "./IntroductionForm";
 import styles from "./VisitorIdentity.module.css";
 
 /**
  * Recipient lands on a recognisable digital business card, not a hero poster.
  * All visible contact actions use real mailto/tel/HTTPS links.
  */
-export function VisitorIdentity({ profile }: { profile: FounderProfile }) {
+export function VisitorIdentity({ profile, exchangeEnabled=false, alreadyConnected=false }: { profile: FounderProfile; exchangeEnabled?:boolean; alreadyConnected?:boolean }) {
   const whatsapp = `https://wa.me/${profile.whatsappPhone.replace(/\D/g, "")}`;
 
   return (
@@ -58,18 +57,8 @@ export function VisitorIdentity({ profile }: { profile: FounderProfile }) {
         </div>
       </section>
 
-      <section className={styles.connect} aria-label="Contact actions">
-        <div className={styles.contactAction}>
-          <ContactExchange profile={profile} />
-        </div>
-        <div className={styles.quickActions}>
-          <a className={styles.quickAction} href={whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp <span aria-hidden="true">↗</span></a>
-          <a className={styles.quickAction} href={`tel:${profile.landlinePhone}`}>Call <span aria-hidden="true">↗</span></a>
-        </div>
-        <div className={styles.secondaryActions}>
-          <ExchangeDetails profile={profile} />
-        </div>
-        <p className={styles.emailNote}>Sharing your details is optional. Signal Connect prepares an email; it does not send or store it.</p>
+      <section className={styles.connect} aria-label="Personal introduction">
+        <IntroductionForm enabled={exchangeEnabled} alreadyConnected={alreadyConnected}/>
       </section>
 
       <section className={styles.discovery} aria-labelledby="discovery-heading">
@@ -80,7 +69,7 @@ export function VisitorIdentity({ profile }: { profile: FounderProfile }) {
         <p>WIN <span aria-hidden="true">·</span> HIRE <span aria-hidden="true">·</span> RUN <span aria-hidden="true">·</span> EQUIP <span aria-hidden="true">·</span> PROVE</p>
         <p className={styles.discoveryNote}>The interactive five-chapter story is being prepared.</p>
       </section>
-      <p className={styles.privacy}>Viewing this card does not submit your contact details or create a lead.</p>
+      <p className={styles.privacy}>Viewing this card does not submit your contact details.</p>
     </main>
   );
 }
