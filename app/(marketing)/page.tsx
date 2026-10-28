@@ -1,443 +1,57 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import Image from "next/image";
-import GuardDayCalculator from "../components/GuardDayCalculator";
-import AudienceJourneys from "../components/AudienceJourneys";
-import { HardwareRail } from "../components/Hardware";
-import RailControls from "../components/RailControls";
-import PatrolStory from "../components/PatrolStory";
-import { catalogue } from "../lib/catalogue";
-import { Arrow, ButtonLink, Check, Kicker, Photo, PhotoBand, SplitHero, Status, GuardStatus } from "../components/ui";
-import { guardIsLive, guardOnboardingLine, guardStatusLabel } from "../lib/guardStatus";
-import { illustrativeCaption, photos } from "../lib/photos";
-import { carryOverPhrase, guardDayPrice, guardDayPricePhrase, guardDayPriceShort, minimumPhrase } from "../lib/pricing";
+import Link from "next/link";
+import SignalOneLogo from "../components/brand/SignalOneLogo";
+import { photos, illustrativeCaption } from "../lib/photos";
 
 export const metadata: Metadata = {
-  title: { absolute: "Signal One | 1GUARD, 1Workforce and Integrated Systems" },
+  title: { absolute: "Signal One | Integrated Systems, 1GUARD and 1Workforce" },
+  description: "Signal One connects security operations, field workforce management and mission-critical communications through technology built for real-world operations.",
   alternates: { canonical: "/" },
 };
 
-const ownerQuestions = [
-  ["Who is on site right now?", "Guards clock in at the post on their own phone or an authorised Central Device, so the roster shows who is on duty."],
-  ["Did the guard arrive, and on time?", "Each clock-in and clock-out is recorded against the shift and the post."],
-  ["Was the patrol actually walked?", "Every QR or NFC checkpoint scan is recorded with its time and GPS position. Missed and late checkpoints show up in proof of service."],
-  ["What happened overnight?", "The occurrence book keeps one chronological record of the site, with incidents logged as they happen."],
-  ["Can I prove it to my client?", "Each scheduled service is marked proven, partly proven, unresolved or not proven, with the reason."],
-  ["How fast can I staff the next contract?", "Offer open posts to your own guards in the app. Guard Marketplace, in development, will reach guards outside your company."],
-] as const;
-
-const hireFlow = [
-  "Contract won",
-  "Staffing need",
-  "Filter",
-  "Profile",
-  "Shortlist",
-  "Hire request",
-  "Guard accepts or declines",
-  "Your workforce",
-  "Site and shift",
-] as const;
-
-const runCapabilities = [
-  ["Sites, posts and shifts", "Set up each site's posts, build shifts and allocate guards. The roster shows where you are short before the shift starts."],
-  ["Clock in and out", "Guards clock in at the post on their own phone or an authorised Central Device."],
-  ["Patrols", "QR or NFC checkpoints. Scans are saved on the phone and sent when signal returns."],
-  ["Occurrence book and incidents", "One chronological record of what happened on site, with incidents logged as they happen."],
-  ["SOS to the control room", "The control room acknowledges, navigates to and resolves each SOS. It needs a mobile signal."],
-  ["People and access", "Invite supervisors, limit each one to their sites, and switch access off without deleting history."],
-] as const;
-
-const companySees = [
-  "Every site, post, guard and shift",
-  "The control-room queue and SOS",
-  "Occurrence book and incidents as they happen",
-  "Supervisors, access and audit history",
-  "Proof of service across all clients",
-] as const;
-
-const clientSees = [
-  "Only the sites authorised for them",
-  "Scheduled service coverage",
-  "Patrol and checkpoint evidence",
-  "Incidents on their sites",
-  "Proof-of-service reports they can generate themselves",
-] as const;
-
 export default function Home() {
   return (
-    <main id="main" className="enterprise-home">
-      {/* Signal One parent-brand masthead. Commercial product narratives continue below. */}
-      <section className="s1-enterprise-masthead relative isolate overflow-hidden bg-deep text-text-inv" aria-labelledby="home-headline">
-        <Image src={photos.hero.src} alt={photos.hero.alt} fill priority sizes="100vw" quality={85}
-          className="s1-enterprise-masthead-photo object-cover" />
-        <div aria-hidden="true" className="s1-enterprise-masthead-shade absolute inset-0" />
-        <div className="wrap relative z-10 flex min-h-[690px] flex-col justify-between gap-10 py-12 md:min-h-[750px] md:py-20 lg:min-h-[min(850px,90vh)]">
-          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/25 pb-5">
-            <span className="text-[.75rem] font-semibold uppercase tracking-[.22em] text-white/85">SIGNAL ONE / INTEGRATED SYSTEMS</span>
-            <span className="text-[.75rem] font-medium tracking-[.12em] text-white/70">SECURITY · WORKFORCE · CONNECTIVITY</span>
-          </div>
-          <div className="s1-clayglass s1-clayglass-dark s1-hero-float max-w-[920px] px-6 py-9 sm:px-10 sm:py-12 lg:px-14 lg:py-16">
-            <p className="mb-7 text-[.85rem] font-semibold tracking-[.16em] text-signal-300 uppercase">Technology for the world outside the office</p>
-            <h1 id="home-headline" className="s1-enterprise-headline font-display font-semibold">
-              Every operation.<br/><span className="text-signal-300">Under control.</span>
-            </h1>
-            <p className="mt-8 max-w-[650px] text-[1.15rem] leading-relaxed text-white/85 md:text-[1.4rem]">
-              From security operations and workforce management to mission-critical communications.
-              Signal One connects the people, equipment and intelligence behind real work.
-            </p>
-            <div className="mt-10 flex flex-wrap gap-3">
-              <Link href="/solutions/security" className="btn btn-primary btn-lg">Explore 1GUARD <span aria-hidden="true">↗</span></Link>
-              <Link href="/workforce" className="btn btn-ghost-dark btn-lg">Explore 1Workforce <span aria-hidden="true">↗</span></Link>
-            </div>
-          </div>
-          <div className="s1-clayglass s1-clayglass-dark grid gap-4 p-5 text-white/90 md:grid-cols-3 md:gap-8">
-            <Link href="/solutions/security" className="s1-enterprise-masthead-link group flex items-center justify-between gap-4"><span><strong className="block text-[1.05rem]">1GUARD</strong><span className="text-[.86rem] text-white/70">Security operations and marketplaces</span></span><span aria-hidden="true">↗</span></Link>
-            <Link href="/workforce" className="s1-enterprise-masthead-link group flex items-center justify-between gap-4"><span><strong className="block text-[1.05rem]">1Workforce</strong><span className="text-[.86rem] text-white/70">Field workforce operations</span></span><span aria-hidden="true">↗</span></Link>
-            <Link href="/equipment-marketplace" className="s1-enterprise-masthead-link group flex items-center justify-between gap-4"><span><strong className="block text-[1.05rem]">Integrated systems</strong><span className="text-[.86rem] text-white/70">Equipment, connectivity and solutions</span></span><span aria-hidden="true">↗</span></Link>
-          </div>
+    <main id="main" className="s1-brand-home">
+      <section className="s1-brand-stage" aria-labelledby="s1-brand-intro">
+        <div className="s1-brand-stage-media">
+          <Image src={photos.hero.src} alt={photos.hero.alt}
+            fill priority sizes="(min-width: 1200px) 72vw, 100vw"
+            quality={85} className="s1-brand-stage-image object-cover" />
+          <div className="s1-brand-image-wash" aria-hidden="true" />
+          <p className="s1-brand-photo-caption">{illustrativeCaption}</p>
         </div>
-      </section>
-
-      <AudienceJourneys />
-
-      {/* 2 + 3 · PROBLEM → ANSWERS (product screens return after the demo-tenant capture) */}
-      <section id="product" className="surface-light section scroll-mt-[72px]">
-        <div className="wrap">
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
-            <div>
-              <Kicker>The problem</Kicker>
-              <h2 className="t-h2 mt-4">Winning the contract is only the beginning.</h2>
-              <p className="t-lead mt-5 text-text-2">
-                Then the questions start, usually on WhatsApp and often at 2am. Most companies answer them from group
-                chats, spreadsheets, paper OBs and phone calls.
-              </p>
-            </div>
-            <div>
-              <h2 className="sr-only">Signal One answers them from one record</h2>
-              <dl className="m-0 grid gap-0 sm:grid-cols-2 sm:gap-x-10">
-                {ownerQuestions.map(([question, answer]) => (
-                  <div key={question} className="border-t border-line py-5">
-                    <dt className="font-display text-[1.1875rem] font-semibold leading-snug md:text-[1.25rem]">{question}</dt>
-                    <dd className="t-small m-0 mt-2 text-text-2">{answer}</dd>
-                  </div>
-                ))}
-              </dl>
-              <Link href="/solutions/security" className="link-arrow mt-4 text-signal-ink">
-                Everything the platform does <Arrow />
-              </Link>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      {/* 4 · HIRE */}
-      <PhotoBand
-        src={photos.warehouse.src}
-        alt={photos.warehouse.alt}
-        objectPosition="50% 0%"
-        kicker={
-          <span className="flex flex-wrap items-center gap-3">
-            <Kicker tone="dark">Hire</Kicker>
-            <Status kind="mvp" tone="dark">
-              Guard Marketplace · MVP in development
-            </Status>
-          </span>
-        }
-        headline="Won the contract? Staff it."
-        caption={illustrativeCaption}
-      />
-      <section className="surface-base section">
-        <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-20">
-          <div>
-            <p className="t-lead measure text-text-inv-2">
-              Guard Marketplace is the hiring step we are building into Signal One. When it launches, you will be able to find
-              guards near the site, shortlist them and send a hire request. The guard will accept or decline on their phone,
-              and accepted guards will join your workforce, ready for a site and a shift.
-            </p>
-            <Link href="/guard-marketplace" className="link-arrow mt-8 text-signal-400">
-              See how Marketplace will work <Arrow />
-            </Link>
-          </div>
-          <div>
-            <ol aria-label="Marketplace hiring flow" className="m-0 flex list-none flex-wrap gap-x-2 gap-y-3 p-0">
-              {hireFlow.map((step, index) => (
-                <li key={step} className="flex items-center gap-2 text-[1rem] font-medium">
-                  <span className="rounded-ui border border-line-dark bg-raised px-3 py-2">{step}</span>
-                  {index < hireFlow.length - 1 ? <span aria-hidden="true" className="text-text-inv-2">→</span> : null}
-                </li>
-              ))}
-            </ol>
-
-            <dl className="mt-12 grid gap-6 border-t border-line-dark pt-8 sm:grid-cols-2">
-              <div>
-                <dt className="t-h4">Planned: five filters, nothing else</dt>
-                <dd className="t-small m-0 mt-2 text-text-inv-2">Location, PSiRA grade, availability, experience and skills.</dd>
-              </div>
-              <div>
-                <dt className="t-h4">Private, not a jobs board</dt>
-                <dd className="t-small m-0 mt-2 text-text-inv-2">
-                  Profiles will stay inside your signed-in company workspace. Nothing will be published publicly.
-                </dd>
-              </div>
-              <div className="sm:col-span-2">
-                <dt className="t-h4 flex flex-wrap items-center gap-3">
-                  {guardIsLive ? "Already live" : "In the Guard pilot"} <GuardStatus tone="dark" />
-                </dt>
-                <dd className="t-small m-0 mt-2 text-text-inv-2">
-                  Offer open posts to your own guards in Signal One Guard. They accept or decline in the app.
-                </dd>
-              </div>
-            </dl>
-
-          </div>
-        </div>
-      </section>
-
-      {/* 5 · RUN */}
-      <PhotoBand
-        src={photos.estateNight.src}
-        alt={photos.estateNight.alt}
-        objectPosition="50% 0%"
-        textSide="right"
-        kicker={
-          <span className="flex flex-wrap items-center gap-3">
-            <Kicker tone="dark">Run</Kicker>
-            <GuardStatus tone="dark" />
-          </span>
-        }
-        headline="Run every site from one record."
-        caption={illustrativeCaption}
-      />
-      <section className="surface-light section">
-        <div className="wrap">
-          <p className="t-lead measure text-text-2">
-            Sites, shifts, attendance, patrols, incidents and SOS feed the same operational record your control room,
-            managers and clients work from.
+        <div className="s1-brand-copy s1-brand-clay">
+          <div className="s1-brand-parent"><SignalOneLogo size={21} tone="light" descriptorMin={10} /></div>
+          <p className="s1-brand-eyebrow">Technology for real-world operations</p>
+          <h1 id="s1-brand-intro">The systems behind<br />better operations.</h1>
+          <p className="s1-brand-explainer">
+            Signal One is a South African technology company connecting people,
+            equipment and operational intelligence. We build platforms for security
+            and field work, and provide the communications and connected systems
+            that keep teams informed, accountable and in control.
           </p>
-
-          <div className="mt-14 grid gap-12 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-16">
-            <Photo
-              src={photos.siteOperations.src}
-              alt={photos.siteOperations.alt}
-              sizes="(min-width: 1320px) 720px, (min-width: 1024px) 58vw, 100vw"
-              className="w-full self-start"
-              aspect="aspect-[4/3]"
-              imgClassName="object-cover object-[30%_50%]"
-              caption={illustrativeCaption + ". Day shift at an office park."}
-            />
-            <div>
-              <ul className="m-0 grid list-none p-0">
-                {runCapabilities.map(([title, body]) => (
-                  <li key={title} className="border-t border-line py-5">
-                    <h3 className="t-h4">{title}</h3>
-                    <p className="t-small mt-1 text-text-2">{body}</p>
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-4 rounded-card bg-white p-6 ring-1 ring-line">
-                <h3 className="t-h4">PSiRA rules are built in</h3>
-                <p className="t-small mt-2 text-text-2">
-                  Each officer&apos;s PSiRA number, grade and expiry are recorded. A missing or expired registration blocks
-                  the assignment. Only a grade mismatch can be overridden, and every override is logged with a reason.
-                  Signal One does not check registrations with PSiRA itself.
-                </p>
-              </div>
+          <div className="s1-brand-family" aria-label="Signal One platforms">
+            <div className="s1-brand-family-item">
+              <span className="s1-product-lockup"><span className="s1-product-one">1</span>GUARD</span>
+              <span className="s1-product-description">Security operations</span>
+            </div>
+            <div className="s1-brand-family-divider" aria-hidden="true" />
+            <div className="s1-brand-family-item">
+              <span className="s1-product-lockup"><span className="s1-product-one">1</span>Workforce</span>
+              <span className="s1-product-description">Workforce operations</span>
             </div>
           </div>
+          <p className="s1-brand-final">One company. Purpose-built technology. Connected operations.</p>
         </div>
       </section>
-
-      {/* 5b · PATROL STORY: physical action → digital event → control room → proof */}
-      <section className="surface-white section">
-        <div className="wrap">
-          <div className="grid gap-4 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-end lg:gap-16">
-            <div>
-              <Kicker>How a patrol becomes proof</Kicker>
-              <h2 className="t-h2 mt-4">From the checkpoint to the client&apos;s report.</h2>
-            </div>
-            <p className="t-body text-text-2">
-              A scan at the gate becomes a record the control room acts on and the client can see. Nothing is retyped.
-            </p>
-          </div>
-          <div className="mt-10">
-            <PatrolStory />
-          </div>
-        </div>
-      </section>
-
-      {/* 6 · EQUIP */}
-      <section className="surface-light-2 section">
-        <div className="wrap">
-          <div className="grid gap-6 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-end lg:gap-16">
-            <div>
-              <div className="flex flex-wrap items-center gap-3">
-                <Kicker>Equip</Kicker>
-                <Status kind="quote">By quote</Status>
-              </div>
-              <h2 className="t-h2 mt-4">Radios, PTT, tracking and body cameras for the contract.</h2>
-            </div>
-            <p className="t-body text-text-2">
-              Tell us the sites, quantities and term. We confirm availability, fit and price in a written quote. No cart,
-              no online prices.
-            </p>
-          </div>
-
-          <div className="mt-8">
-            <RailControls label="rental hardware">
-            <HardwareRail
-              products={[...catalogue.flatMap((group) => group.products)].sort((a, b) => Number(Boolean(b.image)) - Number(Boolean(a.image)))}
-            />
-            </RailControls>
-          </div>
-
-          <div className="mt-8 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-            <p className="t-small measure text-text-2">
-              Equipment is available to rent today. Controls for activating devices and viewing tracking inside Signal
-              One Guard are <strong className="font-semibold text-text">coming soon</strong>.
-            </p>
-            <ButtonLink href="/radios-equipment#quote" variant="ghost-light" className="shrink-0">
-              Request an equipment quote
-            </ButtonLink>
-          </div>
-        </div>
-      </section>
-
-      {/* 7 · PROVE */}
-      <section className="surface-base section">
-        <div className="wrap">
-          <div className="max-w-3xl">
-            <div className="flex flex-wrap items-center gap-3">
-              <Kicker tone="dark">Prove</Kicker>
-              <GuardStatus tone="dark">Client portal · {guardStatusLabel}</GuardStatus>
-            </div>
-            <h2 className="t-h2 mt-4">Transparency without giving away the operation.</h2>
-            <p className="t-lead mt-5 text-text-inv-2">
-              Your clients sign in to see the service you deliver on their sites. They never see your whole workspace.
-            </p>
-          </div>
-
-          <div className="mt-12 grid gap-px overflow-hidden rounded-card bg-line-dark md:grid-cols-2">
-            <div className="bg-raised p-6 sm:p-8">
-              <h3 className="t-h3">Your security company sees</h3>
-              <ul className="m-0 mt-5 grid list-none gap-3 p-0">
-                {companySees.map((item) => (
-                  <li key={item} className="t-body flex gap-3">
-                    <Check className="mt-1 text-text-inv-2" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="bg-raised p-6 sm:p-8">
-              <h3 className="t-h3">Your client sees</h3>
-              <ul className="m-0 mt-5 grid list-none gap-3 p-0">
-                {clientSees.map((item) => (
-                  <li key={item} className="t-body flex gap-3">
-                    <Check className="mt-1 text-signal-400" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <p className="t-small mt-6 border-t border-line-dark pt-4 text-text-inv-2">
-                <Status kind="soon" tone="dark">
-                  Coming soon
-                </Status>{" "}
-                Live map, clock-in status and live patrol progress for clients.
-              </p>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      {/* 8 · PRICING */}
-      <section className="surface-light section">
-        <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:items-start lg:gap-16">
-          <div>
-            <Kicker>Pricing</Kicker>
-            <h2 className="sr-only">{guardDayPricePhrase}, excluding VAT</h2>
-            <p aria-hidden="true" className="mt-6 flex items-end gap-4">
-              <span className="t-num text-[6.5rem] text-signal-600 sm:text-[8.5rem]">{guardDayPrice}</span>
-              <span className="pb-3 font-display text-[1.375rem] font-semibold leading-tight sm:text-[1.625rem]">
-                per guard
-                <br />
-                per day
-              </span>
-            </p>
-            <p className="t-body mt-4 text-text-2">Excluding VAT. One price, no tiers or packages.</p>
-            {guardOnboardingLine ? <p className="t-small mt-2 font-semibold text-text-2">{guardOnboardingLine}</p> : null}
-
-            <dl className="mt-8 grid gap-0">
-              {[
-                ["A guard day", "One allocated guard clocking in and out of one on-site shift."],
-                ["Minimum purchase", minimumPhrase + "."],
-                ["Unused days", carryOverPhrase],
-                ["Exceptions", "No-shows, cancellations, partial and multiple shifts follow your customer terms."],
-              ].map(([term, detail]) => (
-                <div key={term} className="grid gap-1 border-t border-line py-4 sm:grid-cols-[10rem_1fr] sm:gap-4">
-                  <dt className="font-semibold">{term}</dt>
-                  <dd className="t-small m-0 text-text-2">{detail}</dd>
-                </div>
-              ))}
-            </dl>
-            <div className="mt-4 flex flex-wrap gap-x-8 gap-y-2">
-              <Link href="/pricing" className="link-arrow text-signal-ink">
-                Full pricing details <Arrow />
-              </Link>
-              <Link href="/contact" className="link-arrow text-signal-ink">
-                Talk to us to buy guard days <Arrow />
-              </Link>
-            </div>
-          </div>
-          <GuardDayCalculator />
-        </div>
-      </section>
-
-      {/* 9 · NEXT STEP */}
-      <section className="surface-base section">
-        <div className="wrap">
-          <h2 className="t-h2 max-w-3xl">See it, price it, or talk to us.</h2>
-          <div className="mt-10 grid gap-px overflow-hidden rounded-card bg-line-dark md:grid-cols-3">
-            {[
-              {
-                title: "See the product",
-                body: "Walk through every part of the platform with real screens.",
-                href: "/solutions/security",
-                cta: "Explore the platform",
-                variant: "ghost-dark" as const,
-              },
-              {
-                title: "Calculate guard cost",
-                body: "Guards × days × " + guardDayPrice + ". See the number before you talk to anyone.",
-                href: "/pricing#calculator",
-                cta: "Open the calculator",
-                variant: "ghost-dark" as const,
-              },
-              {
-                title: "Talk to Signal One",
-                body: "Tell us about your sites and contracts. A representative replies by email or phone.",
-                href: "/contact",
-                cta: "Talk to Signal One",
-                variant: "primary" as const,
-              },
-            ].map((option) => (
-              <div key={option.title} className="flex flex-col bg-raised p-6 sm:p-8">
-                <h3 className="t-h3">{option.title}</h3>
-                <p className="t-body mt-3 text-text-inv-2">{option.body}</p>
-                <ButtonLink href={option.href} variant={option.variant} className="mt-8 self-start">
-                  {option.cta}
-                </ButtonLink>
-              </div>
-            ))}
-          </div>
-          <p className="t-small mt-8 text-text-inv-2">
-            Prefer email?{" "}
-            <a href="mailto:sales@signalone.co.za" className="link-inline font-semibold text-text-inv">
-              sales@signalone.co.za
-            </a>
-          </p>
-        </div>
+      <section className="s1-brand-after" aria-label="Explore Signal One">
+        <p>Explore the technology behind your operation</p>
+        <nav aria-label="Signal One solutions">
+          <Link href="/solutions/security">1GUARD <span aria-hidden="true">↗</span></Link>
+          <Link href="/workforce">1Workforce <span aria-hidden="true">↗</span></Link>
+          <Link href="/equipment-marketplace">Equipment &amp; connectivity <span aria-hidden="true">↗</span></Link>
+        </nav>
       </section>
     </main>
   );
