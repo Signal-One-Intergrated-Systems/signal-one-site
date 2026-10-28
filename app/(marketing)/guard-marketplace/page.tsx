@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
+import { photos } from "../../lib/photos";
 import IntakeForm, { type IntakeField } from "../../components/IntakeForm";
 import { ButtonLink, Check, PageHero, Status, Steps, GuardStatus } from "../../components/ui";
 import { guardIsLive } from "../../lib/guardStatus";
@@ -60,7 +62,7 @@ export default function GuardMarketplacePage() {
         title="Win the contract. Then staff it from the same system."
         lead="When it launches, you will be able to find guards near the site, check what they have recorded, send a hire request and allocate the guards who accept. Inside your company workspace, next to the sites and shifts they will work."
         aside={
-          <div className="rounded-card border border-line-dark bg-raised p-6 sm:p-8">
+          <div className="s1-marketplace-aside"><div className="s1-marketplace-photo"><Image src={photos.teamBriefing.src} alt={photos.teamBriefing.alt} fill sizes="(min-width: 900px) 40vw, 100vw" className="object-cover" /></div><div className="rounded-card border border-line-dark bg-raised p-6 sm:p-8">
             <h2 className="t-h3">Where Marketplace is today</h2>
             <p className="t-body mt-3 text-text-inv-2">
               Marketplace is not live yet. We are building the MVP described on this page. Register interest and we will
@@ -69,7 +71,7 @@ export default function GuardMarketplacePage() {
             <ButtonLink href="#interest" size="lg" className="mt-6">
               Register interest
             </ButtonLink>
-          </div>
+          </div></div>
         }
       />
 
