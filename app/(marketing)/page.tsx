@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import SignalOneLogo from "../components/brand/SignalOneLogo";
 import { photos, illustrativeCaption } from "../lib/photos";
 
@@ -44,14 +43,6 @@ export default function Home() {
           </div>
           <p className="s1-brand-final">One company. Purpose-built technology. Connected operations.</p>
         </div>
-      </section>
-      <section className="s1-brand-after" aria-label="Explore Signal One">
-        <p>Explore the technology behind your operation</p>
-        <nav aria-label="Signal One solutions">
-          <Link href="/solutions/security">1GUARD <span aria-hidden="true">↗</span></Link>
-          <Link href="/workforce">1Workforce <span aria-hidden="true">↗</span></Link>
-          <Link href="/equipment-marketplace">Equipment &amp; connectivity <span aria-hidden="true">↗</span></Link>
-        </nav>
       </section>
     </main>
   );
