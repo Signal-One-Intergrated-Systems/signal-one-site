@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import GuardDayCalculator from "../components/GuardDayCalculator";
 import AudienceJourneys from "../components/AudienceJourneys";
 import { HardwareRail } from "../components/Hardware";
@@ -65,60 +66,37 @@ const clientSees = [
 export default function Home() {
   return (
     <main id="main" className="enterprise-home">
-      {/* 1 · HERO */}
-      <SplitHero
-        src={photos.hero.src}
-        alt={photos.hero.alt}
-        objectPositionMobile="66% 45%"
-        objectPosition="80% 40%"
-        panel={
-          <div className="glass rounded-card p-5 text-text-inv">
-            <div className="flex items-center justify-between gap-3">
-              <p className="font-semibold">Signal One Guard</p>
-              <GuardStatus tone="dark" />
+      {/* Signal One parent-brand masthead. Commercial product narratives continue below. */}
+      <section className="s1-enterprise-masthead relative isolate overflow-hidden bg-deep text-text-inv" aria-labelledby="home-headline">
+        <Image src={photos.hero.src} alt={photos.hero.alt} fill priority sizes="100vw" quality={85}
+          className="s1-enterprise-masthead-photo object-cover" />
+        <div aria-hidden="true" className="s1-enterprise-masthead-shade absolute inset-0" />
+        <div className="wrap relative z-10 flex min-h-[690px] flex-col justify-between py-12 md:min-h-[750px] md:py-20 lg:min-h-[min(850px,90vh)]">
+          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/25 pb-5">
+            <span className="text-[.75rem] font-semibold uppercase tracking-[.22em] text-white/85">SIGNAL ONE / INTEGRATED SYSTEMS</span>
+            <span className="text-[.75rem] font-medium tracking-[.12em] text-white/70">SECURITY · WORKFORCE · CONNECTIVITY</span>
+          </div>
+          <div className="max-w-[920px] py-16 md:py-24">
+            <p className="mb-7 text-[.85rem] font-semibold tracking-[.16em] text-signal-300 uppercase">Technology for the world outside the office</p>
+            <h1 id="home-headline" className="s1-enterprise-headline font-display font-semibold">
+              Every operation.<br/><span className="text-signal-300">Under control.</span>
+            </h1>
+            <p className="mt-8 max-w-[650px] text-[1.15rem] leading-relaxed text-white/85 md:text-[1.4rem]">
+              From security operations and workforce management to mission-critical communications.
+              Signal One connects the people, equipment and intelligence behind real work.
+            </p>
+            <div className="mt-10 flex flex-wrap gap-3">
+              <Link href="/solutions/security" className="btn btn-primary btn-lg">Explore 1GUARD <span aria-hidden="true">↗</span></Link>
+              <Link href="/workforce" className="btn btn-ghost-dark btn-lg">Explore 1Workforce <span aria-hidden="true">↗</span></Link>
             </div>
-            <dl className="mt-4 grid gap-0 text-[0.9375rem]">
-              {[
-                ["Price", guardDayPricePhrase + ", excl. VAT"],
-                ["Devices", "The guard's own phone or a Central Device"],
-                ["Patrols", "QR and NFC checkpoints"],
-                ["Proof", "Client portal and proof-of-service reports"],
-              ].map(([term, detail]) => (
-                <div key={term} className="grid grid-cols-[5rem_1fr] gap-3 border-t border-white/10 py-2.5">
-                  <dt className="text-text-inv-2">{term}</dt>
-                  <dd className="m-0">{detail}</dd>
-                </div>
-              ))}
-            </dl>
           </div>
-        }
-      >
-          <Kicker tone="dark">Signal One · Integrated operational systems</Kicker>
-          <h1 className="t-hero mt-5">
-            Win more contracts.
-            <br />
-            Run every site.
-            <br />
-            <span className="text-signal-400">Prove the service.</span>
-          </h1>
-          <p className="t-lead measure mt-6 text-text-inv-2">
-            One operating system for guard hiring, sites, shifts, patrols, the control room, radios and PTT, tracking
-            and the proof your clients ask for.
-          </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <ButtonLink href="/solutions/security" size="lg" event="hero_product_proof" eventLabel="Hero primary">
-              Explore 1GUARD
-            </ButtonLink>
-            <ButtonLink href="/workforce" variant="ghost-dark" size="lg" event="hero_pricing" eventLabel="Hero secondary">
-              <span className="sm:hidden">Explore 1Workforce</span>
-              <span className="hidden sm:inline">Explore 1Workforce</span>
-            </ButtonLink>
+          <div className="grid gap-4 border-t border-white/25 pt-6 text-white/90 md:grid-cols-3 md:gap-8">
+            <Link href="/solutions/security" className="s1-enterprise-masthead-link group flex items-center justify-between gap-4"><span><strong className="block text-[1.05rem]">1GUARD</strong><span className="text-[.86rem] text-white/70">Security operations and marketplaces</span></span><span aria-hidden="true">↗</span></Link>
+            <Link href="/workforce" className="s1-enterprise-masthead-link group flex items-center justify-between gap-4"><span><strong className="block text-[1.05rem]">1Workforce</strong><span className="text-[.86rem] text-white/70">Field workforce operations</span></span><span aria-hidden="true">↗</span></Link>
+            <Link href="/equipment-marketplace" className="s1-enterprise-masthead-link group flex items-center justify-between gap-4"><span><strong className="block text-[1.05rem]">Integrated systems</strong><span className="text-[.86rem] text-white/70">Equipment, connectivity and solutions</span></span><span aria-hidden="true">↗</span></Link>
           </div>
-          <p className="t-small mt-6 text-text-inv-2">
-            Explore each platform separately, or speak to our team about the right solution.
-          </p>
-          <p className="t-caption mt-3 text-text-inv-2">{illustrativeCaption}</p>
-      </SplitHero>
+        </div>
+      </section>
 
       <AudienceJourneys />
 
