@@ -944,3 +944,33 @@ header.glass-nav { position:sticky; top:0; margin:0; padding:8px 0; background:r
 header.glass-nav > .wrap { width:calc(100% - 24px); max-width:calc(var(--wrap-max) - 16px); height:72px; border:1px solid rgb(255 255 255 / .16); border-radius:22px; background:rgb(24 35 48 / .86); box-shadow:inset 0 1px 0 rgb(255 255 255 / .19),0 18px 42px -20px rgb(0 0 0 / .6); }
 @supports (backdrop-filter:blur(14px)) { header.glass-nav > .wrap { background:rgb(24 35 48 / .71); backdrop-filter:blur(20px) saturate(135%); } }
 @media (max-width:767px) { header.glass-nav > .wrap { width:calc(100% - 16px); border-radius:17px; } }
+
+
+/* Quiet, light Signal One front door. Uses the canonical Inter font and logo. */
+.s1-brand-home{background:#edf2f5;color:#0b1b2b}
+.s1-brand-stage{position:relative;display:grid;grid-template-columns:minmax(0,46%) minmax(0,54%);align-items:center;min-height:min(780px,calc(100svh - 90px));padding:clamp(22px,4vw,72px);gap:0;overflow:hidden;background:linear-gradient(135deg,#f5f8fa,#e8f0f5)}
+.s1-brand-stage-media{position:relative;min-height:620px;align-self:stretch;overflow:hidden;border-radius:28px;box-shadow:0 24px 64px -42px rgba(18,45,65,.30)}
+.s1-brand-stage-image{object-position:58% center;filter:saturate(.92) brightness(1.09)}
+.s1-brand-image-wash{position:absolute;inset:0;background:linear-gradient(90deg,transparent 65%,rgba(238,245,249,.35))}
+.s1-brand-photo-caption{position:absolute;bottom:19px;left:22px;font-size:11px;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.7)}
+.s1-brand-copy{position:relative;z-index:1;margin-left:-70px;padding:clamp(28px,4vw,66px);max-width:740px}
+.s1-brand-clay{border:1px solid rgba(255,255,255,.94);border-radius:30px;background:rgba(252,254,255,.87);box-shadow:inset 0 2px 0 rgba(255,255,255,.97),0 32px 86px -42px rgba(20,56,83,.29)}
+@supports(backdrop-filter:blur(16px)){.s1-brand-clay{background:rgba(250,253,255,.78);backdrop-filter:blur(24px) saturate(130%)}}
+.s1-brand-parent{margin-bottom:clamp(26px,3vw,48px)}
+.s1-brand-eyebrow{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#0270a8;margin-bottom:17px}
+.s1-brand-copy h1{font-family:var(--font-sans);font-size:clamp(29px,3vw,46px);line-height:1.16;letter-spacing:-.038em;font-weight:650;color:#0b1b2b}
+.s1-brand-explainer{max-width:535px;margin-top:22px;color:#33475b;font-size:clamp(15px,1.15vw,17px);line-height:1.75}
+.s1-brand-family{display:flex;align-items:center;gap:clamp(18px,2.6vw,42px);margin-top:38px;padding-top:24px;border-top:1px solid rgba(74,100,121,.19)}
+.s1-brand-family-item{min-width:0;display:flex;flex-direction:column;gap:3px}
+.s1-product-lockup{font-family:var(--font-sans);font-size:clamp(21px,2vw,27px);font-weight:750;letter-spacing:-.045em;line-height:1.1;color:#111c2c;white-space:nowrap}
+.s1-product-one{color:#0ea5e9}
+.s1-product-description{font-size:12px;color:#5a7184;letter-spacing:.025em}
+.s1-brand-family-divider{width:1px;align-self:stretch;background:rgba(74,100,121,.2)}
+.s1-brand-final{font-size:12px;color:#66798d;margin-top:28px}
+.s1-brand-after{display:flex;gap:32px;align-items:center;justify-content:space-between;padding:30px max(28px,calc((100vw - 1280px)/2));border-top:1px solid #d9e3eb;background:#f9fbfc}
+.s1-brand-after>p{font-size:13px;font-weight:600;color:#66798d}
+.s1-brand-after nav{display:flex;flex-wrap:wrap;gap:18px}
+.s1-brand-after a{font-size:13px;color:#0b1b2b;font-weight:650;text-underline-offset:4px}
+.s1-brand-after a:hover{text-decoration:underline;color:#0270a8}
+@media(max-width:1000px){.s1-brand-stage{grid-template-columns:1fr;min-height:auto;padding:20px 20px 60px}.s1-brand-stage-media{min-height:400px;max-height:480px}.s1-brand-copy{margin:-74px 22px 0;max-width:none;padding:36px}.s1-brand-after{padding:28px;align-items:flex-start;flex-direction:column;gap:15px}}
+@media(max-width:580px){.s1-brand-stage{padding:12px 12px 36px}.s1-brand-stage-media{min-height:310px;height:42svh;border-radius:20px}.s1-brand-copy{margin:-38px 8px 0;padding:27px 24px;border-radius:22px}.s1-brand-copy h1{font-size:clamp(29px,8vw,37px)}.s1-brand-explainer{font-size:15px;line-height:1.65}.s1-brand-parent{margin-bottom:25px}.s1-brand-family{margin-top:26px;gap:14px}.s1-product-lockup{font-size:20px}.s1-product-description{font-size:10px}.s1-brand-after nav{gap:13px}}
