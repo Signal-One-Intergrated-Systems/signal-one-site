@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import SignalOneLogo from "../components/brand/SignalOneLogo";
 import HeroGlobeLayer from "../components/HeroGlobeLayer";
 import { photos } from "../lib/photos";
@@ -16,7 +17,7 @@ export default function Home() {
       <section className="s1-brand-stage" aria-labelledby="s1-brand-intro">
         <div className="s1-brand-stage-media">
           <div className="s1-hero-image-logo"><SignalOneLogo size={21} tone="dark" descriptorMin={10} /></div>
-          <Image src={photos.hero.src} alt={photos.hero.alt}
+          <Image src="/images/signal-one-hero-daylight-duo.webp" alt="Two professional South African security officers, a woman and a man, working together at a modern corporate entrance in bright daylight"
             fill priority sizes="(min-width: 1200px) 72vw, 100vw"
             quality={85} className="s1-brand-stage-image object-cover" />
           <div className="s1-brand-image-wash" aria-hidden="true" />
@@ -33,15 +34,16 @@ export default function Home() {
             that keep teams informed, accountable and in control.
           </p>
           <div className="s1-brand-family" aria-label="Signal One platforms">
-            <div className="s1-brand-family-item">
+            <Link href="/solutions/security" className="s1-brand-family-item s1-brand-product-link" aria-label="Explore 1GUARD security operations">
               <span className="s1-product-lockup"><span className="s1-product-one">1</span>GUARD</span>
               <span className="s1-product-description">Security operations</span>
-            </div>
+            </Link>
+            </Link>
             <div className="s1-brand-family-divider" aria-hidden="true" />
-            <div className="s1-brand-family-item">
+            <Link href="/workforce" className="s1-brand-family-item s1-brand-product-link" aria-label="Explore 1Workforce operations">
               <span className="s1-product-lockup"><span className="s1-product-one">1</span>Workforce</span>
               <span className="s1-product-description">Workforce operations</span>
-            </div>
+            </Link>
           </div>
           <p className="s1-brand-final">One company. Purpose-built technology. Connected operations.</p>
         </div>
