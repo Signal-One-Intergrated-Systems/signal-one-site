@@ -1314,3 +1314,11 @@ main .surface-light .card,main .surface-white .card {border-radius:24px;backgrou
 .s1-equipment-photo::after,.s1-workforce-hero-media::after {content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,transparent 66%,rgba(7,21,41,.25));}
 .s1-brand-copy.s1-brand-clay.s1-hero-content-glass {margin-top:clamp(165px,21vh,220px);}
 @media(max-width:680px){.s1-workforce-hero-media,.s1-equipment-photo{min-height:330px;border-radius:21px}.s1-brand-copy.s1-brand-clay.s1-hero-content-glass{margin-top:355px;}}
+
+
+/* No separate white or grey strip behind the home navigation: the hero scene
+   continues behind the compact pill. Inner pages keep an opaque navy rail. */
+header.glass-nav {margin-bottom:0;background:#0d1c2e!important;}
+header.glass-nav[data-home] {margin-bottom:-82px;background:transparent!important;}
+header.glass-nav > .wrap {max-width:1290px;}
+@media(max-width:640px){header.glass-nav[data-home]{margin-bottom:-80px;}}
