@@ -103,8 +103,13 @@ export default function GlassGlobe(){
    halo.addColorStop(0,"rgba(63,169,245,.035)");halo.addColorStop(.72,"rgba(63,169,245,.09)");halo.addColorStop(1,"rgba(63,169,245,0)");
    ctx.fillStyle=halo;ctx.beginPath();ctx.arc(cx,cy,r*1.45,0,Math.PI*2);ctx.fill();
    const sea=ctx.createRadialGradient(cx-r*.28,cy-r*.3,r*.05,cx,cy,r);
-   sea.addColorStop(0,"rgba(22,64,110,.96)");sea.addColorStop(.65,"rgba(8,35,76,.97)");sea.addColorStop(1,"rgba(2,15,43,.99)");
+   sea.addColorStop(0,"rgba(70,154,218,.24)");sea.addColorStop(.58,"rgba(9,51,101,.43)");sea.addColorStop(1,"rgba(2,16,47,.72)");
    ctx.fillStyle=sea;ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fill();
+   const sheen=ctx.createRadialGradient(cx-r*.46,cy-r*.48,r*.02,cx-r*.12,cy-r*.18,r*1.12);
+   sheen.addColorStop(0,"rgba(220,249,255,.27)");
+   sheen.addColorStop(.42,"rgba(117,200,253,.075)");
+   sheen.addColorStop(1,"rgba(7,32,65,0)");
+   ctx.fillStyle=sheen;ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fill();
    ctx.save();ctx.beginPath();ctx.arc(cx,cy,r,0,2*Math.PI);ctx.clip();
    // Fine latitude/longitude lines reinforce spherical depth without a flat atlas.
    ctx.strokeStyle="rgba(84,158,215,.13)";ctx.lineWidth=.65;
@@ -184,7 +189,7 @@ export default function GlassGlobe(){
     ctx.shadowBlur=7;ctx.shadowColor="rgba(1,11,25,.95)";
     ctx.fillStyle="#e7f7ff";ctx.fillText("JOHANNESBURG",j[0]+16,j[1]-16);ctx.shadowBlur=0;
    }
-   ctx.strokeStyle="rgba(126,212,255,.6)";ctx.lineWidth=2;
+   ctx.strokeStyle="rgba(185,231,255,.77)";ctx.lineWidth=2.2;
    ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.stroke();
    if(!reduced)raf=requestAnimationFrame(draw);
   };
