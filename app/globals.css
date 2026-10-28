@@ -1011,3 +1011,40 @@ header.glass-nav > .wrap { width:calc(100% - 24px); max-width:calc(var(--wrap-ma
 
 /* Static accurate land-mass globe while the animated renderer loads, or when canvas is unavailable. */
 .s1-hero-orb-fallback{inset:0;border:0;border-radius:0;background: url('/images/hero-glass-globe-fallback.svg') center / contain no-repeat;box-shadow:none}
+
+
+/* Hero refinement: reveal the moving Africa-facing globe THROUGH the card.
+   Do not modify navigation or any other marketing surface. */
+.s1-brand-stage{
+  background:radial-gradient(circle at 73% 52%,rgba(42,129,203,.28),transparent 49%),
+             linear-gradient(115deg,#101c2c 0%,#071525 58%,#071422 100%);
+}
+.s1-hero-globe-layer{inset:-1% -6% -1% 33%;opacity:1;overflow:visible}
+.s1-hero-orb-fallback{opacity:.72;filter:drop-shadow(0 0 27px rgba(75,179,255,.27))}
+.s1-hero-globe-canvas{filter:brightness(1.28) saturate(1.1)}
+.s1-brand-copy.s1-brand-clay.s1-hero-content-glass{
+  background:linear-gradient(125deg,rgba(7,19,34,.68),rgba(9,30,51,.40) 67%,rgba(9,28,49,.35));
+  border:1px solid rgba(210,239,255,.37);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.21),inset 0 0 55px rgba(66,159,226,.055),
+             0 35px 100px -38px rgba(0,0,0,.67);
+  -webkit-backdrop-filter:blur(3px) saturate(112%);
+  backdrop-filter:blur(3px) saturate(112%);
+}
+.s1-hero-content-glass h1{color:#f4faff;text-shadow:0 2px 16px rgba(0,8,19,.55)}
+.s1-hero-content-glass .s1-brand-explainer{color:#e0ecf5;text-shadow:0 1px 8px rgba(0,9,20,.65)}
+.s1-hero-content-glass .s1-brand-eyebrow{color:#7dd3fc}
+.s1-hero-content-glass .s1-product-lockup{color:#f5faff}
+.s1-hero-content-glass .s1-product-description,.s1-hero-content-glass .s1-brand-final{color:#c4d8e9}
+.s1-hero-content-glass .s1-brand-family{border-color:rgba(206,234,255,.26)}
+.s1-hero-content-glass .s1-brand-family-divider{background:rgba(206,234,255,.24)}
+@media(max-width:1000px){
+ .s1-hero-globe-layer{inset:29% -14% -2% -5%;opacity:1}
+ .s1-brand-copy.s1-brand-clay.s1-hero-content-glass{background:rgba(8,26,44,.57);-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px)}
+}
+@media(max-width:580px){
+ .s1-hero-globe-layer{inset:28% -20% -5% -7%;opacity:.95}
+ .s1-brand-copy.s1-brand-clay.s1-hero-content-glass{background:rgba(8,26,44,.70);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+}
+@supports not (backdrop-filter:blur(2px)){
+ .s1-brand-copy.s1-brand-clay.s1-hero-content-glass{background:rgba(7,22,40,.83)}
+}

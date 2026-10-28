@@ -66,10 +66,16 @@ export default function GlassGlobe(){
   const ctx=el.getContext("2d");if(!ctx)return;
   let alive=true,raf=0,visible=true,reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
   let land:Point[]=[];
+  let southAfricaOutline:number[][]=[];
   // Locally hosted world geometry; data only, never executable source.
   fetch("/data/world.geojson")
    .then(r=>{if(!r.ok)throw Error("geography unavailable");return r.json()})
-   .then(data=>{if(alive){land=buildLand(regionsFromGeoJSON(data));request()}})
+   .then(data=>{if(alive){
+     land=buildLand(regionsFromGeoJSON(data));
+     const sa=(data.features||[]).find((f:any)=>f.properties?.name==="South Africa");
+     southAfricaOutline=sa?.geometry?.type==="Polygon"?sa.geometry.coordinates[0]:sa?.geometry?.type==="MultiPolygon"?sa.geometry.coordinates[0][0]:[];
+     request();
+   }})
    .catch(()=>{ /* Render the ocean and grid if geographic data cannot load. */ });
   const io=new IntersectionObserver(entries=>{visible=entries[0]?.isIntersecting??true;if(visible)request()}, {threshold:0.02});
   io.observe(el);
@@ -89,8 +95,8 @@ export default function GlassGlobe(){
    const w=Math.round(width*dpr),h=Math.round(height*dpr);
    if(el.width!==w||el.height!==h){el.width=w;el.height=h}
    ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,width,height);
-   const cx=width*.55,cy=height*.50,r=Math.min(width*.43,height*.47);
-   const yaw=28*RAD+(reduced?0:stamp*.00005),tilt=-12*RAD;
+   const cx=width*.48,cy=height*.50,r=Math.min(width*.46,height*.47);
+   const yaw=28*RAD+(reduced?0:stamp*.00009),tilt=-12*RAD;
    const halo=ctx.createRadialGradient(cx,cy,r*.54,cx,cy,r*1.45);
    halo.addColorStop(0,"rgba(63,169,245,.035)");halo.addColorStop(.72,"rgba(63,169,245,.09)");halo.addColorStop(1,"rgba(63,169,245,0)");
    ctx.fillStyle=halo;ctx.beginPath();ctx.arc(cx,cy,r*1.45,0,Math.PI*2);ctx.fill();
@@ -116,26 +122,37 @@ export default function GlassGlobe(){
      else started=false;
     }ctx.stroke();
    }
-   ctx.fillStyle="rgba(135,211,255,.76)";
+   ctx.fillStyle="rgba(165,229,255,.95)";
    for(const [lat,lon] of land){
     const p=project(vector(lat,lon),yaw,tilt,cx,cy,r);
-    if(p[2]>0){ctx.globalAlpha=.28+.72*p[2];ctx.beginPath();ctx.arc(p[0],p[1],Math.max(.65,1.07*r/260),0,2*Math.PI);ctx.fill();}
+    if(p[2]>0){ctx.globalAlpha=.28+.72*p[2];ctx.beginPath();ctx.arc(p[0],p[1],Math.max(.95,1.50*r/260),0,2*Math.PI);ctx.fill();}
    }ctx.globalAlpha=1;
    ctx.restore();
+   if(southAfricaOutline.length){
+     ctx.strokeStyle="rgba(197,240,255,.98)";ctx.lineWidth=2.2;
+     ctx.shadowColor="#3FA9F5";ctx.shadowBlur=12;ctx.beginPath();
+     let started=false;
+     for(const [lon,lat] of southAfricaOutline){
+       const p=project(vector(lat,lon),yaw,tilt,cx,cy,r*1.012);
+       if(p[2]<=0){started=false;continue}
+       if(!started){ctx.moveTo(p[0],p[1]);started=true}else ctx.lineTo(p[0],p[1]);
+     }
+     ctx.stroke();ctx.shadowBlur=0;
+   }
    const origin=vector(...ORIGIN);
    destinations.forEach(([name,lat,lon],i)=>{
     const dest=vector(lat,lon);let prev=false;
-    ctx.strokeStyle="rgba(63,169,245,.52)";ctx.lineWidth=1.1;ctx.beginPath();
+    ctx.strokeStyle="rgba(103,203,255,.84)";ctx.lineWidth=1.4;ctx.beginPath();
     for(let n=0;n<=65;n++){
      const p=project(interpolateArc(origin,dest,n/65),yaw,tilt,cx,cy,r);
      if(p[2]<-.1){prev=false;continue}
      if(!prev)ctx.moveTo(p[0],p[1]);else ctx.lineTo(p[0],p[1]);prev=true;
     }ctx.stroke();
-    const t=(reduced?.72:(stamp*.00010+i*.115)%1);
+    const t=(reduced?.72:(stamp*.00017+i*.115)%1);
     const pulse=project(interpolateArc(origin,dest,t),yaw,tilt,cx,cy,r);
     if(pulse[2] > -.1){
-     ctx.shadowBlur=14;ctx.shadowColor="#3FA9F5";ctx.fillStyle="#e6f8ff";
-     ctx.beginPath();ctx.arc(pulse[0],pulse[1],2.8,0,2*Math.PI);ctx.fill();ctx.shadowBlur=0;
+     ctx.shadowBlur=22;ctx.shadowColor="#3FA9F5";ctx.fillStyle="#f7fdff";
+     ctx.beginPath();ctx.arc(pulse[0],pulse[1],3.5,0,2*Math.PI);ctx.fill();ctx.shadowBlur=0;
     }
     const node=project(dest,yaw,tilt,cx,cy,r);
     if(node[2]>0){ctx.fillStyle="rgba(127,208,255,.85)";ctx.beginPath();ctx.arc(node[0],node[1],2.3,0,2*Math.PI);ctx.fill();}
@@ -145,8 +162,11 @@ export default function GlassGlobe(){
     const ripple=reduced?0:(stamp*.0005)%1;
     ctx.strokeStyle="rgba(63,169,245,"+(.55*(1-ripple))+")";ctx.lineWidth=1.4;
     ctx.beginPath();ctx.arc(j[0],j[1],9+ripple*20,0,2*Math.PI);ctx.stroke();
-    ctx.shadowColor="#3FA9F5";ctx.shadowBlur=24;ctx.fillStyle="#fff";
-    ctx.beginPath();ctx.arc(j[0],j[1],5,0,2*Math.PI);ctx.fill();ctx.shadowBlur=0;
+    ctx.shadowColor="#3FA9F5";ctx.shadowBlur=32;ctx.fillStyle="#fff";
+    ctx.beginPath();ctx.arc(j[0],j[1],6.5,0,2*Math.PI);ctx.fill();ctx.shadowBlur=0;
+    ctx.font="600 11px sans-serif";ctx.textAlign="left";ctx.textBaseline="middle";
+    ctx.shadowBlur=7;ctx.shadowColor="rgba(1,11,25,.95)";
+    ctx.fillStyle="#e7f7ff";ctx.fillText("JOHANNESBURG",j[0]+16,j[1]-16);ctx.shadowBlur=0;
    }
    ctx.strokeStyle="rgba(126,212,255,.6)";ctx.lineWidth=2;
    ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.stroke();
