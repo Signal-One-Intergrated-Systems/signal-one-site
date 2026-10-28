@@ -1157,3 +1157,28 @@ header.glass-nav nav[aria-label="Primary"] a[aria-current="page"] { background:r
  .s1-brand-product-link{transition:none}
  .s1-brand-product-link:hover{transform:none}
 }
+
+
+/* Correct hero photograph aspect ratio: display within a dedicated left-side
+   visual plane instead of upscaling a portrait asset across a panoramic stage. */
+.s1-brand-stage-media{background:linear-gradient(90deg,#6c9bbb 0%,#bed9e7 44%,#081e39 58%,#061529 100%)}
+.s1-brand-stage-media .s1-brand-stage-image{
+  left:0!important;
+  right:auto!important;
+  width:54%!important;
+  height:100%!important;
+  object-fit:cover;
+  object-position:50% 48%;
+  filter:brightness(1.07) saturate(1.02);
+}
+.s1-brand-image-wash{background:linear-gradient(90deg,transparent 0%,transparent 42%,rgba(7,24,43,.35) 51%,#071b34 60%,transparent 78%)}
+.s1-hero-image-logo{z-index:6}
+@media(max-width:900px){
+ .s1-brand-stage-media .s1-brand-stage-image{width:72%!important;object-position:50% 46%}
+ .s1-brand-image-wash{background:linear-gradient(90deg,transparent 0%,rgba(6,22,41,.18) 48%,#071b34 75%)}
+}
+@media(max-width:670px){
+ .s1-brand-stage-media .s1-brand-stage-image{width:100%!important;height:510px!important;object-fit:cover;object-position:center 43%}
+ .s1-brand-stage-media{background:#071b34}
+ .s1-brand-image-wash{background:linear-gradient(180deg,transparent 15%,rgba(7,27,52,.12) 47%,#071b34 73%)}
+}
