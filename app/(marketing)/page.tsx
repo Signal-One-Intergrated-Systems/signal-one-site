@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import SignalOneLogo from "../components/brand/SignalOneLogo";
 import HeroGlobeLayer from "../components/HeroGlobeLayer";
 import { photos } from "../lib/photos";
 
@@ -16,7 +15,6 @@ export default function Home() {
     <main id="main" className="s1-brand-home">
       <section className="s1-brand-stage" aria-labelledby="s1-brand-intro">
         <div className="s1-brand-stage-media">
-          <div className="s1-hero-image-logo"><SignalOneLogo size={21} tone="light" descriptorMin={10} /></div>
           <Image src="/images/signal-one-hero-integrated-daylight.jpg" alt="Two professional South African security officers, a woman and a man, working together at a modern corporate entrance in bright daylight"
             fill priority sizes="100vw"
             quality={85} className="s1-brand-stage-image object-cover" />
