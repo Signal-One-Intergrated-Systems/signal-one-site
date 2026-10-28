@@ -56,7 +56,7 @@ function interpolateArc(a:[number,number,number],b:[number,number,number],t:numb
  const angle=Math.acos(Math.max(-1,Math.min(1,a[0]*b[0]+a[1]*b[1]+a[2]*b[2])));
  const sin=Math.sin(angle)||1;
  const u=Math.sin((1-t)*angle)/sin,v=Math.sin(t*angle)/sin;
- const height=1+.20*Math.sin(Math.PI*t);
+ const height=1.004; // Earth-hugging surface route, never an elevated orbital arc.
  return [(a[0]*u+b[0]*v)*height,(a[1]*u+b[1]*v)*height,(a[2]*u+b[2]*v)*height] as [number,number,number];
 }
 export default function GlassGlobe(){
@@ -66,12 +66,14 @@ export default function GlassGlobe(){
   const ctx=el.getContext("2d");if(!ctx)return;
   let alive=true,raf=0,visible=true,reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
   let land:Point[]=[];
+  let geography:Region[]=[];
   let southAfricaOutline:number[][]=[];
   // Locally hosted world geometry; data only, never executable source.
   fetch("/data/world.geojson")
    .then(r=>{if(!r.ok)throw Error("geography unavailable");return r.json()})
    .then(data=>{if(alive){
-     land=buildLand(regionsFromGeoJSON(data));
+     geography=regionsFromGeoJSON(data);
+     land=buildLand(geography);
      const sa=(data.features||[]).find((f:any)=>f.properties?.name==="South Africa");
      southAfricaOutline=sa?.geometry?.type==="Polygon"?sa.geometry.coordinates[0]:sa?.geometry?.type==="MultiPolygon"?sa.geometry.coordinates[0][0]:[];
      request();
@@ -101,11 +103,11 @@ export default function GlassGlobe(){
    halo.addColorStop(0,"rgba(63,169,245,.035)");halo.addColorStop(.72,"rgba(63,169,245,.09)");halo.addColorStop(1,"rgba(63,169,245,0)");
    ctx.fillStyle=halo;ctx.beginPath();ctx.arc(cx,cy,r*1.45,0,Math.PI*2);ctx.fill();
    const sea=ctx.createRadialGradient(cx-r*.28,cy-r*.3,r*.05,cx,cy,r);
-   sea.addColorStop(0,"rgba(223,247,255,.18)");sea.addColorStop(.7,"rgba(38,101,159,.15)");sea.addColorStop(1,"rgba(6,38,76,.35)");
+   sea.addColorStop(0,"rgba(22,64,110,.96)");sea.addColorStop(.65,"rgba(8,35,76,.97)");sea.addColorStop(1,"rgba(2,15,43,.99)");
    ctx.fillStyle=sea;ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fill();
    ctx.save();ctx.beginPath();ctx.arc(cx,cy,r,0,2*Math.PI);ctx.clip();
    // Fine latitude/longitude lines reinforce spherical depth without a flat atlas.
-   ctx.strokeStyle="rgba(97,187,242,.15)";ctx.lineWidth=.65;
+   ctx.strokeStyle="rgba(84,158,215,.13)";ctx.lineWidth=.65;
    for(let lat=-75;lat<=75;lat+=15){
     ctx.beginPath();let started=false;
     for(let lon=-180;lon<=180;lon+=3){
@@ -128,6 +130,20 @@ export default function GlassGlobe(){
     if(p[2]>0){ctx.globalAlpha=.28+.72*p[2];ctx.beginPath();ctx.arc(p[0],p[1],Math.max(.95,1.50*r/260),0,2*Math.PI);ctx.fill();}
    }ctx.globalAlpha=1;
    ctx.restore();
+   // Accurate geography: trace the coastlines and island contours on the sphere.
+   // The locally hosted GeoJSON retains its original polygon geometry.
+   ctx.strokeStyle="rgba(145,207,246,.48)";ctx.lineWidth=.7;
+   for(const region of geography){
+     const outline=region.rings[0];
+     ctx.beginPath();let active=false;
+     for(let n=0;n<outline.length;n++){
+       const [lon,lat]=outline[n];
+       const p=project(vector(lat,lon),yaw,tilt,cx,cy,r*1.002);
+       if(p[2]<=.015){active=false;continue}
+       if(!active){ctx.moveTo(p[0],p[1]);active=true}else ctx.lineTo(p[0],p[1]);
+     }
+     ctx.stroke();
+   }
    if(southAfricaOutline.length){
      ctx.strokeStyle="rgba(197,240,255,.98)";ctx.lineWidth=2.2;
      ctx.shadowColor="#3FA9F5";ctx.shadowBlur=12;ctx.beginPath();
@@ -142,20 +158,20 @@ export default function GlassGlobe(){
    const origin=vector(...ORIGIN);
    destinations.forEach(([name,lat,lon],i)=>{
     const dest=vector(lat,lon);let prev=false;
-    ctx.strokeStyle="rgba(103,203,255,.84)";ctx.lineWidth=1.4;ctx.beginPath();
+    ctx.strokeStyle="rgba(82,184,245,.62)";ctx.lineWidth=1.15;ctx.beginPath();
     for(let n=0;n<=65;n++){
      const p=project(interpolateArc(origin,dest,n/65),yaw,tilt,cx,cy,r);
-     if(p[2]<-.1){prev=false;continue}
+     if(p[2]<=.015){prev=false;continue}
      if(!prev)ctx.moveTo(p[0],p[1]);else ctx.lineTo(p[0],p[1]);prev=true;
     }ctx.stroke();
     const t=(reduced?.72:(stamp*.00017+i*.115)%1);
     const pulse=project(interpolateArc(origin,dest,t),yaw,tilt,cx,cy,r);
-    if(pulse[2] > -.1){
+    if(pulse[2] > .015){
      ctx.shadowBlur=22;ctx.shadowColor="#3FA9F5";ctx.fillStyle="#f7fdff";
      ctx.beginPath();ctx.arc(pulse[0],pulse[1],3.5,0,2*Math.PI);ctx.fill();ctx.shadowBlur=0;
     }
     const node=project(dest,yaw,tilt,cx,cy,r);
-    if(node[2]>0){ctx.fillStyle="rgba(127,208,255,.85)";ctx.beginPath();ctx.arc(node[0],node[1],2.3,0,2*Math.PI);ctx.fill();}
+    if(node[2]>.015){ctx.fillStyle="rgba(165,224,255,.95)";ctx.beginPath();ctx.arc(node[0],node[1],2.6,0,2*Math.PI);ctx.fill();}
    });
    const j=project(origin,yaw,tilt,cx,cy,r);
    if(j[2]>0){
