@@ -1328,3 +1328,133 @@ header.glass-nav > .wrap {max-width:1290px;}
 .s1-marketplace-photo{position:relative;min-height:260px;overflow:hidden;border-radius:24px;border:1px solid rgba(213,239,255,.22);box-shadow:0 24px 52px -28px rgba(0,0,0,.48)}
 .s1-marketplace-aside > .rounded-card{background:rgba(20,39,58,.8);border-radius:24px;box-shadow:0 25px 65px -33px rgba(0,0,0,.47);backdrop-filter:blur(18px)}
 @media(prefers-reduced-motion:reduce){.reveal-group[data-reveal="waiting"],.reveal-group[data-reveal="waiting"] .reveal{opacity:1!important;transform:none!important}}
+
+
+/* Signal One unified atmospheric glass system, October 2026.
+   Shared marketing pages use one navy/slate/sky-blue palette, not white bands.
+   Existing text tones and commercial functionality are preserved. */
+:root {
+  --s1-ink:#071a2e;
+  --s1-atmosphere:#102a43;
+  --s1-frost:#dceaf4;
+  --s1-glass-edge:rgba(234,248,255,.43);
+  --s1-float-shadow:0 27px 72px -38px rgba(5,24,45,.49);
+}
+body {background:#0a1b2d;}
+body > header.glass-nav {
+  position:sticky;z-index:70;top:0;
+  background:transparent!important;
+  border:0!important;
+  margin-bottom:-76px;
+  padding:8px 0!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+}
+body > header.glass-nav[data-home]{margin-bottom:-76px;}
+body > header.glass-nav > .wrap {
+  height:60px!important;max-width:1290px;width:calc(100% - 28px);
+  border-radius:999px;overflow:visible;
+  background:rgba(10,26,44,.83)!important;
+  border:1px solid rgba(191,227,252,.35);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.19),0 17px 42px -25px rgba(0,0,0,.58);
+  backdrop-filter:blur(18px) saturate(136%);
+  -webkit-backdrop-filter:blur(18px) saturate(136%);
+}
+body > header.glass-nav[data-scrolled] > .wrap{background:rgba(8,23,41,.87)!important}
+main:not(.s1-brand-home){background:linear-gradient(165deg,#10263e 0%,#254866 40%,#142a42 100%);}
+main:not(.s1-brand-home) > section:first-child {padding-top:max(128px,8vw);}
+main:not(.s1-brand-home) > section.surface-light,
+main:not(.s1-brand-home) > section.surface-light-2,
+main:not(.s1-brand-home) > section.surface-white {
+  background:radial-gradient(ellipse at 12% 0%,rgba(142,195,227,.36),transparent 52%),
+             linear-gradient(142deg,#bdcfdd 0%,#d5e2ed 52%,#b3c9d9 100%)!important;
+  color:var(--s1-ink);
+}
+main:not(.s1-brand-home) > section.surface-deep,
+main:not(.s1-brand-home) > section.surface-base,
+main:not(.s1-brand-home) > section.surface-raised {
+  background:radial-gradient(ellipse at 70% 10%,rgba(36,120,180,.27),transparent 52%),
+             linear-gradient(135deg,#0c1b2c,#1d3954 58%,#102339)!important;
+}
+main:not(.s1-brand-home) .card,
+main:not(.s1-brand-home) .rounded-card,
+main:not(.s1-brand-home) .glass-light,
+main:not(.s1-brand-home) .glass,
+main:not(.s1-brand-home) .s1-clayglass,
+main:not(.s1-brand-home) form,
+main:not(.s1-brand-home) .s1-selling-copy,
+main:not(.s1-brand-home) .s1-selling-mini {
+  border-radius:clamp(20px,2vw,28px);
+  box-shadow:var(--s1-float-shadow),inset 0 1px 0 rgba(255,255,255,.33);
+}
+main:not(.s1-brand-home) .surface-light .card,
+main:not(.s1-brand-home) .surface-white .card,
+main:not(.s1-brand-home) .surface-light-2 .card,
+main:not(.s1-brand-home) .surface-light .rounded-card,
+main:not(.s1-brand-home) .surface-white .rounded-card {
+  background:rgba(226,239,248,.72)!important;
+  border:1px solid rgba(255,255,255,.72)!important;
+  backdrop-filter:blur(19px) saturate(120%);
+  -webkit-backdrop-filter:blur(19px) saturate(120%);
+}
+main:not(.s1-brand-home) .surface-deep .glass,
+main:not(.s1-brand-home) .surface-base .glass,
+main:not(.s1-brand-home) .surface-deep .rounded-card,
+main:not(.s1-brand-home) .surface-base .rounded-card {
+  background:rgba(12,30,51,.72)!important;
+  border:1px solid rgba(193,226,248,.22)!important;
+  backdrop-filter:blur(18px) saturate(130%);
+  -webkit-backdrop-filter:blur(18px) saturate(130%);
+}
+main:not(.s1-brand-home) .t-display {font-size:clamp(2.65rem,4.1vw,4.35rem);line-height:1.04;}
+main:not(.s1-brand-home) .t-h1 {font-size:clamp(2.35rem,3.7vw,4.1rem);line-height:1.06;}
+main:not(.s1-brand-home) .t-h2 {font-size:clamp(1.95rem,2.6vw,3rem);}
+main:not(.s1-brand-home) .section {position:relative;}
+main:not(.s1-brand-home) .section .wrap > img,
+main:not(.s1-brand-home) .section figure,
+main:not(.s1-brand-home) .section .rounded-frame {
+  border-radius:24px;overflow:hidden;box-shadow:var(--s1-float-shadow);
+}
+/* Architectural diagrams, step maps and flow cards share the same material. */
+main:not(.s1-brand-home) .section ol > li,
+main:not(.s1-brand-home) .section .grid > article,
+main:not(.s1-brand-home) .section .grid > .card,
+main:not(.s1-brand-home) .section .grid > .rounded-card {
+  transition:transform 420ms cubic-bezier(.16,1,.3,1),box-shadow 420ms cubic-bezier(.16,1,.3,1);
+}
+main:not(.s1-brand-home) .section .grid > article:hover,
+main:not(.s1-brand-home) .section .grid > .card:hover {
+  transform:translateY(-4px);
+  box-shadow:0 30px 68px -33px rgba(6,28,47,.4);
+}
+.s1-selling-section,.s1-selling-reverse,.s1-selling-bottom {
+  background:radial-gradient(circle at 25% 15%,rgba(140,198,234,.38),transparent 56%),
+             linear-gradient(140deg,#8fb1c9,#cadde8 58%,#8daec7)!important;
+}
+.s1-selling-copy,.s1-selling-mini{
+  background:rgba(221,236,246,.72)!important;
+  border:1px solid rgba(247,252,255,.75)!important;
+  backdrop-filter:blur(22px) saturate(126%);
+}
+.s1-selling-copy h2,.s1-selling-mini h2 {color:#09223a;}
+footer.surface-base{
+ background:linear-gradient(130deg,#0b1b2d,#173651 65%,#0c2136)!important;
+ border-top:1px solid rgba(161,211,241,.19);
+}
+footer .wrap > nav > div {border:1px solid rgba(169,212,241,.13);background:rgba(18,44,66,.28);border-radius:18px;padding:14px;}
+@media(max-width:900px){
+ body > header.glass-nav{margin-bottom:-76px;}
+ main:not(.s1-brand-home) > section:first-child{padding-top:125px;}
+}
+@media(max-width:640px){
+ body > header.glass-nav > .wrap{width:calc(100% - 16px);}
+ main:not(.s1-brand-home) > section:first-child{padding-top:115px;}
+ main:not(.s1-brand-home) .card,main:not(.s1-brand-home) .rounded-card{border-radius:19px;}
+}
+@media(prefers-reduced-motion:reduce) {
+ main:not(.s1-brand-home) .section .grid > article,main:not(.s1-brand-home) .section .grid > .card{transition:none!important;transform:none!important;}
+}
+@media(prefers-reduced-transparency:reduce) {
+ body > header.glass-nav > .wrap{background:#10263d!important;backdrop-filter:none;}
+ main:not(.s1-brand-home) .surface-light .card,main:not(.s1-brand-home) .surface-white .card{background:#dceaf3!important;backdrop-filter:none;}
+}
