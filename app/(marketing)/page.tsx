@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import GuardDayCalculator from "../components/GuardDayCalculator";
+import AudienceJourneys from "../components/AudienceJourneys";
 import { HardwareRail } from "../components/Hardware";
 import RailControls from "../components/RailControls";
 import PatrolStory from "../components/PatrolStory";
@@ -118,6 +119,8 @@ export default function Home() {
           </p>
           <p className="t-caption mt-3 text-text-inv-2">{illustrativeCaption}</p>
       </SplitHero>
+
+      <AudienceJourneys />
 
       {/* 2 + 3 · PROBLEM → ANSWERS (product screens return after the demo-tenant capture) */}
       <section id="product" className="surface-light section scroll-mt-[72px]">
