@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
+import { photos } from "../../lib/photos";
 import { ButtonLink, Kicker } from "../../components/ui";
 
 export const metadata: Metadata = {
@@ -22,15 +24,16 @@ export default function WorkforcePage() {
         <div>
           <Kicker tone="dark">Signal One · Workforce Operations Platform</Kicker>
           <h1 className="t-display mt-6"><span className="text-signal-400">1</span>Workforce</h1>
-          <p className="t-lead mt-6 text-text-inv-2">Your people. Their work. One accountable operation.</p>
-          <p className="t-body measure mt-5 text-text-inv-2">A dedicated environment for managing field workforce activity, attendance, shifts, timesheets and job cards — distinct from 1GUARD security operations.</p>
+          <p className="t-lead mt-6 text-text-inv-2">Know who worked. Where. And when.</p>
+          <p className="t-body measure mt-5 text-text-inv-2">Bring attendance, shifts, timesheets, job cards and field teams into one manageable view. Spend less time chasing updates and more time keeping work moving.</p>
           <div className="mt-8 flex flex-wrap gap-3">
             <ButtonLink href="/contact" size="lg">Request a walkthrough</ButtonLink>
             <ButtonLink href="#capabilities" variant="ghost-dark" size="lg">Explore the platform</ButtonLink>
           </div>
           <p className="t-caption mt-5 text-text-inv-3">Commercial onboarding and availability are confirmed directly with Signal One.</p>
         </div>
-        <div className="glass rounded-card p-6 sm:p-8" aria-label="1Workforce capability overview">
+        <div className="s1-workforce-hero-media glass rounded-card" aria-label="Field teams at work"><Image src={photos.warehouse.src} alt={photos.warehouse.alt} fill sizes="(min-width: 1024px) 48vw, 100vw" className="object-cover" /></div>
+        <div className="sr-only" aria-label="1Workforce capabilities">
           <div className="flex items-center justify-between border-b border-line-dark pb-5">
             <span className="t-h3">1Workforce</span>
             <span className="t-caption text-signal-400">Workforce operations</span>
@@ -40,13 +43,13 @@ export default function WorkforcePage() {
               <h2 className="t-h4">{name}</h2><p className="t-small mt-2 text-text-inv-2">{detail}</p>
             </div>)}
           </div>
-          <p className="t-caption mt-5 text-text-inv-3">Capability overview, not a connected live dashboard.</p>
+          <p className="t-caption mt-5 text-text-inv-3">Learn more about the supported 1Workforce capabilities.</p>
         </div>
       </div>
     </section>
     <section id="capabilities" className="surface-light section scroll-mt-[72px]">
       <div className="wrap grid gap-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)]">
-        <div><Kicker>Built for real work</Kicker><h2 className="t-h2 mt-4">Keep field teams visible and accountable.</h2><p className="t-body mt-5 text-text-2">From the first clock-in to the last completed job card, organise records around work that actually happened.</p></div>
+        <div><Kicker>Built for real work</Kicker><h2 className="t-h2 mt-4">Bring every shift into focus.</h2><p className="t-body mt-5 text-text-2">See attendance exceptions, review hours and keep work records together so teams and supervisors can spend less time reconciling updates.</p></div>
         <div className="grid gap-4 sm:grid-cols-2">{capabilities.map(([name, detail])=><article key={name} className="card p-6"><h3 className="t-h3">{name}</h3><p className="t-small mt-3 text-text-2">{detail}</p></article>)}</div>
       </div>
     </section>

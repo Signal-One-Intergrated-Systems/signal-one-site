@@ -4,11 +4,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import SignalOneLogo from "./brand/SignalOneLogo";
-import SignalOneMark from "./brand/SignalOneMark";
 
 type World = "buyer" | "guard" | "careers";
 
-type NavItem = { href: string; label: string };
+type NavItem = { href: string; label: string; comingSoon?: boolean };
 
 const worlds: Record<
   World,
@@ -30,6 +29,7 @@ const worlds: Record<
     primary: [
       { href: "/solutions/security", label: "1GUARD" },
       { href: "/workforce", label: "1Workforce" },
+      { href: "#community", label: "1Community", comingSoon: true },
       { href: "/guard-marketplace", label: "Hire Guards" },
       { href: "/equipment-marketplace", label: "Equipment" },
       
@@ -119,18 +119,22 @@ export default function Header() {
   const isCurrent = (href: string) => !href.includes("#") && href !== "/" && pathname.startsWith(href);
 
   return (
-    <header data-scrolled={scrolled ? "" : undefined} className={"sticky top-0 z-50 " + config.shell}>
+    <header data-home={pathname === "/" ? "" : undefined} data-scrolled={scrolled ? "" : undefined} className={"sticky top-0 z-50 " + config.shell}>
       <div className="wrap flex h-[72px] items-center justify-between gap-4">
         <Link
           href={config.homeHref}
           className="flex min-h-[44px] min-w-0 items-center gap-3"
           aria-label={"Signal One " + config.identity + " home"}
         >
-          {pathname === "/" ? <SignalOneMark size={39} tone="dark" pulse /> : <SignalOneLogo size={22} tone={dark ? "dark" : "light"} pulse descriptorMin={10} />}
+          <SignalOneLogo size={19} tone="dark" pulse descriptorMin={9} />
         </Link>
 
-        <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
-          {config.primary.map((item) => (
+        <nav className="hidden items-center gap-1 xl:flex" aria-label="Primary">
+          {config.primary.map((item) => item.comingSoon ? (
+            <span key={item.label} className="s1-nav-upcoming" aria-label="1Community, coming soon">
+              <span className="s1-product-one">1</span>Community <small>Coming soon</small>
+            </span>
+          ) : (
             <Link
               key={item.href}
               href={item.href}
@@ -140,7 +144,7 @@ export default function Header() {
                 config.link
               }
             >
-              {item.label}
+              {item.label === "1GUARD" ? <><span className="s1-product-one">1</span>GUARD</> : item.label === "1Workforce" ? <><span className="s1-product-one">1</span>Workforce</> : item.label}
             </Link>
           ))}
         </nav>
@@ -170,7 +174,7 @@ export default function Header() {
           aria-expanded={open}
           aria-controls="mobile-nav"
           className={
-            "flex min-h-[44px] items-center gap-2 rounded-ui border px-3.5 text-[1rem] font-semibold lg:hidden " +
+            "flex min-h-[44px] items-center gap-2 rounded-ui border px-3.5 text-[1rem] font-semibold xl:hidden " +
             (dark ? "border-white/30" : "border-line-strong")
           }
         >
@@ -185,18 +189,18 @@ export default function Header() {
         <div
           id="mobile-nav"
           ref={sheetRef}
-          className={"fixed inset-x-0 bottom-0 top-[88px] z-50 overflow-y-auto lg:hidden " + config.sheet}
+          className={"fixed inset-x-0 bottom-0 top-[78px] z-50 overflow-y-auto lg:hidden " + config.sheet}
         >
           <nav className="wrap flex min-h-full flex-col pb-8 pt-4" aria-label="Mobile">
             <ul className="m-0 list-none p-0">
-              {config.primary.map((item) => (
+              {config.primary.map((item) => item.comingSoon ? <li key={item.label} className="s1-mobile-upcoming"><span><span className="s1-product-one">1</span>Community</span><small>Coming soon</small></li> : (
                 <li key={item.href} className={"border-b " + (dark ? "border-line-dark" : "border-line")}>
                   <Link
                     href={item.href}
                     onClick={() => setOpen(false)}
                     className="flex min-h-[60px] items-center justify-between font-display text-[1.5rem] font-semibold"
                   >
-                    {item.label}
+                    {item.label === "1GUARD" ? <><span className="s1-product-one">1</span>GUARD</> : item.label === "1Workforce" ? <><span className="s1-product-one">1</span>Workforce</> : item.label}
                     <span aria-hidden="true" className={dark ? "text-text-inv-2" : "text-text-2"}>→</span>
                   </Link>
                 </li>
