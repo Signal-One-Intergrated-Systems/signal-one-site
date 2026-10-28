@@ -4,15 +4,15 @@ import { Kicker, Steps } from "../../components/ui";
 import { guardDayPricePhrase } from "../../lib/pricing";
 
 export const metadata: Metadata = {
-  title: "Talk to Signal One About Security Guard Software",
+  title: "Talk to Signal One | 1GUARD, 1Workforce and Equipment",
   description:
-    "Talk to a Signal One specialist about guard management software: " + guardDayPricePhrase + ", a walkthrough on your operation, radios, tracking and Guard Marketplace.",
+    "Talk to Signal One about 1GUARD, 1Workforce, security equipment and connected operations. Request a walkthrough or product quotation.",
   alternates: { canonical: "/contact" },
 };
 
 const fields: IntakeField[] = [
   { name: "contactName", label: "Your name", required: true, autoComplete: "name" },
-  { name: "companyName", label: "Security company", required: true, autoComplete: "organization" },
+  { name: "companyName", label: "Company or organisation", required: true, autoComplete: "organization" },
   { name: "email", label: "Work email", type: "email", required: true, autoComplete: "email" },
   { name: "mobile", label: "Mobile number", type: "tel", required: true, autoComplete: "tel", placeholder: "+27" },
   {
@@ -22,10 +22,12 @@ const fields: IntakeField[] = [
     required: true,
     wide: true,
     options: [
-      "A walkthrough of the platform",
+      "1GUARD security operations walkthrough",
+      "1Workforce attendance and workforce management",
       "Guard pricing and getting started",
       "Radios, PTT, tracking or body cameras",
-      "Guard Marketplace",
+      "Hire guards through marketplace",
+      "Equipment purchase or rental",
       "Something else",
     ],
   },
@@ -33,7 +35,7 @@ const fields: IntakeField[] = [
     name: "message",
     label: "Anything we should know",
     type: "textarea",
-    placeholder: "Number of sites and guards, a contract you are bidding on, or what is not working today.",
+    placeholder: "Number of sites, workforce size, equipment quantities or the outcomes you need.",
   },
 ];
 
@@ -43,18 +45,18 @@ export default function ContactPage() {
       <div className="wrap grid gap-12 py-12 md:py-20 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
         <div>
           <Kicker>Talk to Signal One</Kicker>
-          <h1 className="t-h1 mt-4">Talk to a person who knows security operations.</h1>
+          <h1 className="t-h1 mt-4">Tell us what you need. We will show you the right solution.</h1>
           <p className="t-lead mt-5 text-text-2">
-            A short form. A Signal One representative replies by email or phone.
+            From security operations and workforce attendance to radios and connected equipment, tell us what you are trying to achieve.
           </p>
 
           <h2 className="t-h3 mt-12">What happens next</h2>
           <div className="mt-4">
             <Steps
               items={[
-                ["We read your message", "A representative looks at your sites, guards and what you asked about."],
+                ["We read your message", "We review your business requirements and the solution you selected."],
                 ["We get in touch", "By email or phone, using the details you give us."],
-                ["We show you the platform", "On your operation, not a generic demo. You decide what happens after that."],
+                ["We discuss your solution", "We explain the relevant platform, available options and next steps before you decide."],
               ]}
             />
           </div>
