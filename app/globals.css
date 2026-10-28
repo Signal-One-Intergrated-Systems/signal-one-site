@@ -782,3 +782,72 @@
     }
   }
 }
+
+
+/* Enterprise-grade public presentation. Scoped to the marketing entry surface;
+   the commercial narrative, pricing and product contracts are unchanged. */
+.enterprise-home > .split-hero {
+  isolation: isolate;
+  border-bottom: 1px solid rgb(255 255 255 / .12);
+}
+.enterprise-home > .split-hero::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 1px;
+  background: linear-gradient(90deg,transparent 8%,rgb(56 189 248 / .55) 50%,transparent 92%);
+  pointer-events: none;
+}
+.enterprise-home > .split-hero img {
+  filter: brightness(1.08) saturate(1.06);
+}
+.enterprise-home > .split-hero .t-hero {
+  max-width: 12.5ch;
+  letter-spacing: -.044em;
+  line-height: 1.035;
+}
+.enterprise-home > .split-hero .t-lead {
+  max-width: 49ch;
+}
+.enterprise-journeys {
+  background: linear-gradient(180deg,#fff 0%,#f5f7fa 100%);
+}
+.enterprise-product-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 16.5rem;
+  background: #fff;
+  border-color: #d5dde6;
+  box-shadow: 0 14px 38px -34px rgb(11 27 43 / .34);
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+.enterprise-product-card::before {
+  content: "";
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  top: 0;
+  height: 2px;
+  background: #0ea5e9;
+  opacity: .45;
+  transition: opacity 180ms ease;
+}
+.enterprise-product-card:hover,
+.enterprise-product-card:focus-within {
+  transform: translateY(-2px);
+  box-shadow: 0 25px 48px -35px rgb(11 27 43 / .40);
+}
+.enterprise-product-card:hover::before,
+.enterprise-product-card:focus-within::before { opacity: 1; }
+.enterprise-product-card .t-h3 { letter-spacing: -.025em; }
+.enterprise-product-card .btn { margin-top: 1.75rem; }
+@media (max-width: 767px) {
+  .enterprise-home > .split-hero img { filter: brightness(1.04) saturate(1.03); }
+  .enterprise-product-card { min-height: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .enterprise-product-card { transition: none; }
+  .enterprise-product-card:hover,
+  .enterprise-product-card:focus-within { transform: none; }
+}
