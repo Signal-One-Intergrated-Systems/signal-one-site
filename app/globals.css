@@ -1092,3 +1092,68 @@ header.glass-nav > .wrap { width:calc(100% - 24px); max-width:calc(var(--wrap-ma
  .s1-brand-copy.s1-brand-clay.s1-hero-content-glass{max-width:none;width:calc(100% - 24px);margin:360px 12px 20px;padding:25px 24px;background:rgba(7,26,47,.73)}
  .s1-hero-content-glass h1{font-size:32px}
 }
+
+
+/* Guard-inspired compact floating command pill and final daylight hero refinement. */
+header.glass-nav { background:transparent; border:0; padding:9px 0 8px; }
+header.glass-nav > .wrap {
+  width:calc(100% - 40px);
+  max-width:1392px;
+  height:68px;
+  padding-left:clamp(16px,2.2vw,30px);
+  padding-right:clamp(16px,2.2vw,30px);
+  border-radius:999px;
+  border:1px solid rgba(173,206,238,.26);
+  background:rgba(18,29,45,.91);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.11),0 16px 32px -20px rgba(0,0,0,.43);
+}
+header.glass-nav nav[aria-label="Primary"] { gap:0; }
+header.glass-nav nav[aria-label="Primary"] a { border-radius:999px; padding-inline:13px; }
+header.glass-nav nav[aria-label="Primary"] a:hover,
+header.glass-nav nav[aria-label="Primary"] a[aria-current="page"] { background:rgba(255,255,255,.095); }
+.s1-hero-image-logo {
+  top:clamp(35px,5vw,76px);
+  left:clamp(32px,5vw,78px);
+  padding:0;
+  background:transparent;
+  border:0;
+  border-radius:0;
+  box-shadow:none;
+  -webkit-backdrop-filter:none;
+  backdrop-filter:none;
+  filter:drop-shadow(0 2px 5px rgba(255,255,255,.35));
+}
+.s1-brand-stage-image { object-position:37% center; filter:brightness(1.11) saturate(1.03); }
+.s1-brand-image-wash { background:linear-gradient(90deg,rgba(3,17,34,.02) 0%,rgba(3,17,34,.04) 39%,rgba(4,20,41,.18) 69%,rgba(4,20,41,.45) 100%); }
+.s1-brand-copy.s1-brand-clay.s1-hero-content-glass {
+  max-width:min(680px,53vw);
+  padding:clamp(25px,2.8vw,40px);
+}
+.s1-brand-product-link {
+  border-radius:12px;
+  padding:6px 12px;
+  margin:-6px -12px;
+  text-decoration:none;
+  cursor:pointer;
+  transition:background-color .18s ease,transform .2s ease,box-shadow .2s ease;
+}
+.s1-brand-product-link:hover,
+.s1-brand-product-link:focus-visible {
+  background:rgba(96,189,248,.13);
+  transform:translateY(-3px);
+  box-shadow:inset 0 0 0 1px rgba(122,211,255,.25);
+}
+.s1-brand-product-link:focus-visible { outline:2px solid #7dd3fc; outline-offset:3px; }
+@media(max-width:1050px){
+ .s1-brand-copy.s1-brand-clay.s1-hero-content-glass { max-width:min(650px,75vw); }
+}
+@media(max-width:670px) {
+ header.glass-nav > .wrap {width:calc(100% - 20px);height:64px;padding-inline:14px}
+ .s1-hero-image-logo {left:22px;top:34px}
+ .s1-brand-copy.s1-brand-clay.s1-hero-content-glass {max-width:none;padding:25px 24px}
+ .s1-brand-stage-image {object-position:37% center}
+}
+@media(prefers-reduced-motion:reduce){
+ .s1-brand-product-link{transition:none}
+ .s1-brand-product-link:hover{transform:none}
+}
