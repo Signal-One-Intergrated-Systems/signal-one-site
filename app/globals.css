@@ -1048,3 +1048,8 @@ header.glass-nav > .wrap { width:calc(100% - 24px); max-width:calc(var(--wrap-ma
 @supports not (backdrop-filter:blur(2px)){
  .s1-brand-copy.s1-brand-clay.s1-hero-content-glass{background:rgba(7,22,40,.83)}
 }
+
+
+/* Geographic Earth refinement: deep-ocean glass, accurate visible land, surface-only routes. */
+.s1-hero-globe-canvas{filter:brightness(.95) saturate(1.17)}
+.s1-hero-orb-fallback{filter:brightness(.68) saturate(1.23) drop-shadow(0 0 22px rgba(63,169,245,.24))}
