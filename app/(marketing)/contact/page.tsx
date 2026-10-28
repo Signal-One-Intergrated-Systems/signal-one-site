@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import IntakeForm, { type IntakeField } from "../../components/IntakeForm";
 import { Kicker, Steps } from "../../components/ui";
-import { guardDayPricePhrase } from "../../lib/pricing";
 
 export const metadata: Metadata = {
   title: "Talk to Signal One | 1GUARD, 1Workforce and Equipment",
