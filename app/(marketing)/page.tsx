@@ -23,7 +23,7 @@ export default function Home() {
         </div>
         <HeroGlobeLayer />
         <div className="s1-brand-copy s1-brand-clay s1-hero-content-glass">
-          <div className="s1-brand-parent"><SignalOneLogo size={21} tone="light" descriptorMin={10} /></div>
+          <div className="s1-brand-parent"><SignalOneLogo size={21} tone="dark" descriptorMin={10} /></div>
           <p className="s1-brand-eyebrow">Technology for real-world operations</p>
           <h1 id="s1-brand-intro">The systems behind<br />better operations.</h1>
           <p className="s1-brand-explainer">
