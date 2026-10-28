@@ -1305,3 +1305,12 @@ main .surface-light .card,main .surface-white .card {border-radius:24px;backgrou
 @media(max-width:800px){.s1-selling-section,.s1-selling-bottom{grid-template-columns:1fr;}.s1-selling-reverse .s1-selling-photo{order:0}.s1-selling-photo{min-height:360px;}}
 @media(max-width:640px){header.glass-nav{margin-bottom:-80px;}header.glass-nav > .wrap{height:60px!important;width:calc(100% - 16px)}.s1-selling-section,.s1-selling-bottom{padding:24px 14px;}.s1-selling-photo{min-height:290px;}.s1-selling-copy,.s1-selling-mini{padding:28px 24px;}}
 @media(prefers-reduced-motion:reduce){header.glass-nav nav[aria-label="Primary"] a,.s1-selling-link {transition:none!important;transform:none!important;}}
+
+
+/* Consistent marketing hero media and floating commerce surfaces. */
+.s1-workforce-hero-media,.s1-equipment-photo {position:relative;overflow:hidden;min-height:clamp(360px,40vw,570px);border:1px solid rgba(214,238,252,.22);border-radius:28px;box-shadow:0 30px 85px -35px rgba(0,0,0,.62);}
+.s1-workforce-hero-media img,.s1-equipment-photo img {object-position:center;filter:saturate(.96) brightness(1.04);}
+.s1-equipment-hero {background:radial-gradient(ellipse at 70% 40%,rgba(32,111,169,.23),transparent 56%),#101d2d;}
+.s1-equipment-photo::after,.s1-workforce-hero-media::after {content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,transparent 66%,rgba(7,21,41,.25));}
+.s1-brand-copy.s1-brand-clay.s1-hero-content-glass {margin-top:clamp(165px,21vh,220px);}
+@media(max-width:680px){.s1-workforce-hero-media,.s1-equipment-photo{min-height:330px;border-radius:21px}.s1-brand-copy.s1-brand-clay.s1-hero-content-glass{margin-top:355px;}}
