@@ -19,7 +19,7 @@ const groups = [
   {
     title: "Get started",
     links: [
-      ["/#product", "See the product"],
+      ["/workforce", "Explore 1Workforce"],
       ["/contact", "Talk to Signal One"],
       ["/get-started", "Start company onboarding"],
     ],
@@ -50,8 +50,7 @@ export default function Footer() {
         <div>
           <SignalOneLogo size={24} tone="dark" descriptorMin={11} />
           <p className="t-small measure-tight mt-6 text-text-inv-2">
-            Signal One Security is the operating system for South African security companies: sites, shifts, patrols,
-            control room and client proof of service.
+            Signal One connects security operations, workforce management and field technology. Explore 1GUARD, 1Workforce and communications equipment for your operation.
           </p>
           <p className="t-body mt-6">
             <a href="mailto:sales@signalone.co.za" className="link-inline font-semibold">
