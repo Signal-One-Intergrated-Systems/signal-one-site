@@ -1182,3 +1182,47 @@ header.glass-nav nav[aria-label="Primary"] a[aria-current="page"] { background:r
  .s1-brand-stage-media{background:#071b34}
  .s1-brand-image-wash{background:linear-gradient(180deg,transparent 15%,rgba(7,27,52,.12) 47%,#071b34 73%)}
 }
+
+
+/* ONE COMPOSITE HERO: photo is the environment, globe is a suspended material.
+   Replace prior split-plane geometry at the final cascade layer. */
+.s1-brand-stage{min-height:clamp(720px,calc(100svh - 90px),920px);background:#091827;overflow:clip}
+.s1-brand-stage-media{inset:0;background:#a9cee3}
+.s1-brand-stage-media .s1-brand-stage-image{
+  inset:0!important;left:0!important;right:0!important;
+  width:100%!important;height:100%!important;object-fit:cover!important;
+  object-position:center 45%!important;filter:brightness(1.045) saturate(.99)!important;
+}
+.s1-brand-image-wash{
+  background:linear-gradient(90deg,rgba(8,26,43,.03) 0%,rgba(8,26,43,.04) 40%,rgba(7,29,51,.39) 58%,rgba(6,23,47,.74) 100%),
+  linear-gradient(0deg,rgba(5,17,34,.36),transparent 30%);
+}
+.s1-hero-globe-layer{inset:-11% -23% -15% 43%;z-index:2;opacity:1;overflow:visible}
+.s1-hero-orb-fallback{opacity:.32;filter:drop-shadow(0 0 34px rgba(119,205,255,.37))}
+.s1-hero-globe-canvas{filter:brightness(1.08) saturate(.94)}
+.s1-brand-copy.s1-brand-clay.s1-hero-content-glass{
+ z-index:3;max-width:min(670px,50vw);margin:clamp(165px,20vh,230px) clamp(28px,7vw,125px) 42px auto;
+ background:linear-gradient(112deg,rgba(10,31,51,.62),rgba(7,29,51,.40) 55%,rgba(5,22,44,.49));
+ border:1px solid rgba(230,247,255,.43);
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.30),inset -1px -1px 0 rgba(255,255,255,.09),
+            0 30px 80px -25px rgba(0,9,24,.47);
+ -webkit-backdrop-filter:blur(9px) saturate(125%);backdrop-filter:blur(9px) saturate(125%);
+}
+.s1-hero-image-logo{top:clamp(32px,4vw,58px);left:clamp(28px,5vw,76px);
+ filter:drop-shadow(0 2px 5px rgba(255,255,255,.34))}
+@media(max-width:1050px){
+ .s1-brand-stage{min-height:780px}
+ .s1-hero-globe-layer{inset:-3% -45% -6% 33%}
+ .s1-brand-copy.s1-brand-clay.s1-hero-content-glass{max-width:min(610px,68vw);margin:210px 25px 36px auto}
+}
+@media(max-width:670px){
+ .s1-brand-stage{min-height:850px}
+ .s1-brand-stage-media .s1-brand-stage-image{width:100%!important;height:100%!important;object-position:35% center!important}
+ .s1-brand-image-wash{background:linear-gradient(180deg,rgba(7,25,45,.05),rgba(7,25,45,.28) 34%,rgba(7,25,45,.83) 76%,#07192e 100%)}
+ .s1-hero-globe-layer{inset:26% -65% -6% 0;opacity:.72}
+ .s1-brand-copy.s1-brand-clay.s1-hero-content-glass{max-width:none;margin:355px 12px 25px;padding:25px 24px;background:rgba(6,26,48,.76)}
+ .s1-hero-image-logo{top:24px;left:22px}
+}
+@media(prefers-reduced-transparency:reduce){
+ .s1-brand-copy.s1-brand-clay.s1-hero-content-glass{background:rgba(5,22,42,.93);backdrop-filter:none}
+}
