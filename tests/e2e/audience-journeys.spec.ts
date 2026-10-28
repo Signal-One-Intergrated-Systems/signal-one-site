@@ -6,8 +6,9 @@ test("homepage routes each visitor to an accurate next step", async ({ page }) =
   await expect(section).toBeVisible();
   const destinations = [
     ["Start company onboarding", "/get-started"],
+    ["Explore 1Workforce", "/workforce"],
     ["Create a guard profile", "/guards/join"],
-    ["Explore equipment", "/radios-equipment"],
+    ["Explore equipment", "/equipment-marketplace"],
     ["View sales opportunities", "/join/sales"],
   ] as const;
   for (const [label, destination] of destinations) {
