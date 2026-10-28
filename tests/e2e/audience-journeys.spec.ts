@@ -1,27 +1,24 @@
 import { expect, test } from "@playwright/test";
 
-test("homepage routes each visitor to an accurate next step", async ({ page }) => {
+test("homepage introduces purchasable journeys and clearly labels 1Community", async ({ page }) => {
   await page.goto("/");
-  const section = page.getByRole("region", { name: "Find your place in Signal One." });
-  await expect(section).toBeVisible();
-  const destinations = [
-    ["Start company onboarding", "/get-started"],
-    ["Explore 1Workforce", "/workforce"],
-    ["Create a guard profile", "/guards/join"],
-    ["Explore equipment", "/equipment-marketplace"],
-    ["View sales opportunities", "/join/sales"],
-  ] as const;
-  for (const [label, destination] of destinations) {
-    await expect(section.getByRole("link", { name: label })).toHaveAttribute("href", destination);
-  }
-  await expect(section.getByText(/Marketplace matching is still in development/)).toBeVisible();
-  await expect(section.getByText(/Sales OS is reserved for Signal One representatives/)).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Control the work/ })).toBeVisible();
+  await expect(page.getByRole("link", { name: /Explore 1GUARD/ })).toHaveAttribute("href", "/solutions/security");
+  await expect(page.getByRole("link", { name: /Explore 1Workforce/ })).toHaveAttribute("href", "/workforce");
+  await expect(page.getByRole("link", { name: /Explore equipment/ })).toHaveAttribute("href", "/equipment-marketplace");
+  await expect(page.getByText(/1Community is not available yet/)).toBeVisible();
+  await expect(page.locator(".s1-nav-upcoming")).toContainText("Coming soon");
+  await expect(page.getByRole("link", { name: /Book a walkthrough/ })).toHaveAttribute("href", "/contact");
 });
 
-test("visitor journeys stay usable at phone width", async ({ page }) => {
+test("site pill stays usable on a phone and does not offer 1Community as a live route", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/");
-  await expect(page.getByRole("link", { name: "Start company onboarding" })).toBeVisible();
+  const menu = page.getByRole("button", { name: "Menu" });
+  await expect(menu).toBeVisible();
+  await menu.click();
+  await expect(page.locator(".s1-mobile-upcoming")).toContainText("Coming soon");
+  await expect(page.getByRole("navigation", { name: "Mobile" }).getByRole("link", { name: /1Workforce/ })).toHaveAttribute("href", "/workforce");
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth);
   expect(overflow).toBe(false);
 });
