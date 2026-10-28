@@ -124,12 +124,12 @@ export default function GlassGlobe(){
    ctx.restore();
    const origin=vector(...ORIGIN);
    destinations.forEach(([name,lat,lon],i)=>{
-    const dest=vector(lat,lon);let prev:null|readonly[number,number,number]=null;
+    const dest=vector(lat,lon);let prev=false;
     ctx.strokeStyle="rgba(63,169,245,.52)";ctx.lineWidth=1.1;ctx.beginPath();
     for(let n=0;n<=65;n++){
      const p=project(interpolateArc(origin,dest,n/65),yaw,tilt,cx,cy,r);
-     if(p[2]<-.1){prev=null;continue}
-     if(!prev)ctx.moveTo(p[0],p[1]);else ctx.lineTo(p[0],p[1]);prev=p;
+     if(p[2]<-.1){prev=false;continue}
+     if(!prev)ctx.moveTo(p[0],p[1]);else ctx.lineTo(p[0],p[1]);prev=true;
     }ctx.stroke();
     const t=(reduced?.72:(stamp*.00010+i*.115)%1);
     const pulse=project(interpolateArc(origin,dest,t),yaw,tilt,cx,cy,r);
