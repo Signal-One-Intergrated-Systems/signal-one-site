@@ -119,7 +119,7 @@ export default function Header() {
   const isCurrent = (href: string) => !href.includes("#") && href !== "/" && pathname.startsWith(href);
 
   return (
-    <header data-scrolled={scrolled ? "" : undefined} className={"sticky top-0 z-50 " + config.shell}>
+    <header data-home={pathname === "/" ? "" : undefined} data-scrolled={scrolled ? "" : undefined} className={"sticky top-0 z-50 " + config.shell}>
       <div className="wrap flex h-[72px] items-center justify-between gap-4">
         <Link
           href={config.homeHref}
@@ -129,7 +129,7 @@ export default function Header() {
           <SignalOneLogo size={19} tone="dark" pulse descriptorMin={9} />
         </Link>
 
-        <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-1 xl:flex" aria-label="Primary">
           {config.primary.map((item) => item.comingSoon ? (
             <span key={item.label} className="s1-nav-upcoming" aria-label="1Community, coming soon">
               <span className="s1-product-one">1</span>Community <small>Coming soon</small>
@@ -174,7 +174,7 @@ export default function Header() {
           aria-expanded={open}
           aria-controls="mobile-nav"
           className={
-            "flex min-h-[44px] items-center gap-2 rounded-ui border px-3.5 text-[1rem] font-semibold lg:hidden " +
+            "flex min-h-[44px] items-center gap-2 rounded-ui border px-3.5 text-[1rem] font-semibold xl:hidden " +
             (dark ? "border-white/30" : "border-line-strong")
           }
         >
@@ -189,7 +189,7 @@ export default function Header() {
         <div
           id="mobile-nav"
           ref={sheetRef}
-          className={"fixed inset-x-0 bottom-0 top-[88px] z-50 overflow-y-auto lg:hidden " + config.sheet}
+          className={"fixed inset-x-0 bottom-0 top-[78px] z-50 overflow-y-auto lg:hidden " + config.sheet}
         >
           <nav className="wrap flex min-h-full flex-col pb-8 pt-4" aria-label="Mobile">
             <ul className="m-0 list-none p-0">
