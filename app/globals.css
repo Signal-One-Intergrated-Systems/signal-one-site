@@ -1008,3 +1008,6 @@ header.glass-nav > .wrap { width:calc(100% - 24px); max-width:calc(var(--wrap-ma
 @media(max-width:580px){.s1-hero-globe-layer{inset:28% -15% 1% 0;opacity:.68}.s1-hero-content-glass{backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);background:rgba(252,254,255,.88)}}
 @media(prefers-reduced-motion:reduce){.s1-hero-content-glass .s1-brand-parent,.s1-hero-content-glass .s1-brand-eyebrow,.s1-hero-content-glass h1,.s1-hero-content-glass .s1-brand-explainer,.s1-hero-content-glass .s1-brand-family{animation:none}.s1-hero-content-glass .s1-brand-family-item{transition:none}}
 @supports not (backdrop-filter:blur(12px)){.s1-hero-content-glass{background:rgba(252,254,255,.96)}}
+
+/* Static accurate land-mass globe while the animated renderer loads, or when canvas is unavailable. */
+.s1-hero-orb-fallback{inset:0;border:0;border-radius:0;background: url('/images/hero-glass-globe-fallback.svg') center / contain no-repeat;box-shadow:none}
