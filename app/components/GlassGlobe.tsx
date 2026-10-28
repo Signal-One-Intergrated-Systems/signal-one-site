@@ -66,8 +66,8 @@ export default function GlassGlobe(){
   const ctx=el.getContext("2d");if(!ctx)return;
   let alive=true,raf=0,visible=true,reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
   let land:Point[]=[];
-  // Natural Earth-derived geographic boundaries; data only, never executable source.
-  fetch("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson")
+  // Locally hosted world geometry; data only, never executable source.
+  fetch("/data/world.geojson")
    .then(r=>{if(!r.ok)throw Error("geography unavailable");return r.json()})
    .then(data=>{if(alive){land=buildLand(regionsFromGeoJSON(data));request()}})
    .catch(()=>{ /* Render the ocean and grid if geographic data cannot load. */ });
