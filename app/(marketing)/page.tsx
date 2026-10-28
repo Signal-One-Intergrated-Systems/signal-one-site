@@ -16,8 +16,8 @@ export default function Home() {
       <section className="s1-brand-stage" aria-labelledby="s1-brand-intro">
         <div className="s1-brand-stage-media">
           <div className="s1-hero-image-logo"><SignalOneLogo size={21} tone="light" descriptorMin={10} /></div>
-          <Image src="/images/signal-one-hero-daylight-duo.jpg" alt="Two professional South African security officers, a woman and a man, working together at a modern corporate entrance in bright daylight"
-            fill priority sizes="(min-width: 1200px) 72vw, 100vw"
+          <Image src="/images/signal-one-hero-balanced-duo.jpg" alt="Two professional South African security officers, a woman and a man, working together at a modern corporate entrance in bright daylight"
+            fill priority sizes="(min-width: 900px) 53vw, 100vw"
             quality={85} className="s1-brand-stage-image object-cover" />
           <div className="s1-brand-image-wash" aria-hidden="true" />
 
