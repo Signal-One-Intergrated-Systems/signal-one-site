@@ -3,10 +3,12 @@ import SignalOneLogo from "./brand/SignalOneLogo";
 
 const groups = [
   {
-    title: "Signal One Security",
+    title: "Platforms",
     links: [
-      ["/solutions/security", "Platform"],
-      ["/guard-marketplace", "Guard Marketplace"],
+      ["/solutions/security", "1GUARD"],
+      ["/workforce", "1Workforce"],
+      ["/equipment-marketplace", "Buy or rent equipment"],
+      ["/guard-marketplace", "Hire guards"],
       ["/radios-equipment", "Radios & Tracking"],
       ["/guard-patrol-software", "Guard patrol software"],
       ["/guard-attendance-software", "Guard attendance and clock-in"],

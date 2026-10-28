@@ -2,6 +2,8 @@ export const routes = [
   "/",
   "/solutions/security",
   "/guard-marketplace",
+  "/equipment-marketplace",
+  "/workforce",
   "/radios-equipment",
   "/guard-patrol-software",
   "/guard-attendance-software",

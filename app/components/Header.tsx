@@ -27,16 +27,17 @@ const worlds: Record<
     identity: "Integrated Systems",
     homeHref: "/",
     primary: [
-      { href: "/solutions/security", label: "Platform" },
-      { href: "/guard-marketplace", label: "Marketplace" },
-      { href: "/radios-equipment", label: "Radios & Tracking" },
-      { href: "/pricing", label: "Pricing" },
+      { href: "/solutions/security", label: "1GUARD" },
+      { href: "/workforce", label: "1Workforce" },
+      { href: "/guard-marketplace", label: "Hire Guards" },
+      { href: "/equipment-marketplace", label: "Equipment" },
+      
     ],
     secondary: [
       { href: "/guards", label: "For guards" },
       { href: "/join/sales", label: "Careers" },
     ],
-    cta: { href: "/#product", label: "See Signal One in action" },
+    cta: { href: "/contact", label: "Book a walkthrough" },
     shell: "glass-nav text-text-inv border-b border-line-dark",
     link: "text-text-inv hover:bg-white/8",
     cta_class: "btn btn-primary",

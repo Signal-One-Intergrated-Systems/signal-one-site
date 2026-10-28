@@ -11,17 +11,19 @@ import { guardDayPricePhrase, minimumPhrase, pricing, schemaPrice } from "../lib
 
 
 const description =
-  "Security guard management software for South African security companies: sites, shifts, attendance, patrols, incidents, control room and client proof of service. " + guardDayPricePhrase + ", excl. VAT.";
+  "Signal One Integrated Systems provides 1GUARD for security operations and 1Workforce for field workforce management, with communications, tracking and equipment solutions in South Africa.";
 
 export const metadata: Metadata = {
   title: {
-    default: "Security Guard Management Software South Africa | Signal One",
+    default: "Signal One Integrated Systems | 1GUARD & 1Workforce",
     template: "%s | Signal One",
   },
   description,
   metadataBase: new URL(siteUrl),
   category: "business software",
   keywords: [
+    "1GUARD security operations platform",
+    "1Workforce workforce operations platform",
     "security guard management software South Africa",
     "security company software South Africa",
     "guard patrol software",
@@ -34,9 +36,9 @@ export const metadata: Metadata = {
   applicationName: brand.master,
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Signal One Security: run every site and prove the service",
+    title: "Signal One: 1GUARD, 1Workforce and Integrated Systems",
     description:
-      "Sites, shifts, patrols, incidents, control room and client proof of service for South African security companies. " + guardDayPricePhrase + ", excl. VAT.",
+      description,
     type: "website",
     siteName: brand.master,
     locale: "en_ZA",
