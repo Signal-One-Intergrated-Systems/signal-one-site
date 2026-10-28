@@ -64,7 +64,7 @@ const clientSees = [
 
 export default function Home() {
   return (
-    <main id="main">
+    <main id="main" className="enterprise-home">
       {/* 1 · HERO */}
       <SplitHero
         src={photos.hero.src}
