@@ -71,12 +71,12 @@ export default function Home() {
         <Image src={photos.hero.src} alt={photos.hero.alt} fill priority sizes="100vw" quality={85}
           className="s1-enterprise-masthead-photo object-cover" />
         <div aria-hidden="true" className="s1-enterprise-masthead-shade absolute inset-0" />
-        <div className="wrap relative z-10 flex min-h-[690px] flex-col justify-between py-12 md:min-h-[750px] md:py-20 lg:min-h-[min(850px,90vh)]">
+        <div className="wrap relative z-10 flex min-h-[690px] flex-col justify-between gap-10 py-12 md:min-h-[750px] md:py-20 lg:min-h-[min(850px,90vh)]">
           <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/25 pb-5">
             <span className="text-[.75rem] font-semibold uppercase tracking-[.22em] text-white/85">SIGNAL ONE / INTEGRATED SYSTEMS</span>
             <span className="text-[.75rem] font-medium tracking-[.12em] text-white/70">SECURITY · WORKFORCE · CONNECTIVITY</span>
           </div>
-          <div className="max-w-[920px] py-16 md:py-24">
+          <div className="s1-clayglass s1-clayglass-dark s1-hero-float max-w-[920px] px-6 py-9 sm:px-10 sm:py-12 lg:px-14 lg:py-16">
             <p className="mb-7 text-[.85rem] font-semibold tracking-[.16em] text-signal-300 uppercase">Technology for the world outside the office</p>
             <h1 id="home-headline" className="s1-enterprise-headline font-display font-semibold">
               Every operation.<br/><span className="text-signal-300">Under control.</span>
@@ -90,7 +90,7 @@ export default function Home() {
               <Link href="/workforce" className="btn btn-ghost-dark btn-lg">Explore 1Workforce <span aria-hidden="true">↗</span></Link>
             </div>
           </div>
-          <div className="grid gap-4 border-t border-white/25 pt-6 text-white/90 md:grid-cols-3 md:gap-8">
+          <div className="s1-clayglass s1-clayglass-dark grid gap-4 p-5 text-white/90 md:grid-cols-3 md:gap-8">
             <Link href="/solutions/security" className="s1-enterprise-masthead-link group flex items-center justify-between gap-4"><span><strong className="block text-[1.05rem]">1GUARD</strong><span className="text-[.86rem] text-white/70">Security operations and marketplaces</span></span><span aria-hidden="true">↗</span></Link>
             <Link href="/workforce" className="s1-enterprise-masthead-link group flex items-center justify-between gap-4"><span><strong className="block text-[1.05rem]">1Workforce</strong><span className="text-[.86rem] text-white/70">Field workforce operations</span></span><span aria-hidden="true">↗</span></Link>
             <Link href="/equipment-marketplace" className="s1-enterprise-masthead-link group flex items-center justify-between gap-4"><span><strong className="block text-[1.05rem]">Integrated systems</strong><span className="text-[.86rem] text-white/70">Equipment, connectivity and solutions</span></span><span aria-hidden="true">↗</span></Link>

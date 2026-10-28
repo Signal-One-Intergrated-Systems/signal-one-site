@@ -184,7 +184,7 @@ export default function Header() {
         <div
           id="mobile-nav"
           ref={sheetRef}
-          className={"fixed inset-x-0 bottom-0 top-[72px] z-50 overflow-y-auto lg:hidden " + config.sheet}
+          className={"fixed inset-x-0 bottom-0 top-[88px] z-50 overflow-y-auto lg:hidden " + config.sheet}
         >
           <nav className="wrap flex min-h-full flex-col pb-8 pt-4" aria-label="Mobile">
             <ul className="m-0 list-none p-0">
