@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import SignalOneLogo from "../components/brand/SignalOneLogo";
-import { photos, illustrativeCaption } from "../lib/photos";
+import HeroGlobeLayer from "../components/HeroGlobeLayer";
+import { photos } from "../lib/photos";
 
 export const metadata: Metadata = {
   title: { absolute: "Signal One | Integrated Systems, 1GUARD and 1Workforce" },
@@ -18,9 +19,10 @@ export default function Home() {
             fill priority sizes="(min-width: 1200px) 72vw, 100vw"
             quality={85} className="s1-brand-stage-image object-cover" />
           <div className="s1-brand-image-wash" aria-hidden="true" />
-          <p className="s1-brand-photo-caption">{illustrativeCaption}</p>
+
         </div>
-        <div className="s1-brand-copy s1-brand-clay">
+        <HeroGlobeLayer />
+        <div className="s1-brand-copy s1-brand-clay s1-hero-content-glass">
           <div className="s1-brand-parent"><SignalOneLogo size={21} tone="light" descriptorMin={10} /></div>
           <p className="s1-brand-eyebrow">Technology for real-world operations</p>
           <h1 id="s1-brand-intro">The systems behind<br />better operations.</h1>
