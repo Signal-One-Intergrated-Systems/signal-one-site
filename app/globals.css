@@ -851,3 +851,22 @@
   .enterprise-product-card:hover,
   .enterprise-product-card:focus-within { transform: none; }
 }
+
+
+/* Visibly distinct corporate masthead: not the guard-specific split hero. */
+.s1-enterprise-masthead-photo { object-position: center 42%; filter: saturate(.83) contrast(1.06); }
+.s1-enterprise-masthead-shade {
+  background: linear-gradient(90deg,rgba(7,15,25,.93) 0%,rgba(9,20,33,.78) 42%,rgba(9,20,33,.24) 100%),
+              linear-gradient(0deg,rgba(7,15,25,.82) 0%,transparent 35%);
+}
+.s1-enterprise-headline { font-size: clamp(3.6rem,8.1vw,8.75rem); line-height: .98; letter-spacing: -.065em; text-wrap: balance; }
+.s1-enterprise-masthead-link { min-height: 64px; transition: color 160ms ease; }
+.s1-enterprise-masthead-link:hover,.s1-enterprise-masthead-link:focus-visible { color: #7dd3fc; }
+@media (max-width: 767px) {
+  .s1-enterprise-masthead-photo { object-position: 70% center; }
+  .s1-enterprise-masthead-shade {
+    background: linear-gradient(90deg,rgba(7,15,25,.9),rgba(7,15,25,.6)),
+                linear-gradient(0deg,rgba(7,15,25,.94),transparent 55%);
+  }
+  .s1-enterprise-headline { font-size: clamp(3.35rem,12.2vw,5.8rem); }
+}
