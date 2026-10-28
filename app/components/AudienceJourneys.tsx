@@ -1,10 +1,10 @@
 import Link from "next/link";
 
 const journeys = [
-  { audience: "Workforce operator", title: "Operate with 1Workforce", detail: "Time, attendance and field workforce management for teams beyond security. Request an introduction to the new vertical.", href: "/contact", action: "Enquire about 1Workforce", tag: "1Workforce" },
+  { audience: "Workforce operator", title: "Operate with 1Workforce", detail: "Time, attendance and field workforce management for teams beyond security. Request an introduction to the new vertical.", href: "/workforce", action: "Explore 1Workforce", tag: "1Workforce" },
   { audience: "Security company", title: "Run your security operation", detail: "Operate guarding sites, shifts and patrols. Explore guard hiring and equipment sourcing through distinct 1GUARD marketplace journeys.", href: "/get-started", action: "Start company onboarding", tag: "1GUARD" },
   { audience: "Security officer", title: "Join as a guard", detail: "Register your interest in guard opportunities. Marketplace matching is still in development.", href: "/guards/join", action: "Create a guard profile", tag: "Guard" },
-  { audience: "Equipment buyer", title: "Find the right field equipment", detail: "Explore radios, body cameras and tracking purchases or rental enquiries. An online 1GUARD equipment marketplace is not live yet.", href: "/radios-equipment", action: "Explore equipment", tag: "Hardware" },
+  { audience: "Equipment buyer", title: "Find the right field equipment", detail: "Explore radios, body cameras and tracking purchases or rental enquiries. An online 1GUARD equipment marketplace is not live yet.", href: "/equipment-marketplace", action: "Explore equipment", tag: "Hardware" },
   { audience: "Sales candidate", title: "Work with Signal One", detail: "Explore available representative opportunities and submit an application.", href: "/join/sales", action: "View sales opportunities", tag: "Careers" },
 ] as const;
 
