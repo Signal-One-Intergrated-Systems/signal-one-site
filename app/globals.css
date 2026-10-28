@@ -1053,3 +1053,42 @@ header.glass-nav > .wrap { width:calc(100% - 24px); max-width:calc(var(--wrap-ma
 /* Geographic Earth refinement: deep-ocean glass, accurate visible land, surface-only routes. */
 .s1-hero-globe-canvas{filter:brightness(.95) saturate(1.17)}
 .s1-hero-orb-fallback{filter:brightness(.68) saturate(1.23) drop-shadow(0 0 22px rgba(63,169,245,.24))}
+
+
+/* Homepage hero composition — full-daylight photograph, restrained clay-glass panel,
+   Earth bleeding beyond right boundary. Never applied to interior marketing pages. */
+.s1-brand-home{overflow:clip;background:#091525}
+.s1-brand-stage{display:block;isolation:isolate;min-height:clamp(660px,calc(100svh - 90px),900px);padding:clamp(16px,2vw,32px);overflow:hidden}
+.s1-brand-stage-media{position:absolute;inset:0;min-height:0;max-height:none;align-self:auto;border-radius:0;box-shadow:none;overflow:hidden}
+.s1-brand-stage-image{object-position:center 43%;filter:brightness(1.06) saturate(.96)}
+.s1-brand-image-wash{background:linear-gradient(90deg,rgba(3,17,34,.20) 0%,rgba(3,17,34,.07) 38%,rgba(4,20,41,.32) 68%,rgba(4,20,41,.60) 100%)}
+.s1-hero-image-logo{position:absolute;z-index:5;top:clamp(26px,4.7vw,72px);left:clamp(24px,4.6vw,76px);padding:13px 17px;border:1px solid rgba(255,255,255,.25);border-radius:19px;background:rgba(5,22,40,.72);box-shadow:0 18px 48px rgba(0,0,0,.18);backdrop-filter:blur(13px);-webkit-backdrop-filter:blur(13px)}
+.s1-hero-globe-layer{inset:-15% -27% -16% 53%;opacity:1;z-index:1;overflow:visible}
+.s1-hero-orb-fallback{opacity:.55}
+.s1-hero-globe-canvas{filter:brightness(.78) saturate(1.2)}
+.s1-brand-copy.s1-brand-clay.s1-hero-content-glass{
+ position:relative;z-index:3;max-width:min(610px,48vw);width:100%;margin:clamp(135px,18vh,210px) clamp(14px,7vw,132px) 40px auto;
+ padding:clamp(26px,3.3vw,47px);border-radius:26px;
+ background:linear-gradient(125deg,rgba(6,23,43,.72),rgba(7,29,52,.50) 64%,rgba(7,27,48,.45));
+ border:1px solid rgba(218,242,255,.32);box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 30px 80px rgba(0,0,0,.3);
+ -webkit-backdrop-filter:blur(5px) saturate(120%);backdrop-filter:blur(5px) saturate(120%);
+}
+.s1-hero-content-glass .s1-brand-eyebrow{margin-bottom:12px}
+.s1-hero-content-glass h1{font-size:clamp(29px,2.65vw,40px);line-height:1.14;letter-spacing:-.04em}
+.s1-hero-content-glass .s1-brand-explainer{font-size:clamp(14px,1.05vw,16px);line-height:1.6;margin-top:17px}
+.s1-hero-content-glass .s1-brand-family{margin-top:23px;padding-top:18px}
+.s1-hero-content-glass .s1-brand-final{margin-top:17px}
+@media(max-width:1050px){
+ .s1-brand-stage{min-height:800px}
+ .s1-hero-globe-layer{inset:0 -43% -4% 38%}
+ .s1-brand-copy.s1-brand-clay.s1-hero-content-glass{max-width:min(590px,69vw);margin:210px 25px 40px auto}
+}
+@media(max-width:670px){
+ .s1-brand-stage{min-height:880px;padding:16px 12px 44px}
+ .s1-brand-stage-media{min-height:0;height:auto;max-height:none}
+ .s1-brand-stage-image{object-position:38% center}
+ .s1-hero-image-logo{top:20px;left:22px;padding:10px 13px}
+ .s1-hero-globe-layer{inset:19% -64% 0 10%;opacity:.85}
+ .s1-brand-copy.s1-brand-clay.s1-hero-content-glass{max-width:none;width:calc(100% - 24px);margin:360px 12px 20px;padding:25px 24px;background:rgba(7,26,47,.73)}
+ .s1-hero-content-glass h1{font-size:32px}
+}
