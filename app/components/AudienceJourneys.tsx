@@ -10,7 +10,7 @@ const journeys = [
 
 export default function AudienceJourneys() {
   return (
-    <section aria-labelledby="audience-title" className="surface-white border-b border-line py-16 md:py-20">
+    <section aria-labelledby="audience-title" className="enterprise-journeys surface-white border-b border-line py-16 md:py-20">
       <div className="wrap">
         <div className="flex flex-wrap items-end justify-between gap-5">
           <div className="max-w-2xl">
@@ -22,7 +22,7 @@ export default function AudienceJourneys() {
         </div>
         <div className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {journeys.map((journey) => (
-            <article key={journey.audience} className="group flex min-w-0 flex-col rounded-card border border-line bg-light p-6 transition-colors hover:border-signal-600 focus-within:border-signal-600">
+            <article key={journey.audience} className="enterprise-product-card group flex min-w-0 flex-col rounded-card border border-line bg-light p-6 transition-colors hover:border-signal-600 focus-within:border-signal-600">
               <p className="t-caption font-semibold text-signal-ink">{journey.tag} · {journey.audience}</p>
               <h3 className="t-h3 mt-5">{journey.title}</h3>
               <p className="t-small mt-3 flex-1 text-text-2">{journey.detail}</p>
