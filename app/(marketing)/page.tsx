@@ -15,6 +15,7 @@ export default function Home() {
     <main id="main" className="s1-brand-home">
       <section className="s1-brand-stage" aria-labelledby="s1-brand-intro">
         <div className="s1-brand-stage-media">
+          <div className="s1-hero-image-logo"><SignalOneLogo size={21} tone="dark" descriptorMin={10} /></div>
           <Image src={photos.hero.src} alt={photos.hero.alt}
             fill priority sizes="(min-width: 1200px) 72vw, 100vw"
             quality={85} className="s1-brand-stage-image object-cover" />
@@ -23,7 +24,6 @@ export default function Home() {
         </div>
         <HeroGlobeLayer />
         <div className="s1-brand-copy s1-brand-clay s1-hero-content-glass">
-          <div className="s1-brand-parent"><SignalOneLogo size={21} tone="dark" descriptorMin={10} /></div>
           <p className="s1-brand-eyebrow">Technology for real-world operations</p>
           <h1 id="s1-brand-intro">The systems behind<br />better operations.</h1>
           <p className="s1-brand-explainer">

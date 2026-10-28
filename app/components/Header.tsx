@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import SignalOneLogo from "./brand/SignalOneLogo";
+import SignalOneMark from "./brand/SignalOneMark";
 
 type World = "buyer" | "guard" | "careers";
 
@@ -125,7 +126,7 @@ export default function Header() {
           className="flex min-h-[44px] min-w-0 items-center gap-3"
           aria-label={"Signal One " + config.identity + " home"}
         >
-          <SignalOneLogo size={22} tone={dark ? "dark" : "light"} pulse descriptorMin={10} />
+          {pathname === "/" ? <SignalOneMark size={39} tone="dark" pulse /> : <SignalOneLogo size={22} tone={dark ? "dark" : "light"} pulse descriptorMin={10} />}
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
