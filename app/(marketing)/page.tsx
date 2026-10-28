@@ -12,7 +12,7 @@ import { illustrativeCaption, photos } from "../lib/photos";
 import { carryOverPhrase, guardDayPrice, guardDayPricePhrase, guardDayPriceShort, minimumPhrase } from "../lib/pricing";
 
 export const metadata: Metadata = {
-  title: { absolute: "Security Guard Management Software South Africa | Signal One" },
+  title: { absolute: "Signal One | 1GUARD, 1Workforce and Integrated Systems" },
   alternates: { canonical: "/" },
 };
 
@@ -93,7 +93,7 @@ export default function Home() {
           </div>
         }
       >
-          <Kicker tone="dark">For growing South African security companies</Kicker>
+          <Kicker tone="dark">Signal One · Integrated operational systems</Kicker>
           <h1 className="t-hero mt-5">
             Win more contracts.
             <br />
@@ -106,16 +106,16 @@ export default function Home() {
             and the proof your clients ask for.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <ButtonLink href="#product" size="lg" event="hero_product_proof" eventLabel="Hero primary">
-              See Signal One in action
+            <ButtonLink href="/solutions/security" size="lg" event="hero_product_proof" eventLabel="Hero primary">
+              Explore 1GUARD
             </ButtonLink>
-            <ButtonLink href="/pricing#calculator" variant="ghost-dark" size="lg" event="hero_pricing" eventLabel="Hero secondary">
-              <span className="sm:hidden">Calculate guard cost · {guardDayPriceShort}</span>
-              <span className="hidden sm:inline">Calculate guard cost · {guardDayPricePhrase}</span>
+            <ButtonLink href="/workforce" variant="ghost-dark" size="lg" event="hero_pricing" eventLabel="Hero secondary">
+              <span className="sm:hidden">Explore 1Workforce</span>
+              <span className="hidden sm:inline">Explore 1Workforce</span>
             </ButtonLink>
           </div>
           <p className="t-small mt-6 text-text-inv-2">
-            Your guards can use their own phones or an authorised Central Device.
+            Explore each platform separately, or speak to our team about the right solution.
           </p>
           <p className="t-caption mt-3 text-text-inv-2">{illustrativeCaption}</p>
       </SplitHero>
