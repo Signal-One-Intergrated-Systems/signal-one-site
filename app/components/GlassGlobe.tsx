@@ -7,7 +7,7 @@ type Region = { rings: Coordinates; bounds: [number,number,number,number] };
 const destinations: [string,number,number][] = [
  ["Lagos",6.46,3.38],["Nairobi",-1.29,36.82],["Cairo",30.04,31.24],
  ["London",51.51,-.13],["Dubai",25.20,55.27],["Mumbai",19.08,72.88],
- ["Singapore",1.35,103.82],["New York",40.71,-74.01],
+ ["Singapore",1.35,103.82],["NYC",40.71,-74.01],
  ["São Paulo",-23.55,-46.63],["Sydney",-33.87,151.21]
 ];
 const ORIGIN:[number,number]=[-26.2,28.0];
@@ -69,7 +69,7 @@ export default function GlassGlobe(){
   // Natural Earth-derived geographic boundaries; data only, never executable source.
   fetch("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson")
    .then(r=>{if(!r.ok)throw Error("geography unavailable");return r.json()})
-   .then(data=>{if(alive)land=buildLand(regionsFromGeoJSON(data))})
+   .then(data=>{if(alive){land=buildLand(regionsFromGeoJSON(data));request()}})
    .catch(()=>{ /* Render the ocean and grid if geographic data cannot load. */ });
   const io=new IntersectionObserver(entries=>{visible=entries[0]?.isIntersecting??true;if(visible)request()}, {threshold:0.02});
   io.observe(el);
