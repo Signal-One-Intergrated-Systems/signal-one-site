@@ -6,7 +6,7 @@ const groups = [
     title: "Platforms",
     links: [
       ["/solutions/security", "1GUARD"],
-      ["/workforce", "1Workforce"],
+      ["/service", "1Service"],
       ["/equipment-marketplace", "Buy or rent equipment"],
       ["/guard-marketplace", "Hire guards"],
       ["/radios-equipment", "Radios & Tracking"],
@@ -19,7 +19,7 @@ const groups = [
   {
     title: "Get started",
     links: [
-      ["/workforce", "Explore 1Workforce"],
+      ["/service", "Explore 1Service"],
       ["/contact", "Talk to Signal One"],
       ["/get-started", "Start company onboarding"],
     ],
@@ -50,7 +50,7 @@ export default function Footer() {
         <div>
           <SignalOneLogo size={24} tone="dark" descriptorMin={11} />
           <p className="t-small measure-tight mt-6 text-text-inv-2">
-            Signal One connects security operations, workforce management and field technology. Explore 1GUARD, 1Workforce and communications equipment for your operation.
+            Signal One connects security operations, workforce management and field technology. Explore 1GUARD, 1Service and communications equipment for your operation.
           </p>
           <p className="t-body mt-6">
             <a href="mailto:sales@signalone.co.za" className="link-inline font-semibold">
