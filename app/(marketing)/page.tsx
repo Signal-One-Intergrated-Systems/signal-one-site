@@ -23,7 +23,7 @@ function Arrow() {
 
 function TrialLink({ className = "" }: { className?: string }) {
   return (
-    <Link href="/get-started" data-analytics-event="client_onboarding_start"
+    <Link href="/get-started" data-analytics-event="homepage_trial_cta"
       data-analytics-label="homepage-14-day-trial" className={"btn btn-primary so-home-cta " + className}>
       Get 14 Day Free Trial <Arrow />
     </Link>
@@ -34,10 +34,10 @@ export default function Home() {
   return (
     <main id="main" className="s1-brand-home so-home">
       <section className="s1-brand-stage so-hero" aria-labelledby="so-hero-title">
-        <div className="s1-brand-stage-media so-hero-media">
+        <div className="so-hero-media">
           <Image src={heroPhoto} alt="Illustrative daylight scene of two security professionals coordinating at a modern corporate entrance"
-            fill priority quality={90} sizes="100vw" className="s1-brand-stage-image so-hero-photo object-cover" />
-          <div className="s1-brand-image-wash so-hero-wash" aria-hidden="true" />
+            fill priority quality={90} sizes="100vw" className="so-hero-photo object-cover" />
+          <div className="so-hero-wash" aria-hidden="true" />
         </div>
         {/* Preserve the existing Signal One glass globe, its rendering and animation. */}
         <HeroGlobeLayer />
@@ -122,7 +122,7 @@ export default function Home() {
             <p className="so-disclosure">These are planned product capabilities, not a claim that the full restaurant operating system is already available.</p>
             <div className="so-inline-actions">
               <Link href="/service" className="btn btn-primary so-home-cta">Explore 1Service <Arrow /></Link>
-              <Link href="/contact" className="so-text-link">Discuss early access <Arrow /></Link>
+              <Link href="/contact" data-analytics-event="homepage_service_interest" className="so-text-link">Discuss early access <Arrow /></Link>
             </div>
           </div>
         </div>
@@ -138,7 +138,7 @@ export default function Home() {
               <span>PoC & PTT radios</span><span>Vehicle & asset tracking</span><span>Body cameras</span><span>CCTV & networks</span>
             </div>
             <div className="so-inline-actions">
-              <Link href="/radios-equipment#quote" data-analytics-event="equipment_quote_start"
+              <Link href="/radios-equipment#quote" data-analytics-event="homepage_equipment_quote"
                 data-analytics-label="homepage-equipment" className="btn btn-primary so-home-cta">Request equipment quote <Arrow /></Link>
               <Link href="/equipment-marketplace" className="so-text-link">Explore equipment <Arrow /></Link>
             </div>
