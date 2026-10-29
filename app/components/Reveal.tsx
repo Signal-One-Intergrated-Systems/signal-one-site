@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 /** Reversible section-stage motion, enabled only for opt-in reveal groups.
  * Pages remain fully readable without JavaScript or with reduced motion.
  */
 export default function Reveal() {
+  const pathname = usePathname();
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: no-preference) and (min-width: 640px)");
     if (!mq.matches || !("IntersectionObserver" in window)) return;
@@ -30,6 +32,6 @@ export default function Reveal() {
       observer.observe(group);
     });
     return () => observer.disconnect();
-  }, []);
+  }, [pathname]);
   return null;
 }

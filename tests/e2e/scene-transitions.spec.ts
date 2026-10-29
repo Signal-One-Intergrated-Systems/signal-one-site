@@ -6,6 +6,9 @@ test("public routes share a scene shell and product navigation still works", asy
  await page.getByRole("navigation", { name: "Primary" }).getByRole("link", { name: /1Workforce/ }).click();
  await expect(page).toHaveURL(/\/workforce$/);
  await expect(page.locator(".s1-scene-route")).toHaveAttribute("data-scene-route", "/workforce");
+ await expect(page.locator(".s1-scene-route")).not.toHaveAttribute("data-scene-exit", "");
+ const animation = await page.locator(".s1-scene-route").evaluate(node => getComputedStyle(node).animationName);
+ expect(animation).toContain("s1-scene-open");
  await expect(page.locator("main")).toBeVisible();
 });
 

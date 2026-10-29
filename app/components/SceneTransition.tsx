@@ -23,6 +23,7 @@ export default function SceneTransition({ children }: { children: ReactNode }) {
       if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
       const anchor = (event.target as Element | null)?.closest?.("a[href]") as HTMLAnchorElement | null;
       if (!anchor || anchor.hasAttribute("download") || (anchor.target && anchor.target !== "_self")) return;
+      if (anchor.getAttribute("href")?.startsWith("#")) return;
       const dest = new URL(anchor.href, window.location.href);
       if (dest.origin !== window.location.origin || dest.pathname === window.location.pathname && dest.search === window.location.search) return;
       if (!dest.pathname.startsWith("/")) return;
@@ -43,7 +44,7 @@ export default function SceneTransition({ children }: { children: ReactNode }) {
     };
   }, [router]);
 
-  return <div data-scene-route={pathname} data-scene-exit={exiting ? "" : undefined} className="s1-scene-route" onAnimationEnd={() => {}}>
+  return <div key={pathname} data-scene-route={pathname} data-scene-exit={exiting ? "" : undefined} className="s1-scene-route">
     {children}
   </div>;
 }
