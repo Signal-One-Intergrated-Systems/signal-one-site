@@ -5,8 +5,8 @@ import HeroGlobeLayer from "../components/HeroGlobeLayer";
 import { photos } from "../lib/photos";
 
 export const metadata: Metadata = {
-  title: { absolute: "Signal One | Integrated Systems, 1GUARD and 1Workforce" },
-  description: "Signal One connects security operations, field workforce management and mission-critical communications through technology built for real-world operations.",
+  title: { absolute: "Signal One | Integrated Systems, 1GUARD and 1Service" },
+  description: "Signal One connects security operations, service-business operations and mission-critical communications through technology built for real-world operations.",
   alternates: { canonical: "/" },
 };
 
@@ -23,10 +23,10 @@ export default function Home() {
         </div>
         <HeroGlobeLayer />
         <div className="s1-brand-copy s1-brand-clay s1-hero-content-glass">
-          <p className="s1-brand-eyebrow">Technology for real-world operations</p>
-          <h1 id="s1-brand-intro">Control the work.<br />See the results.</h1>
+          <p className="s1-brand-eyebrow">SIGNAL ONE · OPERATIONS, PEOPLE AND CONNECTED EQUIPMENT</p>
+          <h1 id="s1-brand-intro">One connected business.<br />More control. Less chaos.</h1>
           <p className="s1-brand-explainer">
-            Manage guards, patrols and incidents with 1GUARD. Keep teams, attendance and field work organised with 1Workforce. Equip your operation with connected communications and technology from Signal One.
+            Run security operations with 1GUARD. Discover 1Service for restaurants and service businesses. Equip every team with connected radios, communications and field technology.
           </p>
           <div className="s1-brand-family" aria-label="Signal One platforms">
             <Link href="/solutions/security" className="s1-brand-family-item s1-brand-product-link" aria-label="Explore 1GUARD security operations">
@@ -34,9 +34,9 @@ export default function Home() {
               <span className="s1-product-description">Security operations</span>
             </Link>
             <div className="s1-brand-family-divider" aria-hidden="true" />
-            <Link href="/workforce" className="s1-brand-family-item s1-brand-product-link" aria-label="Explore 1Workforce operations">
-              <span className="s1-product-lockup"><span className="s1-product-one">1</span>Workforce</span>
-              <span className="s1-product-description">Workforce operations</span>
+            <Link href="/workforce" className="s1-brand-family-item s1-brand-product-link" aria-label="Discover 1Service for service businesses">
+              <span className="s1-product-lockup"><span className="s1-product-one">1</span>Service</span>
+              <span className="s1-product-description">Service business OS · In development</span>
             </Link>
             <div className="s1-brand-family-divider" aria-hidden="true" />
             <div className="s1-brand-family-item s1-brand-community" aria-label="1Community, coming soon">
@@ -44,38 +44,43 @@ export default function Home() {
               <span className="s1-product-description">Coming soon</span>
             </div>
           </div>
-          <p className="s1-brand-final">Security. Workforce. Equipment. Connected.</p>
+          <div className="s1-home-conversion-actions" aria-label="Get started with Signal One">
+            <Link href="/get-started" className="btn btn-primary btn-lg s1-home-primary-cta">Get 14 day free trial <span aria-hidden="true">→</span></Link>
+            <Link href="/contact" className="btn btn-ghost-dark btn-lg s1-home-secondary-cta">Talk to our team</Link>
+          </div>
+          <p className="s1-home-trial-disclosure">For 1GUARD companies. Trial access is subject to onboarding and activation confirmation.</p>
+          <p className="s1-brand-final">Security operations. Service businesses. Equipment. One Signal One.</p>
         </div>
       </section>
 
       <section className="s1-selling-section reveal-group" aria-labelledby="s1-guard-head">
         <div className="s1-selling-photo reveal">
-          <Image src={photos.guardPatrol.src} alt={photos.guardPatrol.alt} fill sizes="(min-width: 900px) 50vw, 100vw" className="object-cover"/>
+          <Image src={photos.controlRoomTeam.src} alt={photos.controlRoomTeam.alt} fill sizes="(min-width: 900px) 50vw, 100vw" className="object-cover"/>
         </div>
         <div className="s1-selling-copy reveal">
           <p className="s1-selling-kicker"><span className="s1-product-one">1</span>GUARD · Security operations</p>
-          <h2 id="s1-guard-head">Run every site with confidence.</h2>
-          <p>Bring attendance, patrols, incidents, control-room oversight and client proof of service into one clear operation.</p>
-          <Link href="/solutions/security" className="s1-selling-link">Explore <span className="s1-product-one">1</span>GUARD <span aria-hidden="true">↗</span></Link>
+          <h2 id="s1-guard-head">Know what is happening at every site.</h2>
+          <p>Replace missing patrol updates and scattered incident logs with a connected security operation: team attendance, patrol evidence, control-room oversight and reports your clients can trust.</p>
+          <div className="s1-selling-actions"><Link href="/get-started" className="btn btn-primary btn-lg">Get 14 day free trial</Link><Link href="/solutions/security" className="s1-selling-link">Explore <span className="s1-product-one">1</span>GUARD <span aria-hidden="true">↗</span></Link></div>
         </div>
       </section>
-      <section className="s1-selling-section s1-selling-reverse reveal-group" aria-labelledby="s1-workforce-head">
+      <section className="s1-selling-section s1-selling-reverse reveal-group" aria-labelledby="s1-service-head">
         <div className="s1-selling-photo reveal">
-          <Image src={photos.warehouse.src} alt={photos.warehouse.alt} fill sizes="(min-width: 900px) 50vw, 100vw" className="object-cover"/>
+          <Image src={photos.teamBriefing.src} alt="Operations team reviewing schedules, field equipment and work assignments" fill sizes="(min-width: 900px) 50vw, 100vw" className="object-cover"/>
         </div>
         <div className="s1-selling-copy reveal">
-          <p className="s1-selling-kicker"><span className="s1-product-one">1</span>Workforce · Attendance and field teams</p>
-          <h2 id="s1-workforce-head">Know who worked. Where. And when.</h2>
-          <p>Bring your people, shifts, timesheets and job cards together. Turn workforce activity into records you can review and act on.</p>
-          <Link href="/workforce" className="s1-selling-link">Explore <span className="s1-product-one">1</span>Workforce <span aria-hidden="true">↗</span></Link>
+          <p className="s1-selling-kicker"><span className="s1-product-one">1</span>Service · Service-business operating system</p>
+          <h2 id="s1-service-head">Run the business, not the paperwork.</h2>
+          <p>Built restaurant-first, 1Service is evolving from workforce management into an operating system for teams, shifts, service delivery, stock, customer relationships and business oversight. Platform expansion is in development.</p>
+          <Link href="/workforce" className="s1-selling-link">Discover <span className="s1-product-one">1</span>Service <span aria-hidden="true">↗</span></Link>
         </div>
       </section>
       <section className="s1-selling-bottom reveal-group" aria-label="More Signal One solutions">
         <div className="s1-selling-mini reveal">
           <p className="s1-selling-kicker">Equipment and connectivity</p>
           <h2>Equip every operation.</h2>
-          <p>Explore radios, PTT, tracking and equipment buying or rental enquiries.</p>
-          <Link href="/equipment-marketplace" className="s1-selling-link">Explore equipment <span aria-hidden="true">↗</span></Link>
+          <p>Get business radios, push-to-talk connectivity, tracking and operational equipment with a sales team that understands deployment, not just devices.</p>
+          <Link href="/equipment-marketplace" className="s1-selling-link">Request equipment advice <span aria-hidden="true">↗</span></Link>
         </div>
         <div className="s1-selling-mini reveal">
           <p className="s1-selling-kicker"><span className="s1-product-one">1</span>Community · <span className="s1-upcoming-tag">Coming soon</span></p>
