@@ -344,3 +344,51 @@ body:has(.so-home) header.glass-nav > .wrap .btn-primary{color:#031827}
 .so-home .so-guard-section{background-image:linear-gradient(95deg,rgba(5,16,24,.7),rgba(7,21,30,.43)),url('/images/scenes/guard-command.svg')}
 .so-home .so-service-section{background-image:linear-gradient(95deg,rgba(23,19,16,.63),rgba(22,22,21,.37)),url('/images/scenes/service-dining.svg')}
 .so-home .so-equipment-section{background-image:linear-gradient(95deg,rgba(8,21,29,.7),rgba(10,25,33,.44)),url('/images/scenes/connectivity.svg')}
+
+
+/* The globe is decoration behind the left information panel, never the officers. */
+.so-home .s1-brand-stage.so-hero .s1-hero-globe-layer{
+ inset:7% 48% 9% -23%!important;z-index:3!important;
+ transform:scale(.86)!important;transform-origin:42% 52%!important;
+ opacity:.48!important;filter:blur(.35px)!important;pointer-events:none
+}
+.so-home .s1-brand-stage.so-hero .so-hero-inner{z-index:5}
+.so-home .so-hero-copy{position:relative;isolation:isolate}
+@media(max-width:950px){.so-home .s1-brand-stage.so-hero .s1-hero-globe-layer{inset:8% 32% 20% -39%!important;opacity:.29!important}}
+@media(max-width:670px){.so-home .s1-brand-stage.so-hero .s1-hero-globe-layer{inset:10% 17% 30% -57%!important;opacity:.18!important}}
+
+/* Liquid optical controls: tactile, elegant and not unnecessarily animated. */
+.so-home :is(.so-home-cta,.so-home-outline,.so-text-link,.so-hero-bar-item),
+body:has(.so-home) header.glass-nav :is(nav a,.btn-primary){
+ position:relative;isolation:isolate;overflow:hidden;
+ transition:transform .24s cubic-bezier(.2,.75,.25,1),box-shadow .24s ease,background-color .24s ease,border-color .24s ease,color .24s ease!important
+}
+.so-home :is(.so-home-cta,.so-home-outline):before,
+body:has(.so-home) header.glass-nav .btn-primary:before{
+ content:"";position:absolute;inset:0;border-radius:inherit;
+ background:linear-gradient(120deg,transparent 22%,rgba(255,255,255,.36) 48%,transparent 71%);
+ transform:translateX(-145%);transition:transform .62s cubic-bezier(.2,.7,.2,1);pointer-events:none
+}
+.so-home :is(.so-home-cta,.so-home-outline):hover:before,
+body:has(.so-home) header.glass-nav .btn-primary:hover:before{transform:translateX(145%)}
+@media(hover:hover){
+ .so-home :is(.so-home-cta,.so-home-outline,.so-hero-bar-item):hover{transform:translateY(-3px)}
+ body:has(.so-home) header.glass-nav :is(nav a,.btn-primary):hover{transform:translateY(-2px)}
+ .so-home .so-home-cta:hover{box-shadow:0 12px 25px rgba(0,129,201,.27),inset 0 1px rgba(255,255,255,.35)}
+}
+.so-home :is(.so-home-cta,.so-home-outline,.so-hero-bar-item):active,
+body:has(.so-home) header.glass-nav :is(nav a,.btn-primary):active{transform:translateY(0) scale(.985)}
+.so-home .so-home-cta{border-radius:999px;box-shadow:inset 0 1px rgba(255,255,255,.35),0 8px 22px rgba(2,73,111,.22)}
+.so-home .so-home-outline{border-radius:999px;box-shadow:inset 0 1px rgba(255,255,255,.19)}
+body:has(.so-home) header.glass-nav .btn-primary{box-shadow:inset 0 1px rgba(255,255,255,.35),0 5px 18px rgba(0,87,150,.23)}
+@keyframes so-float-enter{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:no-preference){
+ .so-home .so-hero-copy{animation:so-float-enter .78s cubic-bezier(.2,.72,.2,1) both}
+ .so-home .so-hero-bar{animation:so-float-enter .9s .13s cubic-bezier(.2,.72,.2,1) both}
+ .so-home .so-vertical-content,.so-home .so-equipment-copy{animation:so-float-enter .7s ease both;animation-timeline:view();animation-range:entry 0% entry 32%}
+}
+@media(prefers-reduced-motion:reduce){
+ .so-home :is(.so-home-cta,.so-home-outline,.so-text-link,.so-hero-bar-item),
+ body:has(.so-home) header.glass-nav :is(nav a,.btn-primary){transition:none!important;animation:none!important}
+ .so-home :is(.so-home-cta,.so-home-outline):before{display:none}
+}
