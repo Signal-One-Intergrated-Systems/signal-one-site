@@ -23,7 +23,7 @@ export default function ServicePage() {
       <div className="wrap grid items-center gap-12 lg:grid-cols-2">
         <div>
           <Kicker tone="dark">Signal One · Service Business Operating System</Kicker>
-          <h1 className="t-display mt-6"><span className="text-signal-400">1</span>Workforce</h1>
+          <h1 className="t-display mt-6"><span className="text-signal-400">1</span>Service</h1>
           <p className="t-lead mt-6 text-text-inv-2">Take control of your service business.</p>
           <p className="t-body measure mt-5 text-text-inv-2">Bring your teams, shifts, timesheets and job cards into one manageable view. Designed to support the wider day-to-day operation of service businesses, starting with the workflows currently available.</p>
           <div className="mt-8 flex flex-wrap gap-3">
@@ -32,8 +32,8 @@ export default function ServicePage() {
           </div>
           <p className="t-caption mt-5 text-text-inv-3">Commercial onboarding and availability are confirmed directly with Signal One.</p>
         </div>
-        <div className="s1-workforce-hero-media glass rounded-card" aria-label="Field teams at work"><Image src={photos.warehouse.src} alt={photos.warehouse.alt} fill sizes="(min-width: 1024px) 48vw, 100vw" className="object-cover" /></div>
-        <div className="sr-only" aria-label="1Service capabilities">
+        <div className="s1-workforce-hero-media glass rounded-card" aria-label="Service operations introduction"><Image src={photos.controlRoomTeam.src} alt={photos.controlRoomTeam.alt} fill sizes="(min-width: 1024px) 48vw, 100vw" className="object-cover" /><span className="sr-only">Illustrative scene, not a screenshot of 1Service.</span></div>
+        <div className="hidden" aria-hidden="true">
           <div className="flex items-center justify-between border-b border-line-dark pb-5">
             <span className="t-h3">1Service</span>
             <span className="t-caption text-signal-400">Workforce operations</span>
