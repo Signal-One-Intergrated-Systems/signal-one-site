@@ -8,7 +8,7 @@ import SignalOneLogo from "./brand/SignalOneLogo";
 type Phase = "idle" | "closing" | "covered" | "opening";
 function identity(path: string): string {
   if (path.startsWith("/solutions/security") || path.startsWith("/guard-")) return "1GUARD";
-  if (path.startsWith("/workforce")) return "1Workforce";
+  if ((path.startsWith("/workforce") || path.startsWith("/service"))) return "1Service";
   if (path.startsWith("/equipment") || path.startsWith("/radios") || path.startsWith("/ptt-radio")) return "EQUIPMENT";
   if (path.startsWith("/guards")) return "FOR GUARDS";
   if (path.startsWith("/get-started")) return "14-DAY TRIAL";
@@ -103,8 +103,8 @@ export default function SceneTransition({ children }: { children: ReactNode }) {
             <circle cx="44" cy="44" r="10" fill="#0EA5E9" />
           </svg>
         </span>
-        {isMaster ? <span className="sg-entry-wordmark sg-entry-master-logo"><SignalOneLogo tone="dark" size={42} descriptorMin={14} /></span> : <span className="sg-entry-wordmark">{destination.startsWith("/solutions/security") || destination.startsWith("/guard-") ? <><span className="sg-entry-one">1</span>GUARD</> : destination.startsWith("/workforce") ? <><span className="sg-entry-one">1</span>Workforce</> : identity(destination)}</span>}
-        <span className="sg-entry-caption">{isEquipment ? "EQUIPMENT" : isMaster ? "" : destination.startsWith("/solutions/security") || destination.startsWith("/guard-") ? "SECURITY OPERATIONS" : destination.startsWith("/workforce") ? "WORKFORCE OPERATIONS" : "INTEGRATED SYSTEMS"}</span>
+        {isMaster ? <span className="sg-entry-wordmark sg-entry-master-logo"><SignalOneLogo tone="dark" size={42} descriptorMin={14} /></span> : <span className="sg-entry-wordmark">{destination.startsWith("/solutions/security") || destination.startsWith("/guard-") ? <><span className="sg-entry-one">1</span>GUARD</> : destination.startsWith("/workforce") ? <><span className="sg-entry-one">1</span>Service</> : identity(destination)}</span>}
+        <span className="sg-entry-caption">{isEquipment ? "EQUIPMENT" : isMaster ? "" : destination.startsWith("/solutions/security") || destination.startsWith("/guard-") ? "SECURITY OPERATIONS" : destination.startsWith("/workforce") ? "SERVICE OPERATIONS" : "INTEGRATED SYSTEMS"}</span>
       </div>
     </div>
   </>;
