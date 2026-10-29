@@ -13,7 +13,7 @@ import "../home-conversion.css";
 export const metadata: Metadata = {
   title: { absolute: "Signal One | 1GUARD, 1Service & Business Equipment" },
   description:
-    "Make every operation easier to run. Explore 1GUARD security operations, the emerging 1Service restaurant and service-business platform, and enterprise radios, tracking and connectivity from Signal One.",
+    "Make every operation easier to run. Explore 1GUARD security operations, the emerging 1Service restaurant and service-business platform, and professional radios, tracking and connectivity from Signal One.",
   alternates: { canonical: "/" },
 };
 
@@ -131,7 +131,7 @@ export default function Home() {
       <section id="equipment" className="so-equipment-section" aria-labelledby="so-equipment-title">
         <div className="wrap so-equipment-layout">
           <div className="so-equipment-copy">
-            <p className="so-kicker">Signal One · Enterprise technology</p>
+            <p className="so-kicker">Signal One · Business equipment</p>
             <h2 id="so-equipment-title">The right technology. For the real job.</h2>
             <p>Professional push-to-talk radios, tracking and connectivity should be specified for the deployment, not sold as a generic gadget. Talk to the team that understands field operations.</p>
             <div className="so-equipment-types" aria-label="Available equipment categories">
@@ -164,7 +164,7 @@ export default function Home() {
         <div className="wrap">
           <div className="so-section-heading">
             <div><p className="so-kicker">A straightforward next step</p><h2 id="so-how-title">Start with the problem.<br /><span>We'll help map the solution.</span></h2></div>
-            <p>Security software and enterprise equipment don't have the same buying journey. We make the next step clear for each.</p>
+            <p>Security software and business equipment don't have the same buying journey. We make the next step clear for each.</p>
           </div>
           <div className="so-journey-grid">
             <div><span className="so-step">01</span><h3>Choose your path</h3><p>Explore 1GUARD, learn about 1Service or select your equipment category.</p></div>
