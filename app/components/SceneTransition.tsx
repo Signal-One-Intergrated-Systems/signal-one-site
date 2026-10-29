@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import SignalOneMark from "./brand/SignalOneMark";
+
 
 type Phase = "idle" | "closing" | "covered" | "opening";
 function identity(path: string): string {
@@ -34,7 +34,7 @@ export default function SceneTransition({ children }: { children: ReactNode }) {
     if (target.current !== null) {
       setPhase("opening");
       target.current = null;
-      timeout.current = window.setTimeout(() => { setPhase("idle"); timeout.current = null; }, 650);
+      timeout.current = window.setTimeout(() => { setPhase("idle"); timeout.current = null; }, 1338);
     } else {
       setDestination(pathname);
       setPhase("idle");
@@ -66,7 +66,7 @@ export default function SceneTransition({ children }: { children: ReactNode }) {
           if (target.current) { setPhase("idle"); target.current = null; }
           timeout.current = null;
         }, 3500);
-      }, 540);
+      }, 1338);
     };
     document.addEventListener("click", onClick, true);
     return () => {
@@ -78,12 +78,20 @@ export default function SceneTransition({ children }: { children: ReactNode }) {
   const active = phase !== "idle";
   return <>
     <div key={pathname} data-scene-route={pathname} className="s1-scene-route">{children}</div>
-    <div className="s1-glass-curtain" data-phase={phase} aria-hidden="true">
-      <div className="s1-glass-door s1-glass-door-left" />
-      <div className="s1-glass-door s1-glass-door-right" />
-      <div className="s1-transition-identity">
-        <div className="s1-transition-pulse"><SignalOneMark size={66} tone="dark" pulse={active} /></div>
-        <div className="s1-transition-wordmark">{identity(destination)}</div>
+    <div className="sg-entry-overlay" data-guard-entry={phase === "covered" ? "sealed" : phase} aria-hidden="true" data-exact-guard-transition>
+      <div className="sg-glass-panel sg-entry-shutter sg-entry-shutter-left" />
+      <div className="sg-glass-panel sg-entry-shutter sg-entry-shutter-right" />
+      <div className="sg-entry-seam" />
+      <div className="sg-entry-emblem">
+        <span className="sg-entry-pulse" aria-hidden="true">
+          <svg viewBox="0 0 88 88" width="88" height="88" fill="none">
+            <circle cx="44" cy="44" r="35" stroke="#38BDF8" strokeWidth="1" opacity=".42" />
+            <circle cx="44" cy="44" r="22" stroke="#38BDF8" strokeWidth="1.8" opacity=".88" />
+            <circle cx="44" cy="44" r="10" fill="#0EA5E9" />
+          </svg>
+        </span>
+        <span className="sg-entry-wordmark">{destination.startsWith("/solutions/security") || destination.startsWith("/guard-") ? <><span className="sg-entry-one">1</span>GUARD</> : destination.startsWith("/workforce") ? <><span className="sg-entry-one">1</span>Workforce</> : identity(destination)}</span>
+        <span className="sg-entry-caption">{destination.startsWith("/solutions/security") || destination.startsWith("/guard-") ? "SECURITY OPERATIONS" : destination.startsWith("/workforce") ? "WORKFORCE OPERATIONS" : "INTEGRATED SYSTEMS"}</span>
       </div>
     </div>
   </>;
