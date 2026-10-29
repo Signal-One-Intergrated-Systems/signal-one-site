@@ -1,0 +1,45 @@
+name: Marketing visual acceptance
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'app/**'
+      - 'public/images/**'
+      - 'tests/e2e/visual-mission.spec.ts'
+      - 'playwright.config.ts'
+      - '.github/workflows/marketing-visual-qa.yml'
+  pull_request:
+    paths:
+      - 'app/**'
+      - 'public/images/**'
+      - 'tests/e2e/visual-mission.spec.ts'
+      - 'playwright.config.ts'
+  workflow_dispatch:
+
+jobs:
+  browser-acceptance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      CI: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test tests/e2e/visual-mission.spec.ts
+      - name: Upload browser screenshots and reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: marketing-visual-acceptance
+          path: |
+            test-results/
+            playwright-report/
+          if-no-files-found: ignore
+          retention-days: 14
