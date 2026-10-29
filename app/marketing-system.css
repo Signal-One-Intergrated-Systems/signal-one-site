@@ -177,3 +177,27 @@ main:not(.s1-brand-home) :is(.card,.rounded-card) :is(.t-body,.t-small,.t-captio
 @media(max-width:900px){.s1-premium-footer-bottom{grid-template-columns:1fr}.s1-footer-link-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:620px){.s1-premium-footer-intro{align-items:stretch;flex-direction:column}.s1-footer-main-cta{width:100%}.s1-footer-link-grid{display:block}.s1-footer-group{border-bottom:1px solid rgba(224,245,255,.17)}.s1-footer-group summary{min-height:52px;display:flex;justify-content:space-between;align-items:center}.s1-footer-group summary span{display:inline-block;font-size:1.3rem}.s1-footer-group[open] summary span{transform:rotate(45deg)}.s1-footer-group ul{padding-bottom:15px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px 12px}.s1-premium-footer-shell{border-radius:22px 22px 0 0}}
 @media(prefers-reduced-motion:reduce){.s1-footer-main-cta,.s1-footer-group li a{transition:none}.s1-footer-main-cta:hover,.s1-footer-group li a:hover{transform:none}}
+
+
+/* One neutral optical-glass material across marketing pages, excluding checkout-like forms. */
+main:not(.s1-brand-home){--marketing-panel:linear-gradient(128deg,rgba(23,34,39,.65),rgba(23,36,41,.43));--marketing-edge:rgba(244,251,255,.43);--marketing-shadow:inset 0 1px rgba(255,255,255,.23),0 22px 62px -37px rgba(0,9,19,.57)}
+main:not(.s1-brand-home) :is(.card,.rounded-card,.glass,.glass-light){
+ -webkit-backdrop-filter:blur(23px) saturate(112%);backdrop-filter:blur(23px) saturate(112%);
+ border-color:var(--marketing-edge);box-shadow:var(--marketing-shadow)
+}
+main:not(.s1-brand-home) :is(.btn-primary,.btn-ghost-dark,.btn-ghost-light){
+ border-radius:999px;min-height:48px;position:relative;overflow:hidden;
+ transition:transform .23s cubic-bezier(.2,.75,.25,1),box-shadow .23s ease,background-color .23s ease,border-color .23s ease;
+}
+@media(hover:hover){main:not(.s1-brand-home) :is(.btn-primary,.btn-ghost-dark,.btn-ghost-light):hover{transform:translateY(-2px);box-shadow:0 13px 27px -16px rgba(0,0,0,.53)}}
+main:not(.s1-brand-home) :is(.btn-primary,.btn-ghost-dark,.btn-ghost-light):active{transform:scale(.985)}
+@media(prefers-reduced-motion:reduce){main:not(.s1-brand-home) :is(.btn-primary,.btn-ghost-dark,.btn-ghost-light){transition:none}main:not(.s1-brand-home) :is(.btn-primary,.btn-ghost-dark,.btn-ghost-light):hover{transform:none}}
+/* Matching glass shutters for inter-page scene transitions, rather than blue slabs. */
+.sg-entry-overlay .sg-entry-shutter.sg-glass-panel{
+ background:linear-gradient(135deg,rgba(28,36,39,.71),rgba(35,45,48,.6))!important;
+ border-color:rgba(246,252,255,.34)!important;
+ -webkit-backdrop-filter:blur(28px) saturate(110%)!important;
+ backdrop-filter:blur(28px) saturate(110%)!important;
+ box-shadow:inset 0 1px rgba(255,255,255,.24)
+}
+.sg-entry-overlay[data-guard-entry="sealed"]{background:rgba(17,25,29,.33)!important}

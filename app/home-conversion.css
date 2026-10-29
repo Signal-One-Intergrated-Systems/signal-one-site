@@ -411,3 +411,20 @@ body:has(.so-home) header.glass-nav .btn-primary{box-shadow:inset 0 1px rgba(255
   inset:1% 12% 24% -63%!important;transform:scale(.96)!important;opacity:.2!important
  }
 }
+
+
+/* Live-city globe: retain canvas sharpness and animated nodes, behind left panel only. */
+.so-home .s1-brand-stage.so-hero .s1-hero-globe-layer{
+ inset:8% 48% 14% -19%!important;
+ transform:scale(.91)!important;transform-origin:41% 48%!important;
+ filter:none!important;opacity:.9!important;z-index:3!important
+}
+.so-home .s1-hero-orb-fallback{opacity:.52!important;filter:none!important}
+.so-home .so-hero-copy{z-index:5}
+@media(max-width:950px){.so-home .s1-brand-stage.so-hero .s1-hero-globe-layer{inset:12% 39% 17% -27%!important;transform:scale(.84)!important;opacity:.66!important}}
+@media(max-width:670px){.so-home .s1-brand-stage.so-hero .s1-hero-globe-layer{inset:18% 24% 34% -38%!important;transform:scale(.78)!important;opacity:.42!important}}
+.so-home .so-hero-bar-item strong{font-size:clamp(1.12rem,1.48vw,1.5rem);letter-spacing:-.035em;font-weight:850}
+.so-home .so-hero-bar-item{border-color:rgba(232,247,255,.35)}
+.so-home .so-hero-bar-item .so-brand-one{color:#49c7ff;font-weight:900}
+.so-home .so-platform-mark{display:inline-flex;align-items:center;gap:2px;white-space:nowrap}
+.so-home .so-platform-mark .so-brand-one{font-weight:900}
