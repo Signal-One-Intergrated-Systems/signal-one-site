@@ -127,9 +127,9 @@ export default function Header() {
           aria-label={"Signal One " + config.identity + " home"}
         >
           {/* The canonical desktop lockup is 22px; reduce only where screen width requires it. */}
-          <SignalOneLogo size={22} tone="dark" pulse descriptorMin={10} className="hidden sm:inline-flex" />
-          <SignalOneLogo size={19} tone="dark" pulse descriptorMin={10} className="hidden min-[380px]:inline-flex sm:hidden" />
-          <SignalOneMark size={34} tone="dark" pulse className="inline-flex min-[380px]:hidden" />
+          <span className="s1-nav-logo-wide"><SignalOneLogo size={22} tone="dark" pulse descriptorMin={10} /></span>
+          <span className="s1-nav-logo-medium"><SignalOneLogo size={19} tone="dark" pulse descriptorMin={10} /></span>
+          <span className="s1-nav-logo-small"><SignalOneMark size={34} tone="dark" pulse /></span>
         </Link>
 
         <nav className="hidden items-center gap-1 xl:flex" aria-label="Primary">
