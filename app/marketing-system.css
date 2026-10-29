@@ -6,6 +6,10 @@ main:not(.s1-brand-home) {
   --site-control:#0c2943;
   --site-edge:rgba(183,225,250,.38);
   --marketing-focus:#38bdf8;
+  --marketing-radius:20px;
+  --marketing-edge:rgba(185,225,249,.34);
+  --marketing-panel:linear-gradient(130deg,rgba(16,47,73,.86),rgba(8,30,53,.82));
+  --marketing-shadow:0 22px 64px -36px rgba(0,7,24,.74),inset 0 1px rgba(255,255,255,.12);
 }
 main:not(.s1-brand-home) :is(.surface-light,.surface-light-2,.surface-white) {
   color:var(--site-on-dark)!important;
@@ -17,10 +21,10 @@ main:not(.s1-brand-home) :is(.surface-light,.surface-light-2,.surface-white) :is
   color:var(--site-muted)!important;
 }
 main:not(.s1-brand-home) :is(.surface-light,.surface-light-2,.surface-white) :is(.card,.rounded-card,.glass-light) {
-  background:linear-gradient(130deg,rgba(16,47,73,.86),rgba(8,30,53,.82))!important;
+  background:var(--marketing-panel)!important;
   color:var(--site-on-dark)!important;
-  border:1px solid var(--site-edge)!important;
-  box-shadow:0 28px 75px -36px rgba(0,7,24,.7),inset 0 1px rgba(255,255,255,.16);
+  border:1px solid var(--marketing-edge)!important;
+  box-shadow:var(--marketing-shadow);
   -webkit-backdrop-filter:blur(18px) saturate(125%);
   backdrop-filter:blur(18px) saturate(125%);
 }
@@ -102,11 +106,6 @@ main:not(.s1-brand-home) :is(.btn,button,[role="button"]){touch-action:manipulat
 
 /* Shared visible component geometry — premium Signal One marketing surfaces.
    Scoped to commercial routes; hero artwork, brand lockups and the Guard shutter are unchanged. */
-main:not(.s1-brand-home){
- --marketing-radius:20px;
- --marketing-edge:rgba(185,225,249,.34);
- --marketing-shadow:0 22px 64px -36px rgba(0,7,24,.74),inset 0 1px rgba(255,255,255,.12);
-}
 main:not(.s1-brand-home) :is(.card,.card-dark,.rounded-card,.glass,.glass-light){
  border-radius:var(--marketing-radius);
  border:1px solid var(--marketing-edge);
