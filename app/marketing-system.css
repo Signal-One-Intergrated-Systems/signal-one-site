@@ -108,3 +108,59 @@ main:not(.s1-brand-home) :is(.btn,button,[role="button"]){touch-action:manipulat
   -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
  }
 }
+
+
+/* Shared visible component geometry — premium Signal One marketing surfaces.
+   Scoped to commercial routes; hero artwork, brand lockups and the Guard shutter are unchanged. */
+main:not(.s1-brand-home){
+ --marketing-radius:20px;
+ --marketing-edge:rgba(185,225,249,.34);
+ --marketing-panel:linear-gradient(135deg,rgba(22,57,82,.94),rgba(9,30,51,.94));
+ --marketing-shadow:0 22px 64px -36px rgba(0,7,24,.74),inset 0 1px rgba(255,255,255,.12);
+}
+main:not(.s1-brand-home) :is(.card,.card-dark,.rounded-card,.glass,.glass-light){
+ border-radius:var(--marketing-radius);
+ border:1px solid var(--marketing-edge);
+ box-shadow:var(--marketing-shadow);
+}
+main:not(.s1-brand-home) .section .grid > :is(article,.card,.rounded-card){
+ transition:transform .22s cubic-bezier(.16,1,.3,1),border-color .22s ease,box-shadow .22s ease;
+}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){
+ main:not(.s1-brand-home) .section .grid > :is(article,.card,.rounded-card):hover{
+  transform:translateY(-2px);
+  border-color:rgba(188,231,255,.52);
+  box-shadow:0 28px 76px -38px rgba(0,7,24,.83),inset 0 1px rgba(255,255,255,.16);
+ }
+}
+main:not(.s1-brand-home) :is(.btn,.btn-primary,.btn-ghost-light,.btn-ghost-dark){
+ display:inline-flex;align-items:center;justify-content:center;gap:.55rem;
+ min-height:48px;
+ border-radius:12px;
+ font-family:var(--font-body),Inter,ui-sans-serif,sans-serif;
+ font-size:clamp(.9375rem,1vw,1rem);
+ font-weight:650;
+ line-height:1.25;
+ text-align:center;
+ transition:background-color .2s ease,border-color .2s ease,color .2s ease;
+}
+main:not(.s1-brand-home) :is(.btn,.btn-primary,.btn-ghost-light,.btn-ghost-dark):disabled,
+main:not(.s1-brand-home) :is(.btn,.btn-primary,.btn-ghost-light,.btn-ghost-dark)[aria-disabled="true"]{
+ opacity:.56;cursor:not-allowed;
+}
+main:not(.s1-brand-home) :is(input.field-input,textarea.field-input,select.field-input){
+ width:100%;min-height:52px;border-radius:13px;
+ font-size:1rem;line-height:1.4;
+}
+main:not(.s1-brand-home) .field-label{display:block;font-weight:650;line-height:1.5}
+main:not(.s1-brand-home) :is(.card,.rounded-card) :is(.t-body,.t-small,.t-caption){
+ line-height:1.55;
+}
+@media(max-width:767px){
+ main:not(.s1-brand-home) :is(.card,.card-dark,.rounded-card,.glass,.glass-light){border-radius:18px}
+ main:not(.s1-brand-home) :is(.btn,.btn-primary,.btn-ghost-light,.btn-ghost-dark){min-height:48px}
+}
+@media(prefers-reduced-motion:reduce){
+ main:not(.s1-brand-home) .section .grid > :is(article,.card,.rounded-card),
+ main:not(.s1-brand-home) :is(.btn,.btn-primary,.btn-ghost-light,.btn-ghost-dark){transition:none!important;transform:none!important}
+}
