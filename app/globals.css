@@ -1697,3 +1697,6 @@ main:not(.s1-brand-home) .section .grid > :is(article,.card,.rounded-card) {
  .s1-glass-curtain{display:none!important}
  .s1-transition-pulse{animation:none!important}
 }
+
+/* The branded glass doors now own route change; remove the old generic scene fade. */
+.s1-scene-route,.s1-scene-route[data-scene-exit]{animation:none!important;filter:none!important;transform:none!important;}
