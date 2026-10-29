@@ -29,3 +29,15 @@ Originals are kept unmodified in `assets/hardware/originals/`. They are not serv
 ## Photography
 
 The documentary photographs under `public/images/photo/` and `public/images/story/` are illustrative scenes of fictional security companies. They are captioned as such on the site and listed in `docs/PHOTOGRAPHY_BRIEF.md`. None of them is a Signal One product image.
+
+
+## Homepage original illustrative photography — 2026-10-29
+
+The homepage now uses two original commissioned-for-this-design AI-generated illustrative scenes, not external customer photos and not software screenshots. Both were exported and checked as independent JPEG assets with aspect ratios preserved. Do not imply that the fictional people are Signal One employees or customers.
+
+| Asset | Intended use | Provenance | Public disclosure |
+| --- | --- | --- | --- |
+| `public/images/home/signal-one-hero-daylight.jpg` | Homepage hero behind the existing glass globe | Original synthetic scene generated 2026-10-29 for Signal One: professional security team at a bright corporate entrance; no third-party logo or product UI | `Illustrative scene` |
+| `public/images/home/service-restaurant-operations.jpg` | 1Service homepage feature and introductory /service page | Original synthetic scene generated 2026-10-29 for Signal One: professional kitchen team coordinating restaurant service; no third-party logo or product UI | `Illustrative restaurant operation` |
+
+The homepage 1GUARD proof section uses the existing documented `control-room-team.webp` fictional scene. The equipment section uses the genuine, unaltered Hytera PNC360S and Teltonika FMB920 manufacturer assets documented above; these must not be replaced with AI-generated substitutes.
