@@ -2,49 +2,89 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import SignalOneMark from "./brand/SignalOneMark";
 
-/** Shared public-site scene motion. Never blocks modified, external, hash or download links. */
+type Phase = "idle" | "closing" | "covered" | "opening";
+function identity(path: string): string {
+  if (path.startsWith("/solutions/security") || path.startsWith("/guard-")) return "1GUARD";
+  if (path.startsWith("/workforce")) return "1Workforce";
+  if (path.startsWith("/equipment") || path.startsWith("/radios") || path.startsWith("/ptt-radio")) return "EQUIPMENT";
+  if (path.startsWith("/guards")) return "FOR GUARDS";
+  if (path.startsWith("/get-started")) return "14-DAY TRIAL";
+  if (path.startsWith("/contact")) return "CONTACT";
+  if (path.startsWith("/join")) return "CAREERS";
+  return "SIGNAL ONE";
+}
+
+/** Persistent glass doors, pulse and identity; the overlay must survive the route commit. */
 export default function SceneTransition({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
-  const [exiting, setExiting] = useState(false);
-  const pending = useRef<number | null>(null);
+  const [phase, setPhase] = useState<Phase>("idle");
+  const [destination, setDestination] = useState(pathname);
+  const timeout = useRef<number | null>(null);
   const target = useRef<string | null>(null);
+  const previous = useRef(pathname);
 
   useEffect(() => {
-    setExiting(false);
-    target.current = null;
-    if (pending.current !== null) window.clearTimeout(pending.current);
-    pending.current = null;
+    if (previous.current === pathname) return;
+    previous.current = pathname;
+    if (timeout.current !== null) window.clearTimeout(timeout.current);
+    timeout.current = null;
+    if (target.current !== null) {
+      setPhase("opening");
+      target.current = null;
+      timeout.current = window.setTimeout(() => { setPhase("idle"); timeout.current = null; }, 650);
+    } else {
+      setDestination(pathname);
+      setPhase("idle");
+    }
   }, [pathname]);
 
   useEffect(() => {
-    const click = (event: MouseEvent) => {
+    const onClick = (event: MouseEvent) => {
       if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-      const anchor = (event.target as Element | null)?.closest?.("a[href]") as HTMLAnchorElement | null;
-      if (!anchor || anchor.hasAttribute("download") || (anchor.target && anchor.target !== "_self")) return;
-      if (anchor.getAttribute("href")?.startsWith("#")) return;
-      const dest = new URL(anchor.href, window.location.href);
-      if (dest.origin !== window.location.origin || dest.pathname === window.location.pathname && dest.search === window.location.search) return;
-      if (!dest.pathname.startsWith("/")) return;
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      const element = event.target;
+      if (!(element instanceof Element)) return;
+      const link = element.closest("a[href]") as HTMLAnchorElement | null;
+      if (!link || link.hasAttribute("download") || (link.target && link.target !== "_self")) return;
+      const href = link.getAttribute("href") ?? "";
+      if (href.startsWith("#")) return;
+      const url = new URL(link.href, location.href);
+      if (url.origin !== location.origin || (url.pathname === location.pathname && url.search === location.search)) return;
+      if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
       event.preventDefault();
-      if (pending.current !== null) window.clearTimeout(pending.current);
-      target.current = dest.pathname + dest.search + dest.hash;
-      setExiting(true);
-      pending.current = window.setTimeout(() => {
+      if (timeout.current !== null) clearTimeout(timeout.current);
+      target.current = url.pathname + url.search + url.hash;
+      setDestination(url.pathname);
+      setPhase("closing");
+      timeout.current = window.setTimeout(() => {
+        setPhase("covered");
         if (target.current) router.push(target.current);
-        pending.current = null;
-      }, 185);
+        timeout.current = window.setTimeout(() => {
+          // Navigation failure recovery: never trap the user behind glass.
+          if (target.current) { setPhase("idle"); target.current = null; }
+          timeout.current = null;
+        }, 3500);
+      }, 540);
     };
-    document.addEventListener("click", click, true);
+    document.addEventListener("click", onClick, true);
     return () => {
-      document.removeEventListener("click", click, true);
-      if (pending.current !== null) window.clearTimeout(pending.current);
+      document.removeEventListener("click", onClick, true);
+      if (timeout.current !== null) clearTimeout(timeout.current);
     };
   }, [router]);
 
-  return <div key={pathname} data-scene-route={pathname} data-scene-exit={exiting ? "" : undefined} className="s1-scene-route">
-    {children}
-  </div>;
+  const active = phase !== "idle";
+  return <>
+    <div key={pathname} data-scene-route={pathname} className="s1-scene-route">{children}</div>
+    <div className="s1-glass-curtain" data-phase={phase} aria-hidden="true">
+      <div className="s1-glass-door s1-glass-door-left" />
+      <div className="s1-glass-door s1-glass-door-right" />
+      <div className="s1-transition-identity">
+        <div className="s1-transition-pulse"><SignalOneMark size={66} tone="dark" pulse={active} /></div>
+        <div className="s1-transition-wordmark">{identity(destination)}</div>
+      </div>
+    </div>
+  </>;
 }
