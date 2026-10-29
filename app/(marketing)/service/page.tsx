@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ButtonLink, Kicker } from "../../components/ui";
-import servicePhoto from "../../../public/images/home/service-restaurant-operations.jpg";
 
 export const metadata: Metadata = {
   title: "1Service | The Restaurant-First Service Business Operating System",
@@ -35,9 +34,9 @@ export default function ServicePage() {
             <p className="t-caption mt-5 text-text-inv-3">This page describes the intended direction. Full restaurant POS, kitchen, inventory, financial and marketplace workflows are not presented as live.</p>
           </div>
           <div className="relative min-h-[370px] overflow-hidden rounded-card border border-line-dark bg-raised shadow-xl lg:min-h-[540px]">
-            <Image src={servicePhoto} alt="Illustrative restaurant team preparing food and coordinating service" fill
+            <Image src="/images/interior/service-premium.svg" unoptimized alt="Illustrative empty luxury restaurant dining room in bright natural daylight" fill
               sizes="(min-width:1024px) 49vw, 100vw" className="object-cover" priority />
-            <div className="absolute bottom-4 left-5 rounded-full bg-deep/85 px-3 py-2 text-[0.875rem] text-text-inv">Illustrative restaurant operation</div>
+            <div className="absolute bottom-4 left-5 rounded-full bg-deep/85 px-3 py-2 text-[0.875rem] text-text-inv">Illustrative restaurant interior</div>
           </div>
         </div>
       </section>
