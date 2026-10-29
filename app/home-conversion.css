@@ -316,3 +316,26 @@ body:has(.so-home) .so-home .s1-brand-stage.so-hero{padding-top:calc(151px + 88p
 @media(prefers-reduced-transparency:reduce){
  body:has(.so-home) header.glass-nav > .wrap{background:#21343e!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
 }
+
+
+/* FINAL MATERIAL V2: clear but reliably legible smoked optical navigation. */
+body:has(.so-home) header.glass-nav > .wrap,
+body:has(.so-home) header.glass-nav[data-scrolled] > .wrap{
+ background:rgba(24,32,37,.64)!important;
+ background-image:linear-gradient(180deg,rgba(255,255,255,.085),rgba(0,0,0,.075))!important;
+ border-color:rgba(250,252,255,.45)!important;
+ -webkit-backdrop-filter:blur(28px) saturate(110%)!important;
+ backdrop-filter:blur(28px) saturate(110%)!important;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.23),0 14px 36px -23px rgba(0,0,0,.44)!important;
+}
+body:has(.so-home) header.glass-nav > .wrap::before{
+ background:linear-gradient(180deg,rgba(255,255,255,.095),rgba(255,255,255,0) 48%);
+}
+body:has(.so-home) header.glass-nav > .wrap a,
+body:has(.so-home) header.glass-nav > .wrap nav{color:#f8fcff}
+body:has(.so-home) header.glass-nav > .wrap .btn-primary{color:#031827}
+.so-home .so-hero-copy{background:rgba(20,31,35,.48);border-color:rgba(253,253,253,.58);-webkit-backdrop-filter:blur(25px) saturate(112%);backdrop-filter:blur(25px) saturate(112%)}
+.so-home .so-guard-section{background-image:linear-gradient(95deg,rgba(6,17,25,.63),rgba(8,22,34,.42)),url('/images/scenes/control-room.svg');background-position:center 55%}
+.so-home .so-service-section{background-image:linear-gradient(95deg,rgba(20,20,18,.62),rgba(23,24,24,.38)),url('/images/scenes/restaurant.svg');background-position:center 52%}
+.so-home .so-equipment-section{background-image:linear-gradient(95deg,rgba(10,22,28,.66),rgba(10,28,37,.41)),url('/images/scenes/showroom.svg');background-position:center 50%}
+@media(max-width:670px){body:has(.so-home) header.glass-nav > .wrap{background:rgba(24,32,37,.86)!important}}
