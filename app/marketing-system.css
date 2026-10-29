@@ -315,3 +315,13 @@ main.s1-onboarding.surface-light.s1-premium-trial{
 @media(max-width:670px){
  main.s1-onboarding.surface-light.s1-premium-trial{background-position:58% top!important}
 }
+
+
+/* The signup page's complete scene must override the legacy onboarding gradient,
+   without altering form fields, text contrast or error feedback. */
+main.s1-onboarding.surface-light.s1-premium-trial{
+ background:
+  linear-gradient(115deg,rgba(12,26,34,.82),rgba(18,35,44,.68)),
+  url('/images/interior/trial-premium.svg') center top/cover no-repeat!important;
+ color:#edf7ff!important;
+}
