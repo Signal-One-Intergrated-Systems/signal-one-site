@@ -307,7 +307,7 @@ export function SplitHero({
   objectPosition = "50% 40%",
   panel,
 }: {
-  src: StaticImageData;
+  src: StaticImageData | string;
   alt: string;
   children: ReactNode;
   /** Which side the photograph is on from lg up. */
@@ -317,6 +317,7 @@ export function SplitHero({
   /** Desktop only: a glass information panel floating over the photograph's lower edge. */
   panel?: ReactNode;
 }) {
+  const dimensions = typeof src === "string" ? { width: 1600, height: 900 } : src;
   const inset = "calc(max(0px, (100vw - var(--wrap-max)) / 2) + var(--wrap-pad) + var(--hero-col) + 40px)";
   const box: React.CSSProperties =
     side === "right"
@@ -326,7 +327,7 @@ export function SplitHero({
     <section className="split-hero relative bg-deep text-text-inv" style={box}>
       <div className="relative h-[56vw] lg:absolute lg:inset-y-0 lg:left-[var(--ph-l)] lg:right-[var(--ph-r)] lg:h-auto">
         {/* Never taller or wider than the source: on a tall hero the photo is centred and fades into the surface. */}
-        <div className="relative mx-auto h-full lg:top-1/2 lg:-translate-y-1/2" style={{ maxWidth: src.width, maxHeight: src.height, ...verticalFade(src.height) }}>
+        <div className="relative mx-auto h-full lg:top-1/2 lg:-translate-y-1/2" style={{ maxWidth: dimensions.width, maxHeight: dimensions.height, ...verticalFade(dimensions.height) }}>
           <Image
             src={src}
             alt={alt}
@@ -335,7 +336,7 @@ export function SplitHero({
             fetchPriority="high"
             sizes={"(min-width: 1024px) 52vw, 100vw"}
             quality={70}
-            placeholder="blur"
+            placeholder={typeof src === "string" ? "empty" : "blur"}
             className="object-cover [object-position:var(--pos-m)] lg:[object-position:var(--pos-d)]"
             style={{ ["--pos-m" as string]: objectPositionMobile, ["--pos-d" as string]: objectPosition }}
           />
