@@ -32,6 +32,6 @@ test("desktop product routes preserve brand and do not offer 1Community as live 
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/workforce");
   await expect(page.getByRole("navigation", { name: "Primary" }).getByRole("link", { name: /1GUARD/ })).toBeVisible();
-  await expect(page.locator(".s1-nav-upcoming")).toContainText("Coming soon");
+  await expect(page.locator(".s1-nav-upcoming")).toHaveCount(0);
   await expect(page.getByRole("link", { name: /Request a walkthrough/ }).first()).toHaveAttribute("href", "/contact");
 });
