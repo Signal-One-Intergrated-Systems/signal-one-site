@@ -38,7 +38,7 @@ export default function Home() {
               <span className="s1-product-description">Security operations</span>
             </Link>
             <div className="s1-brand-family-divider" aria-hidden="true" />
-            <Link href="/workforce" className="s1-brand-family-item s1-brand-product-link" aria-label="Explore 1Service business operations">
+            <Link href="/service" className="s1-brand-family-item s1-brand-product-link" aria-label="Explore 1Service business operations">
               <span className="s1-product-lockup"><span className="s1-product-one">1</span>Service</span>
               <span className="s1-product-description">Service business operating system</span>
             </Link>
@@ -68,10 +68,10 @@ export default function Home() {
           <Image src={photos.warehouse.src} alt={photos.warehouse.alt} fill sizes="(min-width: 900px) 50vw, 100vw" className="object-cover"/>
         </div>
         <div className="s1-selling-copy reveal">
-          <p className="s1-selling-kicker"><span className="s1-product-one">1</span>Workforce · Attendance and field teams</p>
+          <p className="s1-selling-kicker"><span className="s1-product-one">1</span>Service · Business operations</p>
           <h2 id="s1-workforce-head">Your whole service business. One operating system.</h2>
           <p>Connect staffing, shifts, jobs, daily operations and business oversight. Start with your team and build towards a more profitable, better-managed service business.</p>
-          <Link href="/workforce" className="s1-selling-link">Explore <span className="s1-product-one">1</span>Workforce <span aria-hidden="true">↗</span></Link>
+          <Link href="/service" className="s1-selling-link">Explore <span className="s1-product-one">1</span>Service <span aria-hidden="true">↗</span></Link>
         </div>
       </section>
       <section className="s1-selling-bottom reveal-group" aria-label="More Signal One solutions">
