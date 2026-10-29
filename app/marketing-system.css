@@ -343,3 +343,12 @@ main.surface-light.s1-premium-trust{
   url('/images/interior/legal-premium.svg') center top/cover no-repeat!important;
  color:#edf7ff!important;
 }
+
+
+/* Trust scene must outrank the older global main.surface-light background.
+   Preserve legal text contrast and the editorial inset glass panel. */
+main.surface-light.s1-premium-trust{
+ background:
+  linear-gradient(115deg,rgba(14,27,35,.9),rgba(20,39,48,.83)),
+  url('/images/interior/legal-premium.svg') center top / cover no-repeat!important;
+}
