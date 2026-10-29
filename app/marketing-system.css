@@ -241,3 +241,53 @@ main:not(.s1-brand-home) :is(.btn-primary,.btn-ghost,.btn-ghost-dark,.btn-ghost-
 }
 @media(hover:hover){main:not(.s1-brand-home) :is(.btn-primary,.btn-ghost,.btn-ghost-dark,.btn-ghost-light):hover{transform:translateY(-2px)}}
 @media(prefers-reduced-motion:reduce){main:not(.s1-brand-home) :is(.btn-primary,.btn-ghost,.btn-ghost-dark,.btn-ghost-light){transition:none!important;transform:none!important}}
+
+
+/* Phase B/C: dedicated premium image treatment for conversion journeys. */
+.s1-premium-trial{
+ position:relative;isolation:isolate;min-height:100vh;
+ background:linear-gradient(115deg,rgba(12,26,34,.84),rgba(18,35,44,.68)),url('/images/interior/trial-premium.svg') center top/cover no-repeat!important;
+}
+.s1-premium-trial .s1-onboarding-intro{
+ background:linear-gradient(135deg,rgba(28,39,44,.78),rgba(24,37,43,.61))!important;
+ border:1px solid rgba(243,252,255,.47)!important;
+ -webkit-backdrop-filter:blur(24px) saturate(108%);backdrop-filter:blur(24px) saturate(108%);
+ box-shadow:inset 0 1px rgba(255,255,255,.27),0 22px 58px -35px rgba(0,8,22,.64);
+}
+.s1-premium-contact{background:linear-gradient(160deg,#1b303b,#233842 35%,#142732)!important}
+.s1-premium-pricing .split-hero{background:linear-gradient(135deg,#172d3b,#1d3642 60%,#0d2432)!important}
+.s1-premium-trial :is(input,textarea,select),.s1-premium-contact :is(input,textarea,select){
+ min-height:48px;scroll-margin-top:100px
+}
+@media(max-width:670px){
+ .s1-premium-trial{background-attachment:scroll!important;background-position:58% top!important}
+}
+/* Exact feature routes only; avoid fake evidence and avoid repeatedly using the same scene. */
+.s1-premium-image-guard,.s1-premium-image-service,.s1-premium-image-network{
+ border:1px solid rgba(240,251,255,.44);
+ box-shadow:inset 0 1px rgba(255,255,255,.29),0 27px 68px -42px rgba(2,11,22,.7);
+ border-radius:24px;
+}
+
+
+/* Route-level scenes: no photograph reused on a second marketing route. */
+.s1-premium-radio{isolation:isolate}
+.s1-premium-radio .split-hero,.s1-premium-radio > section:first-child{
+ background:linear-gradient(105deg,rgba(7,23,34,.87),rgba(16,39,51,.68)),url('/images/interior/radio-premium.svg') center/cover no-repeat!important;
+}
+.s1-premium-trust{
+ background:linear-gradient(115deg,rgba(14,27,35,.88),rgba(20,39,48,.84)),url('/images/interior/legal-premium.svg') center top/cover no-repeat!important
+}
+.s1-premium-trust article{position:relative;isolation:isolate}
+.s1-premium-trust article:before{
+ content:"";position:absolute;inset:clamp(9px,2vw,30px) 0;z-index:-1;
+ background:rgba(17,32,41,.64);border:1px solid rgba(231,247,255,.37);
+ border-radius:25px;-webkit-backdrop-filter:blur(26px);backdrop-filter:blur(26px);
+}
+.s1-premium-trust article>div{padding:clamp(18px,3vw,36px)}
+/* Light-touch editorial structure and spacing; do not introduce fake assets on policy pages. */
+main:not(.s1-brand-home) :is(.section,.split-hero)> .wrap{isolation:isolate}
+main:not(.s1-brand-home) :is(.t-display,.t-h1,.t-h2){letter-spacing:-.043em}
+@media(prefers-reduced-transparency:reduce){
+ .s1-premium-trust article:before{background:#1b303b;-webkit-backdrop-filter:none;backdrop-filter:none}
+}

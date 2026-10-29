@@ -35,3 +35,20 @@ npm run check:branding; npm run check:design; npm run build; browser QA for 375/
 Phase A: standardize floating navigation capsule and core optical control materials for marketing routes, preserve all content and links.
 Phase B: page-specific scene asset production and verified replacements.
 Phase C: responsive visual/browser test and Railway promotion.
+
+## Phase B asset map (2026-10-29)
+| Route | New local photograph | Status |
+| --- | --- | --- |
+| /solutions/security | /images/interior/guard-premium.svg | wired, build pending |
+| /service | /images/interior/service-premium.svg | wired, build pending |
+| /equipment-marketplace | /images/interior/network-premium.svg | wired, build pending |
+| /guards | /images/interior/field-premium.svg | wired, build pending |
+| /guard-marketplace | /images/interior/hiring-premium.svg | wired, build pending |
+| /join/sales | /images/interior/talent-premium.svg | wired, build pending |
+| /get-started | /images/interior/trial-premium.svg | wired, build pending |
+| /radios-equipment | /images/interior/radio-premium.svg | wired, build pending |
+| /security-trust | /images/interior/legal-premium.svg | wired, build pending |
+| /contact and /pricing | neutral responsive glass, no duplicated photograph | wired |
+
+### Not yet covered
+Individual photography for every remaining SEO, guard registration, legal and ancillary page; verified device/mobile browser screenshots and complete accessibility audit. No claim of 7/7 acceptance without these gates.

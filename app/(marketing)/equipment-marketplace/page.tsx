@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { photos } from "../../lib/photos";
 import { ButtonLink, Kicker } from "../../components/ui";
 
 export const metadata: Metadata = {
@@ -23,7 +22,7 @@ export default function EquipmentMarketplacePage() {
  <p className="t-lead measure mt-5 text-text-inv-2">Explore professional radios, PTT communications, tracking and security technology. Tell us what your operation needs and request purchase or rental pricing.</p>
  <div className="mt-8 flex flex-wrap gap-3"><ButtonLink href="/radios-equipment#quote" size="lg">Request equipment pricing</ButtonLink><ButtonLink href="#categories" variant="ghost-dark" size="lg">Browse categories</ButtonLink></div>
  <p className="t-caption mt-6 text-text-inv-3">Online checkout and live stock confirmation are not yet available. Purchases and rentals are arranged by written quotation.</p>
- </div><div className="s1-equipment-photo"><Image src={photos.siteOperations.src} alt={photos.siteOperations.alt} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" /></div></div></section>
+ </div><div className="s1-equipment-photo"><Image src="/images/interior/network-premium.svg" unoptimized alt="Illustrative enterprise connectivity installation with organised fibre, network switches and power infrastructure" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" /></div></div></section>
  <section id="categories" className="surface-light section scroll-mt-[72px]"><div className="wrap">
  <div className="flex flex-wrap justify-between items-end gap-5"><div><Kicker>Equipment</Kicker><h2 className="t-h2 mt-4">Select what the operation requires.</h2></div><Link href="/radios-equipment" className="link-arrow text-signal-ink">See available equipment and request a quote →</Link></div>
  <div className="mt-10 grid gap-4 md:grid-cols-2">{categories.map(([name,detail])=><article key={name} className="card p-7"><h3 className="t-h3">{name}</h3><p className="t-body mt-3 text-text-2">{detail}</p><Link className="btn btn-ghost-light mt-6" href="/radios-equipment#quote">Enquire about availability →</Link></article>)}</div>
