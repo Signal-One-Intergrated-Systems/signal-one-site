@@ -1633,3 +1633,40 @@ main:not(.s1-brand-home) .section .grid > :is(article,.card,.rounded-card) {
 @media(prefers-reduced-motion:reduce){
  main:not(.s1-brand-home) .section .grid > :is(article,.card,.rounded-card){transition:none!important}
 }
+
+
+/* Signal One cinematic scene choreography. Route changes are short and non-blocking.
+   Layer motion is optical only; there is no layout reflow or invisible content at rest. */
+@media (prefers-reduced-motion:no-preference){
+ .s1-scene-route{animation:s1-scene-open 620ms cubic-bezier(.16,1,.3,1) both;transform-origin:50% 42%;}
+ .s1-scene-route[data-scene-exit]{animation:s1-scene-close 185ms ease-in both;pointer-events:none;}
+ .s1-scene-route > main > section:first-child .s1-hero-content-glass,
+ .s1-scene-route > main > section:first-child .glass,
+ .s1-scene-route > main > section:first-child .glass-light{
+   animation:s1-panel-settle 700ms cubic-bezier(.16,1,.3,1) both;
+ }
+ .reveal-group[data-reveal="passed"] > .reveal{
+   opacity:1!important;transform:none!important;
+ }
+ .reveal-group[data-reveal="shown"] > .reveal:nth-child(2){transition-delay:90ms;}
+ .reveal-group[data-reveal="shown"] > .reveal:nth-child(3){transition-delay:140ms;}
+}
+@keyframes s1-scene-open{
+ from{opacity:.6;filter:blur(5px);transform:translate3d(0,12px,0) scale(.994)}
+ to{opacity:1;filter:blur(0);transform:translate3d(0,0,0) scale(1)}
+}
+@keyframes s1-scene-close{
+ from{opacity:1;filter:blur(0);transform:translate3d(0,0,0) scale(1)}
+ to{opacity:.62;filter:blur(3px);transform:translate3d(0,-7px,0) scale(.992)}
+}
+@keyframes s1-panel-settle{
+ from{opacity:.78;transform:translate3d(0,18px,0) scale(.986)}
+ to{opacity:1;transform:translate3d(0,0,0) scale(1)}
+}
+@media(prefers-reduced-motion:reduce){
+ .s1-scene-route,.s1-scene-route[data-scene-exit],
+ .s1-scene-route > main > section:first-child .glass,
+ .s1-scene-route > main > section:first-child .glass-light{
+  animation:none!important;transition:none!important;transform:none!important;filter:none!important;
+ }
+}
