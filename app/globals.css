@@ -1880,3 +1880,47 @@ main:not(.s1-brand-home) .section .grid > :is(article,.card,.rounded-card) {
  .sg-entry-master-logo > span{transform:scale(.66)}
  .sg-entry-emblem:has(.sg-entry-master-logo) .sg-entry-caption{margin-top:6rem}
 }
+
+
+/* CANONICAL MARKETING COMPONENT CONTRACT — 2026-10-29
+   Last-layer reconciliation of approved Signal One type and glass. No brand changes.
+   Scope excludes transition overlays and the separately art-directed homepage hero. */
+main:not(.s1-brand-home){
+ --s1-font-body:var(--font-body),Inter,ui-sans-serif,system-ui,sans-serif;
+ --s1-ink:#f1f5f9;--s1-copy:#cbd5e1;--s1-accent:#38bdf8;
+ font-family:var(--s1-font-body);
+}
+main:not(.s1-brand-home) :is(.t-display,.t-h1,.t-h2,.t-h3,.t-h4,h1,h2,h3,h4){
+ font-family:var(--s1-font-body)!important;
+ text-wrap:balance;
+}
+main:not(.s1-brand-home) :is(.t-display,.t-h1,.t-h2,.t-h3){
+ font-weight:700;letter-spacing:-.03em;
+}
+main:not(.s1-brand-home) .t-display{font-size:clamp(2.75rem,4.5vw,5.75rem);line-height:1.03}
+main:not(.s1-brand-home) .t-h1{font-size:clamp(2.5rem,3.5vw,4.6rem);line-height:1.06}
+main:not(.s1-brand-home) .t-h2{font-size:clamp(2.125rem,2.8vw,3.5rem);line-height:1.09}
+main:not(.s1-brand-home) .t-h3{font-size:clamp(1.25rem,1.4vw,1.65rem);line-height:1.22}
+main:not(.s1-brand-home) .t-lead{font-size:clamp(1.125rem,1.45vw,1.375rem);line-height:1.5}
+main:not(.s1-brand-home) :is(.t-small,.field-label,.field-hint){font-size:max(.875rem,14px)}
+main:not(.s1-brand-home) .t-caption{font-size:.875rem}
+main:not(.s1-brand-home) :is(.card,.rounded-card,.glass,.glass-light){
+ overflow-wrap:break-word;
+}
+main:not(.s1-brand-home) :is(.field-input,input,textarea,select):focus-visible,
+main:not(.s1-brand-home) :is(a,button):focus-visible{
+ outline:3px solid #38bdf8!important;outline-offset:3px!important;
+}
+main:not(.s1-brand-home) .field-input{min-height:52px;font-family:var(--s1-font-body)}
+main:not(.s1-brand-home) :is(.btn,button,[role="button"]){touch-action:manipulation}
+@media(max-width:767px){
+ main:not(.s1-brand-home) :is(.card,.rounded-card,.glass,.glass-light){
+  -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+ }
+ main:not(.s1-brand-home) :is(.t-display,.t-h1,.t-h2){overflow-wrap:normal}
+}
+@media(prefers-reduced-transparency:reduce){
+ main:not(.s1-brand-home) :is(.card,.rounded-card,.glass,.glass-light){
+  -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+ }
+}

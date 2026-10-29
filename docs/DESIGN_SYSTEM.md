@@ -106,3 +106,20 @@ Resolved in favour of accessibility, with the smallest possible change:
 | Wordmark `ONE` `#0EA5E9` on light | 2.6:1 | Kept: logotypes are exempt from the text-contrast rules, and the lockup must not be altered |
 
 `docs/CONTRAST.md` lists every text and background pair in use with its measured ratio.
+
+
+## Approved 2026-10-29 premium website direction (superseding conflicting earlier website-only rules)
+
+Founder-approved visual direction for the public marketing website: cinematic image-led presentation, Signal One dark navy/slate glass, legible solid high-contrast text, floating premium panels, consistent interaction controls and destination-specific 1GUARD glass shutter transitions. These supersede the earlier website-only prohibitions on broad dark layouts, all glass depth, and cinematic navigation. The original SVG mark, Inter typeface, blue brand colours, logo spacing, minimum accessible text size, reduced-motion support and commercial content rules remain mandatory.
+
+### Canonical marketing component contract
+
+- **Type:** Inter Variable exclusively; body at least 17px where regular, supporting labels at least 14px, display/headings use the documented `t-*` hierarchy. Do not reset type scale through page-level overrides. Brand lockup descriptor is the documented sole size exception.
+- **Colours:** original Signal One accent `#0EA5E9`, dark text `#F1F5F9`, body text `#CBD5E1`; coherent deep navy materials are approved for premium marketing scenes. Text must have sufficient contrast on the final composited background.
+- **Glass:** hierarchy of photographic hero panel, secondary cards and navigation. Nested stacks should be avoided; solid high-opacity fallback on low-power/mobile and reduced-transparency. Text, labels and form values are opaque.
+- **Spacing:** use `.wrap` and `.section`; cards have consistent padding and deliberate responsive gaps; no clipped controls or horizontal overflow. The approved floating marketing cards may use 24px radii, overriding the historical 14px flat-document card radius in public marketing routes only.
+- **Forms:** minimum 52px controls, at least 14px labels, explicit borders, visible focus, checked, hover, error and disabled states; dark inputs may be used on dark glass.
+- **Motion:** persistent 1GUARD glass shutter on internal marketing navigation, original Signal One pulse and destination identity, `1122ms` shutter sweep based on Guard's `440ms * 2.55` motion token, reduced-motion bypass. The marketing-only longer branded hold is permitted; do not reimplement the brand SVG.
+- **Quality gate:** component source checks, desktop/tablet/mobile browser runs, contrast checks, screenshots for hero and forms, working navigation and content verification. Documentation or successful deployment alone does not establish visual 100% acceptance.
+
+This section is the sole current written override for the earlier restrictive public-website departures. The quotation document retains its own flat, print-oriented layout; marketing glass treatments must not leak into quotations, Sales OS or product application interfaces.
