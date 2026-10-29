@@ -291,3 +291,17 @@ main:not(.s1-brand-home) :is(.t-display,.t-h1,.t-h2){letter-spacing:-.043em}
 @media(prefers-reduced-transparency:reduce){
  .s1-premium-trust article:before{background:#1b303b;-webkit-backdrop-filter:none;backdrop-filter:none}
 }
+
+
+/* Exactly one canonical header lockup at each width; avoid Tailwind display conflicts. */
+header.glass-nav .s1-nav-logo-wide,
+header.glass-nav .s1-nav-logo-medium{display:none}
+header.glass-nav .s1-nav-logo-small{display:inline-flex;align-items:center}
+@media(min-width:380px){
+ header.glass-nav .s1-nav-logo-small{display:none}
+ header.glass-nav .s1-nav-logo-medium{display:inline-flex;align-items:center}
+}
+@media(min-width:640px){
+ header.glass-nav .s1-nav-logo-medium{display:none}
+ header.glass-nav .s1-nav-logo-wide{display:inline-flex;align-items:center}
+}
