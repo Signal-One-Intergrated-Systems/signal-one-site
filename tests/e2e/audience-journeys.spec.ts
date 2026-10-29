@@ -7,7 +7,8 @@ test("homepage introduces purchasable journeys and clearly labels 1Community", a
   await expect(page.getByRole("link", { name: /Explore 1Workforce/ })).toHaveAttribute("href", "/workforce");
   await expect(page.getByRole("link", { name: /Explore equipment/ })).toHaveAttribute("href", "/equipment-marketplace");
   await expect(page.getByText(/1Community is not available yet/)).toBeVisible();
-  await expect(page.locator(".s1-nav-upcoming")).toContainText("Coming soon");
+  await expect(page.locator(".s1-brand-community")).toContainText("Coming soon");
+  await expect(page.locator(".s1-nav-upcoming")).toHaveCount(0);
   await expect(page.getByRole("link", { name: /Book a walkthrough/ })).toHaveAttribute("href", "/contact");
 });
 
@@ -17,7 +18,7 @@ test("site pill stays usable on a phone and does not offer 1Community as a live 
   const menu = page.getByRole("button", { name: "Menu" });
   await expect(menu).toBeVisible();
   await menu.click();
-  await expect(page.locator(".s1-mobile-upcoming")).toContainText("Coming soon");
+  await expect(page.locator(".s1-mobile-upcoming")).toHaveCount(0);
   await expect(page.getByRole("navigation", { name: "Mobile" }).getByRole("link", { name: /1Workforce/ })).toHaveAttribute("href", "/workforce");
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth);
   expect(overflow).toBe(false);
