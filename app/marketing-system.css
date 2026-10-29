@@ -334,3 +334,12 @@ main.s1-onboarding.surface-light.s1-premium-trial{
    linear-gradient(113deg,rgba(12,25,34,.83),rgba(17,34,42,.67)),
    url('/images/interior/trial-premium.svg') center top / cover no-repeat!important;
 }
+
+
+/* Preserve the dedicated trust architectural scene against the legacy main surface gradient. */
+main.surface-light.s1-premium-trust{
+ background:
+  linear-gradient(115deg,rgba(14,27,35,.87),rgba(20,39,48,.81)),
+  url('/images/interior/legal-premium.svg') center top/cover no-repeat!important;
+ color:#edf7ff!important;
+}
