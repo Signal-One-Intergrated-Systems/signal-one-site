@@ -22,7 +22,7 @@ const examples = [
 
 export default function PricingPage() {
   return (
-    <main id="main">
+    <main id="main" className="s1-premium-pricing">
       <section className="split-hero surface-deep">
         <div className="wrap grid gap-12 py-16 md:py-24 lg:grid-cols-[minmax(0,var(--hero-col))_minmax(0,1fr)] lg:items-center lg:gap-20 lg:py-32">
           <div>
