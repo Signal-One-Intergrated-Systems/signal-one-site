@@ -13,7 +13,7 @@ export default function Reveal() {
   useEffect(() => {
     const allow = window.matchMedia("(prefers-reduced-motion: no-preference) and (min-width: 640px)");
     if (!allow.matches || !("IntersectionObserver" in window)) return;
-    const groups = Array.from(document.querySelectorAll<HTMLElement>(".reveal-group, main section.section, main section.surface-light, main section.surface-white"));
+    const groups = Array.from(document.querySelectorAll<HTMLElement>(".reveal-group"));
     const pending = groups.filter((group) => group.getBoundingClientRect().top > window.innerHeight * 0.9);
     if (!pending.length) return;
     pending.forEach((group) => group.setAttribute("data-reveal", "waiting"));
