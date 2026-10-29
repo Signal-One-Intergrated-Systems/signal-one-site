@@ -28,6 +28,11 @@ export default function Home() {
           <p className="s1-brand-explainer">
             Run security operations with 1GUARD. Discover 1Service for restaurants and service businesses. Equip every team with connected radios, communications and field technology.
           </p>
+          <div className="s1-home-conversion-actions" aria-label="Get started with Signal One">
+            <Link href="/get-started" className="btn btn-primary btn-lg s1-home-primary-cta">Get 14 day free trial <span aria-hidden="true">→</span></Link>
+            <Link href="/contact" className="btn btn-ghost-dark btn-lg s1-home-secondary-cta">Talk to our team</Link>
+          </div>
+          <p className="s1-home-trial-disclosure">For 1GUARD companies. Trial access is subject to onboarding and activation confirmation.</p>
           <div className="s1-brand-family" aria-label="Signal One platforms">
             <Link href="/solutions/security" className="s1-brand-family-item s1-brand-product-link" aria-label="Explore 1GUARD security operations">
               <span className="s1-product-lockup"><span className="s1-product-one">1</span>GUARD</span>
@@ -44,11 +49,6 @@ export default function Home() {
               <span className="s1-product-description">Coming soon</span>
             </div>
           </div>
-          <div className="s1-home-conversion-actions" aria-label="Get started with Signal One">
-            <Link href="/get-started" className="btn btn-primary btn-lg s1-home-primary-cta">Get 14 day free trial <span aria-hidden="true">→</span></Link>
-            <Link href="/contact" className="btn btn-ghost-dark btn-lg s1-home-secondary-cta">Talk to our team</Link>
-          </div>
-          <p className="s1-home-trial-disclosure">For 1GUARD companies. Trial access is subject to onboarding and activation confirmation.</p>
           <p className="s1-brand-final">Security operations. Service businesses. Equipment. One Signal One.</p>
         </div>
       </section>
