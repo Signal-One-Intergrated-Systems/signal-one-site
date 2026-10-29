@@ -1483,3 +1483,86 @@ main.surface-light:not(.s1-brand-home) .card,main.surface-light:not(.s1-brand-ho
 main:not(.s1-brand-home) .surface-light .card .t-h3,main:not(.s1-brand-home) .surface-white .card .t-h3{color:#f4faff}
 main:not(.s1-brand-home) .surface-light .card p,main:not(.s1-brand-home) .surface-white .card p{color:#d6e5f0}
 @media(prefers-reduced-motion:reduce){.s1-brand-stage-media .s1-brand-stage-image{transition:none}}
+
+
+/* Contrast and material QA: interactive text must remain legible on navy glass.
+   Scoped to onboarding and dark-marketing content to avoid altering the hero. */
+main.s1-onboarding.surface-light{
+ color:#edf7ff!important;
+ background:radial-gradient(ellipse at 76% 10%,rgba(36,124,189,.22),transparent 48%),
+ linear-gradient(145deg,#0c2035 0%,#20435d 52%,#0b233b 100%)!important;
+}
+.s1-onboarding .s1-onboarding-intro{
+ max-width:none;background:linear-gradient(120deg,rgba(21,55,79,.88),rgba(8,28,49,.75))!important;
+ border:1px solid rgba(175,221,247,.36)!important;
+ box-shadow:0 23px 75px -35px rgba(0,9,25,.65),inset 0 1px rgba(255,255,255,.15);
+}
+.s1-onboarding .s1-onboarding-intro h1,.s1-onboarding .s1-onboarding-intro p{color:#f0f9ff!important}
+.s1-onboarding .s1-onboarding-intro p:last-child{color:#d2e4f0!important}
+.s1-onboarding form.card{
+ background:linear-gradient(120deg,rgba(20,52,76,.88),rgba(13,36,59,.92))!important;
+ color:#f0f8ff!important;border:1px solid rgba(169,216,247,.36)!important;
+ box-shadow:0 28px 85px -33px rgba(0,6,20,.68),inset 0 1px rgba(255,255,255,.17);
+ backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+}
+.s1-onboarding :is(h1,h2,h3,h4,.t-h1,.t-h2,.t-h3,.t-h4,.field-label,legend,dt,dd){color:#f2faff!important}
+.s1-onboarding :is(.t-small,.t-body,.t-lead,.field-hint,.text-text-2){color:#cbdfef!important}
+.s1-onboarding aside .t-kicker{color:#77d7ff!important}
+.s1-onboarding aside ol li{
+ color:#dbe9f5!important;border-color:rgba(198,227,248,.24)!important;
+}
+.s1-onboarding aside ol li[aria-current="step"]{
+ color:#fff!important;font-weight:700;
+}
+.s1-onboarding aside ol li > span{
+ color:#082138!important;background:#d9ebf8!important;
+}
+.s1-onboarding aside ol li[aria-current="step"] > span{
+ background:#0ea5e9!important;color:#062039!important;
+}
+.s1-onboarding form .field-input,
+.s1-onboarding form input.field-input,
+.s1-onboarding form select.field-input,
+.s1-onboarding form textarea.field-input{
+ color:#f3fbff!important;background:rgba(5,23,41,.69)!important;
+ border:1px solid rgba(194,229,252,.42)!important;border-radius:13px!important;
+ min-height:52px;box-shadow:inset 0 1px 3px rgba(0,0,0,.12);
+}
+.s1-onboarding form .field-input::placeholder{color:#9bb5c8!important;opacity:1}
+.s1-onboarding form select.field-input option{background:#102941;color:#f4fbff}
+.s1-onboarding form .field-input:focus{
+ outline:2px solid #67cfff!important;outline-offset:2px;
+ border-color:#67cfff!important;
+}
+.s1-onboarding form .choice,.s1-onboarding form .check{
+ color:#eaf6ff!important;background:rgba(22,58,83,.65);
+ border:1px solid rgba(178,223,247,.32);border-radius:13px;padding:13px 16px;
+}
+.s1-onboarding form .choice .text-text,.s1-onboarding form .check .text-text-2{color:#eaf6ff!important}
+.s1-onboarding form .choice:has(input:checked){
+ border-color:#67cfff;background:rgba(18,95,143,.39);
+ box-shadow:inset 0 0 0 1px rgba(103,207,255,.31);
+}
+.s1-onboarding form input:is([type="checkbox"],[type="radio"]){accent-color:#0ea5e9}
+.s1-onboarding form .choice:focus-within,.s1-onboarding form .check:focus-within{outline:2px solid #67cfff;outline-offset:2px}
+.s1-onboarding form section.rounded-card{
+ background:rgba(9,32,52,.8)!important;border:1px solid rgba(181,222,247,.31)!important;
+}
+.s1-onboarding form section.rounded-card :is(p,span,dd,dt){color:#d8ebf6!important}
+/* Dark content blocks elsewhere: use correct foreground utility palette. */
+main:not(.s1-brand-home) .surface-light .card :is(.field-label,.text-text,.text-text-2,.t-small),
+main:not(.s1-brand-home) .surface-white .card :is(.field-label,.text-text,.text-text-2,.t-small),
+main:not(.s1-brand-home) .surface-light .rounded-card :is(.field-label,.text-text,.text-text-2),
+main:not(.s1-brand-home) .surface-white .rounded-card :is(.field-label,.text-text,.text-text-2){
+ color:#daeaf6!important;
+}
+main:not(.s1-brand-home) .surface-light .card :is(.t-h2,.t-h3,.t-h4),
+main:not(.s1-brand-home) .surface-white .card :is(.t-h2,.t-h3,.t-h4){color:#f3faff!important}
+@media(max-width:700px){
+ .s1-onboarding .s1-onboarding-intro{padding:22px!important}
+ .s1-onboarding form.card{padding:22px!important}
+}
+@media(prefers-reduced-transparency:reduce){
+ .s1-onboarding form.card{background:#16354f!important;backdrop-filter:none}
+ .s1-onboarding form .field-input{background:#082036!important}
+}
