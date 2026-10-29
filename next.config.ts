@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const legacyRedirects = [
+  ["/workforce", "/service"],
   ["/connectivity", "/radios-equipment"],
   ["/connectivity/:path*", "/radios-equipment"],
   ["/devices", "/radios-equipment"],
