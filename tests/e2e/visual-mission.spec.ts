@@ -83,7 +83,8 @@ test("key acquisition pages have no critical automated accessibility violations"
   }
 });
 
-test("every branded acquisition page uses its own declared premium scene", async ({ page }) => {
+test("every branded acquisition page uses its own declared premium scene", async ({ page }, info) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
   const uniqueScenes: Record<string, string> = {
     "/solutions/security": "guard-premium.svg",
     "/service": "service-premium.svg",
@@ -103,6 +104,7 @@ test("every branded acquisition page uses its own declared premium scene", async
       return [...imageUrls, ...backgroundUrls].join(" | ");
     });
     expect(discovered, `Missing art on ${route}`).toContain(expected);
+    await page.screenshot({ path: info.outputPath(`scene-${route.replaceAll("/", "-").replace(/^-/, "")}.png`), fullPage: false, animations: "disabled" });
   }
   expect(new Set(Object.values(uniqueScenes)).size).toBe(Object.values(uniqueScenes).length);
 });
