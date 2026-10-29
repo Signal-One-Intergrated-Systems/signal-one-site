@@ -39,6 +39,17 @@ for (const viewport of viewports) {
             broken: imgs.filter(img => img.complete && img.naturalWidth === 0).map(img => img.currentSrc),
           };
         });
+        if (outcome.overflow > 1) {
+          const offending = await page.evaluate(() =>
+            [...document.querySelectorAll("body *")].flatMap(node => {
+              const rect = node.getBoundingClientRect();
+              const style = getComputedStyle(node);
+              return rect.right > innerWidth + 5 && style.display !== "none"
+                ? [{ tag: node.tagName, cls: String(node.className).slice(0, 70), right: Math.round(rect.right), width: Math.round(rect.width), position: style.position, visibility: style.visibility }]
+                : [];
+            }).slice(0, 12));
+          console.log("OVERFLOW DEBUG", route, viewport.width, JSON.stringify(offending));
+        }
         expect(outcome.overflow, `${route} overflows at ${viewport.width}`).toBeLessThanOrEqual(1);
         expect(outcome.broken, `${route} has broken images`).toEqual([]);
         if (outcome.outerFill) expect(outcome.outerFill).toBe("rgba(0, 0, 0, 0)");
