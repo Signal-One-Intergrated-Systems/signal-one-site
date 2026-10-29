@@ -56,10 +56,10 @@ export default function Home() {
           </div>
         </div>
         <div className="so-hero-bar" aria-label="Signal One business areas">
-          <Link href="/solutions/security" className="so-hero-bar-item" aria-label="Explore 1GUARD security operations"><strong><span className="so-brand-one">1</span>GUARD</strong><span>Security operations</span></Link>
-          <Link href="/service" className="so-hero-bar-item" aria-label="Explore 1Service business operating system"><strong><span className="so-brand-one">1</span>Service</strong><span>Restaurant-first OS · In development</span></Link>
+          <Link href="/solutions/security" className="so-hero-bar-item" aria-label="Explore 1GUARD security operations"><strong className="so-platform-mark"><span className="so-brand-one">1</span>GUARD</strong><span>Security operations</span></Link>
+          <Link href="/service" className="so-hero-bar-item" aria-label="Explore 1Service business operating system"><strong className="so-platform-mark"><span className="so-brand-one">1</span>Service</strong><span>Restaurant-first OS · In development</span></Link>
           <Link href="/equipment-marketplace" className="so-hero-bar-item" aria-label="Explore enterprise equipment"><strong>Equipment</strong><span>Professional devices & connectivity</span></Link>
-          <a href="#community" className="so-hero-bar-item" aria-label="Learn about 1Community coming soon"><strong><span className="so-brand-one">1</span>Community</strong><span>Coming soon</span></a>
+          <a href="#community" className="so-hero-bar-item" aria-label="Learn about 1Community coming soon"><strong className="so-platform-mark"><span className="so-brand-one">1</span>Community</strong><span>Coming soon</span></a>
         </div>
         <span className="so-hero-photo-note">Illustrative scene</span>
       </section>
@@ -88,7 +88,7 @@ export default function Home() {
             <div className="so-image-caption">Illustrative security operation</div>
           </div>
           <div className="so-vertical-content">
-            <div className="so-vertical-label"><span className="so-brand-one">1</span>GUARD <span>SECURITY OPERATIONS</span></div>
+            <div className="so-vertical-label"><Link href="/solutions/security" className="so-platform-mark" aria-label="Explore 1GUARD"><span className="so-brand-one">1</span>GUARD</Link> <span>SECURITY OPERATIONS</span></div>
             <h2 id="so-guard-title">Your sites cannot run on unanswered messages.</h2>
             <p>Give owners, supervisors, guards and clients a clearer operational record. From the first shift to the proof your customer asks for.</p>
             <ul className="so-checklist">
@@ -113,7 +113,7 @@ export default function Home() {
             <div className="so-image-caption">Illustrative restaurant operation</div>
           </div>
           <div className="so-vertical-content">
-            <div className="so-vertical-label"><span className="so-brand-one">1</span>Service <span className="so-status">IN DEVELOPMENT</span></div>
+            <div className="so-vertical-label"><Link href="/service" className="so-platform-mark" aria-label="Explore 1Service"><span className="so-brand-one">1</span>Service</Link> <span className="so-status">IN DEVELOPMENT</span></div>
             <h2 id="so-service-title">A busy service business needs more than a roster.</h2>
             <p>1Service is being developed as the operating system for service-based businesses, starting with restaurants. The vision connects the front of house, back of house, people and business performance.</p>
             <div className="so-service-scope">
