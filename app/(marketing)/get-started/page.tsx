@@ -10,8 +10,8 @@ export const metadata: Metadata = {
 
 export default function GetStartedPage() {
   return (
-    <main id="main" className="surface-light">
-      <div className="wrap py-10 md:py-16"><div className="mb-8 rounded-card border border-white/25 bg-[#0c2741]/85 p-5 text-white shadow-xl backdrop-blur-xl md:p-7"><p className="text-xs font-semibold uppercase tracking-widest text-sky-300">Company registration · 14-day trial request</p><h1 className="mt-2 text-2xl font-bold md:text-3xl">Start with what your business needs.</h1><p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-200">Choose 1GUARD, 1Workforce, equipment or a combination. Request a 14-day trial through the registration journey below. Your request is not an activated subscription: access, eligibility, expiry and any paid terms are confirmed before activation.</p></div>
+    <main id="main" className="surface-light s1-onboarding">
+      <div className="wrap py-10 md:py-16"><div className="s1-onboarding-intro mb-8 rounded-card border border-white/25 bg-[#0c2741]/85 p-5 text-white shadow-xl backdrop-blur-xl md:p-7"><p className="text-xs font-semibold uppercase tracking-widest text-sky-300">Company registration · 14-day trial request</p><h1 className="mt-2 text-2xl font-bold md:text-3xl">Start with what your business needs.</h1><p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-200">Choose 1GUARD, 1Workforce, equipment or a combination. Request a 14-day trial through the registration journey below. Your request is not an activated subscription: access, eligibility, expiry and any paid terms are confirmed before activation.</p></div>
         <ClientOnboarding />
       </div>
     </main>
