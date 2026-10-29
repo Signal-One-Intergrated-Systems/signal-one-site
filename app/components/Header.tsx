@@ -125,7 +125,7 @@ export default function Header() {
           className="flex min-h-[44px] min-w-0 items-center gap-3"
           aria-label={"Signal One " + config.identity + " home"}
         >
-          <SignalOneLogo size={19} tone="dark" pulse descriptorMin={9} />
+          <SignalOneLogo size={22} tone="dark" pulse descriptorMin={10} />
         </Link>
 
         <nav className="hidden items-center gap-1 xl:flex" aria-label="Primary">
