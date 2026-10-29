@@ -5,8 +5,8 @@ import { photos } from "../../lib/photos";
 import { ButtonLink, Kicker } from "../../components/ui";
 
 export const metadata: Metadata = {
-  title: "1Workforce | Workforce Operations by Signal One",
-  description: "Discover 1Workforce by Signal One: attendance, shifts, timesheets, job cards and field workforce operations. Request an introduction.",
+  title: "1Service | Service Business Operations by Signal One",
+  description: "Discover 1Service by Signal One: service-team operations, restaurant workflows, workforce management and the planned business operating system. Request an introduction.",
   alternates: { canonical: "/workforce" },
 };
 
@@ -22,20 +22,20 @@ export default function WorkforcePage() {
     <section className="surface-deep section">
       <div className="wrap grid items-center gap-12 lg:grid-cols-2">
         <div>
-          <Kicker tone="dark">Signal One · Workforce Operations Platform</Kicker>
+          <Kicker tone="dark">Signal One · Service Business Operations Platform</Kicker>
           <h1 className="t-display mt-6"><span className="text-signal-400">1</span>Workforce</h1>
-          <p className="t-lead mt-6 text-text-inv-2">Know who worked. Where. And when.</p>
-          <p className="t-body measure mt-5 text-text-inv-2">Bring attendance, shifts, timesheets, job cards and field teams into one manageable view. Spend less time chasing updates and more time keeping work moving.</p>
+          <p className="t-lead mt-6 text-text-inv-2">Run the business, not the paperwork.</p>
+          <p className="t-body measure mt-5 text-text-inv-2">1Service is evolving from workforce tools into an operating system for service-based businesses. Restaurants are the first deep vertical, connecting people, service, stock, customer experiences and business oversight.</p>
           <div className="mt-8 flex flex-wrap gap-3">
             <ButtonLink href="/contact" size="lg">Request a walkthrough</ButtonLink>
             <ButtonLink href="#capabilities" variant="ghost-dark" size="lg">Explore the platform</ButtonLink>
           </div>
-          <p className="t-caption mt-5 text-text-inv-3">Commercial onboarding and availability are confirmed directly with Signal One.</p>
+          <p className="t-caption mt-5 text-text-inv-3">The expanded 1Service platform is in development. Available workforce features and rollout terms are confirmed directly with Signal One.</p>
         </div>
         <div className="s1-workforce-hero-media glass rounded-card" aria-label="Field teams at work"><Image src={photos.warehouse.src} alt={photos.warehouse.alt} fill sizes="(min-width: 1024px) 48vw, 100vw" className="object-cover" /></div>
-        <div className="sr-only" aria-label="1Workforce capabilities">
+        <div className="sr-only" aria-label="1Service capabilities">
           <div className="flex items-center justify-between border-b border-line-dark pb-5">
-            <span className="t-h3">1Workforce</span>
+            <span className="t-h3">1Service</span>
             <span className="t-caption text-signal-400">Workforce operations</span>
           </div>
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
@@ -43,18 +43,18 @@ export default function WorkforcePage() {
               <h2 className="t-h4">{name}</h2><p className="t-small mt-2 text-text-inv-2">{detail}</p>
             </div>)}
           </div>
-          <p className="t-caption mt-5 text-text-inv-3">Learn more about the supported 1Workforce capabilities.</p>
+          <p className="t-caption mt-5 text-text-inv-3">Learn more about the supported 1Service capabilities.</p>
         </div>
       </div>
     </section>
     <section id="capabilities" className="surface-light section scroll-mt-[72px]">
       <div className="wrap grid gap-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)]">
-        <div><Kicker>Built for real work</Kicker><h2 className="t-h2 mt-4">Bring every shift into focus.</h2><p className="t-body mt-5 text-text-2">See attendance exceptions, review hours and keep work records together so teams and supervisors can spend less time reconciling updates.</p></div>
+        <div><Kicker>The foundation already underway</Kicker><h2 className="t-h2 mt-4">One operating system for service businesses.</h2><p className="t-body mt-5 text-text-2">The first restaurant workflows cover service, people, kitchen, stock, finance and growth. This is the product direction, not a claim that every feature is already released.</p></div>
         <div className="grid gap-4 sm:grid-cols-2">{capabilities.map(([name, detail])=><article key={name} className="card p-6"><h3 className="t-h3">{name}</h3><p className="t-small mt-3 text-text-2">{detail}</p></article>)}</div>
       </div>
     </section>
     <section className="surface-white section"><div className="wrap flex flex-wrap items-center justify-between gap-8">
-      <div><h2 className="t-h2">Find out whether 1Workforce fits your operation.</h2><p className="t-body mt-4 text-text-2">Tell us about your teams, sites and required workflows. We will confirm the supported rollout and commercial terms.</p></div>
+      <div><h2 className="t-h2">Help shape 1Service for your business.</h2><p className="t-body mt-4 text-text-2">Tell us about your teams, sites and required workflows. We will confirm the supported rollout and commercial terms.</p></div>
       <Link className="btn btn-primary btn-lg" href="/contact">Talk to Signal One</Link>
     </div></section>
   </main>;
