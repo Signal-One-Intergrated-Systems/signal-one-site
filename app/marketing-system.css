@@ -201,3 +201,43 @@ main:not(.s1-brand-home) :is(.btn-primary,.btn-ghost-dark,.btn-ghost-light):acti
  box-shadow:inset 0 1px rgba(255,255,255,.24)
 }
 .sg-entry-overlay[data-guard-entry="sealed"]{background:rgba(17,25,29,.33)!important}
+
+
+/* SITEWIDE OPTICAL MATERIAL — shared neutral pill and controls.
+   Keep the outer header free of a second backdrop on every marketing route. */
+header.glass-nav,header.glass-nav[data-scrolled]{
+ background:transparent!important;background-image:none!important;
+ border:0!important;box-shadow:none!important;
+ -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+}
+header.glass-nav > .wrap,header.glass-nav[data-scrolled] > .wrap{
+ background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(0,0,0,.08)),rgba(23,33,38,.67)!important;
+ border:1px solid rgba(247,252,255,.44)!important;
+ border-radius:999px!important;
+ -webkit-backdrop-filter:blur(27px) saturate(111%)!important;
+ backdrop-filter:blur(27px) saturate(111%)!important;
+ box-shadow:inset 0 1px rgba(255,255,255,.26),0 16px 36px -24px rgba(0,0,0,.51)!important;
+}
+@media(max-width:670px){
+ header.glass-nav > .wrap,header.glass-nav[data-scrolled] > .wrap{
+  background:rgba(23,33,38,.87)!important;border-radius:999px!important;
+ }
+}
+@media(prefers-reduced-transparency:reduce){
+ header.glass-nav > .wrap,header.glass-nav[data-scrolled] > .wrap{
+  background:#202c33!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important
+ }
+}
+/* Depth and motion are a material property, not a second design system. */
+main:not(.s1-brand-home) :is(.card,.rounded-card,.glass,.glass-light){
+ background:linear-gradient(125deg,rgba(25,37,44,.64),rgba(20,32,40,.47))!important;
+ border-color:rgba(232,247,255,.4)!important;
+ -webkit-backdrop-filter:blur(22px) saturate(112%);
+ backdrop-filter:blur(22px) saturate(112%);
+ box-shadow:inset 0 1px rgba(255,255,255,.23),0 24px 65px -42px rgba(0,9,20,.62)
+}
+main:not(.s1-brand-home) :is(.btn-primary,.btn-ghost,.btn-ghost-dark,.btn-ghost-light){
+ min-height:48px;border-radius:999px!important;transition:transform .22s ease,box-shadow .22s ease,background-color .22s ease
+}
+@media(hover:hover){main:not(.s1-brand-home) :is(.btn-primary,.btn-ghost,.btn-ghost-dark,.btn-ghost-light):hover{transform:translateY(-2px)}}
+@media(prefers-reduced-motion:reduce){main:not(.s1-brand-home) :is(.btn-primary,.btn-ghost,.btn-ghost-dark,.btn-ghost-light){transition:none!important;transform:none!important}}
