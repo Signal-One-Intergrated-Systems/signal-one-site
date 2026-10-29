@@ -29,7 +29,7 @@ const worlds: Record<
     homeHref: "/",
     primary: [
       { href: "/solutions/security", label: "1GUARD" },
-      { href: "/workforce", label: "1Workforce" },
+      { href: "/service", label: "1Service" },
       { href: "/guard-marketplace", label: "Hire Guards" },
       { href: "/equipment-marketplace", label: "Equipment" },
       
@@ -38,7 +38,7 @@ const worlds: Record<
       { href: "/guards", label: "For guards" },
       { href: "/join/sales", label: "Careers" },
     ],
-    cta: { href: "/get-started", label: "Request 14-day trial" },
+    cta: { href: "/get-started", label: "Get 14 Day Free Trial" },
     shell: "glass-nav text-text-inv border-b border-line-dark",
     link: "text-text-inv hover:bg-white/8",
     cta_class: "btn btn-primary",
@@ -143,7 +143,7 @@ export default function Header() {
                 config.link
               }
             >
-              {item.label === "1GUARD" ? <><span className="s1-product-one">1</span>GUARD</> : item.label === "1Workforce" ? <><span className="s1-product-one">1</span>Workforce</> : item.label}
+              {item.label === "1GUARD" ? <><span className="s1-product-one">1</span>GUARD</> : item.label === "1Service" ? <><span className="s1-product-one">1</span>Service</> : item.label}
             </Link>
           ))}
         </nav>
@@ -199,7 +199,7 @@ export default function Header() {
                     onClick={() => setOpen(false)}
                     className="flex min-h-[60px] items-center justify-between font-display text-[1.5rem] font-semibold"
                   >
-                    {item.label === "1GUARD" ? <><span className="s1-product-one">1</span>GUARD</> : item.label === "1Workforce" ? <><span className="s1-product-one">1</span>Workforce</> : item.label}
+                    {item.label === "1GUARD" ? <><span className="s1-product-one">1</span>GUARD</> : item.label === "1Service" ? <><span className="s1-product-one">1</span>Service</> : item.label}
                     <span aria-hidden="true" className={dark ? "text-text-inv-2" : "text-text-2"}>→</span>
                   </Link>
                 </li>
