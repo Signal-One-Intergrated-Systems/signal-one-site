@@ -51,7 +51,7 @@ export default function ClientOnboarding() {
         <span className="grid h-14 w-14 place-items-center rounded-full bg-signal text-deep">
           <Check />
         </span>
-        <h1 className="t-h1 mt-6">Thanks. Your onboarding request is with Signal One.</h1>
+        <h2 className="t-h1 mt-6">Thanks. Your onboarding request is with Signal One.</h2>
         <p className="t-lead mt-4 text-text-2">A representative will contact you about your selected products, trial request and account setup. A trial has not started yet.</p>
         <div className="mt-8">
           <Steps
@@ -109,9 +109,9 @@ export default function ClientOnboarding() {
         <div key={current.id} className="animate-enter grid gap-6">
           {current.id === "company" ? (
             <>
-              <h1 ref={headingRef} tabIndex={-1} className="t-h2 outline-none">
+              <h2 ref={headingRef} tabIndex={-1} className="t-h2 outline-none">
                 Your company
-              </h1>
+              </h2>
               <JText j={j} name="companyName" label="Company name" required autoComplete="organization" />
               <JText j={j} name="registrationNumber" label="Company registration number" />
               <JSelect
@@ -137,9 +137,9 @@ export default function ClientOnboarding() {
 
           {current.id === "contact" ? (
             <>
-              <h1 ref={headingRef} tabIndex={-1} className="t-h2 outline-none">
+              <h2 ref={headingRef} tabIndex={-1} className="t-h2 outline-none">
                 Who should we speak to?
-              </h1>
+              </h2>
               <JText j={j} name="contactName" label="Your name" required autoComplete="name" />
               <JRadio
                 j={j}
@@ -156,9 +156,9 @@ export default function ClientOnboarding() {
 
           {current.id === "operation" ? (
             <>
-              <h1 ref={headingRef} tabIndex={-1} className="t-h2 outline-none">
+              <h2 ref={headingRef} tabIndex={-1} className="t-h2 outline-none">
                 Your operation today
-              </h1>
+              </h2>
               <JRadio
                 j={j}
                 name="guardCount"
@@ -188,9 +188,9 @@ export default function ClientOnboarding() {
 
           {current.id === "start" ? (
             <>
-              <h1 ref={headingRef} tabIndex={-1} className="t-h2 outline-none">
+              <h2 ref={headingRef} tabIndex={-1} className="t-h2 outline-none">
                 What do you want to start with?
-              </h1>
+              </h2>
               <JMulti
                 j={j}
                 name="interests"
@@ -219,9 +219,9 @@ export default function ClientOnboarding() {
 
           {current.id === "review" ? (
             <>
-              <h1 ref={headingRef} tabIndex={-1} className="t-h2 outline-none">
+              <h2 ref={headingRef} tabIndex={-1} className="t-h2 outline-none">
                 Check and send
-              </h1>
+              </h2>
               <ReviewList
                 j={j}
                 accentClass={ACCENT}
