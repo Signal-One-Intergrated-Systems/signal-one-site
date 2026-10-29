@@ -147,7 +147,7 @@ export default function ClientOnboarding() {
                 label="Your role"
                 required
                 accentClass={ACCENT}
-                options={["Owner or director", "Operations manager", "Control room manager", "Other"]}
+                options={["Owner or director", "Operations manager", "Restaurant or service manager", "Control room manager", "Procurement manager", "Other"]}
               />
               <JText j={j} name="email" label="Work email" type="email" required autoComplete="email" />
               <JText j={j} name="mobile" label="Mobile number" type="tel" required autoComplete="tel" placeholder="+27" />
@@ -162,7 +162,7 @@ export default function ClientOnboarding() {
               <JRadio
                 j={j}
                 name="guardCount"
-                label="Roughly how many guards?"
+                label="Roughly how many staff or guards?"
                 required
                 accentClass={ACCENT}
                 options={["Under 25", "25 to 100", "100 to 500", "More than 500"]}
@@ -181,7 +181,7 @@ export default function ClientOnboarding() {
                 label="How do you run it today?"
                 hint="Choose any that apply."
                 accentClass={ACCENT}
-                options={["WhatsApp groups", "Spreadsheets", "Paper OBs", "Phone calls", "Other software"]}
+                options={["WhatsApp groups", "Spreadsheets", "Paper OBs", "POS or booking software", "Phone calls", "Other software"]}
               />
             </>
           ) : null}
@@ -199,7 +199,7 @@ export default function ClientOnboarding() {
                 columns="sm:grid-cols-1"
                 options={[
                   "1GUARD security operations",
-                  "1Workforce attendance and field teams",
+                  "1Service operations for restaurants and service businesses",
                   "14-day trial request",
                   "Radios, PTT, tracking or body cameras",
                   "Guard hiring marketplace access (subject to launch and eligibility)",
@@ -228,7 +228,7 @@ export default function ClientOnboarding() {
                 groups={[
                   { step: 0, title: "Company", fields: [["companyName", "Company"], ["registrationNumber", "Registration"], ["province", "Province"]] },
                   { step: 1, title: "You", fields: [["contactName", "Name"], ["contactRole", "Role"], ["email", "Email"], ["mobile", "Mobile"]] },
-                  { step: 2, title: "Operation", fields: [["guardCount", "Guards"], ["siteCount", "Sites"], ["currentTools", "Today"]] },
+                  { step: 2, title: "Operation", fields: [["guardCount", "Staff / guards"], ["siteCount", "Sites"], ["currentTools", "Today"]] },
                   { step: 3, title: "First step", fields: [["interests", "Interested in"], ["nextStep", "Next step"]] },
                 ]}
               />
