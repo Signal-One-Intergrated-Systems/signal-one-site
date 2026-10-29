@@ -3,9 +3,9 @@ import IntakeForm, { type IntakeField } from "../../components/IntakeForm";
 import { Kicker, Steps } from "../../components/ui";
 
 export const metadata: Metadata = {
-  title: "Talk to Signal One | 1GUARD, 1Workforce and Equipment",
+  title: "Talk to Signal One | 1GUARD, 1Service and Equipment",
   description:
-    "Talk to Signal One about 1GUARD, 1Workforce, security equipment and connected operations. Request a walkthrough or product quotation.",
+    "Talk to Signal One about 1GUARD, 1Service, security equipment and connected operations. Request a walkthrough or product quotation.",
   alternates: { canonical: "/contact" },
 };
 
@@ -22,7 +22,7 @@ const fields: IntakeField[] = [
     wide: true,
     options: [
       "1GUARD security operations walkthrough",
-      "1Workforce attendance and workforce management",
+      "1Service restaurant and service operations (in development)",
       "Guard pricing and getting started",
       "Radios, PTT, tracking or body cameras",
       "Hire guards through marketplace",
