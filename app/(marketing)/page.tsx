@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import HeroGlobeLayer from "../components/HeroGlobeLayer";
-import { photos } from "../lib/photos";
 import { guardDayPricePhrase } from "../lib/pricing";
-import servicePhoto from "../../public/images/home/service-restaurant-operations.jpg";
 import pnc360s from "../../public/images/hardware/hytera-pnc360s.webp";
 import fmb920 from "../../public/images/hardware/teltonika-fmb920.webp";
 import "../home-conversion.css";
@@ -82,10 +80,10 @@ export default function Home() {
 
       <section id="guard" className="so-vertical so-guard-section" aria-labelledby="so-guard-title">
         <div className="wrap so-vertical-layout">
-          <div className="so-vertical-visual">
-            <Image src={photos.controlRoomTeam.src} alt={photos.controlRoomTeam.alt}
+          <div className="so-vertical-visual so-vertical-visual-guard">
+            <Image src="/images/home/guard-inset-exclusive.svg" alt="Illustrative empty premium security operations centre with monitoring screens and executive workstations"
               fill sizes="(min-width:1024px) 49vw, 100vw" className="object-cover" />
-            <div className="so-image-caption">Illustrative security operation</div>
+            <div className="so-image-caption">Illustrative operations centre</div>
           </div>
           <div className="so-vertical-content">
             <div className="so-vertical-label"><Link href="/solutions/security" className="so-platform-mark" aria-label="Explore 1GUARD"><span className="so-brand-one">1</span>GUARD</Link> <span>SECURITY OPERATIONS</span></div>
@@ -107,10 +105,10 @@ export default function Home() {
 
       <section id="service" className="so-vertical so-service-section" aria-labelledby="so-service-title">
         <div className="wrap so-vertical-layout so-reverse-layout">
-          <div className="so-vertical-visual">
-            <Image src={servicePhoto} alt="Illustrative professional restaurant kitchen team coordinating food service and operational decisions"
+          <div className="so-vertical-visual so-vertical-visual-service">
+            <Image src="/images/home/service-inset-exclusive.svg" alt="Illustrative unoccupied premium restaurant open kitchen with warm daylight and elegant table settings"
               fill sizes="(min-width:1024px) 49vw, 100vw" className="object-cover" />
-            <div className="so-image-caption">Illustrative restaurant operation</div>
+            <div className="so-image-caption">Illustrative restaurant environment</div>
           </div>
           <div className="so-vertical-content">
             <div className="so-vertical-label"><Link href="/service" className="so-platform-mark" aria-label="Explore 1Service"><span className="so-brand-one">1</span>Service</Link> <span className="so-status">IN DEVELOPMENT</span></div>
