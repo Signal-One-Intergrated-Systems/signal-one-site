@@ -1423,3 +1423,63 @@ footer .wrap > nav > div{border:1px solid rgba(178,217,245,.16);border-radius:18
  main:not(.s1-brand-home) .surface-light .card,main:not(.s1-brand-home) .surface-white .card{background:#d8e7f1!important;backdrop-filter:none}
 }
 @media(prefers-reduced-motion:reduce){main:not(.s1-brand-home) .section .card{transform:none!important;transition:none!important}}
+
+
+/* Depth pass: cinematic subjects are recessed into the scene rather than scaled
+   against the foreground. A blurred copy fills behind the optically reduced photo. */
+.s1-brand-stage-media {background:#0b2035 url('/images/signal-one-hero-integrated-daylight.jpg') center / cover no-repeat;}
+.s1-brand-stage-media::before{content:"";position:absolute;inset:-14px;background:linear-gradient(90deg,rgba(5,19,37,.09),rgba(5,19,37,.2) 52%,rgba(3,19,39,.64));z-index:1;pointer-events:none;}
+.s1-brand-stage-media .s1-brand-stage-image{
+ transform:scale(.87);transform-origin:36% 53%;object-position:center 47%!important;
+ -webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 7%,#000 66%,transparent 84%),linear-gradient(0deg,transparent 0%,#000 9%,#000 91%,transparent 100%);
+ mask-image:linear-gradient(90deg,transparent 0%,#000 7%,#000 66%,transparent 84%);
+}
+.s1-brand-image-wash{z-index:2;opacity:.8}
+.s1-hero-globe-layer{inset:2% -49% -7% 57%;transform:scale(.83);transform-origin:83% 50%;opacity:.73;filter:blur(.65px);}
+.s1-hero-orb-fallback{opacity:.17}
+.s1-hero-globe-canvas{filter:brightness(.76) saturate(.8)}
+.s1-brand-copy.s1-brand-clay.s1-hero-content-glass{background:linear-gradient(125deg,rgba(8,26,47,.69),rgba(8,29,53,.47));box-shadow:inset 0 1px rgba(255,255,255,.23),0 45px 110px -30px rgba(0,9,25,.68)}
+.s1-brand-family{gap:clamp(12px,1.6vw,28px)}
+.s1-brand-community{opacity:.74;pointer-events:none;}
+.s1-brand-community .s1-product-lockup{font-size:clamp(17px,1.45vw,21px)}
+.s1-brand-community .s1-product-description{color:#a2d5ee}
+.s1-brand-family-divider{flex:none}
+.s1-brand-stage{background:#081a2c}
+@media(max-width:1000px){.s1-hero-globe-layer{inset:14% -60% -6% 43%;transform:scale(.82)}}
+@media(max-width:670px){
+ .s1-brand-stage-media .s1-brand-stage-image{transform:scale(.94);-webkit-mask-image:none;mask-image:none;object-position:34% center!important}
+ .s1-hero-globe-layer{inset:27% -76% 0 18%;opacity:.55;transform:scale(.84)}
+ .s1-brand-family{gap:9px;flex-wrap:wrap}
+ .s1-brand-family-divider{height:28px}
+ .s1-brand-community{flex-basis:100%;padding-top:8px}
+}
+/* One dark technology environment, rather than alternating pale brochure bands. */
+.s1-selling-section,.s1-selling-reverse,.s1-selling-bottom{
+ background:radial-gradient(ellipse at 18% 15%,rgba(58,126,177,.22),transparent 57%),linear-gradient(135deg,#0a1b2e,#173550 55%,#0a2035)!important;
+}
+.s1-selling-copy,.s1-selling-mini{
+ background:linear-gradient(130deg,rgba(27,57,83,.75),rgba(10,31,54,.72))!important;
+ color:#f1f8fd;border:1px solid rgba(185,225,250,.27)!important;
+ box-shadow:0 34px 85px -35px rgba(0,5,19,.68),inset 0 1px rgba(255,255,255,.13);
+ -webkit-backdrop-filter:blur(20px) saturate(120%);backdrop-filter:blur(20px) saturate(120%);
+}
+.s1-selling-copy h2,.s1-selling-mini h2{color:#f4faff!important}
+.s1-selling-copy p:not(.s1-selling-kicker),.s1-selling-mini p:not(.s1-selling-kicker){color:#d6e5f0!important}
+.s1-selling-kicker{color:#7dd3fc!important}
+.s1-selling-photo{border:1px solid rgba(190,221,248,.18);box-shadow:0 36px 85px -38px rgba(0,7,19,.75)}
+main:not(.s1-brand-home) .surface-light,main:not(.s1-brand-home) .surface-light-2,
+main:not(.s1-brand-home) .surface-white,main.surface-light:not(.s1-brand-home),
+main.surface-light-2:not(.s1-brand-home),main.surface-white:not(.s1-brand-home){
+ background:radial-gradient(ellipse at 15% 5%,rgba(80,148,196,.17),transparent 60%),linear-gradient(145deg,#152f46,#24465f 53%,#112c43)!important;
+ color:#e8f4fc;
+}
+main:not(.s1-brand-home) .surface-light .card,main:not(.s1-brand-home) .surface-white .card,
+main:not(.s1-brand-home) .surface-light .rounded-card,main:not(.s1-brand-home) .surface-white .rounded-card,
+main.surface-light:not(.s1-brand-home) .card,main.surface-light:not(.s1-brand-home) .rounded-card{
+ background:rgba(14,40,63,.83)!important;color:#e8f4fc;
+ border:1px solid rgba(177,219,246,.27)!important;
+ box-shadow:0 30px 74px -35px rgba(0,10,27,.62),inset 0 1px rgba(255,255,255,.12);
+}
+main:not(.s1-brand-home) .surface-light .card .t-h3,main:not(.s1-brand-home) .surface-white .card .t-h3{color:#f4faff}
+main:not(.s1-brand-home) .surface-light .card p,main:not(.s1-brand-home) .surface-white .card p{color:#d6e5f0}
+@media(prefers-reduced-motion:reduce){.s1-brand-stage-media .s1-brand-stage-image{transition:none}}
