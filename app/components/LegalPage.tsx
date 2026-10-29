@@ -16,6 +16,7 @@ export default function LegalPage({
   sections,
   footer,
   reviewNote = false,
+  className = "",
 }: {
   kicker: string;
   title: string;
@@ -24,9 +25,10 @@ export default function LegalPage({
   footer?: ReactNode;
   /** Shows the "Under legal review." note at the top of the page. */
   reviewNote?: boolean;
+  className?: string;
 }) {
   return (
-    <main id="main" className="surface-light">
+    <main id="main" className={"surface-light " + className}>
       <article className="wrap py-16 md:py-24 lg:py-28">
         {reviewNote ? (
           <p className="t-small mb-8 inline-flex rounded-ui border border-line-strong bg-white px-4 py-2 font-semibold">
