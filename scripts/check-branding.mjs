@@ -54,7 +54,12 @@ for (const root of sourceRoots) {
     const rel = file.replaceAll("\\", "/");
     if (codename.test(path.basename(rel)) || codename.test(rel)) failures.push(`path: ${rel}`);
     if (!textExtensions.has(path.extname(file).toLowerCase())) continue;
-    const content = await readFile(file, "utf8");
+    const rawContent = await readFile(file, "utf8");
+    // Embedded photographic bytes inside SVG wrappers are binary data, not public copy.
+    // Preserve and check all XML markup, attribute text and source paths.
+    const content = rel.endsWith(".svg")
+      ? rawContent.replace(/data:image\/(?:jpeg|png|webp);base64,[A-Za-z0-9+/=]+/gi, "[embedded image bytes]")
+      : rawContent;
     // This script's own rule table is not public copy.
     check(rel, content, { codenameOnly: rel.endsWith(".css") });
 
