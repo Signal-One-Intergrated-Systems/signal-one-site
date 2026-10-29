@@ -5,6 +5,11 @@ main:not(.s1-brand-home) {
   --site-muted:#c9ddeb;
   --site-control:#0c2943;
   --site-edge:rgba(183,225,250,.38);
+  --marketing-focus:#38bdf8;
+  --marketing-radius:20px;
+  --marketing-edge:rgba(185,225,249,.34);
+  --marketing-panel:linear-gradient(130deg,rgba(16,47,73,.86),rgba(8,30,53,.82));
+  --marketing-shadow:0 22px 64px -36px rgba(0,7,24,.74),inset 0 1px rgba(255,255,255,.12);
 }
 main:not(.s1-brand-home) :is(.surface-light,.surface-light-2,.surface-white) {
   color:var(--site-on-dark)!important;
@@ -16,10 +21,10 @@ main:not(.s1-brand-home) :is(.surface-light,.surface-light-2,.surface-white) :is
   color:var(--site-muted)!important;
 }
 main:not(.s1-brand-home) :is(.surface-light,.surface-light-2,.surface-white) :is(.card,.rounded-card,.glass-light) {
-  background:linear-gradient(130deg,rgba(16,47,73,.86),rgba(8,30,53,.82))!important;
+  background:var(--marketing-panel)!important;
   color:var(--site-on-dark)!important;
-  border:1px solid var(--site-edge)!important;
-  box-shadow:0 28px 75px -36px rgba(0,7,24,.7),inset 0 1px rgba(255,255,255,.16);
+  border:1px solid var(--marketing-edge)!important;
+  box-shadow:var(--marketing-shadow);
   -webkit-backdrop-filter:blur(18px) saturate(125%);
   backdrop-filter:blur(18px) saturate(125%);
 }
@@ -34,9 +39,6 @@ main:not(.s1-brand-home) .field-input {
   border-radius:13px!important;min-height:52px;
 }
 main:not(.s1-brand-home) .field-input::placeholder {color:#b4cad9!important;opacity:1}
-main:not(.s1-brand-home) .field-input:focus-visible {
-  outline:2px solid #7bd8ff!important;outline-offset:2px;
-}
 main:not(.s1-brand-home) select.field-input option {background:#0c2943;color:#f2f9ff;}
 main:not(.s1-brand-home) :is(.choice,.check) {
   background:rgba(12,43,68,.7)!important;
@@ -45,23 +47,13 @@ main:not(.s1-brand-home) :is(.choice,.check) {
 }
 main:not(.s1-brand-home) :is(.choice,.check) :is(.text-text,.text-text-2) {color:#eaf6ff!important}
 main:not(.s1-brand-home) .choice:has(input:checked) {border-color:#78d8ff!important;background:rgba(10,89,139,.5)!important}
-main:not(.s1-brand-home) :is(.choice,.check):focus-within{outline:2px solid #7bd8ff;outline-offset:2px}
+
 main:not(.s1-brand-home) input:is([type=checkbox],[type=radio]){accent-color:#0ea5e9}
 main:not(.s1-brand-home) :is(.btn,.btn-primary,.btn-ghost,.btn-ghost-light,a) {text-underline-offset:4px}
-main:not(.s1-brand-home) :is(a,button,input,select,textarea):focus-visible{outline:2px solid #7bd8ff;outline-offset:3px}
 main:not(.s1-brand-home) .field-error,main:not(.s1-brand-home) [role=alert] {color:#ffd1d1!important}
 main:not(.s1-brand-home) :is(.section,.surface-light,.surface-light-2,.surface-white,.surface-deep) > .wrap {position:relative}
-main:not(.s1-brand-home) .section .grid > :is(article,.card,.rounded-card) {
-  transition:transform .25s ease,box-shadow .25s ease;
-}
-@media(hover:hover) and (prefers-reduced-motion:no-preference){
-  main:not(.s1-brand-home) .section .grid > :is(article,.card,.rounded-card):hover{transform:translateY(-3px)}
-}
 @media(prefers-reduced-transparency:reduce){
  main:not(.s1-brand-home) :is(.card,.rounded-card,.glass-light){background:#173a55!important;backdrop-filter:none!important}
-}
-@media(prefers-reduced-motion:reduce){
- main:not(.s1-brand-home) .section .grid > :is(article,.card,.rounded-card){transition:none!important}
 }
 
 
@@ -91,9 +83,11 @@ main:not(.s1-brand-home) .t-caption{font-size:.875rem}
 main:not(.s1-brand-home) :is(.card,.rounded-card,.glass,.glass-light){
  overflow-wrap:break-word;
 }
-main:not(.s1-brand-home) :is(.field-input,input,textarea,select):focus-visible,
-main:not(.s1-brand-home) :is(a,button):focus-visible{
- outline:3px solid #38bdf8!important;outline-offset:3px!important;
+/* One focus treatment for buttons, links, form controls and selection surfaces. */
+main:not(.s1-brand-home) :is(.field-input,input,textarea,select,a,button,[role="button"]):focus-visible,
+main:not(.s1-brand-home) :is(.choice,.check):focus-within{
+ outline:3px solid var(--marketing-focus)!important;
+ outline-offset:3px!important;
 }
 main:not(.s1-brand-home) .field-input{min-height:52px;font-family:var(--s1-font-body)}
 main:not(.s1-brand-home) :is(.btn,button,[role="button"]){touch-action:manipulation}
@@ -112,12 +106,6 @@ main:not(.s1-brand-home) :is(.btn,button,[role="button"]){touch-action:manipulat
 
 /* Shared visible component geometry — premium Signal One marketing surfaces.
    Scoped to commercial routes; hero artwork, brand lockups and the Guard shutter are unchanged. */
-main:not(.s1-brand-home){
- --marketing-radius:20px;
- --marketing-edge:rgba(185,225,249,.34);
- --marketing-panel:linear-gradient(135deg,rgba(22,57,82,.94),rgba(9,30,51,.94));
- --marketing-shadow:0 22px 64px -36px rgba(0,7,24,.74),inset 0 1px rgba(255,255,255,.12);
-}
 main:not(.s1-brand-home) :is(.card,.card-dark,.rounded-card,.glass,.glass-light){
  border-radius:var(--marketing-radius);
  border:1px solid var(--marketing-edge);
