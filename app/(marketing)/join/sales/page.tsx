@@ -44,7 +44,7 @@ export default function SalesCareersPage() {
 
   return (
     <main id="main" className="bg-light text-text">
-      <SplitHero src={photos.controlRoomTeam.src} alt={photos.controlRoomTeam.alt} objectPositionMobile="50% 30%" objectPosition="60% 35%">
+      <SplitHero src="/images/interior/talent-premium.svg" alt="Illustrative empty premium workplace training room" objectPositionMobile="50% 30%" objectPosition="60% 35%">
           <p className="t-kicker text-signal-400">Careers at Signal One</p>
           <h1 className="mt-4 font-display text-[2.9rem] font-bold leading-[1.04] tracking-[-0.02em] sm:text-[3.6rem]">
             Sell the system security companies run on.
