@@ -146,3 +146,19 @@ for (const viewport of viewports) {
     }
   });
 }
+
+
+test("hero platform selector remains centred and fully usable after animation", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/");
+  await expect(page.locator(".so-hero-bar")).toBeVisible();
+  const metrics = await page.locator(".so-hero-bar").evaluate(el => {
+    const r = el.getBoundingClientRect();
+    return { left: r.left, right: r.right, width: r.width };
+  });
+  expect(metrics.left).toBeGreaterThanOrEqual(0);
+  expect(metrics.right).toBeLessThanOrEqual(1441);
+  for (const label of ["1GUARD", "1Service", "Equipment", "1Community"]) {
+    await expect(page.locator(".so-hero-bar").getByRole("link", { name: new RegExp(label, "i") })).toBeAttached();
+  }
+});
