@@ -55,7 +55,7 @@ export default function ServicePage() {
     </section>
     <section className="surface-white section"><div className="wrap flex flex-wrap items-center justify-between gap-8">
       <div><h2 className="t-h2">See how 1Service can fit your business.</h2><p className="t-body mt-4 text-text-2">Tell us about your teams, sites and required workflows. We will confirm the supported rollout and commercial terms.</p></div>
-      <Link className="btn btn-primary btn-lg" href="/contact">Talk to Signal One</Link>
+      <Link className="btn btn-primary btn-lg" href="/get-started">Get 14 Day Free Trial</Link>
     </div></section>
   </main>;
 }
