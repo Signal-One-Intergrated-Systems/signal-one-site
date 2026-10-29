@@ -253,3 +253,14 @@ body:has(.so-home) header.glass-nav{
 @media(max-width:950px){.so-home .so-hero-copy{max-width:min(650px,78vw)}.so-home .so-hero-bar{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:670px){.so-home .so-hero-copy{max-width:100%;background:rgba(20,38,45,.82)}.so-home .so-hero-bar{grid-template-columns:1fr 1fr;background:rgba(20,38,45,.91)}.so-home .so-hero-bar-item{min-height:67px;display:flex;align-items:flex-start;flex-direction:column;justify-content:center}.so-home .so-hero-bar span{text-align:left}}
 @media(prefers-reduced-transparency:reduce){body:has(.so-home) header.glass-nav{background:#18313b!important}.so-home .so-hero-copy{background:#1b3039}}
+
+
+/* Unique original people-free cinematic backgrounds: no image shared between sections. */
+.so-home .so-introduction{background-image:linear-gradient(95deg,rgba(7,23,34,.67),rgba(15,38,46,.42)),url('/images/scenes/atrium.svg')}
+.so-home .so-guard-section{background-image:linear-gradient(95deg,rgba(8,26,38,.64),rgba(10,30,43,.44)),url('/images/scenes/control-room.svg')}
+.so-home .so-service-section{background-image:linear-gradient(95deg,rgba(8,22,32,.63),rgba(12,34,42,.42)),url('/images/scenes/restaurant.svg')}
+.so-home .so-equipment-section{background-image:linear-gradient(95deg,rgba(8,26,39,.72),rgba(12,32,43,.48)),url('/images/scenes/showroom.svg')}
+.so-home .so-onboarding-section{background-image:linear-gradient(95deg,rgba(8,25,37,.65),rgba(11,32,44,.47)),url('/images/scenes/campus.svg')}
+.so-home .so-final-cta{background-image:linear-gradient(95deg,rgba(7,25,38,.7),rgba(11,30,42,.5)),url('/images/scenes/lobby.svg')}
+.so-home .so-hero-media .so-hero-photo{object-position:center center;filter:brightness(1.045) saturate(1.02)}
+body:has(.so-home) header.glass-nav{background:rgba(240,250,255,.1)!important}
