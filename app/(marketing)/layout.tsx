@@ -8,6 +8,7 @@ import SceneTransition from "../components/SceneTransition";
 import { guardAvailability, guardIsLive } from "../lib/guardStatus";
 import { brand, salesEmail, siteUrl } from "../lib/site";
 import "../globals.css";
+import "../marketing-system.css";
 import { guardDayPricePhrase, minimumPhrase, pricing, schemaPrice } from "../lib/pricing";
 
 
