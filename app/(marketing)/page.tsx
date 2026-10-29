@@ -44,7 +44,7 @@ export default function Home() {
         <div className="wrap so-hero-inner">
           <div className="so-hero-copy">
             <p className="so-eyebrow"><span className="so-signal-dot" /> Signal One · Integrated Systems</p>
-            <h1 id="so-hero-title">Run the business.<br /><span>Prove the work.</span></h1>
+            <h1 id="so-hero-title">Every operation.<br /><span>In your control.</span></h1>
             <p className="so-hero-lead">
               From security sites and patrols to restaurant teams and field technology:
               bring the people, the work and the decisions that matter into focus.
@@ -57,9 +57,9 @@ export default function Home() {
           </div>
         </div>
         <div className="so-hero-bar" aria-label="Signal One business areas">
-          <a href="#guard" className="so-hero-bar-item"><strong>01 / 1GUARD</strong><span>Security operations</span></a>
-          <a href="#service" className="so-hero-bar-item"><strong>02 / 1Service</strong><span>Restaurant-first OS · In development</span></a>
-          <a href="#equipment" className="so-hero-bar-item"><strong>03 / Equipment</strong><span>Professional devices & connectivity</span></a>
+          <Link href="/solutions/security" className="so-hero-bar-item" aria-label="Explore 1GUARD security operations"><strong><span className="so-platform-icon" aria-hidden="true">◈</span> 1GUARD</strong><span>Security operations</span></Link>
+          <Link href="/service" className="so-hero-bar-item" aria-label="Explore 1Service business operating system"><strong><span className="so-platform-icon" aria-hidden="true">✦</span> 1Service</strong><span>Restaurant-first OS · In development</span></Link>
+          <Link href="/equipment-marketplace" className="so-hero-bar-item" aria-label="Explore enterprise equipment"><strong><span className="so-platform-icon" aria-hidden="true">⌁</span> Equipment</strong><span>Professional devices & connectivity</span></Link>
         </div>
         <span className="so-hero-photo-note">Illustrative scene</span>
       </section>
