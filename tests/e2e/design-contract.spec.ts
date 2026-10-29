@@ -10,8 +10,8 @@ test("official header lockup respects its size and stays clear of the menu", asy
     const checks = await page.evaluate(() => {
       const header = document.querySelector("header.glass-nav")!;
       const link = header.querySelector('a[aria-label*="home"]')!;
-      const logo = link.querySelector(".s1-mark");
-      const descriptor = [...link.querySelectorAll("span")].find(n => n.textContent?.trim() === "INTEGRATED SYSTEMS" && getComputedStyle(n).display !== "none");
+      const logo = [...link.querySelectorAll(".s1-mark")].find(n => n.getBoundingClientRect().width > 0);
+      const descriptor = [...link.querySelectorAll("span")].find(n => n.textContent?.trim() === "INTEGRATED SYSTEMS" && n.getBoundingClientRect().width > 0);
       const menu = header.querySelector('button[aria-controls="mobile-nav"]');
       const rect = link.getBoundingClientRect();
       const menuRect = menu?.getBoundingClientRect();
