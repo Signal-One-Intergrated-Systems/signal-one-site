@@ -2,6 +2,7 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import SignalOneLogo from "./brand/SignalOneLogo";
 
 
 type Phase = "idle" | "closing" | "covered" | "opening";
@@ -25,16 +26,22 @@ export default function SceneTransition({ children }: { children: ReactNode }) {
   const timeout = useRef<number | null>(null);
   const target = useRef<string | null>(null);
   const previous = useRef(pathname);
+  const hold = useRef<number | null>(null);
 
   useEffect(() => {
     if (previous.current === pathname) return;
     previous.current = pathname;
     if (timeout.current !== null) window.clearTimeout(timeout.current);
+    if (hold.current !== null) window.clearTimeout(hold.current);
     timeout.current = null;
     if (target.current !== null) {
-      setPhase("opening");
       target.current = null;
-      timeout.current = window.setTimeout(() => { setPhase("idle"); timeout.current = null; }, 1338);
+      // Let the destination identity remain visible over fully closed glass.
+      hold.current = window.setTimeout(() => {
+        setPhase("opening");
+        hold.current = null;
+        timeout.current = window.setTimeout(() => { setPhase("idle"); timeout.current = null; }, 1338);
+      }, 460);
     } else {
       setDestination(pathname);
       setPhase("idle");
@@ -60,7 +67,11 @@ export default function SceneTransition({ children }: { children: ReactNode }) {
       setPhase("closing");
       timeout.current = window.setTimeout(() => {
         setPhase("covered");
-        if (target.current) router.push(target.current);
+        // Keep the branded seal visible before switching underlying content.
+        hold.current = window.setTimeout(() => {
+          if (target.current) router.push(target.current);
+          hold.current = null;
+        }, 420);
         timeout.current = window.setTimeout(() => {
           // Navigation failure recovery: never trap the user behind glass.
           if (target.current) { setPhase("idle"); target.current = null; }
@@ -72,10 +83,12 @@ export default function SceneTransition({ children }: { children: ReactNode }) {
     return () => {
       document.removeEventListener("click", onClick, true);
       if (timeout.current !== null) clearTimeout(timeout.current);
+      if (hold.current !== null) clearTimeout(hold.current);
     };
   }, [router]);
 
-  const active = phase !== "idle";
+  const isMaster = destination === "/" || destination.startsWith("/equipment") || destination.startsWith("/radios") || destination.startsWith("/ptt-radio");
+  const isEquipment = destination.startsWith("/equipment") || destination.startsWith("/radios") || destination.startsWith("/ptt-radio");
   return <>
     <div key={pathname} data-scene-route={pathname} className="s1-scene-route">{children}</div>
     <div className="sg-entry-overlay" data-guard-entry={phase === "covered" ? "sealed" : phase} aria-hidden="true" data-exact-guard-transition>
@@ -90,8 +103,8 @@ export default function SceneTransition({ children }: { children: ReactNode }) {
             <circle cx="44" cy="44" r="10" fill="#0EA5E9" />
           </svg>
         </span>
-        <span className="sg-entry-wordmark">{destination.startsWith("/solutions/security") || destination.startsWith("/guard-") ? <><span className="sg-entry-one">1</span>GUARD</> : destination.startsWith("/workforce") ? <><span className="sg-entry-one">1</span>Workforce</> : identity(destination)}</span>
-        <span className="sg-entry-caption">{destination.startsWith("/solutions/security") || destination.startsWith("/guard-") ? "SECURITY OPERATIONS" : destination.startsWith("/workforce") ? "WORKFORCE OPERATIONS" : "INTEGRATED SYSTEMS"}</span>
+        {isMaster ? <span className="sg-entry-wordmark sg-entry-master-logo"><SignalOneLogo tone="dark" size={42} descriptorMin={14} /></span> : <span className="sg-entry-wordmark">{destination.startsWith("/solutions/security") || destination.startsWith("/guard-") ? <><span className="sg-entry-one">1</span>GUARD</> : destination.startsWith("/workforce") ? <><span className="sg-entry-one">1</span>Workforce</> : identity(destination)}</span>}
+        <span className="sg-entry-caption">{isEquipment ? "EQUIPMENT" : isMaster ? "" : destination.startsWith("/solutions/security") || destination.startsWith("/guard-") ? "SECURITY OPERATIONS" : destination.startsWith("/workforce") ? "WORKFORCE OPERATIONS" : "INTEGRATED SYSTEMS"}</span>
       </div>
     </div>
   </>;
