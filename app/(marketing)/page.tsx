@@ -5,8 +5,8 @@ import HeroGlobeLayer from "../components/HeroGlobeLayer";
 import { photos } from "../lib/photos";
 
 export const metadata: Metadata = {
-  title: { absolute: "Signal One | Integrated Systems, 1GUARD and 1Workforce" },
-  description: "Signal One connects security operations, field workforce management and mission-critical communications through technology built for real-world operations.",
+  title: { absolute: "Signal One | 1GUARD, 1Service & Enterprise Technology" },
+  description: "Run security, service operations and connected equipment with Signal One. Explore 1GUARD, 1Service and enterprise technology. Request a 14-day free trial.",
   alternates: { canonical: "/" },
 };
 
@@ -23,20 +23,24 @@ export default function Home() {
         </div>
         <HeroGlobeLayer />
         <div className="s1-brand-copy s1-brand-clay s1-hero-content-glass">
-          <p className="s1-brand-eyebrow">Technology for real-world operations</p>
-          <h1 id="s1-brand-intro">Control the work.<br />See the results.</h1>
+          <p className="s1-brand-eyebrow">Operational software and connected technology</p>
+          <h1 id="s1-brand-intro">Run a better operation.<br />Every single day.</h1>
           <p className="s1-brand-explainer">
-            Manage guards, patrols and incidents with 1GUARD. Keep teams, attendance and field work organised with 1Workforce. Equip your operation with connected communications and technology from Signal One.
+            Know what is happening across your operation. Protect every security shift with 1GUARD, bring your service business together with 1Service, and equip your teams with enterprise-ready technology.
           </p>
+          <div className="flex flex-wrap items-center gap-3 mt-6 mb-5" aria-label="Start with Signal One">
+            <Link href="/get-started" className="btn btn-primary btn-lg">Get 14 Day Free Trial</Link>
+            <Link href="/equipment-marketplace" className="btn btn-ghost-dark btn-lg">Explore Enterprise Equipment</Link>
+          </div>
           <div className="s1-brand-family" aria-label="Signal One platforms">
             <Link href="/solutions/security" className="s1-brand-family-item s1-brand-product-link" aria-label="Explore 1GUARD security operations">
               <span className="s1-product-lockup"><span className="s1-product-one">1</span>GUARD</span>
               <span className="s1-product-description">Security operations</span>
             </Link>
             <div className="s1-brand-family-divider" aria-hidden="true" />
-            <Link href="/workforce" className="s1-brand-family-item s1-brand-product-link" aria-label="Explore 1Workforce operations">
-              <span className="s1-product-lockup"><span className="s1-product-one">1</span>Workforce</span>
-              <span className="s1-product-description">Workforce operations</span>
+            <Link href="/workforce" className="s1-brand-family-item s1-brand-product-link" aria-label="Explore 1Service business operations">
+              <span className="s1-product-lockup"><span className="s1-product-one">1</span>Service</span>
+              <span className="s1-product-description">Service business operating system</span>
             </Link>
             <div className="s1-brand-family-divider" aria-hidden="true" />
             <div className="s1-brand-family-item s1-brand-community" aria-label="1Community, coming soon">
@@ -44,7 +48,7 @@ export default function Home() {
               <span className="s1-product-description">Coming soon</span>
             </div>
           </div>
-          <p className="s1-brand-final">Security. Workforce. Equipment. Connected.</p>
+          <p className="s1-brand-final">Security operations. Service businesses. Enterprise technology.</p>
         </div>
       </section>
 
@@ -65,8 +69,8 @@ export default function Home() {
         </div>
         <div className="s1-selling-copy reveal">
           <p className="s1-selling-kicker"><span className="s1-product-one">1</span>Workforce · Attendance and field teams</p>
-          <h2 id="s1-workforce-head">Know who worked. Where. And when.</h2>
-          <p>Bring your people, shifts, timesheets and job cards together. Turn workforce activity into records you can review and act on.</p>
+          <h2 id="s1-workforce-head">Your whole service business. One operating system.</h2>
+          <p>Connect staffing, shifts, jobs, daily operations and business oversight. Start with your team and build towards a more profitable, better-managed service business.</p>
           <Link href="/workforce" className="s1-selling-link">Explore <span className="s1-product-one">1</span>Workforce <span aria-hidden="true">↗</span></Link>
         </div>
       </section>
@@ -75,7 +79,7 @@ export default function Home() {
           <p className="s1-selling-kicker">Equipment and connectivity</p>
           <h2>Equip every operation.</h2>
           <p>Explore radios, PTT, tracking and equipment buying or rental enquiries.</p>
-          <Link href="/equipment-marketplace" className="s1-selling-link">Explore equipment <span aria-hidden="true">↗</span></Link>
+          <Link href="/equipment-marketplace" className="s1-selling-link">Explore enterprise equipment <span aria-hidden="true">↗</span></Link>
         </div>
         <div className="s1-selling-mini reveal">
           <p className="s1-selling-kicker"><span className="s1-product-one">1</span>Community · <span className="s1-upcoming-tag">Coming soon</span></p>
