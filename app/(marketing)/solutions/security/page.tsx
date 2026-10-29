@@ -53,7 +53,7 @@ export default function SecurityPlatformPage() {
             {guardDayPricePhrase}
           </ButtonLink>
         </div>
-        <p className="t-caption mt-6 text-text-inv-2">{illustrativeCaption}</p>
+        <p className="t-caption mt-6 text-text-inv-2">Trial access is subject to company registration and activation confirmation. No trial begins when you submit a request.</p>\n        <p className="t-caption mt-3 text-text-inv-2">{illustrativeCaption}</p>
       </SplitHero>
 
       {/* Coverage */}
