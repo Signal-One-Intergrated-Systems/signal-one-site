@@ -1700,3 +1700,157 @@ main:not(.s1-brand-home) .section .grid > :is(article,.card,.rounded-card) {
 
 /* The branded glass doors now own route change; remove the old generic scene fade. */
 .s1-scene-route,.s1-scene-route[data-scene-exit]{animation:none!important;filter:none!important;transform:none!important;}
+
+
+/* Exact 1GUARD entry shutter geometry, keyframes, SVG mark and motion multipliers.
+   Source: signal-one-guard apps/web/app/substrate.css, release/staging-2026-10-03-platform-management.
+   --sg-dur-enter 440ms, --sg-dur-fast 180ms; sweep 1122ms and hold 216ms. */
+:root{--sg-dur-enter:440ms;--sg-dur-fast:180ms;--sg-ease-signal:cubic-bezier(.16,1,.3,1);--sg-text-primary:#f8fafc;}
+.sg-entry-overlay[data-guard-entry="idle"]{display:none!important}
+.sg-entry-overlay[data-guard-entry="sealed"] .sg-entry-shutter{transform:translate3d(0,0,0)}
+.sg-entry-overlay[data-guard-entry="opening"] .sg-entry-shutter{animation-duration:1122ms}
+.sg-entry-overlay[data-guard-entry="opening"]{visibility:visible}
+.sg-entry-overlay[data-guard-entry="closing"]{visibility:visible}
+.sg-entry-overlay[data-guard-entry="sealed"]{visibility:visible}
+.sg-entry-overlay .sg-entry-shutter.sg-glass-panel{backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)}
+.sg-entry-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  overflow: hidden;
+  pointer-events: none;
+  perspective: 1100px;
+}
+.sg-entry-shutter.sg-glass-panel {
+  position: absolute;
+  inset-block: 0;
+  width: 50%;
+  border-radius: 0;
+  border-color: rgba(147, 197, 230, 0.17);
+  background:
+    linear-gradient(120deg, rgba(48, 72, 94, 0.76), rgba(11, 28, 43, 0.95) 66%, rgba(8, 21, 34, 0.98));
+  box-shadow: inset 0 0 70px rgba(92, 164, 205, 0.07), 0 0 44px rgba(0,0,0,0.35);
+}
+.sg-entry-shutter-left { left: 0; border-right: 1px solid rgba(125, 211, 252, 0.28); }
+.sg-entry-shutter-right { right: 0; border-left: 1px solid rgba(125, 211, 252, 0.28); }
+.sg-entry-overlay[data-guard-entry="closing"] .sg-entry-shutter-left {
+  animation: sg-shutter-close-left calc(var(--sg-dur-enter) * 2.55) var(--sg-ease-signal) both;
+}
+.sg-entry-overlay[data-guard-entry="closing"] .sg-entry-shutter-right {
+  animation: sg-shutter-close-right calc(var(--sg-dur-enter) * 2.55) var(--sg-ease-signal) both;
+}
+.sg-entry-overlay[data-guard-entry="opening"] .sg-entry-shutter-left {
+  animation: sg-shutter-open-left calc(var(--sg-dur-enter) * 2.55) var(--sg-ease-signal) both;
+}
+.sg-entry-overlay[data-guard-entry="opening"] .sg-entry-shutter-right {
+  animation: sg-shutter-open-right calc(var(--sg-dur-enter) * 2.55) var(--sg-ease-signal) both;
+}
+@keyframes sg-shutter-close-left {
+  from { transform: translate3d(-102%, 0, 0); }
+  to { transform: translate3d(0, 0, 0); }
+}
+@keyframes sg-shutter-close-right {
+  from { transform: translate3d(102%, 0, 0); }
+  to { transform: translate3d(0, 0, 0); }
+}
+@keyframes sg-shutter-open-left {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-102%, 0, 0); }
+}
+@keyframes sg-shutter-open-right {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(102%, 0, 0); }
+}
+.sg-entry-seam {
+  position: absolute;
+  inset-block: 12%;
+  left: 50%;
+  width: 1px;
+  background: linear-gradient(transparent, rgba(56, 189, 248, 0.75), transparent);
+  box-shadow: 0 0 28px rgba(14, 165, 233, 0.6);
+  opacity: 0;
+}
+.sg-entry-overlay[data-guard-entry="closing"] .sg-entry-seam {
+  animation: sg-entry-seam-in calc(var(--sg-dur-enter) * 2.55) ease-in both;
+}
+.sg-entry-overlay[data-guard-entry="sealed"] .sg-entry-seam { opacity: 0.8; }
+.sg-entry-overlay[data-guard-entry="opening"] .sg-entry-seam {
+  animation: sg-entry-seam-out calc(var(--sg-dur-fast) * 1.2) ease-out both;
+}
+@keyframes sg-entry-seam-in {
+  0%, 60% { opacity: 0; }
+  100% { opacity: .8; }
+}
+@keyframes sg-entry-seam-out {
+  from { opacity: .8; } to { opacity: 0; }
+}
+.sg-entry-emblem {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
+  color: var(--sg-text-primary);
+  text-align: center;
+}
+.sg-entry-pulse, .sg-entry-wordmark {
+  display: block;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+.sg-entry-pulse {
+  position: absolute;
+  filter: drop-shadow(0 0 24px rgba(14, 165, 233, .34));
+}
+.sg-entry-wordmark {
+  opacity: 0;
+  font-size: clamp(2.6rem, 6vw, 5rem);
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: -0.055em;
+  text-shadow: 0 16px 45px rgba(0,0,0,.55);
+}
+.sg-entry-one { color: #38BDF8; margin-right: .08em; }
+.sg-entry-caption {
+  margin-top: 1.5rem;
+  font-size: .65rem;
+  font-weight: 650;
+  letter-spacing: .32em;
+  color: #CBD5E1;
+  opacity: 0;
+}
+.sg-entry-overlay[data-guard-entry="closing"] .sg-entry-pulse {
+  animation: sg-pulse-flip-away calc(var(--sg-dur-enter) * 2.55) var(--sg-ease-signal) both;
+}
+.sg-entry-overlay[data-guard-entry="closing"] .sg-entry-wordmark {
+  animation: sg-wordmark-flip-in calc(var(--sg-dur-enter) * 2.55) var(--sg-ease-signal) both;
+}
+.sg-entry-overlay[data-guard-entry="closing"] .sg-entry-caption {
+  animation: sg-entry-seam-in calc(var(--sg-dur-enter) * 2.55) ease-in both;
+}
+.sg-entry-overlay[data-guard-entry="sealed"] .sg-entry-pulse { opacity: 0; }
+.sg-entry-overlay[data-guard-entry="sealed"] .sg-entry-wordmark { opacity: 1; }
+.sg-entry-overlay[data-guard-entry="sealed"] .sg-entry-caption { opacity: 0.8; }
+.sg-entry-overlay[data-guard-entry="opening"] .sg-entry-pulse { opacity: 0; }
+.sg-entry-overlay[data-guard-entry="opening"] .sg-entry-wordmark,
+.sg-entry-overlay[data-guard-entry="opening"] .sg-entry-caption {
+  animation: sg-entry-emblem-out calc(var(--sg-dur-enter) * 1.15) ease-out both;
+}
+@keyframes sg-pulse-flip-away {
+  0% { opacity: 0; transform: rotateY(0) scale(.72); }
+  24% { opacity: 1; transform: rotateY(0) scale(1.08); }
+  48% { opacity: 1; transform: rotateY(0) scale(1); }
+  75%, 100% { opacity: 0; transform: rotateY(-90deg) scale(.82); }
+}
+@keyframes sg-wordmark-flip-in {
+  0%, 49% { opacity: 0; transform: rotateY(90deg) scale(.9); }
+  78%, 100% { opacity: 1; transform: rotateY(0) scale(1); }
+}
+@keyframes sg-entry-emblem-out {
+  0%, 25% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.035); }
+}
+
+@media(prefers-reduced-motion:reduce){.sg-entry-overlay{display:none!important}}
