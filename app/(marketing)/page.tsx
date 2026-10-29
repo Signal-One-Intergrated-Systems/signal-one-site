@@ -38,6 +38,11 @@ export default function Home() {
               <span className="s1-product-lockup"><span className="s1-product-one">1</span>Workforce</span>
               <span className="s1-product-description">Workforce operations</span>
             </Link>
+            <div className="s1-brand-family-divider" aria-hidden="true" />
+            <div className="s1-brand-family-item s1-brand-community" aria-label="1Community, coming soon">
+              <span className="s1-product-lockup"><span className="s1-product-one">1</span>Community</span>
+              <span className="s1-product-description">Coming soon</span>
+            </div>
           </div>
           <p className="s1-brand-final">Security. Workforce. Equipment. Connected.</p>
         </div>
