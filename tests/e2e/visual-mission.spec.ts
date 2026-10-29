@@ -1,14 +1,11 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
+import { routes as allMarketingRoutes } from "./routes";
 
 /** Phase 7 production-like acceptance for every core acquisition path.
  * Run after `npm run build`; does not require live credentials.
  */
-const routes = [
-  "/", "/solutions/security", "/service", "/equipment-marketplace",
-  "/guard-marketplace", "/guards", "/get-started", "/radios-equipment",
-  "/join/sales", "/security-trust", "/pricing", "/contact",
-];
+const routes = [...allMarketingRoutes];
 const viewports = [
   { width: 375, height: 812 },
   { width: 768, height: 1024 },
@@ -84,4 +81,28 @@ test("key acquisition pages have no critical automated accessibility violations"
     const serious = results.violations.filter(v => v.impact === "critical");
     expect(serious.map(v => `${route}: ${v.id} ${v.description}`)).toEqual([]);
   }
+});
+
+test("every branded acquisition page uses its own declared premium scene", async ({ page }) => {
+  const uniqueScenes: Record<string, string> = {
+    "/solutions/security": "guard-premium.svg",
+    "/service": "service-premium.svg",
+    "/equipment-marketplace": "network-premium.svg",
+    "/guard-marketplace": "hiring-premium.svg",
+    "/guards": "field-premium.svg",
+    "/join/sales": "talent-premium.svg",
+    "/get-started": "trial-premium.svg",
+    "/radios-equipment": "radio-premium.svg",
+    "/security-trust": "legal-premium.svg",
+  };
+  for (const [route, expected] of Object.entries(uniqueScenes)) {
+    await page.goto(route);
+    const discovered = await page.evaluate(() => {
+      const imageUrls = [...document.querySelectorAll("main img")].map(img => img.getAttribute("src") ?? "");
+      const backgroundUrls = [...document.querySelectorAll("main, main > section")].map(el => getComputedStyle(el).backgroundImage);
+      return [...imageUrls, ...backgroundUrls].join(" | ");
+    });
+    expect(discovered, `Missing art on ${route}`).toContain(expected);
+  }
+  expect(new Set(Object.values(uniqueScenes)).size).toBe(Object.values(uniqueScenes).length);
 });
