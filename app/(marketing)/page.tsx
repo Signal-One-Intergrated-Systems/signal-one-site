@@ -4,7 +4,6 @@ import Link from "next/link";
 import HeroGlobeLayer from "../components/HeroGlobeLayer";
 import { photos } from "../lib/photos";
 import { guardDayPricePhrase } from "../lib/pricing";
-import heroPhoto from "../../public/images/home/signal-one-hero-daylight.jpg";
 import servicePhoto from "../../public/images/home/service-restaurant-operations.jpg";
 import pnc360s from "../../public/images/hardware/hytera-pnc360s.webp";
 import fmb920 from "../../public/images/hardware/teltonika-fmb920.webp";
@@ -35,7 +34,7 @@ export default function Home() {
     <main id="main" className="s1-brand-home so-home">
       <section className="s1-brand-stage so-hero" aria-labelledby="so-hero-title">
         <div className="so-hero-media">
-          <Image src={heroPhoto} alt="Illustrative daylight scene of two security professionals coordinating at a modern corporate entrance"
+          <Image src="/images/home/approved-corporate-security-hero.svg" unoptimized alt="Illustrative bright daylight scene of a Black female and a white male security officer in professional tactical uniforms outside a modern corporate building"
             fill priority quality={90} sizes="100vw" className="so-hero-photo object-cover" />
           <div className="so-hero-wash" aria-hidden="true" />
         </div>
