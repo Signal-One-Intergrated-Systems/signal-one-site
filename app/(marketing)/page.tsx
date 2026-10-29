@@ -17,7 +17,7 @@ export default function Home() {
         <div className="s1-brand-stage-media">
           <Image src="/images/signal-one-hero-integrated-daylight.jpg" alt="Two professional South African security officers, a woman and a man, working together at a modern corporate entrance in bright daylight"
             fill priority sizes="100vw"
-            quality={85} className="s1-brand-stage-image object-cover" />
+            quality={90} className="s1-brand-stage-image object-cover" />
           <div className="s1-brand-image-wash" aria-hidden="true" />
 
         </div>
@@ -63,14 +63,14 @@ export default function Home() {
           <Link href="/solutions/security" className="s1-selling-link">Explore <span className="s1-product-one">1</span>GUARD <span aria-hidden="true">↗</span></Link>
         </div>
       </section>
-      <section className="s1-selling-section s1-selling-reverse reveal-group" aria-labelledby="s1-workforce-head">
+      <section className="s1-selling-section s1-selling-reverse reveal-group" aria-labelledby="s1-service-head">
         <div className="s1-selling-photo reveal">
-          <Image src={photos.warehouse.src} alt={photos.warehouse.alt} fill sizes="(min-width: 900px) 50vw, 100vw" className="object-cover"/>
+          <Image src={photos.teamBriefing.src} alt="Illustrative team briefing at a South African security site; not a 1Service software screenshot" fill sizes="(min-width: 900px) 50vw, 100vw" className="object-cover"/>
         </div>
         <div className="s1-selling-copy reveal">
           <p className="s1-selling-kicker"><span className="s1-product-one">1</span>Service · Business operations</p>
-          <h2 id="s1-workforce-head">Your whole service business. One operating system.</h2>
-          <p>Connect staffing, shifts, jobs, daily operations and business oversight. Start with your team and build towards a more profitable, better-managed service business.</p>
+          <h2 id="s1-workforce-head">Bring your service business together.</h2>
+          <p>Start by bringing attendance, shifts, teams and job records into one operational view. Explore the broader 1Service vision and confirm available workflows with our team.</p>
           <Link href="/service" className="s1-selling-link">Explore <span className="s1-product-one">1</span>Service <span aria-hidden="true">↗</span></Link>
         </div>
       </section>
