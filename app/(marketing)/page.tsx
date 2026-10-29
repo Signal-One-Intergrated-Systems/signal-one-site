@@ -121,7 +121,7 @@ export default function Home() {
             </div>
             <p className="so-disclosure">These are planned product capabilities, not a claim that the full restaurant operating system is already available.</p>
             <div className="so-inline-actions">
-              <Link href="/workforce" className="btn btn-primary so-home-cta">Explore 1Service <Arrow /></Link>
+              <Link href="/service" className="btn btn-primary so-home-cta">Explore 1Service <Arrow /></Link>
               <Link href="/contact" className="so-text-link">Discuss early access <Arrow /></Link>
             </div>
           </div>
