@@ -162,3 +162,27 @@ test("hero platform selector remains centred and fully usable after animation", 
     await expect(page.locator(".so-hero-bar").getByRole("link", { name: new RegExp(label, "i") })).toBeAttached();
   }
 });
+
+
+test("hero globe animates, liquid CTA responds and actual routes work", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/");
+  const canvas = page.locator(".s1-hero-globe-canvas").first();
+  await expect(canvas).toBeVisible();
+  await page.waitForTimeout(200);
+  const frameOne = await canvas.evaluate((el) => (el as HTMLCanvasElement).toDataURL("image/png"));
+  await page.waitForTimeout(650);
+  const frameTwo = await canvas.evaluate((el) => (el as HTMLCanvasElement).toDataURL("image/png"));
+  expect(frameTwo, "Globe must be genuinely moving, not a static ornament").not.toEqual(frameOne);
+  const cta = page.locator("a.so-home-cta").first();
+  await expect(cta).toBeVisible();
+  await cta.hover();
+  await page.waitForTimeout(300);
+  const transform = await cta.evaluate(el => getComputedStyle(el).transform);
+  expect(transform, "CTA should give tactile hover feedback").not.toBe("none");
+  await cta.click();
+  await expect(page).toHaveURL(/\/get-started/);
+  await page.goto("/");
+  await page.getByRole("link", { name: /explore 1service business operating system/i }).click();
+  await expect(page).toHaveURL(/\/service/);
+});
