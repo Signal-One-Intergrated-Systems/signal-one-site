@@ -57,9 +57,10 @@ export default function Home() {
           </div>
         </div>
         <div className="so-hero-bar" aria-label="Signal One business areas">
-          <Link href="/solutions/security" className="so-hero-bar-item" aria-label="Explore 1GUARD security operations"><strong><span className="so-platform-icon" aria-hidden="true">◈</span> 1GUARD</strong><span>Security operations</span></Link>
-          <Link href="/service" className="so-hero-bar-item" aria-label="Explore 1Service business operating system"><strong><span className="so-platform-icon" aria-hidden="true">✦</span> 1Service</strong><span>Restaurant-first OS · In development</span></Link>
-          <Link href="/equipment-marketplace" className="so-hero-bar-item" aria-label="Explore enterprise equipment"><strong><span className="so-platform-icon" aria-hidden="true">⌁</span> Equipment</strong><span>Professional devices & connectivity</span></Link>
+          <Link href="/solutions/security" className="so-hero-bar-item" aria-label="Explore 1GUARD security operations"><strong><span className="so-brand-one">1</span>GUARD</strong><span>Security operations</span></Link>
+          <Link href="/service" className="so-hero-bar-item" aria-label="Explore 1Service business operating system"><strong><span className="so-brand-one">1</span>Service</strong><span>Restaurant-first OS · In development</span></Link>
+          <Link href="/equipment-marketplace" className="so-hero-bar-item" aria-label="Explore enterprise equipment"><strong>Equipment</strong><span>Professional devices & connectivity</span></Link>
+          <a href="#community" className="so-hero-bar-item" aria-label="Learn about 1Community coming soon"><strong><span className="so-brand-one">1</span>Community</strong><span>Coming soon</span></a>
         </div>
         <span className="so-hero-photo-note">Illustrative scene</span>
       </section>
@@ -174,7 +175,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="so-final-cta" aria-labelledby="so-final-title">
+      <section id="community" className="so-final-cta" aria-labelledby="so-final-title">
         <div className="wrap so-final-inner">
           <div><p className="so-kicker">Make the next shift easier to manage</p><h2 id="so-final-title">Ready for a better-run operation?</h2>
             <p>Start with 1GUARD, explore what 1Service is becoming or speak to Signal One about field equipment.</p></div>
