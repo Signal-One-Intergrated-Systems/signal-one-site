@@ -127,7 +127,7 @@ for (const viewport of viewports) {
       if (name !== "hero") {
         const background = await scene.evaluate(node => getComputedStyle(node).backgroundImage);
         expect(background, `${name} should have its own scene`).toContain("/images/scenes/");
-        const match = background.match(/url\\(["']?([^)"']+)/);
+        const match = background.match(/url\((?:["'])?([^)"']+)/);
         expect(match, `${name} must point to a scene file`).not.toBeNull();
         if (match) {
           const assetUrl = new URL(match[1], "http://localhost:3100").pathname;
