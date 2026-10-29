@@ -305,3 +305,13 @@ header.glass-nav .s1-nav-logo-small{display:inline-flex;align-items:center}
  header.glass-nav .s1-nav-logo-medium{display:none}
  header.glass-nav .s1-nav-logo-wide{display:inline-flex;align-items:center}
 }
+
+
+/* The older onboarding surface rule is more specific; honour the bespoke trial scene. */
+main.s1-onboarding.surface-light.s1-premium-trial{
+ color:#edf7ff!important;
+ background:linear-gradient(115deg,rgba(12,26,34,.84),rgba(18,35,44,.68)),url('/images/interior/trial-premium.svg') center top/cover no-repeat!important;
+}
+@media(max-width:670px){
+ main.s1-onboarding.surface-light.s1-premium-trial{background-position:58% top!important}
+}
