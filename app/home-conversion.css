@@ -172,3 +172,50 @@
  .so-home .so-hero-copy{background:#071a2d;-webkit-backdrop-filter:none;backdrop-filter:none}
  .so-home .so-hero-bar{background:#0b2136;-webkit-backdrop-filter:none;backdrop-filter:none}
 }
+
+
+/* Founder-approved bright cinematic precision glass, 2026-10-29.
+   Brand palette, copy, globe, accessible actions and responsive layout stay canonical. */
+.so-home{--so-panel:rgba(13,26,36,.48);--so-border:rgba(238,250,255,.53);background:#142d35}
+.so-home .so-hero-media{background:#ceded9}
+.so-home .so-hero-media .so-hero-photo{filter:brightness(1.12) saturate(1.07) contrast(1.015);object-position:center 46%}
+.so-home .so-hero-wash{background:linear-gradient(90deg,rgba(5,20,30,.38) 0%,rgba(8,30,37,.18) 42%,rgba(5,23,33,.025) 76%),linear-gradient(0deg,rgba(9,29,35,.32),transparent 23%,transparent 84%,rgba(10,31,39,.12))}
+.so-home .so-hero-copy{
+ background:linear-gradient(125deg,rgba(19,38,49,.54),rgba(25,46,55,.34) 55%,rgba(10,29,42,.48));
+ border:1px solid rgba(244,252,255,.64);
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.56),inset 1px 0 rgba(255,255,255,.13),0 27px 75px -32px rgba(5,14,27,.43),0 2px 20px rgba(11,31,45,.12);
+ -webkit-backdrop-filter:blur(20px) saturate(150%) brightness(1.11);
+ backdrop-filter:blur(20px) saturate(150%) brightness(1.11)
+}
+.so-home .so-hero h1{text-shadow:0 2px 18px rgba(0,12,24,.35)}
+.so-home .so-hero-lead,.so-home .so-hero-note{color:#f4faff;text-shadow:0 1px 6px rgba(4,15,25,.4)}
+.so-home .so-home-outline{background:rgba(24,44,53,.28);border:1px solid rgba(239,249,255,.76);-webkit-backdrop-filter:blur(15px) saturate(140%);backdrop-filter:blur(15px) saturate(140%)}
+.so-home .so-hero-bar{background:rgba(20,40,49,.45);border-color:rgba(245,252,255,.55);-webkit-backdrop-filter:blur(19px) saturate(148%);backdrop-filter:blur(19px) saturate(148%);box-shadow:inset 0 1px rgba(255,255,255,.28),0 -12px 40px -27px rgba(1,12,24,.4)}
+.so-home .so-introduction,.so-home .so-guard-section,.so-home .so-service-section,.so-home .so-equipment-section,.so-home .so-onboarding-section,.so-home .so-final-cta{position:relative;isolation:isolate;background-color:#183444;background-size:cover;background-position:center;background-repeat:no-repeat}
+.so-home .so-introduction{background-image:linear-gradient(100deg,rgba(9,28,43,.72),rgba(15,38,48,.43)),url('/images/home/signal-one-hero-daylight.jpg')}
+.so-home .so-guard-section{background-image:linear-gradient(95deg,rgba(8,30,43,.61),rgba(12,30,45,.55)),url('/images/photo/control-room-team.webp')}
+.so-home .so-service-section{background-image:linear-gradient(95deg,rgba(8,22,34,.56),rgba(15,34,42,.57)),url('/images/home/service-restaurant-operations.jpg')}
+.so-home .so-equipment-section{background-image:linear-gradient(105deg,rgba(8,25,38,.82),rgba(13,35,46,.62)),url('/images/home/signal-one-hero-daylight.jpg')}
+.so-home .so-onboarding-section{background-image:linear-gradient(105deg,rgba(8,25,39,.74),rgba(14,40,52,.54)),url('/images/photo/team-briefing.webp')}
+.so-home .so-final-cta{background-image:linear-gradient(105deg,rgba(8,25,39,.78),rgba(12,30,40,.61)),url('/images/home/service-restaurant-operations.jpg')}
+.so-home .so-value-rail,.so-home .so-journey-grid>div,.so-home .so-vertical-content,.so-home .so-equipment-copy,.so-home .so-section-heading,.so-home .so-final-inner{
+ background:linear-gradient(125deg,rgba(15,34,47,.62),rgba(16,38,50,.41));
+ border:1px solid rgba(239,250,255,.39);border-radius:24px;
+ -webkit-backdrop-filter:blur(17px) saturate(147%);backdrop-filter:blur(17px) saturate(147%);
+ box-shadow:inset 0 1px rgba(255,255,255,.25),0 24px 62px -40px rgba(0,10,24,.5)
+}
+.so-home .so-vertical-content,.so-home .so-equipment-copy,.so-home .so-section-heading,.so-home .so-final-inner{padding:clamp(25px,3.3vw,48px)}
+.so-home .so-value-rail{margin-top:26px;overflow:hidden}
+.so-home .so-vertical-visual{border-color:rgba(241,251,255,.56);box-shadow:inset 0 1px rgba(255,255,255,.4),0 27px 66px -39px rgba(1,14,27,.48)}
+.so-home .so-hardware-product{background:linear-gradient(145deg,rgba(244,250,252,.92),rgba(197,220,230,.85));border-color:rgba(255,255,255,.72)}
+.so-home .so-service-scope span,.so-home .so-equipment-types span{background:rgba(21,46,61,.46)}
+@media(max-width:670px){
+ .so-home .so-hero-media .so-hero-photo{filter:brightness(1.07) saturate(1.05);object-position:68% center}
+ .so-home .so-hero-wash{background:linear-gradient(180deg,rgba(7,25,36,.19),rgba(8,29,43,.43) 39%,rgba(8,23,34,.78) 86%)}
+ .so-home .so-hero-copy{background:rgba(14,34,46,.82);-webkit-backdrop-filter:none;backdrop-filter:none}
+ .so-home .so-value-rail,.so-home .so-journey-grid>div,.so-home .so-vertical-content,.so-home .so-equipment-copy,.so-home .so-section-heading,.so-home .so-final-inner{background:rgba(13,33,47,.91);-webkit-backdrop-filter:none;backdrop-filter:none}
+ .so-home .so-hero-bar{background:rgba(16,38,50,.91);-webkit-backdrop-filter:none;backdrop-filter:none}
+}
+@media(prefers-reduced-transparency:reduce){
+ .so-home .so-hero-copy,.so-home .so-hero-bar,.so-home .so-value-rail,.so-home .so-journey-grid>div,.so-home .so-vertical-content,.so-home .so-equipment-copy,.so-home .so-section-heading,.so-home .so-final-inner{background:#122d3b;-webkit-backdrop-filter:none;backdrop-filter:none}
+}
