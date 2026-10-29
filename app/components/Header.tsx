@@ -37,7 +37,7 @@ const worlds: Record<
       { href: "/guards", label: "For guards" },
       { href: "/join/sales", label: "Careers" },
     ],
-    cta: { href: "/contact", label: "Book a walkthrough" },
+    cta: { href: "/get-started", label: "Request 14-day trial" },
     shell: "glass-nav text-text-inv border-b border-line-dark",
     link: "text-text-inv hover:bg-white/8",
     cta_class: "btn btn-primary",

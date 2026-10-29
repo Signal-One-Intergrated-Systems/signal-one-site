@@ -52,14 +52,14 @@ export default function ClientOnboarding() {
           <Check />
         </span>
         <h1 className="t-h1 mt-6">Thanks. Your onboarding request is with Signal One.</h1>
-        <p className="t-lead mt-4 text-text-2">A representative will contact you to set up your company. Here is what to expect.</p>
+        <p className="t-lead mt-4 text-text-2">A representative will contact you about your selected products, trial request and account setup. A trial has not started yet.</p>
         <div className="mt-8">
           <Steps
             items={[
               ["We contact you", "By email or phone, to confirm your company details and what you want to start with."],
               ["We set up your workspace", "Sites, posts and your first users, with you."],
-              ["You buy guard days", guardDayPricePhrase + ", excl. VAT, under your customer terms. Minimum " + minimumPhrase + "."],
-              ["Your guards start using the app", "On their own phones or an authorised Central Device."],
+              ["Plan and trial terms", "We explain any applicable 14-day trial eligibility, access, expiry and paid terms before activation. Standard security usage is " + guardDayPricePhrase + ", excl. VAT, minimum " + minimumPhrase + "."],
+              ["Your team gets access after activation", "Accounts and mobile access are issued only after company onboarding is completed."],
             ]}
           />
         </div>
@@ -74,7 +74,7 @@ export default function ClientOnboarding() {
     <div className="grid gap-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
       <aside className="lg:sticky lg:top-[104px] lg:self-start">
         <p className="t-kicker text-signal-ink">Company onboarding</p>
-        <p className="mt-2 font-display text-[1.5rem] font-bold leading-tight">Set up your security company on Signal One.</p>
+        <p className="mt-2 font-display text-[1.5rem] font-bold leading-tight">Tell us what your company needs.</p>
         <ol className="m-0 mt-6 hidden list-none p-0 lg:block" aria-label="Onboarding steps">
           {steps.map((step, index) => (
             <li
@@ -98,7 +98,7 @@ export default function ClientOnboarding() {
           ))}
         </ol>
         <p className="t-small mt-6 text-text-2">
-          Takes about three minutes. Nothing is charged and no workspace is created until you have spoken to us.
+          Takes about three minutes. You can request a 14-day trial. Submitting this form is an onboarding request, not an activated account or a started trial. We confirm eligibility and activation with you.
         </p>
       </aside>
 
@@ -198,9 +198,11 @@ export default function ClientOnboarding() {
                 accentClass={ACCENT}
                 columns="sm:grid-cols-1"
                 options={[
-                  "Signal One Security platform (guard days)",
+                  "1GUARD security operations",
+                  "1Workforce attendance and field teams",
+                  "14-day trial request",
                   "Radios, PTT, tracking or body cameras",
-                  "Guard Marketplace when it launches",
+                  "Guard hiring marketplace access (subject to launch and eligibility)",
                 ]}
               />
               <JRadio
@@ -210,7 +212,7 @@ export default function ClientOnboarding() {
                 required
                 accentClass={ACCENT}
                 columns="sm:grid-cols-1"
-                options={["A walkthrough call", "Send me the customer terms first", "Call me to discuss"]}
+                options={["Request a 14-day trial (activation subject to confirmation)", "A walkthrough call", "Send me the customer terms first", "Call me to discuss"]}
               />
             </>
           ) : null}

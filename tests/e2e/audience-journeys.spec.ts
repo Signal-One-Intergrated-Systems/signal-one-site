@@ -9,7 +9,7 @@ test("homepage introduces purchasable journeys and clearly labels 1Community", a
   await expect(page.getByText(/1Community is not available yet/)).toBeVisible();
   await expect(page.locator(".s1-brand-community")).toContainText("Coming soon");
   await expect(page.locator(".s1-nav-upcoming")).toHaveCount(0);
-  await expect(page.getByRole("link", { name: /Book a walkthrough/ })).toHaveAttribute("href", "/contact");
+  await expect(page.getByRole("link", { name: /Request 14-day trial/ })).toHaveAttribute("href", "/get-started");
 });
 
 test("site pill stays usable on a phone and does not offer 1Community as a live route", async ({ page }) => {

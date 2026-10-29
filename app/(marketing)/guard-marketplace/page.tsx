@@ -7,7 +7,7 @@ import { ButtonLink, Check, PageHero, Status, Steps, GuardStatus } from "../../c
 import { guardIsLive } from "../../lib/guardStatus";
 
 export const metadata: Metadata = {
-  title: "Guard Marketplace: Staff New Contracts (in development)",
+  title: "Guard Marketplace | Company Registration and Hiring Access",
   description:
     "Guard Marketplace is being built into Signal One Security: filter by location, PSiRA grade, availability and skills, shortlist and send hire requests. Register interest.",
   alternates: { canonical: "/guard-marketplace" },
