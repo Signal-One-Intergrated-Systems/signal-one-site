@@ -22,7 +22,7 @@ export default function ClientOnboarding() {
   const j = useJourney({
     kind: "client",
     intent: "company-onboarding",
-    storageKey: "signal-one-client-onboarding-v3",
+    storageKey: "signal-one-client-onboarding-v4",
     stepCount: steps.length,
     events: { start: "client_onboarding_start", complete: "client_onboarding_complete" },
   });
@@ -57,9 +57,9 @@ export default function ClientOnboarding() {
           <Steps
             items={[
               ["We contact you", "By email or phone, to confirm your company details and what you want to start with."],
-              ["We set up your workspace", "Sites, posts and your first users, with you."],
-              ["Plan and trial terms", "We explain any applicable 14-day trial eligibility, access, expiry and paid terms before activation. Standard security usage is " + guardDayPricePhrase + ", excl. VAT, minimum " + minimumPhrase + "."],
-              ["Your team gets access after activation", "Accounts and mobile access are issued only after company onboarding is completed."],
+              ["We confirm the right setup", "Security workspaces, service-business early access or equipment procurement are discussed according to your request."],
+              ["Plan and trial terms", "We explain available products, any 1GUARD 14-day trial eligibility, expiry and paid terms before activation. Current Guard public pricing is " + guardDayPricePhrase + ", excl. VAT, minimum " + minimumPhrase + "."],
+              ["Access follows confirmation", "Accounts and mobile access are issued only when the relevant product onboarding has been approved."],
             ]}
           />
         </div>
@@ -98,7 +98,7 @@ export default function ClientOnboarding() {
           ))}
         </ol>
         <p className="t-small mt-6 text-text-2">
-          Takes about three minutes. You can request a 14-day trial. Submitting this form is an onboarding request, not an activated account or a started trial. We confirm eligibility and activation with you.
+          Takes about three minutes. Eligible security companies can request a 14-day 1GUARD trial. 1Service is in development; equipment is quoted separately. No account or trial starts when you submit.
         </p>
       </aside>
 
@@ -113,6 +113,8 @@ export default function ClientOnboarding() {
                 Your company
               </h1>
               <JText j={j} name="companyName" label="Company name" required autoComplete="organization" />
+              <JRadio j={j} name="businessType" label="Which best describes your operation?" required accentClass={ACCENT}
+                options={["Security services", "Restaurant or hospitality", "Other service business", "Equipment procurement"]} />
               <JText j={j} name="registrationNumber" label="Company registration number" />
               <JSelect
                 j={j}
@@ -159,29 +161,30 @@ export default function ClientOnboarding() {
               <h1 ref={headingRef} tabIndex={-1} className="t-h2 outline-none">
                 Your operation today
               </h1>
-              <JRadio
-                j={j}
-                name="guardCount"
-                label="Roughly how many guards?"
-                required
-                accentClass={ACCENT}
-                options={["Under 25", "25 to 100", "100 to 500", "More than 500"]}
-              />
-              <JRadio
-                j={j}
-                name="siteCount"
-                label="Roughly how many sites?"
-                required
-                accentClass={ACCENT}
-                options={["1 to 5", "6 to 20", "21 to 100", "More than 100"]}
-              />
+              {j.values.businessType === "Security services" ? (
+                <>
+                  <JRadio j={j} name="guardCount" label="Roughly how many guards?" required accentClass={ACCENT}
+                    options={["Under 25", "25 to 100", "100 to 500", "More than 500"]} />
+                  <JRadio j={j} name="siteCount" label="Roughly how many security sites?" required accentClass={ACCENT}
+                    options={["1 to 5", "6 to 20", "21 to 100", "More than 100"]} />
+                </>
+              ) : (
+                <>
+                  <JRadio j={j} name="teamSize" label="Roughly how many people work across your operation?" required accentClass={ACCENT}
+                    options={["1 to 10", "11 to 50", "51 to 200", "More than 200"]} />
+                  <JRadio j={j} name="locations" label="How many locations do you operate?" required accentClass={ACCENT}
+                    options={["1", "2 to 5", "6 to 20", "More than 20"]} />
+                </>
+              )}
               <JMulti
                 j={j}
                 name="currentTools"
                 label="How do you run it today?"
                 hint="Choose any that apply."
                 accentClass={ACCENT}
-                options={["WhatsApp groups", "Spreadsheets", "Paper OBs", "Phone calls", "Other software"]}
+                options={j.values.businessType === "Security services"
+                  ? ["WhatsApp groups", "Spreadsheets", "Paper OBs", "Phone calls", "Other software"]
+                  : ["WhatsApp groups", "Spreadsheets", "POS or booking system", "Phone calls", "Other software"]}
               />
             </>
           ) : null}
@@ -199,8 +202,8 @@ export default function ClientOnboarding() {
                 columns="sm:grid-cols-1"
                 options={[
                   "1GUARD security operations",
-                  "1Workforce attendance and field teams",
-                  "14-day trial request",
+                  "1Service restaurant and service operations (in development)",
+                  "14-day 1GUARD trial request",
                   "Radios, PTT, tracking or body cameras",
                   "Guard hiring marketplace access (subject to launch and eligibility)",
                 ]}
@@ -212,7 +215,9 @@ export default function ClientOnboarding() {
                 required
                 accentClass={ACCENT}
                 columns="sm:grid-cols-1"
-                options={["Request a 14-day trial (activation subject to confirmation)", "A walkthrough call", "Send me the customer terms first", "Call me to discuss"]}
+                options={j.values.businessType === "Security services"
+                  ? ["Request a 14-day 1GUARD trial (activation subject to confirmation)", "A walkthrough call", "Send me the customer terms first", "Call me to discuss"]
+                  : ["Discuss 1Service development and early access", "Request an equipment quotation", "A walkthrough call", "Call me to discuss"]}
               />
             </>
           ) : null}
@@ -226,9 +231,11 @@ export default function ClientOnboarding() {
                 j={j}
                 accentClass={ACCENT}
                 groups={[
-                  { step: 0, title: "Company", fields: [["companyName", "Company"], ["registrationNumber", "Registration"], ["province", "Province"]] },
+                  { step: 0, title: "Company", fields: [["companyName", "Company"], ["businessType", "Operation"], ["registrationNumber", "Registration"], ["province", "Province"]] },
                   { step: 1, title: "You", fields: [["contactName", "Name"], ["contactRole", "Role"], ["email", "Email"], ["mobile", "Mobile"]] },
-                  { step: 2, title: "Operation", fields: [["guardCount", "Guards"], ["siteCount", "Sites"], ["currentTools", "Today"]] },
+                  { step: 2, title: "Operation", fields: j.values.businessType === "Security services"
+                    ? [["guardCount", "Guards"], ["siteCount", "Sites"], ["currentTools", "Today"]]
+                    : [["teamSize", "Team size"], ["locations", "Locations"], ["currentTools", "Today"]] },
                   { step: 3, title: "First step", fields: [["interests", "Interested in"], ["nextStep", "Next step"]] },
                 ]}
               />

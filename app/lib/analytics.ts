@@ -4,6 +4,9 @@
  * do not add ad-hoc names.
  */
 export const signalOneEvents = [
+  "homepage_trial_cta",
+  "homepage_service_interest",
+  "homepage_equipment_quote",
   "hero_product_proof",
   "hero_pricing",
   "buy_guard_days",

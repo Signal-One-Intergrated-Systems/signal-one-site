@@ -58,7 +58,7 @@ for (const c of cases) {
     await page.goto(c.path);
     await page.waitForLoadState("networkidle");
     await c.run(page);
-    const link = page.locator('a[href^="mailto:sales@signalone.co.za"][href*="subject="]').first();
+    const link = page.locator('main form a[href^="mailto:sales@signalone.co.za"][href*="subject="]').first();
     await expect(link).toBeVisible({ timeout: 15_000 });
     const mail = decodeMailto((await link.getAttribute("href"))!);
     expect(mail.to).toBe("sales@signalone.co.za");
@@ -72,7 +72,7 @@ for (const c of cases) {
     await page.waitForLoadState("networkidle");
     await c.run(page);
     await expect(page.locator('[role="status"]').first()).toBeVisible({ timeout: 15_000 });
-    await expect(page.locator('a[href^="mailto:sales@signalone.co.za"][href*="subject="]')).toHaveCount(0);
+    await expect(page.locator('main form a[href^="mailto:sales@signalone.co.za"][href*="subject="]')).toHaveCount(0);
     const received = (await (await request.get("http://localhost:4010/received")).json()) as Array<{ auth?: string; body: { kind: string; data: { intent: string }; source: string } }>;
     const hit = received.reverse().find((r) => r.body?.data?.intent === c.intent);
     expect(hit, "upstream received the payload").toBeTruthy();

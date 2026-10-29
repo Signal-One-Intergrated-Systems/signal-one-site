@@ -13,11 +13,11 @@ import { guardDayPricePhrase, minimumPhrase, pricing, schemaPrice } from "../lib
 
 
 const description =
-  "Signal One Integrated Systems provides 1GUARD for security operations and 1Workforce for field workforce management, with communications, tracking and equipment solutions in South Africa.";
+  "Signal One Integrated Systems provides 1GUARD for security operations and 1Service for field workforce management, with communications, tracking and equipment solutions in South Africa.";
 
 export const metadata: Metadata = {
   title: {
-    default: "Signal One Integrated Systems | 1GUARD & 1Workforce",
+    default: "Signal One Integrated Systems | 1GUARD & 1Service",
     template: "%s | Signal One",
   },
   description,
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   category: "business software",
   keywords: [
     "1GUARD security operations platform",
-    "1Workforce workforce operations platform",
+    "1Service workforce operations platform",
     "security guard management software South Africa",
     "security company software South Africa",
     "guard patrol software",
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   applicationName: brand.master,
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Signal One: 1GUARD, 1Workforce and Integrated Systems",
+    title: "Signal One: 1GUARD, 1Service and Integrated Systems",
     description:
       description,
     type: "website",

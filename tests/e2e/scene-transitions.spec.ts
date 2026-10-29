@@ -3,10 +3,10 @@ import { expect, test } from "@playwright/test";
 test("public routes share a scene shell and product navigation still works", async ({ page }) => {
  await page.goto("/");
  await expect(page.locator(".s1-scene-route")).toBeVisible();
- await page.getByRole("navigation", { name: "Primary" }).getByRole("link", { name: /1Workforce/ }).click();
- await expect(page.locator(".sg-entry-wordmark")).toContainText("1Workforce");
- await expect(page).toHaveURL(/\/workforce$/);
- await expect(page.locator(".s1-scene-route")).toHaveAttribute("data-scene-route", "/workforce");
+ await page.getByRole("navigation", { name: "Primary" }).getByRole("link", { name: /1Service/ }).click();
+ await expect(page.locator(".sg-entry-wordmark")).toContainText("1Service");
+ await expect(page).toHaveURL(/\/service$/);
+ await expect(page.locator(".s1-scene-route")).toHaveAttribute("data-scene-route", "/service");
  await expect(page.locator(".s1-scene-route")).not.toHaveAttribute("data-scene-exit", "");
  await expect(page.locator(".sg-entry-overlay")).toHaveAttribute("data-guard-entry", "idle");
  await expect(page.locator("main")).toBeVisible();

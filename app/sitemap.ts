@@ -12,7 +12,7 @@ const routes: ReadonlyArray<[string, MetadataRoute.Sitemap[number]["changeFreque
   ["/ptt-radio-rental", "monthly", 0.75],
   ["/guard-marketplace", "monthly", 0.8],
   ["/equipment-marketplace", "monthly", 0.85],
-  ["/workforce", "monthly", 0.9],
+  ["/service", "monthly", 0.9],
   ["/contact", "monthly", 0.8],
   ["/get-started", "monthly", 0.7],
   ["/guards", "monthly", 0.7],
