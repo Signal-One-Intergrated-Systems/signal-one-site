@@ -1854,3 +1854,29 @@ main:not(.s1-brand-home) .section .grid > :is(article,.card,.rounded-card) {
 }
 
 @media(prefers-reduced-motion:reduce){.sg-entry-overlay{display:none!important}}
+
+
+/* Coverage and identity refinements: keep original 1GUARD shutter keyframes and sweep speed.
+   Stronger glass opacity prevents the outgoing page competing with the brand reveal. */
+.sg-entry-overlay[data-guard-entry="closing"],
+.sg-entry-overlay[data-guard-entry="sealed"],
+.sg-entry-overlay[data-guard-entry="opening"]{
+ z-index:9999;
+ background:rgba(3,12,24,.44);
+}
+.sg-entry-shutter.sg-glass-panel{
+ background:linear-gradient(120deg,#284258 0%,#102d46 32%,#081b30 73%,#051525 100%)!important;
+ border-color:rgba(147,197,230,.24)!important;
+ box-shadow:inset 0 0 70px rgba(92,164,205,.1),0 0 54px rgba(0,0,0,.55);
+}
+.sg-entry-overlay[data-guard-entry="sealed"]{background:#061727;}
+.sg-entry-overlay[data-guard-entry="sealed"] .sg-entry-shutter-left,
+.sg-entry-overlay[data-guard-entry="sealed"] .sg-entry-shutter-right{transform:translate3d(0,0,0)}
+.sg-entry-master-logo{font-size:initial;letter-spacing:normal;text-shadow:none;white-space:normal;}
+.sg-entry-master-logo > span{transform:scale(1.05);transform-origin:center;max-width:calc(100vw - 38px)}
+.sg-entry-master-logo .s1-mark{flex:none}
+.sg-entry-emblem:has(.sg-entry-master-logo) .sg-entry-caption{margin-top:8rem}
+@media(max-width:540px){
+ .sg-entry-master-logo > span{transform:scale(.66)}
+ .sg-entry-emblem:has(.sg-entry-master-logo) .sg-entry-caption{margin-top:6rem}
+}
