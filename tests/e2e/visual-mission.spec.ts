@@ -106,3 +106,41 @@ test("every branded acquisition page uses its own declared premium scene", async
   }
   expect(new Set(Object.values(uniqueScenes)).size).toBe(Object.values(uniqueScenes).length);
 });
+
+
+/** Browser screenshots at three realistic widths are our final art-direction proof.
+ * Capture what a visitor actually sees (hero and the three industry scenes).
+ */
+for (const viewport of viewports) {
+  test(`homepage scene composition at ${viewport.width}px`, async ({ page, request }, info) => {
+    await page.setViewportSize(viewport);
+    await page.goto("/");
+    await page.evaluate(() => document.fonts.ready);
+    for (const [name, selector] of [
+      ["hero", ".so-hero"],
+      ["guard", ".so-guard-section"],
+      ["service", ".so-service-section"],
+      ["equipment", ".so-equipment-section"],
+    ] as const) {
+      const scene = page.locator(selector);
+      await expect(scene).toBeVisible();
+      if (name !== "hero") {
+        const background = await scene.evaluate(node => getComputedStyle(node).backgroundImage);
+        expect(background, `${name} should have its own scene`).toContain("/images/scenes/");
+        const match = background.match(/url\\(["']?([^)"']+)/);
+        expect(match, `${name} must point to a scene file`).not.toBeNull();
+        if (match) {
+          const assetUrl = new URL(match[1], "http://localhost:3100").pathname;
+          const asset = await request.get(assetUrl);
+          expect(asset.status(), `${name} file response`).toBe(200);
+        }
+      }
+      await scene.evaluate(node => {
+        const rect = node.getBoundingClientRect();
+        window.scrollTo({top: window.scrollY + rect.top - 92, behavior: "instant"});
+      });
+      await page.waitForTimeout(130);
+      await page.screenshot({ path: info.outputPath(`scene-${name}-${viewport.width}.png`), animations: "disabled" });
+    }
+  });
+}
