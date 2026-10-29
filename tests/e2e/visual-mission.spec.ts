@@ -186,3 +186,42 @@ test("hero globe animates, liquid CTA responds and actual routes work", async ({
   await page.getByRole("link", { name: /explore 1service business operating system/i }).click();
   await expect(page).toHaveURL(/\/service/);
 });
+
+
+test("responsive approved hero shows the full image stage before the glass message", async ({ page }) => {
+  for (const width of [375, 768]) {
+    await page.setViewportSize({ width, height: width === 375 ? 812 : 1024 });
+    await page.goto("/");
+    const media = page.locator(".so-hero-media");
+    const panel = page.locator(".so-hero-copy");
+    const image = page.locator(".so-hero-photo");
+    await expect(media).toBeVisible();
+    await expect(image).toBeVisible();
+    const m = await media.boundingBox();
+    const p = await panel.boundingBox();
+    expect(m).not.toBeNull();
+    expect(p).not.toBeNull();
+    if (m && p) {
+      expect(m.height, "People need a meaningful image stage").toBeGreaterThan(265);
+      expect(p.y, "Glass should start after the image, apart from a small float overlap")
+        .toBeGreaterThanOrEqual(m.y + m.height - 55);
+    }
+    await expect(page.locator(".so-hero-copy a[href='/get-started']")).toBeVisible();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(1);
+  }
+});
+
+test("guard and service have independent unoccupied premium inset photos", async ({ page, request }) => {
+  await page.goto("/");
+  const sceneAssets = [
+    [".so-vertical-visual-guard img", "/images/home/guard-inset-exclusive.svg"],
+    [".so-vertical-visual-service img", "/images/home/service-inset-exclusive.svg"],
+  ] as const;
+  for (const [selector, expected] of sceneAssets) {
+    const image = page.locator(selector);
+    await expect(image).toHaveAttribute("src", expected);
+    const response = await request.get(expected);
+    expect(response.status()).toBe(200);
+    expect(response.headers()["content-type"]).toContain("image/svg+xml");
+  }
+});

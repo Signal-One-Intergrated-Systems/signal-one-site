@@ -441,3 +441,203 @@ body:has(.so-home) header.glass-nav .btn-primary{box-shadow:inset 0 1px rgba(255
   animation:so-rail-enter .9s .13s cubic-bezier(.2,.72,.2,1) both;
  }
 }
+
+
+/* Visual acceptance 2026-10-29: the approved desktop image is unchanged.
+   At tablet/mobile widths the approved officers get their own image stage,
+   rather than disappearing behind the information card. */
+@media(max-width:1023px){
+  body:has(.so-home) .so-home .s1-brand-stage.so-hero{
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:stretch!important;
+    min-height:0!important;
+    padding:0 0 44px!important;
+    background:#172f3a!important;
+    overflow:hidden;
+  }
+  .so-home .s1-brand-stage.so-hero .so-hero-media{
+    position:relative!important;inset:auto!important;
+    display:block;width:100%!important;
+    flex:none;height:clamp(310px,58vw,450px)!important;
+    min-height:0!important;
+    background:#cedcdb;
+    overflow:hidden;
+  }
+  .so-home .s1-brand-stage.so-hero .so-hero-media .so-hero-photo{
+    object-fit:cover!important;
+    object-position:100% 39%!important;
+    filter:brightness(1.09) saturate(1.035)!important;
+    transform:none!important;
+  }
+  .so-home .s1-brand-stage.so-hero .so-hero-wash{
+    background:linear-gradient(180deg,rgba(8,28,37,.08) 0%,transparent 48%,rgba(12,31,40,.37) 88%,#172f3a 100%)!important;
+  }
+  .so-home .s1-brand-stage.so-hero .so-hero-inner{
+    z-index:5;width:100%!important;
+    margin:-35px auto 0!important;
+    padding:0 clamp(16px,3.6vw,30px)!important;
+    display:flex;justify-content:center;align-items:stretch;
+  }
+  .so-home .s1-brand-stage.so-hero .so-hero-copy{
+    max-width:min(620px,100%)!important;
+    width:100%;
+    margin:0 auto;
+    padding:clamp(25px,4vw,38px)!important;
+    border-radius:25px!important;
+    border:1px solid rgba(250,253,255,.54)!important;
+    background:linear-gradient(132deg,rgba(18,36,41,.88),rgba(28,46,53,.78))!important;
+    -webkit-backdrop-filter:blur(24px) saturate(112%)!important;
+    backdrop-filter:blur(24px) saturate(112%)!important;
+    box-shadow:inset 0 1px rgba(255,255,255,.24),0 25px 56px -29px rgba(0,12,25,.5);
+  }
+  .so-home .s1-brand-stage.so-hero .s1-hero-globe-layer{
+    inset:42% 38% 20% -27%!important;opacity:.27!important;
+    transform:scale(.68)!important;filter:none!important;pointer-events:none;
+  }
+  .so-home .s1-brand-stage.so-hero .so-hero-bar{
+    position:relative!important;
+    z-index:6!important;
+    left:auto!important;bottom:auto!important;
+    transform:none!important;animation:none!important;
+    margin:24px auto 0!important;
+    width:calc(100% - 40px)!important;
+    max-width:620px;
+    display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    border:1px solid rgba(244,251,255,.46)!important;
+    border-radius:21px!important;
+    background:rgba(20,38,44,.61)!important;
+    -webkit-backdrop-filter:blur(20px) saturate(110%)!important;
+    backdrop-filter:blur(20px) saturate(110%)!important;
+    overflow:hidden;
+  }
+  .so-home .so-hero-bar-item{
+    display:flex!important;flex-direction:column!important;
+    align-items:flex-start!important;justify-content:center!important;
+    min-height:83px!important;padding:13px 18px!important;
+    border-bottom:1px solid rgba(244,251,255,.19);
+  }
+  .so-home .so-hero-bar-item:nth-child(odd){border-right:1px solid rgba(244,251,255,.19)}
+  .so-home .so-hero-bar-item:nth-last-child(-n+2){border-bottom:0}
+  .so-home .so-hero-bar-item>span{margin-top:6px;text-align:left!important;font-size:.79rem!important}
+  .so-home .s1-brand-stage.so-hero .so-hero-photo-note{
+    z-index:5!important;
+    position:absolute!important;
+    top:calc(clamp(310px,58vw,450px) - 30px)!important;
+    right:clamp(12px,3vw,24px)!important;
+    bottom:auto!important;
+    color:rgba(255,255,255,.92);
+    text-shadow:0 1px 5px rgba(0,0,0,.55);
+  }
+}
+@media(max-width:670px){
+  body:has(.so-home) .so-home .s1-brand-stage.so-hero{padding-bottom:34px!important}
+  .so-home .s1-brand-stage.so-hero .so-hero-media{
+    height:clamp(272px,79vw,360px)!important;
+  }
+  .so-home .s1-brand-stage.so-hero .so-hero-media .so-hero-photo{
+    object-position:100% 38%!important;
+    filter:brightness(1.07) saturate(1.035)!important;
+  }
+  .so-home .s1-brand-stage.so-hero .so-hero-inner{
+    margin-top:-28px!important;padding-inline:14px!important
+  }
+  .so-home .s1-brand-stage.so-hero .so-hero-copy{
+    padding:22px 20px 23px!important;
+    border-radius:22px!important;
+  }
+  .so-home .s1-brand-stage.so-hero .so-hero h1{
+    margin-top:15px!important;
+    font-size:clamp(2.14rem,9.4vw,2.62rem)!important;
+    line-height:1.03!important;
+    letter-spacing:-.053em!important;
+  }
+  .so-home .s1-brand-stage.so-hero .so-eyebrow{
+    font-size:.7rem!important;letter-spacing:.11em!important;
+  }
+  .so-home .s1-brand-stage.so-hero .so-hero-lead{
+    margin-top:16px!important;
+    font-size:.93rem!important;line-height:1.5!important
+  }
+  .so-home .s1-brand-stage.so-hero .so-hero-actions{
+    margin-top:20px!important;gap:9px!important;
+  }
+  .so-home .s1-brand-stage.so-hero :is(.so-home-cta,.so-home-outline){
+    min-height:49px!important;padding:12px 18px!important;
+  }
+  .so-home .s1-brand-stage.so-hero .so-hero-note{
+    margin-top:12px!important;font-size:.78rem!important;line-height:1.45!important;
+  }
+  .so-home .s1-brand-stage.so-hero .s1-hero-globe-layer{
+    inset:48% 24% 17% -40%!important;opacity:.16!important;transform:scale(.64)!important;
+  }
+  .so-home .s1-brand-stage.so-hero .so-hero-bar{
+    width:calc(100% - 28px)!important;margin-top:18px!important;
+  }
+  .so-home .s1-brand-stage.so-hero .so-hero-bar-item{
+    min-height:79px!important;padding:12px 13px!important;
+  }
+  .so-home .so-hero-bar-item strong{font-size:1rem!important}
+  .so-home .so-hero-bar-item>span{font-size:.73rem!important}
+  .so-home .s1-brand-stage.so-hero .so-hero-photo-note{
+    top:calc(clamp(272px,79vw,360px) - 29px)!important;
+    right:13px!important;
+  }
+}
+@media(prefers-reduced-transparency:reduce){
+ .so-home .s1-brand-stage.so-hero .so-hero-copy{
+   background:rgba(20,36,43,.98)!important;
+   -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+ }
+}
+
+/* Homepage section insets: each page has its own original empty environment.
+   The inset is a photographic window, not a second dark product dashboard. */
+.so-home .so-vertical-visual{
+ border:1px solid rgba(255,255,255,.64)!important;
+ border-radius:26px!important;
+ background:#d9e4e3!important;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.47),
+            0 22px 60px -30px rgba(0,9,18,.54)!important;
+}
+.so-home .so-vertical-visual img{
+ object-fit:cover!important;
+ object-position:center center!important;
+ filter:brightness(1.04) saturate(1.055);
+}
+.so-home .so-vertical-visual::after{
+ background:linear-gradient(180deg,rgba(255,255,255,.13) 0%,transparent 25%,transparent 58%,rgba(9,28,36,.39) 100%)!important;
+}
+.so-home .so-vertical-visual .so-image-caption{
+ display:inline-flex;align-items:center;
+ left:18px!important;bottom:18px!important;
+ padding:8px 13px!important;border-radius:999px;
+ background:rgba(20,34,40,.49);
+ border:1px solid rgba(255,255,255,.47);
+ -webkit-backdrop-filter:blur(13px);
+ backdrop-filter:blur(13px);
+ color:#f6fbff;font-size:.78rem;
+ box-shadow:inset 0 1px rgba(255,255,255,.13);
+}
+@media(max-width:670px){
+  .so-home .so-vertical-visual{height:288px!important;border-radius:21px!important}
+}
+
+
+/* Final photographic framing: keep both officers' entire faces below the
+   floating navigation capsule, without pushing the trial CTA below the fold. */
+@media(max-width:1023px){
+ .so-home .s1-brand-stage.so-hero .so-hero-media .so-hero-photo{
+   top:42px!important;
+   height:calc(100% - 42px)!important;
+ }
+ .so-home .s1-brand-stage.so-hero .so-hero-media{
+   background:linear-gradient(180deg,#8aaeba 0%,#cbdedd 55%,#c9dfdb 100%)!important;
+ }
+}
+@media(max-width:670px){
+ .so-home .s1-brand-stage.so-hero .so-hero-media .so-hero-photo{
+   top:40px!important;
+   height:calc(100% - 40px)!important;
+ }
+}
