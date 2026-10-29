@@ -219,3 +219,18 @@
 @media(prefers-reduced-transparency:reduce){
  .so-home .so-hero-copy,.so-home .so-hero-bar,.so-home .so-value-rail,.so-home .so-journey-grid>div,.so-home .so-vertical-content,.so-home .so-equipment-copy,.so-home .so-section-heading,.so-home .so-final-inner{background:#122d3b;-webkit-backdrop-filter:none;backdrop-filter:none}
 }
+
+
+/* Home-only premium floating navigation, without modifying shared header components. */
+body:has(.so-home) header.glass-nav{
+ background:rgba(15,35,48,.49)!important;
+ border-color:rgba(237,250,255,.45)!important;
+ -webkit-backdrop-filter:blur(19px) saturate(148%)!important;
+ backdrop-filter:blur(19px) saturate(148%)!important;
+ box-shadow:inset 0 1px rgba(255,255,255,.19),0 10px 35px -22px rgba(0,15,25,.48)
+}
+body:has(.so-home) header.glass-nav a:not(.btn){text-shadow:0 1px 4px rgba(0,18,29,.4)}
+@media(max-width:670px){
+ body:has(.so-home) header.glass-nav{background:rgba(11,31,44,.94)!important;-webkit-backdrop-filter:blur(8px)!important;backdrop-filter:blur(8px)!important}
+}
+@media(prefers-reduced-transparency:reduce){body:has(.so-home) header.glass-nav{background:#102c3d!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}}
