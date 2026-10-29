@@ -22,6 +22,7 @@ const sections = [
 export default function SecurityTrustPage() {
   return (
     <LegalPage
+      className="s1-premium-trust"
       kicker="Security & trust"
       title="Control access. Preserve evidence. State only what is proven."
       intro="Signal One uses managed cloud infrastructure and platform controls including authentication, role-based access, tenant-aware data boundaries and audit logging. We do not claim ISO, SOC or other certifications that have not been independently awarded."
