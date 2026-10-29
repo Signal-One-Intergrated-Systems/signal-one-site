@@ -76,7 +76,10 @@ export default function Home() {
         </div>
       </section>
       <section className="s1-selling-bottom reveal-group" aria-label="More Signal One solutions">
-        <div className="s1-selling-mini reveal">
+        <div className="s1-selling-mini s1-equipment-home-teaser reveal">
+          <div className="s1-equipment-teaser-image" aria-hidden="true">
+            <Image src="/images/hardware/hytera-pnc360s.webp" alt="" width={240} height={240} className="object-contain" />
+          </div>
           <p className="s1-selling-kicker">Equipment and connectivity</p>
           <h2>Equip every operation.</h2>
           <p>Get business radios, push-to-talk connectivity, tracking and operational equipment with a sales team that understands deployment, not just devices.</p>
