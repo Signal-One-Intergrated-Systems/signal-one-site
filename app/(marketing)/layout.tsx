@@ -4,6 +4,7 @@ import Analytics from "../components/Analytics";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Reveal from "../components/Reveal";
+import SceneTransition from "../components/SceneTransition";
 import { guardAvailability, guardIsLive } from "../lib/guardStatus";
 import { brand, salesEmail, siteUrl } from "../lib/site";
 import "../globals.css";
@@ -129,7 +130,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
         <Header />
-        {children}
+        <SceneTransition>{children}</SceneTransition>
         <Footer />
         <Analytics />
         <Reveal />
