@@ -1,14 +1,11 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
+import { routes as allMarketingRoutes } from "./routes";
 
 /** Phase 7 production-like acceptance for every core acquisition path.
  * Run after `npm run build`; does not require live credentials.
  */
-const routes = [
-  "/", "/solutions/security", "/service", "/equipment-marketplace",
-  "/guard-marketplace", "/guards", "/get-started", "/radios-equipment",
-  "/join/sales", "/security-trust", "/pricing", "/contact",
-];
+const routes = [...allMarketingRoutes];
 const viewports = [
   { width: 375, height: 812 },
   { width: 768, height: 1024 },
@@ -83,5 +80,85 @@ test("key acquisition pages have no critical automated accessibility violations"
     const results = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa"]).analyze();
     const serious = results.violations.filter(v => v.impact === "critical");
     expect(serious.map(v => `${route}: ${v.id} ${v.description}`)).toEqual([]);
+  }
+});
+
+test("every branded acquisition page uses its own declared premium scene", async ({ page }, info) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  const uniqueScenes: Record<string, string> = {
+    "/solutions/security": "guard-premium.svg",
+    "/service": "service-premium.svg",
+    "/equipment-marketplace": "network-premium.svg",
+    "/guard-marketplace": "hiring-premium.svg",
+    "/guards": "field-premium.svg",
+    "/join/sales": "talent-premium.svg",
+    "/get-started": "trial-premium.svg",
+    "/radios-equipment": "radio-premium.svg",
+    "/security-trust": "legal-premium.svg",
+  };
+  for (const [route, expected] of Object.entries(uniqueScenes)) {
+    await page.goto(route);
+    const discovered = await page.evaluate(() => {
+      const imageUrls = [...document.querySelectorAll("main img")].map(img => img.getAttribute("src") ?? "");
+      const backgroundUrls = [...document.querySelectorAll("main, main > section")].map(el => getComputedStyle(el).backgroundImage);
+      return [...imageUrls, ...backgroundUrls].join(" | ");
+    });
+    expect(discovered, `Missing art on ${route}`).toContain(expected);
+    await page.screenshot({ path: info.outputPath(`scene-${route.replaceAll("/", "-").replace(/^-/, "")}.png`), fullPage: false, animations: "disabled" });
+  }
+  expect(new Set(Object.values(uniqueScenes)).size).toBe(Object.values(uniqueScenes).length);
+});
+
+
+/** Browser screenshots at three realistic widths are our final art-direction proof.
+ * Capture what a visitor actually sees (hero and the three industry scenes).
+ */
+for (const viewport of viewports) {
+  test(`homepage scene composition at ${viewport.width}px`, async ({ page, request }, info) => {
+    await page.setViewportSize(viewport);
+    await page.goto("/");
+    await page.evaluate(() => document.fonts.ready);
+    for (const [name, selector] of [
+      ["hero", ".so-hero"],
+      ["guard", ".so-guard-section"],
+      ["service", ".so-service-section"],
+      ["equipment", ".so-equipment-section"],
+    ] as const) {
+      const scene = page.locator(selector);
+      await expect(scene).toBeVisible();
+      if (name !== "hero") {
+        const background = await scene.evaluate(node => getComputedStyle(node).backgroundImage);
+        expect(background, `${name} should have its own scene`).toContain("/images/scenes/");
+        const match = background.match(/url\((?:["'])?([^)"']+)/);
+        expect(match, `${name} must point to a scene file`).not.toBeNull();
+        if (match) {
+          const assetUrl = new URL(match[1], "http://localhost:3100").pathname;
+          const asset = await request.get(assetUrl);
+          expect(asset.status(), `${name} file response`).toBe(200);
+        }
+      }
+      await scene.evaluate(node => {
+        const rect = node.getBoundingClientRect();
+        window.scrollTo({top: window.scrollY + rect.top - 92, behavior: "instant"});
+      });
+      await page.waitForTimeout(130);
+      await page.screenshot({ path: info.outputPath(`scene-${name}-${viewport.width}.png`), animations: "disabled" });
+    }
+  });
+}
+
+
+test("hero platform selector remains centred and fully usable after animation", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/");
+  await expect(page.locator(".so-hero-bar")).toBeVisible();
+  const metrics = await page.locator(".so-hero-bar").evaluate(el => {
+    const r = el.getBoundingClientRect();
+    return { left: r.left, right: r.right, width: r.width };
+  });
+  expect(metrics.left).toBeGreaterThanOrEqual(0);
+  expect(metrics.right).toBeLessThanOrEqual(1441);
+  for (const label of ["1GUARD", "1Service", "Equipment", "1Community"]) {
+    await expect(page.locator(".so-hero-bar").getByRole("link", { name: new RegExp(label, "i") })).toBeAttached();
   }
 });

@@ -305,3 +305,50 @@ header.glass-nav .s1-nav-logo-small{display:inline-flex;align-items:center}
  header.glass-nav .s1-nav-logo-medium{display:none}
  header.glass-nav .s1-nav-logo-wide{display:inline-flex;align-items:center}
 }
+
+
+/* The older onboarding surface rule is more specific; honour the bespoke trial scene. */
+main.s1-onboarding.surface-light.s1-premium-trial{
+ color:#edf7ff!important;
+ background:linear-gradient(115deg,rgba(12,26,34,.84),rgba(18,35,44,.68)),url('/images/interior/trial-premium.svg') center top/cover no-repeat!important;
+}
+@media(max-width:670px){
+ main.s1-onboarding.surface-light.s1-premium-trial{background-position:58% top!important}
+}
+
+
+/* The signup page's complete scene must override the legacy onboarding gradient,
+   without altering form fields, text contrast or error feedback. */
+main.s1-onboarding.surface-light.s1-premium-trial{
+ background:
+  linear-gradient(115deg,rgba(12,26,34,.82),rgba(18,35,44,.68)),
+  url('/images/interior/trial-premium.svg') center top/cover no-repeat!important;
+ color:#edf7ff!important;
+}
+
+
+/* The trial backdrop must beat the older `main.s1-onboarding.surface-light` rule.
+   Keep the original fallback colours but visibly present the unique approved scene. */
+main.s1-onboarding.surface-light.s1-premium-trial{
+ background:
+   linear-gradient(113deg,rgba(12,25,34,.83),rgba(17,34,42,.67)),
+   url('/images/interior/trial-premium.svg') center top / cover no-repeat!important;
+}
+
+
+/* Preserve the dedicated trust architectural scene against the legacy main surface gradient. */
+main.surface-light.s1-premium-trust{
+ background:
+  linear-gradient(115deg,rgba(14,27,35,.87),rgba(20,39,48,.81)),
+  url('/images/interior/legal-premium.svg') center top/cover no-repeat!important;
+ color:#edf7ff!important;
+}
+
+
+/* Trust scene must outrank the older global main.surface-light background.
+   Preserve legal text contrast and the editorial inset glass panel. */
+main.surface-light.s1-premium-trust{
+ background:
+  linear-gradient(115deg,rgba(14,27,35,.9),rgba(20,39,48,.83)),
+  url('/images/interior/legal-premium.svg') center top / cover no-repeat!important;
+}
