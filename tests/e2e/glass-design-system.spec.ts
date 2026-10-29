@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-const routes = ["/", "/workforce", "/solutions/security", "/equipment-marketplace", "/contact", "/guard-marketplace"];
+const routes = ["/", "/service", "/solutions/security", "/equipment-marketplace", "/contact", "/guard-marketplace"];
 
 for (const path of routes) {
   test(`marketing shell and layout do not overflow at ${path}`, async ({ page }) => {
@@ -30,7 +30,7 @@ test("contact retains accessible fields and receives the unified light glass tre
 
 test("desktop product routes preserve brand and do not offer 1Community as live product", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
-  await page.goto("/workforce");
+  await page.goto("/service");
   await expect(page.getByRole("navigation", { name: "Primary" }).getByRole("link", { name: /1GUARD/ })).toBeVisible();
   await expect(page.locator(".s1-nav-upcoming")).toHaveCount(0);
   await expect(page.getByRole("link", { name: /Request a walkthrough/ }).first()).toHaveAttribute("href", "/contact");
