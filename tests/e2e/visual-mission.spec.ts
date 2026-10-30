@@ -422,6 +422,11 @@ test("homepage shows credible SME-scale guard operations and an accurately label
     await page.goto("/");
     const photograph=page.locator(".so-vertical-visual-guard img");
     await expect(photograph).toHaveAttribute("alt",/security office for an SME.*supervisor/i);
+    // Next/Image lazily fetches below-the-fold photographs; wait until visible
+    // and decoded before asserting dimensions, including in cold CI browsers.
+    await photograph.scrollIntoViewIfNeeded();
+    await expect.poll(async () => photograph.evaluate(img => (img as HTMLImageElement).naturalWidth),
+      {timeout:10000}).toBeGreaterThan(0);
     const sizes=await photograph.evaluate(img=>({
       loaded:(img as HTMLImageElement).naturalWidth,
       frame:img.parentElement?.getBoundingClientRect().width ?? 0
