@@ -92,3 +92,25 @@ Nine compact, original **synthetic illustrative photographs** support otherwise 
 The product-equipment panel continues using the genuine Hytera manufacturer photograph, not a generated device. All new image assets are locally stored, WebP compressed and responsive; the original hero, 1GUARD control room and parent brand mark are unchanged.
 
 Entrance motion slows to about 1.65 seconds for transforms and 1.35 seconds for fades on desktop; mobile runs at about 1.32 seconds. Motion remains opt-in, one-shot, with preserved reduced-motion, fallback and stable layout.
+
+
+## 2026-10-30 — founder-approved field and hospitality photography, scene-first backgrounds
+
+All **12 newly approved illustrative people photographs** were transferred from their source image files, validated, stripped of metadata and converted to responsive WebP in `public/images/editorial/`:
+
+- `security-site-planning.webp` — security supervisors discuss site layouts
+- `hotel-reception-welcome.webp` — front desk, porter and housekeeping workers serve hotel guests
+- `hospitality-team-briefing.webp` — chef, waiter, housekeeper, guard and manager coordinate service
+- `security-office-park-site-review.webp` — security lead and client inspect an office park
+- `warehouse-security-check.webp` — security staff verify a logistics facility
+- `security-access-scan.webp` — field officer and supervisor validate an access point
+- `security-operations-review.webp` — SME security managers review commercial and operational records
+- `security-interview-training.webp` — security recruitment and training discussion
+- `restaurant-staff-briefing.webp` — chef, waiters and service team prepare a restaurant
+- `cafe-team-planning.webp` — cafe manager, chef and staff plan shift operations
+- `security-team-briefing.webp` — working security officers plan assignments
+- `facility-reception-service.webp` — facilities workers welcome a visitor at reception
+
+They are **synthetic illustrations, not images of actual customers or employees**. They represent distinct security, restaurant, hotel, facilities and logistics teams and their roles; no Table Mountain imagery was requested or used.
+
+Homepage: 17 contextual panel photographs each have a different source; all 12 approved illustrations appear exactly once among the cards. Every formerly flat-navy promotional chapter gets its own real-world photo backdrop, with neutral smoked glass and accessible text on top. The approved restaurant hero, its glass globe, brand identity, and 1GUARD SME control room remain unchanged. Site marketing routes use scene-matched photography rather than flat blue; legal and privacy pages retain a document-first reading treatment. The corporate blue remains an accent and is not removed from interactive controls or the signature typographic '1'. Genuine manufacturer product images are not regenerated.
