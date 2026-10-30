@@ -910,3 +910,120 @@ body:has(.so-home) header.glass-nav .btn-primary{box-shadow:inset 0 1px rgba(255
     pointer-events:auto!important;
   }
 }
+
+
+/* 2026-10-30 editorial panel photography — small documentary windows,
+   not full-bleed replacement images or decorative fake dashboards. */
+.so-home .so-panel-photo {
+  position:relative;
+  display:block;
+  margin:0 0 18px;
+  width:100%;
+  height:clamp(108px,10vw,138px);
+  overflow:hidden;
+  isolation:isolate;
+  border-radius:14px;
+  border:1px solid rgba(221,241,255,.25);
+  background:#29424e;
+  box-shadow:0 11px 27px -19px rgba(0,8,22,.8),inset 0 1px rgba(255,255,255,.15);
+}
+.so-home .so-panel-photo .so-panel-photo-image {
+  object-fit:cover;
+  object-position:center;
+  filter:saturate(.94) contrast(1.015);
+}
+.so-home .so-panel-photo::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(0deg,rgba(6,22,35,.11),transparent 55%);
+}
+.so-home .so-value-rail>div .so-panel-photo{
+  height:clamp(110px,11vw,150px);
+  margin-bottom:20px;
+}
+.so-home .so-value-rail>div>span{
+  margin-bottom:10px;
+}
+.so-home .so-marketplace-grid article .so-panel-photo{
+  margin:17px 0 1px;
+  height:clamp(118px,11vw,160px);
+  flex:0 0 auto;
+}
+.so-home .so-marketplace-grid article:has(.so-panel-photo){min-height:370px}
+.so-home .so-journey-grid>div .so-panel-photo{
+  margin-bottom:20px;
+  height:clamp(110px,11vw,150px);
+}
+.so-home .so-journey-grid>div h3{margin-top:15px}
+.so-home .so-lifecycle li .so-panel-photo--mini{
+  flex:0 0 43px;
+  width:43px;
+  height:43px;
+  min-width:43px;
+  margin:0 2px 0 0;
+  border-radius:10px;
+  box-shadow:none;
+}
+.so-home .so-lifecycle li{
+  gap:9px;
+}
+.so-home .so-lifecycle li>strong{
+  flex:1 1 auto;
+  min-width:0;
+  font-size:clamp(.81rem,.98vw,.93rem);
+}
+.so-home .so-lifecycle li>span{flex:0 0 auto}
+.so-home .so-panel-photo:has(img[src*="hytera-pnc360s"]){
+  background:#eef4f7;
+}
+.so-home .so-panel-photo:has(img[src*="hytera-pnc360s"]) img{
+  object-fit:contain;
+  padding:6px;
+}
+.so-home .so-editorial-disclosure{
+  margin:24px 0 0;
+  color:#b7cad7;
+  font-size:.78rem;
+  line-height:1.5;
+}
+/* Slower, deliberate cinematic reveals. The content never animates on initial
+   layout or for reduced-motion visitors, and entrances never repeat. */
+@media(prefers-reduced-motion:no-preference){
+  .so-home.so-motion-enabled [data-motion-from][data-motion-state]{
+    transition-duration:1650ms,1350ms;
+    transition-timing-function:cubic-bezier(.16,.84,.18,1),cubic-bezier(.2,.75,.23,1);
+  }
+  .so-home.so-motion-enabled [data-motion-from][data-motion-state="pending"]{
+    will-change:transform,opacity;
+  }
+  .so-home.so-motion-enabled [data-motion-from][data-motion-state="shown"]{
+    will-change:auto;
+  }
+}
+@media(max-width:960px){
+  .so-home .so-marketplace-grid article:has(.so-panel-photo){min-height:0}
+  .so-home .so-marketplace-grid article .so-panel-photo{height:clamp(130px,28vw,185px)}
+  .so-home .so-lifecycle li{gap:7px}
+}
+@media(max-width:670px){
+  .so-home .so-value-rail>div .so-panel-photo{height:clamp(120px,35vw,180px)}
+  .so-home .so-journey-grid>div .so-panel-photo{height:clamp(120px,35vw,180px)}
+  .so-home .so-lifecycle li .so-panel-photo--mini{
+    flex-basis:35px;
+    width:35px;
+    min-width:35px;
+    height:35px;
+    border-radius:8px;
+    margin-right:0;
+  }
+  .so-home .so-lifecycle li{gap:5px;padding:9px 7px}
+  .so-home .so-lifecycle li>strong{font-size:.72rem}
+  .so-home .so-lifecycle li>span{font-size:.67rem}
+}
+@media(max-width:670px) and (prefers-reduced-motion:no-preference){
+  .so-home.so-motion-enabled [data-motion-from][data-motion-state]{
+    transition-duration:1320ms,1080ms;
+  }
+}
