@@ -683,3 +683,80 @@ test("below the permanently locked hero, marketing backgrounds remain people-fre
  await page.goto("/service");
  await expect(page.locator("#vision .s1-glass-people-photo img")).toHaveCount(4);
 });
+
+
+test("homepage introduction uses a draggable interactive OS cube with no repeated staff photographs",async({page})=>{
+  for(const viewport of [{width:390,height:844},{width:768,height:1024},{width:1440,height:900}]){
+    await page.setViewportSize(viewport);
+    await page.goto("/");
+    const intro=page.locator("#solutions");
+    const cube=intro.locator(".so-os-cube-trigger");
+    await cube.scrollIntoViewIfNeeded();
+    await expect(cube).toBeVisible();
+    await expect(intro.locator(".so-os-cube-face")).toHaveCount(6);
+    await expect(intro.locator(".so-os-intro-heading > .so-panel-photo")).toHaveCount(0);
+    await expect(intro.getByRole("button",{name:/Enter the operating system/i})).toBeVisible();
+
+    const images=await page.locator("main.so-home img").evaluateAll(items=>items.map(item=>{
+      const raw=item.getAttribute("src")||"";
+      try{
+        const url=new URL(raw,location.origin);
+        return decodeURIComponent(url.searchParams.get("url")||url.pathname);
+      }catch{return raw;}
+    }).filter(src=>src.startsWith("/images/")));
+    expect(images.length).toBeGreaterThan(17);
+    expect(new Set(images).size,"A people image must not appear twice on the homepage").toBe(images.length);
+    const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
+    expect(overflow).toBeLessThanOrEqual(1);
+    await expect(page.locator(".so-hero-media .so-hero-photo")).toHaveAttribute("src",/approved-full-scene-guard-chef-2026[.]png/);
+  }
+});
+
+test("3D cube drag rotates, click zooms into OS and stage controls navigate real content",async({page})=>{
+  await page.setViewportSize({width:1440,height:900});
+  await page.goto("/");
+  const cube=page.locator(".so-os-cube-trigger");
+  await cube.scrollIntoViewIfNeeded();
+  const angleBefore=await page.locator(".so-os-cube-3d").getAttribute("style");
+  const rect=await cube.boundingBox();
+  expect(rect).not.toBeNull();
+  await page.mouse.move(rect!.x + rect!.width/2,rect!.y+rect!.height/2);
+  await page.mouse.down();
+  await page.mouse.move(rect!.x+rect!.width/2+85,rect!.y+rect!.height/2+28,{steps:5});
+  await page.mouse.up();
+  const angleAfter=await page.locator(".so-os-cube-3d").getAttribute("style");
+  expect(angleAfter).not.toBe(angleBefore);
+  await expect(page.getByRole("dialog",{name:/Inside the operating system/i})).toHaveCount(0);
+  await page.locator(".so-os-enter").click();
+  const dialog=page.getByRole("dialog",{name:/Inside the operating system/i});
+  await expect(dialog).toBeVisible();
+  await expect(dialog.locator(".so-os-journey-step")).toHaveCount(7);
+  await dialog.getByRole("button",{name:/Pause the operating system journey/i}).click();
+  await dialog.getByRole("button",{name:"Next stage"}).click();
+  await expect(dialog.locator(".so-os-stage-description h3")).toHaveText("Bring the right team together");
+  await dialog.getByRole("button",{name:"Growth"}).click();
+  await expect(dialog.locator(".so-os-stage-description h3")).toHaveText("Learn and improve");
+  await page.keyboard.press("Escape");
+  await expect(dialog).toHaveCount(0);
+  await expect(cube).toBeFocused();
+});
+
+test("operating system cube is accessible from keyboard and respects reduced motion",async({page})=>{
+  await page.emulateMedia({reducedMotion:"reduce"});
+  await page.setViewportSize({width:390,height:844});
+  await page.goto("/");
+  const cube=page.locator(".so-os-cube-trigger");
+  await cube.scrollIntoViewIfNeeded();
+  await cube.focus();
+  const oldAngle=await page.locator(".so-os-cube-3d").getAttribute("style");
+  await page.keyboard.press("ArrowRight");
+  expect(await page.locator(".so-os-cube-3d").getAttribute("style")).not.toBe(oldAngle);
+  await page.keyboard.press("Enter");
+  const dialog=page.getByRole("dialog",{name:/Inside the operating system/i});
+  await expect(dialog).toBeVisible();
+  await expect(dialog.locator(".so-os-interior-body")).toHaveCSS("animation-name","none");
+  await expect(dialog.getByRole("button",{name:/Play the operating system journey/i})).toBeVisible();
+  await dialog.getByRole("button",{name:"Close operating system experience"}).click();
+  await expect(dialog).toHaveCount(0);
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth)).toBeLessThanOrEqual(1);
+});
