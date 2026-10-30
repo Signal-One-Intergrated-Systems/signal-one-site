@@ -46,15 +46,10 @@ Preserve Signal One's actual ring logo, typography, approved imagery, globe, gla
 - Guard hiring marketplace: candidate/company interest only until matching, consent and eligibility workflows pass launch gates.
 - Careers: application -> interview review -> decision -> compulsory Training OS -> authorised internal Sales OS (future automation contracts are not represented as live).
 
-## Interactive public OS cube — 2026-10-30
+## Living OS Square — approved floating-card design
 
-The homepage section immediately below the unchanged, founder-locked hero uses an interactive 3D glass cube instead of the duplicated editorial thumbnail. It explains the customer-facing operating-system vision, not a live dashboard. Confidential architecture is not mentioned.
+The marketing homepage's original "Every part of your business. Working as one." glass card retains its photography, heading and explanatory paragraph. The approved full-bleed homepage hero remains frozen and entirely out of scope.
 
-- Source: app/components/OperatingSystemCube.tsx and app/os-cube.css.
-- Drag, swipe or arrow keys rotate the cube. Click, Enter or Space opens the immersive experience.
-- The expanded, focus-trapped overlay shows Lead → People → Schedule → Work → Proof → Billing → Growth.
-- Visitors may choose stages or pause the slow automatic flow. Escape returns focus to the cube.
-- Mobile layouts have horizontal stages; reduced motion disables animations and automatic cycling.
-- The walkthrough explicitly labels future integrations as a concept, not currently available features.
-- Each homepage image source is unique; imagery is not duplicated in the page.
-- The approved founder-locked hero remains identical to tests/fixtures/locked-home-hero.txt.
+A distinct translucent, dimensional **square node-map** floats above the card and is visually independent from it; this is neither a cube nor a modal. Each network dot indicates a functional part of a connected business operating system, with calm breathing light and a slight hover awakening. Selecting the square unfolds it spatially into **exactly two panes: 1GUARD and 1Service**. Both use the same product-wordmark typography and Signal Blue numeral. The panes show illustrative module/handoff structures and link to their actual product information pages without inventing live statistics.
+
+On phones the two panes swipe horizontally; on desktops they settle next to one another above the unchanged introduction card. Keyboard, reduced motion, Escape-to-fold, image uniqueness and semantic glass-pane structure are covered by browser tests. No confidential technology names or implementation internals are exposed in public-facing copy. The former full-screen seven-step 3D cube component and its styles were removed.
