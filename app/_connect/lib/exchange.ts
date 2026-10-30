@@ -20,7 +20,7 @@ export const emptyExchange: ExchangeFields = {
 };
 
 export const exchangeInterests = [
-  "Security operations and Guard",
+  "1GUARD Security Business OS",
   "Radios and equipment",
   "Business partnership",
   "General enquiry",
