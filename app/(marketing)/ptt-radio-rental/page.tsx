@@ -17,6 +17,7 @@ const radios = catalogue[0];
 export default function PttRadioRentalPage() {
   return (
     <LandingPage
+      scene="radio-rental"
       kicker="PTT radio rental"
       title="Push-to-talk radios for your security contracts."
       lead="Rent push-to-talk radios that run over the cellular network, so a supervisor in Midrand can reach a guard in Pretoria without repeaters. Quoted per deployment, on 12, 24 or 36-month terms."
