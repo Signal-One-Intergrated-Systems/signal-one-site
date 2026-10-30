@@ -7,7 +7,7 @@ import { num, rand } from "../../lib/format";
 import { exVat, guardDayPrice, guardDayPricePhrase, minimumPhrase } from "../../lib/pricing";
 
 export const metadata: Metadata = {
-  title: "Security Guard Software Pricing: " + guardDayPrice + " per Guard per Day",
+  title: "1GUARD Pricing: " + guardDayPrice + " per Guard per Day",
   description:
     "Signal One Security is " + guardDayPricePhrase + ", excluding VAT. No tiers or packages. Minimum " + minimumPhrase + "; unused days carry over. Calculate your cost.",
   alternates: { canonical: "/pricing" },
@@ -26,7 +26,7 @@ export default function PricingPage() {
       <section className="split-hero surface-deep">
         <div className="wrap grid gap-12 py-16 md:py-24 lg:grid-cols-[minmax(0,var(--hero-col))_minmax(0,1fr)] lg:items-center lg:gap-20 lg:py-32">
           <div>
-            <Kicker tone="dark">Signal One Security pricing</Kicker>
+            <Kicker tone="dark">1GUARD · Security Business OS pricing</Kicker>
             <h1 className="mt-6 flex flex-wrap items-end gap-x-5 gap-y-2">
               <span className="t-num text-[7rem] text-signal-400 sm:text-[10rem] lg:text-[12rem]">{guardDayPrice}</span>
               <span className="pb-4 font-display text-[1.75rem] font-semibold leading-tight sm:text-[2.25rem]">
@@ -35,7 +35,7 @@ export default function PricingPage() {
                 per day
               </span>
             </h1>
-            <p className="t-lead mt-4 text-text-inv-2">Excluding VAT. One price for the whole platform. No tiers, no packages.</p>
+            <p className="t-lead mt-4 text-text-inv-2">Excluding VAT. A straightforward guard-day rate for the currently offered 1GUARD service. Future business OS capabilities and separately quoted equipment are not implied to be included.</p>
             {guardOnboardingLine ? <p className="t-small mt-3 font-semibold text-text-inv">{guardOnboardingLine}</p> : null}
           </div>
 
