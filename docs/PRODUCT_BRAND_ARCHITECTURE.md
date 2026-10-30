@@ -45,3 +45,16 @@ Preserve Signal One's actual ring logo, typography, approved imagery, globe, gla
 - Equipment: category -> requirements -> quotation -> approved sale/rental and fulfilment.
 - Guard hiring marketplace: candidate/company interest only until matching, consent and eligibility workflows pass launch gates.
 - Careers: application -> interview review -> decision -> compulsory Training OS -> authorised internal Sales OS (future automation contracts are not represented as live).
+
+## Interactive public OS cube — 2026-10-30
+
+The homepage section immediately below the unchanged, founder-locked hero uses an interactive 3D glass cube instead of the duplicated editorial thumbnail. It explains the customer-facing operating-system vision, not a live dashboard. Confidential architecture is not mentioned.
+
+- Source: app/components/OperatingSystemCube.tsx and app/os-cube.css.
+- Drag, swipe or arrow keys rotate the cube. Click, Enter or Space opens the immersive experience.
+- The expanded, focus-trapped overlay shows Lead → People → Schedule → Work → Proof → Billing → Growth.
+- Visitors may choose stages or pause the slow automatic flow. Escape returns focus to the cube.
+- Mobile layouts have horizontal stages; reduced motion disables animations and automatic cycling.
+- The walkthrough explicitly labels future integrations as a concept, not currently available features.
+- Each homepage image source is unique; imagery is not duplicated in the page.
+- The approved founder-locked hero remains identical to tests/fixtures/locked-home-hero.txt.
