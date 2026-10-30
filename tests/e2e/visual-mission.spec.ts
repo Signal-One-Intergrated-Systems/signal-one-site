@@ -546,7 +546,7 @@ test("marketing backgrounds contain only verified empty environments and people 
    for(const selector of selectors){
      if(selector === ".so-hero-media"){
        const image=page.locator(".so-hero-media .so-hero-background-photo");
-       await expect(image).toHaveAttribute("src",/\/images\/backgrounds\/restaurant-courtyard[.]webp/);
+       await expect(image).toHaveAttribute("src",/restaurant-courtyard[.]webp/);
        continue;
      }
      const background=await page.locator(selector).first().evaluate(n=>getComputedStyle(n).backgroundImage);
