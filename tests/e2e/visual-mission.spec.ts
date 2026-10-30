@@ -290,7 +290,7 @@ test("desktop homepage shows the entire approved guard and chef photograph with 
     await page.setViewportSize(viewport);
     await page.goto("/");
     const image = page.locator(".so-hero-photo");
-    await expect(image).toHaveAttribute("src", /approved-security-chef-daylight-2026\\.png/);
+    await expect(image).toHaveAttribute("src", /approved-security-chef-daylight-2026[.]png/);
     const layout = await image.evaluate(img => {
       const media = img.parentElement!.getBoundingClientRect();
       const picture = img.getBoundingClientRect();
