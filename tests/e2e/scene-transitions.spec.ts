@@ -1,6 +1,5 @@
 import { expect, test } from "@playwright/test";
 
-test.beforeEach(({page})=>{page.setDefaultTimeout(12000);});
 
 
 test("public routes share a scene shell and product navigation still works", async ({ page }) => {
@@ -33,11 +32,13 @@ test("glass shutters conceal scroll reset and reveal only the landed destination
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(400);
 
   const overlay = page.locator(".sg-entry-overlay");
-  const scrollBefore = await page.evaluate(() => window.scrollY);
   await page.locator('header a[href="/solutions/security"]:visible').first().click();
   await expect(overlay).toHaveAttribute("data-guard-entry", "closing");
-  // Nothing moves while the shutter closes across the old, scrolled page.
-  expect(await page.evaluate(() => window.scrollY)).toBeGreaterThanOrEqual(scrollBefore - 2);
+  // Browser-test clicks can scroll the header link into view before clicking.
+  // Once the shutter STARTS, however, the old page must remain stationary.
+  const duringClose = await page.evaluate(() => window.scrollY);
+  await page.waitForTimeout(130);
+  expect(Math.abs((await page.evaluate(() => window.scrollY)) - duringClose)).toBeLessThan(3);
   await expect(overlay).toHaveAttribute("data-guard-entry", "sealed", { timeout: 6000 });
   await expect(overlay).toHaveCSS("background-color", "rgb(25, 37, 43)");
   await expect(page.locator("html")).toHaveClass(/s1-route-navigation/);
