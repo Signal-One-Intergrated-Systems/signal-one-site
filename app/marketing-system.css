@@ -383,3 +383,11 @@ main.surface-light.s1-premium-trust{
 @media(max-width:670px){
  .s1-people-main-photo img{object-position:50% 37%!important}
 }
+
+/* Win over the legacy dark section gradient. Maintain the service team as
+   foreground and show the dining scene only behind the section. */
+main .s1-people-scene-service.surface-deep.section{
+  background-image:linear-gradient(110deg,rgba(9,26,34,.9),rgba(15,31,36,.64)),url('/images/scenes/service-dining.svg')!important;
+  background-size:cover!important;
+  background-position:center!important;
+}
