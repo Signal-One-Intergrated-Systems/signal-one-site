@@ -5,7 +5,7 @@ export const INTEREST_GROUPS = [
     "options": [
       {
         "id": "guard",
-        "label": "Signal One Guard — Security operations"
+        "label": "1GUARD — Security Business OS"
       },
       {
         "id": "workforce",
