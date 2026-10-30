@@ -1,8 +1,8 @@
 import Link from "next/link";
 
 const journeys = [
-  { audience: "Service business owner", title: "Explore 1Service", detail: "Restaurant-first service operations in development. Explore the vision, then register interest in early access.", href: "/service", action: "Explore 1Service", tag: "1Service" },
-  { audience: "Security company", title: "Run your security operation", detail: "Operate guarding sites, shifts and patrols. Explore guard hiring and equipment sourcing through distinct 1GUARD marketplace journeys.", href: "/get-started", action: "Start company onboarding", tag: "1GUARD" },
+  { audience: "Service business owner", title: "Explore 1Service", detail: "Restaurant-first Service Business OS in development. Explore the vision, then register interest in early access.", href: "/service", action: "Explore 1Service", tag: "1Service" },
+  { audience: "Security company", title: "Run your security business", detail: "1GUARD is designed as the operating system for your security business, starting with sites, shifts, patrols and verifiable service delivery.", href: "/get-started", action: "Start company onboarding", tag: "1GUARD" },
   { audience: "Security officer", title: "Join as a guard", detail: "Register your interest in guard opportunities. Marketplace matching is still in development.", href: "/guards/join", action: "Create a guard profile", tag: "Guard" },
   { audience: "Equipment buyer", title: "Find the right field equipment", detail: "Explore radios, body cameras and tracking purchases or rental enquiries. An online 1GUARD equipment marketplace is not live yet.", href: "/equipment-marketplace", action: "Explore equipment", tag: "Hardware" },
   { audience: "Sales candidate", title: "Work with Signal One", detail: "Explore available representative opportunities and submit an application.", href: "/join/sales", action: "View sales opportunities", tag: "Careers" },
