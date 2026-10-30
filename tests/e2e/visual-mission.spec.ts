@@ -499,3 +499,56 @@ test("homepage respects reduced motion and keeps all content readable without sc
   const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
   expect(overflow).toBeLessThanOrEqual(1);
 });
+
+
+test("homepage contextual panels use correct local documentary photographs rather than empty glass cards", async ({ page, request }) => {
+  const sources = [
+    "win-work", "prove-work", "manage-grow", "hire-security",
+    "hire-hospitality", "onboarding-sme", "customer-enquiry",
+    "team-dispatch", "invoice-confirm",
+  ];
+  for (const name of sources) {
+    const response = await request.get(`/images/home/panels/${name}.webp`);
+    expect(response.status(), `Image not available: ${name}`).toBe(200);
+    expect(response.headers()["content-type"]).toContain("image/webp");
+    expect((await response.body()).byteLength).toBeGreaterThan(15000);
+  }
+  for (const size of [{width:375,height:812},{width:768,height:1024},{width:1440,height:900}]) {
+    await page.setViewportSize(size);
+    await page.goto("/");
+    await expect(page.locator(".so-value-rail .so-panel-photo")).toHaveCount(3);
+    await expect(page.locator(".so-lifecycle .so-panel-photo--mini")).toHaveCount(8);
+    await expect(page.locator(".so-marketplace-grid .so-panel-photo")).toHaveCount(3);
+    await expect(page.locator(".so-journey-grid .so-panel-photo")).toHaveCount(3);
+    const descriptions = await page.locator(".so-panel-photo img").evaluateAll(images =>
+      images.map(img => img.getAttribute("alt") ?? "")
+    );
+    expect(descriptions.every(description => description.length > 30)).toBe(true);
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
+    expect(overflow).toBeLessThanOrEqual(1);
+    await expect(page.locator(".so-hero-photo")).toHaveAttribute("src",/approved-full-scene-guard-chef-2026[.]png/);
+    await expect(page.locator(".so-vertical-visual-guard img")).toHaveAttribute("src", /approved-sme-security-control-room-2026[.]png/);
+  }
+});
+
+test("slower homepage panel entrances animate with extended easing and preserve reduced-motion support", async ({ page }) => {
+  await page.setViewportSize({width:1440,height:900});
+  await page.goto("/");
+  await expect(page.locator(".so-home")).toHaveClass(/so-motion-enabled/);
+  const panel = page.locator("#guard [data-motion-from='top']");
+  await expect(panel).toHaveAttribute("data-motion-state","pending");
+  const before = await panel.evaluate(node => {
+    const style=getComputedStyle(node);
+    return {duration:style.transitionDuration,from:node.getAttribute("data-motion-from")};
+  });
+  expect(before.from).toBe("top");
+  expect(parseFloat(before.duration)).toBeGreaterThanOrEqual(1.6);
+  await page.locator("#guard").scrollIntoViewIfNeeded();
+  await expect(panel).toHaveAttribute("data-motion-state","shown");
+  await expect(panel).toHaveCSS("opacity","1",{timeout:6000});
+
+  await page.emulateMedia({reducedMotion:"reduce"});
+  await expect(page.locator(".so-home")).not.toHaveClass(/so-motion-enabled/);
+  await expect(panel).toHaveCSS("transform","none");
+  await expect(panel).toHaveCSS("opacity","1");
+});
