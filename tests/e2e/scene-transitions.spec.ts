@@ -66,10 +66,9 @@ test("responsive page change keeps the curtain above content without a scroll fl
   await page.goto("/service");
   await page.evaluate(() => window.scrollTo({ top: 1000, behavior: "instant" }));
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(150);
-  // Mobile primary navigation is collapsed; an existing cross-page in-content link.
-  const target = page.locator('a[href="/solutions/security"]').first();
-  await target.scrollIntoViewIfNeeded();
-  await target.click();
+  // The mobile header opens its own navigation sheet.
+  await page.getByRole("button", { name: /Menu/ }).click();
+  await page.getByRole("navigation", { name: "Mobile" }).getByRole("link", { name: /1GUARD/ }).click();
   await page.waitForURL(/\/solutions\/security$/);
   await expect(page.locator(".sg-entry-overlay")).toHaveAttribute("data-guard-entry", "opening", { timeout: 7000 });
   expect(await page.evaluate(() => window.scrollY)).toBeLessThan(3);
