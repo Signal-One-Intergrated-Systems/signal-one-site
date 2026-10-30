@@ -60,3 +60,14 @@ The original approved composition deliberately reserves the left half for greene
 `public/images/home/sme-security-control-room.png` is an **illustrative AI-generated scene** of a small, modern security company's monitoring office. It deliberately uses a realistic South African SME scale: three working desks, a supervisor, modest wall-mounted CCTV screens and normal business equipment. It is not an actual customer premises, authenticated product screen, or live customer proof. The on-page caption must continue to disclose its illustrative nature.
 
 Use this photograph only in the 1GUARD homepage feature section. Do not substitute an enormous international command centre or crop in so tightly that the room appears unusually large. The founder-approved homepage hero photograph, parent logo, animated globe and the real manufacturer equipment images stay unchanged.
+
+
+## Founder-approved SME security control room — 2026-10-30 replacement
+
+The homepage 1GUARD story uses `public/images/home/approved-sme-security-control-room-2026.png` at its original 1672 × 941 dimensions (SHA-256 `b8efd081d1404ff36c1c5bc1b39d229e6598bb2cc94efe01459b9abaf9467852`). This is the exact founder-approved illustrative control-room image: three operator stations, one standing Black male supervisor and realistic CCTV equipment. The view contains no mountain landmark. It is **synthetic illustrative photography**, not a real customer site, a real dashboard screenshot or proof of commercial product functionality. Keep the visual disclosure.
+
+The approved wide restaurant homepage hero and real manufacturer product photos are untouched.
+
+## Scroll-entry pattern
+
+The homepage uses `HomeScrollChoreography.tsx` with `data-motion-from` on the individual text, photography and product panels. The first content section moves from left and right, 1GUARD from top and left, and subsequent sections use a restrained rotating arrangement of left, right, top and bottom. Only transform and opacity animate; direction assignment is deliberate, not nondeterministic. Content stays visible when JS is unavailable, reduced motion is requested or IntersectionObserver is unavailable. The route transition and existing globe have separate animation systems and are not overwritten.

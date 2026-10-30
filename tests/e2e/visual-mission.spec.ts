@@ -138,7 +138,7 @@ for (const viewport of viewports) {
       if (name !== "hero") {
         const background = await scene.evaluate(node => getComputedStyle(node).backgroundImage);
         expect(background, `${name} should have its appropriate SME-scaled context`).toContain(
-          name === "guard" ? "/images/home/sme-security-control-room.png" : "/images/scenes/"
+          name === "guard" ? "/images/home/approved-sme-security-control-room-2026.png" : "/images/scenes/"
         );
         const match = background.match(/url\((?:["'])?([^)"']+)/);
         expect(match, `${name} must point to its contextual image`).not.toBeNull();
@@ -225,7 +225,7 @@ test("responsive approved hero shows the full image stage before the glass messa
 test("homepage Guard and Service put people ahead of their section environments", async ({ page, request }) => {
   await page.goto("/");
   const assets = [
-    [".so-vertical-visual-guard img", "/images/home/sme-security-control-room.png", "image/png"],
+    [".so-vertical-visual-guard img", "/images/home/approved-sme-security-control-room-2026.png", "image/png"],
     [".so-vertical-visual-service img", "/images/home/service-restaurant-operations.jpg", "image/jpeg"],
   ] as const;
   for (const [selector, expected, mime] of assets) {
@@ -410,7 +410,7 @@ test("every product wordmark shares the same numeral height, baseline and propor
 
 
 test("homepage shows credible SME-scale guard operations and an accurately labelled connected journey", async ({page,request}) => {
-  const imagePath="/images/home/sme-security-control-room.png";
+  const imagePath="/images/home/approved-sme-security-control-room-2026.png";
   const source=await request.get(imagePath);
   expect(source.status()).toBe(200);
   expect(source.headers()["content-type"]).toContain("image/png");
@@ -419,7 +419,7 @@ test("homepage shows credible SME-scale guard operations and an accurately label
     await page.setViewportSize(viewport);
     await page.goto("/");
     const photograph=page.locator(".so-vertical-visual-guard img");
-    await expect(photograph).toHaveAttribute("alt",/compact security control room.*SME/i);
+    await expect(photograph).toHaveAttribute("alt",/security office for an SME.*supervisor/i);
     const sizes=await photograph.evaluate(img=>({
       loaded:(img as HTMLImageElement).naturalWidth,
       frame:img.parentElement?.getBoundingClientRect().width ?? 0
@@ -437,4 +437,65 @@ test("homepage shows credible SME-scale guard operations and an accurately label
     await expect(page.getByRole("link",{name:/Discover 1Service/i})).toHaveAttribute("href","/service");
     await expect(page.getByRole("link",{name:/Browse technology/i})).toHaveAttribute("href","/equipment-marketplace");
   }
+});
+
+
+test("homepage panels enter from coordinated different directions without shifting the layout", async ({ page, request }) => {
+  const photoPath = "/images/home/approved-sme-security-control-room-2026.png";
+  const photo = await request.get(photoPath);
+  expect(photo.status()).toBe(200);
+  expect(photo.headers()["content-type"]).toContain("image/png");
+  expect((await photo.body()).byteLength).toBeGreaterThan(500_000);
+
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/");
+  const scope = page.locator("main.so-home[data-motion-scope]");
+  await expect(scope).toHaveClass(/so-motion-enabled/);
+
+  const patterns = [
+    ["#solutions", "left", "right"],
+    ["#guard", "top", "left"],
+    ["#service", "right", "top"],
+    [".so-ecosystem-section", "left", "right"],
+    [".so-marketplace-section", "right", "top"],
+    ["#equipment", "right", "left"],
+    [".so-onboarding-section", "top", "left"],
+    ["#community", "left", "right"],
+  ] as const;
+
+  for (const [section, first, second] of patterns) {
+    await expect(page.locator(`${section} [data-motion-from="${first}"]`).first()).toHaveCount(1);
+    await expect(page.locator(`${section} [data-motion-from="${second}"]`).first()).toHaveCount(1);
+  }
+  const photoEl = page.locator(".so-vertical-visual-guard img");
+  await expect(photoEl).toHaveAttribute("src", /approved-sme-security-control-room-2026[.]png/);
+
+  const photoPanel = page.locator("#guard [data-motion-from='top']");
+  await expect(photoPanel).toHaveAttribute("data-motion-state", "pending");
+  await page.locator("#guard").scrollIntoViewIfNeeded();
+  await expect(photoPanel).toHaveAttribute("data-motion-state", "shown");
+  await expect(photoPanel).toHaveCSS("opacity", "1");
+
+  await page.locator(".so-marketplace-section").scrollIntoViewIfNeeded();
+  await expect(page.locator(".so-marketplace-grid article").first()).toHaveAttribute("data-motion-state","shown");
+  const metric = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
+  expect(metric).toBeLessThanOrEqual(1);
+
+  await page.locator("#solutions").scrollIntoViewIfNeeded();
+  // Previously visited content stays visible, never disappears on reverse scroll.
+  await expect(photoPanel).toHaveAttribute("data-motion-state", "shown");
+});
+
+test("homepage respects reduced motion and keeps all content readable without scroll transforms", async ({page}) => {
+  await page.emulateMedia({reducedMotion:"reduce"});
+  await page.setViewportSize({width:375,height:812});
+  await page.goto("/");
+  const root=page.locator(".so-home");
+  await expect(root).not.toHaveClass(/so-motion-enabled/);
+  const motion=page.locator("#guard [data-motion-from]");
+  await expect(motion.first()).toHaveCSS("opacity","1");
+  await expect(motion.first()).toHaveCSS("transform","none");
+  await expect(page.getByRole("link",{name:/get 14 day free trial/i}).first()).toBeVisible();
+  const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
+  expect(overflow).toBeLessThanOrEqual(1);
 });
