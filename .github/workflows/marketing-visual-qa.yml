@@ -35,7 +35,8 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npx playwright install --with-deps chromium
-      - run: npx playwright test tests/e2e/visual-mission.spec.ts tests/e2e/scene-transitions.spec.ts
+      - run: npx playwright test tests/e2e/visual-mission.spec.ts
+      - run: npx playwright test tests/e2e/scene-transitions.spec.ts --workers=1
       - name: Upload browser screenshots and reports
         if: always()
         uses: actions/upload-artifact@v4
