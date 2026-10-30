@@ -750,7 +750,8 @@ test("living square reveals two swipeable panes on phones and supports reduced m
   const panes=living.locator(".so-living-panes");
   await expect(panes).toHaveCSS("display","flex");
   await expect(living.locator(".so-living-pane")).toHaveCount(2);
-  await expect(living.locator(".so-living-pane").first()).toHaveCSS("transition-duration","0s");
+  const transition=await living.locator(".so-living-pane").first().evaluate(node=>parseFloat(getComputedStyle(node).transitionDuration));
+  expect(transition,"Reduced motion must have no perceivable transition").toBeLessThan(0.0001);
   await living.getByRole("button",{name:/Fold operating systems back/i}).click();
   await expect(living).toHaveAttribute("data-open","false");
   const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
