@@ -507,3 +507,9 @@ main.s1-scene-page.s1-onboarding.surface-light.s1-premium-trial{
 main.s1-scene-page--equipment > section.s1-equipment-hero.surface-deep.section{
   background:linear-gradient(105deg,rgba(15,17,17,.72),rgba(16,18,18,.38)),var(--s1-scene-primary) center/cover no-repeat!important;
 }
+
+
+/* Hiring hero previously retained an older three-class illustrated-campus override. */
+main.s1-scene-page.s1-people-hiring .split-hero.surface-deep{
+  background:linear-gradient(110deg,rgba(15,18,18,.76),rgba(18,20,19,.39)),var(--s1-scene-primary) center/cover no-repeat!important;
+}
