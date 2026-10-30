@@ -19,3 +19,60 @@ test("reduced-motion navigation remains immediate and form inputs are accessible
  await page.getByRole("navigation", { name: "Primary" }).getByRole("link", { name: /1GUARD/ }).click();
  await expect(page).toHaveURL(/\/solutions\/security$/);
 });
+
+
+test("glass shutters conceal scroll reset and reveal only the landed destination", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/service");
+  await page.evaluate(() => window.scrollTo({ top: 1250, behavior: "instant" }));
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(400);
+
+  const overlay = page.locator(".sg-entry-overlay");
+  const scrollBefore = await page.evaluate(() => window.scrollY);
+  await page.getByRole("navigation", { name: "Primary" }).getByRole("link", { name: /1GUARD/ }).click();
+  await expect(overlay).toHaveAttribute("data-guard-entry", "closing");
+  // Nothing moves while the shutter closes across the old, scrolled page.
+  expect(await page.evaluate(() => window.scrollY)).toBeGreaterThanOrEqual(scrollBefore - 2);
+  await expect(overlay).toHaveAttribute("data-guard-entry", "sealed", { timeout: 6000 });
+  await expect(overlay).toHaveCSS("background-color", "rgb(25, 37, 43)");
+  await expect(page.locator("html")).toHaveClass(/s1-route-navigation/);
+  await page.waitForURL(/\/solutions\/security$/);
+  await expect(overlay).toHaveAttribute("data-guard-entry", "opening", { timeout: 7000 });
+  // The destination scroll position is settled BEFORE the doors start opening.
+  expect(await page.evaluate(() => window.scrollY)).toBeLessThan(3);
+  expect(await page.evaluate(() => getComputedStyle(document.documentElement).scrollBehavior)).toBe("auto");
+  await expect(overlay).toHaveAttribute("data-guard-entry", "idle", { timeout: 6000 });
+  await expect(page.locator("html")).not.toHaveClass(/s1-route-navigation/);
+  await expect(page.locator(".s1-scene-route")).toHaveAttribute("data-scene-route", "/solutions/security");
+  await expect(page.locator("main h1").first()).toBeVisible();
+});
+
+test("route navigation from a deeply scrolled destination never animates page upward under glass", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/solutions/security");
+  await page.evaluate(() => window.scrollTo({ top: 1600, behavior: "instant" }));
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(400);
+  await page.getByRole("navigation", { name: "Primary" }).getByRole("link", { name: /1Service/ }).click();
+  await expect(page.locator(".sg-entry-overlay")).toHaveAttribute("data-guard-entry", "sealed", { timeout: 6000 });
+  await page.waitForURL(/\/service$/);
+  await expect(page.locator(".sg-entry-overlay")).toHaveAttribute("data-guard-entry", "opening", { timeout: 7000 });
+  expect(await page.evaluate(() => window.scrollY)).toBeLessThan(3);
+  await expect(page.locator(".sg-entry-overlay")).toHaveAttribute("data-guard-entry", "idle", { timeout: 6000 });
+  await expect(page.locator(".s1-scene-route")).toHaveAttribute("data-scene-route", "/service");
+});
+
+test("responsive page change keeps the curtain above content without a scroll flash", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/service");
+  await page.evaluate(() => window.scrollTo({ top: 1000, behavior: "instant" }));
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(150);
+  // Mobile primary navigation is collapsed; an existing cross-page in-content link.
+  const target = page.locator('a[href="/solutions/security"]').first();
+  await target.scrollIntoViewIfNeeded();
+  await target.click();
+  await page.waitForURL(/\/solutions\/security$/);
+  await expect(page.locator(".sg-entry-overlay")).toHaveAttribute("data-guard-entry", "opening", { timeout: 7000 });
+  expect(await page.evaluate(() => window.scrollY)).toBeLessThan(3);
+  await expect(page.locator(".sg-entry-overlay")).toHaveAttribute("data-guard-entry", "idle", { timeout: 6000 });
+  expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(1);
+});
