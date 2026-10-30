@@ -1,6 +1,6 @@
 # Signal One public website
 
-The public site for **Signal One: Integrated Systems**: Signal One Security (guard management software for South African security companies), radios and tracking by quote, Guard Marketplace (in development) and the guard and careers journeys. Next.js 16 (App Router), React 19, Tailwind v4, TypeScript. It holds no customer, guard or applicant data; see `SITE_INTEGRATION.md` for what it needs from the platform.
+The public site for **Signal One: Integrated Systems**: 1GUARD (Security Business Operating System for South African SMEs), radios and tracking by quote, Guard Marketplace (in development) and the guard and careers journeys. Next.js 16 (App Router), React 19, Tailwind v4, TypeScript. It holds no customer, guard or applicant data; see `SITE_INTEGRATION.md` for what it needs from the platform.
 
 ## Run it
 
