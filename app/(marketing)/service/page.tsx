@@ -19,7 +19,7 @@ const ambitions = [
 export default function ServicePage() {
   return (
     <main id="main">
-      <section className="surface-deep section">
+      <section className="surface-deep section s1-people-scene-service">
         <div className="wrap grid gap-10 items-center lg:grid-cols-2">
           <div>
             <Kicker tone="dark">Signal One · Service Business Operating System</Kicker>
@@ -33,10 +33,10 @@ export default function ServicePage() {
             </div>
             <p className="t-caption mt-5 text-text-inv-3">This page describes the intended direction. Full restaurant POS, kitchen, inventory, financial and marketplace workflows are not presented as live.</p>
           </div>
-          <div className="relative min-h-[370px] overflow-hidden rounded-card border border-line-dark bg-raised shadow-xl lg:min-h-[540px]">
-            <Image src="/images/interior/service-premium.svg" unoptimized alt="Illustrative empty luxury restaurant dining room in bright natural daylight" fill
+          <div className="relative min-h-[370px] overflow-hidden rounded-card border border-line-dark bg-raised shadow-xl lg:min-h-[540px] s1-people-main-photo">
+            <Image src="/images/home/service-restaurant-operations.jpg" unoptimized alt="Illustrative restaurant kitchen staff collaborating during live food service" fill
               sizes="(min-width:1024px) 49vw, 100vw" className="object-cover" priority />
-            <div className="absolute bottom-4 left-5 rounded-full bg-deep/85 px-3 py-2 text-[0.875rem] text-text-inv">Illustrative restaurant interior</div>
+            <div className="absolute bottom-4 left-5 rounded-full bg-deep/85 px-3 py-2 text-[0.875rem] text-text-inv">Illustrative restaurant team at work</div>
           </div>
         </div>
       </section>
