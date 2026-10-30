@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import SignalOneLogo from "./brand/SignalOneLogo";
 import SignalOneMark from "./brand/SignalOneMark";
+import ProductSignature from "./brand/ProductSignature";
 
 type World = "buyer" | "guard" | "careers";
 
@@ -143,7 +144,7 @@ export default function Header() {
                 config.link
               }
             >
-              {item.label === "1GUARD" ? <><span className="s1-product-one">1</span>GUARD</> : item.label === "1Service" ? <><span className="s1-product-one">1</span>Service</> : item.label}
+              {item.label === "1GUARD" ? <ProductSignature name="GUARD" /> : item.label === "1Service" ? <ProductSignature name="Service" /> : item.label}
             </Link>
           ))}
         </nav>
@@ -199,7 +200,7 @@ export default function Header() {
                     onClick={() => setOpen(false)}
                     className="flex min-h-[60px] items-center justify-between font-display text-[1.5rem] font-semibold"
                   >
-                    {item.label === "1GUARD" ? <><span className="s1-product-one">1</span>GUARD</> : item.label === "1Service" ? <><span className="s1-product-one">1</span>Service</> : item.label}
+                    {item.label === "1GUARD" ? <ProductSignature name="GUARD" /> : item.label === "1Service" ? <ProductSignature name="Service" /> : item.label}
                     <span aria-hidden="true" className={dark ? "text-text-inv-2" : "text-text-2"}>→</span>
                   </Link>
                 </li>

@@ -347,3 +347,61 @@ test("approved full-scene hero spans behind the globe without cropping the chef 
     await expect(page.getByRole("link",{name:/get 14 day free trial/i}).first()).toBeVisible();
   }
 });
+
+
+test("every product wordmark shares the same numeral height, baseline and proportional gap", async ({ page }) => {
+  const checkSignatures = async () => {
+    const signatures = await page.locator(".s1-product-signature:visible").evaluateAll(nodes =>
+      nodes.map(node => {
+        const one = node.querySelector<HTMLElement>(".s1-product-signature__one")!;
+        const name = node.querySelector<HTMLElement>(".s1-product-signature__name")!;
+        const oneRect = one.getBoundingClientRect();
+        const nameRect = name.getBoundingClientRect();
+        const oneStyle = getComputedStyle(one);
+        const nameStyle = getComputedStyle(name);
+        return {
+          product: name.textContent?.trim() ?? "",
+          oneSize: parseFloat(oneStyle.fontSize),
+          nameSize: parseFloat(nameStyle.fontSize),
+          oneWeight: oneStyle.fontWeight,
+          nameWeight: nameStyle.fontWeight,
+          oneHeight: oneRect.height,
+          nameHeight: nameRect.height,
+          top: oneRect.top,
+          nameTop: nameRect.top,
+          gap: nameRect.left - oneRect.right,
+        };
+      })
+    );
+    expect(signatures.length, "Expected product logos to render").toBeGreaterThan(0);
+    for (const signature of signatures) {
+      expect(signature.oneSize, signature.product).toBe(signature.nameSize);
+      expect(signature.oneWeight, signature.product).toBe(signature.nameWeight);
+      expect(Math.abs(signature.oneHeight - signature.nameHeight), signature.product).toBeLessThan(1);
+      expect(Math.abs(signature.top - signature.nameTop), signature.product).toBeLessThan(1);
+      expect(signature.gap / signature.oneSize, signature.product).toBeGreaterThan(0.055);
+      expect(signature.gap / signature.oneSize, signature.product).toBeLessThan(0.065);
+    }
+    return signatures.map(item => item.product);
+  };
+
+  for (const viewport of [
+    { width: 390, height: 844 },
+    { width: 768, height: 1024 },
+    { width: 1440, height: 900 },
+  ]) {
+    await page.setViewportSize(viewport);
+    await page.goto("/");
+    if (viewport.width <= 768) {
+      const menu = page.getByRole("button", { name: "Menu" });
+      await menu.click();
+    }
+    const names = await checkSignatures();
+    expect(names).toContain("GUARD");
+    expect(names).toContain("Service");
+    expect(names).toContain("Community");
+
+    await page.goto("/service");
+    expect((await checkSignatures())).toContain("Service");
+  }
+});

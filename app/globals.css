@@ -1769,3 +1769,37 @@ main:not(.s1-brand-home) .surface-white .card :is(.t-h2,.t-h3,.t-h4){color:#f3fa
 }
 
 
+
+
+/* SIGNAL ONE FAMILY — ONE TYPOGRAPHIC SIGNATURE
+   One shared 0.06em gap; identical glyph scale/weight/baseline for both
+   the existing blue numeral and the initial capital of every vertical.
+   The glass belongs to the parent surface, never the numeral itself. */
+:root { --s1-product-signature-gap: 0.06em; }
+.s1-product-signature {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--s1-product-signature-gap);
+  vertical-align: baseline;
+  white-space: nowrap;
+  font-family: inherit;
+  font-size: 1em;
+  font-weight: inherit;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: 0;
+}
+.s1-product-signature__one,
+.s1-product-signature__name {
+  display: block;
+  flex: 0 0 auto;
+  font-family: inherit;
+  font-size: 1em;
+  font-weight: inherit;
+  font-style: inherit;
+  line-height: 1;
+  letter-spacing: 0;
+  font-variant-numeric: lining-nums;
+}
+.s1-product-signature--light .s1-product-signature__one { color: #0EA5E9; }
+.s1-product-signature--dark .s1-product-signature__one { color: #38BDF8; }

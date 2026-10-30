@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SignalOneLogo from "./brand/SignalOneLogo";
+import ProductSignature from "./brand/ProductSignature";
 
 const groups = [
   { title: "Platforms & equipment", links: [
@@ -41,7 +42,7 @@ export default function Footer() {
             {groups.map(group => (
               <details key={group.title} className="s1-footer-group" open>
                 <summary>{group.title}<span aria-hidden="true">+</span></summary>
-                <ul>{group.links.map(([href,label])=><li key={href}><Link href={href}>{label}</Link></li>)}</ul>
+                <ul>{group.links.map(([href,label])=><li key={href}><Link href={href}>{label === "1GUARD" ? <ProductSignature name="GUARD" tone="dark" /> : label === "1Service" ? <ProductSignature name="Service" tone="dark" /> : label}</Link></li>)}</ul>
               </details>
             ))}
           </nav>

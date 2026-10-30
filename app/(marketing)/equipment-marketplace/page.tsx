@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { ButtonLink, Kicker } from "../../components/ui";
+import ProductSignature from "../../components/brand/ProductSignature";
 
 export const metadata: Metadata = {
  title: "Security Equipment Marketplace | Buy or Rent | Signal One",
@@ -17,7 +18,7 @@ const categories = [
 export default function EquipmentMarketplacePage() {
  return <main id="main">
  <section className="surface-deep section s1-equipment-hero"><div className="wrap grid items-center gap-10 lg:grid-cols-2"><div>
- <Kicker tone="dark">1GUARD · Equipment marketplace</Kicker>
+ <Kicker tone="dark"><ProductSignature name="GUARD" tone="dark" /> · Equipment marketplace</Kicker>
  <h1 className="t-h1 mt-5">The right equipment. Ready for the field.</h1>
  <p className="t-lead measure mt-5 text-text-inv-2">Explore professional radios, PTT communications, tracking and security technology. Tell us what your operation needs and request purchase or rental pricing.</p>
  <div className="mt-8 flex flex-wrap gap-3"><ButtonLink href="/radios-equipment#quote" size="lg">Request equipment pricing</ButtonLink><ButtonLink href="#categories" variant="ghost-dark" size="lg">Browse categories</ButtonLink></div>
