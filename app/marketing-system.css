@@ -495,3 +495,15 @@ main.s1-scene-page--pricing .split-hero{
     backdrop-filter:none!important;
   }
 }
+
+
+/* Beat legacy three-class backgrounds on hero and onboarding surfaces. */
+main.s1-scene-page--service > section.s1-people-scene-service.surface-deep.section{
+  background:linear-gradient(95deg,rgba(17,18,18,.68),rgba(16,18,18,.34)),var(--s1-scene-primary) center/cover no-repeat!important;
+}
+main.s1-scene-page.s1-onboarding.surface-light.s1-premium-trial{
+  background:linear-gradient(105deg,rgba(15,17,17,.78),rgba(18,18,18,.48)),var(--s1-scene-primary) center/cover no-repeat!important;
+}
+main.s1-scene-page--equipment > section.s1-equipment-hero.surface-deep.section{
+  background:linear-gradient(105deg,rgba(15,17,17,.72),rgba(16,18,18,.38)),var(--s1-scene-primary) center/cover no-repeat!important;
+}
