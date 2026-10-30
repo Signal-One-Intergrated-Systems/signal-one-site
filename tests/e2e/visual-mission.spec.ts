@@ -613,8 +613,9 @@ test("approved security, hotel and service scenes are distinct across homepage p
     expect(srcs.length).toBe(17);
     expect(new Set(srcs).size,"Every card uses a different subject").toBe(17);
     const approved=srcs.filter(src=>src.includes("/images/editorial/"));
-    expect(approved.length).toBe(12);
-    for(const scene of newScenes)expect(approved.some(src=>src.includes(`${scene}.webp`))).toBe(true);
+    expect(approved.length).toBe(11);
+    for(const scene of newScenes.filter(scene=>scene!=="security-site-planning"))expect(approved.some(src=>src.includes(`${scene}.webp`))).toBe(true);
+    expect(srcs.some(src=>src.includes("/images/home/panels/team-dispatch.webp"))).toBe(true);
     const sections=[
       ["#solutions","business-park.webp"],
       ["#guard","small-control-room.webp"],
@@ -683,87 +684,34 @@ test("below the permanently locked hero, marketing backgrounds remain people-fre
  await page.goto("/service");
  await expect(page.locator("#vision .s1-glass-people-photo img")).toHaveCount(4);
 });
-
-
-
-test("original introduction glass card is restored and the living square floats in a separate layer",async({page})=>{
+ 
+test("the original business introduction glass card is restored without the cube or square",async({page})=>{
   for(const viewport of [{width:390,height:844},{width:768,height:1024},{width:1440,height:900}]){
     await page.setViewportSize(viewport);
     await page.goto("/");
-    const intro=page.locator("#solutions");
-    const card=intro.locator(".so-os-intro-stage > .so-section-heading");
-    const floating=intro.locator(".so-os-float-anchor");
+    const section=page.locator("#solutions");
+    const card=section.locator(".so-section-heading");
     await card.scrollIntoViewIfNeeded();
     await expect(card).toBeVisible();
-    await expect(card.locator(".so-panel-photo img")).toHaveAttribute("src",/team-dispatch[.]webp/);
+    await expect(section.locator(".so-section-heading")).toHaveCount(1);
+    await expect(card.locator(".so-panel-photo img")).toHaveAttribute("src",/security-site-planning[.]webp/);
     await expect(card.locator("h2")).toContainText("Every part of your business.");
+    await expect(card.locator("h2")).toContainText("Working as one.");
     await expect(card.locator("p").last()).toContainText("From winning a customer");
-    await expect(floating).toBeVisible();
-    await expect(intro.locator(".so-living-os-core")).toBeVisible();
-    await expect(intro.locator(".so-living-node")).toHaveCount(8);
-    const position=await page.locator(".so-os-intro-stage").evaluate(stage=>{
-      const rect=stage.getBoundingClientRect();
-      const card=stage.querySelector(".so-section-heading")!.getBoundingClientRect();
-      const float=stage.querySelector(".so-os-float-anchor")!.getBoundingClientRect();
-      const style=getComputedStyle(stage.querySelector<HTMLElement>(".so-os-float-anchor")!);
-      return {cardY:card.top, floatY:float.top, floatsAbove:float.top<card.top, layer:style.position, stageWidth:rect.width};
-    });
-    expect(position.floatsAbove).toBe(true);
-    expect(position.layer).toBe("absolute");
-    expect(position.stageWidth).toBeGreaterThan(300);
+    await expect(section.locator(".so-value-rail > div")).toHaveCount(3);
+    await expect(section.locator(".so-os-intro-stage,.so-os-float-anchor,.so-living-os,.so-os-experience,.so-os-cube-trigger")).toHaveCount(0);
     expect(await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth)).toBeLessThanOrEqual(1);
     await expect(page.locator(".so-hero-media .so-hero-photo")).toHaveAttribute("src",/approved-full-scene-guard-chef-2026[.]png/);
   }
 });
 
-test("living square unfolds into exactly two connected OS panes within the section and folds closed",async({page})=>{
-  await page.setViewportSize({width:1440,height:900});
-  await page.goto("/");
-  const core=page.getByRole("button",{name:/Unfold the operating systems/i});
-  await core.scrollIntoViewIfNeeded();
-  await expect(core).toHaveAttribute("aria-expanded","false");
-  await core.click();
-  const unfolded=page.locator(".so-living-os");
-  await expect(unfolded).toHaveAttribute("data-open","true");
-  await expect(unfolded.locator(".so-living-pane")).toHaveCount(2);
-  await expect(unfolded.locator(".so-living-product").first()).toHaveText("1GUARD");
-  await expect(unfolded.locator(".so-living-product").last()).toHaveText("1Service");
-  await expect(unfolded.getByRole("link",{name:/Explore 1GUARD/i})).toHaveAttribute("href","/solutions/security");
-  await expect(unfolded.getByRole("link",{name:/Explore 1Service/i})).toHaveAttribute("href","/service");
-  await expect(page.getByRole("dialog")).toHaveCount(0);
-  await expect(page.locator("#solutions .so-section-heading")).toBeVisible();
-  await page.keyboard.press("Escape");
-  await expect(unfolded).toHaveAttribute("data-open","false");
-  await expect(core).toBeFocused();
-});
-
-test("living square reveals two swipeable panes on phones and supports reduced motion",async({page})=>{
-  await page.emulateMedia({reducedMotion:"reduce"});
-  await page.setViewportSize({width:390,height:844});
-  await page.goto("/");
-  const core=page.getByRole("button",{name:/Unfold the operating systems/i});
-  await core.scrollIntoViewIfNeeded();
-  await core.focus();
-  await page.keyboard.press("Enter");
-  const living=page.locator(".so-living-os");
-  await expect(living).toHaveAttribute("data-open","true");
-  const panes=living.locator(".so-living-panes");
-  await expect(panes).toHaveCSS("display","flex");
-  await expect(living.locator(".so-living-pane")).toHaveCount(2);
-  const transition=await living.locator(".so-living-pane").first().evaluate(node=>parseFloat(getComputedStyle(node).transitionDuration));
-  expect(transition,"Reduced motion must have no perceivable transition").toBeLessThan(0.0001);
-  await living.getByRole("button",{name:/Fold operating systems back/i}).click();
-  await expect(living).toHaveAttribute("data-open","false");
-  const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
-  expect(overflow).toBeLessThanOrEqual(1);
-});
-
-test("homepage has no repeated people-image files, including restored card thumbnail",async({page})=>{
+test("the original card image appears only once on the homepage",async({page})=>{
   await page.goto("/");
   const paths=await page.locator("main.so-home img").evaluateAll(items=>items.map(item=>{
     const raw=item.getAttribute("src")||"";
-    try {const url=new URL(raw,location.origin);return decodeURIComponent(url.searchParams.get("url")||url.pathname);}catch{return raw;}
+    try { const url=new URL(raw,location.origin);return decodeURIComponent(url.searchParams.get("url")||url.pathname); }catch{return raw;}
   }).filter(path=>path.startsWith("/images/")));
   expect(paths.length).toBeGreaterThan(18);
-  expect(new Set(paths).size,"Homepage people photographs must not repeat").toBe(paths.length);
+  expect(new Set(paths).size,"No photographic image should repeat on the homepage").toBe(paths.length);
+  expect(paths.filter(p=>p.includes("security-site-planning.webp"))).toHaveLength(1);
 });
