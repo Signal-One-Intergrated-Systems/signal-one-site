@@ -34,7 +34,7 @@ export default function SecurityPlatformPage() {
 
   return (
     <main id="main">
-      <SplitHero src="/images/interior/guard-premium.svg" alt="Illustrative empty premium security operations centre with professional monitoring workstations" objectPositionMobile="55% 50%" objectPosition="62% 45%">
+      <SplitHero src={photos.teamBriefing.src} alt={photos.teamBriefing.alt} scene="/images/scenes/control-room.svg" objectPositionMobile="50% 45%" objectPosition="55% 48%">
         <div className="flex flex-wrap items-center gap-3">
           <Kicker tone="dark">Signal One Security · the platform</Kicker>
           <GuardStatus tone="dark" />
