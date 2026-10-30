@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import type { KeyboardEvent as ReactKeyboardEvent, PointerEvent as ReactPointerEvent } from "react";
+import type { CSSProperties, KeyboardEvent as ReactKeyboardEvent, PointerEvent as ReactPointerEvent } from "react";
 import Link from "next/link";
 
 const capabilities = [
@@ -95,7 +95,7 @@ export default function LivingOperatingSquare() {
           aria-expanded={open} aria-controls="so-operating-systems-panes"
           onClick={() => setOpen(true)} onPointerMove={move}
           onPointerLeave={() => { setTilt({ x: 0, y: 0 }); setSelectedNode(null); }}
-          style={{ "--living-tilt-x": tilt.x + "deg", "--living-tilt-y": tilt.y + "deg" } as React.CSSProperties}>
+          style={{ "--living-tilt-x": tilt.x + "deg", "--living-tilt-y": tilt.y + "deg" } as CSSProperties}>
           <span className="so-living-grid" aria-hidden="true"/>
           <svg className="so-living-paths" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
             <path className="so-living-path" d="M20 19L51 10 81 24 85 57 70 83 42 87 14 69 17 44 20 19 M20 19L50 49 81 24 M50 49L85 57 M50 49L70 83 M50 49L14 69 M50 49L42 87"/>
@@ -104,7 +104,7 @@ export default function LivingOperatingSquare() {
           <span className="so-living-centre" aria-hidden="true"><strong>ONE</strong><small>OS</small></span>
           {capabilities.map((item, i) => (
             <span key={item.label} className="so-living-node" data-active={selectedNode === i}
-              style={{ left:item.x+"%", top:item.y+"%", "--node-index":i } as React.CSSProperties}
+              style={{ left:item.x+"%", top:item.y+"%", "--node-index":i } as CSSProperties}
               onMouseEnter={() => setSelectedNode(i)}
               aria-hidden="true">
               <i/>
