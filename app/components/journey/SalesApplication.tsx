@@ -127,7 +127,7 @@ export default function SalesApplication({ roleCount }: { roleCount: number | nu
                 required
                 accentClass={ACCENT}
                 columns="sm:grid-cols-1"
-                options={["Sales representative, security companies"]}
+                options={["Sales representative — SME business OS (security focus)"]}
                 hint={roleCount ? roleCount + (roleCount === 1 ? " role open now." : " roles open now.") : undefined}
               />
               <JSelect
