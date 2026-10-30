@@ -39,7 +39,7 @@ test("sealed shutters prevent the previous page scrolling through the glass", as
  await expect(overlay).toHaveAttribute("data-guard-entry", "sealed", { timeout: 4000 });
  expect(await overlay.evaluate(node => getComputedStyle(node).backgroundColor)).toBe("rgb(25, 33, 39)");
 
- await expect(page).toHaveURL(/\\/service$/);
+ await expect(page).toHaveURL(/service$/);
  await expect(overlay).toHaveAttribute("data-guard-entry", "opening", { timeout: 7000 });
  // The destination must already be landed at the top BEFORE glass opens.
  expect(await page.evaluate(() => window.scrollY)).toBe(0);
