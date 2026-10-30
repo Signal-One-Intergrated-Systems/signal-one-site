@@ -85,7 +85,7 @@ test("key acquisition pages have no critical automated accessibility violations"
 
 test("prominent marketing photographs show people; architecture is background context", async ({ page }) => {
   const peopleFirst: Record<string, string> = {
-    "/": "signal-one-hero-daylight.jpg",
+    "/": "approved-security-chef-daylight-2026.png",
     "/solutions/security": "team-briefing",
     "/service": "service-restaurant-operations.jpg",
     "/equipment-marketplace": "guard-site-operations.webp",
@@ -233,12 +233,48 @@ test("homepage Guard and Service put people ahead of their section environments"
     expect(response.status()).toBe(200);
     expect(response.headers()["content-type"]).toContain(mime);
   }
-  await expect(page.locator(".so-hero-photo")).toHaveAttribute("src", /signal-one-hero-daylight\.jpg/);
+  await expect(page.locator(".so-hero-photo")).toHaveAttribute("src", /approved-security-chef-daylight-2026\.png/);
   for (const route of ["/", "/solutions/security", "/service"]) {
     await page.goto(route);
     const visibleImages = await page.locator("main img").evaluateAll(imgs =>
       imgs.filter(img => img.getBoundingClientRect().width > 100).map(img => img.getAttribute("alt")?.toLowerCase() || "")
     );
     expect(visibleImages.some(alt => /security|team|guard|officer|kitchen|restaurant/.test(alt))).toBe(true);
+  }
+});
+
+test("approved homepage guard-and-chef photograph remains separate from interactive controls", async ({ page, request }) => {
+  const photoPath = "/images/home/approved-security-chef-daylight-2026.png";
+  const response = await request.get(photoPath);
+  expect(response.status()).toBe(200);
+  expect(response.headers()["content-type"]).toContain("image/png");
+  expect((await response.body()).byteLength).toBeGreaterThan(50000);
+  for (const viewport of [
+    { width: 375, height: 812 },
+    { width: 768, height: 1024 },
+    { width: 1440, height: 900 },
+  ]) {
+    await page.setViewportSize(viewport);
+    await page.goto("/");
+    const image = page.locator(".so-hero-photo");
+    const alt = await image.getAttribute("alt") || "";
+    expect(alt).toMatch(/security officer/i);
+    expect(alt).toMatch(/chef/i);
+    expect(alt).toMatch(/SECURITY vest/i);
+    const dimensions = await image.evaluate(img => {
+      const box = img.getBoundingClientRect();
+      const media = img.parentElement!.getBoundingClientRect();
+      return {width:box.width, mediaWidth:media.width,
+        naturalWidth:(img as HTMLImageElement).naturalWidth};
+    });
+    expect(dimensions.naturalWidth).toBeGreaterThan(700);
+    if (viewport.width >= 1024) {
+      expect(dimensions.width).toBeLessThan(dimensions.mediaWidth * 0.65);
+      expect(dimensions.width).toBeGreaterThan(dimensions.mediaWidth * 0.5);
+    } else {
+      expect(dimensions.width).toBeGreaterThan(viewport.width - 2);
+    }
+    await expect(page.getByRole("link", { name: /get 14 day free trial/i }).first()).toBeVisible();
+    await expect(page.locator(".s1-hero-globe-canvas")).toBeVisible();
   }
 });
