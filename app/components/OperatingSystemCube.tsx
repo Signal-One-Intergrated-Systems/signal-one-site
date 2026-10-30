@@ -37,7 +37,7 @@ const journey: JourneyStep[] = [
   {
     label: "Proof", name: "Know what was completed",
     purpose: "Evidence makes the service accountable and supports oversight.",
-    receives: "Service activity", does: "Capture completion and exceptions", handsOff: "Verified records",
+    receives: "Service activity", does: "Capture completion and exceptions", handsOff: "Documented service records",
   },
   {
     label: "Billing", name: "Connect work to the commercial outcome",
