@@ -283,3 +283,39 @@ test("approved homepage guard-and-chef photograph remains separate from interact
     await expect(page.locator(".s1-hero-globe-canvas")).toBeVisible();
   }
 });
+
+
+test("desktop homepage shows the entire approved guard and chef photograph with no zoom", async ({ page }) => {
+  for (const viewport of [{ width: 1440, height: 900 }, { width: 1536, height: 960 }]) {
+    await page.setViewportSize(viewport);
+    await page.goto("/");
+    const image = page.locator(".so-hero-photo");
+    await expect(image).toHaveAttribute("src", /approved-security-chef-daylight-2026[.]png/);
+    const layout = await image.evaluate(img => {
+      const media = img.parentElement!.getBoundingClientRect();
+      const picture = img.getBoundingClientRect();
+      const nav = document.querySelector("header.glass-nav > .wrap")?.getBoundingClientRect();
+      const styles = getComputedStyle(img);
+      return {
+        fit: styles.objectFit,
+        width: picture.width, height: picture.height,
+        mediaRight: media.right, pictureRight: picture.right,
+        pictureTop: picture.top, navBottom: nav?.bottom ?? 0,
+        naturalWidth: (img as HTMLImageElement).naturalWidth,
+        naturalHeight: (img as HTMLImageElement).naturalHeight,
+      };
+    });
+    expect(layout.fit, "Keep the entire photograph, never object-fit:cover").toBe("contain");
+    expect(layout.naturalWidth).toBeGreaterThan(0);
+    expect(layout.naturalHeight).toBeGreaterThan(0);
+    expect(layout.pictureRight).toBeLessThanOrEqual(layout.mediaRight + 1);
+    expect(layout.pictureTop, "Chef's hat must start below glass navigation").toBeGreaterThanOrEqual(layout.navBottom - 3);
+    const ratio = layout.naturalWidth / layout.naturalHeight;
+    const fitWidth = Math.min(layout.width, layout.height * ratio);
+    const fitHeight = Math.min(layout.height, layout.width / ratio);
+    expect(fitWidth).toBeGreaterThan(0);
+    expect(fitHeight).toBeGreaterThan(0);
+    expect(fitWidth).toBeLessThanOrEqual(layout.width + 1);
+    expect(fitHeight).toBeLessThanOrEqual(layout.height + 1);
+  }
+});
