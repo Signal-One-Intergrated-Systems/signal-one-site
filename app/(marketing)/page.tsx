@@ -32,7 +32,7 @@ export default function Home() {
     <main id="main" className="s1-brand-home so-home">
       <section className="s1-brand-stage so-hero" aria-labelledby="so-hero-title">
         <div className="so-hero-media">
-          <Image src="/images/home/approved-corporate-security-hero.svg" unoptimized alt="Illustrative bright daylight scene of a Black female and a white male security officer in professional tactical uniforms outside a modern corporate building"
+          <Image src="/images/home/signal-one-hero-daylight.jpg" unoptimized alt="Illustrative documentary-style security team working at a bright corporate entrance"
             fill priority quality={90} sizes="100vw" className="so-hero-photo object-cover" />
           <div className="so-hero-wash" aria-hidden="true" />
         </div>
@@ -81,9 +81,9 @@ export default function Home() {
       <section id="guard" className="so-vertical so-guard-section" aria-labelledby="so-guard-title">
         <div className="wrap so-vertical-layout">
           <div className="so-vertical-visual so-vertical-visual-guard">
-            <Image src="/images/home/guard-inset-exclusive.svg" alt="Illustrative empty premium security operations centre with monitoring screens and executive workstations"
+            <Image src="/images/photo/control-room-team.webp" alt="Illustrative security control-room operators working with a manager and a tablet"
               fill sizes="(min-width:1024px) 49vw, 100vw" className="object-cover" />
-            <div className="so-image-caption">Illustrative operations centre</div>
+            <div className="so-image-caption">Illustrative team at work</div>
           </div>
           <div className="so-vertical-content">
             <div className="so-vertical-label"><Link href="/solutions/security" className="so-platform-mark" aria-label="Explore 1GUARD"><span className="so-brand-one">1</span>GUARD</Link> <span>SECURITY OPERATIONS</span></div>
@@ -106,9 +106,9 @@ export default function Home() {
       <section id="service" className="so-vertical so-service-section" aria-labelledby="so-service-title">
         <div className="wrap so-vertical-layout so-reverse-layout">
           <div className="so-vertical-visual so-vertical-visual-service">
-            <Image src="/images/home/service-inset-exclusive.svg" alt="Illustrative unoccupied premium restaurant open kitchen with warm daylight and elegant table settings"
+            <Image src="/images/home/service-restaurant-operations.jpg" alt="Illustrative restaurant kitchen team coordinating a live service in a professional hospitality environment"
               fill sizes="(min-width:1024px) 49vw, 100vw" className="object-cover" />
-            <div className="so-image-caption">Illustrative restaurant environment</div>
+            <div className="so-image-caption">Illustrative restaurant team at work</div>
           </div>
           <div className="so-vertical-content">
             <div className="so-vertical-label"><Link href="/service" className="so-platform-mark" aria-label="Explore 1Service"><span className="so-brand-one">1</span>Service</Link> <span className="so-status">IN DEVELOPMENT</span></div>
