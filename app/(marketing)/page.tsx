@@ -4,13 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import HeroGlobeLayer from "../components/HeroGlobeLayer";
 import HomeScrollChoreography from "../components/HomeScrollChoreography";
-import LivingOperatingSquare from "../components/LivingOperatingSquare";
 import ProductSignature from "../components/brand/ProductSignature";
 import { guardDayPricePhrase } from "../lib/pricing";
 import pnc360s from "../../public/images/hardware/hytera-pnc360s.webp";
 import fmb920 from "../../public/images/hardware/teltonika-fmb920.webp";
 import "../home-conversion.css";
-import "../os-square.css";
 
 export const metadata: Metadata = {
   title: { absolute: "Signal One | 1GUARD, 1Service & Business Equipment" },
@@ -88,16 +86,11 @@ export default function Home() {
 
       <section id="solutions" className="so-chapter so-introduction" aria-labelledby="so-solutions-title">
         <div className="wrap">
-          <div className="so-os-intro-stage">
-            <div className="so-os-float-anchor"><LivingOperatingSquare /></div>
-            <div className="so-section-heading">
-              <div data-motion-from="left">
-                <PanelPhoto src="/images/home/panels/team-dispatch.webp" alt="Illustrative SME security and service team organising assignments" />
-                <p className="so-kicker">Built around how you operate</p>
-                <h2 id="so-solutions-title">Every part of your business.<br /><span>Working as one.</span></h2>
-              </div>
-              <p data-motion-from="right" style={{ "--so-motion-delay": "260ms" } as CSSProperties}>From winning a customer and finding the right people to delivering the work, proving the result and growing the business: Signal One is building industry-specific operating systems around the full journey.</p>
+          <div className="so-section-heading">
+            <div data-motion-from="left"><PanelPhoto src="/images/editorial/security-site-planning.webp" alt="Illustrative security supervisor reviewing the site plan with a client" /><p className="so-kicker">Built around how you operate</p>
+              <h2 id="so-solutions-title">Every part of your business.<br /><span>Working as one.</span></h2>
             </div>
+            <p data-motion-from="right" style={{ "--so-motion-delay": "260ms" } as CSSProperties}>From winning a customer and finding the right people to delivering the work, proving the result and growing the business: Signal One is building industry-specific operating systems around the full journey.</p>
           </div>
           <div className="so-value-rail" aria-label="What matters to your business">
             <div data-motion-from="bottom"><PanelPhoto src="/images/editorial/security-office-park-site-review.webp" alt="Illustrative security service manager meeting a building client on location to review the site" /><span>01</span><strong>Win & organise the work</strong><p>Customers, assignments, teams and requirements.</p></div>
@@ -168,7 +161,7 @@ export default function Home() {
           <ol data-motion-from="right" style={{ "--so-motion-delay": "220ms" } as CSSProperties} className="so-lifecycle" aria-label="Connected business lifecycle vision">
             {[
               ["01","Find customers","/images/editorial/facility-reception-service.webp","Illustrative facilities employees welcoming a visitor at a service centre"],
-              ["02","Win the work","/images/editorial/security-site-planning.webp","Illustrative security supervisor discussing a site plan with client representatives"],
+              ["02","Win the work","/images/home/panels/team-dispatch.webp","Illustrative security supervisor discussing a site plan with client representatives"],
               ["03","Hire & assign","/images/editorial/security-interview-training.webp","Illustrative security employer interviewing candidates during recruitment"],
               ["04","Plan & deliver","/images/editorial/security-team-briefing.webp","Illustrative security officers gathered around an operational briefing"],
               ["05","Equip the team","/images/home/panels/prove-work.webp","Illustrative security officer using field technology during a patrol"],
