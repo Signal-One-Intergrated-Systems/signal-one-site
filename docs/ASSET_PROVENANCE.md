@@ -114,3 +114,16 @@ All **12 newly approved illustrative people photographs** were transferred from 
 They are **synthetic illustrations, not images of actual customers or employees**. They represent distinct security, restaurant, hotel, facilities and logistics teams and their roles; no Table Mountain imagery was requested or used.
 
 Homepage: 17 contextual panel photographs each have a different source; all 12 approved illustrations appear exactly once among the cards. Every formerly flat-navy promotional chapter gets its own real-world photo backdrop, with neutral smoked glass and accessible text on top. The approved restaurant hero, its glass globe, brand identity, and 1GUARD SME control room remain unchanged. Site marketing routes use scene-matched photography rather than flat blue; legal and privacy pages retain a document-first reading treatment. The corporate blue remains an accent and is not removed from interactive controls or the signature typographic '1'. Genuine manufacturer product images are not regenerated.
+
+
+## 2026-10-30 — Approved final layering contract
+
+**Human subjects belong exclusively inside glass photo panels. No background is allowed to depict people, staff, customers or human silhouettes.** This replaces the previous scene-first interpretation that mistakenly used the role-specific staff imagery as CSS backgrounds.
+
+Eight newly generated, visually inspected, people-free architectural photographs are installed as local responsive WebP assets in `public/images/backgrounds/`: `restaurant-courtyard`, `business-park`, `small-control-room`, `restaurant-dining`, `hotel-lobby`, `warehouse-yard`, `enterprise-showroom`, and `hotel-corridor`. All are illustrative environments, not actual customer locations.
+
+The original approved guard-and-chef hero remains unaltered at `public/images/home/approved-full-scene-guard-chef-2026.png`, but it is now rendered **inside a glass image panel** adjacent to the hero copy and animated globe. The full-width background is the EMPTY restaurant courtyard. The SME control-room personnel remain inside the 1GUARD framed picture. Role-specific staff photos from `public/images/editorial/` and `public/images/home/panels/` remain foreground illustrations and are never to be assigned in CSS `background-image`. Product manufacturer photos stay separate.
+
+Site marketing sections, trials, pricing, service, security and recruiting all draw their environment from the eight approved empty scenes. Legal content remains reading-focused. Smoke-glass, Signal Blue branding and the established slow, alternating, accessible scroll choreography are retained. Browser tests enforce background URLs, image enclosure, file availability, mobile overflow and existing conversion links.
+
+When authoring a new panel: use an appropriate image of real-looking people **inside** a bordered glass media component alongside its text. When authoring an environment: use one of the eight photo backgrounds or a newly commissioned empty architectural photo. Never place human photography on a full-bleed section background.

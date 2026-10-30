@@ -330,7 +330,7 @@ export function SplitHero({
     <section className="split-hero relative bg-deep text-text-inv s1-person-first-split" style={scene ? { ...box, backgroundImage: `linear-gradient(110deg, rgba(7,22,33,.93), rgba(10,28,40,.72)), url('${scene}')`, backgroundSize: "cover", backgroundPosition: "center" } : box}>
       <div className="relative h-[56vw] lg:absolute lg:inset-y-0 lg:left-[var(--ph-l)] lg:right-[var(--ph-r)] lg:h-auto">
         {/* Never taller or wider than the source: on a tall hero the photo is centred and fades into the surface. */}
-        <div className="relative mx-auto h-full lg:top-1/2 lg:-translate-y-1/2" style={{ maxWidth: dimensions.width, maxHeight: dimensions.height, ...verticalFade(dimensions.height) }}>
+        <div className="s1-glass-people-photo relative mx-auto h-full lg:top-1/2 lg:-translate-y-1/2" style={{ maxWidth: dimensions.width, maxHeight: dimensions.height, ...verticalFade(dimensions.height) }}>
           <Image
             src={src}
             alt={alt}

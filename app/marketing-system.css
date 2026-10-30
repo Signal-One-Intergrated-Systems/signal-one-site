@@ -513,3 +513,65 @@ main.s1-scene-page--equipment > section.s1-equipment-hero.surface-deep.section{
 main.s1-scene-page.s1-people-hiring .split-hero.surface-deep{
   background:linear-gradient(110deg,rgba(15,18,18,.76),rgba(18,20,19,.39)),var(--s1-scene-primary) center/cover no-repeat!important;
 }
+
+
+/* 2026-10-30 BRAND RULE: architectural environments behind glass panels;
+   staff and customers appear ONLY inside framed, elevated glass photo panels.
+   Every URL here points to a verified, human-free background photograph.
+   Overrides the previous employee-photo background mapping. */
+main.s1-scene-page--guard-os{--s1-scene-primary:url('/images/backgrounds/business-park.webp');--s1-scene-secondary:url('/images/backgrounds/small-control-room.webp')}
+main.s1-scene-page--officers{--s1-scene-primary:url('/images/backgrounds/business-park.webp');--s1-scene-secondary:url('/images/backgrounds/small-control-room.webp')}
+main.s1-scene-page--service{--s1-scene-primary:url('/images/backgrounds/hotel-lobby.webp');--s1-scene-secondary:url('/images/backgrounds/restaurant-dining.webp')}
+main.s1-scene-page--recruitment{--s1-scene-primary:url('/images/backgrounds/business-park.webp');--s1-scene-secondary:url('/images/backgrounds/hotel-corridor.webp')}
+main.s1-scene-page--equipment{--s1-scene-primary:url('/images/backgrounds/enterprise-showroom.webp');--s1-scene-secondary:url('/images/backgrounds/warehouse-yard.webp')}
+main.s1-scene-page--radios{--s1-scene-primary:url('/images/backgrounds/enterprise-showroom.webp');--s1-scene-secondary:url('/images/backgrounds/warehouse-yard.webp')}
+main.s1-scene-page--radio-rental{--s1-scene-primary:url('/images/backgrounds/small-control-room.webp');--s1-scene-secondary:url('/images/backgrounds/enterprise-showroom.webp')}
+main.s1-scene-page--pricing{--s1-scene-primary:url('/images/backgrounds/business-park.webp');--s1-scene-secondary:url('/images/backgrounds/restaurant-courtyard.webp')}
+main.s1-scene-page--contact{--s1-scene-primary:url('/images/backgrounds/hotel-lobby.webp');--s1-scene-secondary:url('/images/backgrounds/business-park.webp')}
+main.s1-scene-page--trial{--s1-scene-primary:url('/images/backgrounds/restaurant-courtyard.webp');--s1-scene-secondary:url('/images/backgrounds/business-park.webp')}
+main.s1-scene-page--careers{--s1-scene-primary:url('/images/backgrounds/hotel-lobby.webp');--s1-scene-secondary:url('/images/backgrounds/restaurant-dining.webp')}
+main.s1-scene-page--officer-apply{--s1-scene-primary:url('/images/backgrounds/business-park.webp');--s1-scene-secondary:url('/images/backgrounds/hotel-corridor.webp')}
+main.s1-scene-page--attendance{--s1-scene-primary:url('/images/backgrounds/small-control-room.webp');--s1-scene-secondary:url('/images/backgrounds/business-park.webp')}
+main.s1-scene-page--patrol{--s1-scene-primary:url('/images/backgrounds/warehouse-yard.webp');--s1-scene-secondary:url('/images/backgrounds/business-park.webp')}
+main.s1-scene-page--security{--s1-scene-primary:url('/images/backgrounds/small-control-room.webp');--s1-scene-secondary:url('/images/backgrounds/business-park.webp')}
+
+/* An actual photograph with staff in the foreground must be presented as
+   a self-contained glass picture card, not laid into the hero background. */
+main.s1-scene-page .s1-glass-people-photo{
+ overflow:hidden;
+ isolation:isolate;
+ border:10px solid rgba(35,42,41,.53);
+ border-radius:25px;
+ box-shadow:inset 0 1px rgba(255,255,255,.29),0 20px 60px -35px rgba(3,9,9,.75);
+ -webkit-backdrop-filter:blur(17px) saturate(105%);
+ backdrop-filter:blur(17px) saturate(105%);
+}
+main.s1-scene-page .s1-glass-people-photo img{
+ border-radius:15px;
+}
+main.s1-scene-page .s1-people-main-photo{
+ border:10px solid rgba(35,42,41,.57)!important;
+ box-shadow:inset 0 1px rgba(255,255,255,.24),0 20px 60px -34px rgba(2,8,8,.7);
+ -webkit-backdrop-filter:blur(16px);
+ backdrop-filter:blur(16px);
+}
+main.s1-scene-page .s1-people-main-photo img{border-radius:14px}
+main.s1-scene-page--service > section.s1-people-scene-service.surface-deep.section,
+main.s1-scene-page--equipment > section.s1-equipment-hero.surface-deep.section,
+main.s1-scene-page.s1-people-hiring .split-hero.surface-deep,
+main.s1-scene-page.s1-onboarding.surface-light.s1-premium-trial{
+ background-image:linear-gradient(110deg,rgba(17,19,18,.70),rgba(18,20,19,.38)),var(--s1-scene-primary)!important;
+ background-color:#2a2c2b!important;
+ background-size:cover!important;
+ background-position:center!important;
+}
+.s1-premium-footer{
+ background:linear-gradient(110deg,rgba(15,17,18,.75),rgba(17,19,19,.52)),url('/images/backgrounds/hotel-corridor.webp') center/cover no-repeat!important;
+}
+/* Images are not changed or removed: the scene-only rule affects CSS image
+   surfaces exclusively. Keep the original identity, forms and controls. */
+@media(prefers-reduced-transparency:reduce){
+ main.s1-scene-page .s1-glass-people-photo{
+   border-color:#37403c;backdrop-filter:none;
+ }
+}

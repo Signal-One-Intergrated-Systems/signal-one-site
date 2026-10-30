@@ -1098,3 +1098,141 @@ body:has(.so-home) header.glass-nav .btn-primary{box-shadow:inset 0 1px rgba(255
    backdrop-filter:none!important;
  }
 }
+
+
+/* 2026-10-30 FINAL ART DIRECTION
+ * Environments are ALWAYS empty of people. Staff photographs are ONLY
+ * inside bordered frosted glass picture cards. No generated illustrations
+ * of people are allowed to leak into CSS backgrounds. Blue stays an accent.
+ */
+.so-home .s1-brand-stage.so-hero .so-hero-media{
+ background:#cbd9c7!important;
+}
+.so-home .s1-brand-stage.so-hero .so-hero-background-photo{
+ display:block;
+ object-fit:cover!important;
+ object-position:center center!important;
+ filter:none!important;
+ width:100%!important;
+ height:100%!important;
+}
+.so-home .s1-brand-stage.so-hero .so-hero-wash{
+ background:linear-gradient(90deg,rgba(15,22,21,.22),rgba(18,24,23,.05) 65%),
+ linear-gradient(0deg,rgba(15,22,22,.21),transparent 25%)!important;
+}
+.so-home .s1-brand-stage.so-hero .so-hero-inner{
+ display:flex;align-items:center;justify-content:space-between;
+ gap:clamp(22px,3vw,56px);
+}
+.so-home .s1-brand-stage.so-hero .so-hero-copy{
+ flex:0 1 53%;max-width:min(600px,53%)!important;
+}
+.so-home .so-hero-people-glass{
+ position:relative;z-index:6;flex:1 1 43%;width:43%;
+ aspect-ratio:16 / 10;
+ margin:0;overflow:hidden;isolation:isolate;
+ border:1px solid rgba(245,250,250,.62);
+ border-radius:clamp(18px,2vw,28px);
+ background:rgba(31,37,35,.46);
+ box-shadow:inset 0 1px rgba(255,255,255,.28),0 20px 60px -35px rgba(4,10,11,.78);
+ -webkit-backdrop-filter:blur(18px) saturate(105%);
+ backdrop-filter:blur(18px) saturate(105%);
+ padding:9px;
+}
+.so-home .so-hero-people-glass .so-hero-people-photo{
+ position:absolute;inset:9px!important;
+ width:calc(100% - 18px)!important;height:calc(100% - 18px)!important;
+ object-fit:contain!important;object-position:center!important;
+ transform:none!important;filter:none!important;
+ border-radius:15px;
+}
+.so-home .so-hero-people-caption{
+ position:absolute;bottom:14px;right:16px;z-index:2;
+ max-width:calc(100% - 32px);
+ border:1px solid rgba(255,255,255,.25);
+ border-radius:999px;padding:5px 11px;
+ background:rgba(20,26,25,.68);
+ color:#f3f6f5;font-size:.72rem;
+ -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+}
+.so-home .so-hero-photo-note{display:none!important}
+.so-home .so-introduction{
+ background-image:linear-gradient(115deg,rgba(16,19,19,.69),rgba(18,21,20,.36)),url('/images/backgrounds/business-park.webp')!important;
+}
+.so-home .so-guard-section{
+ background-image:linear-gradient(112deg,rgba(16,18,18,.76),rgba(19,21,20,.46)),url('/images/backgrounds/small-control-room.webp')!important;
+}
+.so-home .so-service-section{
+ background-image:linear-gradient(110deg,rgba(17,19,18,.71),rgba(18,20,19,.38)),url('/images/backgrounds/restaurant-dining.webp')!important;
+}
+.so-home .so-ecosystem-section{
+ background:linear-gradient(114deg,rgba(14,17,17,.78),rgba(17,20,19,.50)),url('/images/backgrounds/business-park.webp') center/cover no-repeat!important;
+}
+.so-home .so-marketplace-section{
+ background:linear-gradient(110deg,rgba(16,18,18,.75),rgba(19,20,19,.44)),url('/images/backgrounds/hotel-lobby.webp') center/cover no-repeat!important;
+}
+.so-home .so-equipment-section{
+ background-image:linear-gradient(110deg,rgba(14,17,16,.73),rgba(18,19,18,.43)),url('/images/backgrounds/enterprise-showroom.webp')!important;
+}
+.so-home .so-onboarding-section{
+ background-image:linear-gradient(105deg,rgba(14,17,17,.76),rgba(16,19,18,.44)),url('/images/backgrounds/hotel-corridor.webp')!important;
+}
+.so-home .so-final-cta{
+ background-image:linear-gradient(100deg,rgba(15,18,17,.72),rgba(16,20,18,.44)),url('/images/backgrounds/restaurant-courtyard.webp')!important;
+}
+/* Every staff photograph in a content panel is itself enclosed by glass. */
+.so-home :is(.so-section-heading,.so-vertical-content,.so-ecosystem-intro,.so-equipment-copy,.so-final-inner) .so-panel-photo,
+.so-home :is(.so-value-rail,.so-marketplace-grid,.so-journey-grid,.so-lifecycle) .so-panel-photo{
+ border:1px solid rgba(249,253,252,.52)!important;
+ box-shadow:0 10px 28px -18px rgba(0,0,0,.75),inset 0 1px rgba(255,255,255,.23);
+ background:rgba(26,33,32,.64);
+}
+.so-home .so-vertical-visual{
+ border:1px solid rgba(250,251,250,.50)!important;
+ box-shadow:inset 0 1px rgba(255,255,255,.18),0 23px 55px -35px rgba(0,0,0,.65);
+ -webkit-backdrop-filter:blur(16px);
+ backdrop-filter:blur(16px);
+}
+.so-home :is(.so-ecosystem-intro,.so-equipment-copy) .so-panel-photo{
+ height:clamp(94px,9vw,132px);
+ max-width:360px;
+}
+.so-home .so-final-inner .so-panel-photo{
+ width:min(260px,100%);height:104px;
+ margin-bottom:14px;
+}
+.so-home .so-vertical-content .so-panel-photo{
+ width:clamp(160px,55%,310px);
+ height:105px;
+ margin-bottom:16px;
+}
+.so-home .so-section-heading .so-panel-photo{
+ width:clamp(150px,42%,290px);
+ height:104px;margin-bottom:15px;
+}
+@media(max-width:1023px){
+ .so-home .s1-brand-stage.so-hero .so-hero-inner{
+   flex-direction:column!important;gap:20px!important;
+ }
+ .so-home .s1-brand-stage.so-hero .so-hero-copy{
+   flex:none!important;max-width:min(620px,100%)!important;
+   order:0;
+ }
+ .so-home .s1-brand-stage.so-hero .so-hero-people-glass{
+   flex:none;width:min(620px,100%);
+   max-width:620px;aspect-ratio:16/9;order:1;
+   margin:0 auto;
+ }
+}
+@media(max-width:670px){
+ .so-home .s1-brand-stage.so-hero .so-hero-people-glass{
+   width:100%;aspect-ratio:16/10;padding:6px;
+ }
+ .so-home .s1-brand-stage.so-hero .so-hero-people-glass .so-hero-people-photo{
+   inset:6px!important;width:calc(100% - 12px)!important;height:calc(100% - 12px)!important;
+ }
+ .so-home .so-vertical-content .so-panel-photo{width:100%;max-width:290px}
+}
+@media(prefers-reduced-transparency:reduce){
+ .so-home .so-hero-people-glass{background:rgba(28,33,32,.92)!important;backdrop-filter:none}
+}
