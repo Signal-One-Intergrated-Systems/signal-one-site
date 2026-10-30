@@ -1,50 +1,47 @@
-# Signal One product brand architecture
+# Signal One — product positioning and product-family identity
+**Approved:** 30 October 2026  
+**Scope:** Public website, 1GUARD web/mobile, 1Service web/demo and future 1Community.
 
-## Parent identity
-**SIGNAL ONE — INTEGRATED SYSTEMS** is the parent brand. Its exact ring mark, pulsing header treatment, dark graphite and Signal blue are defined by `docs/BRAND.md` and `docs/DESIGN_SYSTEM.md`. These definitions are binding. Do not recreate the mark or recolour the numeral 1.
+## Product and audience architecture
+**Signal One Integrated Systems** is the parent technology brand serving small and medium enterprises (SMEs), with professional equipment, connected services, and industry-specific **business operating systems**.
 
-## Two launch verticals
-**1GUARD** — security-operations platform for guarding companies, officers, supervisors, control rooms and site clients. Its product ecosystem has two **distinct** marketplaces:
-- **Guard hiring marketplace**: discover, shortlist and request guard hires, with guard acceptance and PSiRA-related eligibility controls.
-- **Equipment marketplace**: browse, purchase or rent security radios, body cameras, tracking and related approved equipment, subject to stock, rental terms, pricing and checkout acceptance.
+- **1GUARD — Security Business Operating System.** Designed to connect the security SME lifecycle: customer acquisition, contracts, staffing and hiring, scheduling, guarding service delivery, control-room and incident oversight, equipment, billing and financial insight. The present Guard repo's documented working scope is narrower (e.g. shifts, attendance, patrol verification, incidents, SOS and client proof), and the full business lifecycle is **not** claimed as live.
+- **1Service — Service Business Operating System.** Restaurant-first, eventually adaptable to other service SMEs: customers, bookings, service delivery, team hiring, kitchen operations, inventory, purchasing, financial visibility and business intelligence. The deployed demo is currently a workforce/time-and-attendance foundation, **not** a certified end-to-end restaurant OS or public commercial release.
+- **1Community — planned business/community OS vertical.** Future positioning only: no availability, checkout or signup claim.
+- **Equipment and connectivity.** Signal One's separate commerce and fulfilment pathway: professional radios, tracking, body cameras, CCTV, networks and connectivity, currently quote-led.
+- **LEOS** is the shared underlying enterprise/intelligence infrastructure, not a substitute public-facing product for these verticals. Distinct tenant and operational-domain permissions remain mandatory.
+- **Sales OS** is for Signal One's internal representatives, not bundled into customer subscriptions.
 
-**1Workforce** — separate workforce-operations product for non-security field teams: attendance, shifts, timesheets, job cards, supervisory oversight and related operational workflows. The products share a parent brand, not an undifferentiated interface or permission domain.
+## Mandatory words, labels and release truth
+Always lead with the **Business Operating System** category and the practical benefit of helping SMEs run their businesses. Operational functions such as guard shifts, patrols, kitchen flow and attendance are supporting capabilities and evidence, **not** definitions of the product boundary. Preserve truthful feature labels and separate **available**, **pilot**, **in development** and **planned** capabilities.
 
-## Design language derived from the 1GUARD staging login reference
-- Signal One parent lockup on the left, then a restrained divider and product signature on the right; product name is prominent.
-- Dark blue-black / graphite surfaces, white type and the established Signal blue `#0EA5E9` for the numeral **1**, focus accents and primary actions.
-- Inter, large restrained typography, very realistic daytime workplace photography and readable dark image scrims.
-- Distinct product label in the login experience: **1GUARD · Security Operations Platform** or **1Workforce · Workforce Operations Platform**.
-- The parent's mark and wordmark must never be altered, stretched or recreated from generated assets.
-- Product identity is conveyed by name, descriptor, photography and information architecture, not by unrelated palettes.
-- Never combine the two different Guard marketplaces under a single ambiguous Buy/Hire CTA.
+The public 14-day 1GUARD trial is a **request**, not confirmed automatic provisioning. Customer intake, activation and entitlements require demonstrated end-to-end integration before stronger claims. 1Service is in development and should direct prospects to interest/early-access conversations, not unverified paid signup. The guard hiring marketplace and 1Community must not be marketed as currently live.
 
-## Truth and release statuses
-The public Guard hiring marketplace currently says MVP in development. Do not market it as available until its production flows pass acceptance. The equipment website offers quote/rental enquiries and is not a verified integrated commerce marketplace. 1Workforce is a launching vertical, but availability, sign-in URLs, features and public onboarding must be validated against its deployed product before activation.
+## Canonical product-family 1 — one visual rule everywhere
+The founder selected the **existing plain typographic numeral 1**, not a substitute glass/3D logo. This is a product wordmark, distinct from the unchanged **Signal One corporate ring and corporate wordmark**.
 
-## Required commercial IA
-Home > Products > 1GUARD (Operations, Hire Guards, Buy Equipment, Rent Equipment, Pricing, Demo)
-Home > Products > 1Workforce (Overview, Time & Attendance, Operations, Demo)
-Home > Solutions > Radios, PTT, CCTV and Tracking
-Home > Company, Contact, Support.
+**Names and casing:** `1GUARD`, `1Service`, `1Community`.
 
-A public product page must clearly mark features as live, pilot, or planned. Payment and onboarding buttons must be connected and tested rather than purely presentational.
+**Exactly one optical geometry across all surfaces, devices and products:**
+1. The numeral **1** and the following capital **G**, **S** or **C** use the same Inter typeface where available, **the same font-size, weight, line-height and baseline**. No independent transforms, scaling, gradients, shadows or special glyph drawing.
+2. Their box-to-box horizontal separation is **0.06em**, measured at the common wordmark font size. No extra space character, standalone margin or wrapper letter-spacing. All named products use the identical rule at every breakpoint.
+3. The product numeral is **always Signal blue `#0EA5E9`**, including dark glass and photographic surfaces and light surfaces. The remaining letters inherit a legible surface foreground. This intentionally differs from the corporate `SIGNAL ONE` logo's documented dark-surface `#38BDF8` allowance. Do **not** recolour or remake the corporate logo to enforce the product rule.
+4. Glass belongs around the lockup, not on a distorted numeral. Wordmarks remain selectable, accessible text; logos and CTAs stay keyboard accessible.
+5. A route transition, navigation bar, login, footer, desktop control room, mobile screen and in-app header must not implement a one-off variant of the numeral.
 
+### Implementations
+- Website: `app/components/brand/ProductSignature.tsx` and `app/globals.css` `.s1-product-signature`; also used for navigation/marketing labels and animated scene transitions.
+- 1GUARD web: `apps/web/components/product-signature.tsx` and `apps/web/app/globals.css`; reused for login, shell and entry shutter. Mobile's native text uses the same colour and **0.06em** spacing logic.
+- 1Service demo: `web/index.html`, `web/app.js`, `web/app.css`, with the same signature spans.
+- Planned 1Community: reuse the identical component/contract if and when that app is implemented.
+- Website regression checks: `tests/e2e/product-signature.spec.ts` covers colour, scale, baseline and gap. A compiled deployment alone is not a full cross-device visual acceptance test.
 
-## 2026-10-30 decision: one consistent product-family numeral
+## Design system and trust
+Preserve Signal One's actual ring logo, typography, approved imagery, globe, glass visual language and responsive motion. Maintain domain distinctions and honest limitations. Do not claim a roadmap capability exists because a prototype or code stub exists.
 
-The founder chose **the existing plain typographic 1**, not an alternate 3D/glass numeral or new OS symbol. The Signal One corporate ring mark and the separate LEOS operator mark are unchanged.
-
-**Canonical implementation on the marketing website:** `app/components/brand/ProductSignature.tsx`, using the `s1-product-signature` CSS contract in `app/globals.css`. Product lockups are `1GUARD`, `1Service` and `1Community`. Future verticals must reuse the same component or reproduce this geometry in their native font stack.
-
-**Hard constraints, all products and breakpoints:**
-
-1. The existing numeral and the following uppercase initial share the **same Inter font size, font weight, line-height and baseline**. Never scale the numeral separately.
-2. Exactly **0.06em horizontal gap**, measured from the numeral's layout box to the following first-letter box. The gap scales with the wordmark size. Never add a second wrapper gap, a negative margin or manual letter spacing.
-3. Numeral uses the established Signal One blues: `#38BDF8` on dark photographic/glass backgrounds; `#0EA5E9` on light backgrounds. Letters inherit the correct surface foreground (white on dark, navy on light).
-4. The exact same typographic treatment applies to header, responsive navigation, hero labels, product pages, footers and future product app headers. Do not reinvent the numeral as an SVG, change its geometry, add a gradient, transparency or glow. Glass may frame the entire lockup but not distort individual glyphs.
-5. The product name's casing is fixed: GUARD / Service / Community. Accessibility: keep the text real and selectable; links must remain keyboard accessible.
-
-**Boundary:** The 1GUARD application currently uses the approved "Signal One Guard" sign-in identity. Do not replace it with a product wordmark solely to enforce this rule. When a numbered product lockup is introduced in that application (or in 1Service/1Community), use this same contract; the product boundary, permissions and tenant branding remain unchanged.
-
-**Regression:** `tests/e2e/visual-mission.spec.ts` compares the rendered numeral and first-letter height, font size, baseline and 0.06em gap at mobile, tablet and desktop widths.
+## Buyer pathways
+- 1GUARD: discover business OS -> evaluate specific capabilities and public pricing -> eligible 14-day **trial request** -> verified provisioning and operations.
+- 1Service: restaurant/service SME -> business OS vision -> in-development and early-access interest.
+- Equipment: category -> requirements -> quotation -> approved sale/rental and fulfilment.
+- Guard hiring marketplace: candidate/company interest only until matching, consent and eligibility workflows pass launch gates.
+- Careers: application -> interview review -> decision -> compulsory Training OS -> authorised internal Sales OS (future automation contracts are not represented as live).
