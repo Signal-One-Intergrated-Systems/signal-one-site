@@ -11,7 +11,7 @@ import "../home-conversion.css";
 export const metadata: Metadata = {
   title: { absolute: "Signal One | 1GUARD, 1Service & Business Equipment" },
   description:
-    "Make every operation easier to run. Explore 1GUARD security operations, the emerging 1Service restaurant and service-business platform, and professional radios, tracking and connectivity from Signal One.",
+    "Intelligent business operating systems for SMEs. Explore 1GUARD for security businesses, 1Service for service businesses and professional equipment and connectivity from Signal One.",
   alternates: { canonical: "/" },
 };
 
@@ -44,10 +44,9 @@ export default function Home() {
         <div className="wrap so-hero-inner">
           <div className="so-hero-copy">
             <p className="so-eyebrow"><span className="so-signal-dot" /> Signal One · Integrated Systems</p>
-            <h1 id="so-hero-title">Every operation.<br /><span>In your control.</span></h1>
+            <h1 id="so-hero-title">Run your business.<br /><span>As one.</span></h1>
             <p className="so-hero-lead">
-              From security sites and patrols to restaurant teams and field technology:
-              bring the people, the work and the decisions that matter into focus.
+              Intelligent business operating systems for SMEs. Connect your customers, people, service delivery and business decisions in one smarter way of working.
             </p>
             <div className="so-hero-actions">
               <TrialLink />
@@ -57,7 +56,7 @@ export default function Home() {
           </div>
         </div>
         <div className="so-hero-bar" aria-label="Signal One business areas">
-          <Link href="/solutions/security" className="so-hero-bar-item" aria-label="Explore 1GUARD security operations"><strong className="so-platform-mark"><ProductSignature name="GUARD" tone="dark" /></strong><span>Security operations</span></Link>
+          <Link href="/solutions/security" className="so-hero-bar-item" aria-label="Explore 1GUARD Security Business Operating System"><strong className="so-platform-mark"><ProductSignature name="GUARD" tone="dark" /></strong><span>Security Business OS</span></Link>
           <Link href="/service" className="so-hero-bar-item" aria-label="Explore 1Service business operating system"><strong className="so-platform-mark"><ProductSignature name="Service" tone="dark" /></strong><span>Restaurant-first OS · In development</span></Link>
           <Link href="/equipment-marketplace" className="so-hero-bar-item" aria-label="Explore enterprise equipment"><strong>Equipment</strong><span>Professional devices & connectivity</span></Link>
           <a href="#community" className="so-hero-bar-item" aria-label="Learn about 1Community coming soon"><strong className="so-platform-mark"><ProductSignature name="Community" tone="dark" /></strong><span>Coming soon</span></a>
@@ -69,9 +68,9 @@ export default function Home() {
         <div className="wrap">
           <div className="so-section-heading">
             <div><p className="so-kicker">Built around how you operate</p>
-              <h2 id="so-solutions-title">Different businesses.<br /><span>One standard of control.</span></h2>
+              <h2 id="so-solutions-title">Different businesses.<br /><span>One intelligent foundation.</span></h2>
             </div>
-            <p>You're not buying another dashboard. You're choosing a clearer way to run the day, handle exceptions and make better decisions.</p>
+            <p>Your business is more than its daily operations. Signal One connects industry-specific workflows to a wider business operating system designed to help SMEs work and grow.</p>
           </div>
           <div className="so-value-rail" aria-label="What matters to your business">
             <div><span>01</span><strong>Know what is happening</strong><p>Visibility across people, sites and work.</p></div>
@@ -89,9 +88,9 @@ export default function Home() {
             <div className="so-image-caption">Illustrative team at work</div>
           </div>
           <div className="so-vertical-content">
-            <div className="so-vertical-label"><Link href="/solutions/security" className="so-platform-mark" aria-label="Explore 1GUARD"><ProductSignature name="GUARD" tone="dark" /></Link> <span>SECURITY OPERATIONS</span></div>
-            <h2 id="so-guard-title">Your sites cannot run on unanswered messages.</h2>
-            <p>Give owners, supervisors, guards and clients a clearer operational record. From the first shift to the proof your customer asks for.</p>
+            <div className="so-vertical-label"><Link href="/solutions/security" className="so-platform-mark" aria-label="Explore 1GUARD"><ProductSignature name="GUARD" tone="dark" /></Link> <span>SECURITY BUSINESS OS</span></div>
+            <h2 id="so-guard-title">Run more of your security business in one place.</h2>
+            <p>1GUARD is designed as a Security Business Operating System, connecting customers, people, guarding delivery and business oversight. Explore documented site, shift, patrol and incident capabilities while the wider business lifecycle is integrated.</p>
             <ul className="so-checklist">
               <li><strong>Staffed or short?</strong><span>See shifts, attendance and post coverage.</span></li>
               <li><strong>Patrol done or missed?</strong><span>Use QR/NFC checkpoints and recorded exceptions.</span></li>
@@ -115,7 +114,7 @@ export default function Home() {
           </div>
           <div className="so-vertical-content">
             <div className="so-vertical-label"><Link href="/service" className="so-platform-mark" aria-label="Explore 1Service"><ProductSignature name="Service" tone="dark" /></Link> <span className="so-status">IN DEVELOPMENT</span></div>
-            <h2 id="so-service-title">A busy service business needs more than a roster.</h2>
+            <h2 id="so-service-title">Your service business deserves its own OS.</h2>
             <p>1Service is being developed as the operating system for service-based businesses, starting with restaurants. The vision connects the front of house, back of house, people and business performance.</p>
             <div className="so-service-scope">
               <span>Shifts & teams</span><span>Orders & kitchen flow</span><span>Stock & costing</span><span>Staff hiring</span>
@@ -165,7 +164,7 @@ export default function Home() {
         <div className="wrap">
           <div className="so-section-heading">
             <div><p className="so-kicker">A straightforward next step</p><h2 id="so-how-title">Start with the problem.<br /><span>We'll help map the solution.</span></h2></div>
-            <p>Security software and business equipment don't have the same buying journey. We make the next step clear for each.</p>
+            <p>Business operating systems and equipment don't have the same buying journey. We make the next step clear for each.</p>
           </div>
           <div className="so-journey-grid">
             <div><span className="so-step">01</span><h3>Choose your path</h3><p>Explore 1GUARD, learn about 1Service or select your equipment category.</p></div>
@@ -177,7 +176,7 @@ export default function Home() {
 
       <section id="community" className="so-final-cta" aria-labelledby="so-final-title">
         <div className="wrap so-final-inner">
-          <div><p className="so-kicker">Make the next shift easier to manage</p><h2 id="so-final-title">Ready for a better-run operation?</h2>
+          <div><p className="so-kicker">Make your business easier to run</p><h2 id="so-final-title">Ready for a smarter way to run your business?</h2>
             <p>Start with 1GUARD, explore what 1Service is becoming or speak to Signal One about field equipment.</p></div>
           <div className="so-final-actions"><TrialLink /><Link href="/contact" className="btn so-home-outline">Talk to Signal One <Arrow /></Link></div>
           <p className="so-community-note"><ProductSignature name="Community" tone="dark" /> is part of the future Signal One ecosystem and is not yet available.</p>
