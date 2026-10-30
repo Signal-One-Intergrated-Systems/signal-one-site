@@ -68,14 +68,14 @@ export default function Home() {
         <div className="wrap">
           <div className="so-section-heading">
             <div><p className="so-kicker">Built around how you operate</p>
-              <h2 id="so-solutions-title">Different businesses.<br /><span>One intelligent foundation.</span></h2>
+              <h2 id="so-solutions-title">Every part of your business.<br /><span>Working as one.</span></h2>
             </div>
-            <p>Your business is more than its daily operations. Signal One connects industry-specific workflows to a wider business operating system designed to help SMEs work and grow.</p>
+            <p>From winning a customer and finding the right people to delivering the work, proving the result and growing the business: Signal One is building industry-specific operating systems around the full journey.</p>
           </div>
           <div className="so-value-rail" aria-label="What matters to your business">
-            <div><span>01</span><strong>Know what is happening</strong><p>Visibility across people, sites and work.</p></div>
-            <div><span>02</span><strong>Act before it becomes a problem</strong><p>Find exceptions and give the right person ownership.</p></div>
-            <div><span>03</span><strong>Show what was delivered</strong><p>Records that support oversight and client conversations.</p></div>
+            <div><span>01</span><strong>Win & organise the work</strong><p>Customers, assignments, teams and requirements.</p></div>
+            <div><span>02</span><strong>Deliver & prove the service</strong><p>Connected operations, records and exceptions.</p></div>
+            <div><span>03</span><strong>Manage & grow</strong><p>Business visibility, resources and future opportunities.</p></div>
           </div>
         </div>
       </section>
@@ -83,14 +83,14 @@ export default function Home() {
       <section id="guard" className="so-vertical so-guard-section" aria-labelledby="so-guard-title">
         <div className="wrap so-vertical-layout">
           <div className="so-vertical-visual so-vertical-visual-guard">
-            <Image src="/images/photo/control-room-team.webp" alt="Illustrative security control-room operators working with a manager and a tablet"
+            <Image src="/images/home/sme-security-control-room.png" alt="Illustrative compact security control room for a South African SME: three monitoring workstations, CCTV screens and a supervisor in daylight"
               fill sizes="(min-width:1024px) 49vw, 100vw" className="object-cover" />
-            <div className="so-image-caption">Illustrative team at work</div>
+            <div className="so-image-caption">Illustrative SME security control room</div>
           </div>
           <div className="so-vertical-content">
             <div className="so-vertical-label"><Link href="/solutions/security" className="so-platform-mark" aria-label="Explore 1GUARD"><ProductSignature name="GUARD" tone="dark" /></Link> <span>SECURITY BUSINESS OS</span></div>
-            <h2 id="so-guard-title">Run more of your security business in one place.</h2>
-            <p>1GUARD is designed as a Security Business Operating System, connecting customers, people, guarding delivery and business oversight. Explore documented site, shift, patrol and incident capabilities while the wider business lifecycle is integrated.</p>
+            <h2 id="so-guard-title">A complete business vision. Built for real security SMEs.</h2>
+            <p>1GUARD is being built around the security company, not only its control room: customers, guards, staffing, sites, operations, equipment and business oversight. Start with documented shift, patrol and incident workflows as the broader business lifecycle is developed.</p>
             <ul className="so-checklist">
               <li><strong>Staffed or short?</strong><span>See shifts, attendance and post coverage.</span></li>
               <li><strong>Patrol done or missed?</strong><span>Use QR/NFC checkpoints and recorded exceptions.</span></li>
@@ -124,6 +124,59 @@ export default function Home() {
               <Link href="/service" className="btn btn-primary so-home-cta">Explore 1Service <Arrow /></Link>
               <Link href="/contact" data-analytics-event="homepage_service_interest" className="so-text-link">Discuss early access <Arrow /></Link>
             </div>
+          </div>
+        </div>
+      </section>
+
+
+      {/* Ecosystem vision: customer-facing capabilities only; no internal stack or platform names. */}
+      <section className="so-ecosystem-section" aria-labelledby="so-ecosystem-title">
+        <div className="wrap so-ecosystem-layout">
+          <div className="so-ecosystem-intro">
+            <p className="so-kicker">One connected business journey</p>
+            <h2 id="so-ecosystem-title">Not another tool for one task.<br /><span>A better way to run the whole business.</span></h2>
+            <p>A customer request creates work. Work requires people and equipment. Delivery creates records, decisions and the next opportunity. Our long-term direction is to connect those handoffs inside purpose-built operating systems.</p>
+            <p className="so-disclosure">This is the connected ecosystem vision. Individual workflows and integrations are released and verified in stages.</p>
+          </div>
+          <ol className="so-lifecycle" aria-label="Connected business lifecycle vision">
+            {[
+              ["01","Find customers"],["02","Win the work"],["03","Hire & assign"],
+              ["04","Plan & deliver"],["05","Equip the team"],["06","Record & prove"],
+              ["07","Bill & manage"],["08","Improve & grow"],
+            ].map(([number,label]) => (
+              <li key={number}><span>{number}</span><strong>{label}</strong></li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section className="so-marketplace-section" aria-labelledby="so-marketplace-title">
+        <div className="wrap">
+          <div className="so-section-heading">
+            <div><p className="so-kicker">The ecosystem extends beyond software</p>
+              <h2 id="so-marketplace-title">When your business needs more,<br /><span>the next step should be connected.</span></h2>
+            </div>
+            <p>People, services and equipment are part of business operations—not separate problems. Our marketplace direction connects those needs with the work, while keeping each industry-specific journey clear.</p>
+          </div>
+          <div className="so-marketplace-grid">
+            <article>
+              <span className="so-marketplace-kicker">Guard marketplace · In development</span>
+              <h3>Find the right security officers.</h3>
+              <p>A planned route for eligible officers and companies to find one another, with hiring and assignment workflows designed to connect back to operations.</p>
+              <Link href="/guard-marketplace">Explore guard hiring <Arrow /></Link>
+            </article>
+            <article>
+              <span className="so-marketplace-kicker">1Service staffing · Planned</span>
+              <h3>Build the team behind the service.</h3>
+              <p>Our direction includes hiring and deploying hospitality and other service workers, from kitchen teams and waiters to cleaning and management staff.</p>
+              <Link href="/service">Discover 1Service <Arrow /></Link>
+            </article>
+            <article>
+              <span className="so-marketplace-kicker">Professional technology · Quote-led</span>
+              <h3>Get the devices the work requires.</h3>
+              <p>Radios, body cameras, tracking, CCTV and connectivity specified for the operation, with pricing and fulfilment confirmed by quotation.</p>
+              <Link href="/equipment-marketplace">Browse technology <Arrow /></Link>
+            </article>
           </div>
         </div>
       </section>
