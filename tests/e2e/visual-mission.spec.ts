@@ -544,6 +544,11 @@ test("marketing backgrounds contain only verified empty environments and people 
      [".so-hero-media","#solutions","#guard","#service",".so-ecosystem-section",".so-marketplace-section","#equipment",".so-onboarding-section","#community"] :
      ["main#main","main#main > section:first-child"];
    for(const selector of selectors){
+     if(selector === ".so-hero-media"){
+       const image=page.locator(".so-hero-media .so-hero-background-photo");
+       await expect(image).toHaveAttribute("src",/\/images\/backgrounds\/restaurant-courtyard[.]webp/);
+       continue;
+     }
      const background=await page.locator(selector).first().evaluate(n=>getComputedStyle(n).backgroundImage);
      expect(background,selector+" "+route).not.toMatch(/\/images\/(editorial|photo|home\/panels|home\/approved)/);
      expect(background,selector+" "+route).toContain("/images/backgrounds/");
