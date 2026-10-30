@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import IntakeForm, { type IntakeField } from "../../components/IntakeForm";
 import { Kicker, Steps } from "../../components/ui";
 
@@ -48,6 +49,10 @@ export default function ContactPage() {
           <p className="t-lead mt-5 text-text-2">
             From security operations and workforce attendance to radios and connected equipment, tell us what you are trying to achieve.
           </p>
+          <figure className="relative mt-7 h-[210px] overflow-hidden rounded-[22px] border border-white/30 shadow-lg sm:h-[270px]">
+            <Image src="/images/photo/team-briefing.webp" alt="Illustrative supervisor discussing security operations with a team of officers and field radios" fill sizes="(min-width:1024px) 42vw, 100vw" className="object-cover object-center" />
+            <figcaption className="absolute bottom-3 left-3 rounded-full bg-slate-950/70 px-3 py-1 text-xs text-white backdrop-blur-lg">Illustrative team at work</figcaption>
+          </figure>
 
           <h2 className="t-h3 mt-12">What happens next</h2>
           <div className="mt-4">
