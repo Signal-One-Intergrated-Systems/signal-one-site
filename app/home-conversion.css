@@ -707,3 +707,50 @@ body:has(.so-home) header.glass-nav .btn-primary{box-shadow:inset 0 1px rgba(255
     object-position:right top!important;
   }
 }
+
+
+/* Approved 2026-10-30 wide-scene hero. The restaurant grounds extend across the
+   ENTIRE page and BEHIND the real animated globe and frosted glass text panel.
+   The security officer and chef stay at their original, distant scale on the
+   right. Do not crop or artificially zoom this image to favor people's faces. */
+.so-home .s1-brand-stage.so-hero .so-hero-media{
+  background:#b8d0b7!important;
+}
+.so-home .s1-brand-stage.so-hero .so-hero-media .so-hero-photo{
+  left:0!important;
+  right:0!important;
+  top:86px!important;
+  width:100%!important;
+  height:calc(100% - 86px)!important;
+  object-fit:contain!important;
+  object-position:center top!important;
+  -webkit-mask-image:none!important;
+  mask-image:none!important;
+  filter:none!important;
+  transform:none!important;
+}
+.so-home .s1-brand-stage.so-hero .so-hero-wash{
+  background:linear-gradient(90deg,rgba(8,24,34,.09) 0%,rgba(8,24,34,.06) 35%,rgba(8,24,34,0) 72%),
+             linear-gradient(0deg,rgba(8,24,34,.16),transparent 22%,transparent 90%,rgba(8,24,34,.07))!important;
+}
+@media(max-width:1023px){
+  .so-home .s1-brand-stage.so-hero .so-hero-media .so-hero-photo{
+    left:0!important;
+    right:0!important;
+    top:76px!important;
+    width:100%!important;
+    height:calc(100% - 76px)!important;
+    object-fit:contain!important;
+    object-position:center top!important;
+    -webkit-mask-image:none!important;
+    mask-image:none!important;
+  }
+}
+@media(max-width:670px){
+  /* Narrow screens maintain the existing photo-first mobile section while
+     keeping the complete chef's hat and guard on screen. */
+  .so-home .s1-brand-stage.so-hero .so-hero-media .so-hero-photo{
+    object-fit:cover!important;
+    object-position:right top!important;
+  }
+}
