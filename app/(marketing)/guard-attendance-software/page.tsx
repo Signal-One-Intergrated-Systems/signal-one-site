@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import LandingPage from "../../components/LandingPage";
-import { ButtonLink, FactPanel } from "../../components/ui";
+import { ButtonLink, FactPanel, Photo } from "../../components/ui";
+import { illustrativeCaption, photos } from "../../lib/photos";
 import { guardDayPricePhrase } from "../../lib/pricing";
 
 export const metadata: Metadata = {
@@ -27,7 +28,9 @@ export default function GuardAttendanceSoftwarePage() {
         </>
       }
       aside={
-        <FactPanel
+        <div className="grid gap-5">
+          <Photo src={photos.siteOperations.src} alt={photos.siteOperations.alt} sizes="(min-width:1024px) 46vw, 100vw" aspect="aspect-[16/9]" caption={illustrativeCaption} />
+          <FactPanel
           title="Signal One Guard · attendance"
           facts={[
             ["Clock in at the post", "On the guard's own phone or an authorised Central Device."],
@@ -35,7 +38,8 @@ export default function GuardAttendanceSoftwarePage() {
             ["PSiRA rules built in", "A missing or expired registration blocks the assignment."],
             ["No signal", "Clock-in and clock-out are saved on the phone and sent when signal returns."],
           ]}
-        />
+          />
+        </div>
       }
       capabilitiesTitle="Attendance as a record, not a timesheet"
       capabilities={[
