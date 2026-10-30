@@ -43,7 +43,7 @@ export default function SalesCareersPage() {
   const open = config.status === "open";
 
   return (
-    <main id="main" className="bg-light text-text">
+    <main id="main" className="bg-light text-text s1-scene-page s1-scene-page--careers">
       <SplitHero src={photos.teamBriefing.src} alt={photos.teamBriefing.alt} scene="/images/scenes/atrium.svg" objectPositionMobile="50% 40%" objectPosition="55% 46%">
           <p className="t-kicker text-signal-400">Careers at Signal One</p>
           <h1 className="mt-4 font-display text-[2.9rem] font-bold leading-[1.04] tracking-[-0.02em] sm:text-[3.6rem]">
