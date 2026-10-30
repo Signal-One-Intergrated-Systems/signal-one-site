@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import GuardDayCalculator from "../../components/GuardDayCalculator";
+import ProductSignature from "../../components/brand/ProductSignature";
 import { Arrow, ButtonLink, Kicker, Status } from "../../components/ui";
 import { guardOnboardingLine } from "../../lib/guardStatus";
 import { num, rand } from "../../lib/format";
@@ -26,7 +27,7 @@ export default function PricingPage() {
       <section className="split-hero surface-deep">
         <div className="wrap grid gap-12 py-16 md:py-24 lg:grid-cols-[minmax(0,var(--hero-col))_minmax(0,1fr)] lg:items-center lg:gap-20 lg:py-32">
           <div>
-            <Kicker tone="dark">1GUARD · Security Business OS pricing</Kicker>
+            <Kicker tone="dark"><ProductSignature name="GUARD" tone="dark" /> · Security Business OS pricing</Kicker>
             <h1 className="mt-6 flex flex-wrap items-end gap-x-5 gap-y-2">
               <span className="t-num text-[7rem] text-signal-400 sm:text-[10rem] lg:text-[12rem]">{guardDayPrice}</span>
               <span className="pb-4 font-display text-[1.75rem] font-semibold leading-tight sm:text-[2.25rem]">
