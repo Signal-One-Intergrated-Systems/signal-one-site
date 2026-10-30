@@ -575,3 +575,32 @@ main.s1-scene-page.s1-onboarding.surface-light.s1-premium-trial{
    border-color:#37403c;backdrop-filter:none;
  }
 }
+
+/* 2026-10-30 — route curtain must hide ALL scroll resets.
+ * Keep the approved optical-glass shutter geometry and timing unchanged.
+ * The scroll landing occurs only behind the opaque sealed state, before the
+ * shutters reopen over a stationary new page.
+ */
+html.s1-route-navigation {
+  scroll-behavior:auto!important;
+  overscroll-behavior-y:none!important;
+}
+.sg-entry-overlay[data-guard-entry="closing"],
+.sg-entry-overlay[data-guard-entry="sealed"],
+.sg-entry-overlay[data-guard-entry="opening"]{
+  pointer-events:auto;
+  touch-action:none;
+}
+.sg-entry-overlay[data-guard-entry="sealed"] {
+  background:#19252b!important;
+}
+.sg-entry-overlay[data-guard-entry="opening"]{
+  background:transparent!important;
+}
+.sg-entry-overlay[data-guard-entry="opening"] .sg-entry-shutter.sg-glass-panel {
+  background:linear-gradient(132deg,rgba(37,49,53,.985),rgba(22,33,39,.995))!important;
+  border-color:rgba(241,250,255,.31)!important;
+}
+@media(prefers-reduced-motion:reduce){
+  html.s1-route-navigation{scroll-behavior:auto!important;}
+}
