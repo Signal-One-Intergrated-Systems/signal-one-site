@@ -22,7 +22,7 @@ const fields: IntakeField[] = [
     required: true,
     wide: true,
     options: [
-      "1GUARD security operations walkthrough",
+      "1GUARD Security Business OS walkthrough",
       "1Service restaurant and service operations (in development)",
       "Guard pricing and getting started",
       "Radios, PTT, tracking or body cameras",
@@ -47,7 +47,7 @@ export default function ContactPage() {
           <Kicker>Talk to Signal One</Kicker>
           <h1 className="t-h1 mt-4">Tell us what you need. We will show you the right solution.</h1>
           <p className="t-lead mt-5 text-text-2">
-            From security operations and workforce attendance to radios and connected equipment, tell us what you are trying to achieve.
+            From business operating systems for security and service SMEs to radios and connected equipment, tell us what you are trying to achieve.
           </p>
           <figure className="relative mt-7 h-[210px] overflow-hidden rounded-[22px] border border-white/30 shadow-lg sm:h-[270px]">
             <Image src="/images/photo/team-briefing.webp" alt="Illustrative supervisor discussing security operations with a team of officers and field radios" fill sizes="(min-width:1024px) 42vw, 100vw" className="object-cover object-center" />
