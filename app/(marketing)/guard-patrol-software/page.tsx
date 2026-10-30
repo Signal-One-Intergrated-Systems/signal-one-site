@@ -15,6 +15,7 @@ export const metadata: Metadata = {
 export default function GuardPatrolSoftwarePage() {
   return (
     <LandingPage
+      scene="patrol"
       kicker="Guard patrol software"
       title="Prove the patrol was walked."
       lead="Signal One Guard turns each patrol into a record: QR or NFC checkpoints on the route, scanned on the guard's own phone or an authorised Central Device. Scans taken without signal are saved on the phone and sent when it returns."
