@@ -4,6 +4,7 @@ import { guardOnboardingLine } from "../../../lib/guardStatus";
 import { illustrativeCaption, photos } from "../../../lib/photos";
 import { proofViews } from "../../../lib/productProof";
 import { guardDayPricePhrase } from "../../../lib/pricing";
+import ProductSignature from "../../../components/brand/ProductSignature";
 
 export const metadata: Metadata = {
   title: "1GUARD | Security Business Operating System for SMEs",
@@ -36,7 +37,7 @@ export default function SecurityPlatformPage() {
     <main id="main">
       <SplitHero src={photos.teamBriefing.src} alt={photos.teamBriefing.alt} scene="/images/scenes/control-room.svg" objectPositionMobile="50% 45%" objectPosition="55% 48%">
         <div className="flex flex-wrap items-center gap-3">
-          <Kicker tone="dark">1GUARD · Security Business Operating System</Kicker>
+          <Kicker tone="dark"><ProductSignature name="GUARD" tone="dark" /> · Security Business Operating System</Kicker>
           <GuardStatus tone="dark" />
         </div>
         <h1 className="t-hero mt-5">Run your security business. As one.</h1>
