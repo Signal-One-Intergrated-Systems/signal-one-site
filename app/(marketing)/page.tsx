@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import HeroGlobeLayer from "../components/HeroGlobeLayer";
+import ProductSignature from "../components/brand/ProductSignature";
 import { guardDayPricePhrase } from "../lib/pricing";
 import pnc360s from "../../public/images/hardware/hytera-pnc360s.webp";
 import fmb920 from "../../public/images/hardware/teltonika-fmb920.webp";
@@ -56,10 +57,10 @@ export default function Home() {
           </div>
         </div>
         <div className="so-hero-bar" aria-label="Signal One business areas">
-          <Link href="/solutions/security" className="so-hero-bar-item" aria-label="Explore 1GUARD security operations"><strong className="so-platform-mark"><span className="so-brand-one">1</span>GUARD</strong><span>Security operations</span></Link>
-          <Link href="/service" className="so-hero-bar-item" aria-label="Explore 1Service business operating system"><strong className="so-platform-mark"><span className="so-brand-one">1</span>Service</strong><span>Restaurant-first OS · In development</span></Link>
+          <Link href="/solutions/security" className="so-hero-bar-item" aria-label="Explore 1GUARD security operations"><strong className="so-platform-mark"><ProductSignature name="GUARD" tone="dark" /></strong><span>Security operations</span></Link>
+          <Link href="/service" className="so-hero-bar-item" aria-label="Explore 1Service business operating system"><strong className="so-platform-mark"><ProductSignature name="Service" tone="dark" /></strong><span>Restaurant-first OS · In development</span></Link>
           <Link href="/equipment-marketplace" className="so-hero-bar-item" aria-label="Explore enterprise equipment"><strong>Equipment</strong><span>Professional devices & connectivity</span></Link>
-          <a href="#community" className="so-hero-bar-item" aria-label="Learn about 1Community coming soon"><strong className="so-platform-mark"><span className="so-brand-one">1</span>Community</strong><span>Coming soon</span></a>
+          <a href="#community" className="so-hero-bar-item" aria-label="Learn about 1Community coming soon"><strong className="so-platform-mark"><ProductSignature name="Community" tone="dark" /></strong><span>Coming soon</span></a>
         </div>
         <span className="so-hero-photo-note">Illustrative scene</span>
       </section>
@@ -88,7 +89,7 @@ export default function Home() {
             <div className="so-image-caption">Illustrative team at work</div>
           </div>
           <div className="so-vertical-content">
-            <div className="so-vertical-label"><Link href="/solutions/security" className="so-platform-mark" aria-label="Explore 1GUARD"><span className="so-brand-one">1</span>GUARD</Link> <span>SECURITY OPERATIONS</span></div>
+            <div className="so-vertical-label"><Link href="/solutions/security" className="so-platform-mark" aria-label="Explore 1GUARD"><ProductSignature name="GUARD" tone="dark" /></Link> <span>SECURITY OPERATIONS</span></div>
             <h2 id="so-guard-title">Your sites cannot run on unanswered messages.</h2>
             <p>Give owners, supervisors, guards and clients a clearer operational record. From the first shift to the proof your customer asks for.</p>
             <ul className="so-checklist">
@@ -113,7 +114,7 @@ export default function Home() {
             <div className="so-image-caption">Illustrative restaurant team at work</div>
           </div>
           <div className="so-vertical-content">
-            <div className="so-vertical-label"><Link href="/service" className="so-platform-mark" aria-label="Explore 1Service"><span className="so-brand-one">1</span>Service</Link> <span className="so-status">IN DEVELOPMENT</span></div>
+            <div className="so-vertical-label"><Link href="/service" className="so-platform-mark" aria-label="Explore 1Service"><ProductSignature name="Service" tone="dark" /></Link> <span className="so-status">IN DEVELOPMENT</span></div>
             <h2 id="so-service-title">A busy service business needs more than a roster.</h2>
             <p>1Service is being developed as the operating system for service-based businesses, starting with restaurants. The vision connects the front of house, back of house, people and business performance.</p>
             <div className="so-service-scope">
@@ -179,7 +180,7 @@ export default function Home() {
           <div><p className="so-kicker">Make the next shift easier to manage</p><h2 id="so-final-title">Ready for a better-run operation?</h2>
             <p>Start with 1GUARD, explore what 1Service is becoming or speak to Signal One about field equipment.</p></div>
           <div className="so-final-actions"><TrialLink /><Link href="/contact" className="btn so-home-outline">Talk to Signal One <Arrow /></Link></div>
-          <p className="so-community-note"><span className="so-brand-one">1</span>Community is part of the future Signal One ecosystem and is not yet available.</p>
+          <p className="so-community-note"><ProductSignature name="Community" tone="dark" /> is part of the future Signal One ecosystem and is not yet available.</p>
         </div>
       </section>
     </main>
