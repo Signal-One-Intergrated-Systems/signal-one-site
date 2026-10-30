@@ -1802,4 +1802,4 @@ main:not(.s1-brand-home) .surface-white .card :is(.t-h2,.t-h3,.t-h4){color:#f3fa
   font-variant-numeric: lining-nums;
 }
 .s1-product-signature--light .s1-product-signature__one { color: #0EA5E9; }
-.s1-product-signature--dark .s1-product-signature__one { color: #38BDF8; }
+.s1-product-signature--dark .s1-product-signature__one { color: #0EA5E9; }
