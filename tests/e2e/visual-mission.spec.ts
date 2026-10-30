@@ -405,3 +405,34 @@ test("every product wordmark shares the same numeral height, baseline and propor
     expect((await checkSignatures())).toContain("Service");
   }
 });
+
+
+test("homepage shows credible SME-scale guard operations and an accurately labelled connected journey", async ({page,request}) => {
+  const imagePath="/images/home/sme-security-control-room.png";
+  const source=await request.get(imagePath);
+  expect(source.status()).toBe(200);
+  expect(source.headers()["content-type"]).toContain("image/png");
+  expect((await source.body()).byteLength).toBeGreaterThan(100000);
+  for(const viewport of [{width:375,height:812},{width:768,height:1024},{width:1440,height:900}]){
+    await page.setViewportSize(viewport);
+    await page.goto("/");
+    const photograph=page.locator(".so-vertical-visual-guard img");
+    await expect(photograph).toHaveAttribute("alt",/compact security control room.*SME/i);
+    const sizes=await photograph.evaluate(img=>({
+      loaded:(img as HTMLImageElement).naturalWidth,
+      frame:img.parentElement?.getBoundingClientRect().width ?? 0
+    }));
+    expect(sizes.loaded).toBeGreaterThan(0);
+    expect(sizes.frame).toBeGreaterThan(250);
+    await expect(page.getByRole("heading",{name:/Every part of your business/i})).toBeVisible();
+    await expect(page.getByRole("heading",{name:/A better way to run the whole business/i})).toBeVisible();
+    await expect(page.locator(".so-lifecycle li")).toHaveCount(8);
+    await expect(page.locator(".so-marketplace-grid article")).toHaveCount(3);
+    await expect(page.locator(".so-marketplace-grid").getByText(/In development/)).toBeVisible();
+    await expect(page.locator(".so-marketplace-grid").getByText(/Planned/)).toBeVisible();
+    await expect(page.locator(".so-marketplace-grid").getByText(/Quote-led/)).toBeVisible();
+    await expect(page.getByRole("link",{name:/Explore guard hiring/i})).toHaveAttribute("href","/guard-marketplace");
+    await expect(page.getByRole("link",{name:/Discover 1Service/i})).toHaveAttribute("href","/service");
+    await expect(page.getByRole("link",{name:/Browse technology/i})).toHaveAttribute("href","/equipment-marketplace");
+  }
+});
