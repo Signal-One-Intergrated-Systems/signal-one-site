@@ -62,7 +62,7 @@ for (const viewport of viewports) {
 
 test("home: platform selector and signup links are actionable", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("link", { name: /explore 1guard security operations/i })).toHaveAttribute("href", "/solutions/security");
+  await expect(page.getByRole("link", { name: /explore 1guard security business operating system/i })).toHaveAttribute("href", "/solutions/security");
   await expect(page.getByRole("link", { name: /explore 1service business operating system/i })).toHaveAttribute("href", "/service");
   await expect(page.getByRole("link", { name: /get 14 day free trial/i }).first()).toHaveAttribute("href", "/get-started");
 });
