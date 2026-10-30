@@ -6,9 +6,9 @@ import { proofViews } from "../../../lib/productProof";
 import { guardDayPricePhrase } from "../../../lib/pricing";
 
 export const metadata: Metadata = {
-  title: "Security Company Software: Patrols, Attendance, SOS",
+  title: "1GUARD | Security Business Operating System for SMEs",
   description:
-    "Guard management software for South African security companies: sites, shifts, attendance, QR and NFC patrols, SOS, control room and proof of service.",
+    "1GUARD is the Security Business Operating System for South African SMEs, connecting security service delivery, workforce and business oversight. Explore currently available sites, shifts, patrols, SOS and reporting workflows.",
   alternates: { canonical: "/solutions/security" },
 };
 
@@ -36,13 +36,12 @@ export default function SecurityPlatformPage() {
     <main id="main">
       <SplitHero src={photos.teamBriefing.src} alt={photos.teamBriefing.alt} scene="/images/scenes/control-room.svg" objectPositionMobile="50% 45%" objectPosition="55% 48%">
         <div className="flex flex-wrap items-center gap-3">
-          <Kicker tone="dark">Signal One Security · the platform</Kicker>
+          <Kicker tone="dark">1GUARD · Security Business Operating System</Kicker>
           <GuardStatus tone="dark" />
         </div>
-        <h1 className="t-hero mt-5">Run security operations from the record, not the group chat.</h1>
+        <h1 className="t-hero mt-5">Run your security business. As one.</h1>
         <p className="t-lead measure mt-6 text-text-inv-2">
-          Sites, posts, shifts, attendance, patrols, incidents, SOS, the control room and client proof of service. One
-          system for owners, supervisors, control-room operators, guards and your clients.
+          One operating system for the security business you are building. Connect your customers, workforce and service delivery. Today's documented operational capabilities include sites, shifts, patrols, incidents, SOS and client proof of service.
         </p>
         {guardOnboardingLine ? <p className="t-small mt-4 font-semibold text-text-inv">{guardOnboardingLine}</p> : null}
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -55,6 +54,23 @@ export default function SecurityPlatformPage() {
         </div>
         <p className="t-caption mt-6 text-text-inv-2">Trial access is subject to company registration and activation confirmation. No trial begins when you submit a request.</p>\n        <p className="t-caption mt-3 text-text-inv-2">{illustrativeCaption}</p>
       </SplitHero>
+
+      <section className="surface-light section" aria-labelledby="guard-business-os-title">
+        <div className="wrap">
+          <Kicker>Built for the security business owner</Kicker>
+          <h2 id="guard-business-os-title" className="t-h2 mt-4">More than guarding operations. A business operating system.</h2>
+          <p className="t-lead mt-5 max-w-3xl text-text-2">Your business connects customers, contracts, people, service delivery, equipment and financial decisions. 1GUARD brings the security-specific work into one environment as the broader LEOS business lifecycle is integrated.</p>
+          <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            {[
+              ["Win and retain customers", "CRM, proposals and contracts are part of the intended connected business lifecycle."],
+              ["Build your team", "Recruitment, personnel records, scheduling and site deployment, with industry-specific controls."],
+              ["Deliver and prove the service", "Current focus: attendance, patrols, incidents, SOS and client reporting."],
+              ["Understand the business", "Connected equipment, billing, financial visibility and intelligence as integration milestones."],
+            ].map(([title, detail]) => <article key={title} className="card p-6"><h3 className="t-h4">{title}</h3><p className="t-body mt-3 text-text-2">{detail}</p></article>)}
+          </div>
+          <p className="t-small mt-5 text-text-2">Business lifecycle modules described as intended or integration milestones are not represented as live today. Available functions depend on your activation and release stage.</p>
+        </div>
+      </section>
 
       {/* Coverage */}
       <section className="surface-light section">
