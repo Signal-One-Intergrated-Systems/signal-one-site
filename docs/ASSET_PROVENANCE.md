@@ -41,3 +41,9 @@ The homepage now uses two original commissioned-for-this-design AI-generated ill
 | `public/images/home/service-restaurant-operations.jpg` | 1Service homepage feature and introductory /service page | Original synthetic scene generated 2026-10-29 for Signal One: professional kitchen team coordinating restaurant service; no third-party logo or product UI | `Illustrative restaurant operation` |
 
 The homepage 1GUARD proof section uses the existing documented `control-room-team.webp` fictional scene. The equipment section uses the genuine, unaltered Hytera PNC360S and Teltonika FMB920 manufacturer assets documented above; these must not be replaced with AI-generated substitutes.
+
+## Founder-approved hospitality + security hero — 2026-10-30
+
+`public/images/home/approved-security-chef-daylight-2026.png` is the standalone photographic crop from the approved synthetic homepage concept. The image depicts a fictional light-brown-skinned Black woman security officer wearing a white shirt, black vest marked SECURITY and radio, collaborating with a white male chef in white uniform and chef hat outside a restaurant in clear daylight. It is not a customer testimonial, documentary photograph, or claim that either person works for Signal One. On-page caption remains `Illustrative scene`.
+
+The production crop excludes generated browser chrome, navigation, hero copy, globe and CTA mockups: these must be rendered by the actual React components. Cropping is deliberately restricted to the people-led right-hand photograph. The image is stored locally in the repository, not hotlinked from an expiring creative-tool URL.
