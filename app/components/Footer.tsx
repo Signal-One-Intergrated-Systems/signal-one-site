@@ -27,15 +27,15 @@ export default function Footer() {
         <div className="s1-premium-footer-intro">
           <div>
             <p className="s1-footer-kicker">SIGNAL ONE · INTEGRATED SYSTEMS</p>
-            <h2>Make every operation count.</h2>
-            <p>Security operations. Service businesses. Mission-critical technology.</p>
+            <h2>Run your business. As one.</h2>
+            <p>Security Business OS. Service Business OS. Mission-critical technology.</p>
           </div>
           <Link className="s1-footer-main-cta" href="/get-started">Get 14 Day Free Trial <span aria-hidden="true">↗</span></Link>
         </div>
         <div className="s1-premium-footer-bottom">
           <div className="s1-footer-brand">
             <Link href="/" aria-label="Signal One home" className="s1-footer-logo"><SignalOneLogo size={24} tone="dark" descriptorMin={11} /></Link>
-            <p>Technology built around the people and operations that keep businesses moving.</p>
+            <p>Intelligent operating systems and connected technology built for the businesses that keep the world moving.</p>
             <a href="mailto:sales@signalone.co.za">sales@signalone.co.za</a>
           </div>
           <nav aria-label="Footer links" className="s1-footer-link-grid">
