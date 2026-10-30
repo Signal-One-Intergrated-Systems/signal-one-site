@@ -1,6 +1,31 @@
 import { test, expect } from "@playwright/test";
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import AxeBuilder from "@axe-core/playwright";
 import { routes as allMarketingRoutes } from "./routes";
+
+
+/**
+ * FOUNDER LOCK — the homepage hero is NOT part of later scene-only refactors.
+ * This exact JSX fixture was captured from production commit 4ed7047 before PR84.
+ * Changing the hero markup breaks CI until explicitly reapproved.
+ */
+test("FOUNDERS LOCK: approved home hero markup must never change accidentally", () => {
+  const cwd = process.cwd();
+  const file = readFileSync(resolve(cwd, "app/(marketing)/page.tsx"), "utf8");
+  const baseline = readFileSync(resolve(cwd, "tests/fixtures/locked-home-hero.txt"), "utf8");
+  const from = file.indexOf('      <section className="s1-brand-stage so-hero"');
+  const to = file.indexOf('      <section id="solutions"', from);
+  expect(from).toBeGreaterThan(0);
+  expect(to).toBeGreaterThan(from);
+  expect(file.slice(from, to), "Locked hero JSX was modified").toBe(baseline);
+  expect(file.slice(from, to)).toContain('approved-full-scene-guard-chef-2026.png');
+  expect(file.slice(from, to)).not.toContain("so-hero-people-glass");
+  expect(file.slice(from, to)).not.toContain("restaurant-courtyard.webp");
+  const css = readFileSync(resolve(cwd, "app/home-conversion.css"), "utf8");
+  expect(css).not.toContain(".so-home .so-hero-people-glass");
+  expect(css).not.toContain(".so-home .so-hero-background-photo");
+});
 
 /** Phase 7 production-like acceptance for every core acquisition path.
  * Run after `npm run build`; does not require live credentials.
@@ -201,52 +226,157 @@ test("hero globe animates, liquid CTA responds and actual routes work", async ({
 });
 
 
-test("hero background is an empty restaurant, approved people photograph is inside a glass pane", async ({page,request}) => {
-  const scene = await request.get("/images/backgrounds/restaurant-courtyard.webp");
-  expect(scene.status()).toBe(200);
-  expect(scene.headers()["content-type"]).toContain("image/webp");
-  const photo = await request.get("/images/home/approved-full-scene-guard-chef-2026.png");
-  expect(photo.status()).toBe(200);
-  for(const viewport of [{width:375,height:812},{width:768,height:1024},{width:1440,height:900},{width:1920,height:1080}]){
-    await page.setViewportSize(viewport);
+test("responsive approved hero shows the full image stage before the glass message", async ({ page }) => {
+  for (const width of [375, 768]) {
+    await page.setViewportSize({ width, height: width === 375 ? 812 : 1024 });
     await page.goto("/");
-    const environment=page.locator(".so-hero-media .so-hero-background-photo");
-    await expect(environment).toHaveAttribute("src",/restaurant-courtyard[.]webp/);
-    await expect(environment).toBeVisible();
-    const people=page.locator(".so-hero-people-glass .so-hero-photo");
-    await expect(people).toHaveAttribute("src",/approved-full-scene-guard-chef-2026[.]png/);
-    await expect(people).toBeVisible();
-    const placement=await people.evaluate(img=>{
-      const panel=img.closest(".so-hero-people-glass")!;
-      const pic=img.getBoundingClientRect();
-      const glass=panel.getBoundingClientRect();
-      const style=getComputedStyle(img);
-      return {fit:style.objectFit, within:pic.left >= glass.left-2 && pic.right <= glass.right+2,
-        width:glass.width,height:glass.height,natural:(img as HTMLImageElement).naturalWidth};
-    });
-    expect(placement.fit).toBe("contain");
-    expect(placement.within).toBe(true);
-    expect(placement.width).toBeGreaterThan(200);
-    expect(placement.height).toBeGreaterThan(150);
-    expect(placement.natural).toBeGreaterThan(0);
-    await expect(page.locator(".s1-hero-globe-canvas")).toBeVisible();
+    const media = page.locator(".so-hero-media");
+    const panel = page.locator(".so-hero-copy");
+    const image = page.locator(".so-hero-photo");
+    await expect(media).toBeVisible();
+    await expect(image).toBeVisible();
+    const m = await media.boundingBox();
+    const p = await panel.boundingBox();
+    expect(m).not.toBeNull();
+    expect(p).not.toBeNull();
+    if (m && p) {
+      expect(m.height, "People need a meaningful image stage").toBeGreaterThan(265);
+      expect(p.y, "Glass should start after the image, apart from a small float overlap")
+        .toBeGreaterThanOrEqual(m.y + m.height - 55);
+    }
     await expect(page.locator(".so-hero-copy a[href='/get-started']")).toBeVisible();
-    expect(await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth)).toBeLessThanOrEqual(1);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(1);
   }
 });
 
-test("approved 1GUARD and 1Service people remain in foreground photo frames",async({page,request})=>{
+test("homepage Guard and Service put people ahead of their section environments", async ({ page, request }) => {
   await page.goto("/");
-  for(const [selector,file,mime] of [
-    [".so-vertical-visual-guard img","/images/home/approved-sme-security-control-room-2026.png","image/png"],
-    [".so-vertical-visual-service img","/images/home/service-restaurant-operations.jpg","image/jpeg"]
-  ] as const){
-    await expect(page.locator(selector)).toHaveAttribute("src",new RegExp(file.split("/").at(-1)!.replace(/[.]/g,"[.]")));
-    const r=await request.get(file);
-    expect(r.status()).toBe(200);
-    expect(r.headers()["content-type"]).toContain(mime);
+  const assets = [
+    [".so-vertical-visual-guard img", "/images/home/approved-sme-security-control-room-2026.png", "image/png"],
+    [".so-vertical-visual-service img", "/images/home/service-restaurant-operations.jpg", "image/jpeg"],
+  ] as const;
+  for (const [selector, expected, mime] of assets) {
+    const photo = page.locator(selector);
+    await expect(photo).toHaveAttribute("src", new RegExp(expected.split("/").pop()!));
+    const response = await request.get(expected);
+    expect(response.status()).toBe(200);
+    expect(response.headers()["content-type"]).toContain(mime);
+  }
+  await expect(page.locator(".so-hero-photo")).toHaveAttribute("src", /approved-full-scene-guard-chef-2026\.png/);
+  for (const route of ["/", "/solutions/security", "/service"]) {
+    await page.goto(route);
+    const visibleImages = await page.locator("main img").evaluateAll(imgs =>
+      imgs.filter(img => img.getBoundingClientRect().width > 100).map(img => img.getAttribute("alt")?.toLowerCase() || "")
+    );
+    expect(visibleImages.some(alt => /security|team|guard|officer|kitchen|restaurant/.test(alt))).toBe(true);
   }
 });
+
+test("approved homepage guard-and-chef photograph remains separate from interactive controls", async ({ page, request }) => {
+  const photoPath = "/images/home/approved-full-scene-guard-chef-2026.png";
+  const response = await request.get(photoPath);
+  expect(response.status()).toBe(200);
+  expect(response.headers()["content-type"]).toContain("image/png");
+  expect((await response.body()).byteLength).toBeGreaterThan(50000);
+  for (const viewport of [
+    { width: 375, height: 812 },
+    { width: 768, height: 1024 },
+    { width: 1440, height: 900 },
+  ]) {
+    await page.setViewportSize(viewport);
+    await page.goto("/");
+    const image = page.locator(".so-hero-photo");
+    const alt = await image.getAttribute("alt") || "";
+    expect(alt).toMatch(/security officer/i);
+    expect(alt).toMatch(/chef/i);
+    expect(alt).toMatch(/SECURITY vest/i);
+    const dimensions = await image.evaluate(img => {
+      const box = img.getBoundingClientRect();
+      const media = img.parentElement!.getBoundingClientRect();
+      const nav = document.querySelector("header.glass-nav > .wrap")?.getBoundingClientRect();
+      return {width:box.width, mediaWidth:media.width, imageTop:box.top,
+        navBottom:nav?.bottom ?? 0,
+        naturalWidth:(img as HTMLImageElement).naturalWidth};
+    });
+    expect(dimensions.naturalWidth).toBeGreaterThan(0);
+    if (viewport.width >= 1024) {
+      expect(dimensions.width, "Scene must span the globe and the people").toBeGreaterThan(dimensions.mediaWidth * 0.98);
+      expect(dimensions.width).toBeLessThanOrEqual(dimensions.mediaWidth + 1);
+    } else {
+      expect(dimensions.width).toBeGreaterThan(viewport.width - 2);
+      if (viewport.width <= 670) {
+        expect(dimensions.imageTop, "Photo must start below the mobile navigation pill").toBeGreaterThanOrEqual(dimensions.navBottom - 3);
+      }
+    }
+    await expect(page.getByRole("link", { name: /get 14 day free trial/i }).first()).toBeVisible();
+    await expect(page.locator(".s1-hero-globe-canvas")).toBeVisible();
+  }
+});
+
+
+test("desktop homepage shows the entire approved guard and chef photograph with no zoom", async ({ page }) => {
+  for (const viewport of [{ width: 1440, height: 900 }, { width: 1536, height: 960 }]) {
+    await page.setViewportSize(viewport);
+    await page.goto("/");
+    const image = page.locator(".so-hero-photo");
+    await expect(image).toHaveAttribute("src", /approved-full-scene-guard-chef-2026[.]png/);
+    const layout = await image.evaluate(img => {
+      const media = img.parentElement!.getBoundingClientRect();
+      const picture = img.getBoundingClientRect();
+      const nav = document.querySelector("header.glass-nav > .wrap")?.getBoundingClientRect();
+      const styles = getComputedStyle(img);
+      return {
+        fit: styles.objectFit,
+        width: picture.width, height: picture.height,
+        mediaRight: media.right, pictureRight: picture.right,
+        pictureTop: picture.top, navBottom: nav?.bottom ?? 0,
+        naturalWidth: (img as HTMLImageElement).naturalWidth,
+        naturalHeight: (img as HTMLImageElement).naturalHeight,
+      };
+    });
+    expect(layout.fit, "Keep the entire photograph, never object-fit:cover").toBe("contain");
+    expect(layout.width, "Wide photograph should extend behind the globe").toBeGreaterThanOrEqual(viewport.width - 2);
+    expect(layout.naturalWidth).toBeGreaterThan(0);
+    expect(layout.naturalHeight).toBeGreaterThan(0);
+    expect(layout.pictureRight).toBeLessThanOrEqual(layout.mediaRight + 1);
+    expect(layout.pictureTop, "Chef's hat must start below glass navigation").toBeGreaterThanOrEqual(layout.navBottom - 3);
+    const ratio = layout.naturalWidth / layout.naturalHeight;
+    const fitWidth = Math.min(layout.width, layout.height * ratio);
+    const fitHeight = Math.min(layout.height, layout.width / ratio);
+    expect(fitWidth).toBeGreaterThan(0);
+    expect(fitHeight).toBeGreaterThan(0);
+    expect(fitWidth).toBeLessThanOrEqual(layout.width + 1);
+    expect(fitHeight).toBeLessThanOrEqual(layout.height + 1);
+  }
+});
+
+
+// Wide full scene must be the foreground image layer across the *whole* hero,
+// not a cropped 59% panel on the right. The globe and glass must remain intact.
+test("approved full-scene hero spans behind the globe without cropping the chef on desktop", async ({page,request}) => {
+  const source="/images/home/approved-full-scene-guard-chef-2026.png";
+  const resp=await request.get(source);
+  expect(resp.status()).toBe(200);
+  expect(resp.headers()["content-type"]).toContain("image/png");
+  for(const width of [1280,1440,1536,1920]){
+    await page.setViewportSize({width,height:960});
+    await page.goto("/");
+    const metrics=await page.locator(".so-hero-photo").evaluate(img=>{
+      const imageRect=img.getBoundingClientRect();
+      const mediaRect=img.parentElement!.getBoundingClientRect();
+      const style=getComputedStyle(img);
+      return {imgWidth:imageRect.width,mediaWidth:mediaRect.width,fit:style.objectFit,
+        mask:style.maskImage,position:style.objectPosition,photoLoaded:(img as HTMLImageElement).naturalWidth>0};
+    });
+    expect(metrics.photoLoaded).toBe(true);
+    expect(metrics.fit).toBe("contain");
+    expect(metrics.imgWidth).toBeGreaterThan(metrics.mediaWidth * 0.98);
+    expect(metrics.mask).toBe("none");
+    await expect(page.locator(".s1-hero-globe-canvas")).toBeVisible();
+    await expect(page.getByRole("link",{name:/get 14 day free trial/i}).first()).toBeVisible();
+  }
+});
+
 
 test("every product wordmark shares the same numeral height, baseline and proportional gap", async ({ page }) => {
   const checkSignatures = async () => {
@@ -428,7 +558,7 @@ test("homepage contextual panels use correct local documentary photographs rathe
     expect(descriptions.every(description => description.length > 30)).toBe(true);
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
     expect(overflow).toBeLessThanOrEqual(1);
-    await expect(page.locator(".so-hero-people-glass .so-hero-photo")).toHaveAttribute("src",/approved-full-scene-guard-chef-2026[.]png/);
+    await expect(page.locator(".so-hero-media .so-hero-photo")).toHaveAttribute("src",/approved-full-scene-guard-chef-2026[.]png/);
     await expect(page.locator(".so-vertical-visual-guard img")).toHaveAttribute("src", /approved-sme-security-control-room-2026[.]png/);
   }
 });
@@ -528,7 +658,7 @@ test("industry marketing pages keep real-world photo backdrops and readable copy
   expect(footer).toContain("hotel-corridor.webp");
 });
 
-test("marketing backgrounds contain only verified empty environments and people stay in glass frames",async({page,request})=>{
+test("below the permanently locked hero, marketing backgrounds remain people-free",async({page,request})=>{
  const environments=[
   "restaurant-courtyard","business-park","small-control-room","restaurant-dining",
   "hotel-lobby","warehouse-yard","enterprise-showroom","hotel-corridor",
@@ -541,14 +671,10 @@ test("marketing backgrounds contain only verified empty environments and people 
  for(const route of ["/","/solutions/security","/service","/guards","/equipment-marketplace","/guard-marketplace","/contact","/pricing","/get-started"]){
    await page.goto(route);
    const selectors=route==="/" ?
-     [".so-hero-media","#solutions","#guard","#service",".so-ecosystem-section",".so-marketplace-section","#equipment",".so-onboarding-section","#community"] :
+     ["#solutions","#guard","#service",".so-ecosystem-section",".so-marketplace-section","#equipment",".so-onboarding-section","#community"] :
      ["main#main"];
    for(const selector of selectors){
-     if(selector === ".so-hero-media"){
-       const image=page.locator(".so-hero-media .so-hero-background-photo");
-       await expect(image).toHaveAttribute("src",/restaurant-courtyard[.]webp/);
-       continue;
-     }
+     
      const background=await page.locator(selector).first().evaluate(n=>getComputedStyle(n).backgroundImage);
      expect(background,selector+" "+route).not.toMatch(/\/images\/(editorial|photo|home\/panels|home\/approved)/);
      expect(background,selector+" "+route).toContain("/images/backgrounds/");
