@@ -16,7 +16,7 @@ const categories = [
  ["Security technology", "Discuss CCTV and supporting infrastructure for your project."],
 ] as const;
 export default function EquipmentMarketplacePage() {
- return <main id="main">
+ return <main id="main" className="s1-scene-page s1-scene-page--equipment">
  <section className="surface-deep section s1-equipment-hero"><div className="wrap grid items-center gap-10 lg:grid-cols-2"><div>
  <Kicker tone="dark"><ProductSignature name="GUARD" tone="dark" /> · Equipment marketplace</Kicker>
  <h1 className="t-h1 mt-5">The right equipment. Ready for the field.</h1>
