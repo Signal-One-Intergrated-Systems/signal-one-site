@@ -19,7 +19,7 @@ const ambitions = [
 
 export default function ServicePage() {
   return (
-    <main id="main">
+    <main id="main" className="s1-scene-page s1-scene-page--service">
       <section className="surface-deep section s1-people-scene-service">
         <div className="wrap grid gap-10 items-center lg:grid-cols-2">
           <div>
