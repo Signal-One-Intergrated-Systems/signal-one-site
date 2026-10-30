@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import LandingPage from "../../components/LandingPage";
-import { ButtonLink, Status } from "../../components/ui";
+import { ButtonLink, Photo, Status } from "../../components/ui";
+import { illustrativeCaption, photos } from "../../lib/photos";
 import { catalogue } from "../../lib/catalogue";
 import { guardDayPricePhrase } from "../../lib/pricing";
 
@@ -30,7 +31,9 @@ export default function PttRadioRentalPage() {
         </>
       }
       aside={
-        <ul className="m-0 grid list-none gap-px overflow-hidden rounded-card border border-line-dark bg-line-dark p-0">
+        <div className="grid gap-5">
+          <Photo src={photos.teamBriefing.src} alt={photos.teamBriefing.alt} sizes="(min-width:1024px) 46vw, 100vw" aspect="aspect-[16/9]" caption={illustrativeCaption} />
+          <ul className="m-0 grid list-none gap-px overflow-hidden rounded-card border border-line-dark bg-line-dark p-0">
           {radios.products.map((product) => (
             <li key={product.model} className="flex items-start justify-between gap-4 bg-raised p-5 sm:p-6">
               <div>
@@ -43,7 +46,8 @@ export default function PttRadioRentalPage() {
               </Status>
             </li>
           ))}
-        </ul>
+          </ul>
+        </div>
       }
       capabilitiesTitle="What we rent"
       capabilities={[
