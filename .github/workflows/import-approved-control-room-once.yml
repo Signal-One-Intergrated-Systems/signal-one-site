@@ -1,0 +1,44 @@
+name: Import approved SME control-room image (once)
+on:
+  push:
+    branches:
+      - feat/approved-guard-photo-scroll-choreography-20261030
+    paths:
+      - .github/workflows/import-approved-control-room-once.yml
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/approved-guard-photo-scroll-choreography-20261030
+          persist-credentials: true
+      - name: Import the exact approved photographic image
+        env:
+          APPROVED_IMAGE: "https://at.adobe.com/fSV0biQJCVgLErtd"
+        run: |
+          set -euo pipefail
+          mkdir -p public/images/home
+          curl --fail --location --silent --show-error --retry 3 --max-time 120 "$APPROVED_IMAGE" -o public/images/home/approved-sme-security-control-room-2026.png
+          python3 - <<'PY'
+          from pathlib import Path
+          import struct, hashlib
+          path=Path("public/images/home/approved-sme-security-control-room-2026.png")
+          raw=path.read_bytes()
+          assert raw[:8]==bytes.fromhex("89504e470d0a1a0a"), "Not PNG"
+          w,h=struct.unpack(">II",raw[16:24])
+          assert 1400 <= w <= 4500 and 720 <= h <= 3000, (w,h)
+          assert len(raw)>100_000
+          print(f"Approved PNG: {w}x{h}, {len(raw):,} bytes, sha256={hashlib.sha256(raw).hexdigest()}")
+          PY
+      - name: Commit local artwork and delete import workflow
+        run: |
+          set -euo pipefail
+          git config user.name "Signal One Website Automation"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/images/home/approved-sme-security-control-room-2026.png
+          git rm -f .github/workflows/import-approved-control-room-once.yml
+          git commit -m "assets(home): include founder-approved small security control room"
+          git push origin HEAD:feat/approved-guard-photo-scroll-choreography-20261030
