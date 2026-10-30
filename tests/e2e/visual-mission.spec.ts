@@ -223,7 +223,7 @@ test("responsive approved hero shows the full image stage before the glass messa
 test("homepage Guard and Service put people ahead of their section environments", async ({ page, request }) => {
   await page.goto("/");
   const assets = [
-    [".so-vertical-visual-guard img", "/images/photo/control-room-team.webp", "image/webp"],
+    [".so-vertical-visual-guard img", "/images/home/sme-security-control-room.png", "image/png"],
     [".so-vertical-visual-service img", "/images/home/service-restaurant-operations.jpg", "image/jpeg"],
   ] as const;
   for (const [selector, expected, mime] of assets) {
