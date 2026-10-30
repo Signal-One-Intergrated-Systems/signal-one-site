@@ -164,7 +164,7 @@ export default function Home() {
               ["02","Win the work","/images/editorial/security-site-planning.webp","Illustrative security supervisor discussing a site plan with client representatives"],
               ["03","Hire & assign","/images/editorial/security-interview-training.webp","Illustrative security employer interviewing candidates during recruitment"],
               ["04","Plan & deliver","/images/editorial/security-team-briefing.webp","Illustrative security officers gathered around an operational briefing"],
-              ["05","Equip the team","/images/hardware/hytera-pnc360s.webp","Hytera professional push-to-talk radio product photo"],
+              ["05","Equip the team","/images/home/panels/prove-work.webp","Illustrative security officer using field technology during a patrol"],
               ["06","Record & prove","/images/editorial/warehouse-security-check.webp","Illustrative guard verifying the security status at a logistics facility"],
               ["07","Bill & manage","/images/home/panels/invoice-confirm.webp","Illustrative administrators preparing customer billing"],
               ["08","Improve & grow","/images/home/panels/manage-grow.webp","Illustrative owner reviewing business performance"],
@@ -200,7 +200,7 @@ export default function Home() {
             </article>
             <article data-motion-from="right" style={{ "--so-motion-delay": "380ms" } as CSSProperties}>
               <span className="so-marketplace-kicker">Professional technology · Quote-led</span>
-              <PanelPhoto src="/images/hardware/teltonika-fmb920.webp" alt="Genuine Teltonika vehicle tracking device manufacturer product photograph" />
+              <PanelPhoto src="/images/hardware/teltonika-fmc920.webp" alt="Genuine Teltonika connectivity tracking device manufacturer product photograph" />
               <h3>Get the devices the work requires.</h3>
               <p>Radios, body cameras, tracking, CCTV and connectivity specified for the operation, with pricing and fulfilment confirmed by quotation.</p>
               <Link href="/equipment-marketplace">Browse technology <Arrow /></Link>
