@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import SignalOneLogo from "./brand/SignalOneLogo";
 import ProductSignature from "./brand/ProductSignature";
 
@@ -28,15 +28,33 @@ export default function SceneTransition({ children }: { children: ReactNode }) {
   const target = useRef<string | null>(null);
   const previous = useRef(pathname);
   const hold = useRef<number | null>(null);
+  const transitionInProgress = useRef(false);
+  const unlockScroll = useRef<(() => void) | null>(null);
 
+  // A route transition owns the viewport until the destination has landed.
+  // Unlock only after both shutters have finished opening.
   useEffect(() => {
+    if (phase !== "idle") return;
+    unlockScroll.current?.();
+    unlockScroll.current = null;
+    transitionInProgress.current = false;
+  }, [phase]);
+
+  useLayoutEffect(() => {
     if (previous.current === pathname) return;
     previous.current = pathname;
     if (timeout.current !== null) window.clearTimeout(timeout.current);
     if (hold.current !== null) window.clearTimeout(hold.current);
     timeout.current = null;
     if (target.current !== null) {
+      const committedTarget = target.current;
       target.current = null;
+      // Next.js must not scroll the outgoing page during a glass transition.
+      // Place the destination instantly behind fully sealed shutters BEFORE opening.
+      const fragment = committedTarget.split("#")[1];
+      const anchor = fragment ? document.getElementById(decodeURIComponent(fragment)) : null;
+      if (anchor) anchor.scrollIntoView({ behavior: "instant", block: "start" });
+      else window.scrollTo({ top: 0, left: 0, behavior: "instant" });
       // Let the destination identity remain visible over fully closed glass.
       hold.current = window.setTimeout(() => {
         setPhase("opening");
@@ -62,6 +80,24 @@ export default function SceneTransition({ children }: { children: ReactNode }) {
       if (url.origin !== location.origin || (url.pathname === location.pathname && url.search === location.search)) return;
       if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
       event.preventDefault();
+      if (transitionInProgress.current) return;
+      transitionInProgress.current = true;
+      // Keep the outgoing page at its exact scroll position while the doors close.
+      // The scrollbar gutter stays stable, so even the header cannot shift sideways.
+      const root = document.documentElement;
+      const original = {
+        overflow: root.style.overflow,
+        scrollBehavior: root.style.scrollBehavior,
+        scrollbarGutter: root.style.scrollbarGutter,
+      };
+      root.style.scrollbarGutter = "stable";
+      root.style.scrollBehavior = "auto";
+      root.style.overflow = "hidden";
+      unlockScroll.current = () => {
+        root.style.overflow = original.overflow;
+        root.style.scrollBehavior = original.scrollBehavior;
+        root.style.scrollbarGutter = original.scrollbarGutter;
+      };
       if (timeout.current !== null) clearTimeout(timeout.current);
       target.current = url.pathname + url.search + url.hash;
       setDestination(url.pathname);
@@ -70,12 +106,16 @@ export default function SceneTransition({ children }: { children: ReactNode }) {
         setPhase("covered");
         // Keep the branded seal visible before switching underlying content.
         hold.current = window.setTimeout(() => {
-          if (target.current) router.push(target.current);
+          if (target.current) router.push(target.current, { scroll: false });
           hold.current = null;
         }, 420);
         timeout.current = window.setTimeout(() => {
           // Navigation failure recovery: never trap the user behind glass.
-          if (target.current) { setPhase("idle"); target.current = null; }
+          if (target.current) {
+            target.current = null;
+            setDestination(window.location.pathname);
+            setPhase("idle");
+          }
           timeout.current = null;
         }, 3500);
       }, 1338);
@@ -85,6 +125,9 @@ export default function SceneTransition({ children }: { children: ReactNode }) {
       document.removeEventListener("click", onClick, true);
       if (timeout.current !== null) clearTimeout(timeout.current);
       if (hold.current !== null) clearTimeout(hold.current);
+      unlockScroll.current?.();
+      unlockScroll.current = null;
+      transitionInProgress.current = false;
     };
   }, [router]);
 
