@@ -13,7 +13,7 @@ import { guardDayPricePhrase, minimumPhrase, pricing, schemaPrice } from "../lib
 
 
 const description =
-  "Signal One Integrated Systems provides 1GUARD for security operations and 1Service for field workforce management, with communications, tracking and equipment solutions in South Africa.";
+  "Signal One builds intelligent business operating systems for South African SMEs: 1GUARD Security Business OS and 1Service Service Business OS, alongside equipment, communications and connectivity.";
 
 export const metadata: Metadata = {
   title: {
@@ -24,9 +24,9 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   category: "business software",
   keywords: [
-    "1GUARD security operations platform",
-    "1Service workforce operations platform",
-    "security guard management software South Africa",
+    "1GUARD security business operating system",
+    "1Service service business operating system",
+    "security business operating system South Africa",
     "security company software South Africa",
     "guard patrol software",
     "guard attendance software",
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Signal One Security: run every site and prove the service",
+    title: "1GUARD: run your security business as one",
     description,
     
   },
@@ -91,7 +91,7 @@ const structuredData = {
       name: "Signal One Guard",
       alternateName: brand.product,
       applicationCategory: "BusinessApplication",
-      applicationSubCategory: "Security guard management software",
+      applicationSubCategory: "Security business operating system",
       operatingSystem: "Web, Android, iOS",
       publisher: { "@id": siteUrl + "/#organization" },
       description: guardIsLive ? description : description + " Signal One Guard is in pilot with its first security companies.",
