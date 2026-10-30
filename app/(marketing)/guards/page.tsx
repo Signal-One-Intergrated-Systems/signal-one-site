@@ -29,7 +29,7 @@ const joinSteps = [
 export default function GuardsPage() {
   return (
     <main id="main" className="bg-light text-text">
-      <SplitHero src="/images/interior/field-premium.svg" alt="Illustrative empty modern commercial security entrance and access-control environment" side="left" objectPositionMobile="0% 8%" objectPosition="0% 12%">
+      <SplitHero src={photos.siteOperations.src} alt={photos.siteOperations.alt} scene="/images/scenes/lobby.svg" side="left" objectPositionMobile="46% 45%" objectPosition="50% 42%">
           <p className="text-[1.0625rem] font-semibold text-signal-400">For security officers</p>
           <h1 className="t-hero mt-4">Your work, on record. Your next job, your choice.</h1>
           <p className="mt-6 text-[1.25rem] leading-relaxed text-text-inv-2">

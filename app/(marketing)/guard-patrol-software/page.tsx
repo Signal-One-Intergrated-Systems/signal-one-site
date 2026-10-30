@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import LandingPage from "../../components/LandingPage";
 import PatrolStory from "../../components/PatrolStory";
-import { ButtonLink, FactPanel } from "../../components/ui";
+import { ButtonLink, FactPanel, Photo } from "../../components/ui";
+import { illustrativeCaption, photos } from "../../lib/photos";
 import { guardDayPricePhrase } from "../../lib/pricing";
 
 export const metadata: Metadata = {
@@ -28,7 +29,9 @@ export default function GuardPatrolSoftwarePage() {
         </>
       }
       aside={
-        <FactPanel
+        <div className="grid gap-5">
+          <Photo src={photos.guardPatrol.src} alt={photos.guardPatrol.alt} sizes="(min-width:1024px) 46vw, 100vw" aspect="aspect-[16/9]" caption={illustrativeCaption} />
+          <FactPanel
           title="Signal One Guard · patrols"
           facts={[
             ["QR or NFC checkpoints", "Set per site; scanned on the route."],
@@ -36,7 +39,8 @@ export default function GuardPatrolSoftwarePage() {
             ["Missed and late checkpoints", "Shown in proof of service, with the reason."],
             ["Proof for the client", "Client users see the record for their own sites."],
           ]}
-        />
+          />
+        </div>
       }
       story={
         <section className="surface-white section">

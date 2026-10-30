@@ -83,32 +83,41 @@ test("key acquisition pages have no critical automated accessibility violations"
   }
 });
 
-test("every branded acquisition page uses its own declared premium scene", async ({ page }, info) => {
-  await page.setViewportSize({ width: 1440, height: 900 });
-  const uniqueScenes: Record<string, string> = {
-    "/solutions/security": "guard-premium.svg",
-    "/service": "service-premium.svg",
-    "/equipment-marketplace": "network-premium.svg",
-    "/guard-marketplace": "hiring-premium.svg",
-    "/guards": "field-premium.svg",
-    "/join/sales": "talent-premium.svg",
-    "/get-started": "trial-premium.svg",
-    "/radios-equipment": "radio-premium.svg",
-    "/security-trust": "legal-premium.svg",
+test("prominent marketing photographs show people; architecture is background context", async ({ page }) => {
+  const peopleFirst: Record<string, string> = {
+    "/": "signal-one-hero-daylight.jpg",
+    "/solutions/security": "team-briefing",
+    "/service": "service-restaurant-operations.jpg",
+    "/equipment-marketplace": "guard-site-operations.webp",
+    "/guard-marketplace": "team-briefing.webp",
+    "/guards": "guard-site-operations",
+    "/join/sales": "team-briefing",
+    "/guard-attendance-software": "guard-site-operations",
+    "/guard-patrol-software": "checkpoint",
+    "/ptt-radio-rental": "team-briefing",
+    "/radios-equipment": "warehouse-security",
   };
-  for (const [route, expected] of Object.entries(uniqueScenes)) {
+  for (const [route, expected] of Object.entries(peopleFirst)) {
     await page.goto(route);
-    const discovered = await page.evaluate(() => {
-      const imageUrls = [...document.querySelectorAll("main img")].map(img => img.getAttribute("src") ?? "");
-      const backgroundUrls = [...document.querySelectorAll("main, main > section")].map(el => getComputedStyle(el).backgroundImage);
-      return [...imageUrls, ...backgroundUrls].join(" | ");
-    });
-    expect(discovered, `Missing art on ${route}`).toContain(expected);
-    await page.screenshot({ path: info.outputPath(`scene-${route.replaceAll("/", "-").replace(/^-/, "")}.png`), fullPage: false, animations: "disabled" });
+    const discovered = await page.locator("main img").evaluateAll(imgs =>
+      imgs.map(img => ({ src: img.getAttribute("src") ?? "", alt: img.getAttribute("alt") ?? "" }))
+    );
+    const match = discovered.find(img => img.src.includes(expected));
+    expect(match, `No people-first photography on ${route}`).toBeTruthy();
+    expect(match?.alt.toLowerCase()).not.toContain("empty");
+    expect(match?.alt.toLowerCase()).not.toContain("unoccupied");
   }
-  expect(new Set(Object.values(uniqueScenes)).size).toBe(Object.values(uniqueScenes).length);
+  for (const [route, expectedScene] of [
+    ["/solutions/security", "control-room.svg"],
+    ["/service", "service-dining.svg"],
+    ["/equipment-marketplace", "connectivity.svg"],
+    ["/guard-marketplace", "campus.svg"],
+  ] as const) {
+    await page.goto(route);
+    const background = await page.locator("main section").first().evaluate(node => getComputedStyle(node).backgroundImage);
+    expect(background, `Missing supporting context scene on ${route}`).toContain(expectedScene);
+  }
 });
-
 
 /** Browser screenshots at three realistic widths are our final art-direction proof.
  * Capture what a visitor actually sees (hero and the three industry scenes).
@@ -211,17 +220,25 @@ test("responsive approved hero shows the full image stage before the glass messa
   }
 });
 
-test("guard and service have independent unoccupied premium inset photos", async ({ page, request }) => {
+test("homepage Guard and Service put people ahead of their section environments", async ({ page, request }) => {
   await page.goto("/");
-  const sceneAssets = [
-    [".so-vertical-visual-guard img", "/images/home/guard-inset-exclusive.svg"],
-    [".so-vertical-visual-service img", "/images/home/service-inset-exclusive.svg"],
+  const assets = [
+    [".so-vertical-visual-guard img", "/images/photo/control-room-team.webp", "image/webp"],
+    [".so-vertical-visual-service img", "/images/home/service-restaurant-operations.jpg", "image/jpeg"],
   ] as const;
-  for (const [selector, expected] of sceneAssets) {
-    const image = page.locator(selector);
-    await expect(image).toHaveAttribute("src", expected);
+  for (const [selector, expected, mime] of assets) {
+    const photo = page.locator(selector);
+    await expect(photo).toHaveAttribute("src", new RegExp(expected.split("/").pop()!));
     const response = await request.get(expected);
     expect(response.status()).toBe(200);
-    expect(response.headers()["content-type"]).toContain("image/svg+xml");
+    expect(response.headers()["content-type"]).toContain(mime);
+  }
+  await expect(page.locator(".so-hero-photo")).toHaveAttribute("src", /signal-one-hero-daylight\.jpg/);
+  for (const route of ["/", "/solutions/security", "/service"]) {
+    await page.goto(route);
+    const visibleImages = await page.locator("main img").evaluateAll(imgs =>
+      imgs.filter(img => img.getBoundingClientRect().width > 100).map(img => img.getAttribute("alt")?.toLowerCase() || "")
+    );
+    expect(visibleImages.some(alt => /security|team|guard|officer|kitchen|restaurant/.test(alt))).toBe(true);
   }
 });
