@@ -26,8 +26,8 @@ export default function ServicePage() {
             <Kicker tone="dark">Signal One · Service Business Operating System</Kicker>
             <p className="mt-5 inline-flex rounded-full border border-signal-400/35 bg-signal-400/10 px-3 py-2 text-[0.875rem] font-semibold text-signal-400">In development · Restaurant-first</p>
             <h1 className="t-display mt-6"><ProductSignature name="Service" tone="dark" /></h1>
-            <p className="t-lead mt-5 text-text-inv-2">One place to understand the people, service and performance behind your business.</p>
-            <p className="t-body measure mt-5 text-text-inv-2">1Service expands the original workforce concept into an end-to-end operating system for service businesses. We are starting with restaurants: bringing the trading day, teams, kitchen, stock, customers and decisions into a coherent experience.</p>
+            <p className="t-lead mt-5 text-text-inv-2">Run your service business. As one.</p>
+            <p className="t-body measure mt-5 text-text-inv-2">1Service is the Service Business Operating System we are developing for SMEs, starting with restaurants. The vision connects customers, bookings, people, service, kitchen workflows, inventory, purchasing and business performance in one coherent experience.</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <ButtonLink href="/contact" size="lg">Discuss early access</ButtonLink>
               <ButtonLink href="#vision" variant="ghost-dark" size="lg">Explore the vision</ButtonLink>
@@ -44,7 +44,7 @@ export default function ServicePage() {
       <section id="vision" className="section surface-light scroll-mt-[96px]">
         <div className="wrap">
           <Kicker>From opening to close</Kicker>
-          <h2 className="t-h2 mt-4">Run a connected service business.</h2>
+          <h2 className="t-h2 mt-4">More than a roster. The operating system for your service business.</h2>
           <p className="t-lead mt-4 max-w-3xl text-text-2">A service business is not just the people on the shift. Every handoff changes customer experience and profitability.</p>
           <div className="mt-10 grid gap-5 md:grid-cols-2">
             {ambitions.map(([name, detail]) => (
