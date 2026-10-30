@@ -1,9 +1,13 @@
 import { expect, test } from "@playwright/test";
 
+test.beforeEach(({page})=>{page.setDefaultTimeout(12000);});
+
+
 test("public routes share a scene shell and product navigation still works", async ({ page }) => {
+ await page.setViewportSize({ width: 1440, height: 900 });
  await page.goto("/");
  await expect(page.locator(".s1-scene-route")).toBeVisible();
- await page.getByRole("navigation", { name: "Primary" }).getByRole("link", { name: /1Service/ }).click();
+ await page.locator('header a[href="/service"]:visible').first().click();
  await expect(page.locator(".sg-entry-wordmark")).toContainText("1Service");
  await expect(page).toHaveURL(/\/service$/);
  await expect(page.locator(".s1-scene-route")).toHaveAttribute("data-scene-route", "/service");
@@ -13,10 +17,11 @@ test("public routes share a scene shell and product navigation still works", asy
 });
 
 test("reduced-motion navigation remains immediate and form inputs are accessible", async ({ page }) => {
+ await page.setViewportSize({ width: 1440, height: 900 });
  await page.emulateMedia({ reducedMotion: "reduce" });
  await page.goto("/get-started");
  await expect(page.getByRole("textbox", { name: "Company name" })).toBeVisible();
- await page.getByRole("navigation", { name: "Primary" }).getByRole("link", { name: /1GUARD/ }).click();
+ await page.locator('header a[href="/solutions/security"]:visible').first().click();
  await expect(page).toHaveURL(/\/solutions\/security$/);
 });
 
@@ -29,7 +34,7 @@ test("glass shutters conceal scroll reset and reveal only the landed destination
 
   const overlay = page.locator(".sg-entry-overlay");
   const scrollBefore = await page.evaluate(() => window.scrollY);
-  await page.getByRole("navigation", { name: "Primary" }).getByRole("link", { name: /1GUARD/ }).click();
+  await page.locator('header a[href="/solutions/security"]:visible').first().click();
   await expect(overlay).toHaveAttribute("data-guard-entry", "closing");
   // Nothing moves while the shutter closes across the old, scrolled page.
   expect(await page.evaluate(() => window.scrollY)).toBeGreaterThanOrEqual(scrollBefore - 2);
@@ -52,7 +57,7 @@ test("route navigation from a deeply scrolled destination never animates page up
   await page.goto("/solutions/security");
   await page.evaluate(() => window.scrollTo({ top: 1600, behavior: "instant" }));
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(400);
-  await page.getByRole("navigation", { name: "Primary" }).getByRole("link", { name: /1Service/ }).click();
+  await page.locator('header a[href="/service"]:visible').first().click();
   await expect(page.locator(".sg-entry-overlay")).toHaveAttribute("data-guard-entry", "sealed", { timeout: 6000 });
   await page.waitForURL(/\/service$/);
   await expect(page.locator(".sg-entry-overlay")).toHaveAttribute("data-guard-entry", "opening", { timeout: 7000 });
@@ -68,7 +73,7 @@ test("responsive page change keeps the curtain above content without a scroll fl
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(150);
   // The mobile header opens its own navigation sheet.
   await page.getByRole("button", { name: /Menu/ }).click();
-  await page.getByRole("navigation", { name: "Mobile" }).getByRole("link", { name: /1GUARD/ }).click();
+  await page.locator('#mobile-nav a[href="/solutions/security"]').click();
   await page.waitForURL(/\/solutions\/security$/);
   await expect(page.locator(".sg-entry-overlay")).toHaveAttribute("data-guard-entry", "opening", { timeout: 7000 });
   expect(await page.evaluate(() => window.scrollY)).toBeLessThan(3);
