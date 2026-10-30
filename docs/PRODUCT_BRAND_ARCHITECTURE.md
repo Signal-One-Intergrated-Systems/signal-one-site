@@ -29,3 +29,22 @@ Home > Solutions > Radios, PTT, CCTV and Tracking
 Home > Company, Contact, Support.
 
 A public product page must clearly mark features as live, pilot, or planned. Payment and onboarding buttons must be connected and tested rather than purely presentational.
+
+
+## 2026-10-30 decision: one consistent product-family numeral
+
+The founder chose **the existing plain typographic 1**, not an alternate 3D/glass numeral or new OS symbol. The Signal One corporate ring mark and the separate LEOS operator mark are unchanged.
+
+**Canonical implementation on the marketing website:** `app/components/brand/ProductSignature.tsx`, using the `s1-product-signature` CSS contract in `app/globals.css`. Product lockups are `1GUARD`, `1Service` and `1Community`. Future verticals must reuse the same component or reproduce this geometry in their native font stack.
+
+**Hard constraints, all products and breakpoints:**
+
+1. The existing numeral and the following uppercase initial share the **same Inter font size, font weight, line-height and baseline**. Never scale the numeral separately.
+2. Exactly **0.06em horizontal gap**, measured from the numeral's layout box to the following first-letter box. The gap scales with the wordmark size. Never add a second wrapper gap, a negative margin or manual letter spacing.
+3. Numeral uses the established Signal One blues: `#38BDF8` on dark photographic/glass backgrounds; `#0EA5E9` on light backgrounds. Letters inherit the correct surface foreground (white on dark, navy on light).
+4. The exact same typographic treatment applies to header, responsive navigation, hero labels, product pages, footers and future product app headers. Do not reinvent the numeral as an SVG, change its geometry, add a gradient, transparency or glow. Glass may frame the entire lockup but not distort individual glyphs.
+5. The product name's casing is fixed: GUARD / Service / Community. Accessibility: keep the text real and selectable; links must remain keyboard accessible.
+
+**Boundary:** The 1GUARD application currently uses the approved "Signal One Guard" sign-in identity. Do not replace it with a product wordmark solely to enforce this rule. When a numbered product lockup is introduced in that application (or in 1Service/1Community), use this same contract; the product boundary, permissions and tenant branding remain unchanged.
+
+**Regression:** `tests/e2e/visual-mission.spec.ts` compares the rendered numeral and first-letter height, font size, baseline and 0.06em gap at mobile, tablet and desktop widths.
