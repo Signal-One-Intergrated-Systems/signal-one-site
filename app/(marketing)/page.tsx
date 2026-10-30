@@ -4,11 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import HeroGlobeLayer from "../components/HeroGlobeLayer";
 import HomeScrollChoreography from "../components/HomeScrollChoreography";
+import OperatingSystemCube from "../components/OperatingSystemCube";
 import ProductSignature from "../components/brand/ProductSignature";
 import { guardDayPricePhrase } from "../lib/pricing";
 import pnc360s from "../../public/images/hardware/hytera-pnc360s.webp";
 import fmb920 from "../../public/images/hardware/teltonika-fmb920.webp";
 import "../home-conversion.css";
+import "../os-cube.css";
 
 export const metadata: Metadata = {
   title: { absolute: "Signal One | 1GUARD, 1Service & Business Equipment" },
@@ -86,11 +88,12 @@ export default function Home() {
 
       <section id="solutions" className="so-chapter so-introduction" aria-labelledby="so-solutions-title">
         <div className="wrap">
-          <div className="so-section-heading">
-            <div data-motion-from="left"><PanelPhoto src="/images/editorial/security-site-planning.webp" alt="Illustrative security supervisor reviewing the site plan with a client" /><p className="so-kicker">Built around how you operate</p>
+          <div className="so-section-heading so-os-intro-heading">
+            <div data-motion-from="left"><p className="so-kicker">Built around how you operate</p>
               <h2 id="so-solutions-title">Every part of your business.<br /><span>Working as one.</span></h2>
             </div>
             <p data-motion-from="right" style={{ "--so-motion-delay": "260ms" } as CSSProperties}>From winning a customer and finding the right people to delivering the work, proving the result and growing the business: Signal One is building industry-specific operating systems around the full journey.</p>
+            <OperatingSystemCube />
           </div>
           <div className="so-value-rail" aria-label="What matters to your business">
             <div data-motion-from="bottom"><PanelPhoto src="/images/editorial/security-office-park-site-review.webp" alt="Illustrative security service manager meeting a building client on location to review the site" /><span>01</span><strong>Win & organise the work</strong><p>Customers, assignments, teams and requirements.</p></div>
@@ -107,7 +110,7 @@ export default function Home() {
               fill sizes="(min-width:1024px) 49vw, 100vw" className="object-cover" />
             <div className="so-image-caption">Illustrative SME security operations</div>
           </div>
-          <div data-motion-from="left" style={{ "--so-motion-delay": "240ms" } as CSSProperties} className="so-vertical-content"><PanelPhoto src="/images/editorial/security-team-briefing.webp" alt="Illustrative small security company team discussing assignments" />
+          <div data-motion-from="left" style={{ "--so-motion-delay": "240ms" } as CSSProperties} className="so-vertical-content"><PanelPhoto src="/images/photo/guard-site-operations.webp" alt="Illustrative security workers coordinating operational duties at a customer site" />
             <div className="so-vertical-label"><Link href="/solutions/security" className="so-platform-mark" aria-label="Explore 1GUARD"><ProductSignature name="GUARD" tone="dark" /></Link> <span>SECURITY BUSINESS OS</span></div>
             <h2 id="so-guard-title">A complete business vision. Built for real security SMEs.</h2>
             <p>1GUARD is being built around the security company, not only its control room: customers, guards, staffing, sites, operations, equipment and business oversight. Start with documented shift, patrol and incident workflows as the broader business lifecycle is developed.</p>
@@ -132,7 +135,7 @@ export default function Home() {
               fill sizes="(min-width:1024px) 49vw, 100vw" className="object-cover" />
             <div className="so-image-caption">Illustrative restaurant team at work</div>
           </div>
-          <div data-motion-from="top" style={{ "--so-motion-delay": "280ms" } as CSSProperties} className="so-vertical-content"><PanelPhoto src="/images/editorial/restaurant-staff-briefing.webp" alt="Illustrative chef, waiters and hospitality workers briefing before a restaurant shift" />
+          <div data-motion-from="top" style={{ "--so-motion-delay": "280ms" } as CSSProperties} className="so-vertical-content"><PanelPhoto src="/images/home/panels/hire-hospitality.webp" alt="Illustrative hospitality workers discussing a staffing assignment" />
             <div className="so-vertical-label"><Link href="/service" className="so-platform-mark" aria-label="Explore 1Service"><ProductSignature name="Service" tone="dark" /></Link> <span className="so-status">IN DEVELOPMENT</span></div>
             <h2 id="so-service-title">Your service business deserves its own OS.</h2>
             <p>1Service is being developed as the operating system for service-based businesses, starting with restaurants. The vision connects the front of house, back of house, people and business performance.</p>
@@ -152,7 +155,7 @@ export default function Home() {
       {/* Ecosystem vision: customer-facing capabilities only; no internal stack or platform names. */}
       <section className="so-ecosystem-section" aria-labelledby="so-ecosystem-title">
         <div className="wrap so-ecosystem-layout">
-          <div data-motion-from="left" className="so-ecosystem-intro"><PanelPhoto src="/images/editorial/facility-reception-service.webp" alt="Illustrative facilities team helping a visitor at a reception desk" />
+          <div data-motion-from="left" className="so-ecosystem-intro"><PanelPhoto src="/images/home/panels/customer-enquiry.webp" alt="Illustrative service business representative handling a customer enquiry" />
             <p className="so-kicker">One connected business journey</p>
             <h2 id="so-ecosystem-title">Not another tool for one task.<br /><span>A better way to run the whole business.</span></h2>
             <p>A customer request creates work. Work requires people and equipment. Delivery creates records, decisions and the next opportunity. Our long-term direction is to connect those handoffs inside purpose-built operating systems.</p>
@@ -211,7 +214,7 @@ export default function Home() {
 
       <section id="equipment" className="so-equipment-section" aria-labelledby="so-equipment-title">
         <div className="wrap so-equipment-layout">
-          <div data-motion-from="right" className="so-equipment-copy"><PanelPhoto src="/images/editorial/warehouse-security-check.webp" alt="Illustrative security guard using operational equipment at a logistics site" />
+          <div data-motion-from="right" className="so-equipment-copy"><PanelPhoto src="/images/photo/warehouse-security.webp" alt="Illustrative guard checking professional communications equipment at a logistics site" />
             <p className="so-kicker">Signal One · Business equipment</p>
             <h2 id="so-equipment-title">The right technology. For the real job.</h2>
             <p>Professional push-to-talk radios, tracking and connectivity should be specified for the deployment, not sold as a generic gadget. Talk to the team that understands field operations.</p>
@@ -258,7 +261,7 @@ export default function Home() {
 
       <section id="community" className="so-final-cta" aria-labelledby="so-final-title">
         <div className="wrap so-final-inner">
-          <div data-motion-from="left"><PanelPhoto src="/images/editorial/hospitality-team-briefing.webp" alt="Illustrative hotel and restaurant staff preparing for service together" /><p className="so-kicker">Make your business easier to run</p><h2 id="so-final-title">Ready for a smarter way to run your business?</h2>
+          <div data-motion-from="left"><PanelPhoto src="/images/photo/team-briefing.webp" alt="Illustrative operational staff coordinating service delivery together" /><p className="so-kicker">Make your business easier to run</p><h2 id="so-final-title">Ready for a smarter way to run your business?</h2>
             <p>Start with 1GUARD, explore what 1Service is becoming or speak to Signal One about field equipment.</p></div>
           <div data-motion-from="right" style={{ "--so-motion-delay": "240ms" } as CSSProperties} className="so-final-actions"><TrialLink /><Link href="/contact" className="btn so-home-outline">Talk to Signal One <Arrow /></Link></div>
           <p data-motion-from="bottom" style={{ "--so-motion-delay": "160ms" } as CSSProperties} className="so-community-note"><ProductSignature name="Community" tone="dark" /> is part of the future Signal One ecosystem and is not yet available.</p>
