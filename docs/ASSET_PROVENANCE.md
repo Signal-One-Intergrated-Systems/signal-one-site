@@ -54,3 +54,9 @@ The production crop excludes generated browser chrome, navigation, hero copy, gl
 The homepage primary hero now uses `public/images/home/approved-full-scene-guard-chef-2026.png` exactly as approved. SHA-256: `4d3aca7b4da412b9b37963950a7848bdca03a98d217e10401ea8bdbc6caedbd4`, 1672 × 941 PNG. This is a **synthetic illustrative photograph**, not evidence of real people employed by the business. It depicts a Black woman officer in a white shirt and black SECURITY vest, and a white chef in a toque beside a real-looking restaurant terrace.
 
 The original approved composition deliberately reserves the left half for greenery, outdoor architecture, the animated globe and glass text. People appear farther back on the right; the whole photograph must run behind the globe at desktop widths using `object-fit: contain`, with no vignette masking or CSS zoom. Maintain the on-page "Illustrative scene" caption. No changes to other sections or product equipment images are part of this approval.
+
+
+## SME security operations scene — 2026-10-30
+`public/images/home/sme-security-control-room.png` is an **illustrative AI-generated scene** of a small, modern security company's monitoring office. It deliberately uses a realistic South African SME scale: three working desks, a supervisor, modest wall-mounted CCTV screens and normal business equipment. It is not an actual customer premises, authenticated product screen, or live customer proof. The on-page caption must continue to disclose its illustrative nature.
+
+Use this photograph only in the 1GUARD homepage feature section. Do not substitute an enormous international command centre or crop in so tightly that the room appears unusually large. The founder-approved homepage hero photograph, parent logo, animated globe and the real manufacturer equipment images stay unchanged.
