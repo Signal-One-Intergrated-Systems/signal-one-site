@@ -53,10 +53,10 @@ export default function Home() {
       <HomeScrollChoreography />
       <section className="s1-brand-stage so-hero" aria-labelledby="so-hero-title">
         <div className="so-hero-media">
-          <Image src="/images/backgrounds/restaurant-courtyard.webp"
-            alt="Empty sunlit restaurant courtyard and landscaped terraces; no people"
-            fill priority fetchPriority="high" quality={86}
-            sizes="100vw" className="so-hero-background-photo object-cover" />
+          <Image src="/images/home/approved-full-scene-guard-chef-2026.png"
+            alt="Illustrative wide daylight restaurant scene with green gardens on the left and, on the right, a Black woman security officer in a SECURITY vest reviewing a tablet with a white male chef in his chef hat"
+            fill priority fetchPriority="high" quality={90}
+            sizes="100vw" className="so-hero-photo object-cover" />
           <div className="so-hero-wash" aria-hidden="true" />
         </div>
         {/* Preserve the existing Signal One glass globe, its rendering and animation. */}
@@ -74,13 +74,6 @@ export default function Home() {
             </div>
             <p className="so-hero-note">14-day trial by request for eligible 1GUARD companies. Activation and terms are confirmed before access.</p>
           </div>
-          <figure className="so-hero-people-glass">
-            <Image src="/images/home/approved-full-scene-guard-chef-2026.png"
-              alt="Illustrative female security officer in a white shirt and SECURITY vest collaborating with a chef wearing a chef hat"
-              fill priority quality={88} sizes="(min-width:1024px) 44vw, 92vw"
-              className="so-hero-photo so-hero-people-photo" />
-            <figcaption className="so-hero-people-caption">Illustrative security and hospitality team</figcaption>
-          </figure>
         </div>
         <div className="so-hero-bar" aria-label="Signal One business areas">
           <Link href="/solutions/security" className="so-hero-bar-item" aria-label="Explore 1GUARD Security Business Operating System"><strong className="so-platform-mark"><ProductSignature name="GUARD" tone="dark" /></strong><span>Security Business OS</span></Link>
@@ -88,7 +81,7 @@ export default function Home() {
           <Link href="/equipment-marketplace" className="so-hero-bar-item" aria-label="Explore enterprise equipment"><strong>Equipment</strong><span>Professional devices & connectivity</span></Link>
           <a href="#community" className="so-hero-bar-item" aria-label="Learn about 1Community coming soon"><strong className="so-platform-mark"><ProductSignature name="Community" tone="dark" /></strong><span>Coming soon</span></a>
         </div>
-        <span className="so-hero-photo-note">Illustrative environments and people</span>
+        <span className="so-hero-photo-note">Illustrative scene</span>
       </section>
 
       <section id="solutions" className="so-chapter so-introduction" aria-labelledby="so-solutions-title">
