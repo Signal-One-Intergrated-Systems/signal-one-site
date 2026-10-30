@@ -542,7 +542,7 @@ test("marketing backgrounds contain only verified empty environments and people 
    await page.goto(route);
    const selectors=route==="/" ?
      [".so-hero-media","#solutions","#guard","#service",".so-ecosystem-section",".so-marketplace-section","#equipment",".so-onboarding-section","#community"] :
-     ["main#main","main#main > section:first-child"];
+     ["main#main","main#main section"];
    for(const selector of selectors){
      if(selector === ".so-hero-media"){
        const image=page.locator(".so-hero-media .so-hero-background-photo");
