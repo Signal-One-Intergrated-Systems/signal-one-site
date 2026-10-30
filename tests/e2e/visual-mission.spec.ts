@@ -685,78 +685,84 @@ test("below the permanently locked hero, marketing backgrounds remain people-fre
 });
 
 
-test("homepage introduction uses a draggable interactive OS cube with no repeated staff photographs",async({page})=>{
+
+test("original introduction glass card is restored and the living square floats in a separate layer",async({page})=>{
   for(const viewport of [{width:390,height:844},{width:768,height:1024},{width:1440,height:900}]){
     await page.setViewportSize(viewport);
     await page.goto("/");
     const intro=page.locator("#solutions");
-    const cube=intro.locator(".so-os-cube-trigger");
-    await cube.scrollIntoViewIfNeeded();
-    await expect(cube).toBeVisible();
-    await expect(intro.locator(".so-os-cube-face")).toHaveCount(6);
-    await expect(intro.locator(".so-os-intro-heading > .so-panel-photo")).toHaveCount(0);
-    await expect(intro.getByRole("button",{name:/Enter the operating system/i})).toBeVisible();
-
-    const images=await page.locator("main.so-home img").evaluateAll(items=>items.map(item=>{
-      const raw=item.getAttribute("src")||"";
-      try{
-        const url=new URL(raw,location.origin);
-        return decodeURIComponent(url.searchParams.get("url")||url.pathname);
-      }catch{return raw;}
-    }).filter(src=>src.startsWith("/images/")));
-    expect(images.length).toBeGreaterThan(17);
-    expect(new Set(images).size,"A people image must not appear twice on the homepage").toBe(images.length);
-    const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
-    expect(overflow).toBeLessThanOrEqual(1);
+    const card=intro.locator(".so-os-intro-stage > .so-section-heading");
+    const floating=intro.locator(".so-os-float-anchor");
+    await card.scrollIntoViewIfNeeded();
+    await expect(card).toBeVisible();
+    await expect(card.locator(".so-panel-photo img")).toHaveAttribute("src",/team-dispatch[.]webp/);
+    await expect(card.locator("h2")).toContainText("Every part of your business.");
+    await expect(card.locator("p").last()).toContainText("From winning a customer");
+    await expect(floating).toBeVisible();
+    await expect(intro.locator(".so-living-os-core")).toBeVisible();
+    await expect(intro.locator(".so-living-node")).toHaveCount(8);
+    const position=await page.locator(".so-os-intro-stage").evaluate(stage=>{
+      const rect=stage.getBoundingClientRect();
+      const card=stage.querySelector(".so-section-heading")!.getBoundingClientRect();
+      const float=stage.querySelector(".so-os-float-anchor")!.getBoundingClientRect();
+      const style=getComputedStyle(stage.querySelector<HTMLElement>(".so-os-float-anchor")!);
+      return {cardY:card.top, floatY:float.top, floatsAbove:float.top<card.top, layer:style.position, stageWidth:rect.width};
+    });
+    expect(position.floatsAbove).toBe(true);
+    expect(position.layer).toBe("absolute");
+    expect(position.stageWidth).toBeGreaterThan(300);
+    expect(await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth)).toBeLessThanOrEqual(1);
     await expect(page.locator(".so-hero-media .so-hero-photo")).toHaveAttribute("src",/approved-full-scene-guard-chef-2026[.]png/);
   }
 });
 
-test("3D cube drag rotates, click zooms into OS and stage controls navigate real content",async({page})=>{
+test("living square unfolds into exactly two connected OS panes within the section and folds closed",async({page})=>{
   await page.setViewportSize({width:1440,height:900});
   await page.goto("/");
-  const cube=page.locator(".so-os-cube-trigger");
-  await cube.scrollIntoViewIfNeeded();
-  const angleBefore=await page.locator(".so-os-cube-3d").getAttribute("style");
-  const rect=await cube.boundingBox();
-  expect(rect).not.toBeNull();
-  await page.mouse.move(rect!.x + rect!.width/2,rect!.y+rect!.height/2);
-  await page.mouse.down();
-  await page.mouse.move(rect!.x+rect!.width/2+85,rect!.y+rect!.height/2+28,{steps:5});
-  await page.mouse.up();
-  const angleAfter=await page.locator(".so-os-cube-3d").getAttribute("style");
-  expect(angleAfter).not.toBe(angleBefore);
-  await expect(page.getByRole("dialog",{name:/Inside the operating system/i})).toHaveCount(0);
-  await page.locator(".so-os-enter").click();
-  const dialog=page.getByRole("dialog",{name:/Inside the operating system/i});
-  await expect(dialog).toBeVisible();
-  await expect(dialog.locator(".so-os-journey-step")).toHaveCount(7);
-  await dialog.getByRole("button",{name:/Pause the operating system journey/i}).click();
-  await dialog.getByRole("button",{name:"Next stage"}).click();
-  await expect(dialog.locator(".so-os-stage-description h3")).toHaveText("Bring the right team together");
-  await dialog.getByRole("button",{name:"Growth"}).click();
-  await expect(dialog.locator(".so-os-stage-description h3")).toHaveText("Learn and improve");
+  const core=page.getByRole("button",{name:/Unfold the operating systems/i});
+  await core.scrollIntoViewIfNeeded();
+  await expect(core).toHaveAttribute("aria-expanded","false");
+  await core.click();
+  const unfolded=page.locator(".so-living-os");
+  await expect(unfolded).toHaveAttribute("data-open","true");
+  await expect(unfolded.locator(".so-living-pane")).toHaveCount(2);
+  await expect(unfolded.locator(".so-living-product").first()).toHaveText("1GUARD");
+  await expect(unfolded.locator(".so-living-product").last()).toHaveText("1Service");
+  await expect(unfolded.getByRole("link",{name:/Explore 1GUARD/i})).toHaveAttribute("href","/solutions/security");
+  await expect(unfolded.getByRole("link",{name:/Explore 1Service/i})).toHaveAttribute("href","/service");
+  await expect(page.getByRole("dialog")).toHaveCount(0);
+  await expect(page.locator("#solutions .so-section-heading")).toBeVisible();
   await page.keyboard.press("Escape");
-  await expect(dialog).toHaveCount(0);
-  await expect(cube).toBeFocused();
+  await expect(unfolded).toHaveAttribute("data-open","false");
+  await expect(core).toBeFocused();
 });
 
-test("operating system cube is accessible from keyboard and respects reduced motion",async({page})=>{
+test("living square reveals two swipeable panes on phones and supports reduced motion",async({page})=>{
   await page.emulateMedia({reducedMotion:"reduce"});
   await page.setViewportSize({width:390,height:844});
   await page.goto("/");
-  const cube=page.locator(".so-os-cube-trigger");
-  await cube.scrollIntoViewIfNeeded();
-  await cube.focus();
-  const oldAngle=await page.locator(".so-os-cube-3d").getAttribute("style");
-  await page.keyboard.press("ArrowRight");
-  expect(await page.locator(".so-os-cube-3d").getAttribute("style")).not.toBe(oldAngle);
+  const core=page.getByRole("button",{name:/Unfold the operating systems/i});
+  await core.scrollIntoViewIfNeeded();
+  await core.focus();
   await page.keyboard.press("Enter");
-  const dialog=page.getByRole("dialog",{name:/Inside the operating system/i});
-  await expect(dialog).toBeVisible();
-  await expect(dialog.locator(".so-os-interior-body")).toHaveCSS("animation-name","none");
-  await expect(dialog.getByRole("button",{name:/Play the operating system journey/i})).toBeVisible();
-  await dialog.getByRole("button",{name:"Close operating system experience"}).click();
-  await expect(dialog).toHaveCount(0);
-  expect(await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth)).toBeLessThanOrEqual(1);
+  const living=page.locator(".so-living-os");
+  await expect(living).toHaveAttribute("data-open","true");
+  const panes=living.locator(".so-living-panes");
+  await expect(panes).toHaveCSS("display","flex");
+  await expect(living.locator(".so-living-pane")).toHaveCount(2);
+  await expect(living.locator(".so-living-pane").first()).toHaveCSS("transition-duration","0s");
+  await living.getByRole("button",{name:/Fold operating systems back/i}).click();
+  await expect(living).toHaveAttribute("data-open","false");
+  const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
+  expect(overflow).toBeLessThanOrEqual(1);
+});
+
+test("homepage has no repeated people-image files, including restored card thumbnail",async({page})=>{
+  await page.goto("/");
+  const paths=await page.locator("main.so-home img").evaluateAll(items=>items.map(item=>{
+    const raw=item.getAttribute("src")||"";
+    try {const url=new URL(raw,location.origin);return decodeURIComponent(url.searchParams.get("url")||url.pathname);}catch{return raw;}
+  }).filter(path=>path.startsWith("/images/")));
+  expect(paths.length).toBeGreaterThan(18);
+  expect(new Set(paths).size,"Homepage people photographs must not repeat").toBe(paths.length);
 });
