@@ -59,7 +59,7 @@ export default function SecurityPlatformPage() {
         <div className="wrap">
           <Kicker>Built for the security business owner</Kicker>
           <h2 id="guard-business-os-title" className="t-h2 mt-4">More than guarding operations. A business operating system.</h2>
-          <p className="t-lead mt-5 max-w-3xl text-text-2">Your business connects customers, contracts, people, service delivery, equipment and financial decisions. 1GUARD brings the security-specific work into one environment as the broader LEOS business lifecycle is integrated.</p>
+          <p className="t-lead mt-5 max-w-3xl text-text-2">Your business connects customers, contracts, people, service delivery, equipment and financial decisions. 1GUARD brings the security-specific work into one environment as the wider business lifecycle is integrated.</p>
           <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {[
               ["Win and retain customers", "CRM, proposals and contracts are part of the intended connected business lifecycle."],
