@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import SignalOneLogo from "./brand/SignalOneLogo";
 import ProductSignature from "./brand/ProductSignature";
 
@@ -24,29 +24,84 @@ export default function SceneTransition({ children }: { children: ReactNode }) {
   const router = useRouter();
   const [phase, setPhase] = useState<Phase>("idle");
   const [destination, setDestination] = useState(pathname);
-  const timeout = useRef<number | null>(null);
+  const closingTimer = useRef<number | null>(null);
+  const holdTimer = useRef<number | null>(null);
+  const openingTimer = useRef<number | null>(null);
+  const recoveryTimer = useRef<number | null>(null);
   const target = useRef<string | null>(null);
   const previous = useRef(pathname);
-  const hold = useRef<number | null>(null);
 
+  const clearScheduled = () => {
+    for (const timer of [closingTimer, holdTimer, openingTimer, recoveryTimer]) {
+      if (timer.current !== null) window.clearTimeout(timer.current);
+      timer.current = null;
+    }
+  };
+
+  /** While a route changes, there must be NO native smooth-scroll animation.
+   * The shutters seal first; the new route is positioned instantly while fully
+   * concealed, and only then is it allowed to be revealed.
+   */
   useEffect(() => {
+    const active = phase !== "idle";
+    document.documentElement.classList.toggle("s1-route-navigation", active);
+    if (!active) return;
+    // Blocking pointer input alone does not suppress wheel scrolling.
+    const preventWheel = (event: WheelEvent) => event.preventDefault();
+    const preventTouch = (event: TouchEvent) => event.preventDefault();
+    window.addEventListener("wheel", preventWheel, { passive: false });
+    window.addEventListener("touchmove", preventTouch, { passive: false });
+    return () => {
+      window.removeEventListener("wheel", preventWheel);
+      window.removeEventListener("touchmove", preventTouch);
+    };
+  }, [phase]);
+
+  // Commit happens inside a persistent marketing layout. useLayoutEffect is
+  // deliberately used to finish positioning before the new page is painted.
+  useLayoutEffect(() => {
     if (previous.current === pathname) return;
     previous.current = pathname;
-    if (timeout.current !== null) window.clearTimeout(timeout.current);
-    if (hold.current !== null) window.clearTimeout(hold.current);
-    timeout.current = null;
-    if (target.current !== null) {
-      target.current = null;
-      // Let the destination identity remain visible over fully closed glass.
-      hold.current = window.setTimeout(() => {
-        setPhase("opening");
-        hold.current = null;
-        timeout.current = window.setTimeout(() => { setPhase("idle"); timeout.current = null; }, 1338);
-      }, 460);
-    } else {
+    const requested = target.current;
+    if (requested === null) {
+      clearScheduled();
       setDestination(pathname);
       setPhase("idle");
+      return;
     }
+
+    clearScheduled();
+    // Next's native auto-scrolling would visibly travel through transparent
+    // optical glass; scroll:false and an immediate landing avoid that entirely.
+    const land = () => {
+      document.documentElement.style.scrollBehavior = "auto";
+      const hash = new URL(requested, window.location.origin).hash;
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+      if (hash) {
+        let id = hash.slice(1);
+        try { id = decodeURIComponent(id); } catch { /* invalid fragment */ }
+        document.getElementById(id)?.scrollIntoView({ behavior: "instant", block: "start" });
+      }
+      document.documentElement.style.removeProperty("scroll-behavior");
+    };
+    land();
+    // Keep the glass fully sealed while the destination layout and its header
+    // settle. Repeat the instant landing in case initial hydration moves focus.
+    holdTimer.current = window.setTimeout(() => {
+      holdTimer.current = null;
+      requestAnimationFrame(() => {
+        land();
+        requestAnimationFrame(() => {
+          land();
+          target.current = null;
+          setPhase("opening");
+          openingTimer.current = window.setTimeout(() => {
+            setPhase("idle");
+            openingTimer.current = null;
+          }, 1230);
+        });
+      });
+    }, 380);
   }, [pathname]);
 
   useEffect(() => {
@@ -58,35 +113,47 @@ export default function SceneTransition({ children }: { children: ReactNode }) {
       if (!link || link.hasAttribute("download") || (link.target && link.target !== "_self")) return;
       const href = link.getAttribute("href") ?? "";
       if (href.startsWith("#")) return;
-      const url = new URL(link.href, location.href);
-      if (url.origin !== location.origin || (url.pathname === location.pathname && url.search === location.search)) return;
-      if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      const url = new URL(link.href, window.location.href);
+      // Fragment and query navigation within the same route is not a page
+      // transition; let Next/browser handle it normally.
+      if (url.origin !== window.location.origin || url.pathname === window.location.pathname) return;
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
       event.preventDefault();
-      if (timeout.current !== null) clearTimeout(timeout.current);
+      if (target.current) return;
+
+      clearScheduled();
       target.current = url.pathname + url.search + url.hash;
       setDestination(url.pathname);
+      // Prevent smooth root scroll from applying even before React's effect.
+      document.documentElement.classList.add("s1-route-navigation");
       setPhase("closing");
-      timeout.current = window.setTimeout(() => {
+      closingTimer.current = window.setTimeout(() => {
+        closingTimer.current = null;
         setPhase("covered");
-        // Keep the branded seal visible before switching underlying content.
-        hold.current = window.setTimeout(() => {
-          if (target.current) router.push(target.current);
-          hold.current = null;
-        }, 420);
-        timeout.current = window.setTimeout(() => {
-          // Navigation failure recovery: never trap the user behind glass.
-          if (target.current) { setPhase("idle"); target.current = null; }
-          timeout.current = null;
-        }, 3500);
+        // No route change until both glass shutters have finished closing.
+        holdTimer.current = window.setTimeout(() => {
+          holdTimer.current = null;
+          if (!target.current) return;
+          router.push(target.current, { scroll: false });
+          // If route fetch fails, never strand the visitor behind glass.
+          recoveryTimer.current = window.setTimeout(() => {
+            if (target.current) {
+              target.current = null;
+              setPhase("idle");
+            }
+            recoveryTimer.current = null;
+          }, 8500);
+        }, 360);
       }, 1338);
     };
     document.addEventListener("click", onClick, true);
-    return () => {
-      document.removeEventListener("click", onClick, true);
-      if (timeout.current !== null) clearTimeout(timeout.current);
-      if (hold.current !== null) clearTimeout(hold.current);
-    };
+    return () => document.removeEventListener("click", onClick, true);
   }, [router]);
+
+  useEffect(() => () => {
+    clearScheduled();
+    document.documentElement.classList.remove("s1-route-navigation");
+  }, []);
 
   const isMaster = destination === "/" || destination.startsWith("/equipment") || destination.startsWith("/radios") || destination.startsWith("/ptt-radio");
   const isEquipment = destination.startsWith("/equipment") || destination.startsWith("/radios") || destination.startsWith("/ptt-radio");
