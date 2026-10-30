@@ -137,9 +137,11 @@ for (const viewport of viewports) {
       await expect(scene).toBeVisible();
       if (name !== "hero") {
         const background = await scene.evaluate(node => getComputedStyle(node).backgroundImage);
-        expect(background, `${name} should have its own scene`).toContain("/images/scenes/");
+        expect(background, `${name} should have its appropriate SME-scaled context`).toContain(
+          name === "guard" ? "/images/home/sme-security-control-room.png" : "/images/scenes/"
+        );
         const match = background.match(/url\((?:["'])?([^)"']+)/);
-        expect(match, `${name} must point to a scene file`).not.toBeNull();
+        expect(match, `${name} must point to its contextual image`).not.toBeNull();
         if (match) {
           const assetUrl = new URL(match[1], "http://localhost:3100").pathname;
           const asset = await request.get(assetUrl);
