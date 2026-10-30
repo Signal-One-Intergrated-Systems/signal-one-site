@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import HeroGlobeLayer from "../components/HeroGlobeLayer";
@@ -72,12 +73,12 @@ export default function Home() {
             <div data-motion-from="left"><p className="so-kicker">Built around how you operate</p>
               <h2 id="so-solutions-title">Every part of your business.<br /><span>Working as one.</span></h2>
             </div>
-            <p data-motion-from="right" style={{ "--so-motion-delay": "110ms" } as React.CSSProperties}>From winning a customer and finding the right people to delivering the work, proving the result and growing the business: Signal One is building industry-specific operating systems around the full journey.</p>
+            <p data-motion-from="right" style={{ "--so-motion-delay": "110ms" } as CSSProperties}>From winning a customer and finding the right people to delivering the work, proving the result and growing the business: Signal One is building industry-specific operating systems around the full journey.</p>
           </div>
           <div className="so-value-rail" aria-label="What matters to your business">
             <div data-motion-from="bottom"><span>01</span><strong>Win & organise the work</strong><p>Customers, assignments, teams and requirements.</p></div>
-            <div data-motion-from="top" style={{ "--so-motion-delay": "80ms" } as React.CSSProperties}><span>02</span><strong>Deliver & prove the service</strong><p>Connected operations, records and exceptions.</p></div>
-            <div data-motion-from="right" style={{ "--so-motion-delay": "160ms" } as React.CSSProperties}><span>03</span><strong>Manage & grow</strong><p>Business visibility, resources and future opportunities.</p></div>
+            <div data-motion-from="top" style={{ "--so-motion-delay": "80ms" } as CSSProperties}><span>02</span><strong>Deliver & prove the service</strong><p>Connected operations, records and exceptions.</p></div>
+            <div data-motion-from="right" style={{ "--so-motion-delay": "160ms" } as CSSProperties}><span>03</span><strong>Manage & grow</strong><p>Business visibility, resources and future opportunities.</p></div>
           </div>
         </div>
       </section>
@@ -89,7 +90,7 @@ export default function Home() {
               fill sizes="(min-width:1024px) 49vw, 100vw" className="object-cover" />
             <div className="so-image-caption">Illustrative SME security operations</div>
           </div>
-          <div data-motion-from="left" style={{ "--so-motion-delay": "100ms" } as React.CSSProperties} className="so-vertical-content">
+          <div data-motion-from="left" style={{ "--so-motion-delay": "100ms" } as CSSProperties} className="so-vertical-content">
             <div className="so-vertical-label"><Link href="/solutions/security" className="so-platform-mark" aria-label="Explore 1GUARD"><ProductSignature name="GUARD" tone="dark" /></Link> <span>SECURITY BUSINESS OS</span></div>
             <h2 id="so-guard-title">A complete business vision. Built for real security SMEs.</h2>
             <p>1GUARD is being built around the security company, not only its control room: customers, guards, staffing, sites, operations, equipment and business oversight. Start with documented shift, patrol and incident workflows as the broader business lifecycle is developed.</p>
@@ -114,7 +115,7 @@ export default function Home() {
               fill sizes="(min-width:1024px) 49vw, 100vw" className="object-cover" />
             <div className="so-image-caption">Illustrative restaurant team at work</div>
           </div>
-          <div data-motion-from="top" style={{ "--so-motion-delay": "120ms" } as React.CSSProperties} className="so-vertical-content">
+          <div data-motion-from="top" style={{ "--so-motion-delay": "120ms" } as CSSProperties} className="so-vertical-content">
             <div className="so-vertical-label"><Link href="/service" className="so-platform-mark" aria-label="Explore 1Service"><ProductSignature name="Service" tone="dark" /></Link> <span className="so-status">IN DEVELOPMENT</span></div>
             <h2 id="so-service-title">Your service business deserves its own OS.</h2>
             <p>1Service is being developed as the operating system for service-based businesses, starting with restaurants. The vision connects the front of house, back of house, people and business performance.</p>
@@ -140,7 +141,7 @@ export default function Home() {
             <p>A customer request creates work. Work requires people and equipment. Delivery creates records, decisions and the next opportunity. Our long-term direction is to connect those handoffs inside purpose-built operating systems.</p>
             <p className="so-disclosure">This is the connected ecosystem vision. Individual workflows and integrations are released and verified in stages.</p>
           </div>
-          <ol data-motion-from="right" style={{ "--so-motion-delay": "90ms" } as React.CSSProperties} className="so-lifecycle" aria-label="Connected business lifecycle vision">
+          <ol data-motion-from="right" style={{ "--so-motion-delay": "90ms" } as CSSProperties} className="so-lifecycle" aria-label="Connected business lifecycle vision">
             {[
               ["01","Find customers"],["02","Win the work"],["03","Hire & assign"],
               ["04","Plan & deliver"],["05","Equip the team"],["06","Record & prove"],
@@ -158,7 +159,7 @@ export default function Home() {
             <div data-motion-from="right"><p className="so-kicker">The ecosystem extends beyond software</p>
               <h2 id="so-marketplace-title">When your business needs more,<br /><span>the next step should be connected.</span></h2>
             </div>
-            <p data-motion-from="top" style={{ "--so-motion-delay": "90ms" } as React.CSSProperties}>People, services and equipment are part of business operations—not separate problems. Our marketplace direction connects those needs with the work, while keeping each industry-specific journey clear.</p>
+            <p data-motion-from="top" style={{ "--so-motion-delay": "90ms" } as CSSProperties}>People, services and equipment are part of business operations—not separate problems. Our marketplace direction connects those needs with the work, while keeping each industry-specific journey clear.</p>
           </div>
           <div className="so-marketplace-grid">
             <article data-motion-from="left">
@@ -167,13 +168,13 @@ export default function Home() {
               <p>A planned route for eligible officers and companies to find one another, with hiring and assignment workflows designed to connect back to operations.</p>
               <Link href="/guard-marketplace">Explore guard hiring <Arrow /></Link>
             </article>
-            <article data-motion-from="top" style={{ "--so-motion-delay": "100ms" } as React.CSSProperties}>
+            <article data-motion-from="top" style={{ "--so-motion-delay": "100ms" } as CSSProperties}>
               <span className="so-marketplace-kicker">1Service staffing · Planned</span>
               <h3>Build the team behind the service.</h3>
               <p>Our direction includes hiring and deploying hospitality and other service workers, from kitchen teams and waiters to cleaning and management staff.</p>
               <Link href="/service">Discover 1Service <Arrow /></Link>
             </article>
-            <article data-motion-from="right" style={{ "--so-motion-delay": "170ms" } as React.CSSProperties}>
+            <article data-motion-from="right" style={{ "--so-motion-delay": "170ms" } as CSSProperties}>
               <span className="so-marketplace-kicker">Professional technology · Quote-led</span>
               <h3>Get the devices the work requires.</h3>
               <p>Radios, body cameras, tracking, CCTV and connectivity specified for the operation, with pricing and fulfilment confirmed by quotation.</p>
@@ -199,7 +200,7 @@ export default function Home() {
             </div>
             <p className="so-disclosure">Prices, lead times and availability are confirmed by written quotation.</p>
           </div>
-          <div data-motion-from="left" style={{ "--so-motion-delay": "120ms" } as React.CSSProperties} className="so-hardware-gallery" aria-label="Actual manufacturer product imagery">
+          <div data-motion-from="left" style={{ "--so-motion-delay": "120ms" } as CSSProperties} className="so-hardware-gallery" aria-label="Actual manufacturer product imagery">
             <div className="so-hardware-product so-radio-product">
               <Image src={pnc360s} alt="Hytera PNC360S push-to-talk over cellular radio, original manufacturer product image"
                 sizes="(min-width:1024px) 300px, 45vw" className="so-product-image" />
@@ -219,12 +220,12 @@ export default function Home() {
         <div className="wrap">
           <div className="so-section-heading">
             <div data-motion-from="top"><p className="so-kicker">A straightforward next step</p><h2 id="so-how-title">Start with the problem.<br /><span>We'll help map the solution.</span></h2></div>
-            <p data-motion-from="left" style={{ "--so-motion-delay": "120ms" } as React.CSSProperties}>Business operating systems and equipment don't have the same buying journey. We make the next step clear for each.</p>
+            <p data-motion-from="left" style={{ "--so-motion-delay": "120ms" } as CSSProperties}>Business operating systems and equipment don't have the same buying journey. We make the next step clear for each.</p>
           </div>
           <div className="so-journey-grid">
             <div data-motion-from="left"><span className="so-step">01</span><h3>Choose your path</h3><p>Explore 1GUARD, learn about 1Service or select your equipment category.</p></div>
-            <div data-motion-from="top" style={{ "--so-motion-delay": "100ms" } as React.CSSProperties}><span className="so-step">02</span><h3>Tell us about your operation</h3><p>Share the sites, teams, requirements or devices your business needs.</p></div>
-            <div data-motion-from="right" style={{ "--so-motion-delay": "180ms" } as React.CSSProperties}><span className="so-step">03</span><h3>Confirm the right starting point</h3><p>We explain eligibility, supported capabilities, terms and activation before the work begins.</p></div>
+            <div data-motion-from="top" style={{ "--so-motion-delay": "100ms" } as CSSProperties}><span className="so-step">02</span><h3>Tell us about your operation</h3><p>Share the sites, teams, requirements or devices your business needs.</p></div>
+            <div data-motion-from="right" style={{ "--so-motion-delay": "180ms" } as CSSProperties}><span className="so-step">03</span><h3>Confirm the right starting point</h3><p>We explain eligibility, supported capabilities, terms and activation before the work begins.</p></div>
           </div>
         </div>
       </section>
@@ -233,8 +234,8 @@ export default function Home() {
         <div className="wrap so-final-inner">
           <div data-motion-from="left"><p className="so-kicker">Make your business easier to run</p><h2 id="so-final-title">Ready for a smarter way to run your business?</h2>
             <p>Start with 1GUARD, explore what 1Service is becoming or speak to Signal One about field equipment.</p></div>
-          <div data-motion-from="right" style={{ "--so-motion-delay": "100ms" } as React.CSSProperties} className="so-final-actions"><TrialLink /><Link href="/contact" className="btn so-home-outline">Talk to Signal One <Arrow /></Link></div>
-          <p data-motion-from="bottom" style={{ "--so-motion-delay": "160ms" } as React.CSSProperties} className="so-community-note"><ProductSignature name="Community" tone="dark" /> is part of the future Signal One ecosystem and is not yet available.</p>
+          <div data-motion-from="right" style={{ "--so-motion-delay": "100ms" } as CSSProperties} className="so-final-actions"><TrialLink /><Link href="/contact" className="btn so-home-outline">Talk to Signal One <Arrow /></Link></div>
+          <p data-motion-from="bottom" style={{ "--so-motion-delay": "160ms" } as CSSProperties} className="so-community-note"><ProductSignature name="Community" tone="dark" /> is part of the future Signal One ecosystem and is not yet available.</p>
         </div>
       </section>
     </main>
