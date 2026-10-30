@@ -695,3 +695,15 @@ body:has(.so-home) header.glass-nav .btn-primary{box-shadow:inset 0 1px rgba(255
     top:calc(clamp(330px,89vw,395px) - 29px)!important;
   }
 }
+
+/* 2026-10-30: Display the entire approved chef / security-guard photograph.
+   Earlier object-fit:cover zoomed into the subjects and cut off the chef's
+   toque and much of the setting. Nothing else in the hero changes. */
+@media(min-width:1024px){
+  .so-home .s1-brand-stage.so-hero .so-hero-media .so-hero-photo{
+    top:90px!important;
+    height:calc(100% - 90px)!important;
+    object-fit:contain!important;
+    object-position:right top!important;
+  }
+}
