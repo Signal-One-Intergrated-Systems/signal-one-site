@@ -715,3 +715,26 @@ test("the original card image appears only once on the homepage",async({page})=>
   expect(new Set(paths).size,"No photographic image should repeat on the homepage").toBe(paths.length);
   expect(paths.filter(p=>p.includes("security-site-planning.webp"))).toHaveLength(1);
 });
+
+
+test("glass navigation seals old page before scroll reset and opens onto stationary destination", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/");
+  await page.evaluate(() => window.scrollTo({ top: 1100, behavior: "instant" }));
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(450);
+  const link = page.locator('header a[href="/service"]:visible').first();
+  await expect(link).toBeVisible();
+  await link.click();
+  const glass = page.locator(".sg-entry-overlay");
+  await expect(glass).toHaveAttribute("data-guard-entry", "closing", { timeout: 5000 });
+  const oldY = await page.evaluate(() => window.scrollY);
+  await page.waitForTimeout(150);
+  expect(Math.abs((await page.evaluate(() => window.scrollY)) - oldY)).toBeLessThan(3);
+  await expect(glass).toHaveAttribute("data-guard-entry", "sealed", { timeout: 6000 });
+  await expect(glass).toHaveCSS("background-color", "rgb(25, 33, 39)");
+  await page.waitForURL(/service$/, { timeout: 10000 });
+  await expect(glass).toHaveAttribute("data-guard-entry", "opening", { timeout: 7000 });
+  expect(await page.evaluate(() => window.scrollY)).toBe(0);
+  await expect(glass).toHaveAttribute("data-guard-entry", "idle", { timeout: 6000 });
+  await expect(page.locator("main h1").first()).toBeVisible();
+});
