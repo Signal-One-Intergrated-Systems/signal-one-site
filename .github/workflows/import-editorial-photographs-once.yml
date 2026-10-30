@@ -1,0 +1,71 @@
+name: Import nine contextual Signal One photographs (one-time)
+on:
+  push:
+    branches:
+      - feat/home-editorial-photo-panels-slower-motion-20261030
+    paths:
+      - .github/workflows/import-editorial-photographs-once.yml
+permissions:
+  contents: write
+jobs:
+  import-images:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/home-editorial-photo-panels-slower-motion-20261030
+          persist-credentials: true
+      - name: Download source photography
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/editorial-source public/images/home/panels
+          while IFS='|' read -r name url; do
+            curl --fail --location --silent --show-error --retry 3 --max-time 120 "$url" -o "/tmp/editorial-source/$name.png"
+          done <<'PHOTOS'
+          win-work|https://photoshop-api.adobe.io/v2/short-url/urn:aaid:ps:US:50356a19-ca98-4b44-b624-877b42c0b3b0
+          prove-work|https://photoshop-api.adobe.io/v2/short-url/urn:aaid:ps:US:45435f70-cbd1-4384-b62a-66e83e5506c0
+          manage-grow|https://photoshop-api.adobe.io/v2/short-url/urn:aaid:ps:US:95523c12-8474-4aec-a2e1-0c428297d7f5
+          hire-security|https://photoshop-api.adobe.io/v2/short-url/urn:aaid:ps:US:aee1c4d2-538a-4932-a521-f830059a88aa
+          hire-hospitality|https://photoshop-api.adobe.io/v2/short-url/urn:aaid:ps:US:c2982737-4bce-4727-b915-7f1dc3940171
+          onboarding-sme|https://photoshop-api.adobe.io/v2/short-url/urn:aaid:ps:US:b74b44eb-7ab3-4942-923f-da759610c13c
+          customer-enquiry|https://photoshop-api.adobe.io/v2/short-url/urn:aaid:ps:US:87c5ba52-54f9-43e3-918c-a4258ca855fe
+          team-dispatch|https://photoshop-api.adobe.io/v2/short-url/urn:aaid:ps:US:c96559c3-f963-4cdf-b259-ee45fa680bac
+          invoice-confirm|https://photoshop-api.adobe.io/v2/short-url/urn:aaid:ps:US:a76b582b-e733-4b65-a4e6-4fed7c6b7a26
+          PHOTOS
+      - name: Convert to responsive optimized WebP with metadata removed
+        run: |
+          set -euo pipefail
+          python3 -m pip install --quiet --break-system-packages pillow
+          python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          import hashlib
+          src=Path("/tmp/editorial-source")
+          dest=Path("public/images/home/panels")
+          names=["win-work","prove-work","manage-grow","hire-security","hire-hospitality","onboarding-sme","customer-enquiry","team-dispatch","invoice-confirm"]
+          for name in names:
+              raw=(src/f"{name}.png").read_bytes()
+              if raw[:8]!=bytes.fromhex("89504e470d0a1a0a"):
+                  raise RuntimeError(f"{name}: not valid PNG")
+              with Image.open(src/f"{name}.png") as image:
+                  image.load()
+                  width,height=image.size
+                  assert width>=1000 and height>=550,(name,width,height)
+                  ratio=1100/width
+                  image=image.convert("RGB").resize((1100,round(height*ratio)),Image.Resampling.LANCZOS)
+                  file=dest/f"{name}.webp"
+                  image.save(file,"WEBP",quality=84,method=6)
+                  assert file.stat().st_size>15000,(name,file.stat().st_size)
+                  print(f"{name}: {width}x{height} -> {file.stat().st_size:,} bytes; sha256={hashlib.sha256(file.read_bytes()).hexdigest()}")
+          PY
+      - name: Commit images and remove temporary workflow
+        run: |
+          set -euo pipefail
+          git config user.name "Signal One Website Automation"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/images/home/panels/
+          git rm -f .github/workflows/import-editorial-photographs-once.yml
+          git commit -m "assets(home): add nine compressed contextual SME editorial photographs"
+          git fetch origin feat/home-editorial-photo-panels-slower-motion-20261030
+          git rebase origin/feat/home-editorial-photo-panels-slower-motion-20261030
+          git push origin HEAD:feat/home-editorial-photo-panels-slower-motion-20261030
