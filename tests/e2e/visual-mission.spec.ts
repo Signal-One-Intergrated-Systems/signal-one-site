@@ -1,6 +1,31 @@
 import { test, expect } from "@playwright/test";
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import AxeBuilder from "@axe-core/playwright";
 import { routes as allMarketingRoutes } from "./routes";
+
+
+/**
+ * FOUNDER LOCK — the homepage hero is NOT part of later scene-only refactors.
+ * This exact JSX fixture was captured from production commit 4ed7047 before PR84.
+ * Changing the hero markup breaks CI until explicitly reapproved.
+ */
+test("FOUNDERS LOCK: approved home hero markup must never change accidentally", () => {
+  const cwd = process.cwd();
+  const file = readFileSync(resolve(cwd, "app/(marketing)/page.tsx"), "utf8");
+  const baseline = readFileSync(resolve(cwd, "tests/fixtures/locked-home-hero.txt"), "utf8");
+  const from = file.indexOf('      <section className="s1-brand-stage so-hero"');
+  const to = file.indexOf('      <section id="solutions"', from);
+  expect(from).toBeGreaterThan(0);
+  expect(to).toBeGreaterThan(from);
+  expect(file.slice(from, to), "Locked hero JSX was modified").toBe(baseline);
+  expect(file.slice(from, to)).toContain('approved-full-scene-guard-chef-2026.png');
+  expect(file.slice(from, to)).not.toContain("so-hero-people-glass");
+  expect(file.slice(from, to)).not.toContain("restaurant-courtyard.webp");
+  const css = readFileSync(resolve(cwd, "app/home-conversion.css"), "utf8");
+  expect(css).not.toContain(".so-home .so-hero-people-glass");
+  expect(css).not.toContain(".so-home .so-hero-background-photo");
+});
 
 /** Phase 7 production-like acceptance for every core acquisition path.
  * Run after `npm run build`; does not require live credentials.
