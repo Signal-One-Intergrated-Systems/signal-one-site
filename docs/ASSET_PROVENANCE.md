@@ -71,3 +71,24 @@ The approved wide restaurant homepage hero and real manufacturer product photos 
 ## Scroll-entry pattern
 
 The homepage uses `HomeScrollChoreography.tsx` with `data-motion-from` on the individual text, photography and product panels. The first content section moves from left and right, 1GUARD from top and left, and subsequent sections use a restrained rotating arrangement of left, right, top and bottom. Only transform and opacity animate; direction assignment is deliberate, not nondeterministic. Content stays visible when JS is unavailable, reduced motion is requested or IntersectionObserver is unavailable. The route transition and existing globe have separate animation systems and are not overwritten.
+
+
+## Homepage contextual editorial panels — 2026-10-30
+
+Nine compact, original **synthetic illustrative photographs** support otherwise text-only sections of the Signal One homepage. They are not documentary evidence of actual customer premises, clients or employed staff, nor are they screenshots of live software. They must remain labelled as illustrative.
+
+| Local image | Intended meaning |
+|---|---|
+| `public/images/home/panels/customer-enquiry.webp` | Customer enquiry and choosing a business solution |
+| `public/images/home/panels/win-work.webp` | Winning and organising an SME service contract |
+| `public/images/home/panels/prove-work.webp` | Guard checking a patrol checkpoint / proof of service |
+| `public/images/home/panels/manage-grow.webp` | Owner reviewing commercial performance |
+| `public/images/home/panels/hire-security.webp` | Hiring an eligible security officer |
+| `public/images/home/panels/hire-hospitality.webp` | Hiring restaurant / service workers |
+| `public/images/home/panels/onboarding-sme.webp` | Gathering an SME's implementation requirements |
+| `public/images/home/panels/team-dispatch.webp` | Planning and assigning a team |
+| `public/images/home/panels/invoice-confirm.webp` | Invoice and service-start confirmation |
+
+The product-equipment panel continues using the genuine Hytera manufacturer photograph, not a generated device. All new image assets are locally stored, WebP compressed and responsive; the original hero, 1GUARD control room and parent brand mark are unchanged.
+
+Entrance motion slows to about 1.65 seconds for transforms and 1.35 seconds for fades on desktop; mobile runs at about 1.32 seconds. Motion remains opt-in, one-shot, with preserved reduced-motion, fallback and stable layout.
