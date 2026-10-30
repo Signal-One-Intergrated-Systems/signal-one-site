@@ -46,10 +46,6 @@ Preserve Signal One's actual ring logo, typography, approved imagery, globe, gla
 - Guard hiring marketplace: candidate/company interest only until matching, consent and eligibility workflows pass launch gates.
 - Careers: application -> interview review -> decision -> compulsory Training OS -> authorised internal Sales OS (future automation contracts are not represented as live).
 
-## Living OS Square — approved floating-card design
+## Homepage introduction card preservation
 
-The marketing homepage's original "Every part of your business. Working as one." glass card retains its photography, heading and explanatory paragraph. The approved full-bleed homepage hero remains frozen and entirely out of scope.
-
-A distinct translucent, dimensional **square node-map** floats above the card and is visually independent from it; this is neither a cube nor a modal. Each network dot indicates a functional part of a connected business operating system, with calm breathing light and a slight hover awakening. Selecting the square unfolds it spatially into **exactly two panes: 1GUARD and 1Service**. Both use the same product-wordmark typography and Signal Blue numeral. The panes show illustrative module/handoff structures and link to their actual product information pages without inventing live statistics.
-
-On phones the two panes swipe horizontally; on desktops they settle next to one another above the unchanged introduction card. Keyboard, reduced motion, Escape-to-fold, image uniqueness and semantic glass-pane structure are covered by browser tests. No confidential technology names or implementation internals are exposed in public-facing copy. The former full-screen seven-step 3D cube component and its styles were removed.
+The original “Every part of your business. Working as one.” section retains its original full-width glass card structure, introductory photograph, headline, explanatory paragraph and three supporting value cards. Experimental cube, node-square and unfolding-panel experiences have been removed from the website, pending a separate future design decision. The founder-locked homepage hero is independent and must never be altered as part of introduction-section work. Keep photographic image placements unique across the homepage.
