@@ -51,7 +51,7 @@ function DemoChip({ children }: { children: React.ReactNode }) {
 
 export default function GuardMarketplacePage() {
   return (
-    <main id="main" className="s1-people-hiring">
+    <main id="main" className="s1-people-hiring s1-scene-page s1-scene-page--recruitment">
       <PageHero
         kicker="Guard Marketplace"
         status={

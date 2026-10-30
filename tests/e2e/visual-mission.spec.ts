@@ -108,10 +108,10 @@ test("prominent marketing photographs show people; architecture is background co
     expect(match?.alt.toLowerCase()).not.toContain("unoccupied");
   }
   for (const [route, expectedScene] of [
-    ["/solutions/security", "control-room.svg"],
-    ["/service", "service-dining.svg"],
-    ["/equipment-marketplace", "connectivity.svg"],
-    ["/guard-marketplace", "campus.svg"],
+    ["/solutions/security", "security-site-planning.webp"],
+    ["/service", "hotel-reception-welcome.webp"],
+    ["/equipment-marketplace", "warehouse-security-check.webp"],
+    ["/guard-marketplace", "security-interview-training.webp"],
   ] as const) {
     await page.goto(route);
     const background = await page.locator("main section").first().evaluate(node => getComputedStyle(node).backgroundImage);
@@ -138,7 +138,9 @@ for (const viewport of viewports) {
       if (name !== "hero") {
         const background = await scene.evaluate(node => getComputedStyle(node).backgroundImage);
         expect(background, `${name} should have its appropriate SME-scaled context`).toContain(
-          name === "guard" ? "/images/home/approved-sme-security-control-room-2026.png" : "/images/scenes/"
+          name === "guard" ? "/images/photo/guard-site-operations.webp" :
+          name === "service" ? "/images/home/panels/hire-hospitality.webp" :
+          "/images/photo/warehouse-security.webp"
         );
         const match = background.match(/url\((?:["'])?([^)"']+)/);
         expect(match, `${name} must point to its contextual image`).not.toBeNull();
@@ -420,6 +422,11 @@ test("homepage shows credible SME-scale guard operations and an accurately label
     await page.goto("/");
     const photograph=page.locator(".so-vertical-visual-guard img");
     await expect(photograph).toHaveAttribute("alt",/security office for an SME.*supervisor/i);
+    // Next/Image lazily fetches below-the-fold photographs; wait until visible
+    // and decoded before asserting dimensions, including in cold CI browsers.
+    await photograph.scrollIntoViewIfNeeded();
+    await expect.poll(async () => photograph.evaluate(img => (img as HTMLImageElement).naturalWidth),
+      {timeout:10000}).toBeGreaterThan(0);
     const sizes=await photograph.evaluate(img=>({
       loaded:(img as HTMLImageElement).naturalWidth,
       frame:img.parentElement?.getBoundingClientRect().width ?? 0
@@ -551,4 +558,77 @@ test("slower homepage panel entrances animate with extended easing and preserve 
   await expect(page.locator(".so-home")).not.toHaveClass(/so-motion-enabled/);
   await expect(panel).toHaveCSS("transform","none");
   await expect(panel).toHaveCSS("opacity","1");
+});
+
+
+test("approved security, hotel and service scenes are distinct across homepage panels", async ({page,request}) => {
+  const newScenes = [
+    "security-site-planning", "hotel-reception-welcome", "hospitality-team-briefing",
+    "security-office-park-site-review", "warehouse-security-check", "security-access-scan",
+    "security-operations-review", "security-interview-training", "restaurant-staff-briefing",
+    "cafe-team-planning", "security-team-briefing", "facility-reception-service",
+  ];
+  for(const scene of newScenes){
+    const url=`/images/editorial/${scene}.webp`;
+    const response=await request.get(url);
+    expect(response.status(),url).toBe(200);
+    expect(response.headers()["content-type"]).toContain("image/webp");
+    expect((await response.body()).byteLength).toBeGreaterThan(18000);
+  }
+  for(const width of [390,768,1440]){
+    await page.setViewportSize({width,height:900});
+    await page.goto("/");
+    const srcs=await page.locator(".so-panel-photo img").evaluateAll(nodes=>nodes.map(node=>{
+      const raw=node.getAttribute("src")||"";
+      try {
+        const url=new URL(raw,location.origin);
+        return decodeURIComponent(url.searchParams.get("url")||url.pathname);
+      } catch{return raw;}
+    }));
+    expect(srcs.length).toBe(17);
+    expect(new Set(srcs).size,"Every card uses a different subject").toBe(17);
+    const approved=srcs.filter(src=>src.includes("/images/editorial/"));
+    expect(approved.length).toBe(12);
+    for(const scene of newScenes)expect(approved.some(src=>src.includes(`${scene}.webp`))).toBe(true);
+    const sections=[
+      ["#solutions","hero-integrated-security.webp"],
+      ["#guard","guard-site-operations.webp"],
+      ["#service","hire-hospitality.webp"],
+      [".so-ecosystem-section","team-dispatch.webp"],
+      [".so-marketplace-section","team-briefing.webp"],
+      ["#equipment","warehouse-security.webp"],
+      [".so-onboarding-section","onboarding-sme.webp"],
+      ["#community","win-work.webp"],
+    ] as const;
+    for(const [selector,image] of sections){
+      const bg=await page.locator(selector).evaluate(node=>getComputedStyle(node).backgroundImage);
+      expect(bg,`Scene missing on ${selector}`).toContain(image);
+      expect(bg).toContain("url(");
+    }
+    const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
+    expect(overflow).toBeLessThanOrEqual(1);
+  }
+});
+
+test("industry marketing pages keep real-world photo backdrops and readable copy",async({page})=>{
+  for(const [route,expected] of [
+    ["/solutions/security","security-site-planning.webp"],
+    ["/service","hotel-reception-welcome.webp"],
+    ["/guards","security-access-scan.webp"],
+    ["/guard-marketplace","security-interview-training.webp"],
+    ["/equipment-marketplace","warehouse-security-check.webp"],
+    ["/contact","security-office-park-site-review.webp"],
+    ["/pricing","security-operations-review.webp"],
+    ["/get-started","hospitality-team-briefing.webp"],
+  ] as const){
+    await page.goto(route);
+    const main=page.locator("main#main");
+    await expect(main).toHaveClass(/s1-scene-page/);
+    const bg=await main.evaluate(node=>getComputedStyle(node).backgroundImage);
+    expect(bg).toContain(expected);
+    await expect(page.locator("main h1").first()).toBeVisible();
+  }
+  await page.goto("/");
+  const footer=await page.locator("footer").first().evaluate(node=>getComputedStyle(node).backgroundImage);
+  expect(footer).toContain("estate-response-night-band.webp");
 });

@@ -21,6 +21,7 @@ export default function LandingPage({
   closing,
   related,
   story,
+  scene = "security",
 }: {
   kicker: string;
   title: string;
@@ -36,9 +37,11 @@ export default function LandingPage({
   related: ReadonlyArray<readonly [string, string]>;
   /** Optional full-width visual story after the hero. */
   story?: ReactNode;
+  /** Marketing background context for this product journey. */
+  scene?: "security" | "attendance" | "patrol" | "radio-rental";
 }) {
   return (
-    <main id="main">
+    <main id="main" className={`s1-scene-page s1-scene-page--${scene}`}>
       <PageHero kicker={kicker} title={title} lead={lead} actions={actions} aside={aside} />
       {story}
 

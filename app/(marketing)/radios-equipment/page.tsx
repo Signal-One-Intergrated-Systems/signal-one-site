@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export default function RadiosEquipmentPage() {
   return (
-    <main id="main" className="s1-premium-radio">
+    <main id="main" className="s1-premium-radio s1-scene-page s1-scene-page--radios">
       <PageHero
         kicker="Radios & Tracking"
         status={

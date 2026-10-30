@@ -93,9 +93,9 @@ export default function Home() {
             <p data-motion-from="right" style={{ "--so-motion-delay": "260ms" } as CSSProperties}>From winning a customer and finding the right people to delivering the work, proving the result and growing the business: Signal One is building industry-specific operating systems around the full journey.</p>
           </div>
           <div className="so-value-rail" aria-label="What matters to your business">
-            <div data-motion-from="bottom"><PanelPhoto src="/images/home/panels/win-work.webp" alt="Illustrative security business manager reviewing customer requirements with a client" /><span>01</span><strong>Win & organise the work</strong><p>Customers, assignments, teams and requirements.</p></div>
-            <div data-motion-from="top" style={{ "--so-motion-delay": "180ms" } as CSSProperties}><PanelPhoto src="/images/home/panels/prove-work.webp" alt="Illustrative security officer verifying a patrol checkpoint while a supervisor documents the visit" /><span>02</span><strong>Deliver & prove the service</strong><p>Connected operations, records and exceptions.</p></div>
-            <div data-motion-from="right" style={{ "--so-motion-delay": "360ms" } as CSSProperties}><PanelPhoto src="/images/home/panels/manage-grow.webp" alt="Illustrative security SME owner and administrator reviewing business performance together" /><span>03</span><strong>Manage & grow</strong><p>Business visibility, resources and future opportunities.</p></div>
+            <div data-motion-from="bottom"><PanelPhoto src="/images/editorial/security-office-park-site-review.webp" alt="Illustrative security service manager meeting a building client on location to review the site" /><span>01</span><strong>Win & organise the work</strong><p>Customers, assignments, teams and requirements.</p></div>
+            <div data-motion-from="top" style={{ "--so-motion-delay": "180ms" } as CSSProperties}><PanelPhoto src="/images/editorial/security-access-scan.webp" alt="Illustrative security officer and supervisor verifying building access during a patrol" /><span>02</span><strong>Deliver & prove the service</strong><p>Connected operations, records and exceptions.</p></div>
+            <div data-motion-from="right" style={{ "--so-motion-delay": "360ms" } as CSSProperties}><PanelPhoto src="/images/editorial/security-operations-review.webp" alt="Illustrative management team reviewing operational records and security company performance" /><span>03</span><strong>Manage & grow</strong><p>Business visibility, resources and future opportunities.</p></div>
           </div>
         </div>
       </section>
@@ -160,12 +160,12 @@ export default function Home() {
           </div>
           <ol data-motion-from="right" style={{ "--so-motion-delay": "220ms" } as CSSProperties} className="so-lifecycle" aria-label="Connected business lifecycle vision">
             {[
-              ["01","Find customers","/images/home/panels/customer-enquiry.webp","Illustrative initial customer enquiry at an office park"],
-              ["02","Win the work","/images/home/panels/win-work.webp","Illustrative meeting to confirm a service proposal"],
-              ["03","Hire & assign","/images/home/panels/hire-security.webp","Illustrative security officer recruitment interview"],
-              ["04","Plan & deliver","/images/home/panels/team-dispatch.webp","Illustrative SME team arranging their daily assignments"],
-              ["05","Equip the team","/images/hardware/hytera-pnc360s.webp","Hytera professional push-to-talk radio product photo"],
-              ["06","Record & prove","/images/home/panels/prove-work.webp","Illustrative checkpoint verification during a patrol"],
+              ["01","Find customers","/images/editorial/facility-reception-service.webp","Illustrative facilities employees welcoming a visitor at a service centre"],
+              ["02","Win the work","/images/editorial/security-site-planning.webp","Illustrative security supervisor discussing a site plan with client representatives"],
+              ["03","Hire & assign","/images/editorial/security-interview-training.webp","Illustrative security employer interviewing candidates during recruitment"],
+              ["04","Plan & deliver","/images/editorial/security-team-briefing.webp","Illustrative security officers gathered around an operational briefing"],
+              ["05","Equip the team","/images/home/panels/prove-work.webp","Illustrative security officer using field technology during a patrol"],
+              ["06","Record & prove","/images/editorial/warehouse-security-check.webp","Illustrative guard verifying the security status at a logistics facility"],
               ["07","Bill & manage","/images/home/panels/invoice-confirm.webp","Illustrative administrators preparing customer billing"],
               ["08","Improve & grow","/images/home/panels/manage-grow.webp","Illustrative owner reviewing business performance"],
             ].map(([number,label,src,alt]) => (
@@ -193,14 +193,14 @@ export default function Home() {
             </article>
             <article data-motion-from="top" style={{ "--so-motion-delay": "240ms" } as CSSProperties}>
               <span className="so-marketplace-kicker">1Service staffing · Planned</span>
-              <PanelPhoto src="/images/home/panels/hire-hospitality.webp" alt="Illustrative restaurant manager interviewing a waiter before service" />
+              <PanelPhoto src="/images/editorial/restaurant-staff-briefing.webp" alt="Illustrative restaurant team including chef, waiters and cleaning staff at a pre-service briefing" />
               <h3>Build the team behind the service.</h3>
               <p>Our direction includes hiring and deploying hospitality and other service workers, from kitchen teams and waiters to cleaning and management staff.</p>
               <Link href="/service">Discover 1Service <Arrow /></Link>
             </article>
             <article data-motion-from="right" style={{ "--so-motion-delay": "380ms" } as CSSProperties}>
               <span className="so-marketplace-kicker">Professional technology · Quote-led</span>
-              <PanelPhoto src="/images/hardware/hytera-pnc360s.webp" alt="Genuine manufacturer photograph of a professional Hytera push-to-talk radio" />
+              <PanelPhoto src="/images/hardware/teltonika-fmc920.webp" alt="Genuine Teltonika connectivity tracking device manufacturer product photograph" />
               <h3>Get the devices the work requires.</h3>
               <p>Radios, body cameras, tracking, CCTV and connectivity specified for the operation, with pricing and fulfilment confirmed by quotation.</p>
               <Link href="/equipment-marketplace">Browse technology <Arrow /></Link>
@@ -248,9 +248,9 @@ export default function Home() {
             <p data-motion-from="left" style={{ "--so-motion-delay": "280ms" } as CSSProperties}>Business operating systems and equipment don't have the same buying journey. We make the next step clear for each.</p>
           </div>
           <div className="so-journey-grid">
-            <div data-motion-from="left"><PanelPhoto src="/images/home/panels/customer-enquiry.webp" alt="Illustrative business customer discussing the right service with an SME representative" /><span className="so-step">01</span><h3>Choose your path</h3><p>Explore 1GUARD, learn about 1Service or select your equipment category.</p></div>
-            <div data-motion-from="top" style={{ "--so-motion-delay": "240ms" } as CSSProperties}><PanelPhoto src="/images/home/panels/onboarding-sme.webp" alt="Illustrative consultant documenting a small business operational requirement on a laptop" /><span className="so-step">02</span><h3>Tell us about your operation</h3><p>Share the sites, teams, requirements or devices your business needs.</p></div>
-            <div data-motion-from="right" style={{ "--so-motion-delay": "400ms" } as CSSProperties}><PanelPhoto src="/images/home/panels/invoice-confirm.webp" alt="Illustrative administrator confirming a proposed service and customer paperwork" /><span className="so-step">03</span><h3>Confirm the right starting point</h3><p>We explain eligibility, supported capabilities, terms and activation before the work begins.</p></div>
+            <div data-motion-from="left"><PanelPhoto src="/images/editorial/hotel-reception-welcome.webp" alt="Illustrative hotel front-desk employees, porter and housekeeper welcoming a guest" /><span className="so-step">01</span><h3>Choose your path</h3><p>Explore 1GUARD, learn about 1Service or select your equipment category.</p></div>
+            <div data-motion-from="top" style={{ "--so-motion-delay": "240ms" } as CSSProperties}><PanelPhoto src="/images/editorial/cafe-team-planning.webp" alt="Illustrative cafe manager, chef and service supervisor planning work together" /><span className="so-step">02</span><h3>Tell us about your operation</h3><p>Share the sites, teams, requirements or devices your business needs.</p></div>
+            <div data-motion-from="right" style={{ "--so-motion-delay": "400ms" } as CSSProperties}><PanelPhoto src="/images/editorial/hospitality-team-briefing.webp" alt="Illustrative hotel and restaurant staff from different roles discussing a service plan" /><span className="so-step">03</span><h3>Confirm the right starting point</h3><p>We explain eligibility, supported capabilities, terms and activation before the work begins.</p></div>
           </div>
         </div>
         <p className="so-editorial-disclosure">People and workplace scenes are illustrative; equipment photographs are original manufacturer imagery.</p>

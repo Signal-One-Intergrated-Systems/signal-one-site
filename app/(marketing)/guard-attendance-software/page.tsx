@@ -14,6 +14,7 @@ export const metadata: Metadata = {
 export default function GuardAttendanceSoftwarePage() {
   return (
     <LandingPage
+      scene="attendance"
       kicker="Guard attendance and clock-in"
       title="Know who is on post, and prove it."
       lead="Guards clock in and out at the post on their own phone or an authorised Central Device. The roster shows which posts are short before the shift starts, and every attendance record feeds proof of service."
