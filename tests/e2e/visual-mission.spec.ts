@@ -264,7 +264,9 @@ test("approved homepage guard-and-chef photograph remains separate from interact
     const dimensions = await image.evaluate(img => {
       const box = img.getBoundingClientRect();
       const media = img.parentElement!.getBoundingClientRect();
-      return {width:box.width, mediaWidth:media.width,
+      const nav = document.querySelector("header.glass-nav > .wrap")?.getBoundingClientRect();
+      return {width:box.width, mediaWidth:media.width, imageTop:box.top,
+        navBottom:nav?.bottom ?? 0,
         naturalWidth:(img as HTMLImageElement).naturalWidth};
     });
     expect(dimensions.naturalWidth).toBeGreaterThan(0);
@@ -273,6 +275,9 @@ test("approved homepage guard-and-chef photograph remains separate from interact
       expect(dimensions.width).toBeGreaterThan(dimensions.mediaWidth * 0.5);
     } else {
       expect(dimensions.width).toBeGreaterThan(viewport.width - 2);
+      if (viewport.width <= 670) {
+        expect(dimensions.imageTop, "Photo must start below the mobile navigation pill").toBeGreaterThanOrEqual(dimensions.navBottom - 3);
+      }
     }
     await expect(page.getByRole("link", { name: /get 14 day free trial/i }).first()).toBeVisible();
     await expect(page.locator(".s1-hero-globe-canvas")).toBeVisible();
