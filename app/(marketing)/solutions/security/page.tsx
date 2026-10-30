@@ -34,7 +34,7 @@ export default function SecurityPlatformPage() {
   const people = view("people");
 
   return (
-    <main id="main">
+    <main id="main" className="s1-scene-page s1-scene-page--guard-os">
       <SplitHero src={photos.teamBriefing.src} alt={photos.teamBriefing.alt} scene="/images/scenes/control-room.svg" objectPositionMobile="50% 45%" objectPosition="55% 48%">
         <div className="flex flex-wrap items-center gap-3">
           <Kicker tone="dark"><ProductSignature name="GUARD" tone="dark" /> · Security Business Operating System</Kicker>
