@@ -47,3 +47,10 @@ The homepage 1GUARD proof section uses the existing documented `control-room-tea
 `public/images/home/approved-security-chef-daylight-2026.png` is the standalone photographic crop from the approved synthetic homepage concept. The image depicts a fictional light-brown-skinned Black woman security officer wearing a white shirt, black vest marked SECURITY and radio, collaborating with a white male chef in white uniform and chef hat outside a restaurant in clear daylight. It is not a customer testimonial, documentary photograph, or claim that either person works for Signal One. On-page caption remains `Illustrative scene`.
 
 The production crop excludes generated browser chrome, navigation, hero copy, globe and CTA mockups: these must be rendered by the actual React components. Cropping is deliberately restricted to the people-led right-hand photograph. The image is stored locally in the repository, not hotlinked from an expiring creative-tool URL.
+
+
+## Approved full-width restaurant entrance scene — 2026-10-30 (supersedes cropped hero)
+
+The homepage primary hero now uses `public/images/home/approved-full-scene-guard-chef-2026.png` exactly as approved. SHA-256: `4d3aca7b4da412b9b37963950a7848bdca03a98d217e10401ea8bdbc6caedbd4`, 1672 × 941 PNG. This is a **synthetic illustrative photograph**, not evidence of real people employed by the business. It depicts a Black woman officer in a white shirt and black SECURITY vest, and a white chef in a toque beside a real-looking restaurant terrace.
+
+The original approved composition deliberately reserves the left half for greenery, outdoor architecture, the animated globe and glass text. People appear farther back on the right; the whole photograph must run behind the globe at desktop widths using `object-fit: contain`, with no vignette masking or CSS zoom. Maintain the on-page "Illustrative scene" caption. No changes to other sections or product equipment images are part of this approval.

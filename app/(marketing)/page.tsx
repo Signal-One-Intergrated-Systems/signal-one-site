@@ -32,10 +32,10 @@ export default function Home() {
     <main id="main" className="s1-brand-home so-home">
       <section className="s1-brand-stage so-hero" aria-labelledby="so-hero-title">
         <div className="so-hero-media">
-          <Image src="/images/home/approved-security-chef-daylight-2026.png"
-            alt="Illustrative daylight photograph of a Black woman security officer in a white shirt and SECURITY vest reviewing a tablet with a white male chef wearing his chef hat outside a premium restaurant"
+          <Image src="/images/home/approved-full-scene-guard-chef-2026.png"
+            alt="Illustrative wide daylight restaurant scene with green gardens on the left and, on the right, a Black woman security officer in a SECURITY vest reviewing a tablet with a white male chef in his chef hat"
             fill priority fetchPriority="high" quality={90}
-            sizes="(max-width: 1023px) 100vw, 59vw" className="so-hero-photo object-cover" />
+            sizes="100vw" className="so-hero-photo object-cover" />
           <div className="so-hero-wash" aria-hidden="true" />
         </div>
         {/* Preserve the existing Signal One glass globe, its rendering and animation. */}

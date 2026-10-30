@@ -85,7 +85,7 @@ test("key acquisition pages have no critical automated accessibility violations"
 
 test("prominent marketing photographs show people; architecture is background context", async ({ page }) => {
   const peopleFirst: Record<string, string> = {
-    "/": "approved-security-chef-daylight-2026.png",
+    "/": "approved-full-scene-guard-chef-2026.png",
     "/solutions/security": "team-briefing",
     "/service": "service-restaurant-operations.jpg",
     "/equipment-marketplace": "guard-site-operations.webp",
@@ -233,7 +233,7 @@ test("homepage Guard and Service put people ahead of their section environments"
     expect(response.status()).toBe(200);
     expect(response.headers()["content-type"]).toContain(mime);
   }
-  await expect(page.locator(".so-hero-photo")).toHaveAttribute("src", /approved-security-chef-daylight-2026\.png/);
+  await expect(page.locator(".so-hero-photo")).toHaveAttribute("src", /approved-full-scene-guard-chef-2026\.png/);
   for (const route of ["/", "/solutions/security", "/service"]) {
     await page.goto(route);
     const visibleImages = await page.locator("main img").evaluateAll(imgs =>
@@ -244,7 +244,7 @@ test("homepage Guard and Service put people ahead of their section environments"
 });
 
 test("approved homepage guard-and-chef photograph remains separate from interactive controls", async ({ page, request }) => {
-  const photoPath = "/images/home/approved-security-chef-daylight-2026.png";
+  const photoPath = "/images/home/approved-full-scene-guard-chef-2026.png";
   const response = await request.get(photoPath);
   expect(response.status()).toBe(200);
   expect(response.headers()["content-type"]).toContain("image/png");
@@ -271,8 +271,8 @@ test("approved homepage guard-and-chef photograph remains separate from interact
     });
     expect(dimensions.naturalWidth).toBeGreaterThan(0);
     if (viewport.width >= 1024) {
-      expect(dimensions.width).toBeLessThan(dimensions.mediaWidth * 0.65);
-      expect(dimensions.width).toBeGreaterThan(dimensions.mediaWidth * 0.5);
+      expect(dimensions.width, "Scene must span the globe and the people").toBeGreaterThan(dimensions.mediaWidth * 0.98);
+      expect(dimensions.width).toBeLessThanOrEqual(dimensions.mediaWidth + 1);
     } else {
       expect(dimensions.width).toBeGreaterThan(viewport.width - 2);
       if (viewport.width <= 670) {
@@ -290,7 +290,7 @@ test("desktop homepage shows the entire approved guard and chef photograph with 
     await page.setViewportSize(viewport);
     await page.goto("/");
     const image = page.locator(".so-hero-photo");
-    await expect(image).toHaveAttribute("src", /approved-security-chef-daylight-2026[.]png/);
+    await expect(image).toHaveAttribute("src", /approved-full-scene-guard-chef-2026[.]png/);
     const layout = await image.evaluate(img => {
       const media = img.parentElement!.getBoundingClientRect();
       const picture = img.getBoundingClientRect();
@@ -306,6 +306,7 @@ test("desktop homepage shows the entire approved guard and chef photograph with 
       };
     });
     expect(layout.fit, "Keep the entire photograph, never object-fit:cover").toBe("contain");
+    expect(layout.width, "Wide photograph should extend behind the globe").toBeGreaterThanOrEqual(viewport.width - 2);
     expect(layout.naturalWidth).toBeGreaterThan(0);
     expect(layout.naturalHeight).toBeGreaterThan(0);
     expect(layout.pictureRight).toBeLessThanOrEqual(layout.mediaRight + 1);
@@ -317,5 +318,32 @@ test("desktop homepage shows the entire approved guard and chef photograph with 
     expect(fitHeight).toBeGreaterThan(0);
     expect(fitWidth).toBeLessThanOrEqual(layout.width + 1);
     expect(fitHeight).toBeLessThanOrEqual(layout.height + 1);
+  }
+});
+
+
+// Wide full scene must be the foreground image layer across the *whole* hero,
+// not a cropped 59% panel on the right. The globe and glass must remain intact.
+test("approved full-scene hero spans behind the globe without cropping the chef on desktop", async ({page,request}) => {
+  const source="/images/home/approved-full-scene-guard-chef-2026.png";
+  const resp=await request.get(source);
+  expect(resp.status()).toBe(200);
+  expect(resp.headers()["content-type"]).toContain("image/png");
+  for(const width of [1280,1440,1536,1920]){
+    await page.setViewportSize({width,height:960});
+    await page.goto("/");
+    const metrics=await page.locator(".so-hero-photo").evaluate(img=>{
+      const imageRect=img.getBoundingClientRect();
+      const mediaRect=img.parentElement!.getBoundingClientRect();
+      const style=getComputedStyle(img);
+      return {imgWidth:imageRect.width,mediaWidth:mediaRect.width,fit:style.objectFit,
+        mask:style.maskImage,position:style.objectPosition,photoLoaded:(img as HTMLImageElement).naturalWidth>0};
+    });
+    expect(metrics.photoLoaded).toBe(true);
+    expect(metrics.fit).toBe("contain");
+    expect(metrics.imgWidth).toBeGreaterThan(metrics.mediaWidth * 0.98);
+    expect(metrics.mask).toBe("none");
+    await expect(page.locator(".s1-hero-globe-canvas")).toBeVisible();
+    await expect(page.getByRole("link",{name:/get 14 day free trial/i}).first()).toBeVisible();
   }
 });
