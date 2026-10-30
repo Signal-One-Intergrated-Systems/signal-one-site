@@ -352,3 +352,34 @@ main.surface-light.s1-premium-trust{
   linear-gradient(115deg,rgba(14,27,35,.9),rgba(20,39,48,.83)),
   url('/images/interior/legal-premium.svg') center top / cover no-repeat!important;
 }
+
+
+/* People-first visual repair (2026-10-30).
+   The environments are context behind the content; the photograph shows real work
+   with visible people. Do not substitute a people-free SVG for a primary image. */
+.s1-people-scene-service{
+  background-image:linear-gradient(110deg,rgba(9,26,34,.90),rgba(15,31,36,.64)),url('/images/scenes/service-dining.svg')!important;
+  background-size:cover!important;background-position:center!important;
+}
+.s1-equipment-hero{
+  background-image:linear-gradient(110deg,rgba(8,24,33,.92),rgba(13,34,44,.73)),url('/images/scenes/connectivity.svg')!important;
+  background-size:cover!important;background-position:center!important;
+}
+.s1-people-hiring .split-hero{
+  background-image:linear-gradient(115deg,rgba(8,22,32,.93),rgba(10,27,37,.74)),url('/images/scenes/campus.svg')!important;
+  background-size:cover!important;background-position:center!important;
+}
+.s1-people-main-photo img,
+.s1-person-first-split img{
+  object-fit:cover!important;filter:none!important;
+}
+.s1-people-main-photo img{object-position:center 44%!important}
+.s1-equipment-photo.s1-people-main-photo img{object-position:48% 45%!important}
+.s1-marketplace-photo.s1-people-main-photo img{object-position:50% 42%!important}
+.s1-people-main-photo::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,transparent 70%,rgba(6,22,30,.32) 100%);
+}
+@media(max-width:670px){
+ .s1-people-main-photo img{object-position:50% 37%!important}
+}
