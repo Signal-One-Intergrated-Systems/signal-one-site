@@ -1,0 +1,72 @@
+name: Import founder-approved security, hotel and service photographs
+on:
+  push:
+    branches:
+      - feat/photographic-signal-one-ecosystem-20261030
+    paths:
+      - .github/workflows/import-approved-scenes-once.yml
+permissions:
+  contents: write
+jobs:
+  import-photography:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/photographic-signal-one-ecosystem-20261030
+          persist-credentials: true
+      - name: Fetch and verify all twelve original approved images
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/signal-scene-sources public/images/editorial
+          while IFS='|' read -r name url expected; do
+            curl --fail --location --silent --show-error --retry 3 --max-time 120 "$url" -o "/tmp/signal-scene-sources/$name.png"
+            echo "$expected  /tmp/signal-scene-sources/$name.png" | sha256sum -c -
+          done <<'APPROVED_IMAGES'
+          security-site-planning|https://at.adobe.com/uKh8FaHSHXx21IDO|6e81e80c9da0234103d0c4a652d7d14fb953207ff78b3b77f9b050c00cd23c3d
+          hotel-reception-welcome|https://at.adobe.com/zDdXOm9AP8OSASb2|adea9af845c8af3fe7e5606b4e77185eac0b33f674bdd01c4ae048707601093a
+          hospitality-team-briefing|https://at.adobe.com/lSOrqtgB6HQvjczk|e1ed89761b6186bb2e4166680bdf723043fc0ae09a3b38316d668ce880488cde
+          security-office-park-site-review|https://at.adobe.com/77Lhqz39wW36a6cQ|e64a51036727130f5232a6fb8b4fe66ff899e54324af34b3545b9c15196772d8
+          warehouse-security-check|https://at.adobe.com/QlsqXdldRt86DijC|e2be1381ab2cdd8ee6dff70eae43f8a4e6eddb76ff5240a6847551efeb9521c1
+          security-access-scan|https://at.adobe.com/uPVfD6QK4WunZJOi|93865011e2fa774a15cad7c384e27396fdc362ad157f97fe3187582d9d3f1dda
+          security-operations-review|https://at.adobe.com/dLJcEdyFUXzsZuie|35147e03bfffa90846e89e6d20b0833e8cfb7c7d0fabadb03a7e8934d601aa2c
+          security-interview-training|https://at.adobe.com/Mm09IPFEt80dpoat|0b69038067aea3ee0badbd50f0b1d77aad287baf7b8fd74abbc9853bd3573fca
+          restaurant-staff-briefing|https://at.adobe.com/HpUJzZGyqYUSAp5O|121fc21e8dcfc10abe963bfcdc675e5d8f47eb81b4d9db094ab424f28ca076b5
+          cafe-team-planning|https://at.adobe.com/J0W3kP8OWwg26A2D|6b96727b89f641fcca7cf021d09b004994e57403d09df124e581893810691546
+          security-team-briefing|https://at.adobe.com/oN2mtAUWS9tVpsQS|b4ee6eddffc3697dc5a0106974541cc2833e6a6d07dbd742d1f35790f52b88cf
+          facility-reception-service|https://at.adobe.com/IyR33hW3bNH8DqVR|69fbd5804bca540780d9789c9a3dd3dd2cf09b78919eab5aa917cbdd0c8ff298
+          APPROVED_IMAGES
+      - name: Produce responsive metadata-free WebP assets
+        run: |
+          set -euo pipefail
+          python3 -m pip install --quiet --break-system-packages pillow
+          python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          source=Path("/tmp/signal-scene-sources")
+          output=Path("public/images/editorial")
+          names=["security-site-planning","hotel-reception-welcome","hospitality-team-briefing","security-office-park-site-review","warehouse-security-check","security-access-scan","security-operations-review","security-interview-training","restaurant-staff-briefing","cafe-team-planning","security-team-briefing","facility-reception-service"]
+          for name in names:
+              with Image.open(source / (name + ".png")) as image:
+                  image.load()
+                  assert image.size == (1672,941), (name,image.size)
+                  new_width=1200
+                  new_height=round(image.height*new_width/image.width)
+                  resized=image.convert("RGB").resize((new_width,new_height),Image.Resampling.LANCZOS)
+                  destination=output/(name+".webp")
+                  resized.save(destination,"WEBP",quality=84,method=6)
+                  assert destination.stat().st_size>18000,(name,destination.stat().st_size)
+                  print(name,destination.stat().st_size)
+          assert len(list(output.glob("*.webp")))==len(names)
+          PY
+      - name: Commit only verified local images and remove temporary import workflow
+        run: |
+          set -euo pipefail
+          git config user.name "Signal One Website Automation"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/images/editorial/
+          git rm -f .github/workflows/import-approved-scenes-once.yml
+          git commit -m "assets(marketing): install twelve distinct approved role-specific photos"
+          git fetch origin feat/photographic-signal-one-ecosystem-20261030
+          git rebase origin/feat/photographic-signal-one-ecosystem-20261030
+          git push origin HEAD:feat/photographic-signal-one-ecosystem-20261030
