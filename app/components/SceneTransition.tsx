@@ -3,6 +3,7 @@
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import SignalOneLogo from "./brand/SignalOneLogo";
+import ProductSignature from "./brand/ProductSignature";
 
 
 type Phase = "idle" | "closing" | "covered" | "opening";
@@ -103,7 +104,7 @@ export default function SceneTransition({ children }: { children: ReactNode }) {
             <circle cx="44" cy="44" r="10" fill="#0EA5E9" />
           </svg>
         </span>
-        {isMaster ? <span className="sg-entry-wordmark sg-entry-master-logo"><SignalOneLogo tone="dark" size={42} descriptorMin={14} /></span> : <span className="sg-entry-wordmark">{destination.startsWith("/solutions/security") || destination.startsWith("/guard-") ? <><span className="sg-entry-one">1</span>GUARD</> : destination.startsWith("/service") ? <><span className="sg-entry-one">1</span>Service</> : identity(destination)}</span>}
+        {isMaster ? <span className="sg-entry-wordmark sg-entry-master-logo"><SignalOneLogo tone="dark" size={42} descriptorMin={14} /></span> : <span className="sg-entry-wordmark">{destination.startsWith("/solutions/security") || destination.startsWith("/guard-") ? <ProductSignature name="GUARD" tone="dark" /> : destination.startsWith("/service") ? <ProductSignature name="Service" tone="dark" /> : identity(destination)}</span>}
         <span className="sg-entry-caption">{isEquipment ? "EQUIPMENT" : isMaster ? "" : destination.startsWith("/solutions/security") || destination.startsWith("/guard-") ? "SECURITY OPERATIONS" : destination.startsWith("/service") ? "SERVICE OPERATIONS" : "INTEGRATED SYSTEMS"}</span>
       </div>
     </div>
