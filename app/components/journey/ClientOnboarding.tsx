@@ -201,8 +201,8 @@ export default function ClientOnboarding() {
                 accentClass={ACCENT}
                 columns="sm:grid-cols-1"
                 options={[
-                  "1GUARD security operations",
-                  "1Service restaurant and service operations (in development)",
+                  "1GUARD Security Business OS",
+                  "1Service Service Business OS (in development)",
                   "14-day 1GUARD trial request",
                   "Radios, PTT, tracking or body cameras",
                   "Guard hiring marketplace access (subject to launch and eligibility)",
