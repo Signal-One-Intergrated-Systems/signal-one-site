@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ButtonLink, Kicker } from "../../components/ui";
+import ProductSignature from "../../components/brand/ProductSignature";
 
 export const metadata: Metadata = {
   title: "1Service | The Restaurant-First Service Business Operating System",
@@ -24,7 +25,7 @@ export default function ServicePage() {
           <div>
             <Kicker tone="dark">Signal One · Service Business Operating System</Kicker>
             <p className="mt-5 inline-flex rounded-full border border-signal-400/35 bg-signal-400/10 px-3 py-2 text-[0.875rem] font-semibold text-signal-400">In development · Restaurant-first</p>
-            <h1 className="t-display mt-6"><span className="text-signal-400">1</span>Service</h1>
+            <h1 className="t-display mt-6"><ProductSignature name="Service" tone="dark" /></h1>
             <p className="t-lead mt-5 text-text-inv-2">One place to understand the people, service and performance behind your business.</p>
             <p className="t-body measure mt-5 text-text-inv-2">1Service expands the original workforce concept into an end-to-end operating system for service businesses. We are starting with restaurants: bringing the trading day, teams, kitchen, stock, customers and decisions into a coherent experience.</p>
             <div className="mt-8 flex flex-wrap gap-3">
