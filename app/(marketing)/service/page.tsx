@@ -11,10 +11,10 @@ export const metadata: Metadata = {
 };
 
 const ambitions = [
-  ["Run the day", "Connect bookings and orders with service, kitchen and exception workflows. Planned."],
-  ["Manage the team", "Bring hiring, shifts, attendance, work assignments and verified time into one service-business view. Planned."],
-  ["Understand the margins", "Connect purchasing, recipe costing, stock movement and trading-day performance using certified system integrations. Planned."],
-  ["Know what to improve", "Make recommendations from connected operational data while keeping people in control of important decisions. Planned."],
+  ["Run the day", "Connect bookings and orders with service, kitchen and exception workflows. Planned.", "/images/editorial/restaurant-staff-briefing.webp", "Illustrative chef and waiters preparing together before service"],
+  ["Manage the team", "Bring hiring, shifts, attendance, work assignments and verified time into one service-business view. Planned.", "/images/editorial/hospitality-team-briefing.webp", "Illustrative multiracial hotel and restaurant employees organising service"],
+  ["Understand the margins", "Connect purchasing, recipe costing, stock movement and trading-day performance using certified system integrations. Planned.", "/images/editorial/cafe-team-planning.webp", "Illustrative restaurant manager and kitchen staff reviewing operations"],
+  ["Know what to improve", "Make recommendations from connected operational data while keeping people in control of important decisions. Planned.", "/images/editorial/hotel-reception-welcome.webp", "Illustrative hotel front desk and housekeeping team at work"],
 ] as const;
 
 export default function ServicePage() {
@@ -47,8 +47,11 @@ export default function ServicePage() {
           <h2 className="t-h2 mt-4">More than a roster. The operating system for your service business.</h2>
           <p className="t-lead mt-4 max-w-3xl text-text-2">A service business is not just the people on the shift. Every handoff changes customer experience and profitability.</p>
           <div className="mt-10 grid gap-5 md:grid-cols-2">
-            {ambitions.map(([name, detail]) => (
+            {ambitions.map(([name, detail, src, alt]) => (
               <article key={name} className="card p-7">
+                <div className="relative mb-5 h-36 overflow-hidden rounded-card border border-white/35 s1-glass-people-photo">
+                  <Image src={src} alt={alt} fill sizes="(min-width:768px) 40vw, 90vw" className="object-cover" loading="lazy" />
+                </div>
                 <h3 className="t-h3">{name}</h3>
                 <p className="t-body mt-3 text-text-2">{detail}</p>
               </article>
