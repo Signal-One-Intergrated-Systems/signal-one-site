@@ -28,7 +28,7 @@ const joinSteps = [
 
 export default function GuardsPage() {
   return (
-    <main id="main" className="bg-light text-text">
+    <main id="main" className="bg-light text-text s1-scene-page s1-scene-page--officers">
       <SplitHero src={photos.siteOperations.src} alt={photos.siteOperations.alt} scene="/images/scenes/lobby.svg" side="left" objectPositionMobile="46% 45%" objectPosition="50% 42%">
           <p className="text-[1.0625rem] font-semibold text-signal-400">For security officers</p>
           <h1 className="t-hero mt-4">Your work, on record. Your next job, your choice.</h1>
