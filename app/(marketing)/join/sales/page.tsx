@@ -10,13 +10,13 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Careers: Sales Representative at Signal One",
   description:
-    "Work at Signal One as a sales representative, selling the operating system South African security companies run on.",
+    "Join Signal One's sales team bringing intelligent business operating systems to South African SMEs, beginning with security businesses.",
   alternates: { canonical: "/join/sales" },
   robots: { index: false, follow: true },
 };
 
 const youWill = [
-  "Meet owners and operations managers of South African security companies",
+  "Meet SME owners and managers, beginning with security companies",
   "Show them the platform on their own operation",
   "Explain guard-day pricing and scope radio, tracking and body-camera quotes",
   "Take new companies through onboarding",
@@ -35,7 +35,7 @@ const process = [
   ["CV request", "If you are shortlisted, we email you to ask for your CV."],
   ["Interview", "We offer interview slots by email, based on the preferences you give."],
   ["Decision", "We email you the outcome."],
-  ["Onboarding", "Successful candidates are onboarded and get access to Signal One's internal Sales OS."],
+  ["Training and access", "Accepted candidates complete mandatory training before authorised Sales OS access. Secure invitations and automated access gates are being integrated."],
 ] as const;
 
 export default function SalesCareersPage() {
@@ -47,11 +47,10 @@ export default function SalesCareersPage() {
       <SplitHero src={photos.teamBriefing.src} alt={photos.teamBriefing.alt} scene="/images/scenes/atrium.svg" objectPositionMobile="50% 40%" objectPosition="55% 46%">
           <p className="t-kicker text-signal-400">Careers at Signal One</p>
           <h1 className="mt-4 font-display text-[2.9rem] font-bold leading-[1.04] tracking-[-0.02em] sm:text-[3.6rem]">
-            Sell the system security companies run on.
+            Sell the operating systems SMEs run on.
           </h1>
           <p className="t-lead measure mt-6 text-text-inv-2">
-            We are building a sales team to work for Signal One itself, bringing South African security companies onto
-            Signal One Security.
+            We are building a sales team to help South African SMEs adopt intelligent business operating systems. Our initial commercial focus is 1GUARD for security businesses; 1Service is in development.
           </p>
           <p className="mt-8 inline-flex flex-wrap items-center gap-3">
             <span
@@ -78,7 +77,7 @@ export default function SalesCareersPage() {
       <section id="role" className="scroll-mt-[72px] bg-white py-16 md:py-24">
         <div className="wrap">
           <h2 className="font-display text-[2.6rem] font-bold leading-tight sm:text-[3.2rem]">The role</h2>
-          <p className="t-lead measure mt-4 text-text-2">Sales representative, selling to security companies.</p>
+          <p className="t-lead measure mt-4 text-text-2">Sales representative for SME business operating systems, with security as the initial focus.</p>
           <div className="mt-10 grid gap-12 md:grid-cols-2">
             <div>
               <h3 className="t-h3">What you will do</h3>
@@ -154,7 +153,7 @@ export default function SalesCareersPage() {
         <div className="wrap flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
             <h2 className="t-h4">Already a Signal One representative?</h2>
-            <p className="t-small text-text-2">Open Sales OS and sign in with the account your manager set up for you.</p>
+            <p className="t-small text-text-2">Open Sales OS after your account has been authorised and compulsory training completed.</p>
           </div>
           {config.salesOsUrl ? (
             <a href={config.salesOsUrl} className="btn btn-ghost-light" rel="noopener">
