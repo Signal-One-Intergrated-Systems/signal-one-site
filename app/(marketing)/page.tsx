@@ -70,9 +70,15 @@ export default function Home() {
             </p>
             <div className="so-hero-actions">
               <TrialLink />
-              <Link href="#solutions" className="btn so-home-outline">Explore the solutions <Arrow /></Link>
+              <Link href="/contact" data-analytics-event="homepage_walkthrough_cta"
+                data-analytics-label="homepage-book-walkthrough" className="btn so-home-outline">
+                Book a walkthrough <Arrow />
+              </Link>
             </div>
-            <p className="so-hero-note">14-day trial by request for eligible 1GUARD companies. Activation and terms are confirmed before access.</p>
+            <p className="so-hero-note">
+              14-day trial by request for eligible 1GUARD companies. Activation and terms are confirmed before access.
+              {" "}<Link href="#solutions" className="font-semibold underline underline-offset-4">Explore the solutions</Link>.
+            </p>
           </div>
         </div>
         <div className="so-hero-bar" aria-label="Signal One business areas">
