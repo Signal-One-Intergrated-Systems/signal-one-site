@@ -13,11 +13,10 @@ for (const width of [320, 390, 768, 1440]) {
     await expect(page.locator("#equipment")).toContainText("Teltonika FMB920");
     const trial = page.locator(".so-hero-actions").getByRole("link", { name: /Get 14 Day Free Trial/ });
     await expect(trial).toHaveAttribute("href", "/get-started");
-    const walkthrough = page.locator(".so-hero-actions").getByRole("link", { name: /Book a walkthrough/ });
-    await expect(walkthrough).toHaveAttribute("href", "/contact");
-    await expect(walkthrough).toBeVisible();
-    await expect(page.locator(".so-hero-note").getByRole("link", { name: /Explore the solutions/ }))
+    await expect(page.locator(".so-hero-actions").getByRole("link", { name: /Explore the solutions/ }))
       .toHaveAttribute("href", "#solutions");
+    const walkthrough = page.locator(".so-final-actions").getByRole("link", { name: /Book a walkthrough/ });
+    await expect(walkthrough).toHaveAttribute("href", "/contact");
     const state = await page.evaluate(() => {
       const main = document.querySelector("main")!;
       const trial = main.querySelector(".so-hero-actions .so-home-cta")!;
@@ -58,7 +57,7 @@ test("trial registration is truthful when no delivery service is configured", as
 
 test("walkthrough CTA reaches the existing working consultation intake, not a placeholder", async ({ page }) => {
   await page.goto("/");
-  const walkthrough = page.locator(".so-hero-actions").getByRole("link", { name: /Book a walkthrough/ });
+  const walkthrough = page.locator(".so-final-actions").getByRole("link", { name: /Book a walkthrough/ });
   await walkthrough.click();
   await expect(page).toHaveURL(/\/contact$/);
   await expect(page.getByRole("textbox", { name: "Your name" })).toBeVisible();
