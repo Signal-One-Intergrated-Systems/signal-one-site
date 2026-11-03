@@ -19,6 +19,11 @@ function priceStrings(html: string) {
   return found.map((s) => s.replace(/^×\s*/, "").replace(/\s+/g, ""));
 }
 
+test("approved Guard public day price is R2,50 and schema amount is 2.50", () => {
+  expect(guardDayPrice).toBe("R2,50");
+  expect(schemaPrice).toBe("2.50");
+});
+
 test("every rendered guard-day price comes from lib/pricing.ts", async ({ request }) => {
   let seen = 0;
   for (const route of routes) {
