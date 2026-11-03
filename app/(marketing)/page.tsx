@@ -70,15 +70,9 @@ export default function Home() {
             </p>
             <div className="so-hero-actions">
               <TrialLink />
-              <Link href="/contact" data-analytics-event="homepage_walkthrough_cta"
-                data-analytics-label="homepage-book-walkthrough" className="btn so-home-outline">
-                Book a walkthrough <Arrow />
-              </Link>
+              <Link href="#solutions" className="btn so-home-outline">Explore the solutions <Arrow /></Link>
             </div>
-            <p className="so-hero-note">
-              14-day trial by request for eligible 1GUARD companies. Activation and terms are confirmed before access.
-              {" "}<Link href="#solutions" className="font-semibold underline underline-offset-4">Explore the solutions</Link>.
-            </p>
+            <p className="so-hero-note">14-day trial by request for eligible 1GUARD companies. Activation and terms are confirmed before access.</p>
           </div>
         </div>
         <div className="so-hero-bar" aria-label="Signal One business areas">
@@ -266,7 +260,8 @@ export default function Home() {
         <div className="wrap so-final-inner">
           <div data-motion-from="left"><PanelPhoto src="/images/photo/team-briefing.webp" alt="Illustrative operational staff coordinating service delivery together" /><p className="so-kicker">Make your business easier to run</p><h2 id="so-final-title">Ready for a smarter way to run your business?</h2>
             <p>Start with 1GUARD, explore what 1Service is becoming or speak to Signal One about field equipment.</p></div>
-          <div data-motion-from="right" style={{ "--so-motion-delay": "240ms" } as CSSProperties} className="so-final-actions"><TrialLink /><Link href="/contact" className="btn so-home-outline">Talk to Signal One <Arrow /></Link></div>
+          <div data-motion-from="right" style={{ "--so-motion-delay": "240ms" } as CSSProperties} className="so-final-actions"><TrialLink /><Link href="/contact" data-analytics-event="homepage_walkthrough_cta"
+              data-analytics-label="homepage-book-walkthrough" className="btn so-home-outline">Book a walkthrough <Arrow /></Link></div>
           <p data-motion-from="bottom" style={{ "--so-motion-delay": "160ms" } as CSSProperties} className="so-community-note"><ProductSignature name="Community" tone="dark" /> is part of the future Signal One ecosystem and is not yet available.</p>
         </div>
       </section>
