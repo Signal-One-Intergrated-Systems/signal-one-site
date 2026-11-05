@@ -6,7 +6,7 @@ test('canonical brand modules are byte-identical', () => { for (const f of ['Sig
 test('canonical tokens match the source stylesheet', () => { const canonical = [...read('../app/globals.css').matchAll(/(--(?:color|radius|ease)-[\w-]+):\s*([^;]+);/g)]; const adapter = read('styles/tokens.css'); for (const [,key,value] of canonical) assert.ok(adapter.includes(`${key}: ${value};`), key); });
 test('font uses canonical next/font configuration', () => { assert.match(read('app/layout.tsx'), /Inter\(\{ subsets: \["latin"\], variable: "--font-body", display: "optional" \}\)/); });
 test('no overrides or remote CSS media', () => { for (const f of readdirSync('styles')) { const css = read(`styles/${f}`); assert.ok(!css.includes('!important')); assert.doesNotMatch(css, /url\(\s*["']?https?:/); } });
-test('correct founder title and approved public contact fields', () => { const source = read('lib/profiles.ts'); assert.match(source, /title: "Founder"/); assert.doesNotMatch(source, /Co-Founder/); assert.match(source, /andisiwe@signalone.co.za/); assert.match(source, /27606335870/); assert.match(source, /27100231810/); });
+test('correct founder title and approved public contact fields', () => { const source = read('lib/profiles.ts'); assert.match(source, /title: "Founder"/); assert.doesNotMatch(source, /Co-Founder/); assert.match(source, /sales@signalone.co.za/); assert.match(source, /27774844280/); assert.match(source, /27100238698/); });
 test('public vCard identity, line endings and route separation', async () => {
   const { getProfile, profilePath } = await import('../lib/profiles.ts');
   const { vcard } = await import('../lib/vcard.ts');
@@ -17,9 +17,9 @@ test('public vCard identity, line endings and route separation', async () => {
   assert.equal(profilePath('andisiwe', 'connect'), '/connect/andisiwe');
   const card = vcard(profile);
   assert.ok(card.includes('FN:Andisiwe Satshwa\r\nORG:Signal One Integrated Systems\r\nTITLE:Founder'));
-  assert.ok(card.includes('EMAIL;TYPE=WORK:andisiwe@signalone.co.za'));
-  assert.ok(card.includes('TEL;TYPE=CELL:+27606335870'));
-  assert.ok(card.includes('TEL;TYPE=WORK,VOICE:+27100231810'));
+  assert.ok(card.includes('EMAIL;TYPE=WORK:sales@signalone.co.za'));
+  assert.ok(card.includes('TEL;TYPE=CELL:+27774844280'));
+  assert.ok(card.includes('TEL;TYPE=WORK,VOICE:+27100238698'));
   assert.ok(card.endsWith('END:VCARD\r\n'));
 });
 
@@ -28,4 +28,16 @@ test('provided founder portrait is optimised transparent WebP', () => {
   assert.equal(image.toString('ascii', 0, 4), 'RIFF');
   assert.equal(image.toString('ascii', 8, 12), 'WEBP');
   assert.ok(image.length < 12000);
+});
+
+test('South African contact display, vCard and action URLs share the same source', async () => {
+  const { getProfile, formatSouthAfricanPhone } = await import('../lib/profiles.ts');
+  const profile = getProfile('andisiwe');
+  assert.equal(formatSouthAfricanPhone(profile.whatsappPhone), '077 484 4280');
+  assert.equal(formatSouthAfricanPhone(profile.landlinePhone), '010 023 8698');
+  assert.equal(profile.publicEmail, 'sales@signalone.co.za');
+  assert.equal(profile.whatsappPhone, '+27774844280');
+  assert.equal(profile.landlinePhone, '+27100238698');
+  assert.equal(formatSouthAfricanPhone('+441234'), '+441234');
+  assert.equal(formatSouthAfricanPhone('+2777484428'), '+2777484428');
 });

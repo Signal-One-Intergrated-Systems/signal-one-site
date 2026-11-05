@@ -1,4 +1,4 @@
-import type { FounderProfile } from "../lib/profiles";
+import { formatSouthAfricanPhone, type FounderProfile } from "../lib/profiles";
 import { ContactExchange } from "./ContactExchange";
 import { ExchangeDetails } from "./ExchangeDetails";
 import styles from "./VisitorIdentity.module.css";
@@ -47,12 +47,12 @@ export function VisitorIdentity({ profile }: { profile: FounderProfile }) {
           </a>
           <a className={styles.contactRow} href={whatsapp} target="_blank" rel="noopener noreferrer">
             <span className={styles.contactLabel}>WhatsApp</span>
-            <span className={styles.contactValue}>060 633 5870</span>
+            <span className={styles.contactValue}>{formatSouthAfricanPhone(profile.whatsappPhone)}</span>
             <span className={styles.contactArrow} aria-hidden="true">↗</span>
           </a>
           <a className={styles.contactRow} href={`tel:${profile.landlinePhone}`}>
             <span className={styles.contactLabel}>Landline</span>
-            <span className={styles.contactValue}>010 023 1810</span>
+            <span className={styles.contactValue}>{formatSouthAfricanPhone(profile.landlinePhone)}</span>
             <span className={styles.contactArrow} aria-hidden="true">↗</span>
           </a>
         </div>

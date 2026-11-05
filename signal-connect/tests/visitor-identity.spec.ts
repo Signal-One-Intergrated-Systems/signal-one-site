@@ -47,9 +47,9 @@ test("visitor can save a real vCard without story, email or login", async ({ pag
   const vcf = await response.text();
   expect(vcf).toContain("FN:Andisiwe Satshwa\r\n");
   expect(vcf).toContain("TITLE:Founder\r\n");
-  expect(vcf).toContain("TEL;TYPE=CELL:+27606335870");
-  expect(vcf).toContain("TEL;TYPE=WORK,VOICE:+27100231810");
-  expect(vcf).toContain("EMAIL;TYPE=WORK:andisiwe@signalone.co.za");
+  expect(vcf).toContain("TEL;TYPE=CELL:+27774844280");
+  expect(vcf).toContain("TEL;TYPE=WORK,VOICE:+27100238698");
+  expect(vcf).toContain("EMAIL;TYPE=WORK:sales@signalone.co.za");
   expect(await page.locator("form").count()).toBe(0);
 });
 
@@ -125,11 +125,11 @@ test("recipient sees a compact physical-card composition with small black-and-wh
 test("email WhatsApp and office telephone are actionable; CTA affordances read as buttons", async ({ page }) => {
   await page.goto("/connect/andisiwe");
   const card = page.locator('section[aria-label="Andisiwe Satshwa digital business card"]');
-  await expect(card.getByRole("link", { name: /andisiwe@signalone.co.za/i })).toHaveAttribute("href", "mailto:andisiwe@signalone.co.za");
-  await expect(card.getByRole("link", { name: /060 633 5870/ })).toHaveAttribute("href", "https://wa.me/27606335870");
-  await expect(card.getByRole("link", { name: /010 023 1810/ })).toHaveAttribute("href", "tel:+27100231810");
-  await expect(page.getByRole("link", { name: /^Call/i })).toHaveAttribute("href", "tel:+27100231810");
-  await expect(page.getByRole("link", { name: /^WhatsApp/i }).last()).toHaveAttribute("href", "https://wa.me/27606335870");
+  await expect(card.getByRole("link", { name: /sales@signalone.co.za/i })).toHaveAttribute("href", "mailto:sales@signalone.co.za");
+  await expect(card.getByRole("link", { name: /077 484 4280/ })).toHaveAttribute("href", "https://wa.me/27774844280");
+  await expect(card.getByRole("link", { name: /010 023 8698/ })).toHaveAttribute("href", "tel:+27100238698");
+  await expect(page.getByRole("link", { name: /^Call/i })).toHaveAttribute("href", "tel:+27100238698");
+  await expect(page.getByRole("link", { name: /^WhatsApp/i }).last()).toHaveAttribute("href", "https://wa.me/27774844280");
   for (const control of [page.getByRole("link", { name: "Save Andisiwe’s contact" }), page.getByRole("button", { name: /Share my details/i })]) {
     const m = await control.evaluate(el => ({ cursor:getComputedStyle(el).cursor, height:el.getBoundingClientRect().height, radius:getComputedStyle(el).borderRadius }));
     expect(m.cursor).toBe("pointer");
@@ -143,7 +143,7 @@ for (const width of [320, 360, 390]) {
     await page.setViewportSize({ width, height: 844 });
     await page.goto("/connect/andisiwe");
     await page.evaluate(() => document.fonts.ready);
-    const email = page.getByText("andisiwe@signalone.co.za", { exact: true });
+    const email = page.getByText("sales@signalone.co.za", { exact: true });
     const lines = await email.evaluate(el => {
       const range = document.createRange();
       range.selectNodeContents(el);
@@ -157,7 +157,7 @@ for (const width of [320, 360, 390]) {
 test("WhatsApp label and phone number never overlap on standard mobile", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/connect/andisiwe");
-  const row = page.locator('section[aria-label="Andisiwe Satshwa digital business card"] a[href="https://wa.me/27606335870"]');
+  const row = page.locator('section[aria-label="Andisiwe Satshwa digital business card"] a[href="https://wa.me/27774844280"]');
   const label = await row.locator("span").nth(0).boundingBox();
   const value = await row.locator("span").nth(1).boundingBox();
   expect(label).not.toBeNull();
