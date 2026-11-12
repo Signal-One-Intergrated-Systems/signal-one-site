@@ -46,9 +46,18 @@ test("sitemap and robots", async ({ request }) => {
   expect(await robots.text()).toContain("Sitemap:");
 });
 
-test("intake API validates input", async ({ request }) => {
-  const bad = await request.post("/api/intake", { data: { kind: "nope", data: {} } });
+test("intake API validates input", async ({ request, baseURL }) => {
+  const headers = { origin: baseURL! };
+  const bad = await request.post("/api/intake", { data: { kind: "nope", data: {} }, headers });
   expect(bad.status()).toBe(400);
-  const unconnected = await request.post("/api/intake", { data: { kind: "client", data: { a: "b" } } });
+  const unconnected = await request.post("/api/intake", {
+    headers,
+    data: {
+      kind: "client",
+      data: { intent: "consultation", a: "b" },
+      consent: { processing: true, marketing: false, noticeVersion: "2026-11-12", capturedAt: new Date().toISOString() },
+      idempotencyKey: "7c9e6679-7425-40de-944b-e07fc1f90ae7",
+    },
+  });
   expect(unconnected.status()).toBe(503);
 });

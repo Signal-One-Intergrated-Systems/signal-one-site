@@ -1,8 +1,10 @@
 "use client";
 
+import ReceiptReference from "./ReceiptReference";
 import { FormEvent, useId, useRef, useState } from "react";
 import { trackEvent } from "../lib/analytics";
-import { submitIntake, type IntakeFallback } from "../lib/intake";
+import { submitIntake, type IntakeFallback, newIdempotencyState } from "../lib/intake";
+import ConsentFields from "./ConsentFields";
 import IntakeError from "./IntakeError";
 
 type Category = "radio" | "tracking" | "bodycam";
@@ -131,6 +133,9 @@ export default function EquipmentQuoteForm() {
   const [category, setCategory] = useState<Category>("radio");
   const [values, setValues] = useState<Record<string, string>>({});
   const [consent, setConsent] = useState(false);
+  const [marketing, setMarketing] = useState(false);
+  const [reference, setReference] = useState<string | null>(null);
+  const idempotency = useRef(newIdempotencyState());
   const [state, setState] = useState<State>("idle");
   const [message, setMessage] = useState("");
   const [fallback, setFallback] = useState<IntakeFallback | null>(null);
@@ -166,7 +171,7 @@ export default function EquipmentQuoteForm() {
     for (const name of relevant) if (values[name]) data[name] = values[name];
 
     const labels = Object.fromEntries([...config.fields, ...contactFields].map((field) => [field.name, field.label]));
-    const result = await submitIntake("client", data, labels);
+    const result = await submitIntake("client", data, { labels, marketing, idempotency: idempotency.current });
     if (!result.ok) {
       setState("error");
       setMessage(result.message);
@@ -174,6 +179,7 @@ export default function EquipmentQuoteForm() {
       requestAnimationFrame(() => statusRef.current?.focus());
       return;
     }
+    setReference(result.receipt.reference);
     setState("done");
     trackEvent("equipment_quote_complete", { category });
   }
@@ -183,6 +189,7 @@ export default function EquipmentQuoteForm() {
       <div role="status" className="card p-6 sm:p-8">
         <p className="t-kicker text-live">Quote request received</p>
         <h3 className="t-h3 mt-3">We have your {config.label.toLowerCase()} requirement.</h3>
+        <ReceiptReference reference={reference} />
         <p className="t-body mt-3 text-text-2">
           A Signal One representative will confirm the product, availability and terms, then send a written quote by
           email. Nothing is supplied until you accept it.
@@ -312,10 +319,9 @@ export default function EquipmentQuoteForm() {
         {renderField({ name: "notes", label: "Anything else", type: "textarea", placeholder: "Timing, accessories, site conditions…", wide: true })}
       </div>
 
-      <label className="check mt-6">
-        <input type="checkbox" checked={consent} onChange={(event) => setConsent(event.target.checked)} />
-        <span className="text-text-2">I agree that Signal One may use these details to prepare and follow up on this quote.</span>
-      </label>
+      <ConsentFields className="mt-6" consent={consent} onConsent={setConsent} marketing={marketing} onMarketing={setMarketing}>
+        I agree that Signal One may use these details to prepare and follow up on this quote.
+      </ConsentFields>
 
       <div ref={statusRef} tabIndex={-1} aria-live="polite" className="outline-none">
         {state === "error" ? <IntakeError message={message} fallback={fallback} /> : null}

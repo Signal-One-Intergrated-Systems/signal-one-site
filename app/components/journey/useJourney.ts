@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { trackEvent, type SignalOneEvent } from "../../lib/analytics";
-import { submitIntake, type IntakeFallback } from "../../lib/intake";
+import { newIdempotencyState, submitIntake, type IntakeFallback } from "../../lib/intake";
 
 export type JourneyStatus = "idle" | "sending" | "done" | "error";
 
@@ -10,6 +10,7 @@ type Saved = {
   stepIndex?: number;
   values?: Record<string, string>;
   consent?: boolean;
+  marketing?: boolean;
 };
 
 /**
@@ -39,9 +40,12 @@ export function useJourney({
   const [stepIndex, setStepIndex] = useState(0);
   const [values, setValues] = useState<Record<string, string>>({});
   const [consent, setConsent] = useState(false);
+  const [marketing, setMarketing] = useState(false);
+  const idempotency = useRef(newIdempotencyState());
   const [hydrated, setHydrated] = useState(false);
   const [status, setStatus] = useState<JourneyStatus>("idle");
   const [message, setMessage] = useState("");
+  const [reference, setReference] = useState<string | null>(null);
   const [fallback, setFallback] = useState<IntakeFallback | null>(null);
   const started = useRef(false);
 
@@ -51,7 +55,8 @@ export function useJourney({
       if (raw) {
         const saved = JSON.parse(raw) as Saved;
         if (saved.values && typeof saved.values === "object") setValues(saved.values);
-        if (typeof saved.consent === "boolean") setConsent(saved.consent);
+        // Consent choices are deliberately NOT restored: on a shared device the next person
+        // must never find a box ticked by someone else.
         if (typeof saved.stepIndex === "number" && saved.stepIndex >= 0 && saved.stepIndex < stepCount) {
           setStepIndex(saved.stepIndex);
           if (saved.stepIndex > 0) started.current = true;
@@ -67,11 +72,11 @@ export function useJourney({
   useEffect(() => {
     if (!hydrated || status === "done") return;
     try {
-      window.localStorage.setItem(storageKey, JSON.stringify({ stepIndex, values, consent }));
+      window.localStorage.setItem(storageKey, JSON.stringify({ stepIndex, values }));
     } catch {
       // The journey still works without storage.
     }
-  }, [consent, hydrated, status, stepIndex, storageKey, values]);
+  }, [hydrated, status, stepIndex, storageKey, values]);
 
   const set = useCallback((name: string, value: string) => {
     setValues((current) => ({ ...current, [name]: value }));
@@ -121,13 +126,14 @@ export function useJourney({
     setStatus("sending");
     setMessage("");
     setFallback(null);
-    const result = await submitIntake(kind, { ...values, intent });
+    const result = await submitIntake(kind, { ...values, intent }, { marketing, idempotency: idempotency.current });
     if (!result.ok) {
       setStatus("error");
       setMessage(result.message);
       setFallback(result.fallback);
       return false;
     }
+    setReference(result.receipt.reference);
     setStatus("done");
     trackEvent(events.complete, { kind });
     try {
@@ -136,16 +142,19 @@ export function useJourney({
       // Completion must not fail because storage is unavailable.
     }
     return true;
-  }, [consent, events.complete, intent, kind, status, storageKey, values]);
+  }, [consent, events.complete, intent, kind, marketing, status, storageKey, values]);
 
   return {
     stepIndex,
     values,
     consent,
     setConsent,
+    marketing,
+    setMarketing,
     hydrated,
     status,
     message,
+    reference,
     fallback,
     set,
     toggle,

@@ -24,7 +24,7 @@ This checklist is a release gate, not a declaration of completion.
 
 ## Pricing policy
 
-The website uses R2.00 per guard per day excluding VAT. R2.50 is not approved. The approved terms must cover partial shifts, overnight shifts, relief guards, no-shows, refunds, disputes and rollover.
+The price is R2.50 per guard per day excluding VAT. This is final (founder ruling, confirmed 2026-11-12); R2.00 is retired. 300 guard days = R750 ex VAT. The approved terms must cover partial shifts, overnight shifts, relief guards, no-shows, refunds, disputes and rollover.
 
 ## Release rule
 

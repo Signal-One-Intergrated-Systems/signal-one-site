@@ -42,6 +42,12 @@
 .so-home .so-hero-bar-item:hover{background:rgba(31,83,119,.52)}
 .so-home .so-hero-bar strong{font-size:.875rem;letter-spacing:.045em;color:#8dddff}
 .so-home .so-hero-bar span{margin-top:4px;color:#eff7fc;font-size:clamp(.875rem,1vw,1rem);line-height:1.4}
+/* The product-family numeral stays Signal Blue inside the hero bar (brand rule: one blue "1" on every wordmark). */
+.so-home .so-hero-bar .s1-product-signature__one{color:#0EA5E9}
+/* The rule above this block gives every span in the bar a 4px top margin. The wordmark's two glyph
+   spans are inline now, where a top margin has no effect, so the wordmark carries that 4px itself
+   to keep the locked hero bar pixel-identical. */
+.so-home .so-hero-bar .s1-product-signature{padding-top:4px}
 
 /* Brand positioning and decision architecture */
 .so-home .so-chapter{padding:clamp(80px,9vw,125px) 0}

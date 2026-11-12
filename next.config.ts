@@ -32,7 +32,41 @@ const nextConfig: NextConfig = {
       { key: "Content-Security-Policy", value: "frame-ancestors 'none'; base-uri 'self'; object-src 'none'" },
       { key: "X-Signal-Connect-Release", value: process.env.RAILWAY_GIT_COMMIT_SHA || process.env.GITHUB_SHA || "local" },
     ];
-    return ["/connect/:path*", "/present/:path*", "/contact/andisiwe", "/qr/:path*", "/connect-assets/:path*"].map(source => ({ source, headers }));
+    // Baseline for every public route. Script and style allow 'unsafe-inline' because
+    // Next.js emits inline bootstrap scripts and the layout inlines JSON-LD; tightening
+    // to nonces is tracked in SITE_INTEGRATION.md. Listed first so the stricter
+    // Signal Connect rules below still win on their own paths.
+    // Google Analytics 4 (only loaded when NEXT_PUBLIC_GA_ID is set). Cloudflare script features
+    // (Rocket Loader, Web Analytics) are NOT allowed here: enable them only with a policy change.
+    const ga = "https://*.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com";
+    const publicHeaders = [
+      // This host only. includeSubDomains would bind app., api., guard., sales. and demo. to valid HTTPS
+      // for a year before those hosts have certificates; add it once they do.
+      { key: "Strict-Transport-Security", value: "max-age=31536000" },
+      { key: "X-Content-Type-Options", value: "nosniff" },
+      { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+      { key: "X-Frame-Options", value: "DENY" },
+      { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), payment=()" },
+      {
+        key: "Content-Security-Policy",
+        value: [
+          "default-src 'self'",
+          `script-src 'self' 'unsafe-inline' ${ga}`,
+          "style-src 'self' 'unsafe-inline'",
+          `img-src 'self' data: blob: ${ga}`,
+          "font-src 'self' data:",
+          `connect-src 'self' ${ga}`,
+          "frame-ancestors 'none'",
+          "base-uri 'self'",
+          "object-src 'none'",
+          "form-action 'self'",
+        ].join("; "),
+      },
+    ];
+    return [
+      { source: "/:path*", headers: publicHeaders },
+      ...["/connect/:path*", "/present/:path*", "/contact/andisiwe", "/qr/:path*", "/connect-assets/:path*"].map(source => ({ source, headers })),
+    ];
   },
   images: {
     formats: ["image/avif", "image/webp"],

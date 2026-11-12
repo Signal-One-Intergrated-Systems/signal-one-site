@@ -1,5 +1,6 @@
 "use client";
 
+import ConsentFields from "../ConsentFields";
 import { useId, type ReactNode } from "react";
 import type { Journey } from "./useJourney";
 
@@ -232,10 +233,9 @@ export function JMulti({
 
 export function Consent({ j, children }: { j: Journey; children: ReactNode }) {
   return (
-    <label className="check">
-      <input type="checkbox" checked={j.consent} onChange={(event) => j.setConsent(event.target.checked)} />
-      <span className="text-text-2">{children}</span>
-    </label>
+    <ConsentFields consent={j.consent} onConsent={j.setConsent} marketing={j.marketing} onMarketing={j.setMarketing}>
+      {children}
+    </ConsentFields>
   );
 }
 

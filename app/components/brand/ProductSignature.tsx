@@ -21,8 +21,9 @@ export default function ProductSignature({
 }) {
   return (
     <span className={`s1-product-signature s1-product-signature--${tone} ${className}`.trim()}>
-      <span className="s1-product-signature__one">1</span>
-      <span className="s1-product-signature__name">{name}</span>
+      {/* Inline spans with no whitespace between them: one word ("1GUARD") to assistive technology,
+          search engines and copy-paste. The optical gap is a margin, not a flex gap (see globals.css). */}
+      <span className="s1-product-signature__one">1</span><span className="s1-product-signature__name">{name}</span>
     </span>
   );
 }

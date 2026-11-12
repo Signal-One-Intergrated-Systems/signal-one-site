@@ -7,7 +7,7 @@ import { ButtonLink, Check, PageHero, Status, Steps, GuardStatus } from "../../c
 import { guardIsLive } from "../../lib/guardStatus";
 
 export const metadata: Metadata = {
-  title: "Guard Marketplace | Company Registration and Hiring Access",
+  title: "Guard Marketplace | Company Registration & Hiring Access",
   description:
     "Guard Marketplace is being built into Signal One Security: filter by location, PSiRA grade, availability and skills, shortlist and send hire requests. Register interest.",
   alternates: { canonical: "/guard-marketplace" },
@@ -46,7 +46,7 @@ const interestFields: IntakeField[] = [
 ];
 
 function DemoChip({ children }: { children: React.ReactNode }) {
-  return <span className="rounded-full bg-light-2 px-3 py-1 text-[0.875rem] font-medium">{children}</span>;
+  return <span className="rounded-full bg-white/10 px-3 py-1 text-[0.875rem] font-medium">{children}</span>;
 }
 
 export default function GuardMarketplacePage() {
@@ -123,12 +123,12 @@ export default function GuardMarketplacePage() {
             role="img"
             aria-label="Illustrative Marketplace design preview with synthetic data: filters for location, PSiRA grade, availability, experience and skills, and three sample guard profiles with shortlist and hire request buttons"
           >
-            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-line bg-light px-4 py-3 text-[0.875rem] sm:px-6">
+            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-line bg-white/10 px-4 py-3 text-[0.875rem] sm:px-6">
               <span className="font-semibold">Guard Marketplace · design preview</span>
               <span className="text-text-2">Illustrative demo · synthetic data</span>
             </div>
             <div className="grid md:grid-cols-[minmax(0,4fr)_minmax(0,8fr)]">
-              <div className="border-b border-line bg-light/60 p-4 sm:p-6 md:border-b-0 md:border-r">
+              <div className="border-b border-line bg-white/5 p-4 sm:p-6 md:border-b-0 md:border-r">
                 <p className="t-h4">Filters</p>
                 <dl className="mt-4 grid gap-3 text-[0.9375rem]">
                   {[
@@ -138,7 +138,7 @@ export default function GuardMarketplacePage() {
                     ["Experience", "2+ years"],
                     ["Skills", "Access control"],
                   ].map(([term, value]) => (
-                    <div key={term} className="rounded-ui bg-white px-3 py-2 ring-1 ring-line">
+                    <div key={term} className="rounded-ui bg-white/10 px-3 py-2 ring-1 ring-line">
                       <dt className="text-text-2">{term}</dt>
                       <dd className="m-0 font-semibold">{value}</dd>
                     </div>
@@ -149,7 +149,7 @@ export default function GuardMarketplacePage() {
                 {demoProfiles.map((profile) => (
                   <li key={profile.tag} className="grid gap-4 p-4 sm:grid-cols-[1fr_auto] sm:items-center sm:p-6">
                     <div className="flex gap-4">
-                      <span aria-hidden="true" className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-light-2 font-display text-[1.125rem] font-bold">
+                      <span aria-hidden="true" className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-white/10 font-display text-[1.125rem] font-bold">
                         {profile.tag.slice(-1)}
                       </span>
                       <div>

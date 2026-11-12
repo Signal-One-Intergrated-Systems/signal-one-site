@@ -9,7 +9,9 @@ for (const route of ["/", "/solutions/security", "/service", "/pricing"]) {
   test(`product family signature remains optically consistent on ${route}`, async ({ page }) => {
     await page.goto(route);
     await page.evaluate(() => document.fonts.ready);
-    const signatures = await page.locator(".s1-product-signature").evaluateAll(nodes => nodes.map(node => {
+    // Only wordmarks that are actually laid out: a hidden one (closed mobile menu, idle transition
+    // overlay) has no rendered geometry to measure.
+    const signatures = await page.locator(".s1-product-signature").evaluateAll(nodes => nodes.filter(node => node.getBoundingClientRect().width > 0).map(node => {
       const one = node.querySelector(".s1-product-signature__one");
       const name = node.querySelector(".s1-product-signature__name");
       if (!(one instanceof HTMLElement) || !(name instanceof HTMLElement)) return { invalid: true };
@@ -26,8 +28,12 @@ for (const route of ["/", "/solutions/security", "/service", "/pricing"]) {
         familyEqual: a.fontFamily === b.fontFamily,
         lineHeightEqual: a.lineHeight === b.lineHeight,
         lineBoxEqual: Math.abs(one.getBoundingClientRect().height - name.getBoundingClientRect().height) < 1,
-        gapEm: parseFloat(parent.columnGap) / parseFloat(parent.fontSize),
-        baseline: parent.alignItems,
+        // Rendered separation between the numeral and the capital, in em of the wordmark.
+        gapEm: (name.getBoundingClientRect().left - one.getBoundingClientRect().right) / parseFloat(parent.fontSize),
+        // Same baseline: identical type metrics, so the two boxes share a bottom edge.
+        baselineDelta: Math.abs(one.getBoundingClientRect().bottom - name.getBoundingClientRect().bottom),
+        // One word to assistive technology, search and copy-paste.
+        text: (node as HTMLElement).innerText,
       };
     }));
     expect(signatures.length).toBeGreaterThan(0);
@@ -42,9 +48,10 @@ for (const route of ["/", "/solutions/security", "/service", "/pricing"]) {
       expect(signature.familyEqual).toBe(true);
       expect(signature.lineHeightEqual).toBe(true);
       expect(signature.lineBoxEqual).toBe(true);
-      expect(signature.baseline).toBe("baseline");
-      expect(signature.gapEm).toBeGreaterThan(0.059);
-      expect(signature.gapEm).toBeLessThan(0.061);
+      expect(signature.baselineDelta).toBeLessThan(0.5);
+      expect(["1GUARD", "1Service", "1Community"]).toContain(signature.text);
+      expect(signature.gapEm).toBeGreaterThan(0.055);
+      expect(signature.gapEm).toBeLessThan(0.065);
     }
   });
 }

@@ -44,6 +44,7 @@ test("marketing form has the canonical 3px keyboard focus and readable controls"
     fontSize: parseFloat(getComputedStyle(node).fontSize),
   }));
   expect(metrics.outlineWidth).toBe("3px");
-  expect(metrics.height).toBeGreaterThanOrEqual(52);
+  // 52px control; allow sub-pixel rounding (CI measured 51.99994).
+  expect(Math.round(metrics.height * 100) / 100).toBeGreaterThanOrEqual(52);
   expect(metrics.fontSize).toBeGreaterThanOrEqual(16);
 });

@@ -1,27 +1,38 @@
-name: Marketing visual acceptance
+name: Release gate (build + full browser suite)
 
 on:
   push:
     branches: [main]
     paths:
       - 'app/**'
-      - 'public/images/**'
-      - 'tests/e2e/visual-mission.spec.ts'
+      - 'public/**'
+      - 'tests/**'
+      - 'scripts/**'
+      - 'next.config.ts'
+      - 'proxy.ts'
+      - 'package.json'
+      - 'package-lock.json'
       - 'playwright.config.ts'
       - '.github/workflows/marketing-visual-qa.yml'
   pull_request:
     paths:
       - 'app/**'
-      - 'public/images/**'
-      - 'tests/e2e/visual-mission.spec.ts'
+      - 'public/**'
+      - 'tests/**'
+      - 'scripts/**'
+      - 'next.config.ts'
+      - 'proxy.ts'
+      - 'package.json'
+      - 'package-lock.json'
       - 'playwright.config.ts'
+      - '.github/workflows/marketing-visual-qa.yml'
   workflow_dispatch:
 
 jobs:
   browser-acceptance:
     # Playwright 1.56.1 requires Ubuntu 24.04; ubuntu-latest now resolves to 26.04.
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    timeout-minutes: 40
     env:
       CI: '1'
     steps:
@@ -33,7 +44,10 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npx playwright install --with-deps chromium
-      - run: npx playwright test tests/e2e/visual-mission.spec.ts
+      # layout.spec.ts runs the image OCR truth gate, which needs tesseract.
+      - run: sudo apt-get update && sudo apt-get install -y tesseract-ocr
+      # The whole suite gates a release: pricing, forms, consent, headers, a11y, layout and visuals.
+      - run: npx playwright test
       - name: Upload browser screenshots and reports
         if: always()
         uses: actions/upload-artifact@v4

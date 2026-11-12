@@ -13,6 +13,8 @@ const executablePath = fs.existsSync(candidate) ? candidate : undefined;
 
 export default defineConfig({
   testDir: "tests/e2e",
+  // Builds the GUARD_STATUS=live copy before any test loads a page (see the file for why).
+  globalSetup: "./tests/e2e/global-setup.ts",
   timeout: 90_000,
   expect: { timeout: 10_000 },
   fullyParallel: true,
@@ -25,20 +27,22 @@ export default defineConfig({
   },
   webServer: [
     { command: "node tests/e2e/mock-intake.mjs", port: 4010, reuseExistingServer: true },
+    // 3100 has no receiver and the default throttle (which it must never reach); 3101 lifts the throttle because every
+    // test shares one address; 3102 keeps the default throttle with a receiver and a trusted edge header.
     { command: "npx next start -p 3100", port: 3100, reuseExistingServer: true, timeout: 60_000 },
     {
       command: "npx next start -p 3101",
       port: 3101,
       reuseExistingServer: true,
       timeout: 60_000,
-      env: { SIGNAL_ONE_INTAKE_URL: "http://localhost:4010/intake", SIGNAL_ONE_INTAKE_TOKEN: "qa-token" },
+      env: { SIGNAL_ONE_INTAKE_URL: "http://localhost:4010/intake", SIGNAL_ONE_INTAKE_TOKEN: "qa-token", INTAKE_MAX_PER_WINDOW: "100000" },
     },
     {
       command: "npx next start -p 3102",
       port: 3102,
       reuseExistingServer: true,
       timeout: 60_000,
-      env: { CANONICAL_REDIRECT: "1" },
+      env: { CANONICAL_REDIRECT: "1", INTAKE_CLIENT_IP_HEADER: "x-qa-edge-client-ip", SIGNAL_ONE_INTAKE_URL: "http://localhost:4010/intake", SIGNAL_ONE_INTAKE_TOKEN: "qa-token" },
     },
   ],
 });

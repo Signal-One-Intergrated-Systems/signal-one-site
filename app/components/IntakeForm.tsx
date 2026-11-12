@@ -1,8 +1,10 @@
 "use client";
 
+import ReceiptReference from "./ReceiptReference";
 import { FormEvent, useId, useRef, useState } from "react";
 import { trackEvent, type SignalOneEvent } from "../lib/analytics";
-import { submitIntake, type IntakeFallback } from "../lib/intake";
+import { submitIntake, type IntakeFallback, newIdempotencyState } from "../lib/intake";
+import ConsentFields from "./ConsentFields";
 import IntakeError from "./IntakeError";
 
 export type IntakeField = {
@@ -45,6 +47,9 @@ export default function IntakeForm({
   const id = useId();
   const [values, setValues] = useState<Record<string, string>>({});
   const [consent, setConsent] = useState(false);
+  const [marketing, setMarketing] = useState(false);
+  const [reference, setReference] = useState<string | null>(null);
+  const idempotency = useRef(newIdempotencyState());
   const [state, setState] = useState<State>("idle");
   const [message, setMessage] = useState("");
   const [fallback, setFallback] = useState<IntakeFallback | null>(null);
@@ -71,7 +76,7 @@ export default function IntakeForm({
     setMessage("");
     setFallback(null);
     const labels = Object.fromEntries(fields.map((field) => [field.name, field.label]));
-    const result = await submitIntake(kind, { ...values, intent }, labels);
+    const result = await submitIntake(kind, { ...values, intent }, { labels, marketing, idempotency: idempotency.current });
     if (!result.ok) {
       setState("error");
       setMessage(result.message);
@@ -79,6 +84,7 @@ export default function IntakeForm({
       requestAnimationFrame(() => statusRef.current?.focus());
       return;
     }
+    setReference(result.receipt.reference);
     setState("done");
     trackEvent(events.complete, { intent });
   }
@@ -88,6 +94,7 @@ export default function IntakeForm({
       <div role="status" className="card p-6 sm:p-8">
         <p className="t-kicker text-live">Received</p>
         <h3 className="t-h3 mt-3">{successTitle}</h3>
+        <ReceiptReference reference={reference} />
         <p className="t-body mt-3 text-text-2">{successBody}</p>
       </div>
     );
@@ -159,10 +166,9 @@ export default function IntakeForm({
         })}
       </div>
 
-      <label className="check mt-6">
-        <input type="checkbox" checked={consent} onChange={(event) => setConsent(event.target.checked)} />
-        <span className="text-text-2">{consentText}</span>
-      </label>
+      <ConsentFields className="mt-6" consent={consent} onConsent={setConsent} marketing={marketing} onMarketing={setMarketing}>
+        {consentText}
+      </ConsentFields>
 
       <div ref={statusRef} tabIndex={-1} aria-live="polite" className="outline-none">
         {state === "error" ? <IntakeError message={message} fallback={fallback} /> : null}

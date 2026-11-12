@@ -160,7 +160,7 @@ export default function SalesCareersPage() {
               Open Sales OS
             </a>
           ) : (
-            <p className="t-small rounded-ui bg-light-2 px-4 py-3 text-text-2">
+            <p className="t-small rounded-ui bg-white/10 px-4 py-3 text-text-2">
               Sales OS sign-in: use the link from your onboarding email.
             </p>
           )}

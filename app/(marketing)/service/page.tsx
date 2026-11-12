@@ -5,7 +5,7 @@ import { ButtonLink, Kicker } from "../../components/ui";
 import ProductSignature from "../../components/brand/ProductSignature";
 
 export const metadata: Metadata = {
-  title: "1Service | The Restaurant-First Service Business Operating System",
+  title: "1Service | Restaurant-First Business Operating System",
   description: "Explore the 1Service vision from Signal One: restaurant operations, staff planning, kitchen workflows, stock, purchasing and decision support. In development; register interest.",
   alternates: { canonical: "/service" },
 };

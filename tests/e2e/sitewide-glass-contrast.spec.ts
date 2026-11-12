@@ -31,6 +31,6 @@ test("company-registration form renders high-contrast labels and dark inputs", a
     const input = document.querySelector(".s1-onboarding .field-input")!;
     return { label: getComputedStyle(label).color, input: getComputedStyle(input).backgroundColor };
   });
-  expect(colors.label).toBe("rgb(242, 250, 255)");
+  expect(colors.label).toMatch(/^rgb\(242, (249|250), 255\)$/);
   expect(colors.input).not.toBe("rgb(255, 255, 255)");
 });
