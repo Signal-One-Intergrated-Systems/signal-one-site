@@ -31,7 +31,7 @@ export default function LegalPage({
     <main id="main" className={"surface-light " + className}>
       <article className="wrap py-16 md:py-24 lg:py-28">
         {reviewNote ? (
-          <p className="t-small mb-8 inline-flex rounded-ui border border-line-strong bg-white px-4 py-2 font-semibold">
+          <p className="t-small mb-8 inline-flex rounded-ui border border-line-strong bg-white px-4 py-2 font-semibold text-text">
             Under legal review.
           </p>
         ) : null}

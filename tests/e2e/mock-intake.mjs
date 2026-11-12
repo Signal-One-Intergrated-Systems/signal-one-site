@@ -13,7 +13,7 @@ http
     req.on("data", (chunk) => (body += chunk));
     req.on("end", () => {
       try {
-        received.push({ auth: req.headers.authorization, body: JSON.parse(body) });
+        received.push({ auth: req.headers.authorization, headers: req.headers, body: JSON.parse(body) });
       } catch {
         received.push({ auth: req.headers.authorization, body });
       }

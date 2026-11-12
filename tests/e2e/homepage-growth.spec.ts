@@ -4,7 +4,7 @@ for (const width of [320, 390, 768, 1440]) {
   test(`conversion homepage keeps globe, clear product paths and no overflow at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     await page.goto("/");
-    await expect(page.getByRole("heading", { level: 1, name: /Run the business/ })).toBeVisible();
+    await expect(page.getByRole("heading", { level: 1, name: /Run your business/ })).toBeVisible();
     await expect(page.locator(".s1-hero-globe-layer")).toBeAttached();
     await expect(page.locator(".so-hero-media img")).toBeVisible();
     await expect(page.locator(".so-hero-bar")).toBeVisible();

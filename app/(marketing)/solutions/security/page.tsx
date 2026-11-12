@@ -9,7 +9,7 @@ import ProductSignature from "../../../components/brand/ProductSignature";
 export const metadata: Metadata = {
   title: "1GUARD | Security Business Operating System for SMEs",
   description:
-    "1GUARD is the Security Business Operating System for South African SMEs, connecting security service delivery, workforce and business oversight. Explore currently available sites, shifts, patrols, SOS and reporting workflows.",
+    "1GUARD is the Security Business Operating System for South African SMEs, connecting service delivery, workforce and business oversight. Explore the available sites, shifts, patrols, SOS and reporting workflows.",
   alternates: { canonical: "/solutions/security" },
 };
 

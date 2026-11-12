@@ -139,6 +139,7 @@ export default function Header() {
               key={item.href}
               href={item.href}
               aria-current={isCurrent(item.href) ? "page" : undefined}
+              aria-label={item.label}
               className={
                 "flex min-h-[44px] items-center rounded-ui px-3.5 text-[1rem] font-medium transition-colors aria-[current=page]:underline aria-[current=page]:underline-offset-8 " +
                 config.link
@@ -198,6 +199,7 @@ export default function Header() {
                   <Link
                     href={item.href}
                     onClick={() => setOpen(false)}
+                    aria-label={item.label}
                     className="flex min-h-[60px] items-center justify-between font-display text-[1.5rem] font-semibold"
                   >
                     {item.label === "1GUARD" ? <ProductSignature name="GUARD" /> : item.label === "1Service" ? <ProductSignature name="Service" /> : item.label}

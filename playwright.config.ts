@@ -25,13 +25,14 @@ export default defineConfig({
   },
   webServer: [
     { command: "node tests/e2e/mock-intake.mjs", port: 4010, reuseExistingServer: true },
-    { command: "npx next start -p 3100", port: 3100, reuseExistingServer: true, timeout: 60_000 },
+    // 3100 and 3101 lift the per-connection intake throttle (every test shares one address); 3102 keeps the default.
+    { command: "npx next start -p 3100", port: 3100, reuseExistingServer: true, timeout: 60_000, env: { INTAKE_MAX_PER_WINDOW: "100000" } },
     {
       command: "npx next start -p 3101",
       port: 3101,
       reuseExistingServer: true,
       timeout: 60_000,
-      env: { SIGNAL_ONE_INTAKE_URL: "http://localhost:4010/intake", SIGNAL_ONE_INTAKE_TOKEN: "qa-token" },
+      env: { SIGNAL_ONE_INTAKE_URL: "http://localhost:4010/intake", SIGNAL_ONE_INTAKE_TOKEN: "qa-token", INTAKE_MAX_PER_WINDOW: "100000" },
     },
     {
       command: "npx next start -p 3102",
