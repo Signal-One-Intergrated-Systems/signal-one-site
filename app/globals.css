@@ -1812,4 +1812,6 @@ main:not(.s1-brand-home) .surface-white .card :is(.t-h2,.t-h3,.t-h4){color:#f3fa
 
 /* Clearance for the sticky header, applied to what scrolls beneath it: in-page anchor targets and
    anything focusable in the page body. Elements inside the header get none. */
-:where(main, footer) :where([id], a, button, input, select, textarea, summary, [tabindex]) { scroll-margin-top: 88px; }
+/* 96px: the desktop header is exactly 88px tall, so 88 would leave an anchored section flush against it.
+   This rule is unlayered and therefore overrides the scroll-mt-* utilities on individual sections. */
+:where(main, footer) :where([id], a, button, input, select, textarea, summary, [tabindex]) { scroll-margin-top: 96px; }

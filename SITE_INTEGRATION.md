@@ -124,7 +124,7 @@ Until both receiver variables are set in Railway, every form answers 503 "nothin
 
 ## Security headers
 
-`next.config.ts` sets HSTS (this host only: `includeSubDomains` waits until app., api., guard., sales. and demo. have certificates), nosniff, Referrer-Policy, X-Frame-Options, Permissions-Policy and a Content-Security-Policy on every route. The policy allows Google Analytics 4 hosts; Cloudflare script features (Rocket Loader, Web Analytics) are not allowed and must not be enabled without a policy change. Script and style still allow `'unsafe-inline'` (Next.js bootstrap and inline JSON-LD); moving to nonces is open work. Signal Connect paths keep their stricter rules.
+`next.config.ts` sets HSTS (this host only: `includeSubDomains` waits until app., api., guard., sales. and demo. have certificates), nosniff, Referrer-Policy, X-Frame-Options, Permissions-Policy and a Content-Security-Policy on every route. The policy allows Google Analytics 4 hosts and the Cloudflare Web Analytics beacon. Rocket Loader and Zaraz are not allowed and must not be enabled without a policy change. Script and style still allow `'unsafe-inline'` (Next.js bootstrap and inline JSON-LD); moving to nonces is open work. Signal Connect paths keep their stricter rules.
 
 ## Analytics
 
