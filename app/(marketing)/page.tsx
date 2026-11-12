@@ -6,6 +6,8 @@ import HeroGlobeLayer from "../components/HeroGlobeLayer";
 import HomeScrollChoreography from "../components/HomeScrollChoreography";
 import ProductSignature from "../components/brand/ProductSignature";
 import { guardDayPricePhrase } from "../lib/pricing";
+import { guardOnboardingLine } from "../lib/guardStatus";
+import { GuardStatus } from "../components/ui";
 import pnc360s from "../../public/images/hardware/hytera-pnc360s.webp";
 import fmb920 from "../../public/images/hardware/teltonika-fmb920.webp";
 import "../home-conversion.css";
@@ -108,7 +110,7 @@ export default function Home() {
             <div className="so-image-caption">Illustrative SME security operations</div>
           </div>
           <div data-motion-from="left" style={{ "--so-motion-delay": "240ms" } as CSSProperties} className="so-vertical-content"><PanelPhoto src="/images/photo/guard-site-operations.webp" alt="Illustrative security workers coordinating operational duties at a customer site" />
-            <div className="so-vertical-label"><Link href="/solutions/security" className="so-platform-mark" aria-label="Explore 1GUARD"><ProductSignature name="GUARD" tone="dark" /></Link> <span>SECURITY BUSINESS OS</span></div>
+            <div className="so-vertical-label"><Link href="/solutions/security" className="so-platform-mark" aria-label="Explore 1GUARD"><ProductSignature name="GUARD" tone="dark" /></Link> <span>SECURITY BUSINESS OS</span> <GuardStatus tone="dark" /></div>
             <h2 id="so-guard-title">A complete business vision. Built for real security SMEs.</h2>
             <p>1GUARD is being built around the security company, not only its control room: customers, guards, staffing, sites, operations, equipment and business oversight. Start with documented shift, patrol and incident workflows as the broader business lifecycle is developed.</p>
             <ul className="so-checklist">
@@ -120,7 +122,7 @@ export default function Home() {
               <TrialLink />
               <Link href="/solutions/security" className="so-text-link">Explore 1GUARD <Arrow /></Link>
             </div>
-            <p className="so-disclosure">Current public pricing: {guardDayPricePhrase}, excl. VAT. Trial access requires confirmation.</p>
+            <p className="so-disclosure">{guardOnboardingLine ?? "Already live with security companies."} Current public pricing: {guardDayPricePhrase}, excl. VAT. Trial access requires confirmation.</p>
           </div>
         </div>
       </section>
