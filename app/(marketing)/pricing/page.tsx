@@ -99,7 +99,7 @@ export default function PricingPage() {
           <div className="mt-8 overflow-hidden rounded-card ring-1 ring-line">
             <table className="w-full border-collapse text-left">
               <caption className="sr-only">Guard day cost examples</caption>
-              <thead className="bg-light-2 text-[0.9375rem]">
+              <thead className="bg-[#0c2741] text-[0.9375rem] text-white">
                 <tr>
                   <th scope="col" className="px-4 py-3 font-semibold sm:px-6">Guards</th>
                   <th scope="col" className="px-4 py-3 font-semibold sm:px-6">Days</th>

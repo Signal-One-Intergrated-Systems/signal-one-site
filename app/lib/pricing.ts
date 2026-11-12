@@ -6,9 +6,15 @@ import { num, rand } from "./format";
  * reads from here. To change the price, edit `pricePerGuardDay` and
  * `effectiveDate` only.
  *
- * Founder-approved public list price: R2.50 per guard-day, excluding VAT.
- * This is website display/calculator truth, not an entitlement or billing change.
- * Sales OS and Admin use independent price books (SITE_INTEGRATION.md).
+ * R2.50 per guard per day, excluding VAT, is FINAL (founder ruling, confirmed
+ * 2026-11-12). 300 guard days = R750 ex VAT (tests/e2e/r0-release-gate.spec.ts).
+ *
+ * Cross-repo audit, 2026-11-12 (SITE_INTEGRATION.md "Guard Day pricing"):
+ * the platform has no Guard SKU, guard-day balance or billing yet, and 1Guard
+ * holds no commercial state by design. This file is therefore the only place
+ * the price exists today. When the platform SKU is created it must be 250
+ * cents, minimum quantity 10, and this file must be pinned to it by a
+ * contract test.
  */
 export const pricing = {
   pricePerGuardDay: 2.5,

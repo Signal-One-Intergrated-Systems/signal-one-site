@@ -52,4 +52,4 @@ The suite starts three processes on its own: the site on :3100 (no intake upstre
 
 ## Product truth
 
-Marketplace is "in development"; PSiRA details are recorded, not externally verified; the shared device is called "Central Device"; R2 per guard per day excluding VAT, 10 guard-day minimum; radios by quote; Payroll coming soon; Accounting beta. `npm run check:branding` enforces the wording rules.
+Marketplace is "in development"; PSiRA details are recorded, not externally verified; the shared device is called "Central Device"; R2.50 per guard per day excluding VAT, 10 guard-day minimum; radios by quote; Payroll coming soon; Accounting beta. `npm run check:branding` enforces the wording rules.
