@@ -29,18 +29,29 @@ An HTTP 2xx is **not** proof of a save. The site reports success only when the r
 - `recordId` must identify the stored row (6–80 characters, letters, digits, `. _ : -`).
 - `idempotencyKey` must equal the key the site sent, so a receipt for another submission is rejected.
 - A repeat of the same key must return the **same** `recordId` with `duplicate: true` and create nothing.
+- `persistedAt` must be a full ISO-8601 timestamp.
+- A `guard` or `sales` submission acknowledged with `recordType: "crm_lead"` is rejected: applications are never accepted as sales leads.
 - Missing, malformed or mismatched receipt: the visitor is told the save could not be confirmed (502) and offered email. A timeout gives the same message (504).
-- The visitor sees the `recordId` as their reference. Receiver text is never shown on success; receiver 4xx messages are shown, truncated.
+- The visitor sees the `recordId` as their reference. Receiver text is never shown on success.
+- Receiver errors: only its validation answers (400, 422) reach the visitor, truncated. Any other receiver status (401, 403, 404, 429, 5xx) is our fault, not the visitor's: generic 502, email route offered, no receiver text.
+
+### Idempotency key
+
+The key belongs to a payload, not to a form. An identical retry reuses it; any change to what is sent (a corrected field, another category, the marketing choice) gets a new key, so a correction can never be swallowed as a duplicate of an earlier attempt. The receiver must still reject a reused key carrying a different payload (409).
+
+### The email route
+
+The visitor is offered the pre-filled email for every failure except one they can fix in the form (400, 413, 422): not connected (503), unconfirmed save (502/504), throttled (429) and refused (403) all carry it.
 
 ### Request validation (site side)
 
 | Check | Result |
 |---|---|
-| `Origin` header present and equal to the site host | else 403 |
+| `Origin` header present and naming this site: the request's own host (first `X-Forwarded-Host` entry, or `Host`), or the canonical site from `NEXT_PUBLIC_SITE_URL` and its www/apex twin | else 403 |
 | `Content-Type: application/json`, body ≤ 64 KB | else 415 / 413 |
 | `kind` in client, guard, sales; `intent` allowed for that kind | else 400 |
 | 1–80 fields, names `[A-Za-z][A-Za-z0-9_-]*`, string values ≤ 6,000 chars, `data` ≤ 20,000 chars | else 400 / 413 |
-| `consent.processing === true`, `marketing` boolean, dated notice version | else 400 |
+| `consent.processing === true`, `marketing` boolean, notice version equal to the one published now | else 400 |
 | `idempotencyKey` is a UUID | else 400 |
 
 ### Trusted-proxy assumptions
@@ -62,6 +73,10 @@ An HTTP 2xx is **not** proof of a save. The site reports success only when the r
 | Service authentication | Static bearer token | Scoped, rotatable service credential issued by LEOS |
 | Tenant attribution | None on the site | Receiver derives the Signal One tenant from the credential, never from the payload |
 | Record routing | `kind` is forwarded | Receiver stores `guard` and `sales` kinds as restricted record types, not sales leads |
+
+Order of checks: validation, then "not connected" (503), then the throttle, then the receiver. While nothing is connected the throttle is never reached, so no visitor can lose the honest 503 and the email route because of someone else's traffic.
+
+Consent choices are never stored on the device or restored: every submission needs a fresh tick.
 
 Until both receiver variables are set in Railway, every form answers 503 "nothing was sent" and offers email. That is the current production state.
 
@@ -109,7 +124,7 @@ Until both receiver variables are set in Railway, every form answers 503 "nothin
 
 ## Security headers
 
-`next.config.ts` sets HSTS, nosniff, Referrer-Policy, X-Frame-Options, Permissions-Policy and a Content-Security-Policy on every route. Script and style still allow `'unsafe-inline'` (Next.js bootstrap and inline JSON-LD); moving to nonces is open work. Signal Connect paths keep their stricter rules.
+`next.config.ts` sets HSTS (this host only: `includeSubDomains` waits until app., api., guard., sales. and demo. have certificates), nosniff, Referrer-Policy, X-Frame-Options, Permissions-Policy and a Content-Security-Policy on every route. The policy allows Google Analytics 4 hosts; Cloudflare script features (Rocket Loader, Web Analytics) are not allowed and must not be enabled without a policy change. Script and style still allow `'unsafe-inline'` (Next.js bootstrap and inline JSON-LD); moving to nonces is open work. Signal Connect paths keep their stricter rules.
 
 ## Analytics
 

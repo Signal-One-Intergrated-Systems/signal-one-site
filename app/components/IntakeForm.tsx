@@ -3,7 +3,7 @@
 import ReceiptReference from "./ReceiptReference";
 import { FormEvent, useId, useRef, useState } from "react";
 import { trackEvent, type SignalOneEvent } from "../lib/analytics";
-import { submitIntake, type IntakeFallback, newIdempotencyKey } from "../lib/intake";
+import { submitIntake, type IntakeFallback, newIdempotencyState } from "../lib/intake";
 import ConsentFields from "./ConsentFields";
 import IntakeError from "./IntakeError";
 
@@ -49,7 +49,7 @@ export default function IntakeForm({
   const [consent, setConsent] = useState(false);
   const [marketing, setMarketing] = useState(false);
   const [reference, setReference] = useState<string | null>(null);
-  const idempotencyKey = useRef("");
+  const idempotency = useRef(newIdempotencyState());
   const [state, setState] = useState<State>("idle");
   const [message, setMessage] = useState("");
   const [fallback, setFallback] = useState<IntakeFallback | null>(null);
@@ -76,8 +76,7 @@ export default function IntakeForm({
     setMessage("");
     setFallback(null);
     const labels = Object.fromEntries(fields.map((field) => [field.name, field.label]));
-    if (!idempotencyKey.current) idempotencyKey.current = newIdempotencyKey();
-    const result = await submitIntake(kind, { ...values, intent }, { labels, marketing, idempotencyKey: idempotencyKey.current });
+    const result = await submitIntake(kind, { ...values, intent }, { labels, marketing, idempotency: idempotency.current });
     if (!result.ok) {
       setState("error");
       setMessage(result.message);

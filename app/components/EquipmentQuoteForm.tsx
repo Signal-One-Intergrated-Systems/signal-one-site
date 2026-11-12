@@ -3,7 +3,7 @@
 import ReceiptReference from "./ReceiptReference";
 import { FormEvent, useId, useRef, useState } from "react";
 import { trackEvent } from "../lib/analytics";
-import { submitIntake, type IntakeFallback, newIdempotencyKey } from "../lib/intake";
+import { submitIntake, type IntakeFallback, newIdempotencyState } from "../lib/intake";
 import ConsentFields from "./ConsentFields";
 import IntakeError from "./IntakeError";
 
@@ -135,7 +135,7 @@ export default function EquipmentQuoteForm() {
   const [consent, setConsent] = useState(false);
   const [marketing, setMarketing] = useState(false);
   const [reference, setReference] = useState<string | null>(null);
-  const idempotencyKey = useRef("");
+  const idempotency = useRef(newIdempotencyState());
   const [state, setState] = useState<State>("idle");
   const [message, setMessage] = useState("");
   const [fallback, setFallback] = useState<IntakeFallback | null>(null);
@@ -171,8 +171,7 @@ export default function EquipmentQuoteForm() {
     for (const name of relevant) if (values[name]) data[name] = values[name];
 
     const labels = Object.fromEntries([...config.fields, ...contactFields].map((field) => [field.name, field.label]));
-    if (!idempotencyKey.current) idempotencyKey.current = newIdempotencyKey();
-    const result = await submitIntake("client", data, { labels, marketing, idempotencyKey: idempotencyKey.current });
+    const result = await submitIntake("client", data, { labels, marketing, idempotency: idempotency.current });
     if (!result.ok) {
       setState("error");
       setMessage(result.message);

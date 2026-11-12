@@ -28,6 +28,10 @@ http
       received.push({ auth: req.headers.authorization, headers: req.headers, body: parsed });
       const key = parsed.idempotencyKey;
       const mode = parsed.data?.qaReceipt;
+      if (mode === "upstream-401") { res.statusCode = 401; return res.end(JSON.stringify({ message: "internal: credential rejected by receiver" })); }
+      if (mode === "upstream-422") { res.statusCode = 422; return res.end(JSON.stringify({ message: "Please give a company email address." })); }
+      if (mode === "bad-time") return res.end(JSON.stringify({ status: "persisted", receipt: { recordId: "LEAD-123456", recordType: "crm_lead", idempotencyKey: key, persistedAt: "1" } }));
+      if (mode === "lead-for-application") return res.end(JSON.stringify({ status: "persisted", receipt: { recordId: "LEAD-123457", recordType: "crm_lead", idempotencyKey: key, persistedAt: new Date().toISOString() } }));
       if (mode === "none") return res.end(JSON.stringify({ message: "Mock upstream: received." }));
       if (mode === "wrong-key") {
         return res.end(JSON.stringify({ status: "persisted", receipt: { recordId: "LEAD-999999", recordType: "crm_lead", idempotencyKey: "00000000-0000-4000-8000-000000000000", persistedAt: new Date().toISOString() } }));

@@ -1,5 +1,7 @@
 import { expect, test } from "@playwright/test";
-import { execFileSync, spawn, type ChildProcess } from "node:child_process";
+import { spawn, type ChildProcess } from "node:child_process";
+import fs from "node:fs";
+import { liveBuildEnv } from "./global-setup";
 import { routes } from "./routes";
 
 // Status pills are rendered at build time from GUARD_STATUS (app/lib/guardStatus.ts).
@@ -7,8 +9,8 @@ const livePill = /<span[^>]*rounded-full[^>]*>\s*(Client portal · )?Live\s*<\/s
 const pilotPill = /<span[^>]*rounded-full[^>]*>\s*(Client portal · )?Pilot\s*<\/span>/;
 const onboarding = "Signal One Guard is onboarding its first pilot security companies.";
 // Used only inside the second, test-only build; never in a deployed environment.
-const storeUrls = { android: "https://play.google.com/store/apps/details?id=example.guard", ios: "https://apps.apple.com/app/id0000000000" };
-const salesOsUrl = "https://sales.example.org/sign-in";
+const storeUrls = { android: liveBuildEnv.GUARD_APP_ANDROID_URL, ios: liveBuildEnv.GUARD_APP_IOS_URL };
+const salesOsUrl = liveBuildEnv.SALES_OS_URL;
 
 async function pages(base: string, request: import("@playwright/test").APIRequestContext) {
   const out: Record<string, string> = {};
@@ -45,22 +47,10 @@ test.describe("GUARD_STATUS=live", () => {
   const port = 3103;
 
   test.beforeAll(async () => {
-    // The hook builds a second copy of the site; give it the describe's budget, not the default.
-    test.setTimeout(420_000);
-    const env = {
-      ...process.env,
-      GUARD_STATUS: "live",
-      NEXT_DIST_DIR: ".next-live",
-      GUARD_APP_ANDROID_URL: storeUrls.android,
-      GUARD_APP_IOS_URL: storeUrls.ios,
-      SALES_OS_URL: salesOsUrl,
-    };
-    try {
-      execFileSync("npx", ["next", "build"], { env, stdio: "pipe", maxBuffer: 64 * 1024 * 1024 });
-    } catch (error) {
-      const out = error as { stdout?: Buffer; stderr?: Buffer };
-      throw new Error("live build failed:\n" + String(out.stderr ?? "").slice(-4000) + String(out.stdout ?? "").slice(-4000));
-    }
+    // The live copy is built once in tests/e2e/global-setup.ts, before any page is loaded; building it
+    // here, beside the servers under test, made unrelated pages fail hydration.
+    if (!fs.existsSync(".next-live/BUILD_ID")) throw new Error("the GUARD_STATUS=live build is missing: tests/e2e/global-setup.ts did not run");
+    const env = { ...process.env, ...liveBuildEnv };
     server = spawn("npx", ["next", "start", "-p", String(port)], { env, stdio: "ignore", detached: true });
     for (let i = 0; i < 60; i++) {
       try {

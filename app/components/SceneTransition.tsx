@@ -68,13 +68,6 @@ export default function SceneTransition({ children }: { children: ReactNode }) {
   }, [pathname]);
 
   useEffect(() => {
-    // Position of the page just before a key press. Activating a focused link in the sticky
-    // header with Enter makes the browser scroll the page before the click is dispatched.
-    let beforeKey: { y: number; at: number } | null = null;
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Enter") beforeKey = { y: window.scrollY, at: performance.now() };
-    };
-    document.addEventListener("keydown", onKeyDown, true);
     const onClick = (event: MouseEvent) => {
       if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
       const element = event.target;
@@ -92,13 +85,6 @@ export default function SceneTransition({ children }: { children: ReactNode }) {
       // Keep the outgoing page at its exact scroll position while the doors close.
       // The scrollbar gutter stays stable, so even the header cannot shift sideways.
       const root = document.documentElement;
-      if (event.detail === 0 && beforeKey && performance.now() - beforeKey.at < 1000 && window.scrollY !== beforeKey.y) {
-        const previousBehavior = root.style.scrollBehavior;
-        root.style.scrollBehavior = "auto";
-        window.scrollTo(0, beforeKey.y);
-        root.style.scrollBehavior = previousBehavior;
-      }
-      beforeKey = null;
       const original = {
         overflow: root.style.overflow,
         scrollBehavior: root.style.scrollBehavior,
@@ -137,7 +123,6 @@ export default function SceneTransition({ children }: { children: ReactNode }) {
     document.addEventListener("click", onClick, true);
     return () => {
       document.removeEventListener("click", onClick, true);
-      document.removeEventListener("keydown", onKeyDown, true);
       if (timeout.current !== null) clearTimeout(timeout.current);
       if (hold.current !== null) clearTimeout(hold.current);
       unlockScroll.current?.();

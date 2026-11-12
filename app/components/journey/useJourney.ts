@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { trackEvent, type SignalOneEvent } from "../../lib/analytics";
-import { newIdempotencyKey, submitIntake, type IntakeFallback } from "../../lib/intake";
+import { newIdempotencyState, submitIntake, type IntakeFallback } from "../../lib/intake";
 
 export type JourneyStatus = "idle" | "sending" | "done" | "error";
 
@@ -41,7 +41,7 @@ export function useJourney({
   const [values, setValues] = useState<Record<string, string>>({});
   const [consent, setConsent] = useState(false);
   const [marketing, setMarketing] = useState(false);
-  const idempotencyKey = useRef("");
+  const idempotency = useRef(newIdempotencyState());
   const [hydrated, setHydrated] = useState(false);
   const [status, setStatus] = useState<JourneyStatus>("idle");
   const [message, setMessage] = useState("");
@@ -55,8 +55,8 @@ export function useJourney({
       if (raw) {
         const saved = JSON.parse(raw) as Saved;
         if (saved.values && typeof saved.values === "object") setValues(saved.values);
-        if (typeof saved.consent === "boolean") setConsent(saved.consent);
-        if (typeof saved.marketing === "boolean") setMarketing(saved.marketing);
+        // Consent choices are deliberately NOT restored: on a shared device the next person
+        // must never find a box ticked by someone else.
         if (typeof saved.stepIndex === "number" && saved.stepIndex >= 0 && saved.stepIndex < stepCount) {
           setStepIndex(saved.stepIndex);
           if (saved.stepIndex > 0) started.current = true;
@@ -72,11 +72,11 @@ export function useJourney({
   useEffect(() => {
     if (!hydrated || status === "done") return;
     try {
-      window.localStorage.setItem(storageKey, JSON.stringify({ stepIndex, values, consent, marketing }));
+      window.localStorage.setItem(storageKey, JSON.stringify({ stepIndex, values }));
     } catch {
       // The journey still works without storage.
     }
-  }, [consent, hydrated, marketing, status, stepIndex, storageKey, values]);
+  }, [hydrated, status, stepIndex, storageKey, values]);
 
   const set = useCallback((name: string, value: string) => {
     setValues((current) => ({ ...current, [name]: value }));
@@ -126,8 +126,7 @@ export function useJourney({
     setStatus("sending");
     setMessage("");
     setFallback(null);
-    if (!idempotencyKey.current) idempotencyKey.current = newIdempotencyKey();
-    const result = await submitIntake(kind, { ...values, intent }, { marketing, idempotencyKey: idempotencyKey.current });
+    const result = await submitIntake(kind, { ...values, intent }, { marketing, idempotency: idempotency.current });
     if (!result.ok) {
       setStatus("error");
       setMessage(result.message);

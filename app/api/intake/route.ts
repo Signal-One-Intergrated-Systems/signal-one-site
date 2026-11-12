@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { PRIVACY_NOTICE_VERSION } from "../../lib/intake";
 
 /**
  * Website intake contract v1 (SITE_INTEGRATION.md).
@@ -11,11 +12,12 @@ import { NextResponse } from "next/server";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const INTENTS: Record<string, ReadonlySet<string>> = {
-  client: new Set(["consultation", "company-onboarding", "equipment-rental-quote", "tracking-quote", "bodycam-rental-quote", "marketplace-interest"]),
-  guard: new Set(["guard-profile"]),
-  sales: new Set(["sales-representative-application"]),
-};
+// A Map, not an object: "constructor" or "__proto__" as a kind must be an ordinary unknown value.
+const INTENTS = new Map<string, ReadonlySet<string>>([
+  ["client", new Set(["consultation", "company-onboarding", "equipment-rental-quote", "tracking-quote", "bodycam-rental-quote", "marketplace-interest"])],
+  ["guard", new Set(["guard-profile"])],
+  ["sales", new Set(["sales-representative-application"])],
+]);
 const MAX_BODY_BYTES = 64 * 1024;
 const MAX_PAYLOAD_CHARS = 20_000;
 const MAX_FIELDS = 80;
@@ -25,6 +27,7 @@ const UPSTREAM_TIMEOUT_MS = 10_000;
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const RECORD_ID = /^[A-Za-z0-9][A-Za-z0-9._:-]{5,79}$/;
 const RECORD_TYPE = /^[a-z][a-z0-9_]{2,39}$/;
+const ISO_TIME = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{1,9})?(Z|[+-]\d{2}:\d{2})$/;
 const EMAIL = "sales@signalone.co.za";
 
 // PROVISIONAL throttle: per process, in memory, lost on restart, not shared between replicas.
@@ -33,12 +36,19 @@ const WINDOW_MS = 10 * 60_000;
 const MAX_PER_WINDOW = Math.max(1, Number(process.env.INTAKE_MAX_PER_WINDOW) || 12);
 const hits = new Map<string, number[]>();
 
+let sinceSweep = 0;
+
 function throttled(key: string, now: number) {
   const recent = (hits.get(key) || []).filter((t) => now - t < WINDOW_MS);
-  recent.push(now);
+  // A refused attempt is not counted, so a blocked visitor is released as the window slides.
+  const over = recent.length >= MAX_PER_WINDOW;
+  if (!over) recent.push(now);
   hits.set(key, recent);
-  if (hits.size > 5_000) for (const [k, v] of hits) if (!v.some((t) => now - t < WINDOW_MS)) hits.delete(k);
-  return recent.length > MAX_PER_WINDOW;
+  if (++sinceSweep >= 500 || hits.size > 20_000) {
+    sinceSweep = 0;
+    for (const [k, v] of hits) if (!v.some((t) => now - t < WINDOW_MS)) hits.delete(k);
+  }
+  return over;
 }
 
 /**
@@ -59,13 +69,32 @@ function clientKey(request: Request) {
   return (chain[chain.length - 1] || "unknown").slice(0, 64);
 }
 
-/** Browsers always send Origin on a cross-document POST; anything without a matching one is refused. */
+/** Hosts this site is served on: the request's own host, and the canonical site with its www/apex twin. */
+function ownHosts(request: Request) {
+  const hosts = new Set<string>();
+  const add = (value: string | null | undefined) => {
+    // A proxy chain may send "a, b"; the first entry is the host the visitor asked for.
+    const host = (value || "").split(",")[0].trim().toLowerCase();
+    if (host) hosts.add(host);
+  };
+  add(request.headers.get("x-forwarded-host"));
+  add(request.headers.get("host"));
+  try {
+    const canonical = new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://signalone.co.za").host.toLowerCase();
+    hosts.add(canonical);
+    hosts.add(canonical.startsWith("www.") ? canonical.slice(4) : "www." + canonical);
+  } catch {
+    /* an unparsable site URL adds nothing */
+  }
+  return hosts;
+}
+
+/** Browsers always send Origin on a POST; anything without one that names this site is refused. */
 function sameOrigin(request: Request) {
   const origin = request.headers.get("origin");
   if (!origin) return false;
-  const host = (request.headers.get("x-forwarded-host") || request.headers.get("host") || "").toLowerCase();
   try {
-    return new URL(origin).host.toLowerCase() === host;
+    return ownHosts(request).has(new URL(origin).host.toLowerCase());
   } catch {
     return false;
   }
@@ -78,7 +107,7 @@ function reply(message: string, status: number, headers?: Record<string, string>
 type Receipt = { recordId: string; recordType: string; persistedAt: string; duplicate: boolean };
 
 /** Accepts only `{ status: "persisted", receipt: { recordId, recordType, idempotencyKey, persistedAt, duplicate? } }`. */
-function readReceipt(body: unknown, idempotencyKey: string): Receipt | null {
+function readReceipt(body: unknown, idempotencyKey: string, kind: string): Receipt | null {
   if (!body || typeof body !== "object") return null;
   const { status, receipt } = body as { status?: unknown; receipt?: Record<string, unknown> };
   if (status !== "persisted" || !receipt || typeof receipt !== "object") return null;
@@ -86,7 +115,9 @@ function readReceipt(body: unknown, idempotencyKey: string): Receipt | null {
   if (typeof recordId !== "string" || !RECORD_ID.test(recordId)) return null;
   if (typeof recordType !== "string" || !RECORD_TYPE.test(recordType)) return null;
   if (typeof receipt.idempotencyKey !== "string" || receipt.idempotencyKey.toLowerCase() !== idempotencyKey.toLowerCase()) return null;
-  if (typeof persistedAt !== "string" || Number.isNaN(Date.parse(persistedAt))) return null;
+  if (typeof persistedAt !== "string" || !ISO_TIME.test(persistedAt) || Number.isNaN(Date.parse(persistedAt))) return null;
+  // Guard and recruitment applications must never be acknowledged as ordinary sales leads.
+  if (kind !== "client" && recordType === "crm_lead") return null;
   return { recordId, recordType, persistedAt, duplicate: duplicate === true };
 }
 
@@ -94,13 +125,16 @@ export async function POST(request: Request) {
   if (!sameOrigin(request)) return reply("Invalid request.", 403);
   if (!(request.headers.get("content-type") || "").toLowerCase().startsWith("application/json")) return reply("Invalid request.", 415);
 
+  const tooLong = () => reply(`This submission is too long. Please shorten it or email ${EMAIL}.`, 413);
+  const declared = Number(request.headers.get("content-length"));
+  if (Number.isFinite(declared) && declared > MAX_BODY_BYTES) return tooLong();
   let raw: string;
   try {
     raw = await request.text();
   } catch {
     return reply("Invalid request.", 400);
   }
-  if (raw.length > MAX_BODY_BYTES) return reply(`This submission is too long. Please shorten it or email ${EMAIL}.`, 413);
+  if (Buffer.byteLength(raw, "utf8") > MAX_BODY_BYTES) return tooLong();
 
   let body: unknown;
   try {
@@ -116,7 +150,8 @@ export async function POST(request: Request) {
     consent?: { processing?: unknown; marketing?: unknown; noticeVersion?: unknown; capturedAt?: unknown };
     idempotencyKey?: unknown;
   };
-  if (typeof kind !== "string" || !INTENTS[kind] || !data || typeof data !== "object" || Array.isArray(data)) {
+  const intents = typeof kind === "string" ? INTENTS.get(kind) : undefined;
+  if (typeof kind !== "string" || !intents || !data || typeof data !== "object" || Array.isArray(data)) {
     return reply("Invalid application.", 400);
   }
   const entries = Object.entries(data as Record<string, unknown>);
@@ -128,7 +163,7 @@ export async function POST(request: Request) {
     return reply("Invalid application.", 400);
   }
   const intent = (data as Record<string, string>).intent;
-  if (!intent || !INTENTS[kind].has(intent)) return reply("Invalid application.", 400);
+  if (!intent || !intents.has(intent)) return reply("Invalid application.", 400);
   if (JSON.stringify(data).length > MAX_PAYLOAD_CHARS) {
     return reply(`This submission is too long. Please shorten it or email ${EMAIL}.`, 413);
   }
@@ -136,16 +171,15 @@ export async function POST(request: Request) {
     !consent ||
     consent.processing !== true ||
     typeof consent.marketing !== "boolean" ||
-    typeof consent.noticeVersion !== "string" ||
-    !/^\d{4}-\d{2}-\d{2}$/.test(consent.noticeVersion)
+    typeof consent.noticeVersion !== "string"
   ) {
     return reply("Please confirm the consent box before you send.", 400);
   }
-  if (typeof idempotencyKey !== "string" || !UUID.test(idempotencyKey)) return reply("Invalid request.", 400);
-
-  if (throttled(clientKey(request), Date.now())) {
-    return reply(`Too many submissions from this connection. Please wait a few minutes or email ${EMAIL}.`, 429, { "Retry-After": "600" });
+  // Consent is to the notice that is published now, not to whatever date a client asserts.
+  if (consent.noticeVersion !== PRIVACY_NOTICE_VERSION) {
+    return reply("Our privacy notice has been updated. Please reload this page and send again.", 400);
   }
+  if (typeof idempotencyKey !== "string" || !UUID.test(idempotencyKey)) return reply("Invalid request.", 400);
 
   const target = process.env.SIGNAL_ONE_INTAKE_URL;
   const token = process.env.SIGNAL_ONE_INTAKE_TOKEN;
@@ -156,6 +190,13 @@ export async function POST(request: Request) {
     // A receiver without service authentication is not an approved configuration.
     return reply(`Online forms are not connected yet, so nothing was sent. Please email ${EMAIL} and we will reply directly.`, 503);
   }
+
+  // The throttle protects the receiver, so it sits after the honest "not connected" answer:
+  // while nothing is connected, every visitor always gets the 503 and the email route.
+  if (throttled(clientKey(request), Date.now())) {
+    return reply(`Too many submissions from this connection. Please wait a few minutes or email ${EMAIL}.`, 429, { "Retry-After": "600" });
+  }
+
 
   const unconfirmed = `We could not confirm that this was saved, so please treat it as not received. Try again, or email ${EMAIL}.`;
   try {
@@ -189,13 +230,14 @@ export async function POST(request: Request) {
 
     const upstreamBody: unknown = await upstream.json().catch(() => null);
     if (!upstream.ok) {
-      // Receiver validation messages (4xx) may be shown; anything else stays generic.
+      // Only the receiver's validation answers (400, 422) are the visitor's to fix and may be shown.
+      // A credential, routing or rate problem upstream is ours: generic message, 502, email route.
       const message = (upstreamBody as { message?: unknown } | null)?.message;
-      const clientError = upstream.status >= 400 && upstream.status < 500;
-      return reply(clientError && typeof message === "string" ? message.slice(0, 300) : "We could not send this application.", clientError ? upstream.status : 502);
+      if ((upstream.status === 400 || upstream.status === 422) && typeof message === "string") return reply(message.slice(0, 300), upstream.status);
+      return reply(`We could not send this, so please treat it as not received. Try again, or email ${EMAIL}.`, 502);
     }
 
-    const receipt = readReceipt(upstreamBody, idempotencyKey);
+    const receipt = readReceipt(upstreamBody, idempotencyKey, kind);
     if (!receipt) return reply(unconfirmed, 502);
 
     return NextResponse.json(

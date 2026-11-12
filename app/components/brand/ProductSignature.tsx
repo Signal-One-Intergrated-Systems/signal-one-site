@@ -21,10 +21,9 @@ export default function ProductSignature({
 }) {
   return (
     <span className={`s1-product-signature s1-product-signature--${tone} ${className}`.trim()}>
-      {/* One name for assistive technology: the two visual spans were announced as "1 GUARD". */}
-      <span className="sr-only">1{name}</span>
-      <span className="s1-product-signature__one" aria-hidden="true">1</span>
-      <span className="s1-product-signature__name" aria-hidden="true">{name}</span>
+      {/* Inline spans with no whitespace between them: one word ("1GUARD") to assistive technology,
+          search engines and copy-paste. The optical gap is a margin, not a flex gap (see globals.css). */}
+      <span className="s1-product-signature__one">1</span><span className="s1-product-signature__name">{name}</span>
     </span>
   );
 }

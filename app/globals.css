@@ -100,7 +100,10 @@
     background: var(--color-base);
     color-scheme: light dark;
     -webkit-text-size-adjust: 100%;
-    scroll-padding-top: 88px;
+    /* No scroll-padding-top here. Padding the top of the scrollport told the browser that the sticky
+       header's own links (which sit inside that strip) were out of view, so focusing one with the
+       keyboard dragged a scrolled page upward (900 -> 540 at 1280x720). The header clearance is
+       given to the things that land UNDER the header instead: see scroll-margin-top below. */
   }
 
   body {
@@ -1780,9 +1783,9 @@ main:not(.s1-brand-home) .surface-white .card :is(.t-h2,.t-h3,.t-h4){color:#f3fa
    The glass belongs to the parent surface, never the numeral itself. */
 :root { --s1-product-signature-gap: 0.06em; }
 .s1-product-signature {
-  display: inline-flex;
-  align-items: baseline;
-  gap: var(--s1-product-signature-gap);
+  /* inline-block, not inline-flex: flex items are blockified, which made assistive technology
+     read the wordmark as two words ("1 GUARD"). */
+  display: inline-block;
   vertical-align: baseline;
   white-space: nowrap;
   font-family: inherit;
@@ -1792,10 +1795,10 @@ main:not(.s1-brand-home) .surface-white .card :is(.t-h2,.t-h3,.t-h4){color:#f3fa
   line-height: 1;
   letter-spacing: 0;
 }
+.s1-product-signature__name { margin-left: var(--s1-product-signature-gap); }
 .s1-product-signature__one,
 .s1-product-signature__name {
-  display: block;
-  flex: 0 0 auto;
+  display: inline;
   font-family: inherit;
   font-size: 1em;
   font-weight: inherit;
@@ -1806,3 +1809,7 @@ main:not(.s1-brand-home) .surface-white .card :is(.t-h2,.t-h3,.t-h4){color:#f3fa
 }
 .s1-product-signature--light .s1-product-signature__one { color: #0EA5E9; }
 .s1-product-signature--dark .s1-product-signature__one { color: #0EA5E9; }
+
+/* Clearance for the sticky header, applied to what scrolls beneath it: in-page anchor targets and
+   anything focusable in the page body. Elements inside the header get none. */
+:where(main, footer) :where([id], a, button, input, select, textarea, summary, [tabindex]) { scroll-margin-top: 88px; }

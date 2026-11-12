@@ -36,9 +36,13 @@ const nextConfig: NextConfig = {
     // Next.js emits inline bootstrap scripts and the layout inlines JSON-LD; tightening
     // to nonces is tracked in SITE_INTEGRATION.md. Listed first so the stricter
     // Signal Connect rules below still win on their own paths.
-    const ga = "https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com";
+    // Google Analytics 4 (only loaded when NEXT_PUBLIC_GA_ID is set). Cloudflare script features
+    // (Rocket Loader, Web Analytics) are NOT allowed here: enable them only with a policy change.
+    const ga = "https://*.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com";
     const publicHeaders = [
-      { key: "Strict-Transport-Security", value: "max-age=31536000; includeSubDomains" },
+      // This host only. includeSubDomains would bind app., api., guard., sales. and demo. to valid HTTPS
+      // for a year before those hosts have certificates; add it once they do.
+      { key: "Strict-Transport-Security", value: "max-age=31536000" },
       { key: "X-Content-Type-Options", value: "nosniff" },
       { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
       { key: "X-Frame-Options", value: "DENY" },
@@ -49,7 +53,7 @@ const nextConfig: NextConfig = {
           "default-src 'self'",
           `script-src 'self' 'unsafe-inline' ${ga}`,
           "style-src 'self' 'unsafe-inline'",
-          "img-src 'self' data: blob: https://www.googletagmanager.com https://www.google-analytics.com",
+          `img-src 'self' data: blob: ${ga}`,
           "font-src 'self' data:",
           `connect-src 'self' ${ga}`,
           "frame-ancestors 'none'",
