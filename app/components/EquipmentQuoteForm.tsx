@@ -2,7 +2,8 @@
 
 import { FormEvent, useId, useRef, useState } from "react";
 import { trackEvent } from "../lib/analytics";
-import { submitIntake, type IntakeFallback } from "../lib/intake";
+import { submitIntake, type IntakeFallback, newIdempotencyKey } from "../lib/intake";
+import ConsentFields from "./ConsentFields";
 import IntakeError from "./IntakeError";
 
 type Category = "radio" | "tracking" | "bodycam";
@@ -131,6 +132,8 @@ export default function EquipmentQuoteForm() {
   const [category, setCategory] = useState<Category>("radio");
   const [values, setValues] = useState<Record<string, string>>({});
   const [consent, setConsent] = useState(false);
+  const [marketing, setMarketing] = useState(false);
+  const idempotencyKey = useRef("");
   const [state, setState] = useState<State>("idle");
   const [message, setMessage] = useState("");
   const [fallback, setFallback] = useState<IntakeFallback | null>(null);
@@ -166,7 +169,8 @@ export default function EquipmentQuoteForm() {
     for (const name of relevant) if (values[name]) data[name] = values[name];
 
     const labels = Object.fromEntries([...config.fields, ...contactFields].map((field) => [field.name, field.label]));
-    const result = await submitIntake("client", data, labels);
+    if (!idempotencyKey.current) idempotencyKey.current = newIdempotencyKey();
+    const result = await submitIntake("client", data, { labels, marketing, idempotencyKey: idempotencyKey.current });
     if (!result.ok) {
       setState("error");
       setMessage(result.message);
@@ -312,10 +316,9 @@ export default function EquipmentQuoteForm() {
         {renderField({ name: "notes", label: "Anything else", type: "textarea", placeholder: "Timing, accessories, site conditions…", wide: true })}
       </div>
 
-      <label className="check mt-6">
-        <input type="checkbox" checked={consent} onChange={(event) => setConsent(event.target.checked)} />
-        <span className="text-text-2">I agree that Signal One may use these details to prepare and follow up on this quote.</span>
-      </label>
+      <ConsentFields className="mt-6" consent={consent} onConsent={setConsent} marketing={marketing} onMarketing={setMarketing}>
+        I agree that Signal One may use these details to prepare and follow up on this quote.
+      </ConsentFields>
 
       <div ref={statusRef} tabIndex={-1} aria-live="polite" className="outline-none">
         {state === "error" ? <IntakeError message={message} fallback={fallback} /> : null}

@@ -2,6 +2,21 @@ import { salesEmail } from "./site";
 
 export type IntakeKind = "client" | "guard" | "sales";
 
+/** Version of the privacy notice the visitor agreed to. Bump when /privacy or /popia changes materially. */
+export const PRIVACY_NOTICE_VERSION = "2026-11-12";
+
+/**
+ * Consent captured with every submission (website intake contract v1).
+ * `processing` is required to send anything. `marketing` is a separate,
+ * optional opt-in and is never pre-ticked or bundled with `processing`.
+ */
+export type IntakeConsent = {
+  processing: true;
+  marketing: boolean;
+  noticeVersion: string;
+  capturedAt: string;
+};
+
 export type IntakeResult =
   | { ok: true; message: string }
   | { ok: false; message: string; fallback: IntakeFallback | null };
@@ -27,6 +42,18 @@ function humanise(name: string): string {
   return (words.charAt(0).toUpperCase() + words.slice(1)).replace(/psira/gi, "PSiRA");
 }
 
+/** One key per form instance: a retry of the same submission reuses it, so the receiver can de-duplicate. */
+export function newIdempotencyKey(): string {
+  if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") return crypto.randomUUID();
+  // RFC 4122 v4 shape from getRandomValues, for older browsers on insecure origins.
+  const b = new Uint8Array(16);
+  crypto.getRandomValues(b);
+  b[6] = (b[6] & 0x0f) | 0x40;
+  b[8] = (b[8] & 0x3f) | 0x80;
+  const h = Array.from(b, (x) => x.toString(16).padStart(2, "0")).join("");
+  return `${h.slice(0, 8)}-${h.slice(8, 12)}-${h.slice(12, 16)}-${h.slice(16, 20)}-${h.slice(20)}`;
+}
+
 /** Builds a mailto: link prefilled with the visitor's answers. */
 export function buildMailto(data: Record<string, string>, labels: Record<string, string> = {}): IntakeFallback {
   const intent = data.intent || "";
@@ -42,20 +69,26 @@ export function buildMailto(data: Record<string, string>, labels: Record<string,
 
 /**
  * POSTs to /api/intake. When the form service is unavailable (503 until an
- * upstream is configured, 502, or the network is down) the result carries a
- * mailto: fallback so a form never dead-ends.
+ * upstream is configured, 502/504, or the network is down) the result carries
+ * a mailto: fallback so a form never dead-ends.
  */
 export async function submitIntake(
   kind: IntakeKind,
   data: Record<string, string>,
-  labels?: Record<string, string>,
+  options: { labels?: Record<string, string>; marketing: boolean; idempotencyKey: string },
 ): Promise<IntakeResult> {
-  const fallback = () => buildMailto(data, labels);
+  const fallback = () => buildMailto(data, options.labels);
+  const consent: IntakeConsent = {
+    processing: true,
+    marketing: options.marketing,
+    noticeVersion: PRIVACY_NOTICE_VERSION,
+    capturedAt: new Date().toISOString(),
+  };
   try {
     const response = await fetch("/api/intake", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ kind, data }),
+      body: JSON.stringify({ kind, data, consent, idempotencyKey: options.idempotencyKey }),
     });
     const body = (await response.json().catch(() => ({}))) as { message?: string };
     if (response.ok) return { ok: true, message: body.message || "" };
