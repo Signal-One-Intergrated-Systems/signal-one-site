@@ -44,6 +44,8 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npx playwright install --with-deps chromium
+      # layout.spec.ts runs the image OCR truth gate, which needs tesseract.
+      - run: sudo apt-get update && sudo apt-get install -y tesseract-ocr
       # The whole suite gates a release: pricing, forms, consent, headers, a11y, layout and visuals.
       - run: npx playwright test
       - name: Upload browser screenshots and reports

@@ -55,32 +55,77 @@ test("the content security policy does not break any public page", async ({ page
   expect(violations).toEqual([]);
 });
 
+const SITE = "http://localhost:3100";
 const valid = {
   kind: "client",
   data: { intent: "consultation", name: "Synthetic QA" },
   consent: { processing: true, marketing: false, noticeVersion: "2026-11-12", capturedAt: new Date().toISOString() },
   idempotencyKey: "3f0e8f6a-5c0e-4b5e-9d3a-6b1f6f5d2a11",
 };
+const from = (origin: string) => ({ origin });
+const uuid = () => crypto.randomUUID();
 
 test("intake refuses a submission without processing consent", async ({ request }) => {
-  const res = await request.post(OK_BASE + "/api/intake", { data: { ...valid, consent: { ...valid.consent, processing: false } } });
+  const res = await request.post(OK_BASE + "/api/intake", { data: { ...valid, consent: { ...valid.consent, processing: false } }, headers: from(OK_BASE) });
   expect(res.status()).toBe(400);
 });
 
 test("intake refuses a missing or malformed idempotency key", async ({ request }) => {
-  expect((await request.post(OK_BASE + "/api/intake", { data: { ...valid, idempotencyKey: "nope" } })).status()).toBe(400);
+  expect((await request.post(OK_BASE + "/api/intake", { data: { ...valid, idempotencyKey: "nope" }, headers: from(OK_BASE) })).status()).toBe(400);
 });
 
-test("intake refuses a cross-origin browser post", async ({ request }) => {
-  const res = await request.post(OK_BASE + "/api/intake", { data: valid, headers: { origin: "https://evil.example" } });
-  expect(res.status()).toBe(403);
+test("intake refuses unknown intents, non-string fields and bad field names", async ({ request }) => {
+  const post = (data: unknown) => request.post(OK_BASE + "/api/intake", { data: { ...valid, data }, headers: from(OK_BASE) });
+  expect((await post({ intent: "free-money", name: "x" })).status()).toBe(400);
+  expect((await post({ intent: "guard-profile", name: "x" })).status()).toBe(400); // a guard intent on kind=client
+  expect((await post({ intent: "consultation", nested: { a: 1 } })).status()).toBe(400);
+  expect((await post({ intent: "consultation", "bad name!": "x" })).status()).toBe(400);
 });
+
+test("intake refuses a post with no Origin or a foreign Origin", async ({ request }) => {
+  expect((await request.post(OK_BASE + "/api/intake", { data: valid })).status()).toBe(403);
+  expect((await request.post(OK_BASE + "/api/intake", { data: valid, headers: from("https://evil.example") })).status()).toBe(403);
+});
+
+test("a persisted-record receipt is required: the reply carries the stored record reference", async ({ request }) => {
+  const key = uuid();
+  const res = await request.post(OK_BASE + "/api/intake", { data: { ...valid, idempotencyKey: key }, headers: from(OK_BASE) });
+  expect(res.status()).toBe(200);
+  const body = await res.json();
+  expect(body.receipt.reference).toMatch(/^QA-CRM-LEAD-\d+$/);
+  expect(body.receipt.recordType).toBe("crm_lead");
+  expect(body.receipt.idempotencyKey).toBe(key);
+  expect(body.receipt.duplicate).toBe(false);
+
+  // The same submission again: same record, flagged as a duplicate, no second record.
+  const again = await (await request.post(OK_BASE + "/api/intake", { data: { ...valid, idempotencyKey: key }, headers: from(OK_BASE) })).json();
+  expect(again.receipt.reference).toBe(body.receipt.reference);
+  expect(again.receipt.duplicate).toBe(true);
+});
+
+test("guard and sales submissions are stored as restricted record types, not sales leads", async ({ request }) => {
+  const guard = await (await request.post(OK_BASE + "/api/intake", { data: { ...valid, kind: "guard", data: { intent: "guard-profile", name: "Synthetic QA" }, idempotencyKey: uuid() }, headers: from(OK_BASE) })).json();
+  expect(guard.receipt.recordType).toBe("guard_application");
+  const sales = await (await request.post(OK_BASE + "/api/intake", { data: { ...valid, kind: "sales", data: { intent: "sales-representative-application", name: "Synthetic QA" }, idempotencyKey: uuid() }, headers: from(OK_BASE) })).json();
+  expect(sales.receipt.recordType).toBe("recruitment_application");
+});
+
+for (const [mode, why] of [["none", "a bare 200 with no receipt"], ["wrong-key", "a receipt for a different submission"], ["no-id", "a receipt without a record identifier"]] as const) {
+  test(`an upstream 2xx is not proof of a save: ${why} is reported as not received`, async ({ request }) => {
+    const res = await request.post(OK_BASE + "/api/intake", { data: { ...valid, data: { ...valid.data, qaReceipt: mode }, idempotencyKey: uuid() }, headers: from(OK_BASE) });
+    expect(res.status()).toBe(502);
+    const body = await res.json();
+    expect(body.receipt).toBeUndefined();
+    expect(body.message).toMatch(/could not confirm that this was saved/i);
+  });
+}
 
 test("intake throttles a connection that floods it (429 with Retry-After)", async ({ request }) => {
+  const flood = "http://localhost:3102";
   let last = 0;
   let retryAfter: string | undefined;
   for (let i = 0; i < 14; i++) {
-    const res = await request.post("http://localhost:3102/api/intake", { data: valid });
+    const res = await request.post(flood + "/api/intake", { data: valid, headers: from(flood) });
     last = res.status();
     retryAfter = res.headers()["retry-after"];
     if (last === 429) break;
@@ -89,10 +134,22 @@ test("intake throttles a connection that floods it (429 with Retry-After)", asyn
   expect(retryAfter).toBe("600");
 });
 
+test("the throttle cannot be dodged by forging X-Forwarded-For", async ({ request }) => {
+  const flood = "http://localhost:3102";
+  let last = 0;
+  for (let i = 0; i < 16; i++) {
+    // The trusted edge header (INTAKE_CLIENT_IP_HEADER on this server) names the caller; the forged chain is ignored.
+    last = (await request.post(flood + "/api/intake", { data: valid, headers: { ...from(flood), "x-qa-edge-client-ip": "198.51.100.7", "x-forwarded-for": `203.0.113.${i}` } })).status();
+  }
+  expect(last).toBe(429);
+});
+
 test("with no receiver configured the API says nothing was sent (503), never success", async ({ request }) => {
-  const res = await request.post("/api/intake", { data: valid });
+  const res = await request.post("/api/intake", { data: valid, headers: from(SITE) });
   expect(res.status()).toBe(503);
-  expect((await res.json()).message).toMatch(/nothing was sent/i);
+  const body = await res.json();
+  expect(body.message).toMatch(/nothing was sent/i);
+  expect(body.receipt).toBeUndefined();
 });
 
 test("contact form forwards consent, a separate marketing choice and an idempotency key", async ({ page, request }) => {
@@ -110,6 +167,7 @@ test("contact form forwards consent, a separate marketing choice and an idempote
   await tick(form.locator('input[name="consent-processing"]'));
   await form.locator("button[type=submit]").click();
   await expect(page.locator('[role="status"]').first()).toBeVisible({ timeout: 15_000 });
+  await expect(page.locator("[data-receipt-reference]")).toContainText(/Reference: QA-CRM-LEAD-\d+/);
   type Hit = { headers?: Record<string, string>; body: { contract?: string; idempotencyKey?: string; consent?: { processing: boolean; marketing: boolean; noticeVersion: string; recordedAt: string }; data: Record<string, string> } };
   const received = (await (await request.get("http://localhost:4010/received")).json()) as Hit[];
   const hit = received.reverse().find((r) => r.body?.data?.email === "qa.r0@example.com");
@@ -120,3 +178,25 @@ test("contact form forwards consent, a separate marketing choice and an idempote
   expect(hit!.body.idempotencyKey).toMatch(/^[0-9a-f-]{36}$/);
   expect(hit!.headers?.["idempotency-key"]).toBe(hit!.body.idempotencyKey);
 });
+
+// PatrolStory is the only component whose cards wait off to the side; it renders on this route.
+for (const route of ["/guard-patrol-software"]) {
+  test(`cards waiting to slide in never widen the page at tablet width: ${route}`, async ({ page }) => {
+    await page.setViewportSize({ width: 768, height: 1024 });
+    await page.goto(route);
+    await expect(page.locator("main")).toBeVisible();
+    // Hold every reveal group in its off-to-the-side waiting state: the worst case, deterministically.
+    const groups = await page.evaluate(() => {
+      const all = [...document.querySelectorAll<HTMLElement>(".reveal-group")];
+      all.forEach((group) => group.setAttribute("data-reveal", "waiting"));
+      return all.length;
+    });
+    expect(groups).toBeGreaterThan(0);
+    // Let the cards finish travelling to their waiting offset, and confirm one really is displaced.
+    await page.waitForTimeout(1500);
+    const displaced = await page.evaluate(() => [...document.querySelectorAll<HTMLElement>(".reveal-group > .reveal")].some((card) => card.getBoundingClientRect().right > window.innerWidth));
+    expect(displaced, "a waiting card sits past the right edge").toBe(true);
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+    expect(overflow).toBeLessThanOrEqual(1);
+  });
+}

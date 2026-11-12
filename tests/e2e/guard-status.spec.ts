@@ -45,6 +45,8 @@ test.describe("GUARD_STATUS=live", () => {
   const port = 3103;
 
   test.beforeAll(async () => {
+    // The hook builds a second copy of the site; give it the describe's budget, not the default.
+    test.setTimeout(420_000);
     const env = {
       ...process.env,
       GUARD_STATUS: "live",

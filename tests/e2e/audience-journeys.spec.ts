@@ -3,13 +3,19 @@ import { expect, test } from "@playwright/test";
 test("homepage introduces purchasable journeys and clearly labels 1Community", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1, name: /Run your business/ })).toBeVisible();
-  await expect(page.getByRole("link", { name: /Explore 1GUARD/ })).toHaveAttribute("href", "/solutions/security");
-  await expect(page.getByRole("link", { name: /Explore 1Service/ })).toHaveAttribute("href", "/service");
-  await expect(page.getByRole("link", { name: /Explore equipment/ })).toHaveAttribute("href", "/equipment-marketplace");
+  // The approved page offers each product from the hero bar, the section wordmark and the section action:
+  // every link carrying the name must lead to that product.
+  for (const [name, href] of [[/Explore 1GUARD/, "/solutions/security"], [/Explore 1Service/, "/service"], [/Explore equipment/, "/equipment-marketplace"]] as const) {
+    const links = await page.getByRole("link", { name }).all();
+    expect(links.length, String(name)).toBeGreaterThanOrEqual(1);
+    for (const link of links) await expect(link).toHaveAttribute("href", href);
+  }
   await expect(page.getByText(/1Community is part of the future/)).toBeVisible();
   await expect(page.getByText(/1Community is part of the future/)).toBeVisible();
   await expect(page.locator(".s1-nav-upcoming")).toHaveCount(0);
-  await expect(page.getByRole("link", { name: /Get 14 Day Free Trial/ })).toHaveAttribute("href", "/get-started");
+  const trialLinks = await page.getByRole("link", { name: /Get 14 Day Free Trial/ }).all();
+  expect(trialLinks.length).toBeGreaterThanOrEqual(1);
+  for (const link of trialLinks) await expect(link).toHaveAttribute("href", "/get-started");
 });
 
 test("site pill stays usable on a phone and does not offer 1Community as a live route", async ({ page }) => {

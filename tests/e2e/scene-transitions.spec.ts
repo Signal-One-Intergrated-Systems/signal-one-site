@@ -27,7 +27,13 @@ test("sealed shutters prevent the previous page scrolling through the glass", as
  expect(originalScrollY).toBeGreaterThan(300);
 
  const overlay = page.locator(".sg-entry-overlay");
- await page.getByRole("navigation", { name: "Primary" }).getByRole("link", { name: /1Service/ }).click();
+ // A real pointer click at the link's on-screen position. locator.click() first runs
+ // scrollIntoViewIfNeeded, which itself moves a page whose header is sticky (measured:
+ // 900 -> 540 before any site code runs), so it cannot observe what a visitor sees.
+ const box = await page.getByRole("navigation", { name: "Primary" }).getByRole("link", { name: /1Service/ }).boundingBox();
+ expect(box).not.toBeNull();
+ await page.mouse.click(box!.x + box!.width / 2, box!.y + box!.height / 2);
+ expect(await page.evaluate(() => window.scrollY)).toBe(originalScrollY);
  await expect(overlay).toHaveAttribute("data-guard-entry", "closing");
  expect(await page.evaluate(() => document.documentElement.style.overflow)).toBe("hidden");
 
@@ -45,4 +51,17 @@ test("sealed shutters prevent the previous page scrolling through the glass", as
  expect(await page.evaluate(() => window.scrollY)).toBe(0);
  await expect(overlay).toHaveAttribute("data-guard-entry", "idle", { timeout: 7000 });
  expect(await page.evaluate(() => document.documentElement.style.overflow)).not.toBe("hidden");
+});
+
+test("keyboard activation of a header link does not move the outgoing page", async ({ page }) => {
+ await page.goto("/");
+ await page.evaluate(() => window.scrollTo({ top: 900, behavior: "instant" }));
+ const originalScrollY = await page.evaluate(() => window.scrollY);
+ expect(originalScrollY).toBeGreaterThan(300);
+ await page.getByRole("navigation", { name: "Primary" }).getByRole("link", { name: /1Service/ }).evaluate((link: HTMLElement) => link.focus({ preventScroll: true }));
+ await page.keyboard.press("Enter");
+ await expect(page.locator(".sg-entry-overlay")).toHaveAttribute("data-guard-entry", "closing");
+ await page.waitForTimeout(350);
+ expect(await page.evaluate(() => window.scrollY)).toBe(originalScrollY);
+ await expect(page).toHaveURL(/service$/, { timeout: 8000 });
 });

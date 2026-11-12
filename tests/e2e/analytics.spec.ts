@@ -30,14 +30,14 @@ async function record(page: Page) {
   return seen;
 }
 
-test("hero buttons fire hero_product_proof and hero_pricing", async ({ page }) => {
+// The founder-locked hero (design-contract.spec.ts fixture) carries one tracked action: the trial request.
+// hero_product_proof and hero_pricing belonged to the retired hero; they stay in the vocabulary but nothing renders them.
+test("hero trial action fires homepage_trial_cta and no retired hero event is rendered", async ({ page }) => {
   const seen = await record(page);
   await page.goto("/");
-  await page.locator('[data-analytics-event="hero_product_proof"]').first().click();
-  await expect.poll(() => seen).toContain("hero_product_proof");
-  await page.goto("/");
-  await page.locator('[data-analytics-event="hero_pricing"]').first().click();
-  await expect.poll(() => seen).toContain("hero_pricing");
+  await expect(page.locator('[data-analytics-event="hero_product_proof"], [data-analytics-event="hero_pricing"]')).toHaveCount(0);
+  await page.locator('.so-hero-actions [data-analytics-event="homepage_trial_cta"]').click();
+  await expect.poll(() => seen).toContain("homepage_trial_cta");
 });
 
 test("pricing closing fires buy_guard_days", async ({ page }) => {
