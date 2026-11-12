@@ -43,6 +43,9 @@ for (const path of ["/", "/pricing", "/get-started", "/contact", "/api/intake/st
     const csp = h["content-security-policy"];
     expect(csp).toContain("frame-ancestors 'none'");
     expect(csp).toContain("object-src 'none'");
+    // Cloudflare injects its Web Analytics beacon at the edge; the policy must let it load and report.
+    expect(csp).toMatch(/script-src[^;]*https:\/\/static\.cloudflareinsights\.com/);
+    expect(csp).toMatch(/connect-src[^;]*https:\/\/cloudflareinsights\.com/);
   });
 }
 

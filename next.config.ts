@@ -36,9 +36,12 @@ const nextConfig: NextConfig = {
     // Next.js emits inline bootstrap scripts and the layout inlines JSON-LD; tightening
     // to nonces is tracked in SITE_INTEGRATION.md. Listed first so the stricter
     // Signal Connect rules below still win on their own paths.
-    // Google Analytics 4 (only loaded when NEXT_PUBLIC_GA_ID is set). Cloudflare script features
-    // (Rocket Loader, Web Analytics) are NOT allowed here: enable them only with a policy change.
+    // Google Analytics 4 (only loaded when NEXT_PUBLIC_GA_ID is set).
     const ga = "https://*.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com";
+    // Cloudflare Web Analytics: the edge injects this beacon into every page and it reports to cloudflareinsights.com.
+    // Found blocked in production verification of R0 (2026-11-12). Rocket Loader and Zaraz remain NOT allowed.
+    const cfScript = "https://static.cloudflareinsights.com";
+    const cfReport = "https://cloudflareinsights.com";
     const publicHeaders = [
       // This host only. includeSubDomains would bind app., api., guard., sales. and demo. to valid HTTPS
       // for a year before those hosts have certificates; add it once they do.
@@ -51,11 +54,11 @@ const nextConfig: NextConfig = {
         key: "Content-Security-Policy",
         value: [
           "default-src 'self'",
-          `script-src 'self' 'unsafe-inline' ${ga}`,
+          `script-src 'self' 'unsafe-inline' ${ga} ${cfScript}`,
           "style-src 'self' 'unsafe-inline'",
           `img-src 'self' data: blob: ${ga}`,
           "font-src 'self' data:",
-          `connect-src 'self' ${ga}`,
+          `connect-src 'self' ${ga} ${cfReport}`,
           "frame-ancestors 'none'",
           "base-uri 'self'",
           "object-src 'none'",

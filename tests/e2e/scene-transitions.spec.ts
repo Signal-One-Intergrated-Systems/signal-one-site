@@ -97,6 +97,6 @@ test("in-page anchors and focused controls still clear the sticky header", async
  const headerBottom = await page.locator("header.glass-nav").evaluate(node => node.getBoundingClientRect().bottom);
  const sectionTop = await page.locator("#guard").evaluate(node => node.getBoundingClientRect().top);
  // The section starts at or below the header's lower edge (within a few pixels), not hidden beneath it.
- expect(sectionTop).toBeGreaterThanOrEqual(headerBottom - 8);
+ expect(sectionTop).toBeGreaterThanOrEqual(headerBottom);
  expect(sectionTop).toBeLessThan(headerBottom + 60);
 });
