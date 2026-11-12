@@ -1,5 +1,6 @@
 "use client";
 
+import ReceiptReference from "./ReceiptReference";
 import { FormEvent, useId, useRef, useState } from "react";
 import { trackEvent, type SignalOneEvent } from "../lib/analytics";
 import { submitIntake, type IntakeFallback, newIdempotencyKey } from "../lib/intake";
@@ -47,6 +48,7 @@ export default function IntakeForm({
   const [values, setValues] = useState<Record<string, string>>({});
   const [consent, setConsent] = useState(false);
   const [marketing, setMarketing] = useState(false);
+  const [reference, setReference] = useState<string | null>(null);
   const idempotencyKey = useRef("");
   const [state, setState] = useState<State>("idle");
   const [message, setMessage] = useState("");
@@ -83,6 +85,7 @@ export default function IntakeForm({
       requestAnimationFrame(() => statusRef.current?.focus());
       return;
     }
+    setReference(result.receipt.reference);
     setState("done");
     trackEvent(events.complete, { intent });
   }
@@ -92,6 +95,7 @@ export default function IntakeForm({
       <div role="status" className="card p-6 sm:p-8">
         <p className="t-kicker text-live">Received</p>
         <h3 className="t-h3 mt-3">{successTitle}</h3>
+        <ReceiptReference reference={reference} />
         <p className="t-body mt-3 text-text-2">{successBody}</p>
       </div>
     );

@@ -45,6 +45,7 @@ export function useJourney({
   const [hydrated, setHydrated] = useState(false);
   const [status, setStatus] = useState<JourneyStatus>("idle");
   const [message, setMessage] = useState("");
+  const [reference, setReference] = useState<string | null>(null);
   const [fallback, setFallback] = useState<IntakeFallback | null>(null);
   const started = useRef(false);
 
@@ -133,6 +134,7 @@ export function useJourney({
       setFallback(result.fallback);
       return false;
     }
+    setReference(result.receipt.reference);
     setStatus("done");
     trackEvent(events.complete, { kind });
     try {
@@ -153,6 +155,7 @@ export function useJourney({
     hydrated,
     status,
     message,
+    reference,
     fallback,
     set,
     toggle,

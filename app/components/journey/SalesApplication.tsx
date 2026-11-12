@@ -1,5 +1,6 @@
 "use client";
 
+import ReceiptReference from "../ReceiptReference";
 import IntakeError from "../IntakeError";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Consent, JMulti, JRadio, JSelect, JText, JTextarea, ReviewList } from "./fields";
@@ -66,6 +67,7 @@ export default function SalesApplication({ roleCount }: { roleCount: number | nu
       <div role="status" className="rounded-card bg-white p-6 ring-1 ring-line sm:p-10">
         <p className="t-kicker text-signal-ink">Application status</p>
         <h3 className="mt-3 font-display text-[2rem] font-bold leading-tight">Thank you. Your application is in.</h3>
+        <ReceiptReference reference={j.reference} />
         <ol className="m-0 mt-8 list-none p-0">
           {statusStages.map(([stage, note], index) => (
             <li key={stage} className="grid grid-cols-[2rem_1fr] gap-4 pb-6 last:pb-0">

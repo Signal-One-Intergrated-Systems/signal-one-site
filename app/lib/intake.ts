@@ -17,8 +17,11 @@ export type IntakeConsent = {
   capturedAt: string;
 };
 
+/** Proof from the receiver that a record was stored. `reference` is the stored record's identifier. */
+export type IntakeReceipt = { reference: string; recordType: string; persistedAt: string; duplicate: boolean; idempotencyKey: string };
+
 export type IntakeResult =
-  | { ok: true; message: string }
+  | { ok: true; message: string; receipt: IntakeReceipt }
   | { ok: false; message: string; fallback: IntakeFallback | null };
 
 export type IntakeFallback = { email: string; href: string };
@@ -90,8 +93,14 @@ export async function submitIntake(
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ kind, data, consent, idempotencyKey: options.idempotencyKey }),
     });
-    const body = (await response.json().catch(() => ({}))) as { message?: string };
-    if (response.ok) return { ok: true, message: body.message || "" };
+    const body = (await response.json().catch(() => ({}))) as { message?: string; receipt?: IntakeReceipt };
+    // Success needs the receiver's receipt for THIS submission, not merely a 200.
+    if (response.ok && body.receipt && typeof body.receipt.reference === "string" && body.receipt.idempotencyKey === options.idempotencyKey) {
+      return { ok: true, message: body.message || "", receipt: body.receipt };
+    }
+    if (response.ok) {
+      return { ok: false, message: "We could not confirm that this was saved, so please treat it as not received.", fallback: fallback() };
+    }
     const unavailable = response.status >= 500;
     return {
       ok: false,

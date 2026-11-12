@@ -4,15 +4,66 @@ The public website is an acquisition surface, not a system of record. It holds n
 
 ## `POST /api/intake` (website intake contract v1)
 
-Browser to site: `{ kind: "client" | "guard" | "sales", data: { …string fields, intent }, consent: { processing: true, marketing: boolean, noticeVersion, capturedAt }, idempotencyKey: <uuid> }`, capped at 20,000 characters of `data`.
+### Browser to site
 
-Site to receiver (`SIGNAL_ONE_INTAKE_URL`, server-side only): `{ contract: "website-intake/v1", kind, data, consent: { processing, marketing, noticeVersion, recordedAt, clientCapturedAt }, idempotencyKey, source: "signal-one-site" }` with `Authorization: Bearer $SIGNAL_ONE_INTAKE_TOKEN` and an `Idempotency-Key` header. `recordedAt` is server time.
+`{ kind, data: { …string fields, intent }, consent: { processing: true, marketing: boolean, noticeVersion, capturedAt }, idempotencyKey: <uuid> }`
 
-Site-side controls: same-origin check (403), processing consent required (400), UUID idempotency key required (400), string-only fields, best-effort per-connection throttle (429), 10-second upstream timeout (504, "cannot confirm this was received"). Success is reported only on an upstream 2xx.
+### Site to receiver (`SIGNAL_ONE_INTAKE_URL`, server-side only)
 
-Consent: every form carries a required processing consent linked to /privacy and /popia, and a separate optional marketing opt-in that is never pre-ticked.
+`POST` with `Authorization: Bearer $SIGNAL_ONE_INTAKE_TOKEN` and `Idempotency-Key: <uuid>`:
 
-Receiver obligations (platform side, not built): scoped service token, de-duplicate on `idempotencyKey`, persist the consent record with the lead, attribute to the Signal One tenant, route `guard` and `sales` kinds to restricted record types rather than ordinary sales leads, rate-limit, return no personal data.
+`{ contract: "website-intake/v1", kind, data, consent: { processing, marketing, noticeVersion, recordedAt, clientCapturedAt }, idempotencyKey, source: "signal-one-site" }`
+
+`recordedAt` is site server time. Both the URL and the token must be set; a receiver without service authentication is treated as not connected.
+
+### Receipt: the only thing that counts as "received"
+
+An HTTP 2xx is **not** proof of a save. The site reports success only when the receiver answers 2xx **and** returns:
+
+```json
+{ "status": "persisted",
+  "receipt": { "recordId": "<stored record id>", "recordType": "crm_lead | guard_application | recruitment_application | …",
+               "idempotencyKey": "<the key sent>", "persistedAt": "<ISO time>", "duplicate": false } }
+```
+
+- `recordId` must identify the stored row (6–80 characters, letters, digits, `. _ : -`).
+- `idempotencyKey` must equal the key the site sent, so a receipt for another submission is rejected.
+- A repeat of the same key must return the **same** `recordId` with `duplicate: true` and create nothing.
+- Missing, malformed or mismatched receipt: the visitor is told the save could not be confirmed (502) and offered email. A timeout gives the same message (504).
+- The visitor sees the `recordId` as their reference. Receiver text is never shown on success; receiver 4xx messages are shown, truncated.
+
+### Request validation (site side)
+
+| Check | Result |
+|---|---|
+| `Origin` header present and equal to the site host | else 403 |
+| `Content-Type: application/json`, body ≤ 64 KB | else 415 / 413 |
+| `kind` in client, guard, sales; `intent` allowed for that kind | else 400 |
+| 1–80 fields, names `[A-Za-z][A-Za-z0-9_-]*`, string values ≤ 6,000 chars, `data` ≤ 20,000 chars | else 400 / 413 |
+| `consent.processing === true`, `marketing` boolean, dated notice version | else 400 |
+| `idempotencyKey` is a UUID | else 400 |
+
+### Trusted-proxy assumptions
+
+- The throttle never uses the left-most `X-Forwarded-For` entry; the visitor controls it.
+- If `INTAKE_CLIENT_IP_HEADER` is set (production behind Cloudflare: `cf-connecting-ip`), that header names the caller.
+- Otherwise the site uses `x-real-ip`, then the right-most `X-Forwarded-For` entry, i.e. the address the platform proxy saw. Behind Cloudflare that is a Cloudflare address, so all visitors would share one bucket: set the header variable in production.
+- `cf-connecting-ip` is only trustworthy for traffic that came through Cloudflare. The Railway origin host (`signal-one-site.up.railway.app`) is publicly reachable and `CANONICAL_REDIRECT` is not set in production, so the origin can be called directly with a forged header.
+
+### Provisional until the LEOS receiver is operational
+
+| Protection | Today | Final home |
+|---|---|---|
+| Rate limiting | In-memory, per process, resets on deploy, not shared across replicas | Cloudflare rate-limit rule on `/api/intake` and the receiver's own limit per service token |
+| De-duplication | Key generated and forwarded; nothing stores it | Receiver, unique on `idempotencyKey` |
+| Consent record | Captured and forwarded; nothing stores it | Receiver, stored with the record |
+| Bot protection | Origin check and field validation only | Cloudflare Turnstile, verified server-side, or receiver-side scoring |
+| Origin lock-down | Origin reachable directly | `CANONICAL_REDIRECT=1` plus a Cloudflare-only ingress rule or shared edge secret |
+| Service authentication | Static bearer token | Scoped, rotatable service credential issued by LEOS |
+| Tenant attribution | None on the site | Receiver derives the Signal One tenant from the credential, never from the payload |
+| Record routing | `kind` is forwarded | Receiver stores `guard` and `sales` kinds as restricted record types, not sales leads |
+
+Until both receiver variables are set in Railway, every form answers 503 "nothing was sent" and offers email. That is the current production state.
 
 - **Unset URL:** returns 503 with a message telling the visitor to email sales@signalone.co.za.
 - **Client fallback (all five forms):** on a 5xx response or a network failure, `app/lib/intake.ts` shows the server message plus a `mailto:sales@signalone.co.za` link. Subject is `Signal One website: <form type>` and the body is one `field label: value` line per answer (capped at 1,500 characters). Applies to contact, equipment quote, marketplace interest, client onboarding, guard join and sales application. 4xx errors show the message only.

@@ -1,5 +1,6 @@
 "use client";
 
+import ReceiptReference from "./ReceiptReference";
 import { FormEvent, useId, useRef, useState } from "react";
 import { trackEvent } from "../lib/analytics";
 import { submitIntake, type IntakeFallback, newIdempotencyKey } from "../lib/intake";
@@ -133,6 +134,7 @@ export default function EquipmentQuoteForm() {
   const [values, setValues] = useState<Record<string, string>>({});
   const [consent, setConsent] = useState(false);
   const [marketing, setMarketing] = useState(false);
+  const [reference, setReference] = useState<string | null>(null);
   const idempotencyKey = useRef("");
   const [state, setState] = useState<State>("idle");
   const [message, setMessage] = useState("");
@@ -178,6 +180,7 @@ export default function EquipmentQuoteForm() {
       requestAnimationFrame(() => statusRef.current?.focus());
       return;
     }
+    setReference(result.receipt.reference);
     setState("done");
     trackEvent("equipment_quote_complete", { category });
   }
@@ -187,6 +190,7 @@ export default function EquipmentQuoteForm() {
       <div role="status" className="card p-6 sm:p-8">
         <p className="t-kicker text-live">Quote request received</p>
         <h3 className="t-h3 mt-3">We have your {config.label.toLowerCase()} requirement.</h3>
+        <ReceiptReference reference={reference} />
         <p className="t-body mt-3 text-text-2">
           A Signal One representative will confirm the product, availability and terms, then send a written quote by
           email. Nothing is supplied until you accept it.

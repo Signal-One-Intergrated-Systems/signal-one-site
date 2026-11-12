@@ -1,5 +1,6 @@
 "use client";
 
+import ReceiptReference from "../ReceiptReference";
 import IntakeError from "../IntakeError";
 import Link from "next/link";
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
@@ -114,6 +115,7 @@ export default function GuardJoin() {
           <h1 className="mt-6 font-display text-[2.25rem] font-bold leading-tight tracking-[-0.02em]">
             Thank you. Your profile is with Signal One.
           </h1>
+          <ReceiptReference reference={j.reference} />
           <p className="mt-4 text-[1.1875rem] leading-relaxed text-text-2">
             Here is what happens today.
           </p>

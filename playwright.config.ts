@@ -39,7 +39,7 @@ export default defineConfig({
       port: 3102,
       reuseExistingServer: true,
       timeout: 60_000,
-      env: { CANONICAL_REDIRECT: "1" },
+      env: { CANONICAL_REDIRECT: "1", INTAKE_CLIENT_IP_HEADER: "x-qa-edge-client-ip" },
     },
   ],
 });

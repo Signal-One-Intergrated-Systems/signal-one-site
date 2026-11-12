@@ -1,5 +1,6 @@
 "use client";
 
+import ReceiptReference from "../ReceiptReference";
 import IntakeError from "../IntakeError";
 import Link from "next/link";
 import { useEffect, useRef, type FormEvent } from "react";
@@ -52,6 +53,7 @@ export default function ClientOnboarding() {
           <Check />
         </span>
         <h2 className="t-h1 mt-6">Thanks. Your onboarding request is with Signal One.</h2>
+        <ReceiptReference reference={j.reference} />
         <p className="t-lead mt-4 text-text-2">A representative will contact you about your selected products, trial request and account setup. A trial has not started yet.</p>
         <div className="mt-8">
           <Steps
