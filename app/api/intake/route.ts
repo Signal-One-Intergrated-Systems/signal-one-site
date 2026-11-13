@@ -107,6 +107,18 @@ function reply(message: string, status: number, headers?: Record<string, string>
 type Receipt = { recordId: string; recordType: string; persistedAt: string; duplicate: boolean };
 
 /** Accepts only `{ status: "persisted", receipt: { recordId, recordType, idempotencyKey, persistedAt, duplicate? } }`. */
+// Text a database can store: no control characters other than tab and line breaks, and no broken
+// surrogate pairs. Either makes a receiver fail in ways that have nothing to do with the visitor.
+const CONTROL_CHARACTERS = /[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/;
+const LONE_SURROGATE = /[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/;
+const isPlainText = (value: string) => !CONTROL_CHARACTERS.test(value) && !LONE_SURROGATE.test(value);
+
+const RECORD_TYPE_FOR: Record<string, string> = Object.assign(Object.create(null), {
+  client: "website_enquiry",
+  guard: "guard_application",
+  sales: "recruitment_application",
+});
+
 function readReceipt(body: unknown, idempotencyKey: string, kind: string): Receipt | null {
   if (!body || typeof body !== "object") return null;
   const { status, receipt } = body as { status?: unknown; receipt?: Record<string, unknown> };
@@ -116,8 +128,10 @@ function readReceipt(body: unknown, idempotencyKey: string, kind: string): Recei
   if (typeof recordType !== "string" || !RECORD_TYPE.test(recordType)) return null;
   if (typeof receipt.idempotencyKey !== "string" || receipt.idempotencyKey.toLowerCase() !== idempotencyKey.toLowerCase()) return null;
   if (typeof persistedAt !== "string" || !ISO_TIME.test(persistedAt) || Number.isNaN(Date.parse(persistedAt))) return null;
-  // Guard and recruitment applications must never be acknowledged as ordinary sales leads.
-  if (kind !== "client" && recordType === "crm_lead") return null;
+  // Each kind has exactly one record type. It never varies with what the receiver did internally, so the
+  // reply cannot tell anyone whether a company or person was already known; and an application is never
+  // acknowledged as a sales lead. Anything else is not a receipt we recognise.
+  if (recordType !== RECORD_TYPE_FOR[kind]) return null;
   return { recordId, recordType, persistedAt, duplicate: duplicate === true };
 }
 
@@ -158,7 +172,7 @@ export async function POST(request: Request) {
   if (
     entries.length === 0 ||
     entries.length > MAX_FIELDS ||
-    entries.some(([name, value]) => !FIELD_NAME.test(name) || typeof value !== "string" || value.length > MAX_FIELD_CHARS)
+    entries.some(([name, value]) => !FIELD_NAME.test(name) || typeof value !== "string" || value.length > MAX_FIELD_CHARS || !isPlainText(value))
   ) {
     return reply("Invalid application.", 400);
   }
