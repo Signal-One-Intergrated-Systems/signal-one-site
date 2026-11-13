@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
+import { withSocial } from "../../lib/seo";
 import LandingPage from "../../components/LandingPage";
 import { ButtonLink, FactPanel, Photo } from "../../components/ui";
 import { illustrativeCaption, photos } from "../../lib/photos";
 import { guardDayPricePhrase } from "../../lib/pricing";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSocial({
   title: "Guard Attendance and Clock-In Software",
   description:
     "Clock-in at the post on the guard's phone or a Central Device, the roster against every post, and PSiRA rules built in. " + guardDayPricePhrase + ", excl. VAT.",
   alternates: { canonical: "/guard-attendance-software" },
-};
+});
 
 export default function GuardAttendanceSoftwarePage() {
   return (

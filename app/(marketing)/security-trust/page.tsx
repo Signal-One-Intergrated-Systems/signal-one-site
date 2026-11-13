@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
+import { withSocial } from "../../lib/seo";
 import LegalPage from "../../components/LegalPage";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSocial({
   title: "Security and Trust: Access Control and Audit",
   description:
     "How Signal One controls access, keeps audit trails and handles hosting and data. We state only what is proven: no certifications we have not been awarded.",
   alternates: { canonical: "/security-trust" },
-};
+});
 
 const sections = [
   ["Authentication & access", "Authenticated product areas use role and permission controls. Guard also separates company, supervisor, client and guard access paths."],

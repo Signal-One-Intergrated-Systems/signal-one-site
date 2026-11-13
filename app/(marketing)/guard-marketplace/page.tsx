@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
+import { withSocial } from "../../lib/seo";
 import Link from "next/link";
 import Image from "next/image";
 import IntakeForm, { type IntakeField } from "../../components/IntakeForm";
 import { ButtonLink, Check, PageHero, Status, Steps, GuardStatus } from "../../components/ui";
 import { guardIsLive } from "../../lib/guardStatus";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSocial({
   title: "Guard Marketplace | Company Registration & Hiring Access",
   description:
     "Guard Marketplace is being built into 1GUARD: filter by location, PSiRA grade, availability and skills, shortlist and send hire requests. Register interest.",
   alternates: { canonical: "/guard-marketplace" },
-};
+});
 
 const flow = [
   ["Contract won", "You have a new site, or more posts on an existing one."],

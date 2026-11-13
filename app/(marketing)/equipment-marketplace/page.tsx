@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
+import { withSocial } from "../../lib/seo";
 import Link from "next/link";
 import Image from "next/image";
 import { ButtonLink, Kicker } from "../../components/ui";
 import ProductSignature from "../../components/brand/ProductSignature";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSocial({
  title: "Security Equipment Marketplace | Buy or Rent",
  description: "Browse security equipment categories for purchase or rental enquiries: PTT radios, body cameras, vehicle tracking and related field technology. Quotes subject to availability.",
  alternates: { canonical: "/equipment-marketplace" },
-};
+});
 const categories = [
  ["PTT radios and communications", "PoC and radio systems for deployed teams."],
  ["Body cameras", "Recording hardware for field operations."],

@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
+import { withSocial } from "../../lib/seo";
 import LandingPage from "../../components/LandingPage";
 import PatrolStory from "../../components/PatrolStory";
 import { ButtonLink, FactPanel, Photo } from "../../components/ui";
 import { illustrativeCaption, photos } from "../../lib/photos";
 import { guardDayPricePhrase } from "../../lib/pricing";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSocial({
   title: "Guard Patrol Software for Security Companies",
   description:
     "QR and NFC checkpoint patrols, with scans saved on the phone when signal drops, and missed and late checkpoints in proof of service. 1GUARD is " + guardDayPricePhrase + ", excl. VAT.",
   alternates: { canonical: "/guard-patrol-software" },
-};
+});
 
 export default function GuardPatrolSoftwarePage() {
   return (

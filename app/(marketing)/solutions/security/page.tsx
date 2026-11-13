@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { withSocial } from "../../../lib/seo";
 import { ButtonLink, Check, FactPanel, Kicker, Photo, SplitHero, Status, GuardStatus } from "../../../components/ui";
 import { guardOnboardingLine } from "../../../lib/guardStatus";
 import { illustrativeCaption, photos } from "../../../lib/photos";
@@ -6,12 +7,12 @@ import { proofViews } from "../../../lib/productProof";
 import { guardDayPricePhrase } from "../../../lib/pricing";
 import ProductSignature from "../../../components/brand/ProductSignature";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSocial({
   title: "1GUARD | Security Business Operating System for SMEs",
   description:
     "1GUARD is the Security Business Operating System for South African SMEs, connecting service delivery, workforce and business oversight. Explore the available sites, shifts, patrols, SOS and reporting workflows.",
   alternates: { canonical: "/solutions/security" },
-};
+});
 
 function view(id: string) {
   const found = proofViews.find((item) => item.id === id);

@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
+import { withSocial } from "../../lib/seo";
 import Image from "next/image";
 import ClientOnboarding from "../../components/journey/ClientOnboarding";
 import IntakeAvailability from "../../components/journey/IntakeAvailability";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSocial({
   title: "Request Your 14-Day Trial",
   description:
     "Tell Signal One what your company needs across 1GUARD, 1Service and connected equipment. Request a 14-day trial or walkthrough; activation is confirmed separately.",
   alternates: { canonical: "/get-started" },
-};
+});
 
 export default function GetStartedPage() {
   return (

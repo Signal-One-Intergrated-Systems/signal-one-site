@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
+import { withSocial } from "../../lib/seo";
 import LandingPage from "../../components/LandingPage";
 import { ButtonLink, Photo, Status } from "../../components/ui";
 import { illustrativeCaption, photos } from "../../lib/photos";
 import { catalogue } from "../../lib/catalogue";
 import { guardDayPricePhrase } from "../../lib/pricing";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSocial({
   title: "PTT Radio Rental for Security Companies",
   description:
     "Push-to-talk over cellular radios on 12, 24 or 36-month rental terms: Hytera PNC360S, P30 Lite PoC and E600 PoC LTE, by quote, from Signal One.",
   alternates: { canonical: "/ptt-radio-rental" },
-};
+});
 
 const radios = catalogue[0];
 

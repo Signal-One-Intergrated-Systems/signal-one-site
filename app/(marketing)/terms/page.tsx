@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
+import { withSocial } from "../../lib/seo";
 import LegalPage from "../../components/LegalPage";
 import { guardDayPricePhrase } from "../../lib/pricing";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSocial({
   title: "Website Terms",
   description:
     "Terms for using the Signal One public website: product information, pricing and acceptable use.",
   alternates: { canonical: "/terms" },
-};
+});
 
 const sections = [
   ["Website information", "We aim to keep public product information accurate, but availability, hardware specifications and commercial terms are confirmed before an order or rental is accepted."],

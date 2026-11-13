@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
+import { withSocial } from "../../lib/seo";
 import Image from "next/image";
 import IntakeForm, { type IntakeField } from "../../components/IntakeForm";
 import { Kicker, Steps } from "../../components/ui";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSocial({
   title: "Talk to Signal One | 1GUARD, 1Service and Equipment",
   description:
     "Talk to Signal One about 1GUARD, 1Service, security equipment and connected operations. Request a walkthrough or product quotation.",
   alternates: { canonical: "/contact" },
-};
+});
 
 const fields: IntakeField[] = [
   { name: "contactName", label: "Your name", required: true, autoComplete: "name" },

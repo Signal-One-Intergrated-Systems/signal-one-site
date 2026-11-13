@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { withSocial } from "../lib/seo";
 import type { CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,12 +13,12 @@ import pnc360s from "../../public/images/hardware/hytera-pnc360s.webp";
 import fmb920 from "../../public/images/hardware/teltonika-fmb920.webp";
 import "../home-conversion.css";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSocial({
   title: { absolute: "Signal One | 1GUARD, 1Service & Business Equipment" },
   description:
     "Intelligent business operating systems for SMEs. Explore 1GUARD for security businesses, 1Service for service businesses and professional equipment and connectivity from Signal One.",
   alternates: { canonical: "/" },
-};
+});
 
 function Arrow() {
   return <span aria-hidden="true" className="so-arrow">↗</span>;

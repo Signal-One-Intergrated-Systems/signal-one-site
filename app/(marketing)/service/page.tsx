@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
+import { withSocial } from "../../lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 import { ButtonLink, Kicker } from "../../components/ui";
 import ProductSignature from "../../components/brand/ProductSignature";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSocial({
   title: "1Service | Restaurant-First Business Operating System",
   description: "Explore the 1Service vision from Signal One: restaurant operations, staff planning, kitchen workflows, stock, purchasing and decision support. In development; register interest.",
   alternates: { canonical: "/service" },
-};
+});
 
 const ambitions = [
   ["Run the day", "Connect bookings and orders with service, kitchen and exception workflows. Planned.", "/images/editorial/restaurant-staff-briefing.webp", "Illustrative chef and waiters preparing together before service"],

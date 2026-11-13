@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
+import { withSocial } from "../../lib/seo";
 import EquipmentQuoteForm from "../../components/EquipmentQuoteForm";
 import { HardwareCard } from "../../components/Hardware";
 import { catalogue } from "../../lib/catalogue";
 import { ButtonLink, PageHero, Photo, Status, Steps } from "../../components/ui";
 import { illustrativeCaption, photos } from "../../lib/photos";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSocial({
   title: "Radios, Vehicle Tracking and Body Cameras for Contracts",
   description:
     "Rent PTT radios, vehicle trackers and body cameras for your security contracts: Hytera PNC360S, P30 Lite PoC, E600 PoC LTE, FMC920, FMB920, SC780. By quote.",
   alternates: { canonical: "/radios-equipment" },
-};
+});
 
 export default function RadiosEquipmentPage() {
   return (
