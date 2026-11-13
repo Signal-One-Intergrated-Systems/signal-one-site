@@ -35,7 +35,7 @@ function PanelPhoto({
   return (
     <figure className={`so-panel-photo so-panel-photo--${size}`}>
       <Image src={src} alt={alt} fill loading="lazy" quality={76}
-        sizes={size === "mini" ? "56px" : "(min-width: 1024px) 340px, (min-width: 680px) 45vw, 90vw"}
+        sizes={size === "mini" ? "80px" : "(min-width: 1024px) 340px, 90vw"}
         className="so-panel-photo-image" />
     </figure>
   );
@@ -107,7 +107,7 @@ export default function Home() {
         <div className="wrap so-vertical-layout">
           <div data-motion-from="top" className="so-vertical-visual so-vertical-visual-guard">
             <Image src="/images/home/approved-sme-security-control-room-2026.png" alt="Illustrative daylight security office for an SME, with three operators monitoring CCTV and a light-skinned Black male supervisor supporting the team"
-              fill sizes="(min-width:1024px) 49vw, 100vw" className="object-cover" />
+              fill sizes="(min-width:1024px) 49vw, 105vw" className="object-cover" />
             <div className="so-image-caption">Illustrative SME security operations</div>
           </div>
           <div data-motion-from="left" style={{ "--so-motion-delay": "240ms" } as CSSProperties} className="so-vertical-content"><PanelPhoto src="/images/photo/guard-site-operations.webp" alt="Illustrative security workers coordinating operational duties at a customer site" />
@@ -132,7 +132,7 @@ export default function Home() {
         <div className="wrap so-vertical-layout so-reverse-layout">
           <div data-motion-from="right" className="so-vertical-visual so-vertical-visual-service">
             <Image src="/images/home/service-restaurant-operations.jpg" alt="Illustrative restaurant kitchen team coordinating a live service in a professional hospitality environment"
-              fill sizes="(min-width:1024px) 49vw, 100vw" className="object-cover" />
+              fill sizes="(min-width:1024px) 73vw, 100vw" className="object-cover" />
             <div className="so-image-caption">Illustrative restaurant team at work</div>
           </div>
           <div data-motion-from="top" style={{ "--so-motion-delay": "280ms" } as CSSProperties} className="so-vertical-content"><PanelPhoto src="/images/home/panels/hire-hospitality.webp" alt="Illustrative hospitality workers discussing a staffing assignment" />

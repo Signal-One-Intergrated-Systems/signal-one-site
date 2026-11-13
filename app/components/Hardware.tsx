@@ -26,7 +26,7 @@ export function HardwareCard({
             src={product.image.src}
             alt={product.image.alt}
             fill
-            sizes="(min-width: 1024px) 360px, (min-width: 640px) 45vw, 85vw"
+            sizes="(min-width: 1024px) 480px, (min-width: 640px) 45vw, 85vw"
             quality={90}
             className="object-contain p-6 sm:p-8"
           />

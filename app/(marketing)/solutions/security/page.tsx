@@ -126,7 +126,7 @@ export default function SecurityPlatformPage() {
             <Photo
               src={photos.guardPatrol.src}
               alt={photos.guardPatrol.alt}
-              sizes="(min-width: 1320px) 720px, (min-width: 1024px) 58vw, 100vw"
+              sizes="(min-width: 1320px) 840px, (min-width: 1024px) 65vw, 106vw"
               className="w-full"
               aspect="aspect-[16/10]"
               imgClassName="object-cover object-[50%_50%]"
