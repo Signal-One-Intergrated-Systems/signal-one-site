@@ -20,6 +20,16 @@ main:not(.s1-brand-home) :is(.surface-light,.surface-light-2,.surface-white) :is
 main:not(.s1-brand-home) :is(.surface-light,.surface-light-2,.surface-white) :is(.text-text,.text-text-2,.t-body,.t-small,.t-caption) {
   color:var(--site-muted)!important;
 }
+/* The same contract when <main> itself is the repainted surface (LegalPage: /privacy, /popia, /terms,
+   /security-trust). The rules above only reach surfaces nested inside <main>, so these pages kept light-surface
+   ink (#33475B, #0270A8) on the dark repaint and their copy was unreadable. Scene pages already re-token their
+   own text further down and are left alone; elements that keep a white background keep their dark ink. */
+main:is(.surface-light,.surface-light-2,.surface-white):not(.s1-brand-home):not(.s1-scene-page) :is(.t-kicker,.t-lead) {
+  color:var(--site-on-dark)!important;
+}
+main:is(.surface-light,.surface-light-2,.surface-white):not(.s1-brand-home):not(.s1-scene-page) :is(.text-text,.text-text-2,.t-body,.t-small,.t-caption):not(.bg-white) {
+  color:var(--site-muted)!important;
+}
 main:not(.s1-brand-home) :is(.surface-light,.surface-light-2,.surface-white) :is(.card,.rounded-card,.glass-light) {
   background:var(--marketing-panel)!important;
   color:var(--site-on-dark)!important;
