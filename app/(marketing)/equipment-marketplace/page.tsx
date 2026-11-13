@@ -5,7 +5,7 @@ import { ButtonLink, Kicker } from "../../components/ui";
 import ProductSignature from "../../components/brand/ProductSignature";
 
 export const metadata: Metadata = {
- title: "Security Equipment Marketplace | Buy or Rent | Signal One",
+ title: "Security Equipment Marketplace | Buy or Rent",
  description: "Browse security equipment categories for purchase or rental enquiries: PTT radios, body cameras, vehicle tracking and related field technology. Quotes subject to availability.",
  alternates: { canonical: "/equipment-marketplace" },
 };

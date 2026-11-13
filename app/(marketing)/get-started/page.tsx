@@ -4,7 +4,7 @@ import ClientOnboarding from "../../components/journey/ClientOnboarding";
 import IntakeAvailability from "../../components/journey/IntakeAvailability";
 
 export const metadata: Metadata = {
-  title: "Request Your 14-Day Trial | Signal One",
+  title: "Request Your 14-Day Trial",
   description:
     "Tell Signal One what your company needs across 1GUARD, 1Service and connected equipment. Request a 14-day trial or walkthrough; activation is confirmed separately.",
   alternates: { canonical: "/get-started" },

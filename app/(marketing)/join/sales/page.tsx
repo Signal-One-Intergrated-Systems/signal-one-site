@@ -8,7 +8,7 @@ import { photos } from "../../../lib/photos";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Careers: Sales Representative at Signal One",
+  title: "Careers: Sales Representative",
   description:
     "Join Signal One's sales team bringing intelligent business operating systems to South African SMEs, beginning with security businesses.",
   alternates: { canonical: "/join/sales" },
