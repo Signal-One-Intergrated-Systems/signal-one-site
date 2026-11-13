@@ -483,6 +483,10 @@ main.s1-scene-page :is(.text-text,.text-text-2,.text-text-inv,.text-text-inv-2){
 main.s1-scene-page :is(h1,h2,h3,h4,p,li,dt,dd){
   text-shadow:0 1px 2px rgba(0,0,0,.15);
 }
+/* /get-started stepper: the override above also caught the step numerals, which sit on a light disc
+   (.s1-onboarding aside ol li > span in globals.css), leaving them light on light. Restore their dark ink. */
+main.s1-scene-page.s1-onboarding aside ol li > span{color:#082138!important}
+main.s1-scene-page.s1-onboarding aside ol li[aria-current="step"] > span{color:#062039!important}
 main.s1-scene-page :is(.card,.card-dark,.rounded-card,.glass,.glass-light,.bg-raised,.bg-surface){
   background:rgba(26,29,30,.73)!important;
   border-color:rgba(234,240,239,.28)!important;
