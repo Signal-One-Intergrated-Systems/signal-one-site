@@ -716,7 +716,7 @@ body:has(.so-home) header.glass-nav .btn-primary{box-shadow:inset 0 1px rgba(255
    The security officer and chef stay at their original, distant scale on the
    right. Do not crop or artificially zoom this image to favor people's faces. */
 .so-home .s1-brand-stage.so-hero .so-hero-media{
-  background:#b8d0b7!important;
+  background:#081a2c!important; /* was pale green #b8d0b7, which showed behind the nav pill and under the photo; now the hero stage navy */
 }
 .so-home .s1-brand-stage.so-hero .so-hero-media .so-hero-photo{
   left:0!important;
