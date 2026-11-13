@@ -36,7 +36,8 @@ export const metadata: Metadata = {
     "vehicle tracking for security companies",
   ],
   applicationName: brand.master,
-  alternates: { canonical: "/" },
+  // No canonical or og:url here: every page sets its own (see lib/seo.ts). A layout-level value is what an
+  // unmatched URL inherits, which made every 404 declare itself the homepage.
   openGraph: {
     title: "Signal One: 1GUARD, 1Service and Integrated Systems",
     description:
@@ -44,8 +45,6 @@ export const metadata: Metadata = {
     type: "website",
     siteName: brand.master,
     locale: "en_ZA",
-    url: "/",
-    
   },
   twitter: {
     card: "summary_large_image",
