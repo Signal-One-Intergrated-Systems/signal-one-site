@@ -139,6 +139,19 @@ test("two different enquiries get two different references, and the reply has th
   expect(a.receipt.recordType).toBe(b.receipt.recordType);
 });
 
+test("control characters and broken unicode are refused by the site and never forwarded to the receiver", async ({ request }) => {
+  for (const [what, name] of [["a NUL", "Synthetic\u0000QA"], ["an escape character", "Synthetic\u001bQA"], ["a lone surrogate", "Synthetic\ud800QA"]] as const) {
+    const res = await request.post(OK_BASE + "/api/intake", { data: { ...valid, data: { ...valid.data, name }, idempotencyKey: uuid() }, headers: from(OK_BASE) });
+    expect(res.status(), what).toBe(400);
+  }
+  // Ordinary text with line breaks, tabs, accents and an emoji is still accepted.
+  const fine = await request.post(OK_BASE + "/api/intake", { data: { ...valid, data: { ...valid.data, name: "Zoë Ndlovu\n\tSite 4 🙂" }, idempotencyKey: uuid() }, headers: from(OK_BASE) });
+  expect(fine.status()).toBe(200);
+  const names = ((await (await request.get("http://127.0.0.1:4010/received")).json()) as { body: { data?: { name?: string } } }[]).map((hit) => hit.body.data?.name ?? "");
+  expect(names.filter((name) => name.startsWith("Synthetic") && name !== "Synthetic QA")).toEqual([]);
+  expect(names).toContain("Zoë Ndlovu\n\tSite 4 🙂");
+});
+
 test("unknown or prototype-named kinds are an ordinary 400, never a server error", async ({ request }) => {
   for (const kind of ["constructor", "__proto__", "toString", "hasOwnProperty"]) {
     const res = await request.post(OK_BASE + "/api/intake", { data: { ...valid, kind }, headers: from(OK_BASE) });
