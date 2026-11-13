@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 const sections = [
   ["Website information", "We aim to keep public product information accurate, but availability, hardware specifications and commercial terms are confirmed before an order or rental is accepted."],
-  ["Pricing", "The public Signal One Security rate is " + guardDayPricePhrase + ", excluding VAT. Radios, tracking and body cameras are rental by quote only. Other services and modules are priced separately where stated."],
+  ["Pricing", "The public 1GUARD rate is " + guardDayPricePhrase + ", excluding VAT. Radios, tracking and body cameras are rental by quote only. Other services and modules are priced separately where stated."],
   ["No invented commitments", "A website statement does not create a certification, uptime commitment, service-level agreement or product capability that is not stated in the governing customer agreement."],
   ["Acceptable use", "You may not interfere with the website, attempt unauthorised access, submit unlawful content or misuse public forms and application journeys."],
   ["Intellectual property", "Signal One branding, website content and product interfaces remain subject to their respective intellectual-property rights."],

@@ -85,8 +85,8 @@ export default function RadiosEquipmentPage() {
               <Status kind="soon">Coming soon</Status>
             </div>
             <p className="t-small measure mt-2 text-text-2">
-              You can rent this equipment today alongside Signal One Security. Activating devices and viewing tracking from
-              inside Signal One Guard is coming soon; renting a device does not yet connect it to the platform.
+              You can rent this equipment today alongside 1GUARD. Activating devices and viewing tracking from
+              inside 1GUARD is coming soon; renting a device does not yet connect it to the platform.
             </p>
           </div>
         </div>

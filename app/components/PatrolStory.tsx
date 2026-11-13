@@ -17,7 +17,7 @@ const steps = [
   },
   {
     stage: "Digital event",
-    title: "Signal One Guard records it",
+    title: "1GUARD records it",
     body: "The scan is recorded against the checkpoint and the patrol, with its time and GPS position. Scans taken without signal are saved on the phone and sent when it returns.",
     record: ["Checkpoint", "Patrol", "Time of scan", "GPS position"],
   },

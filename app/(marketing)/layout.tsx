@@ -88,13 +88,13 @@ const structuredData = {
     {
       "@type": "SoftwareApplication",
       "@id": siteUrl + "/#software",
-      name: "Signal One Guard",
-      alternateName: brand.product,
+      name: brand.product,
+      alternateName: "1GUARD Security Business OS",
       applicationCategory: "BusinessApplication",
       applicationSubCategory: "Security business operating system",
       operatingSystem: "Web, Android, iOS",
       publisher: { "@id": siteUrl + "/#organization" },
-      description: guardIsLive ? description : description + " Signal One Guard is in pilot with its first security companies.",
+      description: guardIsLive ? description : description + " 1GUARD is in pilot with its first security companies.",
       offers: {
         "@type": "Offer",
         url: siteUrl + "/pricing",

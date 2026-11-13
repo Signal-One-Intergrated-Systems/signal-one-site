@@ -10,7 +10,7 @@ import { exVat, guardDayPrice, guardDayPricePhrase, minimumPhrase } from "../../
 export const metadata: Metadata = {
   title: "1GUARD Pricing: " + guardDayPrice + " per Guard per Day",
   description:
-    "Signal One Security is " + guardDayPricePhrase + ", excluding VAT. No tiers or packages. Minimum " + minimumPhrase + "; unused days carry over. Calculate your cost.",
+    "1GUARD is " + guardDayPricePhrase + ", excluding VAT. No tiers or packages. Minimum " + minimumPhrase + "; unused days carry over. Calculate your cost.",
   alternates: { canonical: "/pricing" },
 };
 

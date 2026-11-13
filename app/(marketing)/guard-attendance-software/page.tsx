@@ -32,7 +32,7 @@ export default function GuardAttendanceSoftwarePage() {
         <div className="grid gap-5">
           <Photo src={photos.siteOperations.src} alt={photos.siteOperations.alt} sizes="(min-width:1024px) 46vw, 100vw" aspect="aspect-[16/9]" caption={illustrativeCaption} />
           <FactPanel
-          title="Signal One Guard · attendance"
+          title="1GUARD · attendance"
           facts={[
             ["Clock in at the post", "On the guard's own phone or an authorised Central Device."],
             ["Against the shift and post", "The attendance record belongs to the shift and the post."],
@@ -66,7 +66,7 @@ export default function GuardAttendanceSoftwarePage() {
       closing="Attendance you can show your client."
       related={[
         ["/guard-patrol-software", "Guard patrol software"],
-        ["/solutions/security", "The Signal One Security platform"],
+        ["/solutions/security", "The 1GUARD platform"],
         ["/pricing", "Pricing: " + guardDayPricePhrase],
       ]}
     />

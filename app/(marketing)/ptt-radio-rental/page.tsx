@@ -67,13 +67,13 @@ export default function PttRadioRentalPage() {
         ["You decide", "Nothing is supplied until you accept the quote."],
       ]}
       limits={[
-        "Renting a radio does not yet connect it to Signal One Guard. Activating devices and viewing tracking from inside Signal One Guard is coming soon.",
-        "Equipment is rented alongside Signal One Security, and priced separately from the " + guardDayPricePhrase + " platform rate.",
+        "Renting a radio does not yet connect it to 1GUARD. Activating devices and viewing tracking from inside 1GUARD is coming soon.",
+        "Equipment is rented alongside 1GUARD, and priced separately from the " + guardDayPricePhrase + " platform rate.",
       ]}
       closing="Radios for the contract, by quote."
       related={[
         ["/radios-equipment", "Radios, tracking and body cameras"],
-        ["/solutions/security", "The Signal One Security platform"],
+        ["/solutions/security", "The 1GUARD platform"],
         ["/contact", "Talk to Signal One"],
       ]}
     />

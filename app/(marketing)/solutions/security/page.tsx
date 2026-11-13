@@ -117,7 +117,7 @@ export default function SecurityPlatformPage() {
               <h2 className="t-h2 mt-4">What the guard does, on record.</h2>
             </div>
             <p className="t-body text-text-2">
-              Guards use the Signal One Guard app on their own phone or an authorised Central Device.
+              Guards use the 1GUARD app on their own phone or an authorised Central Device.
             </p>
           </div>
           <div className="mt-12 grid gap-12 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-start lg:gap-16">

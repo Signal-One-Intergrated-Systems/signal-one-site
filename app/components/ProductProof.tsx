@@ -76,7 +76,7 @@ export function ProductWindow({
             <i className="block h-2.5 w-2.5 rounded-full bg-line-dark" />
             <i className="block h-2.5 w-2.5 rounded-full bg-line-dark" />
           </span>
-          <span className="font-semibold text-text-inv">Signal One Guard · {screen}</span>
+          <span className="font-semibold text-text-inv">1GUARD · {screen}</span>
           <span>Synthetic demo data</span>
         </div>
         <ProofImage shot={shot} priority={priority} />
@@ -86,7 +86,7 @@ export function ProductWindow({
         <div className="md:hidden">
           <div className="product-window">
             <div className="product-window-bar">
-              <span className="text-[0.75rem] font-semibold text-text-inv">Signal One Guard · {screen} · Synthetic demo data</span>
+              <span className="text-[0.75rem] font-semibold text-text-inv">1GUARD · {screen} · Synthetic demo data</span>
             </div>
             <ProofImage shot={shot} priority={priority} />
           </div>
@@ -131,7 +131,7 @@ export default function ProductProof({ initial = "control" }: { initial?: string
     <div>
       <div
         role="tablist"
-        aria-label="Signal One Guard screens"
+        aria-label="1GUARD screens"
         onKeyDown={onKeyDown}
         className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap"
       >
@@ -175,7 +175,7 @@ export default function ProductProof({ initial = "control" }: { initial?: string
           <div>
             <p className="t-body text-text-2">{view.body}</p>
             <p className="t-caption mt-3 text-text-2">
-              Real Signal One Guard screen from our demo environment. Every name, site and record shown is synthetic.
+              Real 1GUARD screen from our demo environment. Every name, site and record shown is synthetic.
             </p>
           </div>
         </div>

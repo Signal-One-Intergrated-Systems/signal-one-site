@@ -16,7 +16,7 @@ export const guardIsLive = guardStatusKind === "live";
 export const guardStatusLabel = guardIsLive ? "Live" : "Pilot";
 
 /** Shown on pricing, the security solutions page and the home pricing section while in pilot. */
-export const guardOnboardingLine = guardIsLive ? null : "Signal One Guard is onboarding its first pilot security companies.";
+export const guardOnboardingLine = guardIsLive ? null : "1GUARD is onboarding its first pilot security companies.";
 
 /** schema.org availability for the Guard offer. */
 export const guardAvailability = guardIsLive ? "https://schema.org/InStock" : "https://schema.org/LimitedAvailability";
