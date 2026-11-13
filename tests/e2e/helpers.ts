@@ -2,11 +2,16 @@ import { expect, type Page } from "@playwright/test";
 
 export const OK_BASE = "http://localhost:3101";
 
-/** Click a controlled radio or checkbox and wait for React to reflect it (it can lag a frame under load). */
+/**
+ * Click a controlled radio or checkbox and wait for React to reflect it (it can lag a frame under load).
+ * The click is a real, actionability-checked click. A forced click skips Playwright's hit-target check, and
+ * while the page was still smooth-scrolling after a step change it landed on the fixed header instead of
+ * the control (the header covers the top 76 px), so the control never changed.
+ */
 export async function tick(locator: import("@playwright/test").Locator) {
   for (let attempt = 0; attempt < 6; attempt++) {
     if (await locator.isChecked()) return;
-    await locator.click({ force: true });
+    await locator.click();
     await locator.page().waitForTimeout(150);
   }
   await expect(locator).toBeChecked();
@@ -47,7 +52,7 @@ export async function fillVisible(page: Page, scope = "main") {
     for (const box of list) if (await box.isChecked()) any = true;
     if (!any) {
       for (let attempt = 0; attempt < 6 && !(await list[0].isChecked()); attempt++) {
-        await list[0].click({ force: true });
+        await list[0].click(); // real click, see tick()
         await page.waitForTimeout(150);
       }
       expect(await list[0].isChecked()).toBe(true);
