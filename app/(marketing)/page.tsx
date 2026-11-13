@@ -254,8 +254,8 @@ export default function Home() {
             <div data-motion-from="top" style={{ "--so-motion-delay": "240ms" } as CSSProperties}><PanelPhoto src="/images/editorial/cafe-team-planning.webp" alt="Illustrative cafe manager, chef and service supervisor planning work together" /><span className="so-step">02</span><h3>Tell us about your operation</h3><p>Share the sites, teams, requirements or devices your business needs.</p></div>
             <div data-motion-from="right" style={{ "--so-motion-delay": "400ms" } as CSSProperties}><PanelPhoto src="/images/editorial/hospitality-team-briefing.webp" alt="Illustrative hotel and restaurant staff from different roles discussing a service plan" /><span className="so-step">03</span><h3>Confirm the right starting point</h3><p>We explain eligibility, supported capabilities, terms and activation before the work begins.</p></div>
           </div>
+          <p className="so-editorial-disclosure">People and workplace scenes are illustrative; equipment photographs are original manufacturer imagery.</p>
         </div>
-        <p className="so-editorial-disclosure">People and workplace scenes are illustrative; equipment photographs are original manufacturer imagery.</p>
       </section>
 
       <section id="community" className="so-final-cta" aria-labelledby="so-final-title">
