@@ -96,8 +96,9 @@ test("a persisted-record receipt is required: the reply carries the stored recor
   const res = await request.post(OK_BASE + "/api/intake", { data: { ...valid, idempotencyKey: key }, headers: from(OK_BASE) });
   expect(res.status()).toBe(200);
   const body = await res.json();
-  expect(body.receipt.reference).toMatch(/^QA-CRM-LEAD-\d+$/);
-  expect(body.receipt.recordType).toBe("crm_lead");
+  // An opaque submission reference, never a stored row's identifier, and one fixed record type per kind.
+  expect(body.receipt.reference).toMatch(/^SO-[0-9A-HJKMNP-TV-Z]{12}$/);
+  expect(body.receipt.recordType).toBe("website_enquiry");
   expect(body.receipt.idempotencyKey).toBe(key);
   expect(body.receipt.duplicate).toBe(false);
 
@@ -116,6 +117,26 @@ test("the site passes the receiver's record type through, and refuses a guard or
   const wrong = await request.post(OK_BASE + "/api/intake", { data: { ...valid, kind: "guard", data: { intent: "guard-profile", name: "Synthetic QA", qaReceipt: "lead-for-application" }, idempotencyKey: uuid() }, headers: from(OK_BASE) });
   expect(wrong.status()).toBe(502);
   expect((await wrong.json()).receipt).toBeUndefined();
+});
+
+test("an enquiry acknowledged with an internal record type is not accepted: the reply never varies with what the receiver did", async ({ request }) => {
+  // A receiver that answers "crm_lead" for some enquiries and something else for others would tell a caller
+  // whether a company was already known. The site accepts exactly one type per kind and nothing else.
+  const leaked = await request.post(OK_BASE + "/api/intake", { data: { ...valid, data: { ...valid.data, qaReceipt: "internal-type-for-client" }, idempotencyKey: uuid() }, headers: from(OK_BASE) });
+  expect(leaked.status()).toBe(502);
+  const body = await leaked.json();
+  expect(body.receipt).toBeUndefined();
+  expect(JSON.stringify(body)).not.toContain("LEAD-123458");
+});
+
+test("two different enquiries get two different references, and the reply has the same shape for both", async ({ request }) => {
+  const send = async () => (await request.post(OK_BASE + "/api/intake", { data: { ...valid, idempotencyKey: uuid() }, headers: from(OK_BASE) })).json();
+  const [a, b] = [await send(), await send()];
+  expect(a.receipt.reference).not.toBe(b.receipt.reference);
+  expect(Object.keys(a).sort()).toEqual(Object.keys(b).sort());
+  expect(Object.keys(a.receipt).sort()).toEqual(Object.keys(b.receipt).sort());
+  expect(a.message).toBe(b.message);
+  expect(a.receipt.recordType).toBe(b.receipt.recordType);
 });
 
 test("unknown or prototype-named kinds are an ordinary 400, never a server error", async ({ request }) => {
@@ -231,7 +252,7 @@ test("contact form forwards consent, a separate marketing choice and an idempote
   await tick(form.locator('input[name="consent-processing"]'));
   await form.locator("button[type=submit]").click();
   await expect(page.locator('[role="status"]').first()).toBeVisible({ timeout: 15_000 });
-  await expect(page.locator("[data-receipt-reference]")).toContainText(/Reference: QA-CRM-LEAD-\d+/);
+  await expect(page.locator("[data-receipt-reference]")).toContainText(/Reference: SO-[0-9A-HJKMNP-TV-Z]{12}/);
   type Hit = { headers?: Record<string, string>; body: { contract?: string; idempotencyKey?: string; consent?: { processing: boolean; marketing: boolean; noticeVersion: string; recordedAt: string }; data: Record<string, string> } };
   const received = (await (await request.get("http://localhost:4010/received")).json()) as Hit[];
   const hit = received.reverse().find((r) => r.body?.data?.email === "qa.r0@example.com");
