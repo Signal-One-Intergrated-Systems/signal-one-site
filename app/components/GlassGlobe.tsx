@@ -4,6 +4,12 @@ import { useEffect, useRef } from "react";
 type Point = [number,number];
 type Coordinates = number[][][];
 type Region = { rings: Coordinates; bounds: [number,number,number,number] };
+/** The parts of the locally hosted GeoJSON this component reads. */
+type GeoGeometry = { type: "Polygon"; coordinates: Coordinates } | { type: "MultiPolygon"; coordinates: Coordinates[] } | { type: string; coordinates?: unknown };
+type GeoFeature = { properties?: { name?: string } | null; geometry?: GeoGeometry | null };
+type GeoCollection = { features?: GeoFeature[] };
+const isPolygon = (g: GeoGeometry): g is { type: "Polygon"; coordinates: Coordinates } => g.type === "Polygon";
+const isMultiPolygon = (g: GeoGeometry): g is { type: "MultiPolygon"; coordinates: Coordinates[] } => g.type === "MultiPolygon";
 const destinations: [string,number,number][] = [
  ["Lagos",6.46,3.38],["Nairobi",-1.29,36.82],["Cairo",30.04,31.24],
  ["London",51.51,-.13],["Dubai",25.20,55.27],["Mumbai",19.08,72.88],
@@ -20,12 +26,12 @@ function inside(lon:number,lat:number,ring:number[][]) {
  }
  return hit;
 }
-function regionsFromGeoJSON(json:any):Region[] {
+function regionsFromGeoJSON(json:GeoCollection):Region[] {
  const regions:Region[]=[];
  for(const feature of json.features||[]) {
   const geometry=feature.geometry;
   if(!geometry)continue;
-  const polygons=geometry.type==="Polygon"?[geometry.coordinates]:geometry.type==="MultiPolygon"?geometry.coordinates:[];
+  const polygons:Coordinates[]=isPolygon(geometry)?[geometry.coordinates]:isMultiPolygon(geometry)?geometry.coordinates:[];
   for(const rings of polygons) {
    const outer=rings[0] as number[][];
    if(!outer||outer.length<3)continue;
@@ -71,11 +77,11 @@ export default function GlassGlobe(){
   // Locally hosted world geometry; data only, never executable source.
   fetch("/data/world.geojson")
    .then(r=>{if(!r.ok)throw Error("geography unavailable");return r.json()})
-   .then(data=>{if(alive){
+   .then((data:GeoCollection)=>{if(alive){
      geography=regionsFromGeoJSON(data);
      land=buildLand(geography);
-     const sa=(data.features||[]).find((f:any)=>f.properties?.name==="South Africa");
-     southAfricaOutline=sa?.geometry?.type==="Polygon"?sa.geometry.coordinates[0]:sa?.geometry?.type==="MultiPolygon"?sa.geometry.coordinates[0][0]:[];
+     const sa=(data.features||[]).find(f=>f.properties?.name==="South Africa")?.geometry;
+     southAfricaOutline=sa&&isPolygon(sa)?sa.coordinates[0]:sa&&isMultiPolygon(sa)?sa.coordinates[0][0]:[];
      request();
    }})
    .catch(()=>{ /* Render the ocean and grid if geographic data cannot load. */ });
@@ -161,7 +167,7 @@ export default function GlassGlobe(){
      ctx.stroke();ctx.shadowBlur=0;
    }
    const origin=vector(...ORIGIN);
-   destinations.forEach(([name,lat,lon],i)=>{
+   destinations.forEach(([,lat,lon],i)=>{
     const dest=vector(lat,lon);let prev=false;
     ctx.strokeStyle="rgba(82,184,245,.62)";ctx.lineWidth=1.15;ctx.beginPath();
     for(let n=0;n<=65;n++){

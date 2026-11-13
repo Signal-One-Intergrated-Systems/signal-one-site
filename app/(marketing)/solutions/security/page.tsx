@@ -42,7 +42,7 @@ export default function SecurityPlatformPage() {
         </div>
         <h1 className="t-hero mt-5">Run your security business. As one.</h1>
         <p className="t-lead measure mt-6 text-text-inv-2">
-          One operating system for the security business you are building. Connect your customers, workforce and service delivery. Today's documented operational capabilities include sites, shifts, patrols, incidents, SOS and client proof of service.
+          One operating system for the security business you are building. Connect your customers, workforce and service delivery. Today&apos;s documented operational capabilities include sites, shifts, patrols, incidents, SOS and client proof of service.
         </p>
         {guardOnboardingLine ? <p className="t-small mt-4 font-semibold text-text-inv">{guardOnboardingLine}</p> : null}
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">

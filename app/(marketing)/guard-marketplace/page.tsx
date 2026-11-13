@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { photos } from "../../lib/photos";
 import IntakeForm, { type IntakeField } from "../../components/IntakeForm";
 import { ButtonLink, Check, PageHero, Status, Steps, GuardStatus } from "../../components/ui";
 import { guardIsLive } from "../../lib/guardStatus";
