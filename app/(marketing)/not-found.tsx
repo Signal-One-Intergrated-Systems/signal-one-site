@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
 import { ButtonLink, Kicker } from "../components/ui";
+import { brand } from "../lib/site";
 
 export const metadata: Metadata = {
   title: "Page not found",
   robots: { index: false, follow: false },
+  // A 404 has no canonical URL and must not inherit the homepage's canonical or og:url from the layout.
+  alternates: {},
+  openGraph: { title: "Page not found | Signal One", type: "website", siteName: brand.master, locale: "en_ZA" },
+  twitter: { card: "summary", title: "Page not found | Signal One" },
 };
 
 export default function NotFound() {
