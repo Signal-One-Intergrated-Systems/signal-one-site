@@ -30,6 +30,21 @@ export default function SceneTransition({ children }: { children: ReactNode }) {
   const hold = useRef<number | null>(null);
   const transitionInProgress = useRef(false);
   const unlockScroll = useRef<(() => void) | null>(null);
+  // True from the click that starts a shutter transition until its route commits (mirrors `target`).
+  const [awaitingCommit, setAwaitingCommit] = useState(false);
+  const [syncedPath, setSyncedPath] = useState(pathname);
+
+  // A route change the shutters did not start (back/forward, or one that lands mid-transition after the
+  // commit) resets them at once. Done while rendering, not in an effect, so there is no extra cascaded render.
+  if (syncedPath !== pathname) {
+    setSyncedPath(pathname);
+    if (awaitingCommit) {
+      setAwaitingCommit(false); // the layout effect below opens the shutters onto this route
+    } else {
+      setDestination(pathname);
+      setPhase("idle");
+    }
+  }
 
   // A route transition owns the viewport until the destination has landed.
   // Unlock only after both shutters have finished opening.
@@ -61,9 +76,6 @@ export default function SceneTransition({ children }: { children: ReactNode }) {
         hold.current = null;
         timeout.current = window.setTimeout(() => { setPhase("idle"); timeout.current = null; }, 1338);
       }, 460);
-    } else {
-      setDestination(pathname);
-      setPhase("idle");
     }
   }, [pathname]);
 
@@ -100,6 +112,7 @@ export default function SceneTransition({ children }: { children: ReactNode }) {
       };
       if (timeout.current !== null) clearTimeout(timeout.current);
       target.current = url.pathname + url.search + url.hash;
+      setAwaitingCommit(true);
       setDestination(url.pathname);
       setPhase("closing");
       timeout.current = window.setTimeout(() => {
@@ -113,6 +126,7 @@ export default function SceneTransition({ children }: { children: ReactNode }) {
           // Navigation failure recovery: never trap the user behind glass.
           if (target.current) {
             target.current = null;
+            setAwaitingCommit(false);
             setDestination(window.location.pathname);
             setPhase("idle");
           }
