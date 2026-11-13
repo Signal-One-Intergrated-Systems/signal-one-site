@@ -130,26 +130,37 @@ export default function PricingPage() {
               Guard days cover the platform. These are optional and are never bundled into the {guardDayPrice} rate.
             </p>
           </div>
-          <ul className="m-0 list-none p-0">
-            {[
-              { name: "Radios, PTT, tracking and body cameras", status: <Status kind="quote">By quote</Status>, body: "Rental on 12, 24 or 36-month terms for radios. Quoted for your deployment.", href: "/radios-equipment" },
-              { name: "Accounting", status: <Status kind="beta">Beta</Status>, body: "Priced separately when activated for your company." },
-              { name: "Payroll", status: <Status kind="soon">Coming soon</Status>, body: "Not available yet. Priced separately when it launches." },
-            ].map((item) => (
-              <li key={item.name} className="grid gap-2 border-t border-line py-5 sm:grid-cols-[1fr_auto] sm:items-start sm:gap-6">
+          <div>
+            <ul className="m-0 list-none p-0">
+              <li className="grid gap-2 border-t border-line py-5 sm:grid-cols-[1fr_auto] sm:items-start sm:gap-6">
                 <div>
-                  <h3 className="t-h4">{item.name}</h3>
-                  <p className="t-small mt-1 text-text-2">{item.body}</p>
-                  {item.href ? (
-                    <Link href={item.href} className="link-arrow text-signal-ink">
-                      Radios & Tracking <Arrow />
-                    </Link>
-                  ) : null}
+                  <h3 className="t-h4">Radios, PTT, tracking and body cameras</h3>
+                  <p className="t-small mt-1 text-text-2">Rental on 12, 24 or 36-month terms for radios. Quoted for your deployment.</p>
+                  <Link href="/radios-equipment" className="link-arrow text-signal-ink">
+                    Radios & Tracking <Arrow />
+                  </Link>
                 </div>
-                <div>{item.status}</div>
+                <div><Status kind="quote">By quote</Status></div>
               </li>
-            ))}
-          </ul>
+            </ul>
+            {/* Founder ruling 2026-11-13: Accounting and Payroll are future capabilities. They are not
+                available today, cannot be bought, and are not part of the guard-day rate. */}
+            <h3 className="t-h4 mt-10" id="future-capabilities">Future capabilities, not available today</h3>
+            <p className="t-small mt-1 text-text-2">
+              These are not available yet, cannot be purchased and are not included in the {guardDayPrice} guard-day rate.
+            </p>
+            <ul className="m-0 mt-2 list-none p-0" aria-labelledby="future-capabilities">
+              {["Accounting", "Payroll"].map((name) => (
+                <li key={name} className="grid gap-2 border-t border-line py-5 sm:grid-cols-[1fr_auto] sm:items-start sm:gap-6">
+                  <div>
+                    <h4 className="t-h4">{name}</h4>
+                    <p className="t-small mt-1 text-text-2">Not available yet. Not part of current 1GUARD pricing.</p>
+                  </div>
+                  <div><Status kind="soon">Coming soon</Status></div>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
 
