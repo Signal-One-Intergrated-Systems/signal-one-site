@@ -223,7 +223,7 @@ export default function GuardMarketplacePage() {
             </p>
             <p className="t-small mt-6 text-text-2">
               Are you a guard?{" "}
-              <Link href="/guards" className="link-inline font-semibold text-signal-ink">
+              <Link href="/guards" className="link-inline font-semibold text-text-inv">
                 Create your profile here
               </Link>
               .

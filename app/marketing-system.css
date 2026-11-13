@@ -30,6 +30,24 @@ main:is(.surface-light,.surface-light-2,.surface-white):not(.s1-brand-home):not(
 main:is(.surface-light,.surface-light-2,.surface-white):not(.s1-brand-home):not(.s1-scene-page) :is(.text-text,.text-text-2,.t-body,.t-small,.t-caption):not(.bg-white) {
   color:var(--site-muted)!important;
 }
+/* Light-surface ink left on dark marketing surfaces (D-005, D-006, D-007). Every surface inside a non-home
+   <main> is repainted dark, but these three still resolved to the light-surface colours: the #0270A8 accent,
+   the photo caption and the outline button. Map them to the on-dark tokens. Elements that carry their own
+   light background (status pills) keep the light-surface accent. */
+main:not(.s1-brand-home) .text-signal-ink:not([class*="bg-"]) {
+  color:var(--color-signal-400);
+}
+main:not(.s1-brand-home) .photo-caption:not(.text-text-inv-2) {
+  color:var(--site-muted);
+}
+main:not(.s1-brand-home) .btn-ghost-light {
+  color:var(--site-on-dark);
+  border-color:rgba(255,255,255,.34);
+}
+main:not(.s1-brand-home) .btn-ghost-light:hover {
+  background:rgba(255,255,255,.08);
+  border-color:rgba(255,255,255,.6);
+}
 main:not(.s1-brand-home) :is(.surface-light,.surface-light-2,.surface-white) :is(.card,.rounded-card,.glass-light) {
   background:var(--marketing-panel)!important;
   color:var(--site-on-dark)!important;
