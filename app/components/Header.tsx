@@ -138,7 +138,12 @@ export default function Header() {
     // visible control to release it.
     const wide = window.matchMedia("(min-width: 1280px)");
     const onWide = (event: MediaQueryListEvent) => {
-      if (event.matches) setOpen(false);
+      if (!event.matches) return;
+      // The sheet's links are about to disappear: park focus on the header's first link so the next Tab
+      // continues from the header instead of restarting from the page body.
+      const sheet = sheetRef.current;
+      if (sheet?.contains(document.activeElement)) sheet.closest("header")?.querySelector<HTMLElement>("a[href]")?.focus();
+      setOpen(false);
     };
     wide.addEventListener("change", onWide);
     sheetRef.current?.querySelector<HTMLElement>("a")?.focus();
