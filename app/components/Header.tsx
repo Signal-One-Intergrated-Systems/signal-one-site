@@ -133,10 +133,19 @@ export default function Header() {
       }
     };
     window.addEventListener("keydown", onKey);
+    // The toggle and the sheet are hidden by CSS from xl (1280 px). If the viewport crosses that width while
+    // the sheet is open (resize, tablet rotation) close it, otherwise the page stays scroll-locked with no
+    // visible control to release it.
+    const wide = window.matchMedia("(min-width: 1280px)");
+    const onWide = (event: MediaQueryListEvent) => {
+      if (event.matches) setOpen(false);
+    };
+    wide.addEventListener("change", onWide);
     sheetRef.current?.querySelector<HTMLElement>("a")?.focus();
     return () => {
       document.body.style.overflow = previous;
       window.removeEventListener("keydown", onKey);
+      wide.removeEventListener("change", onWide);
     };
   }, [open]);
 
