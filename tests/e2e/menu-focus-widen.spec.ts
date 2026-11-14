@@ -6,15 +6,16 @@ import { expect, test, type Page } from "@playwright/test";
  * From 1280 px the Menu/Close toggle and the sheet are `display: none`, and the header closes the sheet. Focus
  * must then rest on a visible control inside the header, so the next Tab continues from the header instead of
  * restarting from the top of the page. Measured with this file on the tree before the repair (Chrome, production
- * build, 40 widenings per test):
+ * build, 40 widenings per test, two runs):
  *   - focus on the Close toggle: lost 40 times in 40 (the toggle is hidden and the browser blurs it);
  *   - focus already on <body>: left there 40 times in 40;
- *   - focus on a link in the sheet: lost 7 to 12 times in 40. The browser hides the sheet and blurs its link
- *     BEFORE it delivers the media-query `change` event, so the header found <body> focused and did nothing.
+ *   - focus on a link in the sheet: lost 124 times in 480, between 5 and 19 times in 40 per test. The browser
+ *     hides the sheet and blurs its link BEFORE it delivers the media-query `change` event, so the header found
+ *     <body> focused and did nothing.
  *
  * The last one is a race, so each test widens ITERATIONS times and fails if ANY widening loses focus. A defect
  * that drops focus one time in five passes all 40 by chance with probability 0.8^40 = 0.00013 (about 1 in 7,500);
- * at the lowest rate measured (7 in 40) it is 0.825^40 = 0.00046. Nothing here retries: one lost focus in 40 is
+ * at the lowest rate measured (5 in 40) it is 0.875^40 = 0.0048. Nothing here retries: one lost focus in 40 is
  * a failure.
  *
  * The focus indicator is checked too, because parking focus must not change what a pointer user sees: after a

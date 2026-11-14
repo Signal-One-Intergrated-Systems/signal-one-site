@@ -142,9 +142,9 @@ export default function Header() {
       // The sheet's links and the toggle disappear at this width: park focus on the header's first link so the
       // next Tab continues from the header instead of restarting from the page body. Asking "is focus in the
       // sheet?" is not enough. The browser hides the sheet as soon as the viewport is wide and may blur its
-      // link BEFORE this listener runs, so <body> is already the active element here (measured: 7 to 12 in 40
-      // widenings); and focus on the toggle is blurred just after it, because the toggle is hidden too. So
-      // park unless focus rests on something outside the sheet that is still displayed.
+      // link BEFORE this listener runs, so <body> is already the active element here (measured: about one
+      // widening in four); and focus on the toggle is blurred just after it, because the toggle is hidden too.
+      // So park unless focus rests on something outside the sheet that is still displayed.
       const sheet = sheetRef.current;
       const active = document.activeElement;
       const stays =
