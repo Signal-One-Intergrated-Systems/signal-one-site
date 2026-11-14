@@ -211,7 +211,7 @@ test("stray literal backslash-n text nodes", async ({ browser }) => {
  * (flat-colour) background is re-measured against the pixels actually rendered beside it, because most
  * surfaces here are photographs, gradients or glass that a computed-style check cannot resolve.
  */
-for (const viewport of ["desktop", "mobile"] as ViewportName[]) {
+for (const viewport of ["desktop", "tablet", "mobile"] as ViewportName[]) {
   test(`pixel contrast sweep ${viewport}`, async ({ browser }) => {
     const { pageRoutes } = await import("./lib");
     const context = await browser.newContext(contextOptions(viewport, { reducedMotion: "reduce" }));
