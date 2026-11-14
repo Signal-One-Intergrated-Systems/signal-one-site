@@ -439,3 +439,76 @@ for (const width of [1024, 1100, 1180, 1279]) {
     }
   });
 }
+
+// ---- D-021: keyboard focus stays in the header while the navigation sheet is open, and returns on close ----------
+for (const width of [390, 820, 1024, 1180]) {
+  for (const route of ["/", "/pricing"]) {
+    test(`D-021 menu keyboard containment and focus return at ${width}px on ${route}`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 800 });
+      await page.emulateMedia({ reducedMotion: "reduce" });
+      await page.goto(route);
+      await page.waitForLoadState("networkidle");
+      const toggle = page.locator('header button[aria-controls="mobile-nav"]');
+      const sheet = page.locator("#mobile-nav");
+      const zone = () => page.evaluate(() => {
+        const el = document.activeElement;
+        return !el || el === document.body ? "body" : el.closest("#mobile-nav") ? "sheet" : el.closest("header") ? "header" : "behind";
+      });
+
+      // Enter opens, focus moves into the sheet, ARIA state follows
+      await expect(toggle).toHaveAttribute("aria-expanded", "false");
+      await toggle.focus();
+      await page.keyboard.press("Enter");
+      await expect(sheet).toBeVisible();
+      await expect(toggle).toHaveAttribute("aria-expanded", "true");
+      expect(await zone(), "focus after opening with Enter").toBe("sheet");
+
+      // Tab and Shift+Tab never reach the page behind, and wrap through the header bar back into the sheet
+      const stops = await sheet.locator("a, button").count();
+      const forward: string[] = [];
+      for (let i = 0; i < stops + 8; i++) { await page.keyboard.press("Tab"); forward.push(await zone()); }
+      expect(forward.filter((z) => z === "behind" || z === "body"), `Tab order ${forward.join(">")}`).toEqual([]);
+      expect(forward).toContain("header");
+      expect(forward[forward.length - 1], "Tab wrapped back into the sheet").toBe("sheet");
+      const backward: string[] = [];
+      for (let i = 0; i < stops + 8; i++) { await page.keyboard.press("Shift+Tab"); backward.push(await zone()); }
+      expect(backward.filter((z) => z === "behind" || z === "body"), `Shift+Tab order ${backward.join(">")}`).toEqual([]);
+      expect(backward).toContain("header");
+      await expect(sheet).toBeVisible();
+
+      // the page behind does not scroll while the sheet is open
+      const before = await page.evaluate(() => window.scrollY);
+      await page.mouse.move(width / 2, 500);
+      await page.mouse.wheel(0, 900);
+      await page.waitForTimeout(300);
+      expect(await page.evaluate(() => window.scrollY)).toBe(before);
+
+      // Escape closes and returns focus to the toggle
+      await page.keyboard.press("Escape");
+      await expect(sheet).toHaveCount(0);
+      await expect(toggle).toBeFocused();
+      await expect(toggle).toHaveAttribute("aria-expanded", "false");
+
+      // Space opens; the button closes and keeps focus
+      await page.keyboard.press("Space");
+      await expect(sheet).toBeVisible();
+      expect(await zone(), "focus after opening with Space").toBe("sheet");
+      await toggle.focus();
+      await page.keyboard.press("Enter");
+      await expect(sheet).toHaveCount(0);
+      await expect(toggle).toBeFocused();
+
+      // activating a link from the keyboard navigates, closes the sheet and releases the scroll lock
+      await page.keyboard.press("Enter");
+      await expect(sheet).toBeVisible();
+      const link = sheet.locator("ul a").nth(1);
+      const href = (await link.getAttribute("href"))!;
+      await link.focus();
+      await page.keyboard.press("Enter");
+      await expect(page).toHaveURL(new RegExp(href.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "$"));
+      await expect(sheet).toHaveCount(0);
+      expect(await page.evaluate(() => getComputedStyle(document.body).overflow)).not.toBe("hidden");
+      expect(await zone(), "focus is not left inside a removed sheet").not.toBe("sheet");
+    });
+  }
+}

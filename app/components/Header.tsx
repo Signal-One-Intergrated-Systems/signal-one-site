@@ -107,6 +107,29 @@ export default function Header() {
       if (event.key === "Escape") {
         setOpen(false);
         toggleRef.current?.focus();
+        return;
+      }
+      if (event.key !== "Tab") return;
+      // Keep keyboard focus in the header (bar, toggle and sheet) while the sheet is open: the page behind
+      // it is covered and scroll-locked, so Tab must not walk into it. Wraps at both ends.
+      const scope = sheetRef.current?.closest("header");
+      if (!scope) return;
+      const stops = Array.from(scope.querySelectorAll<HTMLElement>("a[href], button:not([disabled])")).filter(
+        (element) => element.getClientRects().length > 0 && getComputedStyle(element).visibility !== "hidden",
+      );
+      if (stops.length === 0) return;
+      const first = stops[0];
+      const last = stops[stops.length - 1];
+      const active = document.activeElement;
+      if (!active || !scope.contains(active)) {
+        event.preventDefault();
+        (sheetRef.current?.querySelector<HTMLElement>("a") ?? first).focus();
+      } else if (event.shiftKey && active === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && active === last) {
+        event.preventDefault();
+        first.focus();
       }
     };
     window.addEventListener("keydown", onKey);
