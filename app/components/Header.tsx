@@ -139,10 +139,21 @@ export default function Header() {
     const wide = window.matchMedia("(min-width: 1280px)");
     const onWide = (event: MediaQueryListEvent) => {
       if (!event.matches) return;
-      // The sheet's links are about to disappear: park focus on the header's first link so the next Tab
-      // continues from the header instead of restarting from the page body.
+      // The sheet's links and the toggle disappear at this width: park focus on the header's first link so the
+      // next Tab continues from the header instead of restarting from the page body. Asking "is focus in the
+      // sheet?" is not enough. The browser hides the sheet as soon as the viewport is wide and may blur its
+      // link BEFORE this listener runs, so <body> is already the active element here (measured: 7 to 12 in 40
+      // widenings); and focus on the toggle is blurred just after it, because the toggle is hidden too. So
+      // park unless focus rests on something outside the sheet that is still displayed.
       const sheet = sheetRef.current;
-      if (sheet?.contains(document.activeElement)) sheet.closest("header")?.querySelector<HTMLElement>("a[href]")?.focus();
+      const active = document.activeElement;
+      const stays =
+        active instanceof HTMLElement &&
+        active !== document.body &&
+        active !== toggleRef.current &&
+        !sheet?.contains(active) &&
+        active.getClientRects().length > 0;
+      if (!stays) (sheet ?? toggleRef.current)?.closest("header")?.querySelector<HTMLElement>("a[href]")?.focus();
       setOpen(false);
     };
     wide.addEventListener("change", onWide);
