@@ -426,13 +426,15 @@ for (const width of [1024, 1100, 1180, 1279]) {
         const photo = el.querySelector(".s1-glass-people-photo")!.getBoundingClientRect();
         const text = el.querySelector(".wrap > div")!.getBoundingClientRect();
         const h1 = el.querySelector("h1")!.getBoundingClientRect();
-        return { photoW: photo.width, photoLeft: photo.left, photoRight: photo.right, textRight: text.right, textW: text.width, h1Right: h1.right, overflow: document.documentElement.scrollWidth - innerWidth };
+        return { photoW: photo.width, photoLeft: photo.left, photoRight: photo.right, textW: text.width, h1Left: h1.left, h1Right: h1.right, overflow: document.documentElement.scrollWidth - innerWidth };
       });
       expect(m.photoW, `${route} photo column width at ${width}px`).toBeGreaterThanOrEqual(420);
       expect(m.photoW / width, `${route} photo share at ${width}px`).toBeGreaterThanOrEqual(0.4);
       expect(m.textW, `${route} text column width at ${width}px`).toBeGreaterThanOrEqual(480);
-      expect(m.h1Right, `${route} headline stays clear of the photograph`).toBeLessThanOrEqual(m.photoLeft + 1);
-      expect(m.photoRight, `${route} photograph ends at the viewport edge`).toBeLessThanOrEqual(width + 1);
+      // the photograph is on the right on two of the pages and on the left on /guards
+      expect(m.h1Right <= m.photoLeft + 1 || m.h1Left >= m.photoRight - 1, `${route} headline stays clear of the photograph`).toBe(true);
+      expect(m.photoLeft, `${route} photograph starts inside the viewport`).toBeGreaterThanOrEqual(-1);
+      expect(m.photoRight, `${route} photograph ends inside the viewport`).toBeLessThanOrEqual(width + 1);
       expect(m.overflow, `${route} horizontal overflow`).toBeLessThanOrEqual(1);
     }
   });
