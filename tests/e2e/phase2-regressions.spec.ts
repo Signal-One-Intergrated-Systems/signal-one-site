@@ -282,6 +282,16 @@ test("Accounting and Payroll are never presented as available or priced", async 
   }
   const purchasable = page.locator("main ul, main ol").filter({ hasText: "By quote" }).first();
   await expect(purchasable).not.toContainText(/Accounting|Payroll/);
+  // R-06: the future group is its own section; nothing under "Priced separately" refers to it
+  const pricedSeparately = page.locator("main section").filter({ has: page.getByRole("heading", { name: "Priced separately", exact: true }) });
+  await expect(pricedSeparately).toHaveCount(1);
+  await expect(pricedSeparately).not.toContainText(/Accounting|Payroll|Future capabilities|Coming soon/);
+  await expect(pricedSeparately.locator("#future-capabilities")).toHaveCount(0);
+  const futureSection = page.locator("main section").filter({ has: page.locator("#future-capabilities") });
+  await expect(futureSection).toHaveCount(1);
+  await expect(futureSection.getByRole("heading", { level: 2 })).toHaveText("Future capabilities, not available today");
+  await expect(futureSection).not.toContainText(/Priced separately|optional|By quote/);
+  expect(await futureSection.evaluate((el) => el.previousElementSibling?.querySelector("h2")?.textContent), "it follows the Priced separately section directly").toBe("Priced separately");
   // site-wide: wherever a card or list item is headed Accounting or Payroll, it is marked as not yet available
   for (const route of routes) {
     await page.goto(route);
@@ -512,3 +522,77 @@ for (const width of [390, 820, 1024, 1180]) {
     });
   }
 }
+
+// ---- R-02: each social card names the product of its own page ----------------------------------------------------
+test("R-02 social cards of /service, /equipment-marketplace and /join/sales carry their own product, not 1GUARD", async ({ page, request }) => {
+  const card = async (route: string) => {
+    await page.goto(route);
+    const src = (await page.locator('meta[property="og:image"]').first().getAttribute("content"))!;
+    const alt = (await page.locator('meta[property="og:image:alt"]').first().getAttribute("content")) || "";
+    const twitterAlt = (await page.locator('meta[name="twitter:image:alt"]').first().getAttribute("content")) || "";
+    const response = await request.get(new URL(src).pathname + new URL(src).search);
+    expect(response.status(), `${route} card`).toBe(200);
+    expect(response.headers()["content-type"]).toContain("image/png");
+    return { path: new URL(src).pathname, alt, twitterAlt, bytes: await response.body() };
+  };
+  const site = await card("/");
+  const service = await card("/service");
+  const equipment = await card("/equipment-marketplace");
+  const careers = await card("/join/sales");
+  expect(service.alt).toBe("1Service. Run your service business. As one.");
+  expect(equipment.alt).toBe("Signal One. The right equipment. Ready for the field.");
+  expect(careers.alt).toBe("Signal One. Sell the operating systems SMEs run on.");
+  for (const [route, c] of Object.entries({ "/service": service, "/equipment-marketplace": equipment, "/join/sales": careers })) {
+    expect(c.alt, `${route} card text`).not.toMatch(/1GUARD|Prove the service|Guard/);
+    expect(c.twitterAlt, `${route} twitter card text`).toBe(c.alt);
+    expect(c.path, `${route} has its own card file`).toContain(route + "/opengraph-image");
+    expect(c.bytes.equals(site.bytes), `${route} card is not the site card`).toBe(false);
+  }
+  expect(service.bytes.equals(equipment.bytes) || service.bytes.equals(careers.bytes) || equipment.bytes.equals(careers.bytes), "the three cards differ").toBe(false);
+});
+
+// ---- R-03: the open sheet does not leave the page locked when the viewport crosses the toggle's breakpoint -------
+test("R-03 crossing 1280px with the menu open closes it and releases the scroll lock", async ({ page }) => {
+  await page.setViewportSize({ width: 1100, height: 800 });
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/pricing");
+  await page.waitForLoadState("networkidle");
+  const toggle = page.locator('header button[aria-controls="mobile-nav"]');
+  const sheet = page.locator("#mobile-nav");
+  const scrolls = async () => {
+    await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior }));
+    await page.mouse.move(600, 500);
+    await page.mouse.wheel(0, 600);
+    await page.waitForTimeout(400);
+    return (await page.evaluate(() => window.scrollY)) > 100;
+  };
+  await toggle.click();
+  await expect(sheet).toBeVisible();
+  expect(await page.evaluate(() => document.body.style.overflow)).toBe("hidden");
+
+  // widen past the breakpoint (window resize, or a tablet turning to landscape)
+  await page.setViewportSize({ width: 1300, height: 800 });
+  await expect(sheet).toHaveCount(0);
+  await expect(toggle).toHaveAttribute("aria-expanded", "false");
+  await expect(toggle).toBeHidden();
+  expect(await page.evaluate(() => document.body.style.overflow)).not.toBe("hidden");
+  expect(await scrolls(), "page scrolls at 1300px").toBe(true);
+  await expect(page.locator('header nav[aria-label="Primary"]')).toBeVisible();
+
+  // and back: nothing is stuck, the menu works again
+  await page.setViewportSize({ width: 1100, height: 800 });
+  await expect(toggle).toBeVisible();
+  await expect(toggle).toHaveAttribute("aria-expanded", "false");
+  await expect(sheet).toHaveCount(0);
+  expect(await scrolls(), "page scrolls at 1100px").toBe(true);
+  await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior }));
+  await toggle.click();
+  await expect(sheet).toBeVisible();
+  await expect(toggle).toHaveAttribute("aria-expanded", "true");
+  // narrowing with the sheet open (rotation to portrait) keeps a working, closable menu
+  await page.setViewportSize({ width: 820, height: 1180 });
+  await expect(sheet).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(sheet).toHaveCount(0);
+  expect(await page.evaluate(() => document.body.style.overflow)).not.toBe("hidden");
+});
