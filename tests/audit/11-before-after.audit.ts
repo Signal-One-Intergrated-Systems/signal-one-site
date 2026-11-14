@@ -45,7 +45,7 @@ const menuOpen: Shot = async (page) => {
   return page.screenshot();
 };
 
-const items: Item[] = [
+const phase2Items: Item[] = [
   ...["privacy", "terms", "popia", "security-trust"].flatMap((slug) => [
     { name: `legal-${slug}-desktop`, path: "/" + slug, width: 1440, height: 900, shot: fold },
     { name: `legal-${slug}-mobile`, path: "/" + slug, width: 390, height: 844, shot: fold },
@@ -72,6 +72,28 @@ const items: Item[] = [
   { name: "home-disclosure-line-1440", path: "/", width: 1440, height: 900, shot: around(".so-editorial-disclosure", 120) },
   { name: "home-service-image-1440", path: "/", width: 1440, height: 900, shot: around("#service .so-vertical-visual", 10) },
 ];
+
+/** Final release check (2026-11-14): label contrast over photographs (D-025/D-026) and the SplitHero photo column (N-002). */
+const finalItems: Item[] = [
+  { name: "home-hero-note-1440", path: "/", width: 1440, height: 900, shot: around(".so-hero-photo-note", 110) },
+  { name: "home-hero-note-390", path: "/", width: 390, height: 844, shot: around(".so-hero-photo-note", 110) },
+  { name: "home-disclosure-line-390", path: "/", width: 390, height: 844, shot: around(".so-editorial-disclosure", 90) },
+  { name: "home-disclosure-line-1440", path: "/", width: 1440, height: 900, shot: around(".so-editorial-disclosure", 90) },
+  { name: "home-hardware-note-390", path: "/", width: 390, height: 844, shot: around(".so-hardware-note", 90) },
+  { name: "home-hardware-note-1440", path: "/", width: 1440, height: 900, shot: around(".so-hardware-note", 90) },
+  { name: "security-kicker-pilot-1440", path: "/solutions/security", width: 1440, height: 900, shot: around('main span.rounded-full:text-is("Pilot")', 130) },
+  { name: "security-kicker-pilot-390", path: "/solutions/security", width: 390, height: 844, shot: around('main span.rounded-full:text-is("Pilot")', 130) },
+  { name: "security-second-pilot-820", path: "/solutions/security", width: 820, height: 1180, shot: around('main span.rounded-full:text-is("Pilot") >> nth=1', 130) },
+  { name: "guards-kicker-1440", path: "/guards", width: 1440, height: 900, shot: around('main p:text-is("For security officers")', 110) },
+  { name: "guard-marketplace-kicker-820", path: "/guard-marketplace", width: 820, height: 1180, shot: around("main .split-hero p.t-kicker", 110) },
+  { name: "guard-patrol-kicker-1440", path: "/guard-patrol-software", width: 1440, height: 900, shot: around("main .split-hero p.t-kicker", 110) },
+  { name: "pricing-kicker-390", path: "/pricing", width: 390, height: 844, shot: around("main .split-hero p.t-kicker", 110) },
+  { name: "guard-attendance-related-links-1440", path: "/guard-attendance-software", width: 1440, height: 900, shot: around("main section.surface-deep ul:has(a.link-arrow)", 60) },
+  { name: "ptt-radio-related-links-1440", path: "/ptt-radio-rental", width: 1440, height: 900, shot: around("main section.surface-deep ul:has(a.link-arrow)", 60) },
+  { name: "equipment-hero-caption-390", path: "/equipment-marketplace", width: 390, height: 844, shot: around("main .s1-equipment-hero p.t-caption", 80) },
+  ...["/solutions/security", "/join/sales", "/guards"].flatMap((route) => [1024, 1180].map((w) => ({ name: `splithero${route.replace(/\//g, "-")}-${w}`, path: route, width: w, height: 800, shot: fold }))),
+];
+const items = process.env.AUDIT_SET === "final" ? finalItems : phase2Items;
 
 async function capture(browser: Browser, base: string, item: Item) {
   const context = await browser.newContext({ viewport: { width: item.width, height: item.height }, deviceScaleFactor: 1, locale: "en-ZA", reducedMotion: "reduce" });
