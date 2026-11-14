@@ -59,6 +59,11 @@ const contrast = (a: Rgb, b: Rgb) => { const l1 = luminance(a), l2 = luminance(b
  * (left gutter, right of the line, just above). Returns the median of the three ratios.
  */
 async function textContrast(page: Page, locator: ReturnType<Page["locator"]>): Promise<number> {
+  return (await textContrastSamples(page, locator)).sort((a, b) => a - b)[1];
+}
+
+/** The three ratios behind textContrast (left gutter, right of the line, just above), unsorted. */
+async function textContrastSamples(page: Page, locator: ReturnType<Page["locator"]>): Promise<number[]> {
   await locator.scrollIntoViewIfNeeded();
   await page.waitForTimeout(200);
   const info = await locator.evaluate((el) => {
@@ -72,7 +77,7 @@ async function textContrast(page: Page, locator: ReturnType<Page["locator"]>): P
     await paintedColour(page, info.x + info.w + 4, info.y + info.h / 2),
     await paintedColour(page, info.x + 2, info.y - 3, 4, 2),
   ];
-  return samples.map((s) => contrast(info.rgb as Rgb, s)).sort((a, b) => a - b)[1];
+  return samples.map((s) => contrast(info.rgb as Rgb, s));
 }
 
 const AA = 4.5;
@@ -355,5 +360,54 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 820, height: 1180
     }
     expect(checked, "images were measured").toBeGreaterThan(40);
     expect(problems).toEqual([]);
+  });
+}
+
+// ---- D-025 / D-026: small notes, kickers and status labels over photographs ------------------------------------
+const labelViewports = [{ width: 390, height: 844 }, { width: 820, height: 1180 }, { width: 1440, height: 900 }];
+
+for (const viewport of labelViewports) {
+  test(`D-025 homepage notes over photographs are readable at ${viewport.width}px (every sample >= 4.5:1)`, async ({ page }) => {
+    await page.setViewportSize(viewport);
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto("/");
+    await page.waitForLoadState("networkidle");
+    for (const selector of [".so-hero-photo-note", ".so-editorial-disclosure", ".so-hardware-note"]) {
+      const note = page.locator(selector).first();
+      await expect(note, selector).toBeVisible();
+      const ratios = await textContrastSamples(page, note);
+      expect(Math.min(...ratios), `${selector} contrast samples ${ratios.map((r) => r.toFixed(2)).join(" / ")}`).toBeGreaterThanOrEqual(AA);
+    }
+  });
+
+  test(`D-026 hero kickers, status labels and related links over photographs are readable at ${viewport.width}px`, async ({ page }) => {
+    test.setTimeout(180_000);
+    await page.setViewportSize(viewport);
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    let measured = 0;
+    for (const route of routes) {
+      if (route === "/") continue;
+      await page.goto(route);
+      await page.waitForLoadState("networkidle");
+      const targets = page.locator(
+        [
+          "main .split-hero p.t-kicker", // hero kickers
+          "main .split-hero p.text-signal-400", // "For security officers"
+          'main span.rounded-full:text-is("Pilot")', // status label
+          "main section.surface-deep ul a.link-arrow", // related-links list of the landing pages
+          "main .s1-equipment-hero p.t-caption", // caption under the equipment hero buttons
+        ].join(", "),
+      );
+      const count = await targets.count();
+      for (let i = 0; i < count; i++) {
+        const target = targets.nth(i);
+        if (!(await target.isVisible())) continue;
+        const text = ((await target.textContent()) || "").replace(/\s+/g, " ").trim().slice(0, 40);
+        const ratio = await textContrast(page, target);
+        measured++;
+        expect(ratio, `${route} "${text}" contrast ${ratio.toFixed(2)}:1`).toBeGreaterThanOrEqual(AA);
+      }
+    }
+    expect(measured, "labels were measured").toBeGreaterThan(20);
   });
 }

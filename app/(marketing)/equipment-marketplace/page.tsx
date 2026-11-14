@@ -23,7 +23,7 @@ export default function EquipmentMarketplacePage() {
  <h1 className="t-h1 mt-5">The right equipment. Ready for the field.</h1>
  <p className="t-lead measure mt-5 text-text-inv-2">Explore professional radios, PTT communications, tracking and security technology. Tell us what your operation needs and request purchase or rental pricing.</p>
  <div className="mt-8 flex flex-wrap gap-3"><ButtonLink href="/radios-equipment#quote" size="lg">Request equipment pricing</ButtonLink><ButtonLink href="#categories" variant="ghost-dark" size="lg">Browse categories</ButtonLink></div>
- <p className="t-caption mt-6 text-text-inv-3">Online checkout and live stock confirmation are not yet available. Purchases and rentals are arranged by written quotation.</p>
+ <p className="t-caption mt-6 text-text-inv-2">Online checkout and live stock confirmation are not yet available. Purchases and rentals are arranged by written quotation.</p>
  </div><div className="s1-equipment-photo s1-people-main-photo"><Image src="/images/photo/guard-site-operations.webp" unoptimized alt="Illustrative security officer using field technology at a professional office-park access point" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" /></div></div></section>
  <section id="categories" className="surface-light section scroll-mt-[72px]"><div className="wrap">
  <div className="flex flex-wrap justify-between items-end gap-5"><div><Kicker>Equipment</Kicker><h2 className="t-h2 mt-4">Select what the operation requires.</h2></div><Link href="/radios-equipment" className="link-arrow text-text-inv">See available equipment and request a quote →</Link></div>

@@ -24,7 +24,7 @@ export function Kicker({
 }
 
 const statusStyles = {
-  pilot: { light: "bg-signal-tint text-signal-ink ring-1 ring-signal-ink/25", dark: "bg-signal-400/12 text-signal-400 ring-1 ring-signal-400/30" },
+  pilot: { light: "bg-signal-tint text-signal-ink ring-1 ring-signal-ink/25", dark: "bg-[var(--site-control)] text-signal-400 ring-1 ring-signal-400/30" },
   live: { light: "bg-live-tint text-live", dark: "bg-white/8 text-live-inv" },
   beta: { light: "bg-beta-tint text-beta", dark: "bg-white/8 text-beta-inv" },
   mvp: { light: "bg-beta-tint text-beta", dark: "bg-white/8 text-beta-inv" },
