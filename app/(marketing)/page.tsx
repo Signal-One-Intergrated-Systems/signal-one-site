@@ -35,7 +35,10 @@ function PanelPhoto({
   return (
     <figure className={`so-panel-photo so-panel-photo--${size}`}>
       <Image src={src} alt={alt} fill loading="lazy" quality={76}
-        sizes={size === "mini" ? "80px" : "(min-width: 1024px) 340px, 90vw"}
+        // From lg the slot is at most 340 px. The second lg clause is never selected (the first one wins); its vw
+        // value is what next/image reads to decide which widths to offer, and keeps the 384w file in the srcset
+        // so a 340 px slot is not served the 640w one. Below lg the cards are one column, about 90vw wide.
+        sizes={size === "mini" ? "80px" : "(min-width: 1024px) 340px, (min-width: 1024px) 34vw, 90vw"}
         className="so-panel-photo-image" />
     </figure>
   );
