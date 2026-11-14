@@ -20,6 +20,40 @@ main:not(.s1-brand-home) :is(.surface-light,.surface-light-2,.surface-white) :is
 main:not(.s1-brand-home) :is(.surface-light,.surface-light-2,.surface-white) :is(.text-text,.text-text-2,.t-body,.t-small,.t-caption) {
   color:var(--site-muted)!important;
 }
+/* The same contract when <main> itself is the repainted surface (LegalPage: /privacy, /popia, /terms,
+   /security-trust). The rules above only reach surfaces nested inside <main>, so these pages kept light-surface
+   ink (#33475B, #0270A8) on the dark repaint and their copy was unreadable. Scene pages already re-token their
+   own text further down and are left alone; elements that keep a white background keep their dark ink. */
+main:is(.surface-light,.surface-light-2,.surface-white):not(.s1-brand-home):not(.s1-scene-page) :is(.t-kicker,.t-lead) {
+  color:var(--site-on-dark)!important;
+}
+main:is(.surface-light,.surface-light-2,.surface-white):not(.s1-brand-home):not(.s1-scene-page) :is(.text-text,.text-text-2,.t-body,.t-small,.t-caption):not(.bg-white) {
+  color:var(--site-muted)!important;
+}
+/* Light-surface ink left on dark marketing surfaces (D-005, D-006, D-007). Every surface inside a non-home
+   <main> is repainted dark, but these three still resolved to the light-surface colours: the #0270A8 accent,
+   the photo caption and the outline button. Map them to the on-dark tokens. Elements that carry their own
+   light background (status pills) keep the light-surface accent. */
+main:not(.s1-brand-home) .text-signal-ink:not([class*="bg-"]) {
+  color:var(--color-signal-400);
+}
+/* D-026: accent-blue labels set straight onto a photographic hero scene (kickers, "For security officers")
+   measured 2.7 to 4.4:1 there. Over the scene they take the on-dark ink; the blue stays wherever a label
+   sits on glass or a solid surface. */
+main.s1-scene-page .split-hero p.text-signal-400 {
+  color:var(--site-on-dark);
+}
+main:not(.s1-brand-home) .photo-caption:not(.text-text-inv-2) {
+  color:var(--site-muted);
+}
+main:not(.s1-brand-home) .btn-ghost-light {
+  color:var(--site-on-dark);
+  border-color:rgba(255,255,255,.34);
+}
+main:not(.s1-brand-home) .btn-ghost-light:hover {
+  background:rgba(255,255,255,.08);
+  border-color:rgba(255,255,255,.6);
+}
 main:not(.s1-brand-home) :is(.surface-light,.surface-light-2,.surface-white) :is(.card,.rounded-card,.glass-light) {
   background:var(--marketing-panel)!important;
   color:var(--site-on-dark)!important;
@@ -455,6 +489,10 @@ main.s1-scene-page :is(.text-text,.text-text-2,.text-text-inv,.text-text-inv-2){
 main.s1-scene-page :is(h1,h2,h3,h4,p,li,dt,dd){
   text-shadow:0 1px 2px rgba(0,0,0,.15);
 }
+/* /get-started stepper: the override above also caught the step numerals, which sit on a light disc
+   (.s1-onboarding aside ol li > span in globals.css), leaving them light on light. Restore their dark ink. */
+main.s1-scene-page.s1-onboarding aside ol li > span{color:#082138!important}
+main.s1-scene-page.s1-onboarding aside ol li[aria-current="step"] > span{color:#062039!important}
 main.s1-scene-page :is(.card,.card-dark,.rounded-card,.glass,.glass-light,.bg-raised,.bg-surface){
   background:rgba(26,29,30,.73)!important;
   border-color:rgba(234,240,239,.28)!important;

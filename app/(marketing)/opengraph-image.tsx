@@ -5,5 +5,5 @@ export const size = ogSize;
 export const contentType = ogContentType;
 
 export default function Image() {
-  return renderOg("Run every site. Prove the service.", "Signal One Security");
+  return renderOg("Run every site. Prove the service.", "1GUARD");
 }

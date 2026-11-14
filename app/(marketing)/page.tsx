@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { withSocial } from "../lib/seo";
 import type { CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,12 +13,12 @@ import pnc360s from "../../public/images/hardware/hytera-pnc360s.webp";
 import fmb920 from "../../public/images/hardware/teltonika-fmb920.webp";
 import "../home-conversion.css";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSocial({
   title: { absolute: "Signal One | 1GUARD, 1Service & Business Equipment" },
   description:
     "Intelligent business operating systems for SMEs. Explore 1GUARD for security businesses, 1Service for service businesses and professional equipment and connectivity from Signal One.",
   alternates: { canonical: "/" },
-};
+});
 
 function Arrow() {
   return <span aria-hidden="true" className="so-arrow">↗</span>;
@@ -34,7 +35,10 @@ function PanelPhoto({
   return (
     <figure className={`so-panel-photo so-panel-photo--${size}`}>
       <Image src={src} alt={alt} fill loading="lazy" quality={76}
-        sizes={size === "mini" ? "56px" : "(min-width: 1024px) 340px, (min-width: 680px) 45vw, 90vw"}
+        // From lg the slot is at most 340 px. The second lg clause is never selected (the first one wins); its vw
+        // value is what next/image reads to decide which widths to offer, and keeps the 384w file in the srcset
+        // so a 340 px slot is not served the 640w one. Below lg the cards are one column, about 90vw wide.
+        sizes={size === "mini" ? "80px" : "(min-width: 1024px) 340px, (min-width: 1024px) 34vw, 90vw"}
         className="so-panel-photo-image" />
     </figure>
   );
@@ -106,7 +110,7 @@ export default function Home() {
         <div className="wrap so-vertical-layout">
           <div data-motion-from="top" className="so-vertical-visual so-vertical-visual-guard">
             <Image src="/images/home/approved-sme-security-control-room-2026.png" alt="Illustrative daylight security office for an SME, with three operators monitoring CCTV and a light-skinned Black male supervisor supporting the team"
-              fill sizes="(min-width:1024px) 49vw, 100vw" className="object-cover" />
+              fill sizes="(min-width:1024px) 49vw, 105vw" className="object-cover" />
             <div className="so-image-caption">Illustrative SME security operations</div>
           </div>
           <div data-motion-from="left" style={{ "--so-motion-delay": "240ms" } as CSSProperties} className="so-vertical-content"><PanelPhoto src="/images/photo/guard-site-operations.webp" alt="Illustrative security workers coordinating operational duties at a customer site" />
@@ -131,7 +135,7 @@ export default function Home() {
         <div className="wrap so-vertical-layout so-reverse-layout">
           <div data-motion-from="right" className="so-vertical-visual so-vertical-visual-service">
             <Image src="/images/home/service-restaurant-operations.jpg" alt="Illustrative restaurant kitchen team coordinating a live service in a professional hospitality environment"
-              fill sizes="(min-width:1024px) 49vw, 100vw" className="object-cover" />
+              fill sizes="(min-width:1024px) 73vw, 100vw" className="object-cover" />
             <div className="so-image-caption">Illustrative restaurant team at work</div>
           </div>
           <div data-motion-from="top" style={{ "--so-motion-delay": "280ms" } as CSSProperties} className="so-vertical-content"><PanelPhoto src="/images/home/panels/hire-hospitality.webp" alt="Illustrative hospitality workers discussing a staffing assignment" />
@@ -246,16 +250,16 @@ export default function Home() {
       <section className="so-onboarding-section" aria-labelledby="so-how-title">
         <div className="wrap">
           <div className="so-section-heading">
-            <div data-motion-from="top"><p className="so-kicker">A straightforward next step</p><h2 id="so-how-title">Start with the problem.<br /><span>We'll help map the solution.</span></h2></div>
-            <p data-motion-from="left" style={{ "--so-motion-delay": "280ms" } as CSSProperties}>Business operating systems and equipment don't have the same buying journey. We make the next step clear for each.</p>
+            <div data-motion-from="top"><p className="so-kicker">A straightforward next step</p><h2 id="so-how-title">Start with the problem.<br /><span>We&apos;ll help map the solution.</span></h2></div>
+            <p data-motion-from="left" style={{ "--so-motion-delay": "280ms" } as CSSProperties}>Business operating systems and equipment don&apos;t have the same buying journey. We make the next step clear for each.</p>
           </div>
           <div className="so-journey-grid">
             <div data-motion-from="left"><PanelPhoto src="/images/editorial/hotel-reception-welcome.webp" alt="Illustrative hotel front-desk employees, porter and housekeeper welcoming a guest" /><span className="so-step">01</span><h3>Choose your path</h3><p>Explore 1GUARD, learn about 1Service or select your equipment category.</p></div>
             <div data-motion-from="top" style={{ "--so-motion-delay": "240ms" } as CSSProperties}><PanelPhoto src="/images/editorial/cafe-team-planning.webp" alt="Illustrative cafe manager, chef and service supervisor planning work together" /><span className="so-step">02</span><h3>Tell us about your operation</h3><p>Share the sites, teams, requirements or devices your business needs.</p></div>
             <div data-motion-from="right" style={{ "--so-motion-delay": "400ms" } as CSSProperties}><PanelPhoto src="/images/editorial/hospitality-team-briefing.webp" alt="Illustrative hotel and restaurant staff from different roles discussing a service plan" /><span className="so-step">03</span><h3>Confirm the right starting point</h3><p>We explain eligibility, supported capabilities, terms and activation before the work begins.</p></div>
           </div>
+          <p className="so-editorial-disclosure">People and workplace scenes are illustrative; equipment photographs are original manufacturer imagery.</p>
         </div>
-        <p className="so-editorial-disclosure">People and workplace scenes are illustrative; equipment photographs are original manufacturer imagery.</p>
       </section>
 
       <section id="community" className="so-final-cta" aria-labelledby="so-final-title">

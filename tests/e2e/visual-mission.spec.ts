@@ -102,7 +102,7 @@ test("reduced motion and transparency do not conceal controls", async ({ page })
 test("key acquisition pages have no critical automated accessibility violations", async ({ page }) => {
   for (const route of ["/", "/service", "/solutions/security", "/get-started", "/equipment-marketplace"]) {
     await page.goto(route);
-    const results = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa"]).analyze();
+    const results = await new AxeBuilder({ page: page as unknown as ConstructorParameters<typeof AxeBuilder>[0]["page"] }).withTags(["wcag2a", "wcag2aa", "wcag21aa"]).analyze();
     const serious = results.violations.filter(v => v.impact === "critical");
     expect(serious.map(v => `${route}: ${v.id} ${v.description}`)).toEqual([]);
   }

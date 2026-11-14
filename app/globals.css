@@ -193,6 +193,14 @@
       --hero-col: 40rem;
     }
   }
+  /* N-002: between lg and 1185 px the fixed 38rem text column left the SplitHero photograph a 336 to 496 px
+     strip (33% of the width at 1024). There the text column yields so the photograph keeps 42% of the width,
+     the share it already has at 1186 px; from 1186 px up nothing changes. SplitHero only. */
+  @media (min-width: 1024px) and (max-width: 1279px) {
+    .split-hero.s1-person-first-split {
+      --hero-col: min(38rem, calc(58vw - 80px));
+    }
+  }
 
   /* Container. At 1600+ it widens (and sections do not grow taller), so wide
      screens get more content side by side instead of more empty height. */

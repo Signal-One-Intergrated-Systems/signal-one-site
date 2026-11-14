@@ -1,17 +1,17 @@
 import type { Metadata } from "next";
+import { withSocial } from "../../lib/seo";
 import Link from "next/link";
 import Image from "next/image";
-import { photos } from "../../lib/photos";
 import IntakeForm, { type IntakeField } from "../../components/IntakeForm";
 import { ButtonLink, Check, PageHero, Status, Steps, GuardStatus } from "../../components/ui";
 import { guardIsLive } from "../../lib/guardStatus";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSocial({
   title: "Guard Marketplace | Company Registration & Hiring Access",
   description:
-    "Guard Marketplace is being built into Signal One Security: filter by location, PSiRA grade, availability and skills, shortlist and send hire requests. Register interest.",
+    "Guard Marketplace is being built into 1GUARD: filter by location, PSiRA grade, availability and skills, shortlist and send hire requests. Register interest.",
   alternates: { canonical: "/guard-marketplace" },
-};
+});
 
 const flow = [
   ["Contract won", "You have a new site, or more posts on an existing one."],
@@ -21,7 +21,7 @@ const flow = [
   ["Shortlist", "Keep the guards you want to approach."],
   ["Request hire", "Send a hire request from your company workspace."],
   ["Guard accepts or declines", "The guard decides on their phone. No one is placed without saying yes."],
-  ["Add to workforce", "Accepted guards join your company in Signal One Guard."],
+  ["Add to workforce", "Accepted guards join your company in 1GUARD."],
   ["Allocate to a site", "PSiRA rules apply: missing or expired registration blocks the assignment."],
   ["Allocate to a shift", "From here it is a normal shift: clock in, patrol, report."],
 ] as const;
@@ -80,8 +80,7 @@ export default function GuardMarketplacePage() {
           <div>
             <h2 className="t-h2">From contract to shift, in ten steps.</h2>
             <p className="t-body mt-4 text-text-2">
-              The planned hiring workflow ends where your operation already lives: a guard allocated to a site and a shift in Signal
-              One Guard.
+              The planned hiring workflow ends where your operation already lives: a guard allocated to a site and a shift in 1GUARD.
             </p>
           </div>
           <div className="grid gap-x-10 md:grid-cols-2">
@@ -200,7 +199,7 @@ export default function GuardMarketplacePage() {
           </div>
           <div className="rounded-card bg-white p-6 ring-1 ring-line sm:p-8">
             <div className="flex flex-wrap items-center gap-3">
-              <h2 className="t-h3">{guardIsLive ? "Already live in Signal One Guard" : "In the Signal One Guard pilot"}</h2>
+              <h2 className="t-h3">{guardIsLive ? "Already live in 1GUARD" : "In the 1GUARD pilot"}</h2>
               <GuardStatus />
             </div>
             <p className="t-body mt-4 text-text-2">
@@ -224,7 +223,7 @@ export default function GuardMarketplacePage() {
             </p>
             <p className="t-small mt-6 text-text-2">
               Are you a guard?{" "}
-              <Link href="/guards" className="link-inline font-semibold text-signal-ink">
+              <Link href="/guards" className="link-inline font-semibold text-text-inv">
                 Create your profile here
               </Link>
               .

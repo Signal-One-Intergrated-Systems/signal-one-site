@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
+import { withSocial } from "../../lib/seo";
 import LegalPage from "../../components/LegalPage";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSocial({
   title: "Privacy Policy",
   description:
     "How Signal One handles personal information submitted through its public website, including enquiries, quote requests, onboarding and security-officer profiles.",
   alternates: { canonical: "/privacy" },
-};
+});
 
 const sections = [
   ["Information we collect", "We collect information you choose to submit through enquiries, onboarding, quote requests and applications, such as names, company details, contact information and the information needed to respond to your request."],

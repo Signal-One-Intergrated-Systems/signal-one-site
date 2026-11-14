@@ -36,7 +36,8 @@ export const metadata: Metadata = {
     "vehicle tracking for security companies",
   ],
   applicationName: brand.master,
-  alternates: { canonical: "/" },
+  // No canonical or og:url here: every page sets its own (see lib/seo.ts). A layout-level value is what an
+  // unmatched URL inherits, which made every 404 declare itself the homepage.
   openGraph: {
     title: "Signal One: 1GUARD, 1Service and Integrated Systems",
     description:
@@ -44,8 +45,6 @@ export const metadata: Metadata = {
     type: "website",
     siteName: brand.master,
     locale: "en_ZA",
-    url: "/",
-    
   },
   twitter: {
     card: "summary_large_image",
@@ -88,13 +87,13 @@ const structuredData = {
     {
       "@type": "SoftwareApplication",
       "@id": siteUrl + "/#software",
-      name: "Signal One Guard",
-      alternateName: brand.product,
+      name: brand.product,
+      alternateName: "1GUARD Security Business OS",
       applicationCategory: "BusinessApplication",
       applicationSubCategory: "Security business operating system",
       operatingSystem: "Web, Android, iOS",
       publisher: { "@id": siteUrl + "/#organization" },
-      description: guardIsLive ? description : description + " Signal One Guard is in pilot with its first security companies.",
+      description: guardIsLive ? description : description + " 1GUARD is in pilot with its first security companies.",
       offers: {
         "@type": "Offer",
         url: siteUrl + "/pricing",

@@ -24,7 +24,7 @@ export function Kicker({
 }
 
 const statusStyles = {
-  pilot: { light: "bg-signal-tint text-signal-ink ring-1 ring-signal-ink/25", dark: "bg-signal-400/12 text-signal-400 ring-1 ring-signal-400/30" },
+  pilot: { light: "bg-signal-tint text-signal-ink ring-1 ring-signal-ink/25", dark: "bg-[var(--site-control,color-mix(in_oklab,var(--color-signal-400)_12%,transparent))] text-signal-400 ring-1 ring-signal-400/30" },
   live: { light: "bg-live-tint text-live", dark: "bg-white/8 text-live-inv" },
   beta: { light: "bg-beta-tint text-beta", dark: "bg-white/8 text-beta-inv" },
   mvp: { light: "bg-beta-tint text-beta", dark: "bg-white/8 text-beta-inv" },
@@ -321,6 +321,11 @@ export function SplitHero({
   scene?: string;
 }) {
   const dimensions = typeof src === "string" ? { width: 1600, height: 900 } : src;
+  // The photograph is object-fit: cover in a box that is usually taller than the source's shape, so the browser
+  // decodes it by HEIGHT. The width hint must therefore be box height x source aspect, not the box width:
+  // from lg the box is as tall as the hero (capped at the source height, so at most the source width);
+  // below lg it is 56vw tall. A hint of the box width made a 750 px variant fill a 711 px tall box (2.2x).
+  const heroSizes = `(min-width: 1024px) ${dimensions.width}px, ${Math.max(100, Math.ceil((56 * dimensions.width) / dimensions.height))}vw`;
   const inset = "calc(max(0px, (100vw - var(--wrap-max)) / 2) + var(--wrap-pad) + var(--hero-col) + 40px)";
   const box: React.CSSProperties =
     side === "right"
@@ -337,7 +342,7 @@ export function SplitHero({
             fill
             priority
             fetchPriority="high"
-            sizes={"(min-width: 1024px) 52vw, 100vw"}
+            sizes={heroSizes}
             quality={70}
             placeholder={typeof src === "string" ? "empty" : "blur"}
             className="object-cover [object-position:var(--pos-m)] lg:[object-position:var(--pos-d)]"

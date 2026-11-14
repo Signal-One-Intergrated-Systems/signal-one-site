@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
+import { withSocial } from "../../lib/seo";
 import Link from "next/link";
 import { Check, SplitHero } from "../../components/ui";
 import { photos } from "../../lib/photos";
 import { guardApp, guardAppAvailable } from "../../lib/acquisition";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSocial({
   title: "Security Officer App: Clock In, Patrol and SOS",
   description:
-    "How the Signal One Guard app works on shift for security officers: clock in, QR and NFC patrols, occurrence book and SOS. What PSiRA details we ask for and why.",
+    "How the 1GUARD app works on shift for security officers: clock in, QR and NFC patrols, occurrence book and SOS. What PSiRA details we ask for and why.",
   alternates: { canonical: "/guards" },
-};
+});
 
 const onShift = [
   ["Clock in and out", "At your post, on your own phone or the site's authorised Central Device."],
@@ -33,7 +34,7 @@ export default function GuardsPage() {
           <p className="text-[1.0625rem] font-semibold text-signal-400">For security officers</p>
           <h1 className="t-hero mt-4">Your work, on record. Your next job, your choice.</h1>
           <p className="mt-6 text-[1.25rem] leading-relaxed text-text-inv-2">
-            Signal One Guard is the app you use on shift. Guard Marketplace is not live yet. When it launches,
+            1GUARD is the app you use on shift. Guard Marketplace is not live yet. When it launches,
             signed-in security companies will be able to send you hire requests. You will always decide whether to accept.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
@@ -42,12 +43,12 @@ export default function GuardsPage() {
             </Link>
             {guardApp.android ? (
               <a href={guardApp.android} className="btn btn-ghost-dark btn-lg" rel="noopener">
-                Download Signal One Guard · Android
+                Download 1GUARD · Android
               </a>
             ) : null}
             {guardApp.ios ? (
               <a href={guardApp.ios} className="btn btn-ghost-dark btn-lg" rel="noopener">
-                Download Signal One Guard · iPhone
+                Download 1GUARD · iPhone
               </a>
             ) : null}
             {guardAppAvailable ? null : (

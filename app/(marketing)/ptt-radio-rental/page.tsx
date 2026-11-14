@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
+import { withSocial } from "../../lib/seo";
 import LandingPage from "../../components/LandingPage";
 import { ButtonLink, Photo, Status } from "../../components/ui";
 import { illustrativeCaption, photos } from "../../lib/photos";
 import { catalogue } from "../../lib/catalogue";
 import { guardDayPricePhrase } from "../../lib/pricing";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSocial({
   title: "PTT Radio Rental for Security Companies",
   description:
     "Push-to-talk over cellular radios on 12, 24 or 36-month rental terms: Hytera PNC360S, P30 Lite PoC and E600 PoC LTE, by quote, from Signal One.",
   alternates: { canonical: "/ptt-radio-rental" },
-};
+});
 
 const radios = catalogue[0];
 
@@ -33,7 +34,7 @@ export default function PttRadioRentalPage() {
       }
       aside={
         <div className="grid gap-5">
-          <Photo src={photos.teamBriefing.src} alt={photos.teamBriefing.alt} sizes="(min-width:1024px) 46vw, 100vw" aspect="aspect-[16/9]" caption={illustrativeCaption} />
+          <Photo src={photos.teamBriefing.src} alt={photos.teamBriefing.alt} sizes="(min-width:1024px) 60vw, 129vw" aspect="aspect-[16/9]" caption={illustrativeCaption} />
           <ul className="m-0 grid list-none gap-px overflow-hidden rounded-card border border-line-dark bg-line-dark p-0">
           {radios.products.map((product) => (
             <li key={product.model} className="flex items-start justify-between gap-4 bg-raised p-5 sm:p-6">
@@ -67,13 +68,13 @@ export default function PttRadioRentalPage() {
         ["You decide", "Nothing is supplied until you accept the quote."],
       ]}
       limits={[
-        "Renting a radio does not yet connect it to Signal One Guard. Activating devices and viewing tracking from inside Signal One Guard is coming soon.",
-        "Equipment is rented alongside Signal One Security, and priced separately from the " + guardDayPricePhrase + " platform rate.",
+        "Renting a radio does not yet connect it to 1GUARD. Activating devices and viewing tracking from inside 1GUARD is coming soon.",
+        "Equipment is rented alongside 1GUARD, and priced separately from the " + guardDayPricePhrase + " platform rate.",
       ]}
       closing="Radios for the contract, by quote."
       related={[
         ["/radios-equipment", "Radios, tracking and body cameras"],
-        ["/solutions/security", "The Signal One Security platform"],
+        ["/solutions/security", "The 1GUARD platform"],
         ["/contact", "Talk to Signal One"],
       ]}
     />

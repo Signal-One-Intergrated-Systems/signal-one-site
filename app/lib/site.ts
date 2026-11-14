@@ -4,5 +4,5 @@ export const salesEmail = "sales@signalone.co.za";
 
 export const brand = {
   master: "Signal One: Integrated Systems",
-  product: "Signal One Security",
+  product: "1GUARD",
 } as const;

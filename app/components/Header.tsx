@@ -107,13 +107,50 @@ export default function Header() {
       if (event.key === "Escape") {
         setOpen(false);
         toggleRef.current?.focus();
+        return;
+      }
+      if (event.key !== "Tab") return;
+      // Keep keyboard focus in the header (bar, toggle and sheet) while the sheet is open: the page behind
+      // it is covered and scroll-locked, so Tab must not walk into it. Wraps at both ends.
+      const scope = sheetRef.current?.closest("header");
+      if (!scope) return;
+      const stops = Array.from(scope.querySelectorAll<HTMLElement>("a[href], button:not([disabled])")).filter(
+        (element) => element.getClientRects().length > 0 && getComputedStyle(element).visibility !== "hidden",
+      );
+      if (stops.length === 0) return;
+      const first = stops[0];
+      const last = stops[stops.length - 1];
+      const active = document.activeElement;
+      if (!active || !scope.contains(active)) {
+        event.preventDefault();
+        (sheetRef.current?.querySelector<HTMLElement>("a") ?? first).focus();
+      } else if (event.shiftKey && active === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && active === last) {
+        event.preventDefault();
+        first.focus();
       }
     };
     window.addEventListener("keydown", onKey);
+    // The toggle and the sheet are hidden by CSS from xl (1280 px). If the viewport crosses that width while
+    // the sheet is open (resize, tablet rotation) close it, otherwise the page stays scroll-locked with no
+    // visible control to release it.
+    const wide = window.matchMedia("(min-width: 1280px)");
+    const onWide = (event: MediaQueryListEvent) => {
+      if (!event.matches) return;
+      // The sheet's links are about to disappear: park focus on the header's first link so the next Tab
+      // continues from the header instead of restarting from the page body.
+      const sheet = sheetRef.current;
+      if (sheet?.contains(document.activeElement)) sheet.closest("header")?.querySelector<HTMLElement>("a[href]")?.focus();
+      setOpen(false);
+    };
+    wide.addEventListener("change", onWide);
     sheetRef.current?.querySelector<HTMLElement>("a")?.focus();
     return () => {
       document.body.style.overflow = previous;
       window.removeEventListener("keydown", onKey);
+      wide.removeEventListener("change", onWide);
     };
   }, [open]);
 
@@ -190,7 +227,7 @@ export default function Header() {
         <div
           id="mobile-nav"
           ref={sheetRef}
-          className={"fixed inset-x-0 bottom-0 top-[78px] z-50 overflow-y-auto lg:hidden " + config.sheet}
+          className={"fixed inset-x-0 bottom-0 top-[78px] z-50 overflow-y-auto xl:hidden " + config.sheet}
         >
           <nav className="wrap flex min-h-full flex-col pb-8 pt-4" aria-label="Mobile">
             <ul className="m-0 list-none p-0">

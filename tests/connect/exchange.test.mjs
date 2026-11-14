@@ -10,7 +10,7 @@ const valid = {
   name: "Lerato Molefe",
   email: "lerato@example.org",
   company: "Site Security",
-  interest: "Security operations and Guard",
+  interest: "1GUARD Security Business OS",
   message: "I'd like to discuss site coverage.",
   consent: true,
 };
@@ -22,7 +22,7 @@ test("valid introduction prepares a locally encoded mailto, never an HTTP lead w
   assert.match(handoff.href, /^mailto:sales@signalone\.co\.za\?/);
   assert.equal(new URL(handoff.href).searchParams.get("body"), handoff.body);
   assert.match(handoff.body, /Lerato Molefe/);
-  assert.match(handoff.body, /Security operations and Guard/);
+  assert.match(handoff.body, /1GUARD Security Business OS/);
   assert.match(handoff.subject, /Andisiwe Satshwa/);
   assert.doesNotMatch(handoff.href, /^https?:/);
 });

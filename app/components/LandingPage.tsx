@@ -99,7 +99,7 @@ export default function LandingPage({
           <ul className="m-0 grid list-none gap-3 p-0">
             {related.map(([href, label]) => (
               <li key={href}>
-                <Link href={href} className="link-arrow text-signal-400">
+                <Link href={href} className="link-arrow text-text-inv">
                   {label}
                 </Link>
               </li>

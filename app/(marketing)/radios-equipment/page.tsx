@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
+import { withSocial } from "../../lib/seo";
 import EquipmentQuoteForm from "../../components/EquipmentQuoteForm";
 import { HardwareCard } from "../../components/Hardware";
 import { catalogue } from "../../lib/catalogue";
 import { ButtonLink, PageHero, Photo, Status, Steps } from "../../components/ui";
 import { illustrativeCaption, photos } from "../../lib/photos";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSocial({
   title: "Radios, Vehicle Tracking and Body Cameras for Contracts",
   description:
     "Rent PTT radios, vehicle trackers and body cameras for your security contracts: Hytera PNC360S, P30 Lite PoC, E600 PoC LTE, FMC920, FMB920, SC780. By quote.",
   alternates: { canonical: "/radios-equipment" },
-};
+});
 
 export default function RadiosEquipmentPage() {
   return (
@@ -85,8 +86,8 @@ export default function RadiosEquipmentPage() {
               <Status kind="soon">Coming soon</Status>
             </div>
             <p className="t-small measure mt-2 text-text-2">
-              You can rent this equipment today alongside Signal One Security. Activating devices and viewing tracking from
-              inside Signal One Guard is coming soon; renting a device does not yet connect it to the platform.
+              You can rent this equipment today alongside 1GUARD. Activating devices and viewing tracking from
+              inside 1GUARD is coming soon; renting a device does not yet connect it to the platform.
             </p>
           </div>
         </div>

@@ -716,7 +716,7 @@ body:has(.so-home) header.glass-nav .btn-primary{box-shadow:inset 0 1px rgba(255
    The security officer and chef stay at their original, distant scale on the
    right. Do not crop or artificially zoom this image to favor people's faces. */
 .so-home .s1-brand-stage.so-hero .so-hero-media{
-  background:#b8d0b7!important;
+  background:#081a2c!important; /* was pale green #b8d0b7, which showed behind the nav pill and under the photo; now the hero stage navy */
 }
 .so-home .s1-brand-stage.so-hero .so-hero-media .so-hero-photo{
   left:0!important;
@@ -1165,3 +1165,33 @@ body:has(.so-home) header.glass-nav .btn-primary{box-shadow:inset 0 1px rgba(255
 @media(max-width:670px){
  .so-home .so-vertical-content .so-panel-photo{width:100%;max-width:290px}
 }
+
+/* D-011 (2026-11-13): trim the empty vertical space between homepage sections. Only section padding changes:
+   the hero, every content block, the glass panels and all motion are untouched. The glass panels of
+   consecutive sections now sit 96 px apart at every width (was 250-290 px desktop, 152-176 tablet, 128-140 mobile). */
+.so-home :is(.so-chapter,.so-vertical,.so-ecosystem-section,.so-marketplace-section,.so-equipment-section,.so-onboarding-section,.so-final-cta){
+  padding-block:48px;
+}
+
+/* D-025 (2026-11-14): the three small notes that sit straight on a photograph were 2.0 to 4.2:1 against the
+   pixels behind them. They get the caption pill the section photographs already use
+   (.so-vertical-visual .so-image-caption above). The negative margins equal the padding plus border, so the
+   text stays exactly where it was and no layout height changes: the pill grows around it. */
+.so-home .s1-brand-stage.so-hero .so-hero-photo-note,
+.so-home .so-editorial-disclosure,
+.so-home .so-hardware-note{
+  padding:8px 13px;
+  border-radius:999px;
+  background:rgba(20,34,40,.49);
+  border:1px solid rgba(255,255,255,.47);
+  -webkit-backdrop-filter:blur(13px);
+  backdrop-filter:blur(13px);
+  box-shadow:inset 0 1px rgba(255,255,255,.13);
+  color:#f6fbff!important;
+}
+.so-home .s1-brand-stage.so-hero .so-hero-photo-note{margin:-9px -14px}
+/* RD-02: on phones the note sits 13px from the edge, so the pill would end 1px past the viewport. One pixel less
+   right padding and margin keeps the text where it was and the pill border on screen. */
+@media(max-width:670px){.so-home .s1-brand-stage.so-hero .so-hero-photo-note{padding-right:12px;margin-right:-13px}}
+.so-home .so-editorial-disclosure{width:fit-content;margin:15px -14px -9px}
+.so-home .so-hardware-note{width:fit-content;justify-self:center;margin:-9px -14px}

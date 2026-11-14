@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { withSocial } from "../../../lib/seo";
 import { ButtonLink, Check, FactPanel, Kicker, Photo, SplitHero, Status, GuardStatus } from "../../../components/ui";
 import { guardOnboardingLine } from "../../../lib/guardStatus";
 import { illustrativeCaption, photos } from "../../../lib/photos";
@@ -6,12 +7,12 @@ import { proofViews } from "../../../lib/productProof";
 import { guardDayPricePhrase } from "../../../lib/pricing";
 import ProductSignature from "../../../components/brand/ProductSignature";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSocial({
   title: "1GUARD | Security Business Operating System for SMEs",
   description:
     "1GUARD is the Security Business Operating System for South African SMEs, connecting service delivery, workforce and business oversight. Explore the available sites, shifts, patrols, SOS and reporting workflows.",
   alternates: { canonical: "/solutions/security" },
-};
+});
 
 function view(id: string) {
   const found = proofViews.find((item) => item.id === id);
@@ -42,7 +43,7 @@ export default function SecurityPlatformPage() {
         </div>
         <h1 className="t-hero mt-5">Run your security business. As one.</h1>
         <p className="t-lead measure mt-6 text-text-inv-2">
-          One operating system for the security business you are building. Connect your customers, workforce and service delivery. Today's documented operational capabilities include sites, shifts, patrols, incidents, SOS and client proof of service.
+          One operating system for the security business you are building. Connect your customers, workforce and service delivery. Today&apos;s documented operational capabilities include sites, shifts, patrols, incidents, SOS and client proof of service.
         </p>
         {guardOnboardingLine ? <p className="t-small mt-4 font-semibold text-text-inv">{guardOnboardingLine}</p> : null}
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -53,7 +54,8 @@ export default function SecurityPlatformPage() {
             {guardDayPricePhrase}
           </ButtonLink>
         </div>
-        <p className="t-caption mt-6 text-text-inv-2">Trial access is subject to company registration and activation confirmation. No trial begins when you submit a request.</p>\n        <p className="t-caption mt-3 text-text-inv-2">{illustrativeCaption}</p>
+        <p className="t-caption mt-6 text-text-inv-2">Trial access is subject to company registration and activation confirmation. No trial begins when you submit a request.</p>
+        <p className="t-caption mt-3 text-text-inv-2">{illustrativeCaption}</p>
       </SplitHero>
 
       <section className="surface-light section" aria-labelledby="guard-business-os-title">
@@ -117,14 +119,14 @@ export default function SecurityPlatformPage() {
               <h2 className="t-h2 mt-4">What the guard does, on record.</h2>
             </div>
             <p className="t-body text-text-2">
-              Guards use the Signal One Guard app on their own phone or an authorised Central Device.
+              Guards use the 1GUARD app on their own phone or an authorised Central Device.
             </p>
           </div>
           <div className="mt-12 grid gap-12 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-start lg:gap-16">
             <Photo
               src={photos.guardPatrol.src}
               alt={photos.guardPatrol.alt}
-              sizes="(min-width: 1320px) 720px, (min-width: 1024px) 58vw, 100vw"
+              sizes="(min-width: 1320px) 840px, (min-width: 1024px) 65vw, 106vw"
               className="w-full"
               aspect="aspect-[16/10]"
               imgClassName="object-cover object-[50%_50%]"
