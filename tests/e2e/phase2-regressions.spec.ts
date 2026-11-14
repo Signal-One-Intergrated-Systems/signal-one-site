@@ -577,6 +577,8 @@ test("R-03 crossing 1280px with the menu open closes it and releases the scroll 
   await expect(toggle).toBeHidden();
   expect(await page.evaluate(() => document.body.style.overflow)).not.toBe("hidden");
   expect(await scrolls(), "page scrolls at 1300px").toBe(true);
+  // RD-03: focus is parked in the header, not dropped to the page body
+  expect(await page.evaluate(() => !!document.activeElement?.closest("header")), "focus stays in the header after the sheet closes").toBe(true);
   await expect(page.locator('header nav[aria-label="Primary"]')).toBeVisible();
 
   // and back: nothing is stuck, the menu works again
@@ -596,3 +598,32 @@ test("R-03 crossing 1280px with the menu open closes it and releases the scroll 
   await expect(sheet).toHaveCount(0);
   expect(await page.evaluate(() => document.body.style.overflow)).not.toBe("hidden");
 });
+
+// ---- RD-01: the homepage Pilot label keeps a visible fill ------------------------------------------------------------
+test("RD-01 homepage Pilot status label has a tinted background", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/");
+  const label = page.locator('main span.rounded-full:text-is("Pilot")').first();
+  await expect(label).toBeAttached();
+  const alpha = await label.evaluate((element) => {
+    const canvas = document.createElement("canvas");
+    canvas.width = canvas.height = 1;
+    const context = canvas.getContext("2d")!;
+    context.fillStyle = getComputedStyle(element).backgroundColor;
+    context.fillRect(0, 0, 1, 1);
+    return context.getImageData(0, 0, 1, 1).data[3];
+  });
+  expect(alpha, "Pilot label background is not transparent").toBeGreaterThan(20);
+});
+
+// ---- RD-02: the hero note pill stays inside the viewport on phones --------------------------------------------------
+for (const width of [360, 390, 430, 670]) {
+  test(`RD-02 homepage hero note pill is not clipped at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 844 });
+    await page.goto("/");
+    const box = await page.locator(".so-hero-photo-note").first().boundingBox();
+    expect(box, "hero note is rendered").not.toBeNull();
+    expect(box!.x, "pill starts inside the viewport").toBeGreaterThanOrEqual(0);
+    expect(box!.x + box!.width, "pill ends inside the viewport").toBeLessThanOrEqual(width);
+  });
+}
