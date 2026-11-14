@@ -91,6 +91,9 @@ const finalItems: Item[] = [
   { name: "guard-attendance-related-links-1440", path: "/guard-attendance-software", width: 1440, height: 900, shot: around("main section.surface-deep ul:has(a.link-arrow)", 60) },
   { name: "ptt-radio-related-links-1440", path: "/ptt-radio-rental", width: 1440, height: 900, shot: around("main section.surface-deep ul:has(a.link-arrow)", 60) },
   { name: "equipment-hero-caption-390", path: "/equipment-marketplace", width: 390, height: 844, shot: around("main .s1-equipment-hero p.t-caption", 80) },
+  { name: "pricing-future-capabilities-section-1440", path: "/pricing", width: 1440, height: 900, shot: around('main section:has(h2:text-is("Priced separately"))', 0) },
+  { name: "pricing-future-capabilities-own-section-1440", path: "/pricing", width: 1440, height: 1400, shot: around("#future-capabilities", 330) },
+  { name: "pricing-future-capabilities-390", path: "/pricing", width: 390, height: 1500, shot: around("#future-capabilities", 420) },
   ...["/solutions/security", "/join/sales", "/guards"].flatMap((route) => [1024, 1180].map((w) => ({ name: `splithero${route.replace(/\//g, "-")}-${w}`, path: route, width: w, height: 800, shot: fold }))),
 ];
 const items = process.env.AUDIT_SET === "final" ? finalItems : phase2Items;
