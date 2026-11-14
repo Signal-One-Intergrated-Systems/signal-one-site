@@ -103,3 +103,13 @@ Compared 72 route x viewport pairs; 55 changed; 0 changed without a mapped fix.
 
 Unchanged: /contact, /get-started, /guards/join, /service, /workforce, /privacy, /popia, /terms, /security-trust, marketing 404, and the three Connect routes at desktop and mobile.
 The three Connect routes differ at tablet by 0.02 to 0.04% of the full-page strip with identical folds; no Connect, API, config, dependency or public file changed in this round (animated header mark, capture noise).
+
+## After the delta review (compared against 8291d1b)
+
+| Change | Cause |
+|---|---|
+| / : Pilot label background back to the tint it has on main | RD-01 |
+| / at 670 px and narrower: hero note pill 1 px narrower on the right; text position identical to main | RD-02 |
+| Header: focus parked on the header's first link when the sheet closes on widening past 1280 px (no visual change) | RD-03 |
+
+Document heights unchanged (1440: 9,304 px; 390: 13,802 px).
