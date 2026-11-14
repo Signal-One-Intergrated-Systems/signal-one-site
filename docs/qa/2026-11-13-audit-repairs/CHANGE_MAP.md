@@ -89,3 +89,17 @@ Compared 72 route x viewport pairs; 55 changed; 0 changed without a mapped fix.
 - **Largest fold differences:** /solutions/security desktop 18.6% and / 5 to 14% are the hero photograph decoded from a larger variant (D-009) and, on /, the navy fill (D-010). The legal and trust pages change by 2.3 to 5.4% (body copy colour, D-001/D-002).
 - The "Explained by" column lists the repairs that touch that route's source or its rendered classes. The visual effect of each was checked on the composites in `before-after/`.
 - Extra captures at 1024 and 1280 px for / and /privacy are in `screenshots/w1024/` and `screenshots/w1280/`; there is no Phase 1 capture at those widths to diff against (before/after composites at 1024 px: `before-after/home-top-1024.jpg`, `before-after/nav-1024-menu-open-*.jpg`).
+
+## Final release check (2026-11-14), compared against 9b0aa95
+
+72 route x viewport pairs compared, 36 changed.
+
+| Routes changed (all three viewports) | Cause |
+|---|---|
+| / | caption pills on three notes (a4a2018); panel photo `sizes` (947dd1b) |
+| /pricing | future-capabilities section (cf94306); kicker ink (a4a2018) |
+| /solutions/security, /guards, /join/sales | kicker and Pilot label ink (a4a2018); photo column 1024-1185 px (b50ae23) |
+| /guard-patrol-software, /guard-attendance-software, /ptt-radio-rental, /radios-equipment, /guard-marketplace, /equipment-marketplace | kicker, caption and related-link ink over photographs (a4a2018) |
+
+Unchanged: /contact, /get-started, /guards/join, /service, /workforce, /privacy, /popia, /terms, /security-trust, marketing 404, and the three Connect routes at desktop and mobile.
+The three Connect routes differ at tablet by 0.02 to 0.04% of the full-page strip with identical folds; no Connect, API, config, dependency or public file changed in this round (animated header mark, capture noise).

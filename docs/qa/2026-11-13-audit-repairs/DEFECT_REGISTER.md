@@ -33,12 +33,12 @@ Severity counts: **blocker 3, major 12, minor 22, cosmetic 5** (42 entries).
 | D-018 | / | all | layout | minor | The line "People and workplace scenes are illustrative; equipment photographs are original manufacturer imagery." starts at x=0, outside the content container (container starts at x=60 on desktop) | `data/parts/probes/home-desktop.json` (`geometry.disclosure`), `screenshots/desktop/home--scrolled.jpg` near y=8690 | `app/(marketing)/page.tsx:258`: the `<p className="so-editorial-disclosure">` is a direct child of the section, after the `.wrap` closes (commit 22586579) | B | **fixed** `992bd5e` |
 | D-019 | / | all | animation | minor | Globe: layer starts at x=-236 on desktop (left part off-screen, consistent with the clipped "JOHANNESBURG" label in correction 2) and is drawn at opacity 0.27 on tablet and 0.16 on mobile | `data/parts/probes/home-desktop.json`, `home-tablet.json`, `home-mobile.json` (`top.globeLayer`), `screenshots/desktop/home--fold.png` | `app/home-conversion.css:428-429` (opacity and inset overrides), `app/globals.css:1454` | B | outstanding: not in the Phase 2 order of work; instruction was to leave the globe |
 | D-020 | all marketing routes | desktop | interaction | minor | Footer group headings ("Platforms & equipment", "Start & join", "Trust & legal") are `<summary>` toggles at every width. On desktop there is no icon, but clicking a heading hides its links. | `screenshots/interaction/footer-desktop-first-group-collapsed.png`, `data/parts/interaction/footer-desktop.json` | `app/components/Footer.tsx:43-44` (`<details open>` for all widths), `app/marketing-system.css:172` hides the icon only | B | outstanding: instructed to leave alone |
-| D-021 | all marketing routes | mobile, tablet | a11y | minor | Open menu sheet is not modal: no dialog role, page behind is not inert, and Tab leaves the sheet into the page (lands on the hero CTA). Opening, Escape, focus return and close-on-navigate work. | `data/parts/interaction/menu-mobile.json`, `menu-tablet.json` (`focusLeavesOpenSheetTo`) | `app/components/Header.tsx:189-245` | B | outstanding: instructed to leave alone (same behaviour now applies at 1024-1279 px) |
+| D-021 | all marketing routes | mobile, tablet | a11y | minor | Open menu sheet is not modal: no dialog role, page behind is not inert, and Tab leaves the sheet into the page (lands on the hero CTA). Opening, Escape, focus return and close-on-navigate work. | `data/parts/interaction/menu-mobile.json`, `menu-tablet.json` (`focusLeavesOpenSheetTo`) | `app/components/Header.tsx:189-245` | B | **fixed** `fbdb0b0` (Tab and Shift+Tab stay in the header while the sheet is open), `8d213be` (sheet closes when the viewport crosses 1280 px). Still no dialog role and the page behind is not `inert` |
 | D-022 | all marketing routes; / | mobile, tablet | a11y | minor | Tap targets under the project's own 44 px rule: 20 footer links are 37 px high (some 42), footer email 27 px, homepage "1GUARD" / "1Service" label links 80x20 and 85x20 | `data/browser-audit.json` (links with `h<44`), list in `logs` via `data/browser-audit-summary.csv` column `smallTapTargets` (20 to 22 per page) | `app/marketing-system.css:173` (`min-height:37px`), `app/(marketing)/page.tsx:113,138` | B | outstanding: instructed to leave alone |
 | D-023 | all form routes | all | a11y | minor | After a successful submit, keyboard focus falls to `<body>`: the element that was focused is unmounted when the confirmation replaces the form. The confirmation is a `role="status"` region, so it is announced. | `data/parts/forms/*.json` (`mockedSuccess.focusAfter: "body"`) | `app/components/IntakeForm.tsx:84,173`, `EquipmentQuoteForm.tsx:179,326`, journey components | B | outstanding: instructed to leave alone |
 | D-024 | /contact, /get-started, /guard-marketplace, /radios-equipment, /guards/join, /join/sales | dark colour scheme only | a11y | minor | The only rendering difference between light and dark scheme on any route: native checkboxes and radios switch to the browser's dark style (dark grey box on a dark panel). 54 of 72 light/dark page pairs are pixel-identical; the other 18 differ only by these controls, the logo pulse frame and the globe frame. | `screenshots/probes-contact-checkbox-light-vs-dark.png`, `screenshots/probes-getstarted-radios-light-vs-dark.png`, `data/scheme-diff.json` | `app/globals.css:101` (`color-scheme: light dark`) and `layout.tsx:62`; controls are not styled | B | outstanding: instructed to leave alone |
-| D-025 | / | all | a11y | minor | Hero note "Illustrative scene" 2.0 to 2.4:1 over the photograph; on mobile the editorial disclosure line 3.5:1 and the hardware note 4.25:1 | `data/parts/probes/home-captions.json` | `.so-hero-photo-note`, `.so-editorial-disclosure`, `.so-hardware-note` in `app/home-conversion.css` | B | outstanding: the hero note sits inside the locked, approved hero; raising it needs a design decision (scrim or colour). Not covered by the D-005 to D-007 fix |
-| D-026 | /solutions/security, /guard-marketplace, /guard-patrol-software, /guards, /pricing | all | a11y | minor | Kickers and pills in `signal-400` slightly below AA on photographic surfaces: 3.0 to 4.4:1 ("Pilot" pill 3.1:1, "For security officers" 3.0:1) | `data/parts/probes/pixel-contrast-desktop.json`, `-mobile.json` | `app/components/ui.tsx:20,27` on photo backgrounds | B | outstanding: `signal-400` text over photographs (3.0-4.4:1) needs a scrim or a colour decision; not covered by the D-005 to D-007 fix. Re-measured unchanged |
+| D-025 | / | all | a11y | minor | Hero note "Illustrative scene" 2.0 to 2.4:1 over the photograph; on mobile the editorial disclosure line 3.5:1 and the hardware note 4.25:1 | `data/parts/probes/home-captions.json` | `.so-hero-photo-note`, `.so-editorial-disclosure`, `.so-hardware-note` in `app/home-conversion.css` | B | **fixed** `a4a2018` (hero note, disclosure line and hardware note get the existing caption pill; every sample >= 4.73:1 at 390/820/1440) |
+| D-026 | /solutions/security, /guard-marketplace, /guard-patrol-software, /guards, /pricing | all | a11y | minor | Kickers and pills in `signal-400` slightly below AA on photographic surfaces: 3.0 to 4.4:1 ("Pilot" pill 3.1:1, "For security officers" 3.0:1) | `data/parts/probes/pixel-contrast-desktop.json`, `-mobile.json` | `app/components/ui.tsx:20,27` on photo backgrounds | B | **fixed** `a4a2018` (hero kickers and related links take the on-dark ink, Pilot label gets the `--site-control` fill; medians 5.96 to 8.96:1) |
 | D-027 | /get-started | desktop (CLS); mobile (order) | layout | minor | Layout shift 0.071 on desktop when the "Trial requests are currently handled by email" notice is inserted after a client fetch. On mobile the first form field starts about 1,250 px down (1.5 screens) behind the intro card, photograph and notice (correction 6, still present). | `data/browser-audit-summary.csv` (`clsLoad`), `screenshots/mobile/get-started--fold.png`, `logs/07h-debug-client-onboarding.log` (`formTop:1248`) | `app/components/journey/IntakeAvailability.tsx:9-17` renders after fetch; `app/(marketing)/get-started/page.tsx:16` | B | outstanding: instructed to leave alone |
 | D-028 | /guard-attendance-software, /guard-patrol-software, /ptt-radio-rental, /radios-equipment | desktop | layout | minor | Hero photograph is an unframed square-cornered image that sits over the background and against the top of the fact panel; the caption below it is the unreadable one in D-007 | `screenshots/desktop/guard-attendance-software--fold.png`, `screenshots/contact-sheets/light-desktop-fold-2.jpg` | `app/components/LandingPage.tsx` hero figure / `ui.tsx:132-170` Photo | B | outstanding: instructed to leave alone (its caption is now readable, D-007) |
 | D-029 | all non-home routes | all | console | minor | Console warning on every non-home page: the homepage stylesheet (`home-conversion.css`, 52 kB) is preloaded and never used. A prefetch of `/join/sales` is aborted on almost every load (211 `net::ERR_ABORTED` in 144 captures). No other console errors or failed requests on any 200 route. | `data/browser-audit.json` (`consoleMessages`, `failedRequests`) | Next.js link prefetch of `/` (logo) and of the dynamic `/join/sales` | B | outstanding: instructed to leave alone |
@@ -47,20 +47,20 @@ Severity counts: **blocker 3, major 12, minor 22, cosmetic 5** (42 entries).
 | D-032 | /security-trust, /, /connect/andisiwe | n/a | asset-provenance | minor | Served with no approval or provenance record in docs/ASSET_PROVENANCE.md: `/images/interior/legal-premium.svg` (an SVG wrapping an embedded JPEG photograph, background of /security-trust), `/images/hero-glass-globe-fallback.svg`, `/connect-assets/andisiwe-bw.webp` (portrait), `/data/world.geojson` (no source or licence noted). A further 14 served photographs are documented but without explicit approval wording. | `data/inventory.md` section e | `app/marketing-system.css:286,350,360`; `app/globals.css:1016`; `VisitorIdentity.tsx:31`; `GlassGlobe.tsx:72` | B (served); C (no record) | outstanding: instructed to leave alone |
 | D-033 | whole site | n/a | content-rule | minor | Three names for the security product are public: "1GUARD" (every page), "Signal One Guard" (visible on 10 routes; also the JSON-LD `name` on every page) and "Signal One Security" (visible on /guard-attendance-software, /guard-patrol-software, /ptt-radio-rental x2, /radios-equipment, /terms, the 404 page; meta descriptions of /pricing, /guard-marketplace, /security-trust; JSON-LD `alternateName`; two OG images). "Central Device" (capital D) 10 times on 4 routes, "Central device" 0, "Shared Phone" 0. Locations only: needs a founder ruling. | `logs/08b-content-rules-detail.log`, `data/content-rules.json` (`sourceFindings`) | `app/lib/site.ts:7`, `app/(marketing)/layout.tsx:91-92,97`, `not-found.tsx:16`, `lib/guardStatus.ts:19`, pages listed in the log | B | **fixed** `e91f089` (founder ruling 1: product is "1GUARD"). "Central Device" unchanged (ruling 2) |
 | D-034 | /solutions/security, /guards | n/a | content-rule | cosmetic | No page claims official PSiRA verification and four routes (/guard-attendance-software, /guard-marketplace, /guards, /solutions/security) state that Signal One does not check registrations with PSiRA. Two phrases could be read otherwise and are listed for a ruling: "Every assignment checks PSiRA status." and "To confirm your details and your PSiRA registration." | `logs/08b-content-rules-detail.log` | `app/(marketing)/solutions/security/page.tsx`, `app/(marketing)/guards/page.tsx` | B | no action: cosmetic, not in the Phase 2 order of work |
-| D-035 | /service, /equipment-marketplace, /join/sales | n/a | SEO | minor | No page-specific Open Graph image: they fall back to the root image, whose text is "Run every site. Prove the service." / "Signal One Security" | `data/parts/site-level.json` (`ogImages`), `app/(marketing)/opengraph-image.tsx:8` | no `opengraph-image.tsx` in those three route folders | B | part fixed: the shared card now reads "1GUARD" (`e91f089`). /service, /equipment-marketplace and /join/sales still use the site card (kept via thin image files in `330a1f1`); page-specific cards are a design task |
+| D-035 | /service, /equipment-marketplace, /join/sales | n/a | SEO | minor | No page-specific Open Graph image: they fall back to the root image, whose text is "Run every site. Prove the service." / "Signal One Security" | `data/parts/site-level.json` (`ogImages`), `app/(marketing)/opengraph-image.tsx:8` | no `opengraph-image.tsx` in those three route folders | B | **fixed** `e91f089`, `2e11bb3` (/service has a 1Service card; /equipment-marketplace and /join/sales have Signal One cards with their own headline) |
 | D-036 | 404 pages | all | SEO / layout | minor | Marketing 404: `canonical` and `og:url` point at the homepage (it is `noindex`, status 404 is correct). Connect 404 (`/connect/<unknown>`): heading butts against the lockup with no spacing or page styling. | `data/parts/site-level.json`, `screenshots/mobile/404-connect--fold.png` | canonical inherited from `layout.tsx:39`; `app/(connect)/not-found.tsx:2` | B | **fixed** `d4427fc`, `bd54e29` (marketing 404: no canonical, no og:url, served and after hydration). Residual: see N-001. Connect 404 heading not in scope |
 | D-037 | all marketing routes | all | interaction | minor | Every internal link click waits for the shutter: median 2.1 s (max 4.7 s) from click to URL change over 137 clicked navigations, then about 1.8 s to reopen, with scrolling locked. The mechanism is documented as approved in docs/DESIGN_SYSTEM.md; the cost is recorded here for a ruling. With reduced motion the same click navigates in under 0.4 s. | `logs/07c-browser-interactions-forms-probes.log`, `data/parts/interaction/controls/*` (`ms`) | `app/components/SceneTransition.tsx:105-121` (1338 ms + 420 ms before `router.push`), `:59-63` | B | outstanding: instructed to leave alone |
 | D-038 | / | all | image | cosmetic | Panel photographs are 16:9 or 4:3 sources shown in letterbox strips (for example 259x103, 358x92), so 36% to 66% of each image is cropped away | `data/inventory.md` section d, `screenshots/desktop/home--scrolled.jpg` | `.so-panel-photo` boxes in `app/home-conversion.css`; `page.tsx:27-41` | B | outstanding: instructed to leave alone |
 | D-039 | several | n/a | SEO | cosmetic | Meta descriptions over 160 characters on 9 pages (longest /solutions/security 210, /guard-patrol-software 188, / 181); titles of 65 characters or more on 5 pages (/equipment-marketplace 70 with the duplicated suffix, /guard-marketplace 69, /radios-equipment 68, /service 66, /solutions/security 65) | `data/parts/site-level.json` | page `metadata` blocks | B | outstanding: instructed to leave alone |
 | D-040 | /sitemap.xml | n/a | SEO | cosmetic | Every `lastmod` is the build time (`new Date()`), so all 18 URLs report the same modification date on every deploy | `data/parts/site-level.json` (`sitemap.xml`) | `app/sitemap.ts:27` | B | outstanding: instructed to leave alone |
 | D-041 | repository | n/a | test-failure | minor | The image "never upscaled" test passes while D-009 exists: Chrome reports `naturalWidth` 1254 for a 1672 px optimiser output (72 dpi density metadata), so checks based on `naturalWidth` misjudge scale. No contrast test measures body copy and none emulates a colour scheme (`sitewide-glass-contrast.spec.ts` only asserts that `<main>` has a gradient and one label colour), which is why D-001 passes the gate; axe reports 0 violations on every route but leaves 42 to 162 contrast checks per marketing page "incomplete". | `data/browser-audit.json` (`images[].naturalWidth` against `truePixelWidth`), `data/parts/image-truth.json`, `tests/e2e/sitewide-glass-contrast.spec.ts:10-36`, `tests/e2e/image-scale.spec.ts`, `data/browser-audit-summary.csv` (`axeContrastIncomplete`) | test design | B | **fixed** `07501c9` (new tests measure rendered-pixel contrast and decoded-pixel image scale; `image-scale.spec.ts` untouched) |
-| D-042 | repository | n/a | test-failure (dependency audit) | cosmetic | `npm audit` reports 16 vulnerabilities in the dependency tree (1 critical, 11 high, 3 moderate, 1 low); the suggested fix for several is Next.js 16.4.6, outside the pinned 16.1.0 | `logs/03e-npm-audit.log` | `package.json` | B | outstanding: dependency upgrades were excluded from Phase 2; `npm audit` unchanged |
+| D-042 | repository | n/a | test-failure (dependency audit) | cosmetic | `npm audit` reports 16 vulnerabilities in the dependency tree (1 critical, 11 high, 3 moderate, 1 low); the suggested fix for several is Next.js 16.4.6, outside the pinned 16.1.0 | `logs/03e-npm-audit.log` | `package.json` | B | outstanding by decision: no dependency changed. The four critical advisories against next 16.1.0 were analysed and judged not exposed (see `final/data/vulnerability-table.md`); clearing them needs next >= 16.4.1 |
 
 ## Phase 2 (repairs): status as of commit `3b2362b`
 
 The Status column above was added in Phase 2; the original findings are unchanged. Evidence paths in this section are relative to `/home/claude/audit-out/phase2/`.
 
-Counts for the 42 Phase 1 entries: **20 fixed** (D-001 to D-011, D-013 to D-018, D-033, D-036, D-041), **1 ruled no change** (D-012), **1 part fixed** (D-035), **20 outstanding or no action** (D-019 to D-032, D-034, D-037 to D-040, D-042). A-001 (below) is also fixed; N-001 and N-002 (below) are new and outstanding.
+Counts for the 42 Phase 1 entries: **20 fixed** (D-001 to D-011, D-013 to D-018, D-033, D-036, D-041), **1 ruled no change** (D-012), **1 part fixed** (D-035), **20 outstanding or no action** (D-019 to D-032, D-034, D-037 to D-040, D-042). A-001 (below) is also fixed; N-002 was fixed in the final release check; N-001 and N-003 (below) are outstanding.
 
 ### Additional entries
 
@@ -68,7 +68,8 @@ Counts for the 42 Phase 1 entries: **20 fixed** (D-001 to D-011, D-013 to D-018,
 |---|---|---|---|---|---|---|---|---|---|
 | A-001 | /get-started | desktop | a11y | major | Stepper numerals 2 to 5 were `rgb(231,238,240)` on an `rgb(217,235,248)` disc: 1.03:1 (raised by the architect from the Phase 1 data). | `before-after/get-started-stepper-1440.jpg`, `data/parts/probes/contrast-recheck-desktop.json` | `main.s1-scene-page :is(.text-text,.text-text-2,...)` in `app/marketing-system.css` overrode the ink set in `app/globals.css:1523-1527` | B | **fixed** `0e8a97c` (13.4:1; current step 5.95:1) |
 | N-001 | marketing 404 | all | SEO | cosmetic | After hydration the 404 page's `<title>`, `robots` and `og:title` change from the served values ("Page not found \| Signal One", `noindex`) to the layout defaults ("Signal One Integrated Systems \| 1GUARD & 1Service", `index, follow`). The hydration payload of an unmatched URL carries only the layout's metadata, not `not-found.tsx`'s. The HTTP status stays 404 and the served HTML is correct. The canonical and og:url part of this is fixed (D-036). Found in Phase 2 while testing D-036; it predates Phase 2. | `logs/22-regression-spec-first-run.log`; served head asserted in `tests/e2e/phase2-regressions.spec.ts` (D-036 test) | Next.js 16.1 not-found metadata handling; `app/(marketing)/not-found.tsx`, `app/(marketing)/layout.tsx:18` | B | outstanding: needs a catch-all route or a framework change; left for a decision |
-| N-002 | /solutions/security, /join/sales, /guards | 1024 px | layout | minor | At exactly 1024 px wide the split-hero photograph column is 316 px wide by 688 to 784 px tall, a narrow strip of the photograph. Observed in the image-scale measurement; not investigated further. | `logs/19-image-scale-before.log` (rows "1024 ... box 316x711") | `app/components/ui.tsx` SplitHero `--ph-l` inset at the `lg` breakpoint | B | outstanding: observed only, layout decision |
+| N-002 | /solutions/security, /join/sales, /guards | 1024 px | layout | minor | At exactly 1024 px wide the split-hero photograph column is 316 px wide by 688 to 784 px tall, a narrow strip of the photograph. Observed in the image-scale measurement; not investigated further. | `logs/19-image-scale-before.log` (rows "1024 ... box 316x711") | `app/components/ui.tsx` SplitHero `--ph-l` inset at the `lg` breakpoint | B | **fixed** `b50ae23` (photo column 336/412/492 px -> 430/462/496 px at 1024/1100/1180; unchanged from 1186 px) |
+| N-003 | /pricing | all (development server only) | console | cosmetic | With `next dev`, 3 of 342 cold loads after the D-013 fix (5 of 456 before it) log "A tree hydrated but some attributes of the server rendered HTML didn't match": the `useId` values in `GuardDayCalculator` differ between server and client (`_R_ainebmp9etb_` against `_R_2inebmp9etb_`). React does not treat this as a hydration failure and the production build logs nothing (0 errors in 684 + 456 production loads). Not root-caused. | `logs/04-hydration-dev-before.log`, `logs/38-hydration-dev-after.log`, `data/hydration-stress-dev-after.json` | `app/components/GuardDayCalculator.tsx` (`useId`); cause not established | B | outstanding: development-only warning, not investigated further |
 
 ### Root causes established in Phase 2
 
@@ -94,7 +95,7 @@ Contrast (computed text colour against rendered pixels beside the glyphs, deskto
 | D-006 accent links and kickers | 18 | 1.18 to 3.17 | 4.55 to 9.75 | pass |
 | D-007 photo captions | 10 | 1.06 to 1.55 | 5.42 to 10.61 | pass |
 | A-001 stepper numerals 2 to 5 | 4 | 1.03 | 13.38 | pass |
-| D-026 `signal-400` over photographs | 9 | 3.04 to 4.44 | 3.04 to 4.44 | **fail, not fixed** |
+| D-026 `signal-400` over photographs | 9 | 3.04 to 4.44 | 3.04 to 4.44 | **fail, not fixed** in Phase 2; fixed in the final release check, see below |
 | D-025 hero note "Illustrative scene" | 3 | 2.00 / 2.05 / 2.39 (desktop / tablet / mobile) | 2.00 / 9.62 / 2.39 | **fail on desktop and mobile, not fixed** (tablet now sits on the navy fill) |
 | D-025 mobile disclosure line, hardware note | 2 | 3.54, 4.25 | 3.37, 4.24 | **fail, not fixed** |
 
@@ -118,6 +119,127 @@ Images (D-009; `logs/19-image-scale-before.log`, `logs/21-image-scale-after.log`
 - The 30 new regression tests (`tests/e2e/phase2-regressions.spec.ts`) were also run against the Phase 1 commit `81d3179`: 29 failed, 1 passed (`logs/26-regression-spec-on-baseline-81d3179.log`); the one that passes there is the 390 px image-scale test, where Phase 1 had no upscaled image.
 - Pixel diff of all 24 routes x 3 viewports against the Phase 1 captures: `CHANGE_MAP.md`. Before/after composites: `before-after/`.
 - Not run in Phase 2: production (nothing was requested from signalone.co.za), `playwright.reciprocal.config.ts` (no harness, as in Phase 1), dark-scheme capture (Phase 1 showed light and dark render identically apart from D-024), browsers other than Chromium.
+
+## Final release check (2026-11-14): status after the last round
+
+Scope ordered by the founder: five checks plus the independent reviewer's non-blocking findings (R-01 to R-06). Evidence paths in this section are relative to `/home/claude/audit-out/final/`. The gate results for the commit that contains this file are in the final report and in `logs/`, not here, because the gate runs on the commit this file is part of.
+
+Counts for the 42 Phase 1 entries after this round: **24 fixed** (the 20 above plus D-021, D-025, D-026, D-035), **1 ruled no change** (D-012), **17 outstanding or no action** (D-019, D-020, D-022 to D-024, D-027 to D-032, D-034, D-037 to D-040, D-042). Of the Phase 2 additions, A-001 and N-002 are fixed; N-001 and N-003 are outstanding.
+
+### What changed
+
+| Item | Commit | Change |
+|---|---|---|
+| 1. Labels over photographs (D-025, D-026) | `a4a2018` | Homepage hero note, disclosure line and hardware note get the caption pill the section photographs already use; text position and section heights unchanged. Hero kickers and the landing pages' related links take the on-dark ink over photographic scenes; the Pilot label gets the `--site-control` fill; the equipment hero caption uses `text-text-inv-2`. |
+| 2. SplitHero photo column (N-002) | `b50ae23` | Between 1024 and 1185 px the text column yields (`min(38rem, 58vw - 80px)`) so the photograph keeps 42% of the width. Unchanged from 1186 px. |
+| 3. Menu keyboard focus (D-021) | `fbdb0b0` | Tab and Shift+Tab wrap within the header (bar, toggle, sheet) while the sheet is open. |
+| R-03 | `8d213be` | The sheet closes, and the scroll lock is released, when the viewport crosses 1280 px. |
+| 4. npm audit | none | No dependency changed. See below. |
+| 5a / R-01. Image transfer | `947dd1b` | The 384w candidate is offered again for the homepage panel photographs. |
+| R-02 | `2e11bb3` | /service, /equipment-marketplace and /join/sales have their own social cards. |
+| R-04 | `db89276` | `scripts/audit/gate.sh` stops only its own test ports. |
+| R-06 | `cf94306` | /pricing: "Future capabilities, not available today" is its own section after "Priced separately"; that section's intro now says "Equipment is optional". |
+| Tests | `a4a2018`, `b50ae23`, `f4ca383`, `fbdb0b0`, `150197d` | 20 tests added to `tests/e2e/phase2-regressions.spec.ts` (50 in total); the Accounting/Payroll test extended. |
+
+### Item 1: contrast before and after
+
+Computed text colour against rendered pixels beside the glyphs (left of the line, right of the line, just above); three samples and their median. Before = `9b0aa95`. Every label measured in the census (103 at 1440, 100 at 820, 100 at 390) now has a median of at least 4.5:1. Source: `data/parts/probes/label-census-*-before.json`, `-after.json`.
+
+| Viewport | Route | Label | Before: samples (median) | After: samples (median) | After colour |
+|---|---|---|---|---|---|
+| 1440 | / | Illustrative scene | 13.23 / 1.58 / 14.11 (13.23) | 15.28 / 4.73 / 15.95 (15.28) | rgb(246, 251, 255) |
+| 1440 | / | Original manufacturer product images. Produc | 6.45 / 4.14 / 6.36 (6.36) | 12.64 / 10.16 / 12.62 (12.62) | rgb(246, 251, 255) |
+| 1440 | / | People and workplace scenes are illustrative | 8.83 / 3.71 / 9.35 (8.83) | 15.2 / 9.9 / 15.65 (15.2) | rgb(246, 251, 255) |
+| 1440 | /solutions/security | Pilot | 4.1 / 3.02 / 3.07 (3.07) | 6.93 / 6.93 / 6.93 (6.93) | rgb(56, 189, 248) |
+| 1440 | /guard-patrol-software | Guard patrol software | 4.1 / 3.78 / 4.1 (4.1) | 8.28 / 7.62 / 8.28 (8.28) | rgb(242, 249, 255) |
+| 1440 | /guard-patrol-software | Pricing: R2,50 per guard per day | 3.91 / 3.41 / 3.32 (3.41) | 7.13 / 6.22 / 6.06 (6.22) | rgb(231, 238, 240) |
+| 1440 | /guard-attendance-software | Guard patrol software | 3.44 / 3.42 / 3.44 (3.44) | 6.27 / 6.23 / 6.28 (6.27) | rgb(231, 238, 240) |
+| 1440 | /guard-attendance-software | The 1GUARD platform | 3.82 / 6.24 / 3.59 (3.82) | 6.97 / 11.39 / 6.54 (6.97) | rgb(231, 238, 240) |
+| 1440 | /guard-attendance-software | Pricing: R2,50 per guard per day | 4.28 / 7.85 / 4.21 (4.28) | 7.81 / 14.32 / 7.68 (7.81) | rgb(231, 238, 240) |
+| 1440 | /ptt-radio-rental | Radios, tracking and body cameras | 3.4 / 3.21 / 3.39 (3.39) | 6.2 / 5.86 / 6.19 (6.19) | rgb(231, 238, 240) |
+| 1440 | /ptt-radio-rental | The 1GUARD platform | 3.82 / 6.25 / 3.59 (3.82) | 6.97 / 11.4 / 6.54 (6.97) | rgb(231, 238, 240) |
+| 1440 | /ptt-radio-rental | Talk to Signal One | 4.28 / 7.76 / 4.21 (4.28) | 7.81 / 14.16 / 7.68 (7.81) | rgb(231, 238, 240) |
+| 1440 | /guards | For security officers | 3.04 / 2.7 / 3.04 (3.04) | 6.14 / 5.44 / 6.14 (6.14) | rgb(242, 249, 255) |
+| 820 | / | Illustrative scene | 11.22 / 17.6 / 9.74 (11.22) | 13.06 / 16.44 / 12.33 (13.06) | rgb(246, 251, 255) |
+| 820 | / | Original manufacturer product images. Produc | 5.4 / 3.87 / 5.71 (5.4) | 11.62 / 9.79 / 11.84 (11.62) | rgb(246, 251, 255) |
+| 820 | / | People and workplace scenes are illustrative | 9.97 / 3.36 / 10.34 (9.97) | 16.2 / 9.43 / 16.57 (16.2) | rgb(246, 251, 255) |
+| 820 | /solutions/security | Pilot | 4.58 / 4.05 / 4.44 (4.44) | 6.93 / 6.93 / 6.93 (6.93) | rgb(56, 189, 248) |
+| 820 | /solutions/security | Pilot | 3.42 / 3.36 / 3.41 (3.41) | 6.93 / 6.93 / 6.93 (6.93) | rgb(56, 189, 248) |
+| 820 | /guard-marketplace | Guard Marketplace | 3.25 / 2.84 / 3.26 (3.25) | 6.55 / 5.72 / 6.57 (6.55) | rgb(242, 249, 255) |
+| 390 | / | Illustrative scene | 12.51 / 2.33 / 2.58 (2.58) | 13.81 / 5.55 / 5.96 (5.96) | rgb(246, 251, 255) |
+| 390 | / | Original manufacturer product images. Produc | 4.53 / 3.43 / 4.75 (4.53) | 10.61 / 9.19 / 10.89 (10.61) | rgb(246, 251, 255) |
+| 390 | / | People and workplace scenes are illustrative | 3.71 / 2.77 / 3.84 (3.71) | 9.91 / 8.44 / 10.08 (9.91) | rgb(246, 251, 255) |
+| 390 | /solutions/security | Pilot | 3.98 / 3.87 / 3.98 (3.98) | 6.93 / 6.93 / 6.93 (6.93) | rgb(56, 189, 248) |
+| 390 | /solutions/security | Pilot | 3.43 / 3.31 / 3.31 (3.31) | 6.93 / 6.93 / 6.93 (6.93) | rgb(56, 189, 248) |
+| 390 | /guard-marketplace | Guard Marketplace | 3.25 / 3.51 / 5.22 (3.51) | 6.56 / 7.08 / 10.53 (7.08) | rgb(242, 249, 255) |
+| 390 | /equipment-marketplace | Online checkout and live stock confirmation  | 4.17 / 2.24 / 4.16 (4.16) | 9.11 / 4.89 / 9.08 (9.08) | rgb(231, 238, 240) |
+| 390 | /pricing | 1GUARD · Security Business OS pricing | 4.46 / 4.33 / 4.44 (4.44) | 8.99 / 8.68 / 8.96 (8.96) | rgb(242, 249, 255) |
+| 390 | /pricing | GUARD | 4.47 / 4.33 / 4.44 (4.44) | 9.02 / 8.68 / 8.96 (8.96) | rgb(242, 249, 255) |
+
+Not changed, by decision: the header descriptor "INTEGRATED SYSTEMS" (part of the approved lockup; 3.95:1 on /guards at 1440). Not a defect: "Send to Signal One" on /contact (2.37 in the Phase 2 sweep) is dark text on the blue button; two of the sweep's three sample points fall outside the button.
+
+Sixteen labels whose median passes still have one of the three samples below 4.5 (the sample past the end of the line lands on a bright part of a photograph), for example the caption "Photographs: illustrative scene ..." on /guard-patrol-software. They were not in the contrast table and were not changed.
+
+### Item 2: SplitHero photo column (/solutions/security, /join/sales, /guards)
+
+| Width | Photo column before | after | Text column before | after | Hero height before -> after |
+|---|---|---|---|---|---|
+| 1024 | 336 px (33%) | 430 px (42%) | 608 | 514 | 816/708/804 -> 843/774/804 |
+| 1100 | 412 px (37%) | 462 px (42%) | 608 | 558 | 819/710/807 -> 819/749/807 |
+| 1180 | 492 px (42%) | 496 px (42%) | 608 | 604 | unchanged |
+| 1279 | 591 px (46%) | 591 px (46%) | 608 | 608 | unchanged |
+| 1280 | 592 px (46%) | 592 px (46%) | 608 | 608 | unchanged |
+| 1440 | 692 px (48%) | 692 px (48%) | 608 | 608 | unchanged |
+
+Pixel identity (full-page captures, commit before the change against the commit with it): the three pages at 390, 820, 1280, 1440 and 1920 px are identical in 14 of 15 pairs; the 15th (/guards at 390) differs by the same 4,531 pixels when the same build is compared with itself, so it is capture noise. Thirteen other routes at 1024, 1180 and 1279 px: 37 of 39 pairs identical, the other two again reproduced as noise by comparing one build with itself. `logs/15-*.log`, `logs/16-*.log`.
+
+### Item 3: navigation menu under real keyboard events (390, 820, 1024, 1180; / and /pricing)
+
+| Behaviour | Before | After |
+|---|---|---|
+| Enter and Space on the Menu button open the sheet | yes | yes |
+| Focus on open | first sheet link | first sheet link |
+| `aria-expanded` false -> true -> false, `aria-controls` matches the sheet id | correct | correct |
+| Tab past the last sheet link | **left the sheet into `<main>` behind it** | wraps to the header bar, toggle, then the sheet |
+| Shift+Tab past the start | **toggle, header links, skip link, then the footer behind** | wraps to the last sheet link |
+| Escape | closes, focus returns to the toggle | same |
+| Closing with the button | closes, focus stays on the toggle | same |
+| Page behind while open | not scrollable (`overflow: hidden`) | same |
+| Activating a link | navigates, sheet closes, lock released, focus on `<body>`, next Tab enters the new page's content | same |
+| Viewport crosses 1280 px with the sheet open (R-03) | sheet and toggle hidden, page stays scroll-locked | sheet closes, lock released |
+
+`data/parts/menu-keyboard-before.json`, `-after.json`. Focus is contained to the whole header, not only the toggle and sheet, because the header bar's own links stay visible above the sheet. The sheet still has no dialog role and the page behind it is not `inert`.
+
+### Item 4: npm audit
+
+Totals before and after are the same because nothing was upgraded: all dependencies 16 (1 critical, 11 high, 3 moderate, 1 low); production tree 6 (1 critical, 4 high, 1 moderate). npm counts packages: the "critical" is `next` 16.1.0, which carries 4 critical, 15 high, 18 moderate and 4 low advisories.
+
+Verdict on the four critical advisories: **not exposed on the evidence available.** One needs Windows hosting; two need an attacker-supplied AVIF or SVG to reach the image decoder, and the optimizer here reads only same-origin files and refuses SVG (probed: `logs/01-image-optimizer-probes.log`); one needs `use cache`, which the app does not use (that advisory's page could not be read, so this rests on its title). Five high advisories (Server Components / Server Actions denial of service) are **cannot determine**: the app defines no Server Functions, but the advisories do not say such apps are unaffected; impact would be availability only. No patched release exists on the 16.1 line; the lowest version outside every critical range is next 16.4.1. Full table: `data/vulnerability-table.md`.
+
+### Item 5a: image transfer, production commit `e0d28c8` against the final code
+
+Cold browser cache, every route, images after a full scroll. `data/image-transfer-table.md` has every route.
+
+| Profile | Image bytes, all 19 routes, before | after | delta | Total bytes before | after | Largest increase |
+|---|---|---|---|---|---|---|
+| 390 px, DPR 3 | 8,575 KB | 8,670 KB | +95 KB (1.1%) | 23,514 KB | 23,701 KB | /ptt-radio-rental +8% (324 -> 350 KB) |
+| 820 px, DPR 2 | 8,497 KB | 8,995 KB | +498 KB (5.9%) | 23,732 KB | 24,207 KB | / +24% (1,875 -> 2,332 KB) |
+| 1440 px, DPR 1 | 7,656 KB | 7,853 KB | +197 KB (2.6%) | 22,803 KB | 23,033 KB | /guards +14% (337 -> 385 KB) |
+| 1440 px, DPR 2 | 8,635 KB | 8,697 KB | +61 KB (0.7%) | 23,766 KB | 23,765 KB | /radios-equipment +4% (451 -> 471 KB) |
+
+No route's image bytes rose by more than 35% and no LCP image exceeds 300 KB (the largest is the homepage hero, 239 KB, unchanged, preloaded with `fetchpriority=high`). R-01: homepage images at 1440 px DPR 1 were 1,520,600 bytes on `e0d28c8`, 1,728,664 before the fix and 1,544,181 after it; 17 images use the 384w file again. On seven routes the LCP image is `loading="lazy"` and not preloaded; that is the same on `e0d28c8` and was not changed.
+
+### Item 5b: other engines (emulation, not real devices)
+
+| Project | Engine | Viewport | Result |
+|---|---|---|---|
+| webkit-desktop-1440 | WebKit 26.0 | 1440x900 | 14 of 14 checks pass |
+| webkit-iphone-14 | WebKit 26.0, iPhone 14 descriptor | 390x664, DPR 3, touch | 14 of 14 |
+| webkit-ipad | WebKit 26.0, iPad (gen 7) descriptor | 810x1080, DPR 2, touch | 14 of 14 |
+| firefox-desktop-1440 | Firefox 142.0.1 | 1440x900 | 14 of 14 |
+| chromium-pixel-7 | Chromium 141, Pixel 7 descriptor | 412x839, DPR 2.625, touch | 14 of 14 |
+
+Checks: all 19 marketing routes load with no page error, console error or failed request; no horizontal overflow; no blank page; hero photograph and globe render; menu opens, closes and navigates (touch on the touch projects); legal and trust pages at least 4.5:1; pricing calculator 10 guards x 30 days = 300 guard days = R750; /contact and /get-started reach the "not sent" state with no upstream and the confirmation against the local mock; glass surfaces render and a real scene transition lands on a visible page. Three checks in the first run were wrong in the test, not on the site, and were corrected (`logs/34-*.log` to `logs/37-*.log`). No engine-specific defect was found. Fold screenshots: `screenshots/<project>/`.
 
 ## Checked and found correct
 
