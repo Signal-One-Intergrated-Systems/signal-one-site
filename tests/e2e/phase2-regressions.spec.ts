@@ -411,3 +411,29 @@ for (const viewport of labelViewports) {
     expect(measured, "labels were measured").toBeGreaterThan(20);
   });
 }
+
+// ---- N-002: the SplitHero photograph is not a narrow strip between 1024 and 1279 px ------------------------------
+for (const width of [1024, 1100, 1180, 1279]) {
+  test(`N-002 SplitHero photograph keeps a sensible share of the width at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 800 });
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    for (const route of ["/solutions/security", "/join/sales", "/guards"]) {
+      await page.goto(route);
+      await page.waitForLoadState("networkidle");
+      const hero = page.locator("section.split-hero.s1-person-first-split");
+      await expect(hero, route).toHaveCount(1);
+      const m = await hero.evaluate((el) => {
+        const photo = el.querySelector(".s1-glass-people-photo")!.getBoundingClientRect();
+        const text = el.querySelector(".wrap > div")!.getBoundingClientRect();
+        const h1 = el.querySelector("h1")!.getBoundingClientRect();
+        return { photoW: photo.width, photoLeft: photo.left, photoRight: photo.right, textRight: text.right, textW: text.width, h1Right: h1.right, overflow: document.documentElement.scrollWidth - innerWidth };
+      });
+      expect(m.photoW, `${route} photo column width at ${width}px`).toBeGreaterThanOrEqual(420);
+      expect(m.photoW / width, `${route} photo share at ${width}px`).toBeGreaterThanOrEqual(0.4);
+      expect(m.textW, `${route} text column width at ${width}px`).toBeGreaterThanOrEqual(480);
+      expect(m.h1Right, `${route} headline stays clear of the photograph`).toBeLessThanOrEqual(m.photoLeft + 1);
+      expect(m.photoRight, `${route} photograph ends at the viewport edge`).toBeLessThanOrEqual(width + 1);
+      expect(m.overflow, `${route} horizontal overflow`).toBeLessThanOrEqual(1);
+    }
+  });
+}
