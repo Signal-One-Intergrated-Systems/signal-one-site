@@ -1,9 +1,9 @@
-// This route sets its own Open Graph block, which drops the inherited image; keep the site card it showed before.
-import Image, { alt as siteAlt } from "../opengraph-image";
-import { ogContentType, ogSize } from "../../lib/og";
+import { ogContentType, ogSize, renderOg } from "../../lib/og";
 
-export const alt = siteAlt;
+export const alt = "1Service. Run your service business. As one.";
 export const size = ogSize;
 export const contentType = ogContentType;
 
-export default Image;
+export default function Image() {
+  return renderOg("Run your service business. As one.", "1Service");
+}
