@@ -10,7 +10,7 @@ for (const width of [320, 390, 768, 1440]) {
     await expect(page.locator(".so-hero-bar")).toBeVisible();
     await expect(page.locator("#service")).toContainText("IN DEVELOPMENT");
     await expect(page.locator("#equipment")).toContainText("Hytera PNC360S");
-    await expect(page.locator("#equipment")).toContainText("Teltonika FMB920");
+    await expect(page.locator("#equipment")).toContainText("Hytera P30 Lite");
     const trial = page.locator(".so-hero-actions").getByRole("link", { name: /Get 14 Day Free Trial/ });
     await expect(trial).toHaveAttribute("href", "/get-started");
     await expect(page.locator(".so-hero-actions").getByRole("link", { name: /Explore the solutions/ }))

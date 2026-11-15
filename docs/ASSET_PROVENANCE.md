@@ -16,8 +16,8 @@ Originals are kept unmodified in `assets/hardware/originals/`. They are not serv
 
 | Product | Reason |
 | --- | --- |
-| P30 Lite PoC | hytera.com (en and eu) lists the **P30**, not the P30 Lite. Showing the P30 under the P30 Lite name would show a different device under our label. Needs the P30 Lite page or media kit (hytera.co.za or the Hytera dealer portal). |
-| SC780 body camera | Not listed on hytera.com/en or /eu, which show SC580, SC700 and SC880. Needs the SC780 product page or media kit. |
+| P30 Lite PoC | Resolved 2026-11-15: exact Hytera P30 Lite manufacturer image added; see current source register below. |
+| SC780 body camera | Resolved 2026-11-15: exact Hytera SC780 manufacturer image added; see current source register below. |
 | E600 PoC LTE | No supplier documentation in any repository or doc confirms the manufacturer or exact branding. No image is used until the supplier documentation confirms it. |
 
 ## Domains unreachable from the build environment
@@ -127,3 +127,28 @@ The original approved guard-and-chef hero remains unaltered at `public/images/ho
 Site marketing sections, trials, pricing, service, security and recruiting all draw their environment from the eight approved empty scenes. Legal content remains reading-focused. Smoke-glass, Signal Blue branding and the established slow, alternating, accessible scroll choreography are retained. Browser tests enforce background URLs, image enclosure, file availability, mobile overflow and existing conversion links.
 
 When authoring a new panel: use an appropriate image of real-looking people **inside** a bordered glass media component alongside its text (except the permanently locked hero). When authoring an environment: use one of the eight photo backgrounds or a newly commissioned empty architectural photo. Never place human photography on a full-bleed section background **except the separately founder-locked homepage hero**.
+
+
+## 2026-11-15 — image audit implementation (current direction)
+
+The founder requested implementation of the image audit. This supersedes earlier rules requiring a photograph under every promotional section and one photograph per process card. The approved full-scene hero, globe, logo, approved SME foreground image, pricing and motion contract remain unchanged.
+
+- Manufacturer products lead equipment, radio and rental introductions. Home equipment features PNC360S and P30 Lite; tracking remains in the catalogue and secondary marketplace card.
+- `enterprise-showroom.webp` is retired from all active marketing backgrounds. Hotel lobby/corridor are removed from general pages and the footer. These files are retained for history, not loaded into the updated compositions.
+- Business-park context remains in relevant security/recruitment introductions; restaurant-dining supports 1Service; warehouse-yard supports the patrol introduction. Other marketing sections, forms, pricing and footer use quiet graphite surfaces.
+- People remain framed, disclosed illustrations outside the locked hero. Repetitive/mismatched process photographs and prominent fictional security-company/device scenes have been removed or reassigned. The 1Service features use restaurant staffing/planning imagery.
+- Product-proof arrays remain empty. No approved clean demo capture credentials were available during implementation; rejected historical crops and generated dashboards were not introduced. E600's manufacturer/stock identity remains unconfirmed, so its typographic tile remains.
+
+### Newly sourced exact manufacturer images
+
+| Model | Served file | Original | Source page | Source image | Native dimensions | Retrieved |
+|---|---|---|---|---|---|---|
+| Hytera P30 Lite | `public/images/hardware/hytera-p30-lite.png` | `assets/hardware/originals/hytera-p30-lite-front.png` | https://hytera.co.za/products/p30-lite | https://hytera.ae/imager/images/1827303/P30-Lite_800x800_5472332afa344033d2bf9e7b6b9d883e.png | 600 × 600 | 2026-11-15 |
+| Hytera SC780 | `public/images/hardware/hytera-sc780.png` | `assets/hardware/originals/hytera-sc780-front.png` | https://hytera.co.za/products/sc780-smart-4g-body-camera | https://hytera.ae/imager/images/1653392/SC780%E6%B8%B2%E6%9F%93_%E5%85%AD%E8%A7%86%E5%9B%BE-Front-min1_2024-11-13-100123_hizp_5472332afa344033d2bf9e7b6b9d883e.png | 600 × 600 | 2026-11-15 |
+
+Both official originals were downloaded from the assets linked by Hytera's South African product pages and visually inspected. Served PNGs are byte-for-byte copies; Next/Image performs delivery optimisation. No product details, colour, logos, proportions or accessories were altered. Usage basis remains the founder-confirmed authorised reseller status documented above; this is not a claim that separate unrestricted media rights were obtained.
+
+Original SHA-256 values:
+
+- `hytera-p30-lite-front.png`: `d28ce15636f8f4b20186657bdc26934d01c846f7948bfc2f640eae31e660089c`
+- `hytera-sc780-front.png`: `94b1e16eeae536643b37af70e477b94baf8f69c66301b7f9a42e27ba85c5ab1b`

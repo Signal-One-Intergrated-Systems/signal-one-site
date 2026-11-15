@@ -1,4 +1,6 @@
 import type { StaticImageData } from "next/image";
+import p30Lite from "../../public/images/hardware/hytera-p30-lite.png";
+import sc780 from "../../public/images/hardware/hytera-sc780.png";
 import fmb920 from "../../public/images/hardware/teltonika-fmb920.webp";
 import fmc920 from "../../public/images/hardware/teltonika-fmc920.webp";
 import pnc360s from "../../public/images/hardware/hytera-pnc360s.webp";
@@ -35,7 +37,7 @@ export const catalogue: ReadonlyArray<{
         manufacturer: "Hytera",
         image: { src: pnc360s, alt: "Hytera PNC360S mini PoC radio, front view" },
       },
-      { model: "P30 Lite PoC", type: "PoC radio with SOS", detail: "Rental. Communications, SOS, SIM, data and platform access.", role: "Push-to-talk with an SOS button for patrol officers." },
+      { model: "P30 Lite PoC", manufacturer: "Hytera", image: { src: p30Lite, alt: "Hytera P30 Lite PoC radio, front view — manufacturer image" }, type: "PoC radio with SOS", detail: "Rental. Communications, SOS, SIM, data and platform access.", role: "Push-to-talk with an SOS button for patrol officers." },
       { model: "E600 PoC LTE", type: "PoC LTE radio", detail: "Available by quote.", role: "PoC over LTE for sites with 4G coverage." },
       { model: "PTT platform + SIM & data", type: "Service", detail: "Monthly platform access with SIM and data for supported radios.", role: "The talk groups, SIM and data behind the radios." },
     ],
@@ -69,7 +71,7 @@ export const catalogue: ReadonlyArray<{
     category: "Body cameras",
     id: "bodycams",
     lead: "Recorded evidence for patrols, access points and events, where a client contract asks for it.",
-    products: [{ model: "SC780", type: "Body camera", detail: "Rental.", role: "Recorded evidence on patrol, at access points and at events." }],
+    products: [{ model: "SC780", manufacturer: "Hytera", image: { src: sc780, alt: "Hytera SC780 body camera, front view — manufacturer image" }, type: "Body camera", detail: "Rental.", role: "Recorded evidence on patrol, at access points and at events." }],
     terms: "Quoted per deployment.",
   },
 ];

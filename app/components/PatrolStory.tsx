@@ -4,7 +4,7 @@ import { Kicker } from "./ui";
 
 /**
  * Physical action → digital event → control room → proof (brief §7).
- * Real photography for the two physical moments; the two digital moments are
+ * Illustrative photography supplies physical context; digital moments are
  * described in words, not drawn as a fake interface. Product screens join
  * here once they are captured from the synthetic demo tenant.
  */
@@ -25,7 +25,7 @@ const steps = [
     stage: "Control room",
     title: "Supervisors see what needs action",
     body: "Late patrols and SOS wait for action in the supervisor's list and the control room. An SOS needs a mobile signal to reach the control room.",
-    photo: photos.controlRoomTeam,
+    record: ["Late patrols", "SOS alerts", "Acknowledge", "Resolve"],
   },
   {
     stage: "Proof",
@@ -60,12 +60,12 @@ export default function PatrolStory({ tone = "light" }: { tone?: "light" | "dark
                   className="object-cover"
                 />
               ) : (
-                <dl aria-label={step.stage === "Proof" ? "Proof-of-service outcomes" : "What is recorded with each scan"} className="absolute inset-0 m-0 flex flex-col justify-center gap-2 p-5">
+                <dl aria-label={step.stage === "Proof" ? "Proof-of-service outcomes" : step.stage === "Control room" ? "Control-room workflow" : "What is recorded with each scan"} className="absolute inset-0 m-0 flex flex-col justify-center gap-2 p-5">
                   {step.record.map((field) => (
                     <div key={field} className={"flex items-center gap-3 border-b pb-2 last:border-0 " + (dark ? "border-line-dark" : "border-line")}>
                       <span aria-hidden="true" className={"h-1.5 w-1.5 rounded-full " + (dark ? "bg-signal-400" : "bg-signal-ink")} />
                       <dt className={"t-small font-semibold " + (dark ? "text-text-inv" : "text-text")}>{field}</dt>
-                      <dd className="sr-only">{step.stage === "Proof" ? "possible outcome" : "recorded"}</dd>
+                      <dd className="sr-only">{step.stage === "Proof" ? "possible outcome" : step.stage === "Control room" ? "workflow item" : "recorded"}</dd>
                     </div>
                   ))}
                 </dl>

@@ -24,7 +24,14 @@ import teamBriefing from "../../public/images/photo/team-briefing.webp";
 import controlRoomTeam from "../../public/images/photo/control-room-team.webp";
 import checkpoint from "../../public/images/story/checkpoint.webp";
 
+import sitePlanning from "../../public/images/editorial/security-site-planning.webp";
+import recruitment from "../../public/images/home/panels/hire-security.webp";
+import enquiry from "../../public/images/home/panels/customer-enquiry.webp";
+
 export const photos = {
+  sitePlanning: { src: sitePlanning, alt: "Illustrative security supervisor reviewing a site plan with a client" },
+  recruitment: { src: recruitment, alt: "Illustrative interview between a security employer and prospective officers" },
+  enquiry: { src: enquiry, alt: "Illustrative business representatives discussing a customer enquiry" },
   hero: {
     src: hero,
     alt: "Security officers and a supervisor with a tablet at the boom gate of a Johannesburg business park in morning light",

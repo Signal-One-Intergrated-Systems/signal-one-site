@@ -30,7 +30,7 @@ export default function GuardAttendanceSoftwarePage() {
       }
       aside={
         <div className="grid gap-5">
-          <Photo src={photos.siteOperations.src} alt={photos.siteOperations.alt} sizes="(min-width:1024px) 46vw, 100vw" aspect="aspect-[16/9]" caption={illustrativeCaption} />
+          <Photo src={photos.sitePlanning.src} alt={photos.sitePlanning.alt} sizes="(min-width:1024px) 46vw, 100vw" aspect="aspect-[16/9]" caption={illustrativeCaption} />
           <FactPanel
           title="Signal One Guard · attendance"
           facts={[

@@ -9,7 +9,7 @@ import { guardDayPricePhrase } from "../lib/pricing";
 import { guardOnboardingLine } from "../lib/guardStatus";
 import { GuardStatus } from "../components/ui";
 import pnc360s from "../../public/images/hardware/hytera-pnc360s.webp";
-import fmb920 from "../../public/images/hardware/teltonika-fmb920.webp";
+import p30Lite from "../../public/images/hardware/hytera-p30-lite.png";
 import "../home-conversion.css";
 
 export const metadata: Metadata = {
@@ -25,16 +25,15 @@ function Arrow() {
 
 /** Compact documentary photography: purposeful context without dominating copy. */
 function PanelPhoto({
-  src, alt, size = "card",
+  src, alt,
 }: {
   src: string;
   alt: string;
-  size?: "card" | "mini";
 }) {
   return (
-    <figure className={`so-panel-photo so-panel-photo--${size}`}>
+    <figure className="so-panel-photo so-panel-photo--card">
       <Image src={src} alt={alt} fill loading="lazy" quality={76}
-        sizes={size === "mini" ? "56px" : "(min-width: 1024px) 340px, (min-width: 680px) 45vw, 90vw"}
+        sizes="(min-width: 1024px) 340px, (min-width: 680px) 45vw, 90vw"
         className="so-panel-photo-image" />
     </figure>
   );
@@ -95,9 +94,9 @@ export default function Home() {
             <p data-motion-from="right" style={{ "--so-motion-delay": "260ms" } as CSSProperties}>From winning a customer and finding the right people to delivering the work, proving the result and growing the business: Signal One is building industry-specific operating systems around the full journey.</p>
           </div>
           <div className="so-value-rail" aria-label="What matters to your business">
-            <div data-motion-from="bottom"><PanelPhoto src="/images/editorial/security-office-park-site-review.webp" alt="Illustrative security service manager meeting a building client on location to review the site" /><span>01</span><strong>Win & organise the work</strong><p>Customers, assignments, teams and requirements.</p></div>
-            <div data-motion-from="top" style={{ "--so-motion-delay": "180ms" } as CSSProperties}><PanelPhoto src="/images/editorial/security-access-scan.webp" alt="Illustrative security officer and supervisor verifying building access during a patrol" /><span>02</span><strong>Deliver & prove the service</strong><p>Connected operations, records and exceptions.</p></div>
-            <div data-motion-from="right" style={{ "--so-motion-delay": "360ms" } as CSSProperties}><PanelPhoto src="/images/editorial/security-operations-review.webp" alt="Illustrative management team reviewing operational records and security company performance" /><span>03</span><strong>Manage & grow</strong><p>Business visibility, resources and future opportunities.</p></div>
+            <div data-motion-from="bottom"><span>01</span><strong>Win & organise the work</strong><p>Customers, assignments, teams and requirements.</p></div>
+            <div data-motion-from="top" style={{ "--so-motion-delay": "180ms" } as CSSProperties}><span>02</span><strong>Deliver & prove the service</strong><p>Connected operations, records and exceptions.</p></div>
+            <div data-motion-from="right" style={{ "--so-motion-delay": "360ms" } as CSSProperties}><span>03</span><strong>Manage & grow</strong><p>Business visibility, resources and future opportunities.</p></div>
           </div>
         </div>
       </section>
@@ -109,7 +108,7 @@ export default function Home() {
               fill sizes="(min-width:1024px) 49vw, 100vw" className="object-cover" />
             <div className="so-image-caption">Illustrative SME security operations</div>
           </div>
-          <div data-motion-from="left" style={{ "--so-motion-delay": "240ms" } as CSSProperties} className="so-vertical-content"><PanelPhoto src="/images/photo/guard-site-operations.webp" alt="Illustrative security workers coordinating operational duties at a customer site" />
+          <div data-motion-from="left" style={{ "--so-motion-delay": "240ms" } as CSSProperties} className="so-vertical-content">
             <div className="so-vertical-label"><Link href="/solutions/security" className="so-platform-mark" aria-label="Explore 1GUARD"><ProductSignature name="GUARD" tone="dark" /></Link> <span>SECURITY BUSINESS OS</span> <GuardStatus tone="dark" /></div>
             <h2 id="so-guard-title">A complete business vision. Built for real security SMEs.</h2>
             <p>1GUARD is being built around the security company, not only its control room: customers, guards, staffing, sites, operations, equipment and business oversight. Start with documented shift, patrol and incident workflows as the broader business lifecycle is developed.</p>
@@ -134,7 +133,7 @@ export default function Home() {
               fill sizes="(min-width:1024px) 49vw, 100vw" className="object-cover" />
             <div className="so-image-caption">Illustrative restaurant team at work</div>
           </div>
-          <div data-motion-from="top" style={{ "--so-motion-delay": "280ms" } as CSSProperties} className="so-vertical-content"><PanelPhoto src="/images/home/panels/hire-hospitality.webp" alt="Illustrative hospitality workers discussing a staffing assignment" />
+          <div data-motion-from="top" style={{ "--so-motion-delay": "280ms" } as CSSProperties} className="so-vertical-content">
             <div className="so-vertical-label"><Link href="/service" className="so-platform-mark" aria-label="Explore 1Service"><ProductSignature name="Service" tone="dark" /></Link> <span className="so-status">IN DEVELOPMENT</span></div>
             <h2 id="so-service-title">Your service business deserves its own OS.</h2>
             <p>1Service is being developed as the operating system for service-based businesses, starting with restaurants. The vision connects the front of house, back of house, people and business performance.</p>
@@ -154,7 +153,7 @@ export default function Home() {
       {/* Ecosystem vision: customer-facing capabilities only; no internal stack or platform names. */}
       <section className="so-ecosystem-section" aria-labelledby="so-ecosystem-title">
         <div className="wrap so-ecosystem-layout">
-          <div data-motion-from="left" className="so-ecosystem-intro"><PanelPhoto src="/images/home/panels/customer-enquiry.webp" alt="Illustrative service business representative handling a customer enquiry" />
+          <div data-motion-from="left" className="so-ecosystem-intro">
             <p className="so-kicker">One connected business journey</p>
             <h2 id="so-ecosystem-title">Not another tool for one task.<br /><span>A better way to run the whole business.</span></h2>
             <p>A customer request creates work. Work requires people and equipment. Delivery creates records, decisions and the next opportunity. Our long-term direction is to connect those handoffs inside purpose-built operating systems.</p>
@@ -162,16 +161,12 @@ export default function Home() {
           </div>
           <ol data-motion-from="right" style={{ "--so-motion-delay": "220ms" } as CSSProperties} className="so-lifecycle" aria-label="Connected business lifecycle vision">
             {[
-              ["01","Find customers","/images/editorial/facility-reception-service.webp","Illustrative facilities employees welcoming a visitor at a service centre"],
-              ["02","Win the work","/images/home/panels/team-dispatch.webp","Illustrative security supervisor discussing a site plan with client representatives"],
-              ["03","Hire & assign","/images/editorial/security-interview-training.webp","Illustrative security employer interviewing candidates during recruitment"],
-              ["04","Plan & deliver","/images/editorial/security-team-briefing.webp","Illustrative security officers gathered around an operational briefing"],
-              ["05","Equip the team","/images/home/panels/prove-work.webp","Illustrative security officer using field technology during a patrol"],
-              ["06","Record & prove","/images/editorial/warehouse-security-check.webp","Illustrative guard verifying the security status at a logistics facility"],
-              ["07","Bill & manage","/images/home/panels/invoice-confirm.webp","Illustrative administrators preparing customer billing"],
-              ["08","Improve & grow","/images/home/panels/manage-grow.webp","Illustrative owner reviewing business performance"],
-            ].map(([number,label,src,alt]) => (
-              <li key={number}><PanelPhoto src={src} alt={alt} size="mini" /><span>{number}</span><strong>{label}</strong></li>
+              ["01", "Find customers"], ["02", "Win the work"],
+              ["03", "Hire & assign"], ["04", "Plan & deliver"],
+              ["05", "Equip the team"], ["06", "Record & prove"],
+              ["07", "Bill & manage"], ["08", "Improve & grow"],
+            ].map(([number, label]) => (
+              <li key={number}><span>{number}</span><strong>{label}</strong></li>
             ))}
           </ol>
         </div>
@@ -213,7 +208,7 @@ export default function Home() {
 
       <section id="equipment" className="so-equipment-section" aria-labelledby="so-equipment-title">
         <div className="wrap so-equipment-layout">
-          <div data-motion-from="right" className="so-equipment-copy"><PanelPhoto src="/images/photo/warehouse-security.webp" alt="Illustrative guard checking professional communications equipment at a logistics site" />
+          <div data-motion-from="right" className="so-equipment-copy">
             <p className="so-kicker">Signal One · Business equipment</p>
             <h2 id="so-equipment-title">The right technology. For the real job.</h2>
             <p>Professional push-to-talk radios, tracking and connectivity should be specified for the deployment, not sold as a generic gadget. Talk to the team that understands field operations.</p>
@@ -233,10 +228,10 @@ export default function Home() {
                 sizes="(min-width:1024px) 300px, 45vw" className="so-product-image" />
               <span>Hytera PNC360S <small>Push-to-talk radio</small></span>
             </div>
-            <div className="so-hardware-product so-tracker-product">
-              <Image src={fmb920} alt="Teltonika FMB920 vehicle tracking device, original manufacturer product image"
+            <div className="so-hardware-product so-radio-product">
+              <Image src={p30Lite} alt="Hytera P30 Lite push-to-talk over cellular radio, original manufacturer product image"
                 sizes="(min-width:1024px) 240px, 45vw" className="so-product-image" />
-              <span>Teltonika FMB920 <small>Vehicle tracking</small></span>
+              <span>Hytera P30 Lite <small>Push-to-talk radio</small></span>
             </div>
             <p className="so-hardware-note">Original manufacturer product images. Products shown for category illustration, subject to quotation.</p>
           </div>
@@ -250,9 +245,9 @@ export default function Home() {
             <p data-motion-from="left" style={{ "--so-motion-delay": "280ms" } as CSSProperties}>Business operating systems and equipment don't have the same buying journey. We make the next step clear for each.</p>
           </div>
           <div className="so-journey-grid">
-            <div data-motion-from="left"><PanelPhoto src="/images/editorial/hotel-reception-welcome.webp" alt="Illustrative hotel front-desk employees, porter and housekeeper welcoming a guest" /><span className="so-step">01</span><h3>Choose your path</h3><p>Explore 1GUARD, learn about 1Service or select your equipment category.</p></div>
-            <div data-motion-from="top" style={{ "--so-motion-delay": "240ms" } as CSSProperties}><PanelPhoto src="/images/editorial/cafe-team-planning.webp" alt="Illustrative cafe manager, chef and service supervisor planning work together" /><span className="so-step">02</span><h3>Tell us about your operation</h3><p>Share the sites, teams, requirements or devices your business needs.</p></div>
-            <div data-motion-from="right" style={{ "--so-motion-delay": "400ms" } as CSSProperties}><PanelPhoto src="/images/editorial/hospitality-team-briefing.webp" alt="Illustrative hotel and restaurant staff from different roles discussing a service plan" /><span className="so-step">03</span><h3>Confirm the right starting point</h3><p>We explain eligibility, supported capabilities, terms and activation before the work begins.</p></div>
+            <div data-motion-from="left"><span className="so-step">01</span><h3>Choose your path</h3><p>Explore 1GUARD, learn about 1Service or select your equipment category.</p></div>
+            <div data-motion-from="top" style={{ "--so-motion-delay": "240ms" } as CSSProperties}><span className="so-step">02</span><h3>Tell us about your operation</h3><p>Share the sites, teams, requirements or devices your business needs.</p></div>
+            <div data-motion-from="right" style={{ "--so-motion-delay": "400ms" } as CSSProperties}><span className="so-step">03</span><h3>Confirm the right starting point</h3><p>We explain eligibility, supported capabilities, terms and activation before the work begins.</p></div>
           </div>
         </div>
         <p className="so-editorial-disclosure">People and workplace scenes are illustrative; equipment photographs are original manufacturer imagery.</p>
@@ -260,7 +255,7 @@ export default function Home() {
 
       <section id="community" className="so-final-cta" aria-labelledby="so-final-title">
         <div className="wrap so-final-inner">
-          <div data-motion-from="left"><PanelPhoto src="/images/photo/team-briefing.webp" alt="Illustrative operational staff coordinating service delivery together" /><p className="so-kicker">Make your business easier to run</p><h2 id="so-final-title">Ready for a smarter way to run your business?</h2>
+          <div data-motion-from="left"><p className="so-kicker">Make your business easier to run</p><h2 id="so-final-title">Ready for a smarter way to run your business?</h2>
             <p>Start with 1GUARD, explore what 1Service is becoming or speak to Signal One about field equipment.</p></div>
           <div data-motion-from="right" style={{ "--so-motion-delay": "240ms" } as CSSProperties} className="so-final-actions"><TrialLink /><Link href="/contact" data-analytics-event="homepage_walkthrough_cta"
               data-analytics-label="homepage-book-walkthrough" className="btn so-home-outline">Book a walkthrough <Arrow /></Link></div>

@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import EquipmentQuoteForm from "../../components/EquipmentQuoteForm";
-import { HardwareCard } from "../../components/Hardware";
+import { HardwareCard, HardwareShowcase } from "../../components/Hardware";
 import { catalogue } from "../../lib/catalogue";
-import { ButtonLink, PageHero, Photo, Status, Steps } from "../../components/ui";
-import { illustrativeCaption, photos } from "../../lib/photos";
+import { ButtonLink, PageHero, Status, Steps } from "../../components/ui";
 
 export const metadata: Metadata = {
   title: "Radios, Vehicle Tracking and Body Cameras for Contracts",
@@ -31,7 +30,7 @@ export default function RadiosEquipmentPage() {
         }
         aside={
         <div className="grid gap-5">
-          <Photo src={photos.warehouse.src} alt={photos.warehouse.alt} sizes="(min-width:1024px) 46vw, 100vw" aspect="aspect-[16/9]" caption={illustrativeCaption} />
+          <HardwareShowcase products={catalogue[0].products.slice(0, 2)} />
           <dl className="m-0 grid gap-px overflow-hidden rounded-card border border-line-dark bg-line-dark">
             {[
               ["Radios and PTT", "Hytera PNC360S, P30 Lite PoC, E600 PoC LTE, PTT platform with SIM and data"],

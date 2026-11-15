@@ -51,7 +51,7 @@ test.describe("GUARD_STATUS=live", () => {
     // here, beside the servers under test, made unrelated pages fail hydration.
     if (!fs.existsSync(".next-live/BUILD_ID")) throw new Error("the GUARD_STATUS=live build is missing: tests/e2e/global-setup.ts did not run");
     const env = { ...process.env, ...liveBuildEnv };
-    server = spawn("npx", ["next", "start", "-p", String(port)], { env, stdio: "ignore", detached: true });
+    server = spawn("npx", ["next", "start", "-H", "127.0.0.1", "-p", String(port)], { env, stdio: "ignore", detached: true });
     for (let i = 0; i < 60; i++) {
       try {
         if ((await fetch(`http://localhost:${port}/`)).ok) return;

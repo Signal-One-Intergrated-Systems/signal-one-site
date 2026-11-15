@@ -3,6 +3,25 @@ import Link from "next/link";
 import type { CatalogueProduct } from "../lib/catalogue";
 import { Status } from "./ui";
 
+/** Exact manufacturer images, shared by equipment and rental introductions. */
+export function HardwareShowcase({ products }: { products: ReadonlyArray<CatalogueProduct> }) {
+  return (
+    <div className="s1-hardware-showcase" role="group" aria-label="Manufacturer radio photographs">
+      {products.filter((product) => product.image).map((product) => (
+        <figure key={product.model} className="s1-hardware-showcase-item">
+          <div className="s1-product-well">
+            <Image src={product.image!.src} alt={product.image!.alt}
+              fill sizes="(min-width: 1024px) 240px, (min-width: 640px) 40vw, 43vw"
+              className="object-contain p-5" quality={90} />
+          </div>
+          <figcaption>{product.model}<span>{product.type}</span></figcaption>
+        </figure>
+      ))}
+      <p className="s1-hardware-showcase-note">Original manufacturer images. Availability and specification confirmed by quotation.</p>
+    </div>
+  );
+}
+
 /**
  * One rental product. A first-party manufacturer cut-out when we have one
  * (docs/ASSET_PROVENANCE.md); otherwise a typographic tile. Never a stand-in
@@ -19,8 +38,8 @@ export function HardwareCard({
 }) {
   const Heading = headingLevel === 4 ? "h4" : "h3";
   return (
-    <article className="card relative flex h-full flex-col overflow-hidden">
-      <div className={"relative aspect-[4/3] " + (product.image ? "bg-gradient-to-b from-light-2 to-white" : "surface-raised")}>
+    <article className="hardware-card card relative flex h-full flex-col overflow-hidden">
+      <div className={"relative aspect-[4/3] " + (product.image ? "s1-product-well" : "surface-raised")}>
         {product.image ? (
           <Image
             src={product.image.src}

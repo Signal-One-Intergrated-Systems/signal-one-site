@@ -123,3 +123,8 @@ Founder-approved visual direction for the public marketing website: cinematic im
 - **Quality gate:** component source checks, desktop/tablet/mobile browser runs, contrast checks, screenshots for hero and forms, working navigation and content verification. Documentation or successful deployment alone does not establish visual 100% acceptance.
 
 This section is the sole current written override for the earlier restrictive public-website departures. The quotation document retains its own flat, print-oriented layout; marketing glass treatments must not leak into quotations, Sales OS or product application interfaces.
+
+
+## Approved 2026-11-15 image coherence update
+
+The image audit implementation preserves the locked homepage hero and original brand while narrowing photographic backgrounds to relevant sector introductions. Quiet graphite gradients now support actual manufacturer products, software proof, process steps, forms, pricing and the footer. This supersedes the earlier requirement for a different photographic backdrop beneath every marketing section. People remain framed except for the locked hero; manufacturer hardware is shown whole with contain sizing on neutral product wells. No generated hardware is used as product evidence. See `docs/ASSET_PROVENANCE.md` for the current source register and unresolved E600/demo-capture dependencies.
