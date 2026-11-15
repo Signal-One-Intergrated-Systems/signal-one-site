@@ -108,34 +108,33 @@ test("key acquisition pages have no critical automated accessibility violations"
   }
 });
 
-test("prominent marketing photographs show people; architecture is background context", async ({ page }) => {
-  const peopleFirst: Record<string, string> = {
+test("marketing introductions use relevant people or exact manufacturer products", async ({ page }) => {
+  const prominentImages: Record<string, string> = {
     "/": "approved-full-scene-guard-chef-2026.png",
-    "/solutions/security": "team-briefing",
+    "/solutions/security": "security-site-planning",
     "/service": "service-restaurant-operations.jpg",
-    "/equipment-marketplace": "guard-site-operations.webp",
-    "/guard-marketplace": "team-briefing.webp",
-    "/guards": "guard-site-operations",
-    "/join/sales": "team-briefing",
-    "/guard-attendance-software": "guard-site-operations",
+    "/equipment-marketplace": "hytera-pnc360s",
+    "/guard-marketplace": "hire-security.webp",
+    "/guards": "hire-security",
+    "/join/sales": "customer-enquiry",
+    "/guard-attendance-software": "security-site-planning",
     "/guard-patrol-software": "checkpoint",
-    "/ptt-radio-rental": "team-briefing",
-    "/radios-equipment": "warehouse-security",
+    "/ptt-radio-rental": "hytera-p30-lite",
+    "/radios-equipment": "hytera-pnc360s",
   };
-  for (const [route, expected] of Object.entries(peopleFirst)) {
+  for (const [route, expected] of Object.entries(prominentImages)) {
     await page.goto(route);
     const discovered = await page.locator("main img").evaluateAll(imgs =>
       imgs.map(img => ({ src: img.getAttribute("src") ?? "", alt: img.getAttribute("alt") ?? "" }))
     );
     const match = discovered.find(img => img.src.includes(expected));
-    expect(match, `No people-first photography on ${route}`).toBeTruthy();
+    expect(match, `No relevant product or context imagery on ${route}`).toBeTruthy();
     expect(match?.alt.toLowerCase()).not.toContain("empty");
     expect(match?.alt.toLowerCase()).not.toContain("unoccupied");
   }
   for (const [route, expectedScene] of [
     ["/solutions/security", "business-park.webp"],
-    ["/service", "hotel-lobby.webp"],
-    ["/equipment-marketplace", "enterprise-showroom.webp"],
+    ["/service", "restaurant-dining.webp"],
     ["/guard-marketplace", "business-park.webp"],
   ] as const) {
     await page.goto(route);
@@ -162,13 +161,12 @@ for (const viewport of viewports) {
       await expect(scene).toBeVisible();
       if (name !== "hero") {
         const background = await scene.evaluate(node => getComputedStyle(node).backgroundImage);
-        expect(background, `${name} should have its appropriate SME-scaled context`).toContain(
-          name === "guard" ? "/images/backgrounds/small-control-room.webp" :
-          name === "service" ? "/images/backgrounds/restaurant-dining.webp" :
-          "/images/backgrounds/enterprise-showroom.webp"
-        );
+        if (name === "service") {
+          expect(background).toContain("/images/backgrounds/restaurant-dining.webp");
+        } else {
+          expect(background, `${name} keeps the foreground product or illustration clear`).not.toContain("url(");
+        }
         const match = background.match(/url\((?:["'])?([^)"']+)/);
-        expect(match, `${name} must point to its contextual image`).not.toBeNull();
         if (match) {
           const assetUrl = new URL(match[1], "http://localhost:3100").pathname;
           const asset = await request.get(assetUrl);
@@ -533,7 +531,7 @@ test("homepage respects reduced motion and keeps all content readable without sc
 });
 
 
-test("homepage contextual panels use correct local documentary photographs rather than empty glass cards", async ({ page, request }) => {
+test("homepage keeps purposeful context while process steps remain clear", async ({ page, request }) => {
   const sources = [
     "win-work", "prove-work", "manage-grow", "hire-security",
     "hire-hospitality", "onboarding-sme", "customer-enquiry",
@@ -548,10 +546,10 @@ test("homepage contextual panels use correct local documentary photographs rathe
   for (const size of [{width:375,height:812},{width:768,height:1024},{width:1440,height:900}]) {
     await page.setViewportSize(size);
     await page.goto("/");
-    await expect(page.locator(".so-value-rail .so-panel-photo")).toHaveCount(3);
-    await expect(page.locator(".so-lifecycle .so-panel-photo--mini")).toHaveCount(8);
+    await expect(page.locator(".so-value-rail .so-panel-photo")).toHaveCount(0);
+    await expect(page.locator(".so-lifecycle li")).toHaveCount(8);
     await expect(page.locator(".so-marketplace-grid .so-panel-photo")).toHaveCount(3);
-    await expect(page.locator(".so-journey-grid .so-panel-photo")).toHaveCount(3);
+    await expect(page.locator(".so-journey-grid .so-panel-photo")).toHaveCount(0);
     const descriptions = await page.locator(".so-panel-photo img").evaluateAll(images =>
       images.map(img => img.getAttribute("alt") ?? "")
     );
@@ -586,7 +584,7 @@ test("slower homepage panel entrances animate with extended easing and preserve 
 });
 
 
-test("approved security, hotel and service scenes are distinct across homepage panels", async ({page,request}) => {
+test("homepage imagery is focused, with sector context and quiet product surfaces", async ({page,request}) => {
   const newScenes = [
     "security-site-planning", "hotel-reception-welcome", "hospitality-team-briefing",
     "security-office-park-site-review", "warehouse-security-check", "security-access-scan",
@@ -610,53 +608,48 @@ test("approved security, hotel and service scenes are distinct across homepage p
         return decodeURIComponent(url.searchParams.get("url")||url.pathname);
       } catch{return raw;}
     }));
-    expect(srcs.length).toBe(17);
-    expect(new Set(srcs).size,"Every card uses a different subject").toBe(17);
-    const approved=srcs.filter(src=>src.includes("/images/editorial/"));
-    expect(approved.length).toBe(11);
-    for(const scene of newScenes.filter(scene=>scene!=="security-site-planning"))expect(approved.some(src=>src.includes(`${scene}.webp`))).toBe(true);
-    expect(srcs.some(src=>src.includes("/images/home/panels/team-dispatch.webp"))).toBe(true);
+    expect(srcs).toHaveLength(3);
+    expect(new Set(srcs).size, "Marketplace images have distinct purposes").toBe(3);
+    expect(srcs.some(src => src.includes("hire-security.webp"))).toBe(true);
+    expect(srcs.some(src => src.includes("restaurant-staff-briefing.webp"))).toBe(true);
+    expect(srcs.some(src => src.includes("teltonika-fmc920.webp"))).toBe(true);
     const sections=[
       ["#solutions","business-park.webp"],
-      ["#guard","small-control-room.webp"],
+      ["#guard",null],
       ["#service","restaurant-dining.webp"],
-      [".so-ecosystem-section","business-park.webp"],
-      [".so-marketplace-section","hotel-lobby.webp"],
-      ["#equipment","enterprise-showroom.webp"],
-      [".so-onboarding-section","hotel-corridor.webp"],
-      ["#community","restaurant-courtyard.webp"],
+      [".so-ecosystem-section",null],
+      [".so-marketplace-section",null],
+      ["#equipment",null],
+      [".so-onboarding-section",null],
+      ["#community",null],
     ] as const;
     for(const [selector,image] of sections){
       const bg=await page.locator(selector).evaluate(node=>getComputedStyle(node).backgroundImage);
-      expect(bg,`Scene missing on ${selector}`).toContain(image);
-      expect(bg).toContain("url(");
+      if (image) expect(bg,`Scene missing on ${selector}`).toContain(image);
+      else expect(bg,`Keep ${selector} focused on its foreground`).not.toContain("url(");
     }
     const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
     expect(overflow).toBeLessThanOrEqual(1);
   }
 });
 
-test("industry marketing pages keep real-world photo backdrops and readable copy",async({page})=>{
+test("sector imagery belongs to relevant introductions; forms and footer stay quiet",async({page})=>{
   for(const [route,expected] of [
-    ["/solutions/security","business-park.webp"],
-    ["/service","hotel-lobby.webp"],
-    ["/guards","business-park.webp"],
-    ["/guard-marketplace","business-park.webp"],
-    ["/equipment-marketplace","enterprise-showroom.webp"],
-    ["/contact","hotel-lobby.webp"],
-    ["/pricing","business-park.webp"],
-    ["/get-started","restaurant-courtyard.webp"],
+    ["/solutions/security","business-park.webp"], ["/service","restaurant-dining.webp"],
+    ["/guards","business-park.webp"], ["/guard-marketplace","business-park.webp"],
+    ["/equipment-marketplace",null], ["/radios-equipment",null], ["/ptt-radio-rental",null],
+    ["/contact",null], ["/pricing",null], ["/get-started",null],
   ] as const){
     await page.goto(route);
     const main=page.locator("main#main");
     await expect(main).toHaveClass(/s1-scene-page/);
-    const bg=await main.evaluate(node=>getComputedStyle(node).backgroundImage);
-    expect(bg).toContain(expected);
+    expect(await main.evaluate(node=>getComputedStyle(node).backgroundImage)).not.toContain("url(");
+    if(expected) expect(await main.locator("section").first().evaluate(node=>getComputedStyle(node).backgroundImage)).toContain(expected);
+    else for(const bg of await main.locator("section").evaluateAll(nodes=>nodes.map(node=>getComputedStyle(node).backgroundImage))) expect(bg).not.toContain("url(");
     await expect(page.locator("main h1").first()).toBeVisible();
   }
-  await page.goto("/");
   const footer=await page.locator("footer").first().evaluate(node=>getComputedStyle(node).backgroundImage);
-  expect(footer).toContain("hotel-corridor.webp");
+  expect(footer).not.toContain("url(");
 });
 
 test("below the permanently locked hero, marketing backgrounds remain people-free",async({page,request})=>{
@@ -678,11 +671,11 @@ test("below the permanently locked hero, marketing backgrounds remain people-fre
      
      const background=await page.locator(selector).first().evaluate(n=>getComputedStyle(n).backgroundImage);
      expect(background,selector+" "+route).not.toMatch(/\/images\/(editorial|photo|home\/panels|home\/approved)/);
-     expect(background,selector+" "+route).toContain("/images/backgrounds/");
+     expect(background,selector+" "+route).not.toMatch(/enterprise-showroom|hotel-lobby|hotel-corridor|small-control-room/);
    }
  }
  await page.goto("/service");
- await expect(page.locator("#vision .s1-glass-people-photo img")).toHaveCount(4);
+ await expect(page.locator("#vision .s1-glass-people-photo img")).toHaveCount(3);
 });
  
 test("the original business introduction glass card is restored without the cube or square",async({page})=>{
@@ -711,7 +704,8 @@ test("the original card image appears only once on the homepage",async({page})=>
     const raw=item.getAttribute("src")||"";
     try { const url=new URL(raw,location.origin);return decodeURIComponent(url.searchParams.get("url")||url.pathname); }catch{return raw;}
   }).filter(path=>path.startsWith("/images/")));
-  expect(paths.length).toBeGreaterThan(18);
+  expect(paths.length).toBeGreaterThan(5);
+  expect(paths.length, "Context imagery is deliberately limited").toBeLessThan(12);
   expect(new Set(paths).size,"No photographic image should repeat on the homepage").toBe(paths.length);
   expect(paths.filter(p=>p.includes("security-site-planning.webp"))).toHaveLength(1);
 });

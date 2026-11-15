@@ -35,7 +35,7 @@ export default function SecurityPlatformPage() {
 
   return (
     <main id="main" className="s1-scene-page s1-scene-page--guard-os">
-      <SplitHero src={photos.teamBriefing.src} alt={photos.teamBriefing.alt} scene="/images/scenes/control-room.svg" objectPositionMobile="50% 45%" objectPosition="55% 48%">
+      <SplitHero src={photos.sitePlanning.src} alt={photos.sitePlanning.alt} scene="/images/scenes/control-room.svg" objectPositionMobile="50% 45%" objectPosition="55% 48%">
         <div className="flex flex-wrap items-center gap-3">
           <Kicker tone="dark"><ProductSignature name="GUARD" tone="dark" /> · Security Business Operating System</Kicker>
           <GuardStatus tone="dark" />
@@ -90,14 +90,6 @@ export default function SecurityPlatformPage() {
             </ul>
           </div>
           <div className="grid content-start gap-6">
-            <Photo
-              src={photos.controlRoomTeam.src}
-              alt={photos.controlRoomTeam.alt}
-              sizes="(min-width: 1320px) 860px, (min-width: 1024px) 64vw, 100vw"
-              aspect="aspect-[16/10]"
-              imgClassName="object-cover"
-              caption={illustrativeCaption}
-            />
             <h3 className="t-h3">The control room sees every SOS in order.</h3>
             <p className="t-body text-text-2">{control.body}</p>
             <p className="t-body text-text-2">

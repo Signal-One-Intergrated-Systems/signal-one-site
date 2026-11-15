@@ -339,9 +339,9 @@ body:has(.so-home) header.glass-nav > .wrap a,
 body:has(.so-home) header.glass-nav > .wrap nav{color:#f8fcff}
 body:has(.so-home) header.glass-nav > .wrap .btn-primary{color:#031827}
 .so-home .so-hero-copy{background:rgba(20,31,35,.48);border-color:rgba(253,253,253,.58);-webkit-backdrop-filter:blur(25px) saturate(112%);backdrop-filter:blur(25px) saturate(112%)}
-.so-home .so-guard-section{background-image:linear-gradient(95deg,rgba(6,17,25,.63),rgba(8,22,34,.42)),url('/images/scenes/control-room.svg');background-position:center 55%}
+.so-home .so-guard-section{background:var(--so-quiet-surface)!important;background-position:center 55%}
 .so-home .so-service-section{background-image:linear-gradient(95deg,rgba(20,20,18,.62),rgba(23,24,24,.38)),url('/images/scenes/restaurant.svg');background-position:center 52%}
-.so-home .so-equipment-section{background-image:linear-gradient(95deg,rgba(10,22,28,.66),rgba(10,28,37,.41)),url('/images/scenes/showroom.svg');background-position:center 50%}
+.so-home .so-equipment-section{background:var(--so-quiet-surface)!important;background-position:center 50%}
 @media(max-width:670px){body:has(.so-home) header.glass-nav > .wrap{background:rgba(24,32,37,.86)!important}}
 
 /* Premium bespoke scene replacements: exact photographic subjects, no reused images. */
@@ -862,9 +862,7 @@ body:has(.so-home) header.glass-nav .btn-primary{box-shadow:inset 0 1px rgba(255
    command centre. A subdued SME-office backplate now supports the real
    3-desk foreground photograph instead. */
 .so-home .so-guard-section{
-  background-image:
-    linear-gradient(112deg,rgba(9,29,39,.90),rgba(10,30,41,.91)),
-    url('/images/home/approved-sme-security-control-room-2026.png')!important;
+  background:var(--so-quiet-surface)!important;
   background-position:center!important;
   background-size:cover!important;
 }
@@ -1051,25 +1049,25 @@ body:has(.so-home) header.glass-nav .btn-primary{box-shadow:inset 0 1px rgba(255
   background-image:linear-gradient(105deg,rgba(13,15,16,.71),rgba(18,20,19,.44)),url('/images/photo/hero-integrated-security.webp')!important;
 }
 .so-home .so-guard-section{
-  background-image:linear-gradient(105deg,rgba(12,14,15,.75),rgba(15,16,17,.40)),url('/images/photo/guard-site-operations.webp')!important;
+  background:var(--so-quiet-surface)!important;
 }
 .so-home .so-service-section{
   background-image:linear-gradient(105deg,rgba(14,14,14,.71),rgba(20,20,20,.38)),url('/images/home/panels/hire-hospitality.webp')!important;
 }
 .so-home .so-ecosystem-section{
-  background:linear-gradient(110deg,rgba(13,14,14,.73),rgba(16,18,17,.47)),url('/images/home/panels/team-dispatch.webp') center/cover no-repeat!important;
+  background:var(--so-quiet-surface)!important;
 }
 .so-home .so-marketplace-section{
-  background:linear-gradient(105deg,rgba(12,14,15,.77),rgba(15,16,17,.49)),url('/images/photo/team-briefing.webp') center/cover no-repeat!important;
+  background:var(--so-quiet-surface)!important;
 }
 .so-home .so-equipment-section{
-  background-image:linear-gradient(104deg,rgba(16,17,18,.77),rgba(19,20,18,.42)),url('/images/photo/warehouse-security.webp')!important;
+  background:var(--so-quiet-surface)!important;
 }
 .so-home .so-onboarding-section{
-  background-image:linear-gradient(100deg,rgba(14,15,14,.72),rgba(16,17,17,.41)),url('/images/home/panels/onboarding-sme.webp')!important;
+  background:var(--so-quiet-surface)!important;
 }
 .so-home .so-final-cta{
-  background-image:linear-gradient(102deg,rgba(13,14,15,.76),rgba(16,17,17,.44)),url('/images/home/panels/win-work.webp')!important;
+  background:var(--so-quiet-surface)!important;
 }
 /* Premium smoke glass, allowing photographic details to remain visible.
    The corporate Signal Blue remains reserved for UI accents and the 1. */
@@ -1112,25 +1110,25 @@ body:has(.so-home) header.glass-nav .btn-primary{box-shadow:inset 0 1px rgba(255
  background-image:linear-gradient(115deg,rgba(16,19,19,.69),rgba(18,21,20,.36)),url('/images/backgrounds/business-park.webp')!important;
 }
 .so-home .so-guard-section{
- background-image:linear-gradient(112deg,rgba(16,18,18,.76),rgba(19,21,20,.46)),url('/images/backgrounds/small-control-room.webp')!important;
+ background:var(--so-quiet-surface)!important;
 }
 .so-home .so-service-section{
  background-image:linear-gradient(110deg,rgba(17,19,18,.71),rgba(18,20,19,.38)),url('/images/backgrounds/restaurant-dining.webp')!important;
 }
 .so-home .so-ecosystem-section{
- background:linear-gradient(114deg,rgba(14,17,17,.78),rgba(17,20,19,.50)),url('/images/backgrounds/business-park.webp') center/cover no-repeat!important;
+ background:var(--so-quiet-surface)!important;
 }
 .so-home .so-marketplace-section{
- background:linear-gradient(110deg,rgba(16,18,18,.75),rgba(19,20,19,.44)),url('/images/backgrounds/hotel-lobby.webp') center/cover no-repeat!important;
+ background:var(--so-quiet-surface)!important;
 }
 .so-home .so-equipment-section{
- background-image:linear-gradient(110deg,rgba(14,17,16,.73),rgba(18,19,18,.43)),url('/images/backgrounds/enterprise-showroom.webp')!important;
+ background:var(--so-quiet-surface)!important;
 }
 .so-home .so-onboarding-section{
- background-image:linear-gradient(105deg,rgba(14,17,17,.76),rgba(16,19,18,.44)),url('/images/backgrounds/hotel-corridor.webp')!important;
+ background:var(--so-quiet-surface)!important;
 }
 .so-home .so-final-cta{
- background-image:linear-gradient(100deg,rgba(15,18,17,.72),rgba(16,20,18,.44)),url('/images/backgrounds/restaurant-courtyard.webp')!important;
+ background:var(--so-quiet-surface)!important;
 }
 /* Every staff photograph in a content panel is itself enclosed by glass. */
 .so-home :is(.so-section-heading,.so-vertical-content,.so-ecosystem-intro,.so-equipment-copy,.so-final-inner) .so-panel-photo,
@@ -1164,4 +1162,24 @@ body:has(.so-home) header.glass-nav .btn-primary{box-shadow:inset 0 1px rgba(255
 }
 @media(max-width:670px){
  .so-home .so-vertical-content .so-panel-photo{width:100%;max-width:290px}
+}
+
+/* Image audit: the approved hero remains locked; purposeful context and
+   actual manufacturer devices take precedence over decorative repetition. */
+.so-home{--so-quiet-surface:radial-gradient(ellipse at 80% 10%,rgba(49,72,80,.3),transparent 60%),linear-gradient(145deg,#252b2e,#171d21)}
+.so-home :is(.so-guard-section,.so-ecosystem-section,.so-marketplace-section,.so-equipment-section,.so-onboarding-section,.so-final-cta){
+ background:var(--so-quiet-surface)!important;
+}
+.so-home .so-hardware-product{background:#eef2f4!important}
+.so-home .so-panel-photo:has(img[src*="/images/hardware/"]){background:#eef2f4!important}
+.so-home .so-panel-photo:has(img[src*="/images/hardware/"]) img{object-fit:contain;padding:12px;filter:none}
+.so-home .so-panel-photo:has(img[src*="/images/hardware/"])::after{display:none}
+.so-home .so-value-rail>div{min-height:0}
+.so-home .so-lifecycle li{gap:14px;padding:15px}
+.so-home .so-lifecycle li>span{min-width:2ch}
+.so-home .so-lifecycle li>strong{font-size:.9375rem}
+.so-home .so-hardware-note{font-size:.875rem}
+@media(max-width:670px){
+ .so-home .so-lifecycle li{gap:10px;padding:12px}
+ .so-home .so-lifecycle li>strong{font-size:.875rem}
 }
