@@ -132,7 +132,7 @@ export default function PricingPage() {
           </div>
           <ul className="m-0 list-none p-0">
             {[
-              { name: "Radios, PTT, tracking and body cameras", status: <Status kind="quote">By quote</Status>, body: "Rental on 12, 24 or 36-month terms for radios. Quoted for your deployment.", href: "/radios-equipment" },
+              { name: "Radios, PTT, tracking and body cameras", status: <Status kind="quote">By quote</Status>, body: "Buy or rent radios, with 12, 24 or 36-month rental terms. Equipment is quoted separately for your deployment.", href: "/radios-equipment" },
               { name: "Accounting", status: <Status kind="beta">Beta</Status>, body: "Priced separately when activated for your company." },
               { name: "Payroll", status: <Status kind="soon">Coming soon</Status>, body: "Not available yet. Priced separately when it launches." },
             ].map((item) => (

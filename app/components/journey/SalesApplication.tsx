@@ -238,7 +238,7 @@ export default function SalesApplication({ roleCount }: { roleCount: number | nu
                 label="Days that suit you"
                 accentClass={ACCENT}
                 error={multiError}
-                columns="grid-cols-2 sm:grid-cols-5"
+                columns="grid-cols-2 sm:grid-cols-3"
                 options={["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]}
               />
               <JRadio

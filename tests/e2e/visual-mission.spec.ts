@@ -675,7 +675,7 @@ test("below the permanently locked hero, marketing backgrounds remain people-fre
    }
  }
  await page.goto("/service");
- await expect(page.locator("#vision .s1-glass-people-photo img")).toHaveCount(3);
+ await expect(page.locator("#vision .s1-service-capability img")).toHaveCount(4);
 });
  
 test("the original business introduction glass card is restored without the cube or square",async({page})=>{

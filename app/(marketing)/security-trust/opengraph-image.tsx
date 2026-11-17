@@ -5,5 +5,5 @@ export const size = ogSize;
 export const contentType = ogContentType;
 
 export default function Image() {
-  return renderOg("Security and trust", "Access control, audit, no invented certifications");
+  return renderOg("Security and trust", "Access controls, data handling and audit trails");
 }

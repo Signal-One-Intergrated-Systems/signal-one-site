@@ -1170,10 +1170,12 @@ body:has(.so-home) header.glass-nav .btn-primary{box-shadow:inset 0 1px rgba(255
 .so-home :is(.so-guard-section,.so-ecosystem-section,.so-marketplace-section,.so-equipment-section,.so-onboarding-section,.so-final-cta){
  background:var(--so-quiet-surface)!important;
 }
-.so-home .so-hardware-product{background:#eef2f4!important}
-.so-home .so-panel-photo:has(img[src*="/images/hardware/"]){background:#eef2f4!important}
-.so-home .so-panel-photo:has(img[src*="/images/hardware/"]) img{object-fit:contain;padding:12px;filter:none}
-.so-home .so-panel-photo:has(img[src*="/images/hardware/"])::after{display:none}
+.so-home .so-hardware-product{background:#eef2f4!important;color:#0d253a}
+.so-home .so-hardware-product span{color:#0d253a!important}
+.so-home .so-hardware-product small{color:#38576d!important}
+.so-home .so-panel-photo.so-panel-photo--product{background:#eef2f4!important}
+.so-home .so-panel-photo.so-panel-photo--product img{object-fit:contain;padding:16px;filter:none}
+.so-home .so-panel-photo.so-panel-photo--product::after{display:none}
 .so-home .so-value-rail>div{min-height:0}
 .so-home .so-lifecycle li{gap:14px;padding:15px}
 .so-home .so-lifecycle li>span{min-width:2ch}
@@ -1183,3 +1185,9 @@ body:has(.so-home) header.glass-nav .btn-primary{box-shadow:inset 0 1px rgba(255
  .so-home .so-lifecycle li{gap:10px;padding:12px}
  .so-home .so-lifecycle li>strong{font-size:.875rem}
 }
+
+/* Preserve complete scenes in supporting panels. The approved hero is unchanged. */
+.so-home .so-panel-photo{aspect-ratio:16/9!important;height:auto!important;min-height:0!important}
+.so-home .so-panel-photo img{object-fit:contain!important;filter:none}
+.so-home .so-vertical-visual{aspect-ratio:16/9;height:auto!important;min-height:0!important;background:#1b2327!important}
+.so-home .so-vertical-visual img{object-fit:contain!important}

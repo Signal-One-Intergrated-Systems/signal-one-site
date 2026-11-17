@@ -1,3 +1,4 @@
+import IntakeAvailability from "../../../components/journey/IntakeAvailability";
 import type { Metadata } from "next";
 import GuardJoin from "../../../components/journey/GuardJoin";
 
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
 export default function GuardJoinPage() {
   return (
     <main id="main" className="min-h-[calc(100vh-72px)] bg-light text-text s1-scene-page s1-scene-page--officer-apply">
+      <div className="wrap pt-8"><IntakeAvailability /></div>
       <GuardJoin />
     </main>
   );

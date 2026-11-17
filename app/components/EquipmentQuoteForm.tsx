@@ -1,7 +1,8 @@
 "use client";
 
 import ReceiptReference from "./ReceiptReference";
-import { FormEvent, useId, useRef, useState } from "react";
+import { FormEvent, Suspense, useId, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { trackEvent } from "../lib/analytics";
 import { submitIntake, type IntakeFallback, newIdempotencyState } from "../lib/intake";
 import ConsentFields from "./ConsentFields";
@@ -27,6 +28,8 @@ const categories: Record<Category, { label: string; intent: string; summary: str
     intent: "equipment-rental-quote",
     summary: "PoC radios on the cellular network, with or without SIM, data and the PTT platform.",
     fields: [
+      { name: "quoteType", label: "Buy or rent?", type: "select", required: true,
+        options: ["Buy radios", "Rent radios", "Compare buying and renting"], wide: true },
       {
         name: "product",
         label: "Radio",
@@ -129,9 +132,22 @@ const contactFields: Field[] = [
 ];
 
 export default function EquipmentQuoteForm() {
+  return <Suspense fallback={<p role="status">Loading the quotation form…</p>}><SelectedEquipmentForm /></Suspense>;
+}
+
+function SelectedEquipmentForm() {
+  const params = useSearchParams();
+  const requestedCategory = params.get("category");
+  const category: Category = requestedCategory === "tracking" || requestedCategory === "bodycam" ? requestedCategory : "radio";
+  const product = categories[category].fields.find(field => field.name === "product")?.options?.find(option => option === params.get("product")) || "";
+  const quoteType = categories.radio.fields[0].options?.find(option => option === params.get("quoteType")) || "";
+  return <QuoteForm key={`${category}:${product}:${quoteType}`} initialCategory={category} initialProduct={product} initialQuoteType={quoteType} />;
+}
+
+function QuoteForm({ initialCategory, initialProduct, initialQuoteType }: { initialCategory: Category; initialProduct: string; initialQuoteType: string }) {
   const id = useId();
-  const [category, setCategory] = useState<Category>("radio");
-  const [values, setValues] = useState<Record<string, string>>({});
+  const [category, setCategory] = useState<Category>(initialCategory);
+  const [values, setValues] = useState<Record<string, string>>({ product: initialProduct, quoteType: initialQuoteType });
   const [consent, setConsent] = useState(false);
   const [marketing, setMarketing] = useState(false);
   const [reference, setReference] = useState<string | null>(null);
@@ -142,6 +158,8 @@ export default function EquipmentQuoteForm() {
   const started = useRef(false);
   const statusRef = useRef<HTMLDivElement>(null);
   const config = categories[category];
+  const fields = config.fields.filter(field => field.name !== "rentalTerm" || values.quoteType === "Rent radios" || values.quoteType === "Compare buying and renting")
+    .map(field => field.name === "rentalTerm" ? { ...field, required: values.quoteType === "Rent radios" } : field);
 
   function markStarted() {
     if (started.current) return;
@@ -166,11 +184,13 @@ export default function EquipmentQuoteForm() {
     setMessage("");
     setFallback(null);
 
-    const relevant = [...config.fields, ...contactFields, { name: "notes" } as Field].map((field) => field.name);
-    const data: Record<string, string> = { category: config.label, intent: config.intent };
+    const relevant = [...fields, ...contactFields, { name: "notes" } as Field].map((field) => field.name);
+    // Use the existing consultation contract for purchases; keep rental integrations compatible.
+    const intent = category === "radio" && values.quoteType !== "Rent radios" ? "consultation" : config.intent;
+    const data: Record<string, string> = { category: config.label, intent };
     for (const name of relevant) if (values[name]) data[name] = values[name];
 
-    const labels = Object.fromEntries([...config.fields, ...contactFields].map((field) => [field.name, field.label]));
+    const labels = Object.fromEntries([...fields, ...contactFields].map((field) => [field.name, field.label]));
     const result = await submitIntake("client", data, { labels, marketing, idempotency: idempotency.current });
     if (!result.ok) {
       setState("error");
@@ -300,6 +320,7 @@ export default function EquipmentQuoteForm() {
                 onChange={() => {
                   markStarted();
                   setCategory(key);
+                  setValues(current => ({ ...current, product: "", quantity: "", rentalTerm: "" }));
                 }}
               />
               <span className="text-text">{categories[key].label}</span>
@@ -310,7 +331,7 @@ export default function EquipmentQuoteForm() {
       </fieldset>
 
       <div key={category} className="animate-enter mt-8 grid gap-5 border-t border-line pt-8 sm:grid-cols-2">
-        {config.fields.map(renderField)}
+        {fields.map(renderField)}
       </div>
 
       <div className="mt-8 grid gap-5 border-t border-line pt-8 sm:grid-cols-2">
@@ -330,7 +351,7 @@ export default function EquipmentQuoteForm() {
       <button type="submit" disabled={state === "sending"} className="btn btn-primary btn-lg mt-6 w-full sm:w-auto">
         {state === "sending" ? "Sending…" : "Request a quote"}
       </button>
-      <p className="t-caption mt-3 text-text-2">No prices online. We reply with a written quote; nothing is supplied until you accept it.</p>
+      <p className="t-caption mt-3 text-text-2">Price, availability and delivery are confirmed in your written quote. Nothing is supplied until you accept it.</p>
     </form>
   );
 }

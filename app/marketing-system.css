@@ -597,3 +597,62 @@ main.s1-scene-page.s1-premium-contact{
  .s1-hardware-showcase-item{border-radius:18px}
  .s1-hardware-showcase-item figcaption{padding:8px 10px 16px;font-size:.9375rem}
 }
+
+/* Audited reading surfaces: foreground and background are owned together.
+   Policy documents must not inherit a light-page text palette on dark glass. */
+main.s1-legal-page{background:#171d21!important;color:#f1f5f9;color-scheme:dark}
+.s1-legal-layout{display:grid;gap:36px;align-items:start}
+.s1-legal-header .t-h1{font-size:clamp(2.125rem,3.2vw,3.5rem)!important;line-height:1.12!important}
+.s1-legal-review{display:inline-flex;margin-top:24px;padding:8px 12px;border:1px solid #657782;border-radius:8px;background:#26343c;color:#e5edf2;font-size:.875rem;line-height:1.5}
+.s1-legal-contents{margin-top:32px;color:#cbd5e1}
+.s1-legal-contents ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 12px;margin:12px 0 0;padding:0;list-style:none}
+.s1-legal-contents a{display:flex;align-items:center;min-height:44px;padding:8px 12px;border-left:2px solid #52616a;color:#cbd5e1;font-size:.9375rem;line-height:1.45}
+.s1-legal-contents a:hover{color:#fff;background:#28363e;border-color:#7dd3fc}
+.s1-legal-content{min-width:0;padding:clamp(24px,3.2vw,48px);border:1px solid #46565f;border-radius:20px;background:#202a30}
+.s1-legal-intro{color:#e2e8f0;line-height:1.6!important}
+.s1-legal-section{border-top:1px solid #46565f;padding:30px 0;scroll-margin-top:112px}
+.s1-legal-section:last-child{padding-bottom:0}
+.s1-legal-copy,.s1-legal-note{color:#cbd5e1;font-size:1.0625rem;line-height:1.75}
+.s1-legal-note{padding:24px;border-radius:12px;background:#162026;border:1px solid #46565f}
+main.s1-legal-page a.text-signal-ink{color:#7dd3fc!important}
+@media(min-width:1024px){
+ .s1-legal-layout{grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:clamp(36px,5vw,72px)}
+ .s1-legal-header{position:sticky;top:112px}
+ .s1-legal-contents ul{grid-template-columns:1fr}
+}
+
+/* Four complete scenes, with identical picture geometry and no face crop. */
+main.s1-scene-page .s1-service-capability-photo{background:#1b2327!important;border:1px solid #52616a!important;box-shadow:none;backdrop-filter:none}
+main.s1-scene-page--service > section.s1-people-scene-service.surface-deep.section{
+ background-image:linear-gradient(100deg,rgba(17,21,23,.94) 0%,rgba(17,21,23,.88) 45%,rgba(17,21,23,.62) 100%),var(--s1-scene-primary)!important;
+}
+/* Links, secondary actions, captions and success feedback use the dark palette.
+   Manufacturer product wells retain their independent light palette. */
+main.s1-scene-page :is(a.text-signal-ink,button.text-signal-ink,.photo-caption,.t-kicker.text-live){color:#7dd3fc!important}
+main.s1-scene-page .photo-caption{color:#cbd5e1!important}
+main.s1-scene-page .btn-ghost-light{color:#f1f5f9!important;border-color:#80949f!important;background:transparent}
+main.s1-scene-page .btn-ghost-light:hover{color:#fff!important;background:#35434c!important;border-color:#b8c8d1!important}
+:where(main,footer) :where([id],a,button,input,select,textarea,summary,[tabindex]){scroll-margin-top:112px}
+#mobile-nav{top:80px;background:#171f26;color:#f1f5f9}
+
+/* Non-interactive accents must remain readable on the shared dark surfaces. */
+main.s1-scene-page :is(.t-num.text-signal-ink,.t-kicker.text-signal-ink,svg.text-signal-ink,span.font-display.text-signal-ink){color:#7dd3fc!important}
+main.s1-scene-page > section.split-hero{
+ background-image:linear-gradient(110deg,rgba(17,21,23,.95),rgba(19,23,25,.82)),var(--s1-scene-primary)!important;
+}
+
+/* People are shown as complete photographs, never squeezed into letterbox crops. */
+main.s1-scene-page :is(.s1-people-main-photo,.s1-marketplace-photo.s1-people-main-photo){aspect-ratio:16/9;min-height:0!important;height:auto!important;background:#1b2327!important}
+main.s1-scene-page :is(.s1-people-main-photo,.s1-person-first-split) img{object-fit:contain!important}
+main.s1-scene-page .s1-person-first-split .s1-glass-people-photo{height:auto;aspect-ratio:16/9;max-height:none;mask-image:none;-webkit-mask-image:none;background:#1b2327}
+main.s1-scene-page .s1-person-first-split .s1-glass-people-photo > div[aria-hidden]{display:none}
+
+main.s1-scene-page.s1-people-hiring > section.split-hero.surface-deep{
+ background-image:linear-gradient(110deg,rgba(17,21,23,.95),rgba(19,23,25,.82)),var(--s1-scene-primary)!important;
+}
+
+/* Consent is a comfortable tap target; the active journey step is readable. */
+main:not(.s1-brand-home) [data-consent-fields] .check{padding:13px 16px}
+main.s1-scene-page [aria-current="step"]{color:#7dd3fc!important}
+
+main.s1-scene-page input[type="month"]{color-scheme:dark}

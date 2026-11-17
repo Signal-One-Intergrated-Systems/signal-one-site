@@ -159,7 +159,7 @@ export default function GuardsPage() {
           <ol className="m-0 mt-8 grid list-none gap-6 p-0 md:grid-cols-4">
             {joinSteps.map(([title, body], index) => (
               <li key={title} className="border-t-2 border-field pt-4">
-                <span className="t-num text-[2rem] text-signal-600">{index + 1}</span>
+                <span className="t-num text-[2rem] text-signal-ink">{index + 1}</span>
                 <h3 className="mt-2 text-[1.1875rem] font-semibold">{title}</h3>
                 <p className="mt-1 text-[1.0625rem] text-text-2">{body}</p>
               </li>

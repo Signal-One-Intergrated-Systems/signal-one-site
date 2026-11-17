@@ -37,10 +37,12 @@ export function HardwareCard({
   headingLevel?: 3 | 4;
 }) {
   const Heading = headingLevel === 4 ? "h4" : "h3";
+  const category = product.model === "SC780" ? "bodycam" : /FM[BC]920/.test(product.model) ? "tracking" : "radio";
+  const selectedProduct = product.type === "Service" ? "PTT platform + SIM only (I have radios)" : product.model;
+  const quoteHref = `/radios-equipment?${new URLSearchParams({ category, product: selectedProduct })}#quote`;
   return (
     <article className="hardware-card card relative flex h-full flex-col overflow-hidden">
-      <div className={"relative aspect-[4/3] " + (product.image ? "s1-product-well" : "surface-raised")}>
-        {product.image ? (
+      {product.image ? <div className="relative aspect-[4/3] s1-product-well">
           <Image
             src={product.image.src}
             alt={product.image.alt}
@@ -49,17 +51,12 @@ export function HardwareCard({
             quality={90}
             className="object-contain p-6 sm:p-8"
           />
-        ) : (
-          // No first-party image yet (docs/ASSET_PROVENANCE.md): a spec tile, never a stand-in device.
-          <div aria-hidden="true" className="absolute inset-0 flex flex-col justify-end p-6">
-            <p className="font-display text-[1.5rem] font-bold leading-[1.1] tracking-[-0.02em] text-text-inv">{product.type}</p>
-          </div>
-        )}
         <span className="glass-light absolute left-3 top-3 rounded-full">
           <Status kind="quote">By quote</Status>
         </span>
-      </div>
+      </div> : null}
       <div className={"flex flex-1 flex-col " + (compact ? "p-5" : "p-6 sm:p-7")}>
+        {!product.image ? <div className="mb-4"><Status kind="quote" tone="dark">By quote</Status></div> : null}
         <p className="t-small font-semibold text-signal-ink">
           {product.manufacturer ? product.manufacturer + " · " : ""}
           {product.type}
@@ -69,7 +66,7 @@ export function HardwareCard({
         </Heading>
         <p className="t-small mt-3 text-text">{product.role}</p>
         <p className="t-small mt-1 text-text-2">{product.detail}</p>
-        <Link href="/radios-equipment#quote" className="link-arrow mt-auto pt-5 text-signal-ink">
+        <Link href={quoteHref} className="link-arrow mt-auto pt-5 text-signal-ink">
           Request a quote<span className="sr-only"> for {product.model}</span> <span aria-hidden="true">→</span>
         </Link>
       </div>

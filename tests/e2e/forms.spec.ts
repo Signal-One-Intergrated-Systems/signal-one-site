@@ -35,6 +35,7 @@ const cases: Case[] = [
     run: async (page) => {
       await hydrated(page);
       await tick(page.getByRole("radio", { name: label, exact: true }));
+      if (label === "Radios and PTT") await page.getByLabel("Buy or rent?").selectOption("Rent radios");
       await simple(page);
     },
   })),

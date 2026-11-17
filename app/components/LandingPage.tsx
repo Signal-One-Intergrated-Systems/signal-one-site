@@ -19,6 +19,8 @@ export default function LandingPage({
   steps,
   limits,
   closing,
+  closingLead = priceSentence,
+  closingActions,
   related,
   story,
   scene = "security",
@@ -34,6 +36,8 @@ export default function LandingPage({
   steps: ReadonlyArray<readonly [string, string]>;
   limits: ReadonlyArray<string>;
   closing: string;
+  closingLead?: string;
+  closingActions?: ReactNode;
   related: ReadonlyArray<readonly [string, string]>;
   /** Optional full-width visual story after the hero. */
   story?: ReactNode;
@@ -86,14 +90,16 @@ export default function LandingPage({
         <div className="wrap grid gap-10 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-end lg:gap-16">
           <div>
             <h2 className="t-h2">{closing}</h2>
-            <p className="t-lead measure mt-5 text-text-inv-2">{priceSentence}</p>
+            <p className="t-lead measure mt-5 text-text-inv-2">{closingLead}</p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              {closingActions ?? <>
               <ButtonLink href="/contact" size="lg">
                 Talk to Signal One
               </ButtonLink>
               <ButtonLink href="/pricing#calculator" variant="ghost-dark" size="lg">
                 Calculate guard cost
               </ButtonLink>
+              </>}
             </div>
           </div>
           <ul className="m-0 grid list-none gap-3 p-0">

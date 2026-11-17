@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
+import IntakeAvailability from "../../components/journey/IntakeAvailability";
 import EquipmentQuoteForm from "../../components/EquipmentQuoteForm";
 import { HardwareCard, HardwareShowcase } from "../../components/Hardware";
 import { catalogue } from "../../lib/catalogue";
 import { ButtonLink, PageHero, Status, Steps } from "../../components/ui";
 
 export const metadata: Metadata = {
-  title: "Radios, Vehicle Tracking and Body Cameras for Contracts",
+  title: "Buy or Rent Two-Way Radios, Tracking and Body Cameras",
   description:
-    "Rent PTT radios, vehicle trackers and body cameras for your security contracts: Hytera PNC360S, P30 Lite PoC, E600 PoC LTE, FMC920, FMB920, SC780. By quote.",
+    "Buy or rent professional PTT radios; request vehicle tracking and body-camera quotations: Hytera PNC360S, P30 Lite PoC, E600 PoC LTE, FMC920, FMB920, SC780. By quote.",
   alternates: { canonical: "/radios-equipment" },
 };
 
@@ -21,8 +22,8 @@ export default function RadiosEquipmentPage() {
             By quote
           </Status>
         }
-        title="Radios, PTT, tracking and body cameras. Rented, not sold online."
-        lead="Choose the product, tell us the requirement and quantity, and where it will be deployed. We reply with a written quote."
+        title="Buy or rent radios. Keep your team connected."
+        lead="Choose professional two-way PoC radios for your team, with purchase or rental options. Tell us the quantity and deployment location; we will confirm availability, connectivity and pricing in writing."
         actions={
           <ButtonLink href="#quote" size="lg">
             Request a quote
@@ -51,8 +52,7 @@ export default function RadiosEquipmentPage() {
         <div className="wrap">
           <h2 className="t-h2">The catalogue</h2>
           <p className="t-body measure mt-3 text-text-2">
-            Named products we rent today. Final specification, availability and price are confirmed in the quote; we do
-            not publish prices, stock or delivery dates.
+            Explore radios, tracking and body cameras for your operation. Purchase and rental options, final specification, availability and delivery timing are confirmed in your quote.
           </p>
 
           <div className="mt-12 grid gap-16">
@@ -84,7 +84,7 @@ export default function RadiosEquipmentPage() {
               <Status kind="soon">Coming soon</Status>
             </div>
             <p className="t-small measure mt-2 text-text-2">
-              You can rent this equipment today alongside Signal One Security. Activating devices and viewing tracking from
+              Equipment is quoted separately from the 1GUARD subscription. Activating devices and viewing tracking from
               inside Signal One Guard is coming soon; renting a device does not yet connect it to the platform.
             </p>
           </div>
@@ -110,7 +110,7 @@ export default function RadiosEquipmentPage() {
               />
             </div>
           </div>
-          <EquipmentQuoteForm />
+          <div><IntakeAvailability /><EquipmentQuoteForm /></div>
         </div>
       </section>
     </main>
