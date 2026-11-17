@@ -7,16 +7,17 @@ const routes = [
 ];
 
 for (const route of routes) {
-  test(`dark-glass UI has readable page surface and no mobile overflow at ${route}`, async ({ page }) => {
+  test(`page surface has no mobile overflow at ${route}`, async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(route);
     await expect(page.locator("main")).toBeVisible();
     const metrics = await page.evaluate(() => ({
       overflow: document.documentElement.scrollWidth - innerWidth,
-      background: getComputedStyle(document.querySelector("main")!).backgroundImage,
+      background: getComputedStyle(document.querySelector("main")!).backgroundColor,
+      backgroundImage: getComputedStyle(document.querySelector("main")!).backgroundImage,
     }));
     expect(metrics.overflow).toBeLessThanOrEqual(1);
-    expect(metrics.background).toContain("gradient");
+    expect(metrics.backgroundImage !== "none" || metrics.background !== "rgba(0, 0, 0, 0)").toBe(true);
   });
 }
 

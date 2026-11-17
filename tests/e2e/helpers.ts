@@ -2,13 +2,9 @@ import { expect, type Page } from "@playwright/test";
 
 export const OK_BASE = "http://localhost:3101";
 
-/** Click a controlled radio or checkbox and wait for React to reflect it (it can lag a frame under load). */
+/** Wait for a stable control before clicking; forced coordinates can hit links during focus scrolling. */
 export async function tick(locator: import("@playwright/test").Locator) {
-  for (let attempt = 0; attempt < 6; attempt++) {
-    if (await locator.isChecked()) return;
-    await locator.click({ force: true });
-    await locator.page().waitForTimeout(150);
-  }
+  await locator.check();
   await expect(locator).toBeChecked();
 }
 
@@ -46,10 +42,7 @@ export async function fillVisible(page: Page, scope = "main") {
     let any = false;
     for (const box of list) if (await box.isChecked()) any = true;
     if (!any) {
-      for (let attempt = 0; attempt < 6 && !(await list[0].isChecked()); attempt++) {
-        await list[0].click({ force: true });
-        await page.waitForTimeout(150);
-      }
+      await list[0].check();
       expect(await list[0].isChecked()).toBe(true);
     }
   }

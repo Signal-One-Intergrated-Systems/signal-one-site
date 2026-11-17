@@ -31,9 +31,9 @@ function PanelPhoto({
   alt: string;
 }) {
   return (
-    <figure className="so-panel-photo so-panel-photo--card">
+    <figure className={"so-panel-photo so-panel-photo--card" + (src.startsWith("/images/hardware/") ? " so-panel-photo--product" : "")}>
       <Image src={src} alt={alt} fill loading="lazy" quality={76}
-        sizes="(min-width: 1024px) 340px, (min-width: 680px) 45vw, 90vw"
+        sizes="(min-width: 1024px) 420px, 90vw"
         className="so-panel-photo-image" />
     </figure>
   );
@@ -241,8 +241,8 @@ export default function Home() {
       <section className="so-onboarding-section" aria-labelledby="so-how-title">
         <div className="wrap">
           <div className="so-section-heading">
-            <div data-motion-from="top"><p className="so-kicker">A straightforward next step</p><h2 id="so-how-title">Start with the problem.<br /><span>We'll help map the solution.</span></h2></div>
-            <p data-motion-from="left" style={{ "--so-motion-delay": "280ms" } as CSSProperties}>Business operating systems and equipment don't have the same buying journey. We make the next step clear for each.</p>
+            <div data-motion-from="top"><p className="so-kicker">A straightforward next step</p><h2 id="so-how-title">Start with the problem.<br /><span>We’ll help map the solution.</span></h2></div>
+            <p data-motion-from="left" style={{ "--so-motion-delay": "280ms" } as CSSProperties}>Business operating systems and equipment don’t have the same buying journey. We make the next step clear for each.</p>
           </div>
           <div className="so-journey-grid">
             <div data-motion-from="left"><span className="so-step">01</span><h3>Choose your path</h3><p>Explore 1GUARD, learn about 1Service or select your equipment category.</p></div>

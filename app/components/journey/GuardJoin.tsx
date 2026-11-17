@@ -126,7 +126,7 @@ export default function GuardJoin() {
             ["We contact you", "Using the contact details you gave, to confirm your details and PSiRA registration. We cannot say when."],
           ].map(([title, body], index) => (
             <li key={title} className="grid grid-cols-[2.75rem_1fr] gap-4 border-t border-line py-5">
-              <span className="t-num text-[1.75rem] text-signal-600">{index + 1}</span>
+              <span className="t-num text-[1.75rem] text-signal-ink">{index + 1}</span>
               <div>
                 <h2 className="text-[1.1875rem] font-semibold">{title}</h2>
                 <p className="mt-1 text-[1.0625rem] text-text-2">{body}</p>

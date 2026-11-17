@@ -90,7 +90,7 @@ export default function ClientOnboarding() {
               <span
                 className={
                   "grid h-7 w-7 place-items-center rounded-full text-[0.875rem] font-semibold " +
-                  (index < j.stepIndex ? "bg-signal text-deep" : index === j.stepIndex ? "bg-base text-text-inv" : "bg-light-2 text-text-2")
+                  (index < j.stepIndex ? "bg-signal text-deep" : index === j.stepIndex ? "bg-base text-text-inv" : "bg-[#35434c] text-[#e8f2fb]")
                 }
               >
                 {index < j.stepIndex ? "✓" : index + 1}

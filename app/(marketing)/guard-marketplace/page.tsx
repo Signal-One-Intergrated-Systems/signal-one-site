@@ -1,7 +1,7 @@
+import IntakeAvailability from "../../components/journey/IntakeAvailability";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { photos } from "../../lib/photos";
 import IntakeForm, { type IntakeField } from "../../components/IntakeForm";
 import { ButtonLink, Check, PageHero, Status, Steps, GuardStatus } from "../../components/ui";
 import { guardIsLive } from "../../lib/guardStatus";
@@ -89,7 +89,7 @@ export default function GuardMarketplacePage() {
             <ol start={6} className="m-0 grid list-none gap-0 p-0">
               {flow.slice(5).map(([title, body], index) => (
                 <li key={title} className="grid grid-cols-[2.5rem_1fr] gap-4 border-t border-line py-5">
-                  <span className="t-num pt-0.5 text-[1.5rem] text-signal-600">{index + 6}</span>
+                  <span className="t-num pt-0.5 text-[1.5rem] text-signal-ink">{index + 6}</span>
                   <div>
                     <h3 className="t-h4">{title}</h3>
                     <p className="t-small mt-1 text-text-2">{body}</p>
@@ -109,8 +109,7 @@ export default function GuardMarketplacePage() {
                 What it will look like
               </h2>
               <p className="t-body measure mt-3 text-text-2">
-                A design preview of the MVP. These profiles are invented, and nothing on this page connects to a real
-                guard.
+                Sample profiles show the planned marketplace. No real guard data is displayed, and these preview controls do not place hire requests.
               </p>
             </div>
             <p className="shrink-0 rounded-full bg-beta-tint px-4 py-2 text-[0.9375rem] font-semibold text-beta">
@@ -147,7 +146,7 @@ export default function GuardMarketplacePage() {
               </div>
               <ul className="m-0 list-none divide-y divide-line p-0">
                 {demoProfiles.map((profile) => (
-                  <li key={profile.tag} className="grid gap-4 p-4 sm:grid-cols-[1fr_auto] sm:items-center sm:p-6">
+                  <li key={profile.tag} className="grid gap-4 p-4 xl:grid-cols-[1fr_auto] xl:items-center sm:p-6">
                     <div className="flex gap-4">
                       <span aria-hidden="true" className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-white/10 font-display text-[1.125rem] font-bold">
                         {profile.tag.slice(-1)}
@@ -230,7 +229,7 @@ export default function GuardMarketplacePage() {
               .
             </p>
           </div>
-          <IntakeForm
+          <div><IntakeAvailability /><IntakeForm
             intent="marketplace-interest"
             fields={interestFields}
             submitLabel="Register interest"
@@ -238,7 +237,7 @@ export default function GuardMarketplacePage() {
             consentText="I agree that Signal One may contact me about Guard Marketplace."
             successTitle="You are on the list."
             successBody="We will email you when Guard Marketplace is ready for your company."
-          />
+          /></div>
         </div>
       </section>
     </main>

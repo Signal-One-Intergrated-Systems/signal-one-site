@@ -11,10 +11,10 @@ export const metadata: Metadata = {
  alternates: { canonical: "/equipment-marketplace" },
 };
 const categories = [
- ["PTT radios and communications", "PoC and radio systems for deployed teams."],
- ["Body cameras", "Recording hardware for field operations."],
- ["Vehicle and asset tracking", "Tracking devices and managed connectivity."],
- ["Security technology", "Discuss CCTV and supporting infrastructure for your project."],
+ ["PTT radios and communications", "PoC and radio systems for deployed teams.", "/radios-equipment?category=radio#quote"],
+ ["Body cameras", "Recording hardware for field operations.", "/radios-equipment?category=bodycam#quote"],
+ ["Vehicle and asset tracking", "Tracking devices and managed connectivity.", "/radios-equipment?category=tracking#quote"],
+ ["Security technology", "Discuss CCTV and supporting infrastructure for your project.", "/contact"],
 ] as const;
 export default function EquipmentMarketplacePage() {
  return <main id="main" className="s1-scene-page s1-scene-page--equipment">
@@ -27,7 +27,7 @@ export default function EquipmentMarketplacePage() {
  </div><HardwareShowcase products={catalogue[0].products.slice(0, 2)} /></div></section>
  <section id="categories" className="surface-light section scroll-mt-[72px]"><div className="wrap">
  <div className="flex flex-wrap justify-between items-end gap-5"><div><Kicker>Equipment</Kicker><h2 className="t-h2 mt-4">Select what the operation requires.</h2></div><Link href="/radios-equipment" className="link-arrow text-signal-ink">See available equipment and request a quote →</Link></div>
- <div className="mt-10 grid gap-4 md:grid-cols-2">{categories.map(([name,detail])=><article key={name} className="card p-7"><h3 className="t-h3">{name}</h3><p className="t-body mt-3 text-text-2">{detail}</p><Link className="btn btn-ghost-light mt-6" href="/radios-equipment#quote">Enquire about availability →</Link></article>)}</div>
+ <div className="mt-10 grid gap-4 md:grid-cols-2">{categories.map(([name,detail,href])=><article key={name} className="card p-7"><h3 className="t-h3">{name}</h3><p className="t-body mt-3 text-text-2">{detail}</p><Link className="btn btn-ghost-light mt-6" href={href}>Enquire about availability →</Link></article>)}</div>
  </div></section>
  <section className="surface-white section"><div className="wrap"><h2 className="t-h2">Buying or renting?</h2><p className="t-body measure mt-4 text-text-2">Tell us the deployment location, quantity, intended term and equipment type. A representative will confirm sale or rental options, availability and contractual requirements.</p><div className="mt-7"><ButtonLink href="/radios-equipment#quote">Request a written quotation</ButtonLink></div></div></section>
  </main>;

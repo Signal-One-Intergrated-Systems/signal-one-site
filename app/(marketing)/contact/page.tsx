@@ -1,3 +1,4 @@
+import IntakeAvailability from "../../components/journey/IntakeAvailability";
 import type { Metadata } from "next";
 import IntakeForm, { type IntakeField } from "../../components/IntakeForm";
 import { Kicker, Steps } from "../../components/ui";
@@ -70,6 +71,7 @@ export default function ContactPage() {
         </div>
 
         <div>
+          <IntakeAvailability />
           <IntakeForm
             intent="consultation"
             fields={fields}

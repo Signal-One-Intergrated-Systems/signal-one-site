@@ -108,12 +108,29 @@ export default function Header() {
         setOpen(false);
         toggleRef.current?.focus();
       }
+      if (event.key === "Tab") {
+        const targets = [toggleRef.current, ...Array.from(sheetRef.current?.querySelectorAll<HTMLElement>("a[href],button:not([disabled])") || [])].filter((node): node is HTMLElement => Boolean(node));
+        const first = targets[0];
+        const last = targets[targets.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last?.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first?.focus();
+        }
+      }
+    };
+    const onResize = () => {
+      if (window.matchMedia("(min-width: 1280px)").matches) setOpen(false);
     };
     window.addEventListener("keydown", onKey);
+    window.addEventListener("resize", onResize);
     sheetRef.current?.querySelector<HTMLElement>("a")?.focus();
     return () => {
       document.body.style.overflow = previous;
       window.removeEventListener("keydown", onKey);
+      window.removeEventListener("resize", onResize);
     };
   }, [open]);
 
@@ -190,7 +207,7 @@ export default function Header() {
         <div
           id="mobile-nav"
           ref={sheetRef}
-          className={"fixed inset-x-0 bottom-0 top-[78px] z-50 overflow-y-auto lg:hidden " + config.sheet}
+          className={"fixed inset-x-0 bottom-0 top-[80px] z-50 overflow-y-auto xl:hidden " + config.sheet}
         >
           <nav className="wrap flex min-h-full flex-col pb-8 pt-4" aria-label="Mobile">
             <ul className="m-0 list-none p-0">

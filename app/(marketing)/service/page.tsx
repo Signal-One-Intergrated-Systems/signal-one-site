@@ -11,10 +11,10 @@ export const metadata: Metadata = {
 };
 
 const ambitions = [
-  ["Run the day", "Connect bookings and orders with service, kitchen and exception workflows. Planned.", "/images/editorial/restaurant-staff-briefing.webp", "Illustrative chef and waiters preparing together before service"],
-  ["Manage the team", "Bring hiring, shifts, attendance, work assignments and verified time into one service-business view. Planned.", "/images/home/panels/hire-hospitality.webp", "Illustrative restaurant manager discussing a staffing assignment"],
-  ["Understand the margins", "Connect purchasing, recipe costing, stock movement and trading-day performance using certified system integrations. Planned.", "/images/editorial/cafe-team-planning.webp", "Illustrative restaurant manager and kitchen staff reviewing operations"],
-  ["Know what to improve", "Make recommendations from connected operational data while keeping people in control of important decisions. Planned.", null, ""],
+  ["Run the day", "Connect bookings and orders with service, kitchen and exception workflows.", "/images/editorial/restaurant-staff-briefing.webp", "Illustrative chef and waiters preparing together before service"],
+  ["Manage the team", "Bring hiring, shifts, attendance, work assignments and verified time into one service-business view.", "/images/home/panels/hire-hospitality.webp", "Illustrative restaurant manager discussing a staffing assignment"],
+  ["Understand the margins", "Bring purchasing, recipe costs, stock movements and daily performance into one view through planned integrations.", "/images/editorial/cafe-team-planning.webp", "Illustrative restaurant manager and kitchen staff reviewing operations"],
+  ["Know what to improve", "Turn connected operational information into recommendations, with your team in control of important decisions.", "/images/editorial/hospitality-team-briefing.webp", "Illustrative hospitality team reviewing a service plan together"],
 ] as const;
 
 export default function ServicePage() {
@@ -32,7 +32,7 @@ export default function ServicePage() {
               <ButtonLink href="/contact" size="lg">Discuss early access</ButtonLink>
               <ButtonLink href="#vision" variant="ghost-dark" size="lg">Explore the vision</ButtonLink>
             </div>
-            <p className="t-caption mt-5 text-text-inv-3">This page describes the intended direction. Full restaurant POS, kitchen, inventory, financial and marketplace workflows are not presented as live.</p>
+            <p className="t-caption mt-5 text-text-inv-3">1Service is in development. The workflows below describe our plans; early-access availability will be confirmed with you.</p>
           </div>
           <div className="relative min-h-[370px] overflow-hidden rounded-card border border-line-dark bg-raised shadow-xl lg:min-h-[540px] s1-people-main-photo">
             <Image src="/images/home/service-restaurant-operations.jpg" unoptimized alt="Illustrative restaurant kitchen staff collaborating during live food service" fill
@@ -45,13 +45,14 @@ export default function ServicePage() {
         <div className="wrap">
           <Kicker>From opening to close</Kicker>
           <h2 className="t-h2 mt-4">More than a roster. The operating system for your service business.</h2>
-          <p className="t-lead mt-4 max-w-3xl text-text-2">A service business is not just the people on the shift. Every handoff changes customer experience and profitability.</p>
+          <p className="t-lead mt-4 max-w-3xl text-text-2">From the first booking to the end-of-day review, every handoff affects your customers, your team and your margins.</p>
+          <p className="t-small mt-4 text-text-inv-2">Planned capabilities · Illustrative hospitality scenes</p>
           <div className="mt-10 grid gap-5 md:grid-cols-2">
             {ambitions.map(([name, detail, src, alt]) => (
-              <article key={name} className="card p-7">
-                {src ? <div className="relative mb-5 h-36 overflow-hidden rounded-card border border-white/35 s1-glass-people-photo">
-                  <Image src={src} alt={alt} fill sizes="(min-width:768px) 40vw, 90vw" className="object-cover" loading="lazy" />
-                </div> : null}
+              <article key={name} className="card p-5 sm:p-7 s1-service-capability">
+                <div className="relative mb-5 aspect-video overflow-hidden rounded-card s1-service-capability-photo">
+                  <Image src={src} alt={alt} fill sizes="(min-width:1440px) 580px, (min-width:768px) 43vw, 90vw" className="object-contain" loading="lazy" />
+                </div>
                 <h3 className="t-h3">{name}</h3>
                 <p className="t-body mt-3 text-text-2">{detail}</p>
               </article>

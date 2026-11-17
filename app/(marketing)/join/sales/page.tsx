@@ -1,3 +1,4 @@
+import IntakeAvailability from "../../../components/journey/IntakeAvailability";
 import type { Metadata } from "next";
 import SalesApplication from "../../../components/journey/SalesApplication";
 import { SplitHero } from "../../../components/ui";
@@ -136,7 +137,7 @@ export default function SalesCareersPage() {
           </div>
           <div className="text-text">
             {open ? (
-              <SalesApplication roleCount={config.openRoles} />
+              <><IntakeAvailability /><SalesApplication roleCount={config.openRoles} /></>
             ) : (
               <div className="rounded-card bg-white p-6 sm:p-8">
                 <h3 className="t-h3">No open roles at the moment</h3>

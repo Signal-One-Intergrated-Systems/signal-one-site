@@ -23,7 +23,7 @@ export default function PttRadioRentalPage() {
       lead="Rent push-to-talk radios that run over the cellular network, so a supervisor in Midrand can reach a guard in Pretoria without repeaters. Quoted per deployment, on 12, 24 or 36-month terms."
       actions={
         <>
-          <ButtonLink href="/radios-equipment#quote" size="lg">
+          <ButtonLink href="/radios-equipment?quoteType=Rent%20radios#quote" size="lg">
             Request a radio quote
           </ButtonLink>
           <ButtonLink href="/radios-equipment" variant="ghost-dark" size="lg">
@@ -71,6 +71,8 @@ export default function PttRadioRentalPage() {
         "Equipment is rented alongside Signal One Security, and priced separately from the " + guardDayPricePhrase + " platform rate.",
       ]}
       closing="Radios for the contract, by quote."
+      closingLead="Choose a 12, 24 or 36-month rental term. Your written quote confirms devices, connectivity, availability and the full rental cost."
+      closingActions={<><ButtonLink href="/radios-equipment?quoteType=Rent%20radios#quote" size="lg">Request a radio quote</ButtonLink><ButtonLink href="/radios-equipment" variant="ghost-dark" size="lg">Compare equipment options</ButtonLink></>}
       related={[
         ["/radios-equipment", "Radios, tracking and body cameras"],
         ["/solutions/security", "The Signal One Security platform"],

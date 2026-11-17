@@ -28,22 +28,19 @@ export default function LegalPage({
   className?: string;
 }) {
   return (
-    <main id="main" className={"surface-light " + className}>
-      <article className="wrap py-16 md:py-24 lg:py-28">
-        {reviewNote ? (
-          <p className="t-small mb-8 inline-flex rounded-ui border border-line-strong bg-white px-4 py-2 font-semibold text-text">
-            Under legal review.
-          </p>
-        ) : null}
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-20">
-          <header className="lg:sticky lg:top-28 lg:self-start">
-            <Kicker>{kicker}</Kicker>
+    <main id="main" className={"s1-legal-page " + className}>
+      <article className="wrap py-12 md:py-16 lg:py-20">
+        <div className="s1-legal-layout">
+          <header className="s1-legal-header">
+            <Kicker tone="dark">{kicker}</Kicker>
             <h1 className="t-h1 mt-4">{title}</h1>
-            <nav aria-label="On this page" className="mt-10 hidden lg:block">
-              <ul className="m-0 grid list-none gap-1 border-l border-line p-0">
+            {reviewNote ? <p className="s1-legal-review">Under legal review.</p> : null}
+            <nav aria-label="On this page" className="s1-legal-contents">
+              <p className="t-small font-semibold">On this page</p>
+              <ul>
                 {sections.map(([heading]) => (
                   <li key={heading}>
-                    <a href={"#" + slug(heading)} className="t-small block py-1.5 pl-4 text-text-2 hover:text-text">
+                    <a href={"#" + slug(heading)}>
                       {heading}
                     </a>
                   </li>
@@ -51,17 +48,17 @@ export default function LegalPage({
               </ul>
             </nav>
           </header>
-          <div>
-            <div className="t-lead measure text-text-2">{intro}</div>
-            <div className="mt-12">
+          <div className="s1-legal-content">
+            <div className="t-lead measure s1-legal-intro">{intro}</div>
+            <div className="mt-8">
               {sections.map(([heading, body]) => (
-                <section key={heading} id={slug(heading)} className="scroll-mt-[96px] border-t border-line py-9">
+                <section key={heading} id={slug(heading)} className="s1-legal-section">
                   <h2 className="t-h3">{heading}</h2>
-                  <div className="t-body measure mt-4 text-text-2">{body}</div>
+                  <div className="t-body measure mt-4 s1-legal-copy">{body}</div>
                 </section>
               ))}
             </div>
-            {footer ? <div className="t-body measure mt-4 rounded-card bg-white p-6 ring-1 ring-line sm:p-8">{footer}</div> : null}
+            {footer ? <div className="t-body measure mt-4 s1-legal-note">{footer}</div> : null}
           </div>
         </div>
       </article>
