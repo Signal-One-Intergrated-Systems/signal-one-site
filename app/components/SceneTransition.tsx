@@ -77,7 +77,10 @@ export default function SceneTransition({ children }: { children: ReactNode }) {
       const href = link.getAttribute("href") ?? "";
       if (href.startsWith("#")) return;
       const url = new URL(link.href, location.href);
-      if (url.origin !== location.origin || (url.pathname === location.pathname && url.search === location.search)) return;
+      // Query/fragment changes stay on the current page. The transition commits
+      // on pathname changes only; intercepting a product selection would lock
+      // scrolling until recovery and skip the quote anchor entirely.
+      if (url.origin !== location.origin || url.pathname === location.pathname) return;
       if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
       event.preventDefault();
       if (transitionInProgress.current) return;

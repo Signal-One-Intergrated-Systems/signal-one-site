@@ -98,6 +98,28 @@ test("product-specific quote links select the correct category and model", async
   await expect(page.getByLabel("How many cameras?")).toBeVisible();
 });
 
+for (const width of [375, 1440]) {
+  test(`product quote links scroll to the form without trapping navigation at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.emulateMedia({ reducedMotion: "no-preference" });
+    await page.goto("/radios-equipment");
+    await hydrated(page);
+    await page.getByRole("link", { name: "Request a quote for Hytera PNC360S", exact: true }).click();
+    await expect(page.getByLabel("Radio", { exact: true })).toHaveValue("Hytera PNC360S");
+    const heading = page.locator("#quote h2");
+    await expect(heading).toBeInViewport();
+    expect(await page.evaluate(() => document.documentElement.style.overflow)).not.toBe("hidden");
+    // Selecting another model keeps the same fragment. It must still reach the form.
+    await page.getByRole("link", { name: "Request a quote for FMC920", exact: true }).click();
+    await expect(page.getByLabel("Tracker", { exact: true })).toHaveValue("FMC920");
+    await expect(heading).toBeInViewport();
+    // Returning to the hero and choosing the same fragment must also scroll.
+    await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+    await page.getByRole("link", { name: "Request a quote", exact: true }).click();
+    await expect(heading).toBeInViewport();
+  });
+}
+
 test("radio purchase succeeds with the existing consultation receiver contract", async ({ page }) => {
   await page.goto(OK_BASE + "/radios-equipment?quoteType=Buy%20radios#quote");
   await hydrated(page);
