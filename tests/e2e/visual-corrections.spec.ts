@@ -109,6 +109,8 @@ for (const width of [375, 1440]) {
     const heading = page.locator("#quote h2");
     await expect(heading).toBeInViewport();
     expect(await page.evaluate(() => document.documentElement.style.overflow)).not.toBe("hidden");
+    await page.getByRole("link", { name: "Request a quote for Hytera PNC360S", exact: true }).click();
+    await expect(heading).toBeInViewport();
     // Selecting another model keeps the same fragment. It must still reach the form.
     await page.getByRole("link", { name: "Request a quote for FMC920", exact: true }).click();
     await expect(page.getByLabel("Tracker", { exact: true })).toHaveValue("FMC920");
