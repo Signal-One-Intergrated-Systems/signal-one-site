@@ -7,7 +7,7 @@ import { routes } from "./routes";
 // every page and section must be reviewed and recorded in the release audit.
 const evidence = process.env.VISUAL_AUDIT_DIR;
 test.skip(!evidence, "Set VISUAL_AUDIT_DIR to capture the complete visual review.");
-test.use({ reducedMotion: "reduce" });
+test.use({ contextOptions: { reducedMotion: "reduce" } });
 
 for (const width of [375, 768, 1440]) {
   for (const route of [...routes, "/visual-audit-missing-page", "/connect/andisiwe", "/present/andisiwe"]) {

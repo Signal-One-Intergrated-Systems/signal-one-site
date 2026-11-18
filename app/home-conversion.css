@@ -1171,7 +1171,7 @@ body:has(.so-home) header.glass-nav .btn-primary{box-shadow:inset 0 1px rgba(255
  background:var(--so-quiet-surface)!important;
 }
 .so-home .so-hardware-product{background:#eef2f4!important;color:#0d253a}
-.so-home .so-hardware-product span{color:#0d253a!important}
+.so-home .so-hardware-product span{color:#0d253a!important;background:#eef2f4;position:relative;z-index:1}
 .so-home .so-hardware-product small{color:#38576d!important}
 .so-home .so-panel-photo.so-panel-photo--product{background:#eef2f4!important}
 .so-home .so-panel-photo.so-panel-photo--product img{object-fit:contain;padding:16px;filter:none}
