@@ -61,11 +61,12 @@ for (const width of [375, 768, 1100]) {
     await page.keyboard.press("Escape");
     await expect(menu).toBeHidden();
     await expect(toggle).toBeFocused();
-    expect(await page.evaluate(() => document.body.style.overflow)).not.toBe("hidden");
+    await expect.poll(() => page.evaluate(() => document.body.style.overflow)).not.toBe("hidden");
     await toggle.click();
+    await expect(menu).toBeVisible();
     await page.setViewportSize({ width: 1440, height: 900 });
     await expect(menu).toBeHidden();
-    expect(await page.evaluate(() => document.body.style.overflow)).not.toBe("hidden");
+    await expect.poll(() => page.evaluate(() => document.body.style.overflow)).not.toBe("hidden");
   });
 }
 

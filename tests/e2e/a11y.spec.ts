@@ -4,10 +4,11 @@ import { routes } from "./routes";
 
 for (const width of [390, 1440]) {
   test.describe(`axe at ${width}px`, () => {
-    test.use({ viewport: { width, height: 900 }, reducedMotion: "reduce" });
+    test.use({ viewport: { width, height: 900 }, contextOptions: { reducedMotion: "reduce" } });
     for (const route of routes) {
       test(route, async ({ page }) => {
         await page.goto(route);
+        expect(await page.evaluate(() => matchMedia("(prefers-reduced-motion: reduce)").matches)).toBe(true);
         await page.evaluate(() => document.fonts.ready);
         // Include the complete rendered page, including lazy manufacturer images.
         // Measure after image loading completes so lower sections have their
