@@ -5,7 +5,7 @@ import { fillVisible, hydrated } from "./helpers";
 
 const evidence = process.env.VISUAL_AUDIT_DIR;
 test.skip(!evidence, "Opt-in visual review of every form step and interaction state.");
-test.use({ reducedMotion: "reduce" });
+test.use({ contextOptions: { reducedMotion: "reduce" } });
 
 for (const width of [375, 768, 1440]) {
   for (const route of ["/get-started", "/guards/join", "/join/sales"]) {

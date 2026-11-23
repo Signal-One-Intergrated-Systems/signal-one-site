@@ -74,10 +74,23 @@ export default function SceneTransition({ children }: { children: ReactNode }) {
       if (!(element instanceof Element)) return;
       const link = element.closest("a[href]") as HTMLAnchorElement | null;
       if (!link || link.hasAttribute("download") || (link.target && link.target !== "_self")) return;
-      const href = link.getAttribute("href") ?? "";
-      if (href.startsWith("#")) return;
       const url = new URL(link.href, location.href);
-      if (url.origin !== location.origin || (url.pathname === location.pathname && url.search === location.search)) return;
+      // Query/fragment changes stay on the current page. The transition commits
+      // on pathname changes only; intercepting a product selection would lock
+      // scrolling until recovery and skip the quote anchor entirely.
+      if (url.origin !== location.origin) return;
+      if (url.pathname === location.pathname) {
+        // Next treats an identical URL as a no-op. A repeated quote/contents
+        // link should still bring its section back into view after scrolling.
+        if (url.href === location.href && url.hash) {
+          const anchor = document.getElementById(decodeURIComponent(url.hash.slice(1)));
+          if (anchor) {
+            event.preventDefault();
+            anchor.scrollIntoView({ block: "start", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
+          }
+        }
+        return;
+      }
       if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
       event.preventDefault();
       if (transitionInProgress.current) return;
