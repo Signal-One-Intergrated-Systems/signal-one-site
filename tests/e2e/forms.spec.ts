@@ -1,5 +1,14 @@
 import { expect, test, type Page } from "@playwright/test";
 import { decodeMailto, fillVisible, hydrated, OK_BASE, tick, walkJourney } from "./helpers";
+import receiver from "./receiver-allowlist.json";
+
+/** Fields the real LEOS receiver accepts per intent (pinned fixture). A key outside it is refused 422 and the enquiry is lost. */
+function expectReceiverAccepts(intent: string, data: Record<string, string>) {
+  const allowed = (receiver.intents as Record<string, string[]>)[intent];
+  expect(allowed, `receiver knows intent ${intent}`).toBeTruthy();
+  const unknown = Object.keys(data).filter((key) => key !== "intent" && !allowed.includes(key));
+  expect(unknown, `fields the receiver would refuse for ${intent}`).toEqual([]);
+}
 
 type Case = {
   name: string;
@@ -79,6 +88,9 @@ for (const c of cases) {
     expect(hit, "upstream received the payload").toBeTruthy();
     expect(hit!.body.kind).toBe(c.kind);
     expect(hit!.body.source).toBe("signal-one-site");
+    expectReceiverAccepts(hit!.body.data.intent, hit!.body.data as unknown as Record<string, string>);
+    // A visit without campaign parameters sends no attribution key at all (v1 receivers refuse unknown keys).
+    expect(Object.keys(hit!.body)).not.toContain("attribution");
     expect(hit!.auth).toBe("Bearer qa-token");
   });
 }

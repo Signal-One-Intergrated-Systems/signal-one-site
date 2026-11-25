@@ -6,8 +6,8 @@
  * gone when the tab closes) and sent ONLY with an enquiry the visitor submits with consent, so a lead in
  * the sales platform can be traced to the ad or campaign that produced it and to the revenue it becomes.
  *
- * Rule: a later visit WITH campaign parameters replaces the stored one (last campaign click, as Google
- * Ads attributes); a later visit without them never overwrites it.
+ * Rule: only visits with campaign parameters are recorded; a later campaign visit replaces the stored
+ * one (last campaign click, as Google Ads attributes); a visit without them never overwrites it.
  */
 export const ATTRIBUTION_KEYS = [
   "utm_source",
@@ -41,9 +41,10 @@ export function captureAttribution(location: Location = window.location, referre
       const value = clean(params.get(key));
       if (value) found[key] = value;
     }
-    const hasCampaign = Object.keys(found).length > 0;
-    const existing = sessionStorage.getItem(STORAGE_KEY);
-    if (existing && !hasCampaign) return;
+    // Only a visit that arrived from a campaign link is recorded. Ordinary visits keep nothing, so their
+    // enquiries carry no `attribution` key at all (a v1-only receiver refuses unknown keys) and no
+    // browsing detail is collected without a campaign reason.
+    if (Object.keys(found).length === 0) return;
     let referrerHost: string | undefined;
     try {
       const host = referrer ? new URL(referrer).host : "";

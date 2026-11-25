@@ -1,3 +1,5 @@
+> **Superseded (2026-11-25, later the same day).** This brief assumed no receiver existed because only `main` was checked. The receiver already exists as LEOS draft **PR #704** (`feat/r1-intake-1`, four audit rounds, founder rulings). Workstream B qualified #704 against the real website in a browser (7/11 forms saved on the deployed site; all four radio-quote types lost to a 422) and stacked **PR #748** on it (11/11 saved; attribution; post-commit hook; migration 0192, backup class A; LEOS gate GREEN). The go-live steps are in `RELEASE_GATE.md` and `SITE_INTEGRATION.md`. The text below is kept as history.
+
 # Brief: LEOS website-intake receiver (unblocks DR-001)
 
 **For:** LEOS engineering (coordinate with Mubaraq's open work: #728 email reliability; #731/#732 quote money).

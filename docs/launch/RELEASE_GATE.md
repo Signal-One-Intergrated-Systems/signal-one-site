@@ -53,3 +53,16 @@ As of 2026-11-25. Every criterion is PASS, FAIL or BLOCKED. No aggregate score. 
 | 22 | Marketing attribution | PARTLY READY (branch) | UTM/gclid/gbraid/wbraid captured and forwarded; GA4 `generate_lead` + Ads conversion on receipt only, de-duplicated by receipt reference; consent defaults denied; needs real GA4/Ads IDs, a consent banner decision, and the receiver storing attribution. |
 
 E2E (branch): **412 passed, 0 failed, 84 skipped** before the VA-04/06/11 changes; the 84 skipped are the two opt-in evidence-capture suites (`visual-audit`, `visual-states`, run only with `VISUAL_AUDIT_DIR`), not launch gates.
+
+## Checkpoint 2b — lead capture (workstream B, 2026-11-25)
+
+| Item | Status | Evidence / next action (owner) |
+|---|---|---|
+| Receiver exists | YES — not merged | LEOS draft PR #704 (`feat/r1-intake-1`, the receiver: auth, validation, idempotency, consent, routing, website queue) + draft PR #748 stacked on it (`claude/website-intake-receiver` @ `aa83b16`: radio-quote fields, v1.1 attribution, post-commit hook, migration 0192 BACKUP CLASS A). |
+| Every public form persists | PASS in local qualification (#704 + #748) | 11/11 forms submitted through Chromium against local builds saved in Postgres; #704 alone lost all 4 radio-quote types. |
+| LEOS gate | GREEN on #704 + #748 | `governance:push` RC=0; 5,240 API tests, 0 failed. Not yet run on a merge with current `main` — #704 now conflicts with `main`'s new migration 0187. |
+| Website compatibility | PASS (branch) | `attribution` only sent for campaign visits; every form's fields asserted against the receiver allow-list (`tests/e2e/receiver-allowlist.json`); 57/57 intake tests. **Release condition: #748 must go live together with #704** (#704 alone refuses campaign-visit enquiries). |
+| Sales OS visibility | GAP | Website leads arrive unassigned; reps only see assigned leads; assignment via the website queue (`commercial_director`, `super_admin`). No user currently signs in as `sales_manager`. |
+| Go live | BLOCKED | (1) Architect: renumber #704 around `main`'s 0187, rule on 0188/0189 overlaps (#728, #746, #720) and on 0192; rebase #704 + #748. (2) Audits: #704 fourth audit, #748 audit, open decisions (sales_manager mapping, erasure incl. the attribution column, lead-match indexes). (3) Founder: approve merge; issue the production credential through an approved step. (4) Founder: set `SIGNAL_ONE_INTAKE_URL=https://api.lancesatsuppliers.co.za/api/v1/integrations/website/v1/intake` and `SIGNAL_ONE_INTAKE_TOKEN` on the website's Railway service; one labelled smoke enquiry; assign it in the website queue. (5) Mubaraq: wire #728's email path into `onPersisted`. |
+
+Final website e2e on this state: **413 passed, 1 failed, 84 skipped**; the failure is KI-1 (React #418, `/get-started` @1440, one of ~500 loads), open.

@@ -96,8 +96,8 @@ test("a persisted-record receipt is required: the reply carries the stored recor
   const res = await request.post(OK_BASE + "/api/intake", { data: { ...valid, idempotencyKey: key }, headers: from(OK_BASE) });
   expect(res.status()).toBe(200);
   const body = await res.json();
-  expect(body.receipt.reference).toMatch(/^QA-CRM-LEAD-\d+$/);
-  expect(body.receipt.recordType).toBe("crm_lead");
+  expect(body.receipt.reference).toMatch(/^QA-WEBSITE-ENQUIRY-\d+$/);
+  expect(body.receipt.recordType).toBe("website_enquiry");
   expect(body.receipt.idempotencyKey).toBe(key);
   expect(body.receipt.duplicate).toBe(false);
 
@@ -231,7 +231,7 @@ test("contact form forwards consent, a separate marketing choice and an idempote
   await tick(form.locator('input[name="consent-processing"]'));
   await form.locator("button[type=submit]").click();
   await expect(page.locator('[role="status"]').first()).toBeVisible({ timeout: 15_000 });
-  await expect(page.locator("[data-receipt-reference]")).toContainText(/Reference: QA-CRM-LEAD-\d+/);
+  await expect(page.locator("[data-receipt-reference]")).toContainText(/Reference: QA-WEBSITE-ENQUIRY-\d+/);
   type Hit = { headers?: Record<string, string>; body: { contract?: string; idempotencyKey?: string; consent?: { processing: boolean; marketing: boolean; noticeVersion: string; recordedAt: string }; data: Record<string, string> } };
   const received = (await (await request.get("http://localhost:4010/received")).json()) as Hit[];
   const hit = received.reverse().find((r) => r.body?.data?.email === "qa.r0@example.com");

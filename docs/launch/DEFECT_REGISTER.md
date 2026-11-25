@@ -62,6 +62,17 @@ Status: `OPEN` · `FIXED (branch)` — implemented and verified on a local produ
 
 **412 passed, 2 failed, 84 skipped** (skipped = opt-in evidence suites). Both failures are React hydration error #418 (KI-1): `/join/sales` at 375 and `/contact` at 768, during a run in which another copy of the site was being built and served on the same machine. Measured in isolation on the same build: **0 errors in 160 loads** (40 each of `/contact`@768, `/join/sales`@375, `/radios-equipment`@768, `/`@390). Customer impact: React re-renders on the client and the page works; no visible break observed. Status: **OPEN (pre-existing, load-dependent), S3**. Next step per `docs/KNOWN_ISSUES.md`: test the latest Next.js 16 patch release on a separate branch. Not counted as a pass.
 
+### DR-001 correction (2026-11-25, workstream B)
+
+**My earlier statement "no receiver endpoint exists in `lancesat-enterprise-platform`" was wrong**: I checked `main` only. Draft PR #704 is the receiver. Measured with every public form submitted through Chromium against local builds and real Postgres:
+
+| Website build | #704 alone | #704 + #748 |
+|---|---|---|
+| deployed site `dd319d7` | 7/11 saved — all 4 radio quotes refused 422 (`quoteType`, radio fields under `consultation`) | 11/11 |
+| this branch before the fix below | 0/11 — every form refused, because the site always sent `attribution` (even `null`) | 11/11 with campaign fields stored |
+
+Website-side fixes made: `attribution` only sent when present; receiver allow-list pinned in `tests/e2e/receiver-allowlist.json` and asserted for every form; mock receiver answers `website_enquiry` like the real one. DR-001 is now **BLOCKED on: #704 renumbering around `main`'s new 0187 (it no longer merges), its fourth audit, an audit of #748, merge approval, a production credential issued through an approved step, and the two Railway variables.**
+
 ## Not defects (checked and rejected)
 
 - `/join/sales` absent from the sitemap: deliberate (noindex careers page, `app/sitemap.ts`).

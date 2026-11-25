@@ -224,7 +224,9 @@ export async function POST(request: Request) {
         },
         idempotencyKey,
         // Optional (contract v1.1): campaign source of the visit. Unknown keys and unsafe values are dropped.
-        attribution: sanitizeAttribution(attribution) ?? null,
+        // Sent ONLY when present: a v1 receiver (platform PR #704 without #748) refuses any unknown top-level
+        // key, even null, so an always-present key would lose every enquiry.
+        ...(sanitizeAttribution(attribution) ? { attribution: sanitizeAttribution(attribution) } : {}),
         source: "signal-one-site",
       }),
       cache: "no-store",

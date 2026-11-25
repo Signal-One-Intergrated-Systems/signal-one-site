@@ -2,6 +2,17 @@
 
 The public website is an acquisition surface, not a system of record. It holds no customer, guard or applicant data.
 
+## Receiver status (2026-11-25)
+
+The LEOS receiver exists as **draft PR #704** (`feat/r1-intake-1`, lancesat-enterprise-platform), with **#748** stacked on it (`claude/website-intake-receiver`: radio-quote fields incl. `quoteType`, optional v1.1 `attribution`, post-commit notification hook). Neither is merged or deployed.
+
+- URL: `https://api.lancesatsuppliers.co.za/api/v1/integrations/website/v1/intake` (also `/api/integrations/website/v1/intake`).
+- Success is **200** (not 201). The receipt `recordType` for every client kind is **`website_enquiry`**; guard → `guard_application`; sales → `recruitment_application`. `recordId` is an opaque `SO-…` reference.
+- Additional answers: 409 (same key, different payload), 413, 415, 429, 503 — the site already treats every non-validation status as "ours" (502 + email route).
+- Per-intent **field allow-list**: an unknown field is refused 422 and the enquiry is lost. `tests/e2e/receiver-allowlist.json` pins that list (from #748 @ `aa83b16`) and `forms.spec.ts` fails if any form sends a field outside it. Update both together.
+- `attribution` is sent only when present: #704 without #748 refuses any unknown top-level key.
+- Leads arrive **unassigned**: reps (`crm.own.read`) see nothing until a lead is assigned through the website queue (`website_queue.act`: commercial_director, super_admin).
+
 ## `POST /api/intake` (website intake contract v1)
 
 ### Browser to site
@@ -94,7 +105,7 @@ Until both receiver variables are set in Railway, every form answers 503 "nothin
 | `/guards/join` | guard | `guard-profile` |
 | `/join/sales` | sales | `sales-representative-application` |
 
-**Missing contract:** no endpoint in the platform repos accepts this payload yet. Until one exists, every form returns the 503 message.
+**Receiver:** LEOS draft PR #704 (+ #748), not yet merged — see "Receiver status" above. Until it is deployed and the two variables are set, every form returns the 503 message.
 
 ## Contracts the website needs but that do not exist yet
 
