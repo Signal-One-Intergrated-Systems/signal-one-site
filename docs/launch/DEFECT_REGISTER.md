@@ -58,6 +58,10 @@ Status: `OPEN` · `FIXED (branch)` — implemented and verified on a local produ
 | VA-01–03, 05, 07–10, 12–27 | OPEN — one reviewed change | Root cause is shared: three CSS override layers (293 hex, ~590 rgba, 579 `!important`). Fixing page by page would add a fourth layer. Next step: consolidate tokens per `BRAND_AUDIT.md` §7 in a dedicated branch with before/after captures of every route, hero excluded. Image items needing new assets or founder rulings are in `IMAGE_INVENTORY.md` §5. |
 | DR-022 | OPEN (root cause found) | Homepage section image columns leave ~230 px empty above product photos at 1440 (`home-conversion.css:70`, `:1192`); part of the token/layout consolidation. |
 
+### Final suite on the committed state (`d54dee7`)
+
+**412 passed, 2 failed, 84 skipped** (skipped = opt-in evidence suites). Both failures are React hydration error #418 (KI-1): `/join/sales` at 375 and `/contact` at 768, during a run in which another copy of the site was being built and served on the same machine. Measured in isolation on the same build: **0 errors in 160 loads** (40 each of `/contact`@768, `/join/sales`@375, `/radios-equipment`@768, `/`@390). Customer impact: React re-renders on the client and the page works; no visible break observed. Status: **OPEN (pre-existing, load-dependent), S3**. Next step per `docs/KNOWN_ISSUES.md`: test the latest Next.js 16 patch release on a separate branch. Not counted as a pass.
+
 ## Not defects (checked and rejected)
 
 - `/join/sales` absent from the sitemap: deliberate (noindex careers page, `app/sitemap.ts`).
