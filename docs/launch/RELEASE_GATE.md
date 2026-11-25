@@ -115,3 +115,20 @@ E2E on W2's final tree (one consolidated set; supersedes earlier figures for thi
 Gate: full `governance:push` RC=0 GREEN (178 migrations, `lancesat_test` recreated); pre-push gate RC=0 on tree `e26a313a`. `@lancesat/api` 5,331 passed / 7 skipped; intake suites 241/241. One vacuous control disclosed (`NEVER_RECRUITMENT_ROLES` cannot go red with today's role matrix).
 
 Still open: worker leg after hand-off (3 BullMQ attempts then DLQ; #728 makes it durable); no Redis in the gate (hand-off unit-tested only); no dead-letter redrive route; email recipient allowlist (0155) not enforced on the send path (observation for #728). Founder: arm the relay and the email transport; name the queue owner (until then enquiry notifications wait in `awaiting_recipient`); rotation cadence.
+
+## Checkpoint N2 — intake privacy and application readers (LEOS, 2026-11-25)
+
+**Unmerged.** Draft PR [#752](https://github.com/Signal-One-Intergrated-Systems/lancesat-enterprise-platform/pull/752), branch `claude/launch-intake-privacy-r1` @ `65c6767c`, one commit on `claude/launch-integration-r1` @ `3ef1c67` (#749). Audit-class: must not merge before the pre-merge audit and founder/legal approval. Full record: LEOS `docs/release/LAUNCH_R1_PRIVACY.md` on that branch.
+
+| Finding | Result | Evidence |
+|---|---|---|
+| L2-03 erasure impossible, no retention | **Mechanism built on the branch, no period chosen.** Erasure as redaction (0200, class B: no row rewritten): attribution (utm, gclid, gbraid, wbraid, landing, referrer) → NULL; consent subject email → NULL; application/enquiry fields → `{"erased":true}`; ids, hash and timestamps kept. Execution needs `privacy.manage` plus the reference typed back; refused while restricted; audited. Retention: no period → `not_configured`, nothing erased; with a period, redacts only that class, never restricted rows. | Mutations M1, M2, M3, M6, M7, M10–M12 red then green. |
+| L2-11 marketing consent not carried to the lead | **Closed on the branch** (0201, class A): append-only `crm_lead_marketing_consent_events`; carried at lead creation and queue conversion; withdrawal endpoints; an objection before conversion blocks the carry; `isMarketingPermitted()` for any future marketing use. | M8, M9. |
+| L2-01 applications stored but unread | **Reader API on the branch** (no migration): list / audited detail / audited status change; permissions `website_applications.read/review` held by `super_admin` only; grants, admins, service accounts and every sales role refused. No screen yet. Website keeps `SIGNAL_ONE_INTAKE_KINDS=client` until D6. | M5; M4 survived alone (two tenant checks), M4b (both removed) red. |
+| Tenant isolation | Tenant B's `super_admin` gets 404 on every new route; the DB function refuses cross-tenant calls. | M3, M4b. |
+
+Gate: full `governance:push` RC=0 GREEN (`lancesat_test`, `lar_test` recreated); pre-push RC=0. @lancesat/api 5,325 passed / 7 skipped; web 2,229; rbac 179; lar 1,269. Round-trip of 0200/0201 on scratch: schema fingerprint restored exactly; reversals refuse on populated data.
+
+Founder/legal decisions (none made): **D1** retention periods per data class; **D2** scheduled vs manual retention and by whom; **D3** whether erasure also erases the CRM lead (notes copy every answer); **D4** redact staff free-text reasons; **D5** whether each erasure/non-dry retention run needs Class C sign-off and a second person; **D6** applications to LEOS or email at launch, and who else may read them; **D7** who may record a marketing withdrawal (today only `privacy.manage`); **D8** keep consent proof after erasure; **D9** confirm in production that the app's DB role neither owns the intake tables nor is superuser (precondition for 0200's guards).
+
+Integration note: #752 and S's queue branch both touch `website_queue_service.ts` (`resolveEnquiry`); #751 and #752 both base on #749 with disjoint migration numbers (0197–0199, 0200–0201; 0202 released).
