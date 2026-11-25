@@ -13,8 +13,20 @@ export type CatalogueProduct = {
   role: string;
   manufacturer?: string;
   /** First-party manufacturer image only; provenance in docs/ASSET_PROVENANCE.md. */
-  image?: { src: StaticImageData; alt: string };
+  image?: { src: StaticImageData; alt: string; bounds?: string };
 };
+
+/**
+ * The device's bounding box inside each manufacturer image, as a CSS `object-view-box` inset
+ * (measured from the image's alpha channel). Peers are then fitted by the device, not by their
+ * differently padded canvases, so radios in identical frames show at the same height (VA-20).
+ * Presentation only: the photograph itself is untouched. Browsers without object-view-box fall back
+ * to fitting the whole canvas.
+ */
+export const productBounds = {
+  pnc360s: "inset(5.3% 10.2% 5.3% 10.2%)",
+  p30Lite: "inset(6.8% 34.3% 6.5% 31.7%)",
+} as const;
 
 /** Rental catalogue shown on /radios-equipment, the home page and the PTT radio page. Named products only; no prices. */
 export const catalogue: ReadonlyArray<{
@@ -35,9 +47,9 @@ export const catalogue: ReadonlyArray<{
         detail: "Purchase or rental. Ask about push-to-talk service, SIM and data.",
         role: "Talk to every guard on a contract over the cellular network.",
         manufacturer: "Hytera",
-        image: { src: pnc360s, alt: "Hytera PNC360S mini PoC radio, front view" },
+        image: { src: pnc360s, alt: "Hytera PNC360S mini PoC radio, front view", bounds: productBounds.pnc360s },
       },
-      { model: "P30 Lite PoC", manufacturer: "Hytera", image: { src: p30Lite, alt: "Hytera P30 Lite PoC radio, front view — manufacturer image" }, type: "PoC radio with SOS", detail: "Purchase or rental. Ask about communications, SOS, SIM, data and platform access.", role: "Push-to-talk with an SOS button for patrol officers." },
+      { model: "P30 Lite PoC", manufacturer: "Hytera", image: { src: p30Lite, alt: "Hytera P30 Lite PoC radio, front view — manufacturer image", bounds: productBounds.p30Lite }, type: "PoC radio with SOS", detail: "Purchase or rental. Ask about communications, SOS, SIM, data and platform access.", role: "Push-to-talk with an SOS button for patrol officers." },
       { model: "E600 PoC LTE", type: "PoC LTE radio", detail: "Available by quote.", role: "PoC over LTE for sites with 4G coverage." },
       { model: "PTT platform + SIM & data", type: "Service", detail: "Monthly platform access with SIM and data for supported radios.", role: "The talk groups, SIM and data behind the radios." },
     ],

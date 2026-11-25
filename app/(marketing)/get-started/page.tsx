@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import ClientOnboarding from "../../components/journey/ClientOnboarding";
 import IntakeAvailability from "../../components/journey/IntakeAvailability";
+import ProductSignature from "../../components/brand/ProductSignature";
 
 export const metadata: Metadata = {
   title: "Request Your 14-Day Trial",
@@ -11,8 +12,18 @@ export const metadata: Metadata = {
 
 export default function GetStartedPage() {
   return (
-    <main id="main" className="surface-light s1-onboarding s1-premium-trial s1-scene-page s1-scene-page--trial">
-      <div className="wrap py-10 md:py-16"><div className="s1-onboarding-intro mb-8 grid items-center gap-6 rounded-card border border-white/25 bg-[#0c2741]/85 p-5 text-white shadow-xl backdrop-blur-xl md:p-7"><div><p className="text-xs font-semibold uppercase tracking-widest text-sky-300">Company registration · 14-day 1GUARD trial request</p><h1 className="mt-2 text-2xl font-bold md:text-3xl">Start with what your business needs.</h1><p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-200">Choose 1GUARD, register interest in 1Service, or enquire about equipment. Eligible security companies can request a 14-day 1GUARD trial through the registration journey below. Your request is not an activated subscription: access, eligibility, expiry and any paid terms are confirmed before activation.</p></div></div>
+    <main id="main" className="s1-onboarding s1-scene-page s1-scene-page--trial">
+      <div className="wrap py-10 md:py-16">
+        {/* Plain introduction, no card: the first question follows directly (UX correction #6, VA-23). */}
+        <div className="s1-onboarding-intro mb-8 max-w-3xl">
+          <p className="t-kicker text-signal-300">Company registration · 14-day <ProductSignature name="GUARD" tone="dark" /> trial request</p>
+          <h1 className="t-h1 mt-3">Start with what your business needs.</h1>
+          <p className="t-body mt-4 text-text-inv-2">
+            Choose 1GUARD, register interest in 1Service, or enquire about equipment. Eligible security companies can
+            request a 14-day 1GUARD trial. A request is not an activated subscription: access, eligibility, expiry and
+            any paid terms are confirmed before activation.
+          </p>
+        </div>
         <IntakeAvailability trial />
         <ClientOnboarding />
       </div>

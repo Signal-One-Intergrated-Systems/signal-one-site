@@ -11,12 +11,12 @@ export default function ErrorPage({ error, reset }: { error: Error & { digest?: 
 
   return (
     <main id="main" className="surface-deep">
-      <div className="wrap py-24 md:py-32 lg:py-40">
-        <p className="t-kicker text-signal-400">Something went wrong</p>
+      <div className="wrap py-16 md:py-24 lg:py-28">
+        <p className="t-kicker text-signal-300">Something went wrong</p>
         <h1 className="t-hero mt-5">This page did not load.</h1>
         <p className="t-lead measure mt-6 text-text-inv-2">
           Nothing you submitted was lost: forms are only sent when you press send. Try again, or email us at{" "}
-          <a href={"mailto:" + salesEmail} className="link-inline font-semibold text-signal-400">
+          <a href={"mailto:" + salesEmail} className="link-inline font-semibold text-signal-300">
             {salesEmail}
           </a>
           .

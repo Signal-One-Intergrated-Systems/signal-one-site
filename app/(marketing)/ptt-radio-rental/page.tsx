@@ -38,8 +38,8 @@ export default function PttRadioRentalPage() {
           {radios.products.map((product) => (
             <li key={product.model} className="flex items-start justify-between gap-4 bg-raised p-5 sm:p-6">
               <div>
-                <p className="t-small font-semibold text-signal-400">{product.type}</p>
-                <p className="font-display mt-1 text-[1.5rem] font-bold leading-tight tracking-[-0.03em]">{product.model}</p>
+                <p className="t-small font-semibold text-signal-300">{product.type}</p>
+                <p className="t-h3 mt-1">{product.model}</p>
                 <p className="t-small mt-2 text-text-inv-2">{product.detail}</p>
               </div>
               <Status kind="quote" tone="dark">
@@ -50,13 +50,13 @@ export default function PttRadioRentalPage() {
           </ul>
         </div>
       }
-      capabilitiesTitle="What we rent"
+      capabilitiesTitle="What a rental includes, and what is quoted"
       // The radios themselves are listed in the hero; this section answers how renting works instead of repeating them (DR-017).
       capabilities={[
         ["Rental terms", "12, 24 or 36 months."],
         ["With or without connectivity", "Radios with SIM, data and the PTT platform, radios only if you have SIMs, or the platform and SIMs for radios you already own."],
         ["Buying instead", "Radios are also sold outright, by quotation. Ask to compare buying and renting in one quote."],
-        ["Quoted, not listed", "Final specification, availability and price are confirmed in a written quote. We do not publish prices, stock or delivery dates."],
+        ["Quoted, not listed", "Final specification, availability and price are confirmed in a written quote. We do not publish prices, stock or delivery dates. Ask about delivery, deposit, damage and loss, and early termination when you request it."],
       ]}
       stepsTitle="How the quote works"
       steps={[

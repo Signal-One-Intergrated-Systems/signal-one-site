@@ -28,11 +28,11 @@ const joinSteps = [
 
 export default function GuardsPage() {
   return (
-    <main id="main" className="bg-light text-text s1-scene-page s1-scene-page--officers">
-      <SplitHero src={photos.recruitment.src} alt={photos.recruitment.alt} scene="/images/scenes/lobby.svg" side="left" objectPositionMobile="46% 45%" objectPosition="50% 42%">
-          <p className="text-[1.0625rem] font-semibold text-signal-400">For security officers</p>
+    <main id="main" className="s1-scene-page s1-scene-page--officers">
+      <SplitHero src={photos.officerAccess.src} alt={photos.officerAccess.alt} side="left" objectPositionMobile="46% 45%" objectPosition="50% 42%">
+          <p className="t-kicker text-signal-300">For security officers</p>
           <h1 className="t-hero mt-4">Your work, on record. Your next job, your choice.</h1>
-          <p className="mt-6 text-[1.25rem] leading-relaxed text-text-inv-2">
+          <p className="t-lead mt-6 text-text-inv-2">
             1GUARD is the app you use on shift. Guard Marketplace is not live yet. When it launches,
             signed-in security companies will be able to send you hire requests. You will always decide whether to accept.
           </p>
@@ -59,18 +59,18 @@ export default function GuardsPage() {
           <p className="t-caption mt-6 text-text-inv-2">Illustrative scene · fictional security company</p>
       </SplitHero>
 
-      <section id="how-it-works" className="scroll-mt-[72px] bg-white py-16 md:py-24">
+      <section id="how-it-works" className="section">
         <div className="wrap grid gap-12 lg:grid-cols-2 lg:gap-16">
           <div>
             <h2 className="t-h2">On shift: the Guard app</h2>
-            <p className="mt-4 text-[1.1875rem] leading-relaxed text-text-2">
+            <p className="t-lead mt-4 text-text-inv-2">
               If your company uses Signal One, this is what you do in the app.
             </p>
             <ul className="m-0 mt-8 list-none p-0">
               {onShift.map(([title, body]) => (
-                <li key={title} className="border-t border-line py-5">
-                  <h3 className="text-[1.1875rem] font-semibold">{title}</h3>
-                  <p className="mt-1 text-[1.0625rem] text-text-2">{body}</p>
+                <li key={title} className="border-t border-line-dark py-5">
+                  <h3 className="t-h4">{title}</h3>
+                  <p className="mt-1 text-[1.0625rem] text-text-inv-2">{body}</p>
                 </li>
               ))}
             </ul>
@@ -78,27 +78,27 @@ export default function GuardsPage() {
           <div>
             <div className="flex flex-wrap items-center gap-3">
               <h2 className="t-h2">Planned: Guard Marketplace</h2>
-              <span className="rounded-full bg-beta-tint px-3 py-1 text-[0.9375rem] font-semibold text-beta">MVP in development</span>
+              <span className="badge badge-mvp">MVP in development</span>
             </div>
-            <p className="mt-4 text-[1.1875rem] leading-relaxed text-text-2">
+            <p className="t-lead mt-4 text-text-inv-2">
               We are building Marketplace. When it launches, signed-in Signal One client companies will be able to find profiles by:
             </p>
             <ul className="m-0 mt-6 grid list-none gap-3 p-0 text-[1.125rem]">
               {["Where you can work", "Your PSiRA grade", "When you are available", "Your experience", "Your skills"].map((item) => (
                 <li key={item} className="flex gap-3">
-                  <Check className="mt-1 text-signal-ink" />
+                  <Check className="mt-1 text-signal-300" />
                   {item}
                 </li>
               ))}
             </ul>
-            <p className="mt-6 text-[1.0625rem] text-text-2">
+            <p className="mt-6 text-[1.0625rem] text-text-inv-2">
               No ratings, no scores, no badges. A company will be able to send you a hire request, which you accept or decline. Nothing is live today, and we cannot promise when it will be or that you will receive any request.
             </p>
           </div>
         </div>
       </section>
 
-      <section id="psira" className="scroll-mt-[72px] py-16 md:py-24">
+      <section id="psira" className="section">
         <div className="wrap grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
           <div>
             <h2 className="t-h2">PSiRA: what we ask and why</h2>
@@ -107,11 +107,11 @@ export default function GuardsPage() {
             <p>
               We ask for your <strong>PSiRA registration number, grade and expiry date</strong>.
             </p>
-            <p className="mt-4 text-text-2">
+            <p className="mt-4 text-text-inv-2">
               A company can only put you on a site if your registration is valid. In Signal One, a missing or expired
               registration blocks the assignment, and your grade decides which posts you can work.
             </p>
-            <p className="mt-4 text-text-2">
+            <p className="mt-4 text-text-inv-2">
               Signal One records the details you give. We do not check them with PSiRA, so keep them up to date, especially
               your expiry date.
             </p>
@@ -119,11 +119,11 @@ export default function GuardsPage() {
         </div>
       </section>
 
-      <section id="your-information" className="scroll-mt-[72px] bg-white py-16 md:py-24">
+      <section id="your-information" className="section">
         <div className="wrap grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
           <div>
             <h2 className="t-h2">Your information</h2>
-            <p className="mt-4 text-[1.1875rem] leading-relaxed text-text-2">Handled under POPIA. Here is the short version.</p>
+            <p className="t-lead mt-4 text-text-inv-2">Handled under POPIA. Here is the short version.</p>
           </div>
           <ul className="m-0 grid list-none gap-4 p-0 text-[1.125rem]">
             {[
@@ -134,17 +134,17 @@ export default function GuardsPage() {
               "You can ask us to correct or delete your information at any time.",
             ].map((item) => (
               <li key={item} className="flex gap-3">
-                <Check className="mt-1 text-signal-ink" />
+                <Check className="mt-1 text-signal-300" />
                 {item}
               </li>
             ))}
-            <li className="mt-2 text-[1.0625rem] text-text-2">
+            <li className="mt-2 text-[1.0625rem] text-text-inv-2">
               Questions or requests:{" "}
-              <a href="mailto:sales@signalone.co.za" className="link-inline font-semibold text-signal-ink">
+              <a href="mailto:sales@signalone.co.za" className="link-inline font-semibold text-signal-300">
                 sales@signalone.co.za
               </a>
               . Full detail on our{" "}
-              <Link href="/popia" className="link-inline font-semibold text-signal-ink">
+              <Link href="/popia" className="link-inline font-semibold text-signal-300">
                 POPIA page
               </Link>
               .
@@ -153,15 +153,15 @@ export default function GuardsPage() {
         </div>
       </section>
 
-      <section className="py-16 md:py-24">
+      <section className="section">
         <div className="wrap">
           <h2 className="t-h2">How joining works</h2>
           <ol className="m-0 mt-8 grid list-none gap-6 p-0 md:grid-cols-4">
             {joinSteps.map(([title, body], index) => (
               <li key={title} className="border-t-2 border-field pt-4">
-                <span className="t-num text-[2rem] text-signal-ink">{index + 1}</span>
-                <h3 className="mt-2 text-[1.1875rem] font-semibold">{title}</h3>
-                <p className="mt-1 text-[1.0625rem] text-text-2">{body}</p>
+                <span className="t-num pt-0.5 text-[1.5rem] text-signal-300">{index + 1}</span>
+                <h3 className="t-h4 mt-2">{title}</h3>
+                <p className="mt-1 text-[1.0625rem] text-text-inv-2">{body}</p>
               </li>
             ))}
           </ol>

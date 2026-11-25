@@ -4,12 +4,12 @@ import ReceiptReference from "../ReceiptReference";
 import IntakeError from "../IntakeError";
 import Link from "next/link";
 import { useEffect, useRef, type FormEvent } from "react";
-import { Check, Steps } from "../ui";
+import { Check, Stepper, Steps } from "../ui";
 import { Consent, JMulti, JRadio, JSelect, JText, ReviewList } from "./fields";
 import { useJourney } from "./useJourney";
 import { guardDayPricePhrase, minimumPhrase } from "../../lib/pricing";
 
-const ACCENT = "text-signal-ink";
+const ACCENT = "text-signal-300";
 
 const steps = [
   { id: "company", label: "Company" },
@@ -54,7 +54,7 @@ export default function ClientOnboarding() {
         </span>
         <h2 className="t-h1 mt-6">Thanks. Your onboarding request is with Signal One.</h2>
         <ReceiptReference reference={j.reference} />
-        <p className="t-lead mt-4 text-text-2">A representative will contact you about your selected products, trial request and account setup. A trial has not started yet.</p>
+        <p className="t-lead mt-4 text-text-inv-2">A representative will contact you about your selected products, trial request and account setup. A trial has not started yet.</p>
         <div className="mt-8">
           <Steps
             items={[
@@ -75,37 +75,18 @@ export default function ClientOnboarding() {
   return (
     <div className="grid gap-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
       <aside className="lg:sticky lg:top-[104px] lg:self-start">
-        <p className="t-kicker text-signal-ink">Company onboarding</p>
-        <p className="mt-2 font-display text-[1.5rem] font-bold leading-tight">Tell us what your company needs.</p>
-        <ol className="m-0 mt-6 hidden list-none p-0 lg:block" aria-label="Onboarding steps">
-          {steps.map((step, index) => (
-            <li
-              key={step.id}
-              aria-current={index === j.stepIndex ? "step" : undefined}
-              className={
-                "flex items-center gap-3 border-t border-line py-3 text-[1rem] " +
-                (index === j.stepIndex ? "font-semibold text-text" : "text-text-2")
-              }
-            >
-              <span
-                className={
-                  "grid h-7 w-7 place-items-center rounded-full text-[0.875rem] font-semibold " +
-                  (index < j.stepIndex ? "bg-signal text-deep" : index === j.stepIndex ? "bg-base text-text-inv" : "bg-[#35434c] text-[#e8f2fb]")
-                }
-              >
-                {index < j.stepIndex ? "✓" : index + 1}
-              </span>
-              {step.label}
-            </li>
-          ))}
-        </ol>
-        <p className="t-small mt-6 text-text-2">
+        <p className="t-kicker text-signal-300">Company onboarding</p>
+        <p className="t-h3 mt-2">Tell us what your company needs.</p>
+        <div className="mt-6 hidden lg:block">
+          <Stepper steps={steps.map((step) => step.label)} index={j.stepIndex} label="Onboarding steps" />
+        </div>
+        <p className="t-small mt-6 text-text-inv-2">
           Takes about three minutes. Eligible security companies can request a 14-day 1GUARD trial. 1Service is in development; equipment is quoted separately. No account or trial starts when you submit.
         </p>
       </aside>
 
       <form onSubmit={onContinue} className="card p-5 sm:p-8">
-        <p className="t-small font-semibold text-text-2 lg:hidden">
+        <p className="t-small font-semibold text-text-inv-2 lg:hidden">
           Step {j.stepIndex + 1} of {steps.length} · {current.label}
         </p>
         <div key={current.id} className="animate-enter grid gap-6">

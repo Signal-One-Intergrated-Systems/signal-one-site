@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { ButtonLink, Kicker } from "../../components/ui";
+import { ButtonLink, Status, Kicker } from "../../components/ui";
 import ProductSignature from "../../components/brand/ProductSignature";
 
 export const metadata: Metadata = {
@@ -24,8 +24,8 @@ export default function ServicePage() {
         <div className="wrap grid gap-10 items-center lg:grid-cols-2">
           <div>
             <Kicker tone="dark">Signal One · Service Business Operating System</Kicker>
-            <p className="mt-5 inline-flex rounded-full border border-signal-400/35 bg-signal-400/10 px-3 py-2 text-[0.875rem] font-semibold text-signal-400">In development · Restaurant-first</p>
-            <h1 className="t-display mt-6"><ProductSignature name="Service" tone="dark" /></h1>
+            <p className="mt-5"><Status kind="beta">In development · Restaurant-first</Status></p>
+            <h1 className="t-hero mt-6"><ProductSignature name="Service" tone="dark" /></h1>
             <p className="t-lead mt-5 text-text-inv-2">Run your service business. As one.</p>
             <p className="t-body measure mt-5 text-text-inv-2">1Service is the Service Business Operating System we are developing for SMEs, starting with restaurants. The vision connects customers, bookings, people, service, kitchen workflows, inventory, purchasing and business performance in one coherent experience.</p>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -34,7 +34,7 @@ export default function ServicePage() {
             </div>
             <p className="t-caption mt-5 text-text-inv-3">1Service is in development. The workflows below describe our plans; early-access availability will be confirmed with you.</p>
           </div>
-          <div className="relative min-h-[370px] overflow-hidden rounded-card border border-line-dark bg-raised shadow-xl lg:min-h-[540px] s1-people-main-photo">
+          <div className="s1-people-main-photo aspect-video">
             <Image src="/images/home/service-restaurant-operations.jpg" unoptimized alt="Illustrative restaurant kitchen staff collaborating during live food service" fill
               sizes="(min-width:1024px) 49vw, 100vw" className="object-cover" priority />
             <div className="absolute bottom-4 left-5 rounded-full bg-deep/85 px-3 py-2 text-[0.875rem] text-text-inv">Illustrative restaurant team at work</div>
@@ -45,7 +45,7 @@ export default function ServicePage() {
         <div className="wrap">
           <Kicker>From opening to close</Kicker>
           <h2 className="t-h2 mt-4">More than a roster. The operating system for your service business.</h2>
-          <p className="t-lead mt-4 max-w-3xl text-text-2">From the first booking to the end-of-day review, every handoff affects your customers, your team and your margins.</p>
+          <p className="t-lead mt-4 max-w-3xl text-text-inv-2">From the first booking to the end-of-day review, every handoff affects your customers, your team and your margins.</p>
           <p className="t-small mt-4 text-text-inv-2">Planned capabilities · Illustrative hospitality scenes</p>
           <div className="mt-10 grid gap-5 md:grid-cols-2">
             {ambitions.map(([name, detail, src, alt]) => (
@@ -54,7 +54,7 @@ export default function ServicePage() {
                   <Image src={src} alt={alt} fill sizes="(min-width:1440px) 580px, (min-width:768px) 43vw, 90vw" className="object-contain" loading="lazy" />
                 </div>
                 <h3 className="t-h3">{name}</h3>
-                <p className="t-body mt-3 text-text-2">{detail}</p>
+                <p className="t-body mt-3 text-text-inv-2">{detail}</p>
               </article>
             ))}
           </div>

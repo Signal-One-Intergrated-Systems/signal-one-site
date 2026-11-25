@@ -15,7 +15,7 @@ type Cta = { kicker: string; title: string; body: string; href: string; label: s
 const pagesWithoutClosingAction = new Set(["/about", "/security-trust", "/popia", "/privacy", "/terms"]);
 
 const conversation: Cta = {
-  kicker: "SIGNAL ONE · INTEGRATED SYSTEMS",
+  kicker: "Signal One · Integrated Systems",
   title: "Run your business. As one.",
   body: "Radios, connectivity and 1GUARD for South African businesses with people in the field.",
   href: "/contact",
@@ -32,11 +32,11 @@ export default function FooterCta() {
   return (
     <div className="s1-premium-footer-intro">
       <div>
-        <p className="s1-footer-kicker">{cta.kicker}</p>
+        <p className="t-kicker text-signal-300">{cta.kicker}</p>
         <h2>{cta.title}</h2>
         <p>{cta.body}</p>
       </div>
-      <Link className="s1-footer-main-cta" href={cta.href}>
+      <Link className="s1-footer-main-cta btn btn-primary btn-lg shrink-0" href={cta.href}>
         {cta.label} <span aria-hidden="true">→</span>
       </Link>
     </div>

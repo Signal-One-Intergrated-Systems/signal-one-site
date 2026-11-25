@@ -115,3 +115,18 @@ Neighbour comparison (same page, same viewport): on the home page the hero (5350
 | 9 | Decide whether the "S" roundel uniform, the tactical vest and the client/officer casting in `security-site-planning` pass the photography brief | brief rules on branding, gear and hierarchy | Founder |
 | 10 | E600 image | still typographic; manufacturer unconfirmed (DR-006) | Founder |
 | 11 | A ≥ 2880 px export of the **same approved** hero image (no recomposition) | 1672 px master is soft on 2× desktops (headroom 0.58) and letterboxes at ≥ 1673 px (DR-013) | Founder (locked asset) |
+
+### 5.1 Status after the W1 consolidation (2026-11-25, branch `wip/w1-visual`)
+
+Done without new assets (no product photograph was edited, recoloured or generated):
+
+| Item | Change |
+|---|---|
+| #1 `/guards` hero | Interim: `editorial/security-access-scan.webp` (a woman officer validating an access point, supervisor with tablet) replaces the office-meeting `hire-security`. Brief slot 6 is still the better long-term asset. |
+| #2 attendance hero | Interim: `editorial/security-team-briefing.webp` (officers planning shift assignments) replaces the third use of `security-site-planning`. A clock-in-at-post photograph is still needed. |
+| #4 `/join/sales` | `editorial/security-office-park-site-review.webp` (security account manager with a client) replaces the warm `customer-enquiry`; the "fictional security company" caption is now true. |
+| #5 / #6 backdrops | `business-park`, `restaurant-dining`, `warehouse-yard` are now toned to the graphite family (CSS luminosity blend over `base`, behind a 0.78–0.93 wash): the 3110 K restaurant backdrop no longer pulls pages warm. Upscaling (VA-18) remains until masters exist. |
+| #7 / VA-20 scale | PNC360S and P30 Lite are fitted by their measured device bounds (`object-view-box`, `lib/catalogue.ts productBounds`) and now render at equal height in identical frames (was 233 vs 196 px). |
+| VA-27 frames | Every people photograph uses one framed-media recipe (24 px radius, hairline, complete 16:9). |
+
+Still needing new assets or founder rulings: #1 and #2 (commissioned officer and clock-in photographs), #3 (`checkpoint` ≥ 2000 px), #5 (2560 px backdrop masters or a decision to drop backdrops), #6 (one LUT for the hospitality foreground set — CSS recolouring of photographs of people was rejected), #7 (supplier confirmation of the SC780 and "P30 Lite" variants), #8 (rental-stock photography to differentiate the four equipment heroes, VA-15), #9 (brief compliance of `security-site-planning` casting/branding — the new interim heroes carry the same fictional uniform branding and need the same ruling), #10 (E600 image; the catalogue now shows a typographic well, never a stand-in), #11 (hero master). Also: `/service` vision cards (four similar staff huddles) and the homepage "Get the devices" card (tracker, kept because radios lead the equipment section directly above).

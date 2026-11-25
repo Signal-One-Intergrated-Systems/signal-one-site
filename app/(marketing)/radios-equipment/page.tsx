@@ -51,7 +51,7 @@ export default function RadiosEquipmentPage() {
       <section className="surface-light section">
         <div className="wrap">
           <h2 className="t-h2">The catalogue</h2>
-          <p className="t-body measure mt-3 text-text-2">
+          <p className="t-body measure mt-3 text-text-inv-2">
             Explore radios, tracking and body cameras for your operation. Purchase and rental options, final specification, availability and delivery timing are confirmed in your quote.
           </p>
 
@@ -63,10 +63,10 @@ export default function RadiosEquipmentPage() {
                     <h3 id={group.id + "-h"} className="t-h3">
                       {group.category}
                     </h3>
-                    <p className="t-small mt-3 text-text-2">{group.lead}</p>
+                    <p className="t-small mt-3 text-text-inv-2">{group.lead}</p>
                     <p className="t-small mt-3 font-semibold">{group.terms}</p>
                   </div>
-                  <ul className="m-0 grid list-none gap-4 p-0 sm:grid-cols-2">
+                  <ul className="catalogue-grid">
                     {group.products.map((product) => (
                       <li key={product.model}>
                         <HardwareCard product={product} headingLevel={4} />
@@ -78,12 +78,12 @@ export default function RadiosEquipmentPage() {
             ))}
           </div>
 
-          <div className="mt-16 rounded-card bg-light-2 p-6 sm:p-8">
+          <div className="mt-16 rounded-card bg-raised p-6 sm:p-8">
             <div className="flex flex-wrap items-center gap-3">
               <h2 className="t-h4">Equipment and the Signal One platform</h2>
               <Status kind="soon">Coming soon</Status>
             </div>
-            <p className="t-small measure mt-2 text-text-2">
+            <p className="t-small measure mt-2 text-text-inv-2">
               Equipment is quoted separately from the 1GUARD subscription. Activating devices and viewing tracking from
               inside 1GUARD is coming soon; renting a device does not yet connect it to the platform.
             </p>
@@ -95,7 +95,7 @@ export default function RadiosEquipmentPage() {
         <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
           <div>
             <h2 className="t-h2">Request a quote</h2>
-            <p className="t-body mt-4 text-text-2">
+            <p className="t-body mt-4 text-text-inv-2">
               Product, requirement, quantity, deployment. The form changes with what you choose, so you only answer what
               matters.
             </p>

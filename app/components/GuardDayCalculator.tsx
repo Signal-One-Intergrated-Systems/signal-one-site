@@ -86,18 +86,18 @@ export default function GuardDayCalculator({ heading = "Calculate your guard cos
         </div>
       </div>
 
-      <div className="mt-8 border-t border-line pt-6" aria-live="polite">
+      <div className="mt-8 border-t border-line-dark pt-6" aria-live="polite">
         <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-4">
           <div>
-            <p className="t-small text-text-2">Guard days</p>
-            <p className="t-num mt-2 text-[2.25rem] text-text">{num(result.billable)}</p>
+            <p className="t-small text-text-inv-2">Guard days</p>
+            <p className="t-num mt-2 text-[2.25rem] text-text-inv">{num(result.billable)}</p>
           </div>
           <div className="text-right">
-            <p className="t-small text-text-2">Total, excl. VAT</p>
-            <p className="t-num mt-2 text-[2.75rem] text-signal-600 sm:text-[3.25rem]">{money(result.exVat)}</p>
+            <p className="t-small text-text-inv-2">Total, excl. VAT</p>
+            <p className="t-num mt-2 text-[2.75rem] text-signal-300 sm:text-[3.25rem]">{money(result.exVat)}</p>
           </div>
         </div>
-        <p className="t-small mt-4 text-text-2">
+        <p className="t-small mt-4 text-text-inv-2">
           {result.billable > 0
             ? num(result.billable) +
               " guard days × " +
@@ -112,7 +112,7 @@ export default function GuardDayCalculator({ heading = "Calculate your guard cos
             : "Enter the number of guards and days you want to cover."}
         </p>
         {result.minimumApplied ? (
-          <p className="t-small mt-4 rounded-ui bg-beta-tint px-4 py-3 font-medium text-beta">
+          <p className="t-small mt-4 rounded-ui border border-beta-inv/40 bg-raised px-4 py-3 font-medium text-beta-inv">
             That is {result.requested} guard {result.requested === 1 ? "day" : "days"}. The minimum purchase is {minimumPhrase}, so this estimate uses {pricing.minimumGuardDays}.
           </p>
         ) : null}

@@ -418,6 +418,105 @@ All tokens live in `@theme` in `app/globals.css`; the `--s1-*` (`globals.css:134
 | `data/*.json`, `data/analysis.md`, `data/matrix.md`, `data/states.json`, `data/imgstats.json` | raw measurements |
 | `scripts/` | capture, states, analysis, image and inventory scripts (re-runnable) |
 
+
+## 9. Consolidation result (W1, 2026-11-25) — before/after
+
+**What changed.** The three override layers were replaced by one token layer (`app/globals.css` `@theme` + shared components), page shells in `app/marketing-system.css`, and homepage sections on the same tokens in `app/home-conversion.css`. The founder-locked hero CSS was extracted rule-for-rule, in its original cascade order, into one marked block at the top of `home-conversion.css` (the only place still allowed literals and `!important`). Decision recorded: **graphite** is the single dark family (the 2026-11-15 update post-dates the 2026-10-29 navy direction); navy survives only inside the locked hero. Constitution: `docs/DESIGN_SYSTEM.md`; enforcement: `scripts/check-design-system.mjs` (23 checks, runs on every build).
+
+**Method.** "Before" = local production build of `wip/w1-visual` at its base (`97331f4`, the fix branch, not live); "after" = the consolidated build. Same capture script for both (`docs/launch/tools/w1/cap.js`: fresh context per page, reduced motion so every reveal is visible, full page at 1440/1280/1024/768/390), computed-style inventory at 1440 and 390 with this audit's own definitions (`metrics.py` reuses `analyze.py`: colours clustered at ΔE76 < 3, alpha ± 0.05). 22 routes (the 20 audited + `/about`, `/support`). Evidence: `docs/launch/evidence/w1/` (`before/`, `after/` full pages per route × width; `sheets/pair_<route>__1440|390.jpg` before/after strips; `sheets/heroes_before|after_1440|390.jpg` cross-page first viewports; `data/` metrics and matrix JSON).
+
+### 9.1 Source CSS (`globals.css` + `marketing-system.css` + `home-conversion.css`)
+
+| Measure | Before | After (all) | After, outside the locked hero |
+|---|---|---|---|
+| Distinct hex literals | 272 | 74 | 36 (token definitions, mark, shutter) |
+| Distinct rgb/rgba literals | 570 | 127 | 26 |
+| `!important` | 586 | 199 | **4** (reduced-motion safety nets) — the other 195 are the locked hero's, byte-for-byte |
+| Distinct blur radii | 26 | 12 | 3 |
+| Distinct box-shadow declarations | 96 | 18 | 7 |
+| Bytes (comments stripped) | 162 077 | 76 823 | — |
+
+### 9.2 Rendered (computed styles, 22 routes × 1440 + 390)
+
+| Measure | Before | After | Note |
+|---|---|---|---|
+| Background colours (values / clusters) | 48 / 35 | 21 / 16 | |
+| Text colours (values / clusters) | 74 / 36 | 21 / 18 | stage text = 4 tokens + accent; the rest are the locked hero and light product wells |
+| Border colours (values / clusters) | 42 / 26 | 14 / 12 | |
+| Font sizes | 65 | 38 | outside the hero: the `t-*` scale, lockup, pricing/calculator numerals |
+| Font weights | 15 | 10 | 720–850 now only inside the locked hero |
+| Line-heights / letter-spacings | 122 / 59 | 69 / 29 | |
+| Text under 14 px (excl. lockup descriptor) | 149 | 15 | **all 15 inside the locked hero** |
+| Uppercase text elements | 4 | 2 | both = the locked hero eyebrow |
+| Non-zero radii | 19 | 9 | tokens 12 / 24 / pill; remainder locked hero |
+| Box-shadows | 26 | 10 | |
+| Backdrop-filters / glass recipes | 14 / 25 | 5 / 7 | interior `main` now has **0** glass recipes (solid cards); nav + homepage intro + hero |
+| H1 sizes at 1440 | 9 | 4 | 60.8 marketing, 46 forms/legal, 67.7 locked hero, 17 pricing (numeral H1) |
+| Primary button variants at 1440 | 4 (48/49/54/56) | 3 | 48 header, 56 `btn-lg` everywhere, 56/16/700 locked hero |
+
+**Founder-lock control.** The hero was captured (header band excluded) at 1440/1280/1024/768/390 before and after: **0 pixels differ by more than 24/255 at 1440, 1280, 1024 and 768**. At 390 the hero now starts at y = 0 instead of y = −4 (the old home header/margin mismatch hid its top 4 px); aligned for that 4 px offset it is likewise 0 pixels > 24 (`tools/w1/hero.js`, `herodiff.py`). The FOUNDERS LOCK JSX fixture is unchanged.
+
+### 9.3 Cross-page consistency matrix (measured; ~~before~~ → **after** where changed)
+
+Route codes as §4, plus ABT `/about`, SUP `/support`. 1440 unless stated. "Section pad-top 0" is the first section, pulled up under the floating header by a transparent 80 px border (its own padding sits inside it).
+
+| Element | HOME | SEC | PRI | RAD | REN | EQM | PAT | ATT | GMK | SVC | CON | GST | GRD | GJN | TRU | POP | PRV | TRM | JSL | ABT | SUP | 404 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| Header pill h/w/x | ~~72/1290/75~~ → **64/1240/100** | ~~60/1290/75~~ → **64/1240/100** | ~~60/1290/75~~ → **64/1240/100** | ~~60/1290/75~~ → **64/1240/100** | ~~60/1290/75~~ → **64/1240/100** | ~~60/1290/75~~ → **64/1240/100** | ~~60/1290/75~~ → **64/1240/100** | ~~60/1290/75~~ → **64/1240/100** | ~~60/1290/75~~ → **64/1240/100** | ~~60/1290/75~~ → **64/1240/100** | ~~60/1290/75~~ → **64/1240/100** | ~~60/1290/75~~ → **64/1240/100** | ~~60/1290/75~~ → **64/1240/100** | ~~60/1290/75~~ → **64/1240/100** | ~~60/1290/75~~ → **64/1240/100** | ~~60/1290/75~~ → **64/1240/100** | ~~60/1290/75~~ → **64/1240/100** | ~~60/1290/75~~ → **64/1240/100** | ~~60/1290/75~~ → **64/1240/100** | ~~60/1290/75~~ → **64/1240/100** | ~~60/1290/75~~ → **64/1240/100** | ~~60/1290/75~~ → **64/1240/100** |
+| H1 px/wt @1440 | 67.68/780 | 60.8/700 | 17/700 | 60.8/700 | 60.8/700 | ~~50.4/700~~ → **60.8/700** | 60.8/700 | 60.8/700 | 60.8/700 | ~~64.8/700~~ → **60.8/700** | ~~50.4/700~~ → **46/700** | ~~30/700~~ → **46/700** | 60.8/700 | ~~44/700~~ → **46/700** | ~~46.08/700~~ → **46/700** | ~~46.08/700~~ → **46/700** | ~~46.08/700~~ → **46/700** | ~~46.08/700~~ → **46/700** | ~~57.6/700~~ → **60.8/700** | 60.8/700 | 60.8/700 | 60.8/700 |
+| H1 px @390 | 49.6 | 41.6 | 17 | 41.6 | 41.6 | ~~40~~ → **41.6** | 41.6 | 41.6 | 41.6 | ~~44~~ → **41.6** | ~~40~~ → **34** | ~~24~~ → **34** | 41.6 | ~~36~~ → **34** | 34 | 34 | 34 | 34 | ~~46.4~~ → **41.6** | 41.6 | 41.6 | 41.6 |
+| H1 top y | 329 | ~~280~~ → **217** | ~~303~~ → **253** | ~~287~~ → **233** | ~~283~~ → **233** | ~~173~~ → **233** | ~~283~~ → **233** | ~~283~~ → **233** | ~~287~~ → **233** | ~~235~~ → **284** | ~~175~~ → **197** | ~~191~~ → **177** | ~~277~~ → **213** | ~~445~~ → **434** | ~~175~~ → **197** | ~~175~~ → **197** | ~~175~~ → **197** | ~~175~~ → **197** | ~~276~~ → **213** | ~~283~~ → **233** | ~~283~~ → **233** | ~~179~~ → **233** |
+| Section H2 px | ~~61.92,53.28,54.72~~ → **40** | ~~40.32~~ → **40** | ~~40.32,20.16~~ → **40,20** | ~~40.32,18~~ → **40,18** | ~~40.32,20.16~~ → **40,20** | ~~40.32~~ → **40** | ~~40.32,20.16~~ → **40,20** | ~~40.32,20.16~~ → **40,20** | ~~40.32,20.16~~ → **40,20** | ~~40.32~~ → **40** | ~~20.16~~ → **20** | ~~40.32~~ → **40** | ~~40.32~~ → **40** | 20,18 | ~~20.16~~ → **20** | ~~20.16~~ → **20** | ~~20.16~~ → **20** | ~~20.16~~ → **20** | ~~51.2,18~~ → **40,18** | ~~40.32~~ → **40** | ~~40.32,20.16~~ → **40,20** | — |
+| H3 px/wt | ~~25.92/700,22.4/740~~ → **20/700** | ~~18/650,20.16/700~~ → **18/650,20/700** | ~~18/650,20.16/700~~ → **18/650,20/700** | ~~18/650,20.16/700~~ → **18/650,20/700** | 18/650 | ~~20.16/700~~ → **20/700** | 18/650 | 18/650 | 18/650 | ~~20.16/700~~ → **20/700** | 18/650 | — | ~~19/600~~ → **18/650** | — | — | — | — | — | ~~18/650,20.16/700,28/700~~ → **18/650,20/700** | 18/650 | 18/650 | — |
+| Content x/w | 60/1320 | 60/1320 | 60/1320 | 60/1320 | 60/1320 | 60/1320 | 60/1320 | 60/1320 | 60/1320 | 60/1320 | 60/1320 | 60/1320 | 60/1320 | 60/1320 | 60/1320 | 60/1320 | 60/1320 | 60/1320 | 60/1320 | 60/1320 | 60/1320 | 60/1320 |
+| Section pad-top | ~~129.6,115.2,239~~ → **112,239** | ~~112,138~~ → **112,0** | ~~112,129.6~~ → **112,0** | ~~112,129.6~~ → **112,0** | ~~112,129.6~~ → **112,0** | ~~112,129.6~~ → **112** | ~~112,129.6~~ → **112,0** | ~~112,129.6~~ → **112,0** | ~~112,129.6~~ → **112,0** | ~~112,129.6~~ → **112** | — | — | ~~96,138~~ → **112,0** | — | — | — | — | — | ~~96,138,48~~ → **112,0,48** | ~~112,129.6~~ → **112,0** | ~~112,129.6,0~~ → **0,112** | — |
+| Section fills (solid/gradient/photo) | ~~2/2/2~~ → **2/0/2** | ~~2/2/1~~ → **1/0/1** | ~~1/3/0~~ → **0/0/0** | ~~1/3/0~~ → **0/0/0** | ~~1/3/0~~ → **0/0/0** | ~~1/2/0~~ → **0/0/0** | ~~2/2/1~~ → **1/0/1** | ~~1/3/0~~ → **0/0/0** | ~~2/2/1~~ → **1/0/1** | ~~2/2/1~~ → **1/0/1** | ~~0/1/0~~ → **0/0/0** | ~~0/1/0~~ → **0/0/0** | ~~2/2/1~~ → **1/0/1** | ~~0/1/0~~ → **0/0/0** | ~~0/1/0~~ → **0/0/0** | ~~0/1/0~~ → **0/0/0** | ~~0/1/0~~ → **0/0/0** | ~~0/1/0~~ → **0/0/0** | ~~1/3/0~~ → **0/0/0** | ~~2/3/0~~ → **0/0/0** | ~~2/3/0~~ → **0/0/0** | ~~0/1/0~~ → **0/0/0** |
+| Panel radii | ~~24,14,999,11~~ → **12,24,999,26** | ~~20,999,25~~ → **24,999** | ~~20,13,999~~ → **999,24,12** | ~~13,20,999,24~~ → **24,12,999** | ~~999,24,20~~ → **999,24** | ~~999,20,24~~ → **24,999** | ~~20,999~~ → **24,999** | ~~999,20~~ → **999,24** | ~~13,999,20,24~~ → **999,24,12** | ~~20,999,3.35544e+07~~ → **24,999** | ~~13,20,999~~ → **12,24,999** | ~~13,20,999~~ → **12,24,999** | ~~999,25,3.35544e+07~~ → **999,24** | ~~20,999~~ → **24,999** | ~~20,12~~ → **24,12** | ~~8,20~~ → **12,24** | ~~8,20~~ → **12,24** | ~~8,20~~ → **12,24** | ~~999,20,13,25~~ → **24,999,12** | ~~20,999,3.35544e+07~~ → **24,999** | ~~999,20~~ → **999,24** | 999 |
+| Glass recipes in main | ~~9~~ → **4** | ~~4~~ → **0** | ~~3~~ → **0** | ~~4~~ → **0** | ~~3~~ → **0** | ~~2~~ → **0** | ~~3~~ → **0** | ~~2~~ → **0** | ~~4~~ → **0** | ~~3~~ → **0** | ~~2~~ → **0** | ~~2~~ → **0** | ~~2~~ → **0** | ~~2~~ → **0** | ~~1~~ → **0** | ~~1~~ → **0** | ~~1~~ → **0** | ~~1~~ → **0** | ~~3~~ → **0** | ~~3~~ → **0** | ~~3~~ → **0** | ~~1~~ → **0** |
+| Primary btn h/size/wt | ~~56/16/700~~ → **56/17/650,56/16/700** | ~~49/15/650~~ → **56/17/650** | ~~49/15/650~~ → **56/17/650** | ~~49/15/650~~ → **56/17/650** | ~~49/15/650~~ → **56/17/650** | ~~49/15/650,48/15/650~~ → **56/17/650** | ~~49/15/650~~ → **56/17/650** | ~~49/15/650~~ → **56/17/650** | ~~49/15/650~~ → **56/17/650** | ~~49/15/650~~ → **56/17/650** | ~~49/15/650~~ → **56/17/650** | ~~49/15/650~~ → **56/17/650** | ~~49/15/650~~ → **56/17/650** | ~~49/15/650~~ → **56/17/650** | ~~54/17/750~~ → **56/17/650** | ~~54/17/750~~ → **56/17/650** | ~~54/17/750~~ → **56/17/650** | ~~54/17/750~~ → **56/17/650** | ~~48/15/650,49/15/650~~ → **56/17/650** | ~~49/15/650,54/17/750~~ → **56/17/650** | ~~49/15/650~~ → **56/17/650** | ~~49/15/650~~ → **56/17/650** |
+| Secondary btn variants | ~~1~~ → **2** | 1 | 1 | 0 | 1 | ~~2~~ → **1** | 1 | 1 | 1 | 1 | 0 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 1 | 1 |
+| Status badge recipes | ~~12.4/750/dot~~ → **14/600/dot** | 14/600/dot | 14/600/dot | 14/600/dot | 14/600/dot | — | — | — | 14/600/dot | 14/600/dot | — | — | ~~—~~ → **14/600/dot** | — | — | — | — | — | ~~—~~ → **14/600/dot** | 14/600/dot | — | — |
+| Link colours | ~~#9edfff~~ → **#7dd3fc** | — | #7dd3fc | #7dd3fc | ~~#38bdf8~~ → **#7dd3fc** | #7dd3fc | ~~#38bdf8~~ → **#7dd3fc** | ~~#38bdf8~~ → **#7dd3fc** | — | — | — | — | — | — | — | — | — | — | — | #7dd3fc | #7dd3fc | — |
+| Icon sizes | — | 20 | 16 | — | 20 | — | 20 | 20 | 20 | — | — | — | 20 | 20 | — | — | — | — | — | 20 | 20 | — |
+| Form controls h/radius/fill | — | — | ~~52/13/#06182b/0.80~~ → **57/12/#2c3438** | ~~52/13/#06182b/0.80,116/13/#06182b/0.80~~ → **52/12/#2c3438,128/12/#2c3438** | — | — | — | — | ~~52/13/#06182b/0.80,116/13/#06182b/0.80~~ → **52/12/#2c3438,128/12/#2c3438** | — | ~~52/13/#06182b/0.80,116/13/#06182b/0.80~~ → **52/12/#2c3438,128/12/#2c3438** | ~~52/13/#051729/0.69~~ → **52/12/#2c3438** | — | — | — | — | — | — | ~~52/13/#06182b/0.80~~ → **52/12/#2c3438** | — | — | — |
+| Footer CTA band | no | no | no | no | no | no | no | no | no | no | no | no | no | no | yes | yes | yes | yes | no | yes | no | no |
+| Length screens 1440/390 | ~~10.5/14.6~~ → **8.5/14.2** | ~~6.7/11.0~~ → **6.7/11.3** | ~~4.1/6.2~~ → **4.2/6.5** | ~~7.2/11.9~~ → **7.3/12.6** | ~~4.4/6.4~~ → **4.4/6.6** | ~~2.8/4.6~~ → **3.0/5.6** | ~~5.1/8.7~~ → **5.1/8.9** | ~~4.3/6.5~~ → **4.3/6.7** | ~~5.5/9.5~~ → **5.5/9.6** | ~~3.5/5.5~~ → **3.6/5.6** | ~~2.0/4.4~~ → **2.1/4.4** | ~~2.2/3.7~~ → **2.2/3.6** | ~~4.2/7.3~~ → **4.3/7.4** | 1.9/3.0 | ~~3.3/5.5~~ → **3.3/5.6** | ~~2.8/4.7~~ → **2.8/4.9** | ~~2.6/4.4~~ → **2.6/4.5** | ~~2.5/4.2~~ → **2.5/4.3** | ~~4.2/7.0~~ → **4.2/6.9** | ~~4.1/6.6~~ → **4.0/6.7** | ~~3.2/5.6~~ → **3.2/5.7** | ~~1.3/2.1~~ → **1.3/2.2** |
+
+Rows not measurable from computed styles were checked visually on the sheets: **interaction states** — every primary is `signal` → hover `signal-400`, no lift (except the locked hero CTA), focus 3 px `signal-400` ring at 3 px offset on every route; **imagery** — one framed-media recipe (24 px radius, hairline, `raised` fill) on every people photograph, manufacturer products on `well` surfaces, scene backdrops toned to graphite; **forms** — one control recipe (52 px, 12 px radius, `raised-2`, `line-strong`); **footer** — identical shell on the content edge on every route, closing band only on ABT/TRU/POP/PRV/TRM.
+
+### 9.4 Finding status
+
+| Finding | Status | Evidence / reason |
+|---|---|---|
+| VA-01 two material families | **Fixed** | graphite tokens only; navy literals removed outside the locked hero; 404 on graphite |
+| VA-02 colour seams | **Fixed** | stage painted once on `<main>`; sections transparent; chapter = 1 px hairline |
+| VA-03 heading hierarchy | **Fixed** | matrix rows H1/H2/H3 |
+| VA-04 stacked CTAs | **Fixed** (earlier) + footer heading 2rem, plain `btn-lg` |
+| VA-05 four edges | **Fixed** | header pill and footer shell on the content edge (x = 100 at 1440); homepage closing panel inside `.wrap` |
+| VA-06 form errors | **Fixed** (earlier) + error/invalid tokens in the shared field recipe |
+| VA-07 buttons | **Fixed** | two sizes, one primary, one secondary, `→` for internal links, colour-only hover; locked hero CTA keeps its approved lift |
+| VA-08 status badges | **Fixed** | one `Status` → `.badge` (dot + 14/600 sentence case); hand-made pills on `/guards`, `/guard-marketplace`, `/service`, `/join/sales`, home replaced |
+| VA-09 glass sprawl | **Fixed** | three glass tiers as tokens; solid cards on the stage |
+| VA-10 small/uppercase text | **Fixed** outside the hero | 0 elements < 14 px outside the locked hero |
+| VA-11 catalogue grid | **Fixed** | single product = horizontal card at two-up well width; typographic well for E600/PTT; `image-scale.spec.ts` |
+| VA-12 home rhythm | **Fixed** | `.section` on every homepage section; 10.5 → 8.5 screens at 1440, 14.6 → 14.2 at 390 (hero locked) |
+| VA-13 mobile header | **Fixed** | one 64 px pill on every route, no resize on scroll |
+| VA-14 intro photo | **Fixed** | photo has its own 5/12 column (≈ 470 px at 1440), full width on mobile |
+| VA-15 image reuse | **Partly fixed** | `/guards` and `/guard-attendance-software` heroes no longer reuse `hire-security` / `security-site-planning`; four equipment heroes still share the PNC360S + P30 pair (needs rental-stock photography, IMAGE_INVENTORY §5 #8) |
+| VA-16 image/message mismatch | **Fixed** for `/guards`, `/guard-attendance-software`, `/join/sales`; **open** `/service` vision cards (four similar huddles — needs brief slots) and home "Get the devices" tracker (kept: radios lead the equipment section directly above) |
+| VA-17 warm hospitality | **Fixed** for backdrops (luminosity-toned to graphite); **open** for hospitality foreground photographs (needs one LUT re-grade; recolouring photographs of people in CSS rejected) |
+| VA-18 backdrop upscaling | **Open** | needs 2560 px masters or a founder decision to drop backdrops; now toned and behind a 0.78–0.93 wash, so softness is not visible |
+| VA-19 hero caption | **Open (locked)** | caption box measured fully inside the viewport at 390 (x 281–377); its lower edge meets the glass card. Inside the locked hero: needs a founder OK |
+| VA-20 product scale | **Fixed** | `object-view-box` fits each radio by its device bounds: PNC360S and P30 Lite now equal height in identical frames (was 233 vs 196 px). Variant confirmation still open (DR-006) |
+| VA-21 numeral colour | **Fixed** in text links, kickers, headings, status labels and product-proof labels. **Not applied to Signal-blue filled buttons** ("Explore 1Service", "Register 1Service interest"): the release gate requires a blue numeral and blue on a blue fill is invisible — founder to rule (outline variant or plain name). Body copy: founder to rule |
+| VA-22 404 navy | **Fixed** |
+| VA-23 `/get-started` | **Fixed** | `t-kicker` / `t-h1` / `t-body`, no card; first question sooner (UX #6) |
+| VA-24 mobile hero order | **Fixed** | `SplitHero` copy-first below 1024 on every route that uses it |
+| VA-25 step patterns | **Fixed** | `Stepper` (form progress) and `Steps` (numbered list) only; homepage numerals one recipe |
+| VA-26 link blues | **Fixed** | one link colour `#7dd3fc` (matrix row) |
+| VA-27 photo frames | **Fixed** | one framed-media recipe |
+| New: `/pricing` overflowed 46 px at 1024 (equation grid) | **Fixed** | `minmax(0,1fr)` columns (pre-existing, found by the 1024 capture) |
+
 ---
 
 ## Appendix A — full computed-style tables (generated, `data/analysis.md`)

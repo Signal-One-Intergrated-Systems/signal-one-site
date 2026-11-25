@@ -4,11 +4,11 @@ import ReceiptReference from "../ReceiptReference";
 import IntakeError from "../IntakeError";
 import Link from "next/link";
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
-import { Check } from "../ui";
+import { Check, Stepper } from "../ui";
 import { Consent, JMulti, JRadio, JSelect, JText, ReviewList } from "./fields";
 import { useJourney } from "./useJourney";
 
-const ACCENT = "text-signal-ink";
+const ACCENT = "text-signal-300";
 
 const provinces = [
   "Gauteng",
@@ -47,14 +47,14 @@ function StepShell({
 }) {
   return (
     <>
-      <h1 className="font-display text-[2rem] font-bold leading-[1.1] tracking-[-0.02em] sm:text-[2.5rem]">{title}</h1>
-      <div className="mt-4 rounded-card bg-signal-tint p-4 text-[1.0625rem] leading-relaxed">
+      <h1 className="t-h1">{title}</h1>
+      <div className="mt-4 rounded-card border border-signal-400/40 bg-raised p-4 text-[1.0625rem] leading-relaxed">
         <span className="font-semibold">Why we ask: </span>
         {why}
       </div>
       <div className="mt-8 grid gap-6">{children}</div>
-      <p className="t-small mt-8 border-t border-line pt-4 text-text-2">
-        <span className="font-semibold text-text">Next: </span>
+      <p className="t-small mt-8 border-t border-line-dark pt-4 text-text-inv-2">
+        <span className="font-semibold text-text-inv">Next: </span>
         {next}
       </p>
     </>
@@ -112,11 +112,11 @@ export default function GuardJoin() {
           <span className="grid h-14 w-14 place-items-center rounded-full bg-signal text-deep">
             <Check />
           </span>
-          <h1 className="mt-6 font-display text-[2.25rem] font-bold leading-tight tracking-[-0.02em]">
+          <h1 className="t-h1 mt-6">
             Thank you. Your profile is with Signal One.
           </h1>
           <ReceiptReference reference={j.reference} />
-          <p className="mt-4 text-[1.1875rem] leading-relaxed text-text-2">
+          <p className="t-lead mt-4 text-text-inv-2">
             Here is what happens today.
           </p>
         </div>
@@ -125,21 +125,21 @@ export default function GuardJoin() {
             ["Signal One reviews your profile", "We have saved what you sent and the Signal One team will review it."],
             ["We contact you", "Using the contact details you gave, to confirm your details and PSiRA registration. We cannot say when."],
           ].map(([title, body], index) => (
-            <li key={title} className="grid grid-cols-[2.75rem_1fr] gap-4 border-t border-line py-5">
-              <span className="t-num text-[1.75rem] text-signal-ink">{index + 1}</span>
+            <li key={title} className="grid grid-cols-[2.75rem_1fr] gap-4 border-t border-line-dark py-5">
+              <span className="t-num pt-0.5 text-[1.5rem] text-signal-300">{index + 1}</span>
               <div>
-                <h2 className="text-[1.1875rem] font-semibold">{title}</h2>
-                <p className="mt-1 text-[1.0625rem] text-text-2">{body}</p>
+                <h2 className="t-h4">{title}</h2>
+                <p className="mt-1 text-[1.0625rem] text-text-inv-2">{body}</p>
               </div>
             </li>
           ))}
         </ol>
-        <p className="mt-6 text-[1.0625rem] text-text-2">
+        <p className="mt-6 text-[1.0625rem] text-text-inv-2">
           Guard Marketplace is not live yet. When it launches, signed-in Signal One client companies will be able to find your profile and send you a hire request, which you accept or decline. Your profile is never shown on a public website.
         </p>
-        <p className="mt-4 text-[1.0625rem] text-text-2">
+        <p className="mt-4 text-[1.0625rem] text-text-inv-2">
           Want something corrected or removed? Email{" "}
-          <a href="mailto:sales@signalone.co.za" className="link-inline font-semibold text-signal-ink">
+          <a href="mailto:sales@signalone.co.za" className="link-inline font-semibold text-signal-300">
             sales@signalone.co.za
           </a>
           .
@@ -155,39 +155,25 @@ export default function GuardJoin() {
     <div className="world-guard mx-auto max-w-[720px] px-4 pb-16 pt-6 sm:px-6 md:pt-10">
       {/* Progress */}
       <div className="flex items-center justify-between gap-4 text-[1rem]">
-        <p className="font-semibold">
-          Step {j.stepIndex + 1} of {steps.length} · {current.label}
-        </p>
-        <p className="text-text-2" aria-live="polite">
+        <p className="text-text-inv-2" aria-live="polite">
           {j.hydrated ? "Saved on this phone" : ""}
         </p>
       </div>
-      <div
-        className="mt-3 grid gap-1.5"
-        style={{ gridTemplateColumns: "repeat(" + steps.length + ", minmax(0, 1fr))" }}
-        role="progressbar"
-        aria-label="Profile progress"
-        aria-valuemin={1}
-        aria-valuemax={steps.length}
-        aria-valuenow={j.stepIndex + 1}
-        aria-valuetext={"Step " + (j.stepIndex + 1) + " of " + steps.length + ", " + current.label}
-      >
-        {steps.map((step, index) => (
-          <span key={step.id} className={"h-2 rounded-full " + (index <= j.stepIndex ? "bg-signal" : "bg-line")} />
-        ))}
+      <div className="mt-3">
+        <Stepper steps={steps.map((step) => step.label)} index={j.stepIndex} label="Profile steps" />
       </div>
 
       <form onSubmit={onContinue} className="mt-8">
         <div ref={headingRef} tabIndex={-1} key={current.id} className="animate-enter outline-none">
           {current.id === "learn" ? (
             <>
-              <h1 className="font-display text-[2.25rem] font-bold leading-[1.08] tracking-[-0.02em] sm:text-[2.75rem]">
+              <h1 className="t-h1">
                 Create your guard profile
               </h1>
-              <p className="mt-4 text-[1.1875rem] leading-relaxed text-text-2">
+              <p className="t-lead mt-4 text-text-inv-2">
                 About 5 minutes. Your answers are saved on this phone, so you can stop and come back.
               </p>
-              <h2 className="mt-8 text-[1.25rem] font-semibold">Have these ready</h2>
+              <h2 className="t-h3 mt-8">Have these ready</h2>
               <ul className="m-0 mt-3 grid list-none gap-3 p-0 text-[1.0625rem]">
                 {[
                   "Your PSiRA registration number, grade and expiry date",
@@ -195,16 +181,16 @@ export default function GuardJoin() {
                   "The areas you can travel to for work",
                 ].map((item) => (
                   <li key={item} className="flex gap-3">
-                    <Check className="mt-1 text-signal-ink" />
+                    <Check className="mt-1 text-signal-300" />
                     {item}
                   </li>
                 ))}
               </ul>
-              <div className="mt-8 rounded-card bg-white p-5 ring-1 ring-line">
-                <h2 className="text-[1.125rem] font-semibold">Your profile is private</h2>
-                <p className="mt-1 text-[1.0625rem] text-text-2">
+              <div className="mt-8 rounded-card bg-raised p-5 ring-1 ring-line-dark">
+                <h2 className="t-h4">Your profile is private</h2>
+                <p className="mt-1 text-[1.0625rem] text-text-inv-2">
                   We save your profile and Signal One reviews it. When Guard Marketplace launches, signed-in Signal One client companies will be able to find your profile and send you a hire request, which you accept or decline. Your profile is never shown on a public website.{" "}
-                  <Link href="/guards#your-information" className="link-inline text-signal-ink">
+                  <Link href="/guards#your-information" className="link-inline text-signal-300">
                     How we use your information
                   </Link>
                 </p>
@@ -248,7 +234,7 @@ export default function GuardJoin() {
                 accentClass={ACCENT}
                 options={["WhatsApp", "SMS", "Phone call", "Email"]}
               />
-              <p className="t-small text-text-2">
+              <p className="t-small text-text-inv-2">
                 We do not ask for your ID number on this form. If we need to see documents, we will ask you directly.
               </p>
             </StepShell>
@@ -276,7 +262,7 @@ export default function GuardJoin() {
                 columns="grid-cols-2 sm:grid-cols-3"
               />
               <JText j={j} name="psiraExpiry" label="Expiry date" type="month" required hint="Month and year, as shown on your registration." />
-              <p className="t-small text-text-2">
+              <p className="t-small text-text-inv-2">
                 Signal One records these details as you give them. We do not check them with PSiRA, so please make sure
                 they are correct.
               </p>
@@ -395,10 +381,10 @@ export default function GuardJoin() {
 
           {current.id === "review" ? (
             <>
-              <h1 className="font-display text-[2rem] font-bold leading-[1.1] tracking-[-0.02em] sm:text-[2.5rem]">
+              <h1 className="t-h1">
                 Check your answers
               </h1>
-              <p className="mt-3 text-[1.0625rem] text-text-2">Tap Edit to change anything.</p>
+              <p className="mt-3 text-[1.0625rem] text-text-inv-2">Tap Edit to change anything.</p>
               <div className="mt-6">
                 <ReviewList
                   j={j}
@@ -414,7 +400,7 @@ export default function GuardJoin() {
                   ]}
                 />
               </div>
-              <div className="mt-6 rounded-card bg-white p-5 ring-1 ring-line">
+              <div className="mt-6 rounded-card bg-raised p-5 ring-1 ring-line-dark">
                 <Consent j={j}>
                   I agree that Signal One may use this information to assess my profile and contact me, and, when Guard
                   Marketplace launches, let signed-in Signal One client companies find my profile and send me hire requests. I can ask for it to be

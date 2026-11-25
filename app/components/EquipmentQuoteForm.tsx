@@ -210,10 +210,10 @@ function QuoteForm({ initialCategory, initialProduct, initialQuoteType }: { init
   if (state === "done") {
     return (
       <div role="status" className="card p-6 sm:p-8">
-        <p className="t-kicker text-live">Quote request received</p>
+        <p className="t-kicker text-live-inv">Quote request received</p>
         <h3 className="t-h3 mt-3">We have your {config.label.toLowerCase()} requirement.</h3>
         <ReceiptReference reference={reference} />
-        <p className="t-body mt-3 text-text-2">
+        <p className="t-body mt-3 text-text-inv-2">
           A Signal One representative will confirm the product, availability and terms, then send a written quote by
           email. Nothing is supplied until you accept it.
         </p>
@@ -227,17 +227,17 @@ function QuoteForm({ initialCategory, initialProduct, initialQuoteType }: { init
     const label = (
       <>
         {field.label}
-        {field.required ? null : <span className="font-normal text-text-2"> (optional)</span>}
+        {field.required ? null : <span className="font-normal text-text-inv-2"> (optional)</span>}
       </>
     );
 
     if (field.type === "radio") {
       return (
-        <fieldset key={field.name} className={"field m-0 border-0 p-0 " + (field.wide ? "sm:col-span-2" : "sm:col-span-2")}>
+        <fieldset key={field.name} className={"field m-0 border-0 p-0 " + "sm:col-span-2"}>
           <legend className="field-label mb-2">{label}</legend>
           <div className="grid grid-cols-1 gap-2 min-[420px]:grid-cols-3">
             {field.options?.map((option) => (
-              <label key={option} className="choice text-signal-ink">
+              <label key={option} className="choice text-signal-300">
                 <input
                   type="radio"
                   name={field.name}
@@ -246,7 +246,7 @@ function QuoteForm({ initialCategory, initialProduct, initialQuoteType }: { init
                   checked={value === option}
                   onChange={() => update(field.name, option)}
                 />
-                <span className="text-text">{option}</span>
+                <span className="text-text-inv">{option}</span>
               </label>
             ))}
           </div>
@@ -314,7 +314,7 @@ function QuoteForm({ initialCategory, initialProduct, initialQuoteType }: { init
         <legend className="t-h3">What do you need a quote for?</legend>
         <div className="mt-4 grid gap-2 sm:grid-cols-3">
           {(Object.keys(categories) as Category[]).map((key) => (
-            <label key={key} className="choice text-signal-ink">
+            <label key={key} className="choice text-signal-300">
               <input
                 type="radio"
                 name="category"
@@ -326,18 +326,18 @@ function QuoteForm({ initialCategory, initialProduct, initialQuoteType }: { init
                   setValues(current => ({ ...current, product: "", quantity: "", rentalTerm: "" }));
                 }}
               />
-              <span className="text-text">{categories[key].label}</span>
+              <span className="text-text-inv">{categories[key].label}</span>
             </label>
           ))}
         </div>
-        <p className="t-small mt-3 text-text-2">{config.summary}</p>
+        <p className="t-small mt-3 text-text-inv-2">{config.summary}</p>
       </fieldset>
 
-      <div key={category} className="animate-enter mt-8 grid gap-5 border-t border-line pt-8 sm:grid-cols-2">
+      <div key={category} className="animate-enter mt-8 grid gap-5 border-t border-line-dark pt-8 sm:grid-cols-2">
         {fields.map(renderField)}
       </div>
 
-      <div className="mt-8 grid gap-5 border-t border-line pt-8 sm:grid-cols-2">
+      <div className="mt-8 grid gap-5 border-t border-line-dark pt-8 sm:grid-cols-2">
         <p className="t-h4 sm:col-span-2">Where should we send the quote?</p>
         {contactFields.map(renderField)}
         {renderField({ name: "notes", label: "Anything else", type: "textarea", placeholder: "Timing, accessories, site conditions…", wide: true })}
@@ -354,7 +354,7 @@ function QuoteForm({ initialCategory, initialProduct, initialQuoteType }: { init
       <button type="submit" disabled={state === "sending"} className="btn btn-primary btn-lg mt-6 w-full sm:w-auto">
         {state === "sending" ? "Sending…" : "Request a quote"}
       </button>
-      <p className="t-caption mt-3 text-text-2">Price, availability and delivery are confirmed in your written quote. Nothing is supplied until you accept it.</p>
+      <p className="t-caption mt-3 text-text-inv-2">Price, availability and delivery are confirmed in your written quote. Nothing is supplied until you accept it.</p>
     </form>
   );
 }

@@ -115,9 +115,10 @@ test("marketing introductions use relevant people or exact manufacturer products
     "/service": "service-restaurant-operations.jpg",
     "/equipment-marketplace": "hytera-pnc360s",
     "/guard-marketplace": "hire-security.webp",
-    "/guards": "hire-security",
-    "/join/sales": "customer-enquiry",
-    "/guard-attendance-software": "security-site-planning",
+    // VA-16 (2026-11-25): officer-, sales- and attendance-led scenes replaced office-meeting and site-planning reuse.
+    "/guards": "security-access-scan",
+    "/join/sales": "security-office-park-site-review",
+    "/guard-attendance-software": "security-team-briefing",
     "/guard-patrol-software": "checkpoint",
     "/ptt-radio-rental": "hytera-p30-lite",
     "/radios-equipment": "hytera-pnc360s",

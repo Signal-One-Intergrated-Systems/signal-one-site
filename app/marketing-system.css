@@ -1,672 +1,373 @@
-/* Site-wide accessibility material contract — marketing only, not product apps.
-   The photographic homepage hero remains independently art-directed. */
-main:not(.s1-brand-home) {
-  --site-on-dark:#f2f9ff;
-  --site-muted:#c9ddeb;
-  --site-control:#0c2943;
-  --site-edge:rgba(183,225,250,.38);
-  --marketing-focus:#38bdf8;
-  --marketing-radius:20px;
-  --marketing-edge:rgba(185,225,249,.34);
-  --marketing-panel:linear-gradient(130deg,rgba(16,47,73,.86),rgba(8,30,53,.82));
-  --marketing-shadow:0 22px 64px -36px rgba(0,7,24,.74),inset 0 1px rgba(255,255,255,.12);
-}
-main:not(.s1-brand-home) :is(.surface-light,.surface-light-2,.surface-white) {
-  color:var(--site-on-dark)!important;
-}
-main:not(.s1-brand-home) :is(.surface-light,.surface-light-2,.surface-white) :is(.t-kicker,.t-h1,.t-h2,.t-h3,.t-h4,.t-display,.t-lead) {
-  color:var(--site-on-dark)!important;
-}
-main:not(.s1-brand-home) :is(.surface-light,.surface-light-2,.surface-white) :is(.text-text,.text-text-2,.t-body,.t-small,.t-caption) {
-  color:var(--site-muted)!important;
-}
-main:not(.s1-brand-home) :is(.surface-light,.surface-light-2,.surface-white) :is(.card,.rounded-card,.glass-light) {
-  background:var(--marketing-panel)!important;
-  color:var(--site-on-dark)!important;
-  border:1px solid var(--marketing-edge)!important;
-  box-shadow:var(--marketing-shadow);
-  -webkit-backdrop-filter:blur(18px) saturate(125%);
-  backdrop-filter:blur(18px) saturate(125%);
-}
-main:not(.s1-brand-home) :is(.surface-light,.surface-light-2,.surface-white) :is(.card,.rounded-card,.glass-light) :is(h1,h2,h3,h4,p,li,dt,dd,label,legend) {
-  color:var(--site-on-dark);
-}
-main:not(.s1-brand-home) :is(.field-label,legend) {color:var(--site-on-dark)!important;}
-main:not(.s1-brand-home) :is(.field-hint,.field-label .text-text-2) {color:var(--site-muted)!important;}
-main:not(.s1-brand-home) .field-input {
-  background:rgba(6,24,43,.8)!important;color:var(--site-on-dark)!important;
-  border:1px solid var(--site-edge)!important;
-  border-radius:13px!important;min-height:52px;
-}
-main:not(.s1-brand-home) .field-input::placeholder {color:#b4cad9!important;opacity:1}
-main:not(.s1-brand-home) select.field-input option {background:#0c2943;color:#f2f9ff;}
-main:not(.s1-brand-home) :is(.choice,.check) {
-  background:rgba(12,43,68,.7)!important;
-  border:1px solid rgba(180,224,248,.32)!important;
-  border-radius:13px;color:#eaf6ff!important;
-}
-main:not(.s1-brand-home) :is(.choice,.check) :is(.text-text,.text-text-2) {color:#eaf6ff!important}
-main:not(.s1-brand-home) .choice:has(input:checked) {border-color:#78d8ff!important;background:rgba(10,89,139,.5)!important}
+/*
+ * Signal One marketing page shells: scene heroes, legal reading pages, product showcases and the
+ * footer. Tokens and shared components live in globals.css; nothing here redefines them.
+ * Rules (docs/DESIGN_SYSTEM.md): no new colour literals, no `!important`, no override layers.
+ */
 
-main:not(.s1-brand-home) input:is([type=checkbox],[type=radio]){accent-color:#0ea5e9}
-main:not(.s1-brand-home) :is(.btn,.btn-primary,.btn-ghost,.btn-ghost-light,a) {text-underline-offset:4px}
-main:not(.s1-brand-home) .field-error,main:not(.s1-brand-home) [role=alert] {color:#ffd1d1!important}
-main:not(.s1-brand-home) :is(.section,.surface-light,.surface-light-2,.surface-white,.surface-deep) > .wrap {position:relative}
-@media(prefers-reduced-transparency:reduce){
- main:not(.s1-brand-home) :is(.card,.rounded-card,.glass-light){background:#173a55!important;backdrop-filter:none!important}
+/* ---------- Scene heroes: sector context behind the introduction only ----------
+   2026-11-15 direction: photography belongs to the sector introduction; everything below sits on
+   the quiet graphite stage. The photograph is toned to the graphite family (luminosity blend over
+   the base colour), so a warm or saturated source never pulls the page off-palette (VA-17), and
+   the wash keeps it a backdrop, not content. */
+.s1-scene-page--guard-os,
+.s1-scene-page--officers,
+.s1-scene-page--recruitment {
+  --scene: url("/images/backgrounds/business-park.webp");
+}
+.s1-scene-page--service {
+  --scene: url("/images/backgrounds/restaurant-dining.webp");
+}
+.s1-scene-page--patrol {
+  --scene: url("/images/backgrounds/warehouse-yard.webp");
+}
+:is(.s1-scene-page--guard-os, .s1-scene-page--officers, .s1-scene-page--recruitment, .s1-scene-page--service, .s1-scene-page--patrol)
+  > section:first-child {
+  background-color: var(--color-base);
+  background-image: var(--scene-wash), var(--scene);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-blend-mode: normal, luminosity;
 }
 
-
-
-/* CANONICAL MARKETING COMPONENT CONTRACT — 2026-10-29
-   Last-layer reconciliation of approved Signal One type and glass. No brand changes.
-   Scope excludes transition overlays and the separately art-directed homepage hero. */
-main:not(.s1-brand-home){
- --s1-font-body:var(--font-body),Inter,ui-sans-serif,system-ui,sans-serif;
- --s1-ink:#f1f5f9;--s1-copy:#cbd5e1;--s1-accent:#38bdf8;
- font-family:var(--s1-font-body);
-}
-main:not(.s1-brand-home) :is(.t-display,.t-h1,.t-h2,.t-h3,.t-h4,h1,h2,h3,h4){
- font-family:var(--s1-font-body)!important;
- text-wrap:balance;
-}
-main:not(.s1-brand-home) :is(.t-display,.t-h1,.t-h2,.t-h3){
- font-weight:700;letter-spacing:-.03em;
-}
-main:not(.s1-brand-home) .t-display{font-size:clamp(2.75rem,4.5vw,5.75rem);line-height:1.03}
-main:not(.s1-brand-home) .t-h1{font-size:clamp(2.5rem,3.5vw,4.6rem);line-height:1.06}
-main:not(.s1-brand-home) .t-h2{font-size:clamp(2.125rem,2.8vw,3.5rem);line-height:1.09}
-main:not(.s1-brand-home) .t-h3{font-size:clamp(1.25rem,1.4vw,1.65rem);line-height:1.22}
-main:not(.s1-brand-home) .t-lead{font-size:clamp(1.125rem,1.45vw,1.375rem);line-height:1.5}
-main:not(.s1-brand-home) :is(.t-small,.field-label,.field-hint){font-size:max(.875rem,14px)}
-main:not(.s1-brand-home) .t-caption{font-size:.875rem}
-main:not(.s1-brand-home) :is(.card,.rounded-card,.glass,.glass-light){
- overflow-wrap:break-word;
-}
-/* One focus treatment for buttons, links, form controls and selection surfaces. */
-main:not(.s1-brand-home) :is(.field-input,input,textarea,select,a,button,[role="button"]):focus-visible,
-main:not(.s1-brand-home) :is(.choice,.check):focus-within{
- outline:3px solid var(--marketing-focus)!important;
- outline-offset:3px!important;
-}
-main:not(.s1-brand-home) .field-input{min-height:52px;font-family:var(--s1-font-body)}
-main:not(.s1-brand-home) :is(.btn,button,[role="button"]){touch-action:manipulation}
-@media(max-width:767px){
- main:not(.s1-brand-home) :is(.card,.rounded-card,.glass,.glass-light){
-  -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
- }
- main:not(.s1-brand-home) :is(.t-display,.t-h1,.t-h2){overflow-wrap:normal}
-}
-@media(prefers-reduced-transparency:reduce){
- main:not(.s1-brand-home) :is(.card,.rounded-card,.glass,.glass-light){
-  -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
- }
+/* ---------- Framed photography of people (one treatment, VA-27) ---------- */
+.s1-marketplace-aside {
+  display: grid;
+  gap: 16px;
 }
 
-
-/* Shared visible component geometry — premium Signal One marketing surfaces.
-   Scoped to commercial routes; hero artwork, brand lockups and the Guard shutter are unchanged. */
-main:not(.s1-brand-home) :is(.card,.card-dark,.rounded-card,.glass,.glass-light){
- border-radius:var(--marketing-radius);
- border:1px solid var(--marketing-edge);
- box-shadow:var(--marketing-shadow);
+/* ---------- Manufacturer product showcase ---------- */
+.s1-hardware-showcase {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  width: 100%;
+  max-width: 600px;
+  margin-inline: auto;
 }
-main:not(.s1-brand-home) .section .grid > :is(article,.card,.rounded-card){
- transition:transform .22s cubic-bezier(.16,1,.3,1),border-color .22s ease,box-shadow .22s ease;
+.s1-hardware-showcase-item {
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--color-line-dark);
+  border-radius: var(--radius-card);
+  background: var(--color-well);
+  box-shadow: var(--shadow-card);
 }
-@media(hover:hover) and (prefers-reduced-motion:no-preference){
- main:not(.s1-brand-home) .section .grid > :is(article,.card,.rounded-card):hover{
-  transform:translateY(-2px);
-  border-color:rgba(188,231,255,.52);
-  box-shadow:0 28px 76px -38px rgba(0,7,24,.83),inset 0 1px rgba(255,255,255,.16);
- }
+/* One well height for every product in a showcase, so peers are shown at the same scale (VA-20). */
+.s1-hardware-showcase .s1-product-well {
+  height: clamp(180px, 25vw, 300px);
 }
-main:not(.s1-brand-home) :is(.btn,.btn-primary,.btn-ghost-light,.btn-ghost-dark){
- display:inline-flex;align-items:center;justify-content:center;gap:.55rem;
- min-height:48px;
- border-radius:12px;
- font-family:var(--font-body),Inter,ui-sans-serif,sans-serif;
- font-size:clamp(.9375rem,1vw,1rem);
- font-weight:650;
- line-height:1.25;
- text-align:center;
- transition:background-color .2s ease,border-color .2s ease,color .2s ease;
+.s1-hardware-showcase-item figcaption {
+  padding: 8px 16px 20px;
+  color: var(--color-text);
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.4;
 }
-main:not(.s1-brand-home) :is(.btn,.btn-primary,.btn-ghost-light,.btn-ghost-dark):disabled,
-main:not(.s1-brand-home) :is(.btn,.btn-primary,.btn-ghost-light,.btn-ghost-dark)[aria-disabled="true"]{
- opacity:.56;cursor:not-allowed;
+.s1-hardware-showcase-item figcaption span {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-2);
 }
-main:not(.s1-brand-home) :is(input.field-input,textarea.field-input,select.field-input){
- width:100%;min-height:52px;border-radius:13px;
- font-size:1rem;line-height:1.4;
+.s1-hardware-showcase-note {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--color-text-inv-2);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  text-align: center;
 }
-main:not(.s1-brand-home) .field-label{display:block;font-weight:650;line-height:1.5}
-main:not(.s1-brand-home) :is(.card,.rounded-card) :is(.t-body,.t-small,.t-caption){
- line-height:1.55;
-}
-@media(max-width:767px){
- main:not(.s1-brand-home) :is(.card,.card-dark,.rounded-card,.glass,.glass-light){border-radius:18px}
- main:not(.s1-brand-home) :is(.btn,.btn-primary,.btn-ghost-light,.btn-ghost-dark){min-height:48px}
-}
-@media(prefers-reduced-motion:reduce){
- main:not(.s1-brand-home) .section .grid > :is(article,.card,.rounded-card),
- main:not(.s1-brand-home) :is(.btn,.btn-primary,.btn-ghost-light,.btn-ghost-dark){transition:none!important;transform:none!important}
-}
-
-
-/* Premium conversion footer: horizontal breathing room, compact routes, purposeful finish. */
-.s1-premium-footer{background:linear-gradient(150deg,#152a36 0%,#0b1b28 72%);color:#f4f9ff;padding:clamp(24px,4vw,60px) 0 0;border-top:1px solid rgba(218,244,255,.28)}
-.s1-premium-footer-shell{border:1px solid rgba(217,240,254,.29);border-radius:28px 28px 0 0;background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.02));box-shadow:inset 0 1px rgba(255,255,255,.19);overflow:hidden}
-.s1-premium-footer-intro{display:flex;align-items:center;justify-content:space-between;gap:28px;padding:clamp(26px,4vw,52px);border-bottom:1px solid rgba(224,245,255,.19)}
-.s1-footer-kicker{letter-spacing:.12em;font-size:.76rem;font-weight:700;color:#8cdcff}
-.s1-premium-footer-intro h2{font-size:clamp(2rem,3.4vw,3.9rem);letter-spacing:-.05em;line-height:1.09;margin:12px 0}
-.s1-premium-footer-intro p:last-child,.s1-footer-brand p{color:#c4d6df;line-height:1.6;max-width:44ch}
-.s1-footer-main-cta{min-height:54px;display:inline-flex;align-items:center;justify-content:center;gap:16px;flex-shrink:0;border-radius:999px;background:#0ea5e9;padding:12px 23px;color:#061925;font-weight:750;box-shadow:inset 0 1px rgba(255,255,255,.5),0 14px 32px -20px rgba(30,179,249,.7);transition:transform .23s ease,box-shadow .23s ease}
-.s1-footer-main-cta:hover{transform:translateY(-3px);box-shadow:0 17px 35px -18px rgba(30,179,249,.6)}
-.s1-premium-footer-bottom{display:grid;grid-template-columns:minmax(220px,.85fr) minmax(0,2.15fr);gap:clamp(25px,4vw,64px);padding:clamp(26px,4vw,48px)}
-.s1-footer-brand{display:flex;align-items:flex-start;flex-direction:column;gap:18px}
-.s1-footer-logo{display:inline-flex;min-height:48px;align-items:center}
-.s1-footer-brand>a:last-child{color:#a5e0ff;font-weight:650;text-decoration:underline;text-underline-offset:5px}
-.s1-footer-link-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:clamp(15px,2.7vw,45px)}
-.s1-footer-group{min-width:0}.s1-footer-group summary{list-style:none;cursor:pointer;font-weight:700;font-size:.95rem;padding:12px 0;color:#f3f9ff}.s1-footer-group summary::-webkit-details-marker{display:none}
-.s1-footer-group summary span{display:none}.s1-footer-group ul{padding:0;margin:8px 0 0;list-style:none;display:grid;gap:3px}
-.s1-footer-group li a{display:flex;align-items:center;min-height:37px;color:#c7d8e3;font-size:.9rem;line-height:1.45;transition:color .2s ease,transform .2s ease}
-.s1-footer-group li a:hover{color:#fff;transform:translateX(3px)}
-.s1-premium-footer a:focus-visible,.s1-footer-group summary:focus-visible{outline:3px solid #38bdf8;outline-offset:4px}
-.s1-footer-legal{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;border-top:1px solid rgba(224,245,255,.18);padding:19px clamp(26px,4vw,48px);color:#aabecb;font-size:.8rem}
-@media(max-width:900px){.s1-premium-footer-bottom{grid-template-columns:1fr}.s1-footer-link-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:620px){.s1-premium-footer-intro{align-items:stretch;flex-direction:column}.s1-footer-main-cta{width:100%}.s1-footer-link-grid{display:block}.s1-footer-group{border-bottom:1px solid rgba(224,245,255,.17)}.s1-footer-group summary{min-height:52px;display:flex;justify-content:space-between;align-items:center}.s1-footer-group summary span{display:inline-block;font-size:1.3rem}.s1-footer-group[open] summary span{transform:rotate(45deg)}.s1-footer-group ul{padding-bottom:15px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px 12px}.s1-premium-footer-shell{border-radius:22px 22px 0 0}}
-@media(prefers-reduced-motion:reduce){.s1-footer-main-cta,.s1-footer-group li a{transition:none}.s1-footer-main-cta:hover,.s1-footer-group li a:hover{transform:none}}
-
-
-/* One neutral optical-glass material across marketing pages, excluding checkout-like forms. */
-main:not(.s1-brand-home){--marketing-panel:linear-gradient(128deg,rgba(23,34,39,.65),rgba(23,36,41,.43));--marketing-edge:rgba(244,251,255,.43);--marketing-shadow:inset 0 1px rgba(255,255,255,.23),0 22px 62px -37px rgba(0,9,19,.57)}
-main:not(.s1-brand-home) :is(.card,.rounded-card,.glass,.glass-light){
- -webkit-backdrop-filter:blur(23px) saturate(112%);backdrop-filter:blur(23px) saturate(112%);
- border-color:var(--marketing-edge);box-shadow:var(--marketing-shadow)
-}
-main:not(.s1-brand-home) :is(.btn-primary,.btn-ghost-dark,.btn-ghost-light){
- border-radius:999px;min-height:48px;position:relative;overflow:hidden;
- transition:transform .23s cubic-bezier(.2,.75,.25,1),box-shadow .23s ease,background-color .23s ease,border-color .23s ease;
-}
-@media(hover:hover){main:not(.s1-brand-home) :is(.btn-primary,.btn-ghost-dark,.btn-ghost-light):hover{transform:translateY(-2px);box-shadow:0 13px 27px -16px rgba(0,0,0,.53)}}
-main:not(.s1-brand-home) :is(.btn-primary,.btn-ghost-dark,.btn-ghost-light):active{transform:scale(.985)}
-@media(prefers-reduced-motion:reduce){main:not(.s1-brand-home) :is(.btn-primary,.btn-ghost-dark,.btn-ghost-light){transition:none}main:not(.s1-brand-home) :is(.btn-primary,.btn-ghost-dark,.btn-ghost-light):hover{transform:none}}
-/* Matching glass shutters for inter-page scene transitions, rather than blue slabs. */
-.sg-entry-overlay .sg-entry-shutter.sg-glass-panel{
- background:linear-gradient(135deg,rgba(28,36,39,.71),rgba(35,45,48,.6))!important;
- border-color:rgba(246,252,255,.34)!important;
- -webkit-backdrop-filter:blur(28px) saturate(110%)!important;
- backdrop-filter:blur(28px) saturate(110%)!important;
- box-shadow:inset 0 1px rgba(255,255,255,.24)
-}
-/* The sealed stage is opaque: route commit/scroll correction can never ghost
-   through translucent glass. Only the shutters reveal the settled destination. */
-.sg-entry-overlay[data-guard-entry="sealed"]{background:#192127!important}
-.sg-entry-overlay:not([data-guard-entry="idle"]){
- pointer-events:auto;
- touch-action:none;
- overscroll-behavior:contain
-}
-
-
-/* SITEWIDE OPTICAL MATERIAL — shared neutral pill and controls.
-   Keep the outer header free of a second backdrop on every marketing route. */
-header.glass-nav,header.glass-nav[data-scrolled]{
- background:transparent!important;background-image:none!important;
- border:0!important;box-shadow:none!important;
- -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
-}
-header.glass-nav > .wrap,header.glass-nav[data-scrolled] > .wrap{
- background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(0,0,0,.08)),rgba(23,33,38,.67)!important;
- border:1px solid rgba(247,252,255,.44)!important;
- border-radius:999px!important;
- -webkit-backdrop-filter:blur(27px) saturate(111%)!important;
- backdrop-filter:blur(27px) saturate(111%)!important;
- box-shadow:inset 0 1px rgba(255,255,255,.26),0 16px 36px -24px rgba(0,0,0,.51)!important;
-}
-@media(max-width:670px){
- header.glass-nav > .wrap,header.glass-nav[data-scrolled] > .wrap{
-  background:rgba(23,33,38,.87)!important;border-radius:999px!important;
- }
-}
-@media(prefers-reduced-transparency:reduce){
- header.glass-nav > .wrap,header.glass-nav[data-scrolled] > .wrap{
-  background:#202c33!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important
- }
-}
-/* Depth and motion are a material property, not a second design system. */
-main:not(.s1-brand-home) :is(.card,.rounded-card,.glass,.glass-light){
- background:linear-gradient(125deg,rgba(25,37,44,.64),rgba(20,32,40,.47))!important;
- border-color:rgba(232,247,255,.4)!important;
- -webkit-backdrop-filter:blur(22px) saturate(112%);
- backdrop-filter:blur(22px) saturate(112%);
- box-shadow:inset 0 1px rgba(255,255,255,.23),0 24px 65px -42px rgba(0,9,20,.62)
-}
-main:not(.s1-brand-home) :is(.btn-primary,.btn-ghost,.btn-ghost-dark,.btn-ghost-light){
- min-height:48px;border-radius:999px!important;transition:transform .22s ease,box-shadow .22s ease,background-color .22s ease
-}
-@media(hover:hover){main:not(.s1-brand-home) :is(.btn-primary,.btn-ghost,.btn-ghost-dark,.btn-ghost-light):hover{transform:translateY(-2px)}}
-@media(prefers-reduced-motion:reduce){main:not(.s1-brand-home) :is(.btn-primary,.btn-ghost,.btn-ghost-dark,.btn-ghost-light){transition:none!important;transform:none!important}}
-
-
-/* Phase B/C: dedicated premium image treatment for conversion journeys. */
-.s1-premium-trial{
- position:relative;isolation:isolate;min-height:100vh;
- background:linear-gradient(115deg,rgba(12,26,34,.84),rgba(18,35,44,.68)),url('/images/interior/trial-premium.svg') center top/cover no-repeat!important;
-}
-.s1-premium-trial .s1-onboarding-intro{
- background:linear-gradient(135deg,rgba(28,39,44,.78),rgba(24,37,43,.61))!important;
- border:1px solid rgba(243,252,255,.47)!important;
- -webkit-backdrop-filter:blur(24px) saturate(108%);backdrop-filter:blur(24px) saturate(108%);
- box-shadow:inset 0 1px rgba(255,255,255,.27),0 22px 58px -35px rgba(0,8,22,.64);
-}
-.s1-premium-contact{background:linear-gradient(160deg,#1b303b,#233842 35%,#142732)!important}
-.s1-premium-pricing .split-hero{background:linear-gradient(135deg,#172d3b,#1d3642 60%,#0d2432)!important}
-.s1-premium-trial :is(input,textarea,select),.s1-premium-contact :is(input,textarea,select){
- min-height:48px;scroll-margin-top:100px
-}
-@media(max-width:670px){
- .s1-premium-trial{background-attachment:scroll!important;background-position:58% top!important}
-}
-/* Exact feature routes only; avoid fake evidence and avoid repeatedly using the same scene. */
-.s1-premium-image-guard,.s1-premium-image-service,.s1-premium-image-network{
- border:1px solid rgba(240,251,255,.44);
- box-shadow:inset 0 1px rgba(255,255,255,.29),0 27px 68px -42px rgba(2,11,22,.7);
- border-radius:24px;
-}
-
-
-/* Route-level scenes: no photograph reused on a second marketing route. */
-.s1-premium-radio{isolation:isolate}
-.s1-premium-radio .split-hero,.s1-premium-radio > section:first-child{
- background:linear-gradient(105deg,rgba(7,23,34,.87),rgba(16,39,51,.68)),url('/images/interior/radio-premium.svg') center/cover no-repeat!important;
-}
-.s1-premium-trust{
- background:linear-gradient(115deg,rgba(14,27,35,.88),rgba(20,39,48,.84)),url('/images/interior/legal-premium.svg') center top/cover no-repeat!important
-}
-.s1-premium-trust article{position:relative;isolation:isolate}
-.s1-premium-trust article:before{
- content:"";position:absolute;inset:clamp(9px,2vw,30px) 0;z-index:-1;
- background:rgba(17,32,41,.64);border:1px solid rgba(231,247,255,.37);
- border-radius:25px;-webkit-backdrop-filter:blur(26px);backdrop-filter:blur(26px);
-}
-.s1-premium-trust article>div{padding:clamp(18px,3vw,36px)}
-/* Light-touch editorial structure and spacing; do not introduce fake assets on policy pages. */
-main:not(.s1-brand-home) :is(.section,.split-hero)> .wrap{isolation:isolate}
-main:not(.s1-brand-home) :is(.t-display,.t-h1,.t-h2){letter-spacing:-.043em}
-@media(prefers-reduced-transparency:reduce){
- .s1-premium-trust article:before{background:#1b303b;-webkit-backdrop-filter:none;backdrop-filter:none}
-}
-
-
-/* Exactly one canonical header lockup at each width; avoid Tailwind display conflicts. */
-header.glass-nav .s1-nav-logo-wide,
-header.glass-nav .s1-nav-logo-medium{display:none}
-header.glass-nav .s1-nav-logo-small{display:inline-flex;align-items:center}
-@media(min-width:380px){
- header.glass-nav .s1-nav-logo-small{display:none}
- header.glass-nav .s1-nav-logo-medium{display:inline-flex;align-items:center}
-}
-@media(min-width:640px){
- header.glass-nav .s1-nav-logo-medium{display:none}
- header.glass-nav .s1-nav-logo-wide{display:inline-flex;align-items:center}
-}
-
-
-/* The older onboarding surface rule is more specific; honour the bespoke trial scene. */
-main.s1-onboarding.surface-light.s1-premium-trial{
- color:#edf7ff!important;
- background:linear-gradient(115deg,rgba(12,26,34,.84),rgba(18,35,44,.68)),url('/images/interior/trial-premium.svg') center top/cover no-repeat!important;
-}
-@media(max-width:670px){
- main.s1-onboarding.surface-light.s1-premium-trial{background-position:58% top!important}
-}
-
-
-/* The signup page's complete scene must override the legacy onboarding gradient,
-   without altering form fields, text contrast or error feedback. */
-main.s1-onboarding.surface-light.s1-premium-trial{
- background:
-  linear-gradient(115deg,rgba(12,26,34,.82),rgba(18,35,44,.68)),
-  url('/images/interior/trial-premium.svg') center top/cover no-repeat!important;
- color:#edf7ff!important;
-}
-
-
-/* The trial backdrop must beat the older `main.s1-onboarding.surface-light` rule.
-   Keep the original fallback colours but visibly present the unique approved scene. */
-main.s1-onboarding.surface-light.s1-premium-trial{
- background:
-   linear-gradient(113deg,rgba(12,25,34,.83),rgba(17,34,42,.67)),
-   url('/images/interior/trial-premium.svg') center top / cover no-repeat!important;
-}
-
-
-/* Preserve the dedicated trust architectural scene against the legacy main surface gradient. */
-main.surface-light.s1-premium-trust{
- background:
-  linear-gradient(115deg,rgba(14,27,35,.87),rgba(20,39,48,.81)),
-  url('/images/interior/legal-premium.svg') center top/cover no-repeat!important;
- color:#edf7ff!important;
-}
-
-
-/* Trust scene must outrank the older global main.surface-light background.
-   Preserve legal text contrast and the editorial inset glass panel. */
-main.surface-light.s1-premium-trust{
- background:
-  linear-gradient(115deg,rgba(14,27,35,.9),rgba(20,39,48,.83)),
-  url('/images/interior/legal-premium.svg') center top / cover no-repeat!important;
-}
-
-
-/* People-first visual repair (2026-10-30).
-   The environments are context behind the content; the photograph shows real work
-   with visible people. Do not substitute a people-free SVG for a primary image. */
-.s1-people-scene-service{
-  background-image:linear-gradient(110deg,rgba(9,26,34,.90),rgba(15,31,36,.64)),url('/images/scenes/service-dining.svg')!important;
-  background-size:cover!important;background-position:center!important;
-}
-.s1-equipment-hero{
-  background-image:linear-gradient(110deg,rgba(8,24,33,.92),rgba(13,34,44,.73)),url('/images/scenes/connectivity.svg')!important;
-  background-size:cover!important;background-position:center!important;
-}
-.s1-people-hiring .split-hero{
-  background-image:linear-gradient(115deg,rgba(8,22,32,.93),rgba(10,27,37,.74)),url('/images/scenes/campus.svg')!important;
-  background-size:cover!important;background-position:center!important;
-}
-.s1-people-main-photo img,
-.s1-person-first-split img{
-  object-fit:cover!important;filter:none!important;
-}
-.s1-people-main-photo img{object-position:center 44%!important}
-.s1-equipment-photo.s1-people-main-photo img{object-position:48% 45%!important}
-.s1-marketplace-photo.s1-people-main-photo img{object-position:50% 42%!important}
-.s1-people-main-photo::after{
-  content:"";position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(180deg,transparent 70%,rgba(6,22,30,.32) 100%);
-}
-@media(max-width:670px){
- .s1-people-main-photo img{object-position:50% 37%!important}
-}
-
-/* Win over the legacy dark section gradient. Maintain the service team as
-   foreground and show the dining scene only behind the section. */
-main .s1-people-scene-service.surface-deep.section{
-  background-image:linear-gradient(110deg,rgba(9,26,34,.9),rgba(15,31,36,.64)),url('/images/scenes/service-dining.svg')!important;
-  background-size:cover!important;
-  background-position:center!important;
-}
-
-/* Route-specific image scenes must defeat the generic gradient on .section
-   without covering the actual people in the foreground photography. */
-main .s1-equipment-hero.surface-deep.section{
-  background-image:linear-gradient(110deg,rgba(8,24,33,.92),rgba(13,34,44,.73)),url('/images/scenes/connectivity.svg')!important;
-  background-size:cover!important;
-  background-position:center!important;
-}
-main.s1-people-hiring .split-hero.surface-deep{
-  background-image:linear-gradient(115deg,rgba(8,22,32,.93),rgba(10,27,37,.74)),url('/images/scenes/campus.svg')!important;
-  background-size:cover!important;
-  background-position:center!important;
-}
-
-
-/* SIGNAL ONE — photographic marketing surfaces, 2026-10-30
-   The user's art direction is SCENES behind every promotional chapter,
-   and smoky neutral glass for text — not blue backgrounds.
-   Legal/privacy policy documents remain reading-first rather than
-   being dressed as product advertisements. */
-main.s1-scene-page{
-  --s1-scene-primary:none;
-  --s1-scene-secondary:none;
-  --s1-scene-overlay-a:rgba(16,18,18,.74);
-  --s1-scene-overlay-b:rgba(16,19,19,.43);
-  background:linear-gradient(105deg,var(--s1-scene-overlay-a),var(--s1-scene-overlay-b)),var(--s1-scene-primary) center top/cover no-repeat!important;
-  color:#f3f6f7;
-  isolation:isolate;
-}
-main.s1-scene-page :is(section.surface-light,section.surface-light-2,section.surface-white,section.surface-base,section.surface-deep,section.split-hero,section.bg-white,section.bg-light,section.bg-deep,section.section,section.py-16,section.py-12){
-  background:var(--s1-quiet-surface)!important;
-  background-color:#282a28!important;
-  color:#f2f5f5!important;
-}
-main.s1-scene-page :is(.text-text,.text-text-2,.text-text-inv,.text-text-inv-2){
-  color:#e7eef0!important;
-}
-main.s1-scene-page :is(h1,h2,h3,h4,p,li,dt,dd){
-  text-shadow:0 1px 2px rgba(0,0,0,.15);
-}
-main.s1-scene-page :is(.card,.card-dark,.rounded-card,.glass,.glass-light,.bg-raised,.bg-surface){
-  background:rgba(26,29,30,.73)!important;
-  border-color:rgba(234,240,239,.28)!important;
-  -webkit-backdrop-filter:blur(17px) saturate(89%);
-  backdrop-filter:blur(17px) saturate(89%);
-}
-main.s1-scene-page :is(input,textarea,select) {
-  text-shadow:none;
-}
-main.s1-scene-page.s1-premium-trial,
-main.s1-scene-page.s1-premium-contact,
-main.s1-scene-page.s1-premium-trust{
-  background:linear-gradient(105deg,rgba(15,17,17,.78),rgba(18,18,18,.48)),var(--s1-scene-primary) center/cover no-repeat!important;
-}
-main.s1-scene-page--service > section.s1-people-scene-service,
-main.s1-scene-page--equipment > section.s1-equipment-hero{
-  background:linear-gradient(95deg,rgba(17,18,18,.68),rgba(16,18,18,.34)),var(--s1-scene-primary) center/cover no-repeat!important;
-}
-main.s1-scene-page--recruitment .split-hero,
-main.s1-scene-page--radios .split-hero,
-main.s1-scene-page--pricing .split-hero{
-  background:linear-gradient(95deg,rgba(15,17,18,.73),rgba(15,17,18,.40)),var(--s1-scene-primary) center/cover no-repeat!important;
-}
-/* Maintain panel contrast and the original Signal One blue highlights. */
-.s1-premium-footer-shell{
-  background:rgba(32,35,35,.60)!important;
-  -webkit-backdrop-filter:blur(20px) saturate(90%);
-  backdrop-filter:blur(20px) saturate(90%);
-}
-@media(max-width:767px){
-  main.s1-scene-page :is(.card,.rounded-card,.glass,.glass-light,.bg-raised){
-    background:rgba(23,26,26,.89)!important;
-    -webkit-backdrop-filter:none!important;
-    backdrop-filter:none!important;
+@media (max-width: 640px) {
+  .s1-hardware-showcase {
+    gap: 10px;
   }
-}
-@media(prefers-reduced-transparency:reduce){
-  main.s1-scene-page :is(.card,.rounded-card,.glass,.glass-light,.bg-raised),.s1-premium-footer-shell{
-    background:rgba(25,27,27,.95)!important;
-    -webkit-backdrop-filter:none!important;
-    backdrop-filter:none!important;
+  .s1-hardware-showcase-item figcaption {
+    padding: 8px 10px 16px;
+    font-size: 0.9375rem;
   }
 }
 
-
-/* Beat legacy three-class backgrounds on hero and onboarding surfaces. */
-main.s1-scene-page--service > section.s1-people-scene-service.surface-deep.section{
-  background:linear-gradient(95deg,rgba(17,18,18,.68),rgba(16,18,18,.34)),var(--s1-scene-primary) center/cover no-repeat!important;
+/* ---------- Catalogue: one card anatomy, with a horizontal variant for a single product (VA-11) ---------- */
+.catalogue-grid {
+  display: grid;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
-main.s1-scene-page.s1-onboarding.surface-light.s1-premium-trial{
-  background:linear-gradient(105deg,rgba(15,17,17,.78),rgba(18,18,18,.48)),var(--s1-scene-primary) center/cover no-repeat!important;
+@media (min-width: 640px) {
+  .catalogue-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  /* A group with one product: the card spans the row and lays out horizontally, with the product
+     well at the same width as a two-up card's, so the photograph is never enlarged. */
+  .catalogue-grid > li:only-child {
+    grid-column: 1 / -1;
+  }
+  .catalogue-grid > li:only-child .hardware-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .catalogue-grid > li:only-child .hardware-card > .s1-product-well {
+    aspect-ratio: 4 / 3;
+    height: 100%;
+  }
 }
-main.s1-scene-page--equipment > section.s1-equipment-hero.surface-deep.section{
-  background:linear-gradient(105deg,rgba(15,17,17,.72),rgba(16,18,18,.38)),var(--s1-scene-primary) center/cover no-repeat!important;
+/* A product without a manufacturer image gets a typographic well of the same proportions, never a
+   stand-in photograph of a different device (DR-006). */
+.well-typographic {
+  position: relative;
+  display: grid;
+  aspect-ratio: 4 / 3;
+  place-items: center;
+  padding: 24px;
+  background: var(--color-raised-2);
+  border-bottom: 1px solid var(--color-line-dark);
+  color: var(--color-text-inv-3);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.012em;
 }
-
-
-/* Hiring hero previously retained an older three-class illustrated-campus override. */
-main.s1-scene-page.s1-people-hiring .split-hero.surface-deep{
-  background:linear-gradient(110deg,rgba(15,18,18,.76),rgba(18,20,19,.39)),var(--s1-scene-primary) center/cover no-repeat!important;
-}
-
-
-/* 2026-10-30 BRAND RULE: architectural environments behind glass panels;
-   staff and customers appear ONLY inside framed, elevated glass photo panels.
-   Every URL here points to a verified, human-free background photograph.
-   Overrides the previous employee-photo background mapping. */
-
-/* An actual photograph with staff in the foreground must be presented as
-   a self-contained glass picture card, not laid into the hero background. */
-main.s1-scene-page .s1-glass-people-photo{
- overflow:hidden;
- isolation:isolate;
- border:10px solid rgba(35,42,41,.53);
- border-radius:25px;
- box-shadow:inset 0 1px rgba(255,255,255,.29),0 20px 60px -35px rgba(3,9,9,.75);
- -webkit-backdrop-filter:blur(17px) saturate(105%);
- backdrop-filter:blur(17px) saturate(105%);
-}
-main.s1-scene-page .s1-glass-people-photo img{
- border-radius:15px;
-}
-main.s1-scene-page .s1-people-main-photo{
- border:10px solid rgba(35,42,41,.57)!important;
- box-shadow:inset 0 1px rgba(255,255,255,.24),0 20px 60px -34px rgba(2,8,8,.7);
- -webkit-backdrop-filter:blur(16px);
- backdrop-filter:blur(16px);
-}
-main.s1-scene-page .s1-people-main-photo img{border-radius:14px}
-main.s1-scene-page--service > section.s1-people-scene-service.surface-deep.section,
-main.s1-scene-page--equipment > section.s1-equipment-hero.surface-deep.section,
-main.s1-scene-page.s1-people-hiring .split-hero.surface-deep,
-main.s1-scene-page.s1-onboarding.surface-light.s1-premium-trial{
- background-image:linear-gradient(110deg,rgba(17,19,18,.70),rgba(18,20,19,.38)),var(--s1-scene-primary)!important;
- background-color:#2a2c2b!important;
- background-size:cover!important;
- background-position:center!important;
-}
-/* Images are not changed or removed: the scene-only rule affects CSS image
-   surfaces exclusively. Keep the original identity, forms and controls. */
-@media(prefers-reduced-transparency:reduce){
- main.s1-scene-page .s1-glass-people-photo{
-   border-color:#37403c;backdrop-filter:none;
- }
+.well-typographic-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
 }
 
-/* 2026-11-15 image audit: sector context belongs to the introduction;
-   products, proof, forms and reading surfaces share a quiet graphite stage.
-   This supersedes the earlier photograph-under-every-section direction. */
-main.s1-scene-page{
- --s1-quiet-surface:radial-gradient(ellipse at 85% 0%,rgba(49,72,80,.28),transparent 62%),linear-gradient(145deg,#252b2e,#171d21);
- --s1-scene-primary:none;
- background:var(--s1-quiet-surface)!important;
+/* ---------- Legal and policy reading pages ---------- */
+.s1-legal-layout {
+  display: grid;
+  gap: 36px;
+  align-items: start;
 }
-main.s1-scene-page--guard-os,
-main.s1-scene-page--officers,
-main.s1-scene-page--recruitment,
-main.s1-scene-page--officer-apply{--s1-scene-primary:url('/images/backgrounds/business-park.webp')}
-main.s1-scene-page--service{--s1-scene-primary:url('/images/backgrounds/restaurant-dining.webp')}
-main.s1-scene-page--patrol{--s1-scene-primary:url('/images/backgrounds/warehouse-yard.webp')}
-main.s1-scene-page > section.split-hero{
- background:linear-gradient(110deg,rgba(17,21,23,.84),rgba(19,23,25,.58)),var(--s1-scene-primary) center/cover no-repeat!important;
- background-color:#202629!important;
+.s1-legal-review {
+  display: inline-flex;
+  margin-top: 24px;
+  padding: 8px 12px;
+  border: 1px solid var(--color-line-dark);
+  border-radius: var(--radius-ui);
+  background: var(--color-raised);
+  color: var(--color-text-inv-2);
+  font-size: 0.875rem;
+  line-height: 1.5;
 }
-main.s1-scene-page--equipment > section.s1-equipment-hero.surface-deep.section,
-main.s1-scene-page--radios > section.split-hero,
-main.s1-scene-page--radio-rental > section.split-hero,
-main.s1-scene-page--pricing > section.split-hero,
-main.s1-scene-page--attendance > section.split-hero,
-main.s1-scene-page--careers > section.split-hero,
-main.s1-scene-page.s1-onboarding.surface-light.s1-premium-trial,
-main.s1-scene-page.s1-premium-contact{
- background:var(--s1-quiet-surface)!important;
+.s1-legal-contents {
+  margin-top: 32px;
+  color: var(--color-text-inv-2);
 }
-.s1-premium-footer{
- background:radial-gradient(ellipse at 20% 0%,rgba(49,72,80,.22),transparent 60%),linear-gradient(145deg,#232a2e,#151b1f)!important;
+.s1-legal-contents ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px 12px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
 }
-.s1-hardware-showcase{
- display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;
- width:100%;max-width:600px;margin-inline:auto;
+.s1-legal-contents a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 8px 12px;
+  border-left: 2px solid var(--color-line-dark);
+  color: var(--color-text-inv-2);
+  font-size: 0.9375rem;
+  line-height: 1.45;
 }
-.s1-hardware-showcase-item{
- min-width:0;margin:0;overflow:hidden;border:1px solid rgba(235,243,246,.3);
- border-radius:24px;background:#eef2f4;box-shadow:0 18px 50px -32px rgba(0,0,0,.7);
+.s1-legal-contents a:hover {
+  color: var(--color-text-inv);
+  background: var(--color-raised);
+  border-color: var(--color-signal-300);
 }
-.s1-product-well{
- position:relative;background:#eef2f4!important;
+.s1-legal-content {
+  min-width: 0;
+  padding: clamp(24px, 3.2vw, 48px);
+  border: 1px solid var(--color-line-dark);
+  border-radius: var(--radius-card);
+  background: var(--color-raised);
 }
-.s1-hardware-showcase .s1-product-well{height:clamp(180px,25vw,300px)}
-.s1-hardware-showcase-item figcaption{
- padding:8px 16px 20px;color:#132b3a;text-align:center;font-size:1rem;font-weight:750;line-height:1.4;
+.s1-legal-intro {
+  color: var(--color-text-inv);
+  line-height: 1.6;
 }
-.s1-hardware-showcase-item figcaption span{display:block;font-size:.875rem;font-weight:500;color:#3e5360;margin-top:4px}
-.s1-hardware-showcase-note{grid-column:1/-1;margin:0;color:#cbd5e1;font-size:.875rem;line-height:1.5;text-align:center}
-@media(max-width:640px){
- .s1-hardware-showcase{gap:10px}
- .s1-hardware-showcase-item{border-radius:18px}
- .s1-hardware-showcase-item figcaption{padding:8px 10px 16px;font-size:.9375rem}
+.s1-legal-section {
+  border-top: 1px solid var(--color-line-dark);
+  padding: 30px 0;
 }
-
-/* Audited reading surfaces: foreground and background are owned together.
-   Policy documents must not inherit a light-page text palette on dark glass. */
-main.s1-legal-page{background:#171d21!important;color:#f1f5f9;color-scheme:dark}
-.s1-legal-layout{display:grid;gap:36px;align-items:start}
-.s1-legal-header .t-h1{font-size:clamp(2.125rem,3.2vw,3.5rem)!important;line-height:1.12!important}
-.s1-legal-review{display:inline-flex;margin-top:24px;padding:8px 12px;border:1px solid #657782;border-radius:8px;background:#26343c;color:#e5edf2;font-size:.875rem;line-height:1.5}
-.s1-legal-contents{margin-top:32px;color:#cbd5e1}
-.s1-legal-contents ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 12px;margin:12px 0 0;padding:0;list-style:none}
-.s1-legal-contents a{display:flex;align-items:center;min-height:44px;padding:8px 12px;border-left:2px solid #52616a;color:#cbd5e1;font-size:.9375rem;line-height:1.45}
-.s1-legal-contents a:hover{color:#fff;background:#28363e;border-color:#7dd3fc}
-.s1-legal-content{min-width:0;padding:clamp(24px,3.2vw,48px);border:1px solid #46565f;border-radius:20px;background:#202a30}
-.s1-legal-intro{color:#e2e8f0;line-height:1.6!important}
-.s1-legal-section{border-top:1px solid #46565f;padding:30px 0;scroll-margin-top:112px}
-.s1-legal-section:last-child{padding-bottom:0}
-.s1-legal-copy,.s1-legal-note{color:#cbd5e1;font-size:1.0625rem;line-height:1.75}
-.s1-legal-note{padding:24px;border-radius:12px;background:#162026;border:1px solid #46565f}
-main.s1-legal-page a.text-signal-ink{color:#7dd3fc!important}
-@media(min-width:1024px){
- .s1-legal-layout{grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:clamp(36px,5vw,72px)}
- .s1-legal-header{position:sticky;top:112px}
- .s1-legal-contents ul{grid-template-columns:1fr}
+.s1-legal-section:last-child {
+  padding-bottom: 0;
 }
-
-/* Four complete scenes, with identical picture geometry and no face crop. */
-main.s1-scene-page .s1-service-capability-photo{background:#1b2327!important;border:1px solid #52616a!important;box-shadow:none;backdrop-filter:none}
-main.s1-scene-page--service > section.s1-people-scene-service.surface-deep.section{
- background-image:linear-gradient(100deg,rgba(17,21,23,.94) 0%,rgba(17,21,23,.88) 45%,rgba(17,21,23,.62) 100%),var(--s1-scene-primary)!important;
+.s1-legal-copy,
+.s1-legal-note {
+  color: var(--color-text-inv-2);
+  font-size: 1.0625rem;
+  line-height: 1.75;
 }
-/* Links, secondary actions, captions and success feedback use the dark palette.
-   Manufacturer product wells retain their independent light palette. */
-main.s1-scene-page :is(a.text-signal-ink,button.text-signal-ink,.photo-caption,.t-kicker.text-live){color:#7dd3fc!important}
-main.s1-scene-page .photo-caption{color:#cbd5e1!important}
-main.s1-scene-page .btn-ghost-light{color:#f1f5f9!important;border-color:#80949f!important;background:transparent}
-main.s1-scene-page .btn-ghost-light:hover{color:#fff!important;background:#35434c!important;border-color:#b8c8d1!important}
-:where(main,footer) :where([id],a,button,input,select,textarea,summary,[tabindex]){scroll-margin-top:112px}
-#mobile-nav{top:80px;background:#171f26;color:#f1f5f9}
-
-/* Non-interactive accents must remain readable on the shared dark surfaces. */
-main.s1-scene-page :is(.t-num.text-signal-ink,.t-kicker.text-signal-ink,svg.text-signal-ink,span.font-display.text-signal-ink){color:#7dd3fc!important}
-main.s1-scene-page > section.split-hero{
- background-image:linear-gradient(110deg,rgba(17,21,23,.95),rgba(19,23,25,.82)),var(--s1-scene-primary)!important;
+.s1-legal-note {
+  padding: 24px;
+  border-radius: var(--radius-ui);
+  background: var(--color-deep);
+  border: 1px solid var(--color-line-dark);
+}
+@media (min-width: 1024px) {
+  .s1-legal-layout {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    gap: clamp(36px, 5vw, 72px);
+  }
+  .s1-legal-header {
+    position: sticky;
+    top: 112px;
+  }
+  .s1-legal-contents ul {
+    grid-template-columns: 1fr;
+  }
 }
 
-/* People are shown as complete photographs, never squeezed into letterbox crops. */
-main.s1-scene-page :is(.s1-people-main-photo,.s1-marketplace-photo.s1-people-main-photo){aspect-ratio:16/9;min-height:0!important;height:auto!important;background:#1b2327!important}
-main.s1-scene-page :is(.s1-people-main-photo,.s1-person-first-split) img{object-fit:contain!important}
-main.s1-scene-page .s1-person-first-split .s1-glass-people-photo{height:auto;aspect-ratio:16/9;max-height:none;mask-image:none;-webkit-mask-image:none;background:#1b2327}
-main.s1-scene-page .s1-person-first-split .s1-glass-people-photo > div[aria-hidden]{display:none}
-
-main.s1-scene-page.s1-people-hiring > section.split-hero.surface-deep{
- background-image:linear-gradient(110deg,rgba(17,21,23,.95),rgba(19,23,25,.82)),var(--s1-scene-primary)!important;
+/* Consent rows are a comfortable tap target. */
+[data-consent-fields] .check {
+  padding: 13px 16px;
 }
 
-/* Consent is a comfortable tap target; the active journey step is readable. */
-main:not(.s1-brand-home) [data-consent-fields] .check{padding:13px 16px}
-main.s1-scene-page [aria-current="step"]{color:#7dd3fc!important}
-
-main.s1-scene-page input[type="month"]{color-scheme:dark}
-
-/* VA-06: visible form errors on the dark stage (lib/formValidation.ts). #ffb4ab on graphite ≈ 9:1. */
-main .field-input[aria-invalid="true"]{border-color:#ffb4ab!important;box-shadow:0 0 0 1px #ffb4ab!important}
-main fieldset:has([aria-invalid="true"]) > legend{color:#ffb4ab}
-.s1-error-summary{margin:0 0 1.5rem;border:2px solid #ffb4ab;border-radius:12px;background:rgba(255,180,171,.08);padding:1rem 1.25rem}
-.s1-error-summary:focus{outline:3px solid #ffb4ab;outline-offset:3px}
-.s1-error-summary-title{margin:0 0 .5rem;font-weight:700;font-size:1.0625rem;color:#fff}
-.s1-error-summary ul{margin:0;padding-left:1.1rem}
-.s1-error-summary li{margin:.25rem 0}
-.s1-error-summary a{color:#ffb4ab;font-weight:600;text-decoration:underline;text-underline-offset:3px}
-/* VA-06: field boundaries meet WCAG 1.4.11 (3:1) on the dark card: #7c8da0 ≈ 4.2:1 on #252b2e. */
-main .field-input:not([aria-invalid="true"]){border-color:#7c8da0!important}
-/* VA-04 / VA-07: the footer action is a plain primary button: no glow, no lift (DESIGN_SYSTEM "no glow and no lift"). */
-.s1-footer-main-cta,.s1-footer-main-cta:hover{box-shadow:none!important;transform:none!important}
+/* ---------- Footer ---------- */
+.s1-premium-footer {
+  padding: clamp(24px, 4vw, 56px) 0 0;
+  border-top: 1px solid var(--color-line-dark);
+  color: var(--color-text-inv);
+}
+.s1-premium-footer-shell {
+  overflow: hidden;
+  border: 1px solid var(--color-line-dark);
+  border-bottom: 0;
+  border-radius: var(--radius-card) var(--radius-card) 0 0;
+  background: var(--color-base);
+}
+.s1-premium-footer-intro {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  padding: clamp(24px, 4vw, 48px);
+  border-bottom: 1px solid var(--color-line-dark);
+}
+/* The footer band never out-ranks the page it closes (VA-04): its heading is the t-h2 floor. */
+.s1-premium-footer-intro h2 {
+  margin: 12px 0;
+  font-size: 2rem;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+.s1-premium-footer-intro p:last-child,
+.s1-footer-brand p {
+  max-width: 44ch;
+  color: var(--color-text-inv-2);
+  line-height: 1.6;
+}
+.s1-premium-footer-bottom {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.85fr) minmax(0, 2.15fr);
+  gap: clamp(24px, 4vw, 64px);
+  padding: clamp(24px, 4vw, 48px);
+}
+.s1-footer-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+}
+.s1-footer-logo {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+}
+.s1-footer-link-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: clamp(16px, 2.7vw, 44px);
+}
+.s1-footer-group {
+  min-width: 0;
+}
+.s1-footer-group summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 12px 0;
+  color: var(--color-text-inv);
+  font-size: 0.9375rem;
+  font-weight: 700;
+}
+.s1-footer-group summary::-webkit-details-marker {
+  display: none;
+}
+.s1-footer-group summary span {
+  display: none;
+}
+.s1-footer-group ul {
+  display: grid;
+  gap: 2px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.s1-footer-group li a {
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+  color: var(--color-text-inv-2);
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  transition: color 0.2s ease;
+}
+.s1-footer-group li a:hover {
+  color: var(--color-text-inv);
+}
+.s1-footer-legal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 18px clamp(24px, 4vw, 48px);
+  border-top: 1px solid var(--color-line-dark);
+  color: var(--color-text-inv-3);
+  font-size: 0.875rem;
+}
+@media (max-width: 900px) {
+  .s1-premium-footer-bottom {
+    grid-template-columns: 1fr;
+  }
+  .s1-footer-link-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 620px) {
+  .s1-premium-footer-intro {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .s1-footer-link-grid {
+    display: block;
+  }
+  .s1-footer-group {
+    border-bottom: 1px solid var(--color-line-dark);
+  }
+  .s1-footer-group summary {
+    display: flex;
+    min-height: 52px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .s1-footer-group summary span {
+    display: inline-block;
+    font-size: 1.3rem;
+  }
+  .s1-footer-group[open] summary span {
+    transform: rotate(45deg);
+  }
+  .s1-footer-group ul {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2px 12px;
+    padding-bottom: 16px;
+  }
+}
