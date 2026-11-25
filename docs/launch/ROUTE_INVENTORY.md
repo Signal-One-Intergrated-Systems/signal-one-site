@@ -4,6 +4,14 @@
 **Discovery:** natural navigation from `/` → header, footer and in-page links → `sitemap.xml` (18 URLs) → `app/(marketing)` route folders → probes for common routes visitors try.
 **Sweep:** every route below at 1920×1080, 1440×900, 1280×720, 1024×768, 768×1024, 430×932, 390×844, 360×740 (192 page loads, fresh context each), scrolled top to bottom to trigger lazy content. axe-core 4.10 (tags wcag2a, wcag2aa, wcag21aa, wcag22aa) at 1440 and 390 (48 scans).
 
+## Reconciling the counts (founder question, 2026-11-25)
+
+The sweep loaded **24 URLs × 8 widths = 192 page loads**: the **19 live public routes** below (18 sitemap URLs + `/join/sales`) and **5 probe URLs** (`/about`, `/support`, `/login`, `/faq`, and a deliberately missing page) that returned 404. "19 pages" and "24 routes / 192 loads" describe the same run. On the fix branch `/about` and `/support` now exist, giving **21 live public routes**.
+
+Not in the sweep, by design: redirects (`/workforce` → 308; 16 legacy redirect patterns in `next.config.ts` such as `/connectivity` → `/radios-equipment`, `/platforms` → `/`, listed in `tests/e2e/routes.ts` and checked by `routes.spec.ts`); Signal Connect personal pages (`/connect/*`, `/contact/[profile]`, `/present/*`, `/qr/*` — a separate product, disallowed in robots); API routes (`/api/intake`, `/api/intake/status`, `/api/contact-intake`, `/api/connect-status`); generated assets (`/opengraph-image-*`, `/icon.png`, `/apple-icon.png`, `/robots.txt`, `/sitemap.xml`).
+
+Interaction states per form (empty, validation error, sending, not connected 503 + email route, unconfirmed 502/504, throttled 429, success with reference) are exercised by `tests/e2e/forms.spec.ts` and `r0-release-gate.spec.ts` against the local build and a mock receiver — never against production.
+
 ## Result summary
 
 | Check | Result |

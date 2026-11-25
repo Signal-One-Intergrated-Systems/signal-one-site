@@ -2,6 +2,31 @@
 
 Machine-readable state: `execution-state.json`. Newest entry first.
 
+## Founder decisions (2026-11-25, response to the first checkpoint)
+
+| Decision | Applied |
+|---|---|
+| `1GUARD` is the authoritative product brand. Technical identifiers (package `com.signalone.guard`, slug, scheme) are not renamed for marketing consistency. | All public copy, metadata, schema.org and alt/aria text on the website now say 1GUARD; tests updated; a regression check forbids "Signal One Guard/Security" on rendered pages. The mobile app's display name (`apps/guard-mobile/app.json` → "Signal One Guard") is a 1GUARD-repo decision to take before store publication; no store listing exists yet. |
+| Radio equipment and rental move above 1Service on the homepage. | Done; hero untouched. |
+| Quotation-based radio commerce until supplier, stock, prices and terms are confirmed; terms must be configurable in LEOS, not hard-coded. | No prices/terms invented. |
+| HyTalk vs POCSTARS stays open and must not block other work. | Not blocking. |
+| Use only verified company facts; build About and Support from existing channels. | `/about`, `/support` built from the internal platform record: trading entity Lancesat Suppliers (Pty) Ltd and the founder's WhatsApp Business client channel. |
+| No direct production merges; prepare draft PRs as release candidates. | Branches + draft PRs only. |
+| LEOS website-intake receiver is P0. | Workstream B (isolated LEOS branch). |
+
+## 2026-11-25 — Session 1, checkpoint 2 (after founder response)
+
+Workstreams (cloud, parallel, isolated working copies):
+- **A — website (this branch).** 1GUARD naming; radios above 1Service; `/about`, `/support`; WhatsApp + trading entity; UTM/gclid attribution end-to-end to the intake contract; GA4/Ads conversion only on receipt; LCP trace and fixes (4.29 → 3.16 s lab); visible form validation (VA-06); footer band de-duplicated (VA-04). Evidence: `evidence/after-*`, `evidence/hero-q90-vs-q75.jpg`, `evidence/brand-audit/`.
+- **A2 — visual brand audit + image inventory** (independent agent, live site): `BRAND_AUDIT.md` (27 findings, token consolidation plan), `IMAGE_INVENTORY.md` (41 placements).
+- **B — LEOS website-intake receiver** (isolated LEOS branch `claude/website-intake-receiver`): see its PR when published; status recorded in `RELEASE_GATE.md`.
+- **C — Sales OS recovery**: `SALES_OS_RECONCILIATION.md`. Approved preview = LEOS branch `preview/sales-ux-15nov` @ `5c55e3ff` (116 commits on main, mostly audit-class drafts of the active Sales OS stream). Nothing implemented: a parallel port would conflict with that stream. Exact test-access request recorded.
+- **D — research from primary sources**: `RESEARCH.md` (68 findings → requirements, R-IDs mapped to DR/Q IDs; source register).
+
+Environment: research hosts, benchmark sites, `api.lancesatsuppliers.co.za` and `raw.githubusercontent.com` added to the network allowlist (founder-approved prompt). Motorola Solutions (403) and www.pocstars.com (wrong TLS certificate) remain unreachable.
+
+Mistakes made and caught this checkpoint (disclosed): (1) stale `next-server` processes survived `pkill -f "next start"` and served old HTML after a rebuild, producing false page crashes and a false 540 ms LCP — measurements discarded and repeated; (2) the About page first hard-coded "Pilot" instead of `lib/guardStatus.ts`; (3) the equipment rewrite removed a link a journey test relied on; (4) a q75 hero encode tripped the FOUNDERS LOCK test and was reverted to a founder decision; (5) the VA-11 card span upscaled a product photo and was reverted. Each was found by the test suite or by looking at the screenshots, before commit.
+
 ## 2026-11-25 — Session 1 (Claude Code cloud, branch `claude/peaceful-johnson-azma60`)
 
 ### Phase 0 — capability

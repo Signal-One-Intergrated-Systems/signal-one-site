@@ -1,5 +1,6 @@
 "use client";
 
+import { validateBeforeSubmit } from "../lib/formValidation";
 import ReceiptReference from "./ReceiptReference";
 import { FormEvent, Suspense, useId, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
@@ -174,6 +175,8 @@ function QuoteForm({ initialCategory, initialProduct, initialQuoteType }: { init
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    // Every problem is shown at once, next to its field and in a summary (lib/formValidation.ts).
+    if (!validateBeforeSubmit(event.currentTarget)) return;
     if (state === "sending") return;
     if (!consent) {
       setState("error");
@@ -306,7 +309,7 @@ function QuoteForm({ initialCategory, initialProduct, initialQuoteType }: { init
   }
 
   return (
-    <form onSubmit={submit} className="card p-5 sm:p-8">
+    <form onSubmit={submit} noValidate className="card p-5 sm:p-8">
       <fieldset className="m-0 border-0 p-0">
         <legend className="t-h3">What do you need a quote for?</legend>
         <div className="mt-4 grid gap-2 sm:grid-cols-3">

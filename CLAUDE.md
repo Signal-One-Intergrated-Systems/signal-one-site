@@ -17,4 +17,5 @@ Next.js 16 marketing site for Signal One Integrated Systems (https://signalone.c
 ## Checks
 - `npm run build` runs the branding and design-system checks before and after the build.
 - `PW_CHROMIUM=/opt/pw-browsers/chromium npx playwright test --trace off` in Claude Code cloud sessions (the pinned Playwright's own browser is not installed there).
+- Never run `npm run build` while any `next start` (yours or the test suite's) is serving this directory: it serves stale HTML for replaced chunks and produces hydration/ChunkLoadError failures that look like flakes. `pkill -f "next start"` first.
 - Judge visual changes from real screenshots at 1440, 1280, 1024 and 390 px, before and after.

@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { inter as body } from "../lib/body-font";
 import Analytics from "../components/Analytics";
+import AttributionCapture from "../components/AttributionCapture";
+import AfterLoad from "../components/AfterLoad";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Reveal from "../components/Reveal";
@@ -88,13 +90,13 @@ const structuredData = {
     {
       "@type": "SoftwareApplication",
       "@id": siteUrl + "/#software",
-      name: "Signal One Guard",
+      name: "1GUARD",
       alternateName: brand.product,
       applicationCategory: "BusinessApplication",
       applicationSubCategory: "Security business operating system",
       operatingSystem: "Web, Android, iOS",
       publisher: { "@id": siteUrl + "/#organization" },
-      description: guardIsLive ? description : description + " Signal One Guard is in pilot with its first security companies.",
+      description: guardIsLive ? description : description + " 1GUARD is in pilot with its first security companies.",
       offers: {
         "@type": "Offer",
         url: siteUrl + "/pricing",
@@ -134,6 +136,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SceneTransition>{children}</SceneTransition>
         <Footer />
         <Analytics />
+        <AttributionCapture />
+        <AfterLoad />
         <Reveal />
       </body>
     </html>

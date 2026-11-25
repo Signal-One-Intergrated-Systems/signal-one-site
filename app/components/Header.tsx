@@ -67,7 +67,7 @@ const worlds: Record<
       { href: "/join/sales#role", label: "The role" },
       { href: "/join/sales#process", label: "Process" },
     ],
-    secondary: [{ href: "/", label: "About Signal One" }],
+    secondary: [{ href: "/about", label: "About Signal One" }],
     cta: { href: "/join/sales#apply", label: "Apply" },
     shell: "glass-nav text-text-inv border-b border-line-dark",
     link: "text-text-inv hover:bg-white/8",

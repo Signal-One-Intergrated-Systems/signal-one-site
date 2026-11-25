@@ -1,19 +1,22 @@
 {
-  "updated": "2026-11-25",
+  "updated": "2026-11-25 (checkpoint 2)",
   "branch": "claude/peaceful-johnson-azma60",
-  "liveBaseline": { "url": "https://signalone.co.za", "commit": "8e89d24" },
+  "liveBaseline": {
+    "url": "https://signalone.co.za",
+    "commit": "8e89d24"
+  },
   "phases": {
     "0_capability": "done",
     "1_independent_walkthrough": "done",
-    "2_research_benchmarking": "not_started",
+    "2_research_benchmarking": "done (primary sources; Motorola/POCSTARS unreachable)",
     "3_route_inventory_and_audit": "done",
-    "4_repository_reconciliation": "partial",
+    "4_repository_reconciliation": "done for site + Sales OS; LEOS intake in progress",
     "5_design_constitution": "not_started",
-    "6_radio_rental_vertical_slice": "blocked:DR-001",
-    "7_shared_design_system_remediation": "started",
-    "8_radio_conversion_pages": "started",
+    "6_radio_rental_vertical_slice": "in progress: LEOS receiver (workstream B)",
+    "7_shared_design_system_remediation": "started (VA-04, VA-06); token consolidation pending",
+    "8_radio_conversion_pages": "in progress",
     "9_full_public_remediation": "not_started",
-    "10_sales_os_shell": "blocked:no_test_credentials",
+    "10_sales_os_shell": "blocked: test access + active Sales OS stream owns the port",
     "11_commercial_lifecycle_qualification": "blocked:DR-001,commercial_decisions",
     "12_independent_rereview": "not_started",
     "13_correct_review_findings": "not_started",
@@ -22,21 +25,82 @@
     "16_preview_retirement": "not_started"
   },
   "defects": {
-    "fixed_on_branch": ["DR-002", "DR-004", "DR-005", "DR-009", "DR-010", "DR-013", "DR-014", "DR-015"],
+    "fixed_on_branch": [
+      "DR-002",
+      "DR-004",
+      "DR-005",
+      "DR-008",
+      "DR-009",
+      "DR-010",
+      "DR-011",
+      "DR-012",
+      "DR-013",
+      "DR-014",
+      "DR-015",
+      "DR-017",
+      "Q-attr",
+      "VA-04",
+      "VA-06",
+      "DR-018"
+    ],
     "blocked": {
       "DR-001": "LEOS intake receiver + Railway SIGNAL_ONE_INTAKE_URL/TOKEN",
-      "DR-007": "founder company contact facts",
-      "DR-008": "founder product naming decision",
-      "DR-011": "founder About facts",
-      "DR-012": "founder support channel",
+      "DR-007": "phone, address, registration, VAT from founder; confirm WhatsApp publication",
       "DR-016": "commercial rental terms / HyTalk vs POCSTARS"
     },
-    "open": ["DR-003", "DR-006", "DR-017", "DR-018", "DR-019", "DR-020", "DR-021", "DR-022", "DR-023", "DR-024"]
+    "open": [
+      "DR-003",
+      "DR-006",
+      "DR-019",
+      "DR-020",
+      "DR-021",
+      "DR-022",
+      "DR-023",
+      "DR-024",
+      "VA-01..03,05,07..27"
+    ]
   },
   "environment": {
-    "allowedHostsAdded": ["signalone.co.za", "www.signalone.co.za", "app.lancesatsuppliers.co.za", "sales-os-preview-web-preview.up.railway.app"],
+    "allowedHostsAdded": [
+      "signalone.co.za",
+      "www.signalone.co.za",
+      "app.lancesatsuppliers.co.za",
+      "sales-os-preview-web-preview.up.railway.app",
+      "www.nngroup.com",
+      "baymard.com",
+      "www.w3.org",
+      "web.dev",
+      "www.gov.uk",
+      "design-system.service.gov.uk",
+      "developer.chrome.com",
+      "api.lancesatsuppliers.co.za",
+      "www.motorolasolutions.com",
+      "www.samsara.com",
+      "www.verkada.com",
+      "www.axis.com",
+      "stripe.com",
+      "linear.app",
+      "raw.githubusercontent.com",
+      "www.pocstars.com"
+    ],
     "playwrightBrowser": "PW_CHROMIUM=/opt/pw-browsers/chromium",
-    "attachedRepos": ["Signal-One-Intergrated-Systems/lancesat-enterprise-platform (read-only)"]
+    "attachedRepos": [
+      "Signal-One-Intergrated-Systems/lancesat-enterprise-platform (push)",
+      "Signal-One-Intergrated-Systems/signal-one-guard (read)"
+    ]
   },
-  "rules": ["no live form submission", "homepage hero is founder-locked", "merging main deploys production", "no invented commercial facts"]
+  "rules": [
+    "no live form submission",
+    "homepage hero is founder-locked",
+    "merging main deploys production",
+    "no invented commercial facts"
+  ],
+  "performance": {
+    "homepage_lcp_lab_ms": {
+      "main": 4292,
+      "branch": 3156,
+      "branch_with_q75_hero_pending_founder": 2824
+    },
+    "profile": "Moto G4, 1.6 Mbps, 150 ms RTT, 4x CPU, local next start (HTTP/1.1)"
+  }
 }

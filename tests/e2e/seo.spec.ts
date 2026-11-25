@@ -41,7 +41,7 @@ test("JSON-LD: Organization and SoftwareApplication, no ratings or reviews", asy
   const app = data["@graph"].find((n) => n["@type"] === "SoftwareApplication") as Record<string, unknown>;
   expect(org.name).toBe("Signal One: Integrated Systems");
   expect(org.email).toBe("sales@signalone.co.za");
-  expect(app.name).toBe("Signal One Guard");
+  expect(app.name).toBe("1GUARD");
   const spec = (app.offers as Record<string, unknown>).priceSpecification as Record<string, unknown>;
   expect(spec.price).toBe(schemaPrice);
   expect(spec.priceCurrency).toBe("ZAR");

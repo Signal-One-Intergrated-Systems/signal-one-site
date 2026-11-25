@@ -85,7 +85,7 @@ export default function RadiosEquipmentPage() {
             </div>
             <p className="t-small measure mt-2 text-text-2">
               Equipment is quoted separately from the 1GUARD subscription. Activating devices and viewing tracking from
-              inside Signal One Guard is coming soon; renting a device does not yet connect it to the platform.
+              inside 1GUARD is coming soon; renting a device does not yet connect it to the platform.
             </p>
           </div>
         </div>

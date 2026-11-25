@@ -2,6 +2,7 @@ import IntakeAvailability from "../../components/journey/IntakeAvailability";
 import type { Metadata } from "next";
 import IntakeForm, { type IntakeField } from "../../components/IntakeForm";
 import { Kicker, Steps } from "../../components/ui";
+import { contact } from "../../lib/site";
 
 export const metadata: Metadata = {
   title: "Talk to Signal One | 1GUARD, 1Service and Equipment",
@@ -62,11 +63,20 @@ export default function ContactPage() {
             />
           </div>
 
-          <div className="mt-10 border-t border-line pt-6">
-            <p className="t-small text-text-2">Prefer email?</p>
-            <a href="mailto:sales@signalone.co.za" className="mt-1 inline-flex min-h-[44px] items-center text-[1.25rem] font-semibold text-signal-ink underline underline-offset-4">
-              sales@signalone.co.za
-            </a>
+          <div className="mt-10 grid gap-4 border-t border-line pt-6 sm:grid-cols-2">
+            <div>
+              <p className="t-small text-text-2">Prefer email?</p>
+              <a href={"mailto:" + contact.email} className="mt-1 inline-flex min-h-[44px] items-center text-[1.25rem] font-semibold text-signal-ink underline underline-offset-4">
+                {contact.email}
+              </a>
+            </div>
+            <div>
+              <p className="t-small text-text-2">Prefer WhatsApp?</p>
+              <a href={contact.whatsappHref} rel="noopener" className="mt-1 inline-flex min-h-[44px] items-center text-[1.25rem] font-semibold text-signal-ink underline underline-offset-4">
+                {contact.whatsappDisplay}
+              </a>
+            </div>
+            <p className="t-small text-text-2 sm:col-span-2">Already a customer? <a href="/support" className="link-inline font-semibold text-signal-ink">Get support</a>.</p>
           </div>
         </div>
 

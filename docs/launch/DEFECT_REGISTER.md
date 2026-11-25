@@ -35,6 +35,29 @@ Status: `OPEN` · `FIXED (branch)` — implemented and verified on a local produ
 
 | DR-025 | S3 | `tests/e2e/visual-corrections.spec.ts:103` | 375, 1440 | — | "Product quote links scroll…" times out waiting for hydration in a Claude Code cloud container, on both `main` @ `8e89d24` and the fix branch. | Unknown (test harness or environment). | Release-gate reliability. | Investigate `hydrated()`; do not skip or loosen the test. | OPEN |
 
+## Status changes — checkpoint 2 (2026-11-25, after founder decisions)
+
+| ID | New status | Evidence |
+|---|---|---|
+| DR-007 | PARTLY FIXED (branch) | WhatsApp Business client channel (+27 60 633 5870) and trading entity (Lancesat Suppliers (Pty) Ltd) recovered from the internal platform record and shown on `/about`, `/support`, `/contact` (`app/lib/site.ts`). Phone line, address, registration and VAT numbers: still BLOCKED — not recorded anywhere; founder to supply. **Founder to confirm the WhatsApp number may be published before merge.** |
+| DR-008 | FIXED (branch) | Founder decision: 1GUARD. 38 public occurrences replaced (incl. one split across JSX lines, found by the new regression check in `layout.spec.ts`). Technical identifiers untouched. |
+| DR-011 | FIXED (branch) | `/about`: what is available vs pilot vs in development (status from `lib/guardStatus.ts`), who you are dealing with, principles, contact. Careers header "About Signal One" now links to `/about`. |
+| DR-012 | FIXED (branch) | `/support`: safety notice, six support topics with pre-addressed email subjects, what to include, WhatsApp. No hours or response-time promises (none are recorded). |
+| DR-017 | FIXED (branch) | Founder decision: equipment section moved directly below 1GUARD, above 1Service; copy now says "Push-to-talk radios. Bought or rented." with quote, rental and catalogue actions. |
+| DR-025 | QUALIFIED — no customer impact | The product-quote scroll works on the live site and on the branch build at 375 and 1440 (form hydrated at 0 s, model pre-selected, form heading in view). The test passed 2/2 on a clean re-run. Root cause of the earlier failures: a `next build` run while a `next start` from the previous build was still serving — the same mechanism as KI-1 — reproduced directly (stale HTML referencing replaced chunks → ChunkLoadError). Rule added to `CLAUDE.md`: never build while a test server is running. |
+| Q-attr | NEW, FIXED (branch) | UTM/gclid/gbraid/wbraid, landing path and referrer host captured per session (`lib/attribution.ts`), sanitised client- and server-side, forwarded to the receiver as optional `attribution`; GA4 `generate_lead` + Google Ads conversion fire only on a receiver receipt for client enquiries, de-duplicated by the receipt reference; conservative consent defaults; Ads CSP hosts only when configured. e2e test proves the round trip with the mock receiver. |
+
+### Checkpoint 2, continued — performance and visual audit (VA-xx from `BRAND_AUDIT.md`)
+
+| ID | New status | Evidence |
+|---|---|---|
+| DR-003 | IMPROVED, still FAIL in lab | Trace (LCP sub-parts, Moto G4, 1.6 Mbps/150 ms/4× CPU, 3 runs each, like-for-like local builds): the delay was **resource load time** (~4.0 s of 4.3 s), not render delay — the hero shared the link with a 343 KB font preload, two 117–119 KB below-the-fold section photographs and the globe's 252 KB geography. Fixes: Inter subset to Latin with both variable axes (350 → 108 KB, visually identical), below-fold section photographs and the globe deferred until after load + idle (`components/AfterLoad.tsx`). **Median LCP 4.29 s → 3.16 s.** A further q90 → q75 hero encode measured **2.82 s** and is visually indistinguishable at 2× on the subjects (`evidence/hero-q90-vs-q75.jpg`), but it trips the FOUNDERS LOCK test, so it is **not applied — founder decision**. Local `next start` is HTTP/1.1; production (Cloudflare, HTTP/2 with `fetchpriority`) must be re-measured after deploy. |
+| VA-04 | FIXED (branch) | Footer band shown only on pages without their own closing action (`/about`, legal/trust pages), neutral "Talk to Signal One"; no glow/lift. Test added. |
+| VA-06 | FIXED (branch) for the quote, contact and marketplace forms | `lib/formValidation.ts`: every invalid field flagged with `aria-invalid` and a message linked by `aria-describedby`, a focused error summary with links (GOV.UK pattern), errors clear on correction; field border raised to #7c8da0 (≈4.2:1). Multi-step journeys already had inline errors. Test added. |
+| VA-11 | OPEN | Tried spanning the single SC780 card across the row; `image-scale.spec.ts` showed it upscales the product photo beyond its source at 1440–2560, so it was reverted. Needs a horizontal card variant for single-product groups (part of the layout consolidation). |
+| VA-01–03, 05, 07–10, 12–27 | OPEN — one reviewed change | Root cause is shared: three CSS override layers (293 hex, ~590 rgba, 579 `!important`). Fixing page by page would add a fourth layer. Next step: consolidate tokens per `BRAND_AUDIT.md` §7 in a dedicated branch with before/after captures of every route, hero excluded. Image items needing new assets or founder rulings are in `IMAGE_INVENTORY.md` §5. |
+| DR-022 | OPEN (root cause found) | Homepage section image columns leave ~230 px empty above product photos at 1440 (`home-conversion.css:70`, `:1192`); part of the token/layout consolidation. |
+
 ## Not defects (checked and rejected)
 
 - `/join/sales` absent from the sitemap: deliberate (noindex careers page, `app/sitemap.ts`).

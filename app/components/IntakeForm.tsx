@@ -1,5 +1,6 @@
 "use client";
 
+import { validateBeforeSubmit } from "../lib/formValidation";
 import ReceiptReference from "./ReceiptReference";
 import { FormEvent, useId, useRef, useState } from "react";
 import { trackEvent, type SignalOneEvent } from "../lib/analytics";
@@ -66,6 +67,8 @@ export default function IntakeForm({
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    // Every problem is shown at once, next to its field and in a summary (lib/formValidation.ts).
+    if (!validateBeforeSubmit(event.currentTarget)) return;
     if (state === "sending") return;
     if (!consent) {
       setState("error");
@@ -101,7 +104,7 @@ export default function IntakeForm({
   }
 
   return (
-    <form onSubmit={submit} noValidate={false} className="card p-5 sm:p-8">
+    <form onSubmit={submit} noValidate className="card p-5 sm:p-8">
       <div className="grid gap-5 sm:grid-cols-2">
         {fields.map((field) => {
           const fieldId = id + "-" + field.name;

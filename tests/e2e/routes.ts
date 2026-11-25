@@ -14,6 +14,8 @@ export const routes = [
   "/guards",
   "/guards/join",
   "/join/sales",
+  "/about",
+  "/support",
   "/security-trust",
   "/privacy",
   "/popia",

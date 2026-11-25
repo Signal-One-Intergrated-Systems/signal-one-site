@@ -656,3 +656,17 @@ main:not(.s1-brand-home) [data-consent-fields] .check{padding:13px 16px}
 main.s1-scene-page [aria-current="step"]{color:#7dd3fc!important}
 
 main.s1-scene-page input[type="month"]{color-scheme:dark}
+
+/* VA-06: visible form errors on the dark stage (lib/formValidation.ts). #ffb4ab on graphite ≈ 9:1. */
+main .field-input[aria-invalid="true"]{border-color:#ffb4ab!important;box-shadow:0 0 0 1px #ffb4ab!important}
+main fieldset:has([aria-invalid="true"]) > legend{color:#ffb4ab}
+.s1-error-summary{margin:0 0 1.5rem;border:2px solid #ffb4ab;border-radius:12px;background:rgba(255,180,171,.08);padding:1rem 1.25rem}
+.s1-error-summary:focus{outline:3px solid #ffb4ab;outline-offset:3px}
+.s1-error-summary-title{margin:0 0 .5rem;font-weight:700;font-size:1.0625rem;color:#fff}
+.s1-error-summary ul{margin:0;padding-left:1.1rem}
+.s1-error-summary li{margin:.25rem 0}
+.s1-error-summary a{color:#ffb4ab;font-weight:600;text-decoration:underline;text-underline-offset:3px}
+/* VA-06: field boundaries meet WCAG 1.4.11 (3:1) on the dark card: #7c8da0 ≈ 4.2:1 on #252b2e. */
+main .field-input:not([aria-invalid="true"]){border-color:#7c8da0!important}
+/* VA-04 / VA-07: the footer action is a plain primary button: no glow, no lift (DESIGN_SYSTEM "no glow and no lift"). */
+.s1-footer-main-cta,.s1-footer-main-cta:hover{box-shadow:none!important;transform:none!important}

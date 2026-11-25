@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { PRIVACY_NOTICE_VERSION } from "../../lib/intake";
+import { sanitizeAttribution } from "../../lib/attribution";
 
 /**
  * Website intake contract v1 (SITE_INTEGRATION.md).
@@ -144,11 +145,12 @@ export async function POST(request: Request) {
   }
   if (!body || typeof body !== "object" || Array.isArray(body)) return reply("Invalid request.", 400);
 
-  const { kind, data, consent, idempotencyKey } = body as {
+  const { kind, data, consent, idempotencyKey, attribution } = body as {
     kind?: unknown;
     data?: unknown;
     consent?: { processing?: unknown; marketing?: unknown; noticeVersion?: unknown; capturedAt?: unknown };
     idempotencyKey?: unknown;
+    attribution?: unknown;
   };
   const intents = typeof kind === "string" ? INTENTS.get(kind) : undefined;
   if (typeof kind !== "string" || !intents || !data || typeof data !== "object" || Array.isArray(data)) {
@@ -221,6 +223,8 @@ export async function POST(request: Request) {
           clientCapturedAt: typeof consent.capturedAt === "string" ? consent.capturedAt.slice(0, 40) : null,
         },
         idempotencyKey,
+        // Optional (contract v1.1): campaign source of the visit. Unknown keys and unsafe values are dropped.
+        attribution: sanitizeAttribution(attribution) ?? null,
         source: "signal-one-site",
       }),
       cache: "no-store",

@@ -5,7 +5,7 @@
  * scripts/capture-product.mjs and the new crops pass `npm run check:images`.
  * Views with no shots render nothing.
  *
- * Earlier note: real Signal One Guard screens, captured from the controlled demo
+ * Earlier note: real 1GUARD screens, captured from the controlled demo
  * environment. All names, sites and records are synthetic test data.
  * Crops exclude navigation chrome and were checked for real names and
  * phone numbers. Regions were chosen to avoid test-data labels ("Smoke …",

@@ -8,7 +8,7 @@ import { guardDayPricePhrase } from "../../lib/pricing";
 export const metadata: Metadata = {
   title: "Guard Patrol Software for Security Companies",
   description:
-    "QR and NFC checkpoint patrols, with scans saved on the phone when signal drops, and missed and late checkpoints in proof of service. Signal One Guard is " + guardDayPricePhrase + ", excl. VAT.",
+    "QR and NFC checkpoint patrols, with scans saved on the phone when signal drops, and missed and late checkpoints in proof of service. 1GUARD is " + guardDayPricePhrase + ", excl. VAT.",
   alternates: { canonical: "/guard-patrol-software" },
 };
 
@@ -18,7 +18,7 @@ export default function GuardPatrolSoftwarePage() {
       scene="patrol"
       kicker="Guard patrol software"
       title="Prove the patrol was walked."
-      lead="Signal One Guard turns each patrol into a record: QR or NFC checkpoints on the route, scanned on the guard's own phone or an authorised Central Device. Scans taken without signal are saved on the phone and sent when it returns."
+      lead="1GUARD turns each patrol into a record: QR or NFC checkpoints on the route, scanned on the guard's own phone or an authorised Central Device. Scans taken without signal are saved on the phone and sent when it returns."
       actions={
         <>
           <ButtonLink href="/contact" size="lg">
@@ -33,7 +33,7 @@ export default function GuardPatrolSoftwarePage() {
         <div className="grid gap-5">
           <Photo src={photos.guardPatrol.src} alt={photos.guardPatrol.alt} sizes="(min-width:1024px) 46vw, 100vw" aspect="aspect-[16/9]" caption={illustrativeCaption} />
           <FactPanel
-          title="Signal One Guard · patrols"
+          title="1GUARD · patrols"
           facts={[
             ["QR or NFC checkpoints", "Set per site; scanned on the route."],
             ["Time and GPS on every scan", "Recorded with the checkpoint and the patrol."],
@@ -77,7 +77,7 @@ export default function GuardPatrolSoftwarePage() {
       closing="Patrols that leave a record."
       related={[
         ["/guard-attendance-software", "Guard attendance and clock-in"],
-        ["/solutions/security", "The Signal One Security platform"],
+        ["/solutions/security", "The 1GUARD platform"],
         ["/pricing", "Pricing: " + guardDayPricePhrase],
       ]}
     />

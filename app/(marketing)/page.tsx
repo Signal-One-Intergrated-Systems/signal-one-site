@@ -126,6 +126,40 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Radios are sold and rented today: they lead the offers after 1GUARD (founder decision, 2026-11-25). */}
+      <section id="equipment" className="so-equipment-section" aria-labelledby="so-equipment-title">
+        <div className="wrap so-equipment-layout">
+          <div data-motion-from="right" className="so-equipment-copy">
+            <p className="so-kicker">Radios & equipment · Buy or rent</p>
+            <h2 id="so-equipment-title">Push-to-talk radios. Bought or rented.</h2>
+            <p>Radios that run over the cellular network, so a supervisor in Midrand can reach a guard in Pretoria without repeaters. Buy outright or rent on 12, 24 or 36-month terms, with or without SIM, data and the PTT platform.</p>
+            <div className="so-equipment-types" aria-label="Available equipment categories">
+              <span>PoC & PTT radios</span><span>Vehicle & asset tracking</span><span>Body cameras</span><span>CCTV & networks</span>
+            </div>
+            <div className="so-inline-actions">
+              <Link href="/radios-equipment#quote" data-analytics-event="homepage_equipment_quote"
+                data-analytics-label="homepage-equipment" className="btn btn-primary so-home-cta">Request a radio quote <Arrow /></Link>
+              <Link href="/ptt-radio-rental" className="so-text-link">Radio rental <Arrow /></Link>
+              <Link href="/radios-equipment" className="so-text-link">See the catalogue <Arrow /></Link>
+            </div>
+            <p className="so-disclosure">Prices, lead times and availability are confirmed by written quotation.</p>
+          </div>
+          <div data-motion-from="left" style={{ "--so-motion-delay": "280ms" } as CSSProperties} className="so-hardware-gallery" aria-label="Actual manufacturer product imagery">
+            <div className="so-hardware-product so-radio-product">
+              <Image src={pnc360s} alt="Hytera PNC360S push-to-talk over cellular radio, original manufacturer product image"
+                sizes="(min-width:1024px) 300px, 45vw" className="so-product-image" />
+              <span>Hytera PNC360S <small>Push-to-talk radio</small></span>
+            </div>
+            <div className="so-hardware-product so-radio-product">
+              <Image src={p30Lite} alt="Hytera P30 Lite push-to-talk over cellular radio, original manufacturer product image"
+                sizes="(min-width:1024px) 240px, 45vw" className="so-product-image" />
+              <span>Hytera P30 Lite <small>Push-to-talk radio</small></span>
+            </div>
+            <p className="so-hardware-note">Original manufacturer product images. Products shown for category illustration, subject to quotation.</p>
+          </div>
+        </div>
+      </section>
+
       <section id="service" className="so-vertical so-service-section" aria-labelledby="so-service-title">
         <div className="wrap so-vertical-layout so-reverse-layout">
           <div data-motion-from="right" className="so-vertical-visual so-vertical-visual-service">
@@ -202,38 +236,6 @@ export default function Home() {
               <p>Radios, body cameras, tracking, CCTV and connectivity specified for the operation, with pricing and fulfilment confirmed by quotation.</p>
               <Link href="/equipment-marketplace">Browse technology <Arrow /></Link>
             </article>
-          </div>
-        </div>
-      </section>
-
-      <section id="equipment" className="so-equipment-section" aria-labelledby="so-equipment-title">
-        <div className="wrap so-equipment-layout">
-          <div data-motion-from="right" className="so-equipment-copy">
-            <p className="so-kicker">Signal One · Business equipment</p>
-            <h2 id="so-equipment-title">The right technology. For the real job.</h2>
-            <p>Professional push-to-talk radios, tracking and connectivity should be specified for the deployment, not sold as a generic gadget. Talk to the team that understands field operations.</p>
-            <div className="so-equipment-types" aria-label="Available equipment categories">
-              <span>PoC & PTT radios</span><span>Vehicle & asset tracking</span><span>Body cameras</span><span>CCTV & networks</span>
-            </div>
-            <div className="so-inline-actions">
-              <Link href="/radios-equipment#quote" data-analytics-event="homepage_equipment_quote"
-                data-analytics-label="homepage-equipment" className="btn btn-primary so-home-cta">Request equipment quote <Arrow /></Link>
-              <Link href="/equipment-marketplace" className="so-text-link">Explore equipment <Arrow /></Link>
-            </div>
-            <p className="so-disclosure">Prices, lead times and availability are confirmed by written quotation.</p>
-          </div>
-          <div data-motion-from="left" style={{ "--so-motion-delay": "280ms" } as CSSProperties} className="so-hardware-gallery" aria-label="Actual manufacturer product imagery">
-            <div className="so-hardware-product so-radio-product">
-              <Image src={pnc360s} alt="Hytera PNC360S push-to-talk over cellular radio, original manufacturer product image"
-                sizes="(min-width:1024px) 300px, 45vw" className="so-product-image" />
-              <span>Hytera PNC360S <small>Push-to-talk radio</small></span>
-            </div>
-            <div className="so-hardware-product so-radio-product">
-              <Image src={p30Lite} alt="Hytera P30 Lite push-to-talk over cellular radio, original manufacturer product image"
-                sizes="(min-width:1024px) 240px, 45vw" className="so-product-image" />
-              <span>Hytera P30 Lite <small>Push-to-talk radio</small></span>
-            </div>
-            <p className="so-hardware-note">Original manufacturer product images. Products shown for category illustration, subject to quotation.</p>
           </div>
         </div>
       </section>

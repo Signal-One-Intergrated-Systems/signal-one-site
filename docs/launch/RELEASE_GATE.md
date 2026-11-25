@@ -38,3 +38,18 @@ As of 2026-11-25. Every criterion is PASS, FAIL or BLOCKED. No aggregate score. 
 | Independently reviewed | No | — | — | — |
 | Production deployed | No | No | No | No |
 | Ready for actual customers | **No** — DR-001 | No | No | No |
+
+## Checkpoint 2 (2026-11-25, later the same day)
+
+| # | Criterion | Status now | Change |
+|---|---|---|---|
+| 3 | Every relevant commercial journey tested | FAIL | Unchanged until 12. Every form's failure states and success path are tested against a mock receiver. |
+| 4 | Zero unresolved material brand inconsistencies | FAIL | 1GUARD naming fixed; the visual audit found 27 findings (VA-01…27), 3 fixed, the rest need one token consolidation. |
+| 5 | Zero unexplained layout gaps | FAIL | Explained (root causes recorded), not all fixed: DR-022, VA-12. |
+| 9 | Zero unresolved critical accessibility defects | FAIL → fixed on branch | VA-06 (no visible form errors, 2.7:1 field borders) was an S1 gap the automated scans missed; fixed for the quote/contact/marketplace forms. |
+| 11 | LCP ≤ 2.5 s | FAIL (lab) | Homepage 4.29 → 3.16 s on branch; 2.82 s with the q75 hero (founder decision); production HTTP/2 not yet measured. Landing pages ~1.0 s PASS. |
+| 12 | Verified lead capture | FAIL — S0 | Receiver being built on an isolated LEOS branch (workstream B); website side now also forwards attribution. |
+| 2 | Sales OS modules reviewed | BLOCKED | Exact test-access request in `SALES_OS_RECONCILIATION.md`. |
+| 22 | Marketing attribution | PARTLY READY (branch) | UTM/gclid/gbraid/wbraid captured and forwarded; GA4 `generate_lead` + Ads conversion on receipt only, de-duplicated by receipt reference; consent defaults denied; needs real GA4/Ads IDs, a consent banner decision, and the receiver storing attribution. |
+
+E2E (branch): **412 passed, 0 failed, 84 skipped** before the VA-04/06/11 changes; the 84 skipped are the two opt-in evidence-capture suites (`visual-audit`, `visual-states`, run only with `VISUAL_AUDIT_DIR`), not launch gates.

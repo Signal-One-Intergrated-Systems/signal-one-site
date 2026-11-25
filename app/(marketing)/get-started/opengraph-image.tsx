@@ -5,5 +5,5 @@ export const size = ogSize;
 export const contentType = ogContentType;
 
 export default function Image() {
-  return renderOg("Start onboarding your security company", "Signal One Security");
+  return renderOg("Start onboarding your security company", "1GUARD");
 }

@@ -623,6 +623,8 @@ test("homepage imagery is focused, with sector context and quiet product surface
       [".so-onboarding-section",null],
       ["#community",null],
     ] as const;
+    // Section photographs load after the page (components/AfterLoad.tsx, DR-003); assert them once they have.
+    await page.waitForFunction(()=>document.documentElement.hasAttribute("data-after-load"));
     for(const [selector,image] of sections){
       const bg=await page.locator(selector).evaluate(node=>getComputedStyle(node).backgroundImage);
       if (image) expect(bg,`Scene missing on ${selector}`).toContain(image);

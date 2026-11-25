@@ -7,7 +7,7 @@ import { routes } from "./routes";
 // Status pills are rendered at build time from GUARD_STATUS (app/lib/guardStatus.ts).
 const livePill = /<span[^>]*rounded-full[^>]*>\s*(Client portal · )?Live\s*<\/span>/;
 const pilotPill = /<span[^>]*rounded-full[^>]*>\s*(Client portal · )?Pilot\s*<\/span>/;
-const onboarding = "Signal One Guard is onboarding its first pilot security companies.";
+const onboarding = "1GUARD is onboarding its first pilot security companies.";
 // Used only inside the second, test-only build; never in a deployed environment.
 const storeUrls = { android: liveBuildEnv.GUARD_APP_ANDROID_URL, ios: liveBuildEnv.GUARD_APP_IOS_URL };
 const salesOsUrl = liveBuildEnv.SALES_OS_URL;
@@ -32,7 +32,7 @@ test("GUARD_STATUS unset: Guard capabilities are Pilot, never Live", async ({ re
 test("acquisition links stay hidden until their URLs are configured", async ({ request, baseURL }) => {
   const html = await pages(baseURL!, request);
   for (const [route, body] of Object.entries(html)) {
-    expect(body, `${route} download`).not.toContain("Download Signal One Guard");
+    expect(body, `${route} download`).not.toContain("Download 1GUARD");
     expect(body, `${route} store link`).not.toMatch(/play\.google\.com|apps\.apple\.com/);
     expect(body, `${route} Sales OS link`).not.toContain(">Open Sales OS<");
   }
@@ -77,7 +77,7 @@ test.describe("GUARD_STATUS=live", () => {
     const guards = await (await request.get(`http://localhost:${port}/guards`)).text();
     expect(guards).toContain(`href="${storeUrls.android.replace(/&/g, "&amp;")}"`);
     expect(guards).toContain(`href="${storeUrls.ios}"`);
-    expect(guards).toContain("Download Signal One Guard");
+    expect(guards).toContain("Download 1GUARD");
     const sales = await (await request.get(`http://localhost:${port}/join/sales`)).text();
     expect(sales).toContain(`href="${salesOsUrl}"`);
     expect(sales).toContain("Open Sales OS");
@@ -88,7 +88,7 @@ test.describe("GUARD_STATUS=live", () => {
     expect(html["/"]).toMatch(livePill);
     expect(html["/"]).toMatch(/Already live/i);
     expect(html["/solutions/security"]).toMatch(livePill);
-    expect(html["/guard-marketplace"]).toMatch(/Already live in Signal One Guard/);
+    expect(html["/guard-marketplace"]).toMatch(/Already live in 1GUARD/);
     for (const [route, body] of Object.entries(html)) {
       expect(body, `${route} pilot pill`).not.toMatch(pilotPill);
       expect(body, `${route} onboarding line`).not.toContain(onboarding);

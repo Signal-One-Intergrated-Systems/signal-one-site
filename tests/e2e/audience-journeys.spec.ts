@@ -4,8 +4,8 @@ test("homepage introduces purchasable journeys and clearly labels 1Community", a
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1, name: /Run your business/ })).toBeVisible();
   // The approved page offers each product from the hero bar, the section wordmark and the section action:
-  // every link carrying the name must lead to that product.
-  for (const [name, href] of [[/Explore 1GUARD/, "/solutions/security"], [/Explore 1Service/, "/service"], [/Explore equipment/, "/equipment-marketplace"]] as const) {
+  // every link carrying the name must lead to that product. Equipment leads to the radio catalogue (2026-11-25).
+  for (const [name, href] of [[/Explore 1GUARD/, "/solutions/security"], [/Explore 1Service/, "/service"], [/See the catalogue/, "/radios-equipment"]] as const) {
     const links = await page.getByRole("link", { name }).all();
     expect(links.length, String(name)).toBeGreaterThanOrEqual(1);
     for (const link of links) await expect(link).toHaveAttribute("href", href);

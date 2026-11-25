@@ -17,6 +17,8 @@ const routes: ReadonlyArray<[string, MetadataRoute.Sitemap[number]["changeFreque
   ["/get-started", "monthly", 0.7],
   ["/guards", "monthly", 0.7],
   ["/guards/join", "monthly", 0.6],
+  ["/about", "monthly", 0.6],
+  ["/support", "monthly", 0.5],
   ["/security-trust", "yearly", 0.4],
   ["/popia", "yearly", 0.3],
   ["/privacy", "yearly", 0.3],

@@ -44,3 +44,16 @@ export function trackEvent(
   if (typeof window === "undefined") return;
   window.gtag?.("event", event, params);
 }
+
+/**
+ * A sales enquiry that the receiver has durably saved. Fired once per receipt (never on a duplicate),
+ * only for client enquiries: guard and job applications are not sales leads. The receipt reference is
+ * the transaction_id, so GA4 and Google Ads both de-duplicate a repeated report of the same lead.
+ * Dormant unless NEXT_PUBLIC_GA_ID / NEXT_PUBLIC_GOOGLE_ADS_LEAD_CONVERSION are configured.
+ */
+export function trackLeadConversion(reference: string, intent: string | undefined) {
+  if (typeof window === "undefined" || !window.gtag) return;
+  window.gtag("event", "generate_lead", { transaction_id: reference, lead_intent: intent });
+  const sendTo = process.env.NEXT_PUBLIC_GOOGLE_ADS_LEAD_CONVERSION;
+  if (sendTo) window.gtag("event", "conversion", { send_to: sendTo, transaction_id: reference });
+}

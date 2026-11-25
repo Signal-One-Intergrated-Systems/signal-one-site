@@ -82,3 +82,52 @@ for (const c of cases) {
     expect(hit!.auth).toBe("Bearer qa-token");
   });
 }
+
+test("a campaign visit's attribution reaches the receiver with the enquiry, cleaned", async ({ page, request }) => {
+  // Land from an ad on the rental page, then follow the site's own path to the quote form.
+  await page.goto(OK_BASE + "/ptt-radio-rental?utm_source=google&utm_medium=cpc&utm_campaign=qa-radio-rental&gclid=QA.test-123&utm_term=%3Cscript%3E");
+  await page.waitForLoadState("networkidle");
+  await page.getByRole("link", { name: "Request a radio quote" }).first().click();
+  await page.waitForURL(/radios-equipment/);
+  await hydrated(page);
+  await page.getByLabel("Buy or rent?").selectOption("Rent radios");
+  await simple(page);
+  await expect(page.locator('[role="status"]').first()).toBeVisible({ timeout: 15_000 });
+  const received = (await (await request.get("http://localhost:4010/received")).json()) as Array<{ body: { data: { intent: string }; attribution?: Record<string, string> | null } }>;
+  const hit = received.reverse().find((r) => r.body?.attribution?.utm_campaign === "qa-radio-rental");
+  expect(hit, "upstream received the attribution").toBeTruthy();
+  expect(hit!.body.attribution).toMatchObject({ utm_source: "google", utm_medium: "cpc", gclid: "QA.test-123", landingPath: "/ptt-radio-rental" });
+  // Markup in a parameter is dropped, never forwarded into the CRM.
+  expect(hit!.body.attribution!.utm_term).toBeUndefined();
+});
+
+test("an empty quote shows every problem at once, next to each field and in a focused summary", async ({ page }) => {
+  await page.goto("/radios-equipment#quote");
+  await hydrated(page);
+  await page.locator("main form button[type=submit]").first().click();
+  const summary = page.locator("main form [data-error-summary]");
+  await expect(summary).toBeVisible();
+  await expect(summary).toBeFocused();
+  const invalid = page.locator('main form [aria-invalid="true"]');
+  expect(await invalid.count(), "more than the first field is flagged").toBeGreaterThan(3);
+  // Each flagged field points at a visible message.
+  const quantity = page.locator("main form input[name=quantity]");
+  await expect(quantity).toHaveAttribute("aria-invalid", "true");
+  const describedBy = (await quantity.getAttribute("aria-describedby"))!;
+  await expect(page.locator("#" + describedBy.split(" ").pop())).toHaveText(/Enter/);
+  // Correcting a field clears its message; the summary links move focus to the field.
+  await quantity.fill("12");
+  await expect(quantity).not.toHaveAttribute("aria-invalid", "true");
+  await summary.getByRole("link").first().click();
+  await expect(page.locator(":focus")).toHaveAttribute("aria-invalid", "true");
+});
+
+test("pages with their own closing action do not stack the footer band; legal pages keep it", async ({ page }) => {
+  for (const route of ["/", "/ptt-radio-rental", "/radios-equipment", "/guards", "/join/sales", "/support", "/no-such-page"]) {
+    await page.goto(route);
+    await expect(page.locator(".s1-premium-footer-intro"), route).toHaveCount(0);
+  }
+  await page.goto("/privacy");
+  await expect(page.locator(".s1-premium-footer-intro")).toHaveCount(1);
+  await expect(page.locator(".s1-footer-main-cta")).toHaveAttribute("href", "/contact");
+});

@@ -15,7 +15,8 @@ const groups = [
     ["/guards","For security officers"],["/guards/join","Create a guard profile"],
     ["/join/sales","Careers"]
   ] },
-  { title: "Trust & legal", links: [
+  { title: "Company & trust", links: [
+    ["/about","About Signal One"],["/support","Customer support"],
     ["/security-trust","Security & trust"],["/popia","POPIA & data handling"],
     ["/privacy","Privacy"],["/terms","Terms"]
   ] },
