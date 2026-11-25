@@ -55,9 +55,9 @@ export default function SupportPage() {
 
       <section className="surface-light section" aria-labelledby="support-safety">
         <div className="wrap">
-          <div className="rounded-card border border-line bg-signal-tint p-6 sm:p-8">
+          <div className="rounded-card border border-signal-400/40 bg-raised p-6 sm:p-8">
             <h2 id="support-safety" className="t-h3">If someone is in danger, do not wait for us</h2>
-            <p className="t-body mt-3 measure text-text-2">
+            <p className="t-body mt-3 measure text-text-inv-2">
               Follow your own emergency and control-room procedures first, and call emergency services if needed. Email and WhatsApp are not monitored as emergency lines.
             </p>
           </div>
@@ -69,10 +69,10 @@ export default function SupportPage() {
           <h2 id="support-topics" className="t-h2">What do you need help with?</h2>
           <ul className="m-0 grid list-none gap-x-12 p-0 md:grid-cols-2">
             {topics.map(([title, body, mailTopic]) => (
-              <li key={title} className="border-t border-line py-6">
+              <li key={title} className="border-t border-line-dark py-6">
                 <h3 className="t-h4">{title}</h3>
-                <p className="t-small mt-2 text-text-2">{body}</p>
-                <a href={mailTopic ? subject(mailTopic) : "/popia"} className="link-arrow mt-3 inline-flex text-signal-ink">
+                <p className="t-small mt-2 text-text-inv-2">{body}</p>
+                <a href={mailTopic ? subject(mailTopic) : "/popia"} className="link-arrow mt-3 inline-flex text-signal-300">
                   {mailTopic ? "Email about this →" : "POPIA and your rights →"}
                 </a>
               </li>
@@ -88,14 +88,14 @@ export default function SupportPage() {
             <ul className="m-0 grid list-none gap-3 p-0">
               {include.map((item) => (
                 <li key={item} className="flex gap-3">
-                  <Check className="mt-1 shrink-0 text-signal-ink" />
-                  <span className="t-body text-text-2">{item}</span>
+                  <Check className="mt-1 shrink-0 text-signal-300" />
+                  <span className="t-body text-text-inv-2">{item}</span>
                 </li>
               ))}
             </ul>
-            <p className="t-small mt-6 text-text-2">
+            <p className="t-small mt-6 text-text-inv-2">
               Support hours and response times are set out in your customer agreement.
-              Security officers: for shift or pay questions, contact your employer or control room; for your guard profile, see <a href="/guards" className="link-inline font-semibold text-signal-ink">For security officers</a>.
+              Security officers: for shift or pay questions, contact your employer or control room; for your guard profile, see <a href="/guards" className="link-inline font-semibold text-signal-300">For security officers</a>.
             </p>
           </div>
         </div>

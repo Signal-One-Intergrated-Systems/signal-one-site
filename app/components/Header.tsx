@@ -40,7 +40,7 @@ const worlds: Record<
       { href: "/join/sales", label: "Careers" },
     ],
     cta: { href: "/get-started", label: "Get 14 Day Free Trial" },
-    shell: "glass-nav text-text-inv border-b border-line-dark",
+    shell: "glass-nav text-text-inv",
     link: "text-text-inv hover:bg-white/8",
     cta_class: "btn btn-primary",
     sheet: "bg-base text-text-inv",
@@ -55,7 +55,7 @@ const worlds: Record<
     ],
     secondary: [{ href: "/", label: "For security companies" }],
     cta: { href: "/guards/join", label: "Create your profile" },
-    shell: "glass-nav text-text-inv border-b border-line-dark",
+    shell: "glass-nav text-text-inv",
     link: "text-text-inv hover:bg-white/8",
     cta_class: "btn btn-primary",
     sheet: "bg-base text-text-inv",
@@ -69,7 +69,7 @@ const worlds: Record<
     ],
     secondary: [{ href: "/about", label: "About Signal One" }],
     cta: { href: "/join/sales#apply", label: "Apply" },
-    shell: "glass-nav text-text-inv border-b border-line-dark",
+    shell: "glass-nav text-text-inv",
     link: "text-text-inv hover:bg-white/8",
     cta_class: "btn btn-primary",
     sheet: "bg-base text-text-inv",
@@ -142,7 +142,7 @@ export default function Header() {
 
   return (
     <header data-home={pathname === "/" ? "" : undefined} data-scrolled={scrolled ? "" : undefined} className={"sticky top-0 z-50 " + config.shell}>
-      <div className="wrap flex h-[72px] items-center justify-between gap-4">
+      <div className="wrap flex h-16 items-center justify-between gap-4">
         <Link
           href={config.homeHref}
           className="flex min-h-[44px] min-w-0 items-center gap-3"
@@ -178,7 +178,7 @@ export default function Header() {
               href={item.href}
               className={
                 "flex min-h-[44px] items-center rounded-ui px-3 text-[0.9375rem] " +
-                (dark ? "text-text-inv-2 hover:text-text-inv" : "text-text-2 hover:text-text")
+                "text-text-inv-2 hover:text-text-inv"
               }
             >
               {item.label}
@@ -216,7 +216,7 @@ export default function Header() {
           <nav className="wrap flex min-h-full flex-col pb-8 pt-4" aria-label="Mobile">
             <ul className="m-0 list-none p-0">
               {config.primary.map((item) => (
-                <li key={item.href} className={"border-b " + (dark ? "border-line-dark" : "border-line")}>
+                <li key={item.href} className={"border-b " + "border-line-dark"}>
                   <Link
                     href={item.href}
                     onClick={() => setOpen(false)}
@@ -224,7 +224,7 @@ export default function Header() {
                     className="flex min-h-[60px] items-center justify-between font-display text-[1.5rem] font-semibold"
                   >
                     {item.label === "1GUARD" ? <ProductSignature name="GUARD" /> : item.label === "1Service" ? <ProductSignature name="Service" /> : item.label}
-                    <span aria-hidden="true" className={dark ? "text-text-inv-2" : "text-text-2"}>→</span>
+                    <span aria-hidden="true" className={dark ? "text-text-inv-2" : "text-text-inv-2"}>→</span>
                   </Link>
                 </li>
               ))}
@@ -247,7 +247,7 @@ export default function Header() {
                   <Link
                     href={item.href}
                     onClick={() => setOpen(false)}
-                    className={"flex min-h-[44px] items-center text-[1.0625rem] underline underline-offset-4 " + (dark ? "text-text-inv-2" : "text-text-2")}
+                    className={"flex min-h-[44px] items-center text-[1.0625rem] underline underline-offset-4 " + "text-text-inv-2"}
                   >
                     {item.label}
                   </Link>
@@ -255,7 +255,7 @@ export default function Header() {
               ))}
             </ul>
 
-            <p className={"t-small mt-auto pt-10 " + (dark ? "text-text-inv-2" : "text-text-2")}>
+            <p className={"t-small mt-auto pt-10 " + "text-text-inv-2"}>
               Signal One: Integrated Systems · South Africa ·{" "}
               <a href="mailto:sales@signalone.co.za" className="link-inline">
                 sales@signalone.co.za

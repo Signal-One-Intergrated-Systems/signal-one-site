@@ -12,3 +12,7 @@ Plain Playwright scripts used for the 2026-11-25 baseline. Run from a scratch di
 | `slice.py IMG OUT CHUNK SCALE` | Cut a full-page capture into reviewable slices. |
 
 Never submit live production forms with these tools.
+
+## `w1/` — visual consolidation evidence (2026-11-25)
+
+`cap.js` (full-page capture + computed-style inventory per route × width; `ROOT`, `BASE`, `ONLY`, `VKS` env), `hero.js` + `herodiff.py` (founder-lock pixel control: hero at five widths, header band excluded), `metrics.py` + `matrix.py` (before/after metrics and the cross-page matrix in `BRAND_AUDIT.md` §9; `metrics.py` imports the colour-clustering functions of the A2 audit's `analyze.py`, so set its path before re-running), `journeys.js` (persona walks, `CUSTOMER_JOURNEYS.md` Phase 2), `pair.py` / `heroes.py` / `combo.py` (contact sheets). Run with `NODE_PATH=node_modules` against a local `next start`; no script submits a form.

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default function NotFound() {
   return (
     <main id="main" className="surface-deep">
-      <div className="wrap py-24 md:py-32 lg:py-40">
+      <div className="wrap py-16 md:py-24 lg:py-28">
         <Kicker tone="dark">Error 404</Kicker>
         <h1 className="t-hero mt-5">We could not find that page.</h1>
         <p className="t-lead measure mt-6 text-text-inv-2">

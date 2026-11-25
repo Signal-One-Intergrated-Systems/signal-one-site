@@ -54,12 +54,12 @@ export default function LandingPage({
           <h2 className="t-h2">{capabilitiesTitle}</h2>
           <ul className="m-0 grid list-none gap-x-12 p-0 md:grid-cols-2">
             {capabilities.map(([name, body]) => (
-              <li key={name} className="border-t border-line py-6">
+              <li key={name} className="border-t border-line-dark py-6">
                 <h3 className="t-h4 flex gap-3">
-                  <Check className="mt-0.5 text-signal-ink" />
+                  <Check className="mt-0.5 text-signal-300" />
                   {name}
                 </h3>
-                <p className="t-small mt-2 text-text-2">{body}</p>
+                <p className="t-small mt-2 text-text-inv-2">{body}</p>
               </li>
             ))}
           </ul>
@@ -78,7 +78,7 @@ export default function LandingPage({
           <h2 className="t-h3">What it does not do yet</h2>
           <ul className="m-0 grid list-none gap-3 p-0">
             {limits.map((item) => (
-              <li key={item} className="t-body text-text-2">
+              <li key={item} className="t-body text-text-inv-2">
                 {item}
               </li>
             ))}
@@ -105,7 +105,7 @@ export default function LandingPage({
           <ul className="m-0 grid list-none gap-3 p-0">
             {related.map(([href, label]) => (
               <li key={href}>
-                <Link href={href} className="link-arrow text-signal-400">
+                <Link href={href} className="link-arrow text-signal-300">
                   {label}
                 </Link>
               </li>

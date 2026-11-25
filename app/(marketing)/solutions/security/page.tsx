@@ -35,7 +35,7 @@ export default function SecurityPlatformPage() {
 
   return (
     <main id="main" className="s1-scene-page s1-scene-page--guard-os">
-      <SplitHero src={photos.sitePlanning.src} alt={photos.sitePlanning.alt} scene="/images/scenes/control-room.svg" objectPositionMobile="50% 45%" objectPosition="55% 48%">
+      <SplitHero src={photos.sitePlanning.src} alt={photos.sitePlanning.alt} objectPositionMobile="50% 45%" objectPosition="55% 48%">
         <div className="flex flex-wrap items-center gap-3">
           <Kicker tone="dark"><ProductSignature name="GUARD" tone="dark" /> · Security Business Operating System</Kicker>
           <GuardStatus tone="dark" />
@@ -61,16 +61,16 @@ export default function SecurityPlatformPage() {
         <div className="wrap">
           <Kicker>Built for the security business owner</Kicker>
           <h2 id="guard-business-os-title" className="t-h2 mt-4">More than guarding operations. A business operating system.</h2>
-          <p className="t-lead mt-5 max-w-3xl text-text-2">Your business connects customers, contracts, people, service delivery, equipment and financial decisions. 1GUARD brings the security-specific work into one environment as the wider business lifecycle is integrated.</p>
+          <p className="t-lead mt-5 max-w-3xl text-text-inv-2">Your business connects customers, contracts, people, service delivery, equipment and financial decisions. 1GUARD brings the security-specific work into one environment as the wider business lifecycle is integrated.</p>
           <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {[
               ["Win and retain customers", "CRM, proposals and contracts are part of the intended connected business lifecycle."],
               ["Build your team", "Recruitment, personnel records, scheduling and site deployment, with industry-specific controls."],
               ["Deliver and prove the service", "Current focus: attendance, patrols, incidents, SOS and client reporting."],
               ["Understand the business", "Connected equipment, billing, financial visibility and intelligence as integration milestones."],
-            ].map(([title, detail]) => <article key={title} className="card p-6"><h3 className="t-h4">{title}</h3><p className="t-body mt-3 text-text-2">{detail}</p></article>)}
+            ].map(([title, detail]) => <article key={title} className="card p-6"><h3 className="t-h4">{title}</h3><p className="t-body mt-3 text-text-inv-2">{detail}</p></article>)}
           </div>
-          <p className="t-small mt-5 text-text-2">Business lifecycle modules described as intended or integration milestones are not represented as live today. Available functions depend on your activation and release stage.</p>
+          <p className="t-small mt-5 text-text-inv-2">Business lifecycle modules described as intended or integration milestones are not represented as live today. Available functions depend on your activation and release stage.</p>
         </div>
       </section>
 
@@ -80,11 +80,11 @@ export default function SecurityPlatformPage() {
           <div>
             <Kicker>Coverage and supervision</Kicker>
             <h2 className="t-h2 mt-4">Know which posts are short before the client does.</h2>
-            <p className="t-body mt-5 text-text-2">The supervisor&rsquo;s day in one place: your sites, the roster against each post, shortfalls, and every SOS or late patrol waiting for action.</p>
+            <p className="t-body mt-5 text-text-inv-2">The supervisor&rsquo;s day in one place: your sites, the roster against each post, shortfalls, and every SOS or late patrol waiting for action.</p>
             <ul className="m-0 mt-6 grid list-none gap-3 p-0">
               {["Sites, posts and shifts", "Roster or map view", "Shortfalls per post", "Guards on duty now"].map((item) => (
                 <li key={item} className="t-body flex gap-3">
-                  <Check className="mt-1 text-signal-ink" />
+                  <Check className="mt-1 text-signal-300" />
                   {item}
                 </li>
               ))}
@@ -92,8 +92,8 @@ export default function SecurityPlatformPage() {
           </div>
           <div className="grid content-start gap-6">
             <h3 className="t-h3">The control room sees every SOS in order.</h3>
-            <p className="t-body text-text-2">{control.body}</p>
-            <p className="t-body text-text-2">
+            <p className="t-body text-text-inv-2">{control.body}</p>
+            <p className="t-body text-text-inv-2">
               Supervisors see each post&rsquo;s roster and any shortfall before the shift starts, and the map shows the last known
               position of each guard with its age.
             </p>
@@ -109,7 +109,7 @@ export default function SecurityPlatformPage() {
               <Kicker>On site</Kicker>
               <h2 className="t-h2 mt-4">What the guard does, on record.</h2>
             </div>
-            <p className="t-body text-text-2">
+            <p className="t-body text-text-inv-2">
               Guards use the 1GUARD app on their own phone or an authorised Central Device.
             </p>
           </div>
@@ -125,9 +125,9 @@ export default function SecurityPlatformPage() {
             />
             <ul className="m-0 grid list-none p-0">
               {fieldCapabilities.map(([title, body]) => (
-                <li key={title} className="border-t border-line py-5">
+                <li key={title} className="border-t border-line-dark py-5">
                   <h3 className="t-h4">{title}</h3>
-                  <p className="t-small mt-1 text-text-2">{body}</p>
+                  <p className="t-small mt-1 text-text-inv-2">{body}</p>
                 </li>
               ))}
             </ul>
@@ -149,9 +149,9 @@ export default function SecurityPlatformPage() {
               ["Grade below what the post needs", "Can be overridden by an authorised user, who must give a reason. The override is logged."],
               ["What Signal One does not do", "Check registrations with PSiRA or run background checks. Records are as entered by your company."],
             ].map(([term, detail]) => (
-              <div key={term} className="grid gap-1 border-t border-line py-4 sm:grid-cols-[14rem_1fr] sm:gap-6">
+              <div key={term} className="grid gap-1 border-t border-line-dark py-4 sm:grid-cols-[14rem_1fr] sm:gap-6">
                 <dt className="font-semibold">{term}</dt>
-                <dd className="t-body m-0 text-text-2">{detail}</dd>
+                <dd className="t-body m-0 text-text-inv-2">{detail}</dd>
               </div>
             ))}
           </dl>
@@ -210,7 +210,7 @@ export default function SecurityPlatformPage() {
           <div className="order-1 lg:order-2">
             <Kicker>People and access</Kicker>
             <h2 className="t-h2 mt-4">Supervisors see their sites. Nobody sees more than they should.</h2>
-            <p className="t-body mt-5 text-text-2">{people.body}</p>
+            <p className="t-body mt-5 text-text-inv-2">{people.body}</p>
           </div>
         </div>
       </section>

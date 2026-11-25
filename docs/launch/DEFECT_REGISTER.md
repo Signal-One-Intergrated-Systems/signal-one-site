@@ -103,3 +103,34 @@ Why they are skipped by default: they are screenshot-capture suites (`test.skip(
 - `/join/sales` absent from the sitemap: deliberate (noindex careers page, `app/sitemap.ts`).
 - "Empty" dark panels in full-page captures of `/`: reveal-on-scroll; content appears for a scrolling visitor (tracked as robustness item DR-020 only).
 - Native form validation and consent handling on the quote form work correctly (consent unticked by default, rental term shown only for rentals).
+
+## Checkpoint 3 — visual and brand consolidation (W1, branch `wip/w1-visual`, 2026-11-25)
+
+Evidence: `BRAND_AUDIT.md` §9 (before/after metrics, consistency matrix, per-finding status), `docs/launch/evidence/w1/` (every route at 1440/1280/1024/768/390 before and after; before/after strip sheets; cross-page hero sheets), `CUSTOMER_JOURNEYS.md` Phase 2. Status `FIXED (branch)` = verified on a local production build of `wip/w1-visual`, not deployed.
+
+| ID | New status | Evidence |
+|---|---|---|
+| VA-01, 02, 03, 05, 07, 08, 09, 10, 11, 12, 13, 14, 20, 22, 23, 24, 25, 26, 27 | FIXED (branch) | One token layer; `!important` 586 → 4 outside the locked hero (195 inside it, unchanged); rendered text colours 74 → 21, font sizes 65 → 38, glass recipes 25 → 7, radii 19 → 9, H1 sizes 9 → 4. Per-finding evidence in `BRAND_AUDIT.md` §9.4. |
+| VA-04, VA-06 | FIXED (branch), extended | Footer heading 2rem / plain `btn-lg`; error and invalid states are tokens in the shared field recipe. |
+| VA-15 | PARTLY FIXED (branch) | `/guards` and `/guard-attendance-software` no longer reuse `hire-security` / `security-site-planning`. Equipment heroes still share one product pair — needs rental-stock photography (BLOCKED, founder: `IMAGE_INVENTORY.md` §5 #8). |
+| VA-16 | FIXED (branch) for `/guards` (officer at an access point), `/guard-attendance-software` (shift briefing), `/join/sales` (security account review, caption now true); OPEN `/service` vision cards and home devices card (reasons in §9.4). |
+| VA-17 | FIXED (branch) for scene backdrops (toned to graphite); BLOCKED for hospitality foreground photographs — needs a designer LUT re-grade (`IMAGE_INVENTORY.md` §5 #6). |
+| VA-18 | BLOCKED — founder | 2560 px masters, or a decision to drop scene backdrops (`IMAGE_INVENTORY.md` §5 #5). |
+| VA-19 | BLOCKED — founder (locked hero) | Caption is inside the viewport at 390 (x 281–377) but meets the glass card's top edge; moving it changes the locked hero. |
+| VA-21 | FIXED (branch) for text links, kickers, headings and labels. BLOCKED — founder: Signal-blue filled buttons keep the plain name (a blue numeral is invisible on the blue fill and the release gate forbids recolouring it); and whether running body copy is exempt. |
+| DR-018 | FIXED (branch) | Category actions are text links: "Request a quote →" / "Talk to Signal One →" (security technology has no quote category). |
+| DR-022 | FIXED (branch) | Homepage vertical images are top-aligned and sticky beside the copy from 960 px; no empty column above the photograph. |
+| DR-016 | BLOCKED (unchanged), mitigated | Rental block now "What a rental includes, and what is quoted" and prompts the buyer to ask about delivery, deposit, damage and loss, and early termination. No term invented. |
+| UX #5 | IMPROVED | Homepage 10.5 → 8.5 screens at 1440; 14.6 → 14.2 at 390 (the locked hero is ~1.3 screens at 390). |
+| UX #6 | FIXED (branch) | `/get-started` intro is plain text (no card, no photograph backdrop); the duplicate step list is desktop-only. |
+| New W1-01 · S2 | FIXED (branch) | `/pricing` overflowed horizontally by 46 px at 1024 (guard-day equation grid used `1fr` with long labels). Pre-existing; found by the 1024 capture. |
+| New W1-02 · S2 | FIXED (branch) | Light status tints (`bg-signal-tint`, `bg-beta-tint`) and `text-live` were still painted on the dark stage in `/support`, the careers and guard forms, the pricing calculator and two success messages (light boxes under the overrides). Now `raised` notices with `*-inv` hues. |
+| New W1-03 · S2 | FIXED (branch) | `/pricing` had no action in the first viewport (persona walk P1). |
+| New W1-04 · S3 | BLOCKED — founder | Construction and event buyers: shortest stated rental term is 12 months; whether short-term/event rental exists is not established (`CUSTOMER_JOURNEYS.md` P8, P9). |
+
+### W1 verification (merged over `35fa09c`, W2 perf + KI-1)
+
+- `npm run build`: pass (design contract 23/23, branding/public-truth checks pass).
+- Full e2e suite on the merged tree (`flock`, 3 workers): **420 passed, 0 failed, 84 skipped** (opt-in evidence suites). Earlier W1-only runs: 397/17 (13 were tests pinning the retired styling, updated with reasons; 3 React #418 under load, since fixed by W2's KI-1 change; 1 shutter phase-poll), then 413/1.
+- Intermittent `visual-corrections.spec.ts:103` (product quote scroll, DR-025): like-for-like ×12 on the same machine — base `97331f4` 11/12, W1 12/12; pre-existing, not introduced.
+- Founder lock: hero pixel-identical (0 px > 24/255, header band excluded) to `35fa09c` at 1440/1280/1024/768, and at 390 after the intended 4 px start correction.

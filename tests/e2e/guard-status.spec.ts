@@ -4,9 +4,12 @@ import fs from "node:fs";
 import { liveBuildEnv } from "./global-setup";
 import { routes } from "./routes";
 
-// Status pills are rendered at build time from GUARD_STATUS (app/lib/guardStatus.ts).
-const livePill = /<span[^>]*rounded-full[^>]*>\s*(Client portal · )?Live\s*<\/span>/;
-const pilotPill = /<span[^>]*rounded-full[^>]*>\s*(Client portal · )?Pilot\s*<\/span>/;
+// Status labels are rendered at build time from GUARD_STATUS (app/lib/guardStatus.ts) by the one
+// `Status` component (`.badge`, DESIGN_SYSTEM §7; it replaced the per-page rounded pills, VA-08).
+const livePill = /<span[^>]*class="badge badge-[a-z]+"[^>]*>\s*(Client portal · )?Live\s*<\/span>/;
+const pilotPill = /<span[^>]*class="badge badge-[a-z]+"[^>]*>\s*(Client portal · )?Pilot\s*<\/span>/;
+// Product names render through ProductSignature (two spans), so compare visible text, not raw HTML.
+const text = (html: string) => html.replace(/<[^>]+>/g, "");
 const onboarding = "1GUARD is onboarding its first pilot security companies.";
 // Used only inside the second, test-only build; never in a deployed environment.
 const storeUrls = { android: liveBuildEnv.GUARD_APP_ANDROID_URL, ios: liveBuildEnv.GUARD_APP_IOS_URL };
@@ -88,7 +91,7 @@ test.describe("GUARD_STATUS=live", () => {
     expect(html["/"]).toMatch(livePill);
     expect(html["/"]).toMatch(/Already live/i);
     expect(html["/solutions/security"]).toMatch(livePill);
-    expect(html["/guard-marketplace"]).toMatch(/Already live in 1GUARD/);
+    expect(text(html["/guard-marketplace"])).toMatch(/Already live in 1GUARD/);
     for (const [route, body] of Object.entries(html)) {
       expect(body, `${route} pilot pill`).not.toMatch(pilotPill);
       expect(body, `${route} onboarding line`).not.toContain(onboarding);

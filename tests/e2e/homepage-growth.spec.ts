@@ -8,7 +8,8 @@ for (const width of [320, 390, 768, 1440]) {
     await expect(page.locator(".s1-hero-globe-layer")).toBeAttached();
     await expect(page.locator(".so-hero-media img")).toBeVisible();
     await expect(page.locator(".so-hero-bar")).toBeVisible();
-    await expect(page.locator("#service")).toContainText("IN DEVELOPMENT");
+    // Sentence-case status label (DESIGN_SYSTEM §3: the lockup is the only all-caps text, VA-10).
+    await expect(page.locator("#service")).toContainText("In development");
     await expect(page.locator("#equipment")).toContainText("Hytera PNC360S");
     await expect(page.locator("#equipment")).toContainText("Hytera P30 Lite");
     const trial = page.locator(".so-hero-actions").getByRole("link", { name: /Get 14 Day Free Trial/ });

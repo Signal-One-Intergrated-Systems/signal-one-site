@@ -9,10 +9,11 @@ export function HardwareShowcase({ products }: { products: ReadonlyArray<Catalog
     <div className="s1-hardware-showcase" role="group" aria-label="Manufacturer radio photographs">
       {products.filter((product) => product.image).map((product) => (
         <figure key={product.model} className="s1-hardware-showcase-item">
-          <div className="s1-product-well">
+          <div className="s1-product-well well">
             <Image src={product.image!.src} alt={product.image!.alt}
               fill sizes="(min-width: 1024px) 240px, (min-width: 640px) 40vw, 43vw"
-              className="object-contain p-5" quality={90} />
+              className="object-contain p-5" quality={90}
+              style={{ ["--bounds" as string]: product.image!.bounds }} />
           </div>
           <figcaption>{product.model}<span>{product.type}</span></figcaption>
         </figure>
@@ -42,7 +43,7 @@ export function HardwareCard({
   const quoteHref = `/radios-equipment?${new URLSearchParams({ category, product: selectedProduct })}#quote`;
   return (
     <article className="hardware-card card relative flex h-full flex-col overflow-hidden">
-      {product.image ? <div className="relative aspect-[4/3] s1-product-well">
+      {product.image ? <div className="relative aspect-[4/3] s1-product-well well">
           <Image
             src={product.image.src}
             alt={product.image.alt}
@@ -50,23 +51,28 @@ export function HardwareCard({
             sizes="(min-width: 1024px) 360px, (min-width: 640px) 45vw, 85vw"
             quality={90}
             className="object-contain p-6 sm:p-8"
+            style={{ ["--bounds" as string]: product.image.bounds }}
           />
-        <span className="glass-light absolute left-3 top-3 rounded-full">
+        <span className="glass-light absolute left-3 top-3 rounded-full px-3 py-1">
           <Status kind="quote">By quote</Status>
         </span>
-      </div> : null}
+      </div> : (
+        <div className="well-typographic">
+          <span className="well-typographic-badge"><Status kind="quote">By quote</Status></span>
+          <span aria-hidden="true">{product.type}</span>
+        </div>
+      )}
       <div className={"flex flex-1 flex-col " + (compact ? "p-5" : "p-6 sm:p-7")}>
-        {!product.image ? <div className="mb-4"><Status kind="quote" tone="dark">By quote</Status></div> : null}
-        <p className="t-small font-semibold text-signal-ink">
+        <p className="t-small font-semibold text-signal-300">
           {product.manufacturer ? product.manufacturer + " · " : ""}
           {product.type}
         </p>
-        <Heading className={"mt-2 font-display font-bold leading-[1.05] tracking-[-0.02em] " + (compact ? "text-[1.5rem]" : "text-[1.75rem] sm:text-[2rem]")}>
+        <Heading className="t-h3 mt-2">
           {product.model}
         </Heading>
-        <p className="t-small mt-3 text-text">{product.role}</p>
-        <p className="t-small mt-1 text-text-2">{product.detail}</p>
-        <Link href={quoteHref} className="link-arrow mt-auto pt-5 text-signal-ink">
+        <p className="t-small mt-3 text-text-inv">{product.role}</p>
+        <p className="t-small mt-1 text-text-inv-2">{product.detail}</p>
+        <Link href={quoteHref} className="link-arrow mt-auto pt-5 text-signal-300">
           Request a quote<span className="sr-only"> for {product.model}</span> <span aria-hidden="true">→</span>
         </Link>
       </div>

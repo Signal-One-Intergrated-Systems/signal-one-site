@@ -1,12 +1,13 @@
 "use client";
 
 import ReceiptReference from "../ReceiptReference";
+import { Stepper } from "../ui";
 import IntakeError from "../IntakeError";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Consent, JMulti, JRadio, JSelect, JText, JTextarea, ReviewList } from "./fields";
 import { useJourney } from "./useJourney";
 
-const ACCENT = "text-signal-ink";
+const ACCENT = "text-signal-300";
 
 const steps = [
   { id: "role", label: "Role" },
@@ -64,9 +65,9 @@ export default function SalesApplication({ roleCount }: { roleCount: number | nu
 
   if (j.status === "done") {
     return (
-      <div role="status" className="rounded-card bg-white p-6 ring-1 ring-line sm:p-10">
-        <p className="t-kicker text-signal-ink">Application status</p>
-        <h3 className="mt-3 font-display text-[2rem] font-bold leading-tight">Thank you. Your application is in.</h3>
+      <div role="status" className="rounded-card bg-raised p-6 ring-1 ring-line-dark sm:p-10">
+        <p className="t-kicker text-signal-300">Application status</p>
+        <h3 className="t-h2 mt-3">Thank you. Your application is in.</h3>
         <ReceiptReference reference={j.reference} />
         <ol className="m-0 mt-8 list-none p-0">
           {statusStages.map(([stage, note], index) => (
@@ -75,7 +76,7 @@ export default function SalesApplication({ roleCount }: { roleCount: number | nu
                 aria-hidden="true"
                 className={
                   "mt-1 grid h-6 w-6 place-items-center rounded-full border-2 " +
-                  (index === 0 ? "border-signal bg-signal" : "border-line bg-white")
+                  (index === 0 ? "border-signal bg-signal" : "border-line-dark bg-raised")
                 }
               />
               <div>
@@ -83,12 +84,12 @@ export default function SalesApplication({ roleCount }: { roleCount: number | nu
                   {stage}
                   {index === 0 ? <span className="sr-only"> (current stage)</span> : null}
                 </p>
-                <p className="t-small text-text-2">{note}</p>
+                <p className="t-small text-text-inv-2">{note}</p>
               </div>
             </li>
           ))}
         </ol>
-        <p className="t-small mt-6 border-t border-line pt-4 text-text-2">
+        <p className="t-small mt-6 border-t border-line-dark pt-4 text-text-inv-2">
           There is no online status tracker yet. We will contact you by email at each stage.
         </p>
       </div>
@@ -96,32 +97,21 @@ export default function SalesApplication({ roleCount }: { roleCount: number | nu
   }
 
   return (
-    <div className="world-careers rounded-card bg-white p-5 ring-1 ring-line sm:p-8">
-      <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <p className="font-semibold">
-          Step {j.stepIndex + 1} of {steps.length} · {current.label}
-        </p>
-        <p className="t-small text-text-2" aria-live="polite">
+    <div className="world-careers rounded-card bg-raised p-5 ring-1 ring-line-dark sm:p-8">
+      <div className="flex flex-wrap items-baseline justify-end gap-2">
+        <p className="t-small text-text-inv-2" aria-live="polite">
           {j.hydrated ? "Your answers are saved in this browser" : ""}
         </p>
       </div>
-      <ol className="m-0 mt-4 flex list-none flex-wrap gap-x-4 gap-y-1 p-0 text-[0.9375rem]" aria-label="Application steps">
-        {steps.map((step, index) => (
-          <li
-            key={step.id}
-            aria-current={index === j.stepIndex ? "step" : undefined}
-            className={index === j.stepIndex ? "font-semibold text-signal-ink" : index < j.stepIndex ? "text-text" : "text-text-2"}
-          >
-            {index + 1}. {step.label}
-          </li>
-        ))}
-      </ol>
+      <div className="mt-2">
+        <Stepper steps={steps.map((step) => step.label)} index={j.stepIndex} label="Application steps" />
+      </div>
 
-      <form onSubmit={onContinue} className="mt-8 border-t border-line pt-8">
+      <form onSubmit={onContinue} className="mt-8 border-t border-line-dark pt-8">
         <div ref={headingRef} tabIndex={-1} key={current.id} className="animate-enter grid gap-6 outline-none">
           {current.id === "role" ? (
             <>
-              <h3 className="font-display text-[1.75rem] font-bold leading-tight">Which role are you applying for?</h3>
+              <h3 className="t-h3">Which role are you applying for?</h3>
               <JRadio
                 j={j}
                 name="role"
@@ -144,7 +134,7 @@ export default function SalesApplication({ roleCount }: { roleCount: number | nu
 
           {current.id === "basics" ? (
             <>
-              <h3 className="font-display text-[1.75rem] font-bold leading-tight">The basics</h3>
+              <h3 className="t-h3">The basics</h3>
               <JText j={j} name="fullName" label="Full name" required autoComplete="name" />
               <JText j={j} name="email" label="Email" type="email" required autoComplete="email" />
               <JText j={j} name="mobile" label="Mobile number" type="tel" required autoComplete="tel" placeholder="+27" />
@@ -154,7 +144,7 @@ export default function SalesApplication({ roleCount }: { roleCount: number | nu
 
           {current.id === "experience" ? (
             <>
-              <h3 className="font-display text-[1.75rem] font-bold leading-tight">Your experience</h3>
+              <h3 className="t-h3">Your experience</h3>
               <JRadio
                 j={j}
                 name="b2bYears"
@@ -183,10 +173,10 @@ export default function SalesApplication({ roleCount }: { roleCount: number | nu
 
           {current.id === "cv" ? (
             <>
-              <h3 className="font-display text-[1.75rem] font-bold leading-tight">Your CV</h3>
-              <div className="rounded-card bg-signal-tint p-5">
+              <h3 className="t-h3">Your CV</h3>
+              <div className="rounded-card border border-signal-400/40 bg-raised p-5">
                 <p className="font-semibold">You do not need to upload anything now.</p>
-                <p className="t-small mt-1 text-text-2">
+                <p className="t-small mt-1 text-text-inv-2">
                   If you are shortlisted, we will email you and ask for your CV. That keeps your documents out of public
                   web forms.
                 </p>
@@ -205,7 +195,7 @@ export default function SalesApplication({ roleCount }: { roleCount: number | nu
 
           {current.id === "availability" ? (
             <>
-              <h3 className="font-display text-[1.75rem] font-bold leading-tight">When could you start?</h3>
+              <h3 className="t-h3">When could you start?</h3>
               <JRadio
                 j={j}
                 name="currentStatus"
@@ -227,8 +217,8 @@ export default function SalesApplication({ roleCount }: { roleCount: number | nu
 
           {current.id === "interview" ? (
             <>
-              <h3 className="font-display text-[1.75rem] font-bold leading-tight">Interview preferences</h3>
-              <p className="t-body text-text-2">
+              <h3 className="t-h3">Interview preferences</h3>
+              <p className="t-body text-text-inv-2">
                 We cannot book a slot online yet. Tell us what suits you, and we will email you specific times if you are
                 shortlisted.
               </p>
@@ -264,7 +254,7 @@ export default function SalesApplication({ roleCount }: { roleCount: number | nu
 
           {current.id === "confirm" ? (
             <>
-              <h3 className="font-display text-[1.75rem] font-bold leading-tight">Confirm and send</h3>
+              <h3 className="t-h3">Confirm and send</h3>
               <ReviewList
                 j={j}
                 accentClass={ACCENT}

@@ -47,7 +47,7 @@ export default function ContactPage() {
         <div>
           <Kicker>Talk to Signal One</Kicker>
           <h1 className="t-h1 mt-4">Tell us what you need. We will show you the right solution.</h1>
-          <p className="t-lead mt-5 text-text-2">
+          <p className="t-lead mt-5 text-text-inv-2">
             From business operating systems for security and service SMEs to radios and connected equipment, tell us what you are trying to achieve.
           </p>
 
@@ -63,20 +63,20 @@ export default function ContactPage() {
             />
           </div>
 
-          <div className="mt-10 grid gap-4 border-t border-line pt-6 sm:grid-cols-2">
+          <div className="mt-10 grid gap-4 border-t border-line-dark pt-6 sm:grid-cols-2">
             <div>
-              <p className="t-small text-text-2">Prefer email?</p>
-              <a href={"mailto:" + contact.email} className="mt-1 inline-flex min-h-[44px] items-center text-[1.25rem] font-semibold text-signal-ink underline underline-offset-4">
+              <p className="t-small text-text-inv-2">Prefer email?</p>
+              <a href={"mailto:" + contact.email} className="mt-1 inline-flex min-h-[44px] items-center text-[1.25rem] font-semibold text-signal-300 underline underline-offset-4">
                 {contact.email}
               </a>
             </div>
             <div>
-              <p className="t-small text-text-2">Prefer WhatsApp?</p>
-              <a href={contact.whatsappHref} rel="noopener" className="mt-1 inline-flex min-h-[44px] items-center text-[1.25rem] font-semibold text-signal-ink underline underline-offset-4">
+              <p className="t-small text-text-inv-2">Prefer WhatsApp?</p>
+              <a href={contact.whatsappHref} rel="noopener" className="mt-1 inline-flex min-h-[44px] items-center text-[1.25rem] font-semibold text-signal-300 underline underline-offset-4">
                 {contact.whatsappDisplay}
               </a>
             </div>
-            <p className="t-small text-text-2 sm:col-span-2">Already a customer? <a href="/support" className="link-inline font-semibold text-signal-ink">Get support</a>.</p>
+            <p className="t-small text-text-inv-2 sm:col-span-2">Already a customer? <a href="/support" className="link-inline font-semibold text-signal-300">Get support</a>.</p>
           </div>
         </div>
 

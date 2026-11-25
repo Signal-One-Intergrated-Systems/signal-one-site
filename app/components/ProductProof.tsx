@@ -3,6 +3,7 @@
 import { getImageProps } from "next/image";
 import { useRef, useState, type KeyboardEvent } from "react";
 import { proofViews, type ProofShot } from "../lib/productProof";
+import ProductSignature from "./brand/ProductSignature";
 
 function ratio(width: number, height: number) {
   return width + " / " + height;
@@ -76,7 +77,7 @@ export function ProductWindow({
             <i className="block h-2.5 w-2.5 rounded-full bg-line-dark" />
             <i className="block h-2.5 w-2.5 rounded-full bg-line-dark" />
           </span>
-          <span className="font-semibold text-text-inv">1GUARD · {screen}</span>
+          <span className="font-semibold text-text-inv"><ProductSignature name="GUARD" tone="dark" /> · {screen}</span>
           <span>Synthetic demo data</span>
         </div>
         <ProofImage shot={shot} priority={priority} />
@@ -86,7 +87,7 @@ export function ProductWindow({
         <div className="md:hidden">
           <div className="product-window">
             <div className="product-window-bar">
-              <span className="text-[0.75rem] font-semibold text-text-inv">1GUARD · {screen} · Synthetic demo data</span>
+              <span className="t-caption font-semibold text-text-inv"><ProductSignature name="GUARD" tone="dark" /> · {screen} · Synthetic demo data</span>
             </div>
             <ProofImage shot={shot} priority={priority} />
           </div>
@@ -154,7 +155,7 @@ export default function ProductProof({ initial = "control" }: { initial?: string
                 "min-h-[48px] rounded-ui border px-4 text-[1rem] font-semibold transition-colors " +
                 (selected
                   ? "border-base bg-base text-text-inv"
-                  : "border-line-strong bg-transparent text-text hover:bg-light-2")
+                  : "border-line-strong bg-transparent text-text-inv hover:bg-raised")
               }
             >
               {item.tab}
@@ -171,10 +172,10 @@ export default function ProductProof({ initial = "control" }: { initial?: string
         className="animate-enter mt-10"
       >
         <div className="grid gap-4 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] lg:items-end lg:gap-16">
-          <h3 className="t-h3 lg:text-[1.75rem]">{view.title}</h3>
+          <h3 className="t-h3">{view.title}</h3>
           <div>
-            <p className="t-body text-text-2">{view.body}</p>
-            <p className="t-caption mt-3 text-text-2">
+            <p className="t-body text-text-inv-2">{view.body}</p>
+            <p className="t-caption mt-3 text-text-inv-2">
               Real 1GUARD screen from our demo environment. Every name, site and record shown is synthetic.
             </p>
           </div>
