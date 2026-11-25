@@ -1,0 +1,40 @@
+# Release gate — commercial launch readiness
+
+As of 2026-11-25. Every criterion is PASS, FAIL or BLOCKED. No aggregate score. "Branch" means implemented and verified on a local production build of `claude/peaceful-johnson-azma60`, **not deployed**.
+
+| # | Criterion (mandate §25) | Status | Evidence / blocker |
+|---|---|---|---|
+| 1 | Every discovered public route reviewed | PASS (automated + persona walkthrough of priority routes) | `ROUTE_INVENTORY.md`: 19 routes × 8 widths. Signal Connect routes excluded and stated. |
+| 2 | Every authorised Sales OS module reviewed | BLOCKED | No authorised test credentials. Needs: founder to issue a non-production test login for Sales OS preview and real Sales OS. |
+| 3 | Every relevant commercial journey tested | FAIL | Journeys walked; none can complete inside the website (DR-001). |
+| 4 | Zero unresolved material brand inconsistencies | FAIL | DR-008 (product naming, founder decision), DR-017, DR-019. |
+| 5 | Zero unexplained layout gaps | FAIL → partially fixed on branch | DR-005 and DR-014 fixed on branch; DR-022 open. |
+| 6 | Zero broken critical interactions | PASS (live, automated) | No broken links/images/console errors on any route; forms validate. Form *delivery* is DR-001. |
+| 7 | Zero unintended horizontal overflow | PASS | 0 at all 8 widths (live). |
+| 8 | Zero broken product images | PASS | 0 broken images (live). |
+| 9 | Zero unresolved critical accessibility defects | PASS (automated only) | axe 0 violations in 48/48 scans; keyboard, focus, Escape and 200 % text spot-checked. Manual AT (NVDA/VoiceOver) not done. |
+| 10 | Lighthouse mobile performance ≥ 90 | NOT MEASURED | Lighthouse not run this session. Lab LCP: `/` 4.4 s (FAIL vs 2.5 s), landing pages 1.0–1.1 s (PASS). |
+| 11 | Core Web Vitals LCP ≤ 2.5 s, INP ≤ 200 ms, CLS ≤ 0.1 | FAIL (homepage LCP, lab) | CLS PASS everywhere measured. INP not measured. No field data available. |
+| 12 | Verified lead capture | **FAIL — S0** | DR-001. Needs LEOS receiver + Railway variables. |
+| 13 | Verified website → Sales OS integration | BLOCKED | Depends on 12. |
+| 14 | Verified radio rental lifecycle | BLOCKED | Depends on 12, LEOS quote→contract work (PRs #731/#732 draft), inventory fixtures, HyTalk vs POCSTARS decision. |
+| 15 | Verified outright purchase lifecycle | BLOCKED | As 14. |
+| 16 | Verified quotation → contract conversion | BLOCKED | LEOS engineering (Mubaraq; PR #728 successors). |
+| 17 | Verified invoice and test-payment handling | BLOCKED | Needs approved payment-processor sandbox (PayFast validation report exists in LEOS; not re-run). |
+| 18 | Verified inventory reservation and device allocation | BLOCKED | No SEDFA stock data (must not be assumed); isolated fixtures not yet built. |
+| 19 | Verified subscription recording | BLOCKED | HyTalk vs POCSTARS commercial decision open; P30 ↔ POCSTARS compatibility unverified. |
+| 20 | Verified fulfilment | BLOCKED | As 18. |
+| 21 | Zero unresolved critical security / data-integrity defects | NOT ASSESSED | No LEOS security review this session. |
+| 22 | Marketing attribution (GA4/GTM/Ads/UTM/gclid) | FAIL | GA4 is wired but dormant: `components/Analytics.tsx` loads gtag only when `NEXT_PUBLIC_GA_ID` is set, and production does not set it (no gtag on the live homepage). The funnel event vocabulary exists (`lib/analytics.ts`). No Google Ads conversion, gclid/UTM capture into the lead, or consent banner. Needs the founder's real GA4/Ads IDs (never fabricated); lead-level attribution is meaningless until 12 passes. |
+
+## Distinctions (mandate §27)
+
+| State | Website fixes on this branch | Lead capture | Sales OS | LEOS commercial lifecycle |
+|---|---|---|---|---|
+| Implemented | Yes (DR-002, 004, 005, 009, 010, 013, 014, 015) | No | No | Partly (by others; not verified here) |
+| Visually verified | Yes (before/after at 1440/1280/1024/390) | — | — | — |
+| Functionally verified | Build + branding/design checks pass; e2e suite: see `EXECUTION.md` | No | No | No |
+| Commercially qualified | No | No | No | No |
+| Independently reviewed | No | — | — | — |
+| Production deployed | No | No | No | No |
+| Ready for actual customers | **No** — DR-001 | No | No | No |

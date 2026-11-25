@@ -1,0 +1,42 @@
+{
+  "updated": "2026-11-25",
+  "branch": "claude/peaceful-johnson-azma60",
+  "liveBaseline": { "url": "https://signalone.co.za", "commit": "8e89d24" },
+  "phases": {
+    "0_capability": "done",
+    "1_independent_walkthrough": "done",
+    "2_research_benchmarking": "not_started",
+    "3_route_inventory_and_audit": "done",
+    "4_repository_reconciliation": "partial",
+    "5_design_constitution": "not_started",
+    "6_radio_rental_vertical_slice": "blocked:DR-001",
+    "7_shared_design_system_remediation": "started",
+    "8_radio_conversion_pages": "started",
+    "9_full_public_remediation": "not_started",
+    "10_sales_os_shell": "blocked:no_test_credentials",
+    "11_commercial_lifecycle_qualification": "blocked:DR-001,commercial_decisions",
+    "12_independent_rereview": "not_started",
+    "13_correct_review_findings": "not_started",
+    "14_release_preparation": "not_started",
+    "15_production_deployment": "not_started:requires_founder_approval",
+    "16_preview_retirement": "not_started"
+  },
+  "defects": {
+    "fixed_on_branch": ["DR-002", "DR-004", "DR-005", "DR-009", "DR-010", "DR-013", "DR-014", "DR-015"],
+    "blocked": {
+      "DR-001": "LEOS intake receiver + Railway SIGNAL_ONE_INTAKE_URL/TOKEN",
+      "DR-007": "founder company contact facts",
+      "DR-008": "founder product naming decision",
+      "DR-011": "founder About facts",
+      "DR-012": "founder support channel",
+      "DR-016": "commercial rental terms / HyTalk vs POCSTARS"
+    },
+    "open": ["DR-003", "DR-006", "DR-017", "DR-018", "DR-019", "DR-020", "DR-021", "DR-022", "DR-023", "DR-024"]
+  },
+  "environment": {
+    "allowedHostsAdded": ["signalone.co.za", "www.signalone.co.za", "app.lancesatsuppliers.co.za", "sales-os-preview-web-preview.up.railway.app"],
+    "playwrightBrowser": "PW_CHROMIUM=/opt/pw-browsers/chromium",
+    "attachedRepos": ["Signal-One-Intergrated-Systems/lancesat-enterprise-platform (read-only)"]
+  },
+  "rules": ["no live form submission", "homepage hero is founder-locked", "merging main deploys production", "no invented commercial facts"]
+}
