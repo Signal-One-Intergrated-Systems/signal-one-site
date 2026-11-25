@@ -1,0 +1,233 @@
+{
+  "manifest": "signal-one-site/form-manifest",
+  "version": 1,
+  "generatedBy": "real Chromium through every public form: npx playwright test tests/e2e/forms.spec.ts, then node scripts/form-manifest.mjs --write",
+  "siteRef": "eb3eba2",
+  "forms": [
+    {
+      "id": "/contact#consultation",
+      "path": "/contact",
+      "kind": "client",
+      "intent": "consultation",
+      "fields": [
+        "companyName",
+        "contactName",
+        "email",
+        "message",
+        "mobile",
+        "topic"
+      ],
+      "journeys": [
+        "J01-contact"
+      ]
+    },
+    {
+      "id": "/get-started#company-onboarding",
+      "path": "/get-started",
+      "kind": "client",
+      "intent": "company-onboarding",
+      "fields": [
+        "businessType",
+        "companyName",
+        "contactName",
+        "contactRole",
+        "currentTools",
+        "email",
+        "guardCount",
+        "interests",
+        "mobile",
+        "nextStep",
+        "province",
+        "registrationNumber",
+        "siteCount"
+      ],
+      "journeys": [
+        "J08-company-onboarding"
+      ]
+    },
+    {
+      "id": "/guard-marketplace#marketplace-interest",
+      "path": "/guard-marketplace",
+      "kind": "client",
+      "intent": "marketplace-interest",
+      "fields": [
+        "companyName",
+        "contactName",
+        "email",
+        "mobile",
+        "need"
+      ],
+      "journeys": [
+        "J02-marketplace-interest"
+      ]
+    },
+    {
+      "id": "/guards/join#guard-profile",
+      "path": "/guards/join",
+      "kind": "guard",
+      "intent": "guard-profile",
+      "fields": [
+        "areas",
+        "availability",
+        "contactPreference",
+        "email",
+        "experienceYears",
+        "fullName",
+        "mobile",
+        "preferredName",
+        "province",
+        "psiraExpiry",
+        "psiraGrade",
+        "psiraNumber",
+        "role",
+        "shifts",
+        "siteTypes",
+        "skills",
+        "transport"
+      ],
+      "journeys": [
+        "J09-guard-join"
+      ]
+    },
+    {
+      "id": "/join/sales#sales-representative-application",
+      "path": "/join/sales",
+      "kind": "sales",
+      "intent": "sales-representative-application",
+      "fields": [
+        "b2bYears",
+        "city",
+        "currentStatus",
+        "cvReady",
+        "email",
+        "experienceSummary",
+        "fullName",
+        "interviewDays",
+        "interviewFormat",
+        "interviewTime",
+        "mobile",
+        "noticePeriod",
+        "profileUrl",
+        "region",
+        "role",
+        "securityExposure"
+      ],
+      "journeys": [
+        "J10-sales-application"
+      ]
+    },
+    {
+      "id": "/ptt-radio-rental#equipment-rental-quote",
+      "path": "/ptt-radio-rental",
+      "kind": "client",
+      "intent": "equipment-rental-quote",
+      "fields": [
+        "category",
+        "companyName",
+        "contactName",
+        "deployment",
+        "email",
+        "mobile",
+        "notes",
+        "product",
+        "pttNeed",
+        "quantity",
+        "quoteType",
+        "rentalTerm"
+      ],
+      "journeys": [
+        "J11-ad-landing-radio-rent"
+      ]
+    },
+    {
+      "id": "/radios-equipment#bodycam-rental-quote",
+      "path": "/radios-equipment",
+      "kind": "client",
+      "intent": "bodycam-rental-quote",
+      "fields": [
+        "category",
+        "companyName",
+        "contactName",
+        "email",
+        "environment",
+        "mobile",
+        "notes",
+        "quantity",
+        "requirement"
+      ],
+      "journeys": [
+        "J07-bodycam-quote"
+      ]
+    },
+    {
+      "id": "/radios-equipment#consultation",
+      "path": "/radios-equipment",
+      "kind": "client",
+      "intent": "consultation",
+      "fields": [
+        "category",
+        "companyName",
+        "contactName",
+        "deployment",
+        "email",
+        "mobile",
+        "notes",
+        "product",
+        "pttNeed",
+        "quantity",
+        "quoteType",
+        "rentalTerm"
+      ],
+      "journeys": [
+        "J04-radio-buy",
+        "J05-radio-compare"
+      ]
+    },
+    {
+      "id": "/radios-equipment#equipment-rental-quote",
+      "path": "/radios-equipment",
+      "kind": "client",
+      "intent": "equipment-rental-quote",
+      "fields": [
+        "category",
+        "companyName",
+        "contactName",
+        "deployment",
+        "email",
+        "mobile",
+        "notes",
+        "product",
+        "pttNeed",
+        "quantity",
+        "quoteType",
+        "rentalTerm"
+      ],
+      "journeys": [
+        "J03-radio-rent"
+      ]
+    },
+    {
+      "id": "/radios-equipment#tracking-quote",
+      "path": "/radios-equipment",
+      "kind": "client",
+      "intent": "tracking-quote",
+      "fields": [
+        "assetType",
+        "category",
+        "companyName",
+        "contactName",
+        "email",
+        "installation",
+        "mobile",
+        "notes",
+        "product",
+        "quantity",
+        "region",
+        "visibility"
+      ],
+      "journeys": [
+        "J06-tracking-quote"
+      ]
+    }
+  ]
+}

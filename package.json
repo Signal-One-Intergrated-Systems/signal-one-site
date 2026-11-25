@@ -15,7 +15,10 @@
     "postbuild": "npm run check:built",
     "qa": "npm run build && playwright test",
     "qa:run": "playwright test",
-    "qa:docker": "docker build -f Dockerfile.qa -t signal-one-qa . && docker run --rm signal-one-qa"
+    "qa:docker": "docker build -f Dockerfile.qa -t signal-one-qa . && docker run --rm signal-one-qa",
+    "contract:check": "node scripts/check-intake-contract.mjs",
+    "contract:manifest": "node scripts/form-manifest.mjs --write",
+    "contract:release-check": "node scripts/contract-release-check.mjs"
   },
   "dependencies": {
     "next": "16.1.0",

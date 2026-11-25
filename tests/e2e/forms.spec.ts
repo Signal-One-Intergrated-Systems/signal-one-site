@@ -1,10 +1,16 @@
+import { mkdirSync, writeFileSync } from "node:fs";
 import { expect, test, type Page } from "@playwright/test";
 import { decodeMailto, fillVisible, hydrated, OK_BASE, tick, walkJourney } from "./helpers";
-import receiver from "./receiver-allowlist.json";
+import contract from "../../contracts/website-intake.contract.v1.json";
+import manifest from "../../contracts/form-manifest.v1.json";
 
-/** Fields the real LEOS receiver accepts per intent (pinned fixture). A key outside it is refused 422 and the enquiry is lost. */
+/**
+ * Fields the real LEOS receiver accepts per intent: the VENDORED LEOS contract (generated in LEOS from
+ * the receiver's own code; refreshed with scripts/contract-release-check.mjs). A key outside it is
+ * refused 422 and the enquiry is lost.
+ */
 function expectReceiverAccepts(intent: string, data: Record<string, string>) {
-  const allowed = (receiver.intents as Record<string, string[]>)[intent];
+  const allowed = (contract.intents as Record<string, { fields: string[] }>)[intent]?.fields;
   expect(allowed, `receiver knows intent ${intent}`).toBeTruthy();
   const unknown = Object.keys(data).filter((key) => key !== "intent" && !allowed.includes(key));
   expect(unknown, `fields the receiver would refuse for ${intent}`).toEqual([]);
@@ -89,6 +95,13 @@ for (const c of cases) {
     expect(hit!.body.kind).toBe(c.kind);
     expect(hit!.body.source).toBe("signal-one-site");
     expectReceiverAccepts(hit!.body.data.intent, hit!.body.data as unknown as Record<string, string>);
+    // The form manifest (contracts/form-manifest.v1.json) must list every field this form sent; the
+    // observation is also written for scripts/form-manifest.mjs --write.
+    const sent = Object.keys(hit!.body.data).filter((k) => k !== "intent").sort();
+    const listed = manifest.forms.find((f) => f.path === c.path && f.intent === c.intent)?.fields ?? [];
+    expect(sent.filter((k) => !listed.includes(k)), `fields missing from the form manifest for ${c.path}#${c.intent}`).toEqual([]);
+    mkdirSync("test-results/form-manifest", { recursive: true });
+    writeFileSync(`test-results/form-manifest/${c.name.replace(/[^a-z0-9]+/gi, "-")}.json`, JSON.stringify({ journey: c.name, path: c.path, kind: c.kind, intent: c.intent, fields: sent }));
     // A visit without campaign parameters sends no attribution key at all (v1 receivers refuse unknown keys).
     expect(Object.keys(hit!.body)).not.toContain("attribution");
     expect(hit!.auth).toBe("Bearer qa-token");
