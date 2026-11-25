@@ -132,3 +132,31 @@ Gate: full `governance:push` RC=0 GREEN (`lancesat_test`, `lar_test` recreated);
 Founder/legal decisions (none made): **D1** retention periods per data class; **D2** scheduled vs manual retention and by whom; **D3** whether erasure also erases the CRM lead (notes copy every answer); **D4** redact staff free-text reasons; **D5** whether each erasure/non-dry retention run needs Class C sign-off and a second person; **D6** applications to LEOS or email at launch, and who else may read them; **D7** who may record a marketing withdrawal (today only `privacy.manage`); **D8** keep consent proof after erasure; **D9** confirm in production that the app's DB role neither owns the intake tables nor is superuser (precondition for 0200's guards).
 
 Integration note: #752 and S's queue branch both touch `website_queue_service.ts` (`resolveEnquiry`); #751 and #752 both base on #749 with disjoint migration numbers (0197–0199, 0200–0201; 0202 released).
+
+## Checkpoint CV — radio commercial slice qualification (LEOS, 2026-11-25)
+
+**Unmerged.** Draft PR [#753](https://github.com/Signal-One-Intergrated-Systems/lancesat-enterprise-platform/pull/753) ("AUDIT-CLASS — DO NOT MERGE"), branch `claude/commercial-slice-qualification` @ `3761943d`. Run on a local LEOS at main `5efcb303` (own DB `cv_slice`, own Redis, real API process, real login and RBAC, synthetic inventory and customers only, no live payment processor). Full register: LEOS `docs/release/COMMERCIAL_SLICE_QUALIFICATION.md` §5 on that branch.
+
+| Step | Rental | Outright purchase | Hardware + subscription |
+|---|---|---|---|
+| 1 Website enquiry | BLOCKED on main (no receiver); PASS on #748 (receipt; replay deduplicated) | same | same |
+| 2–4 Queue, rep, customer | PASS | PASS | PASS |
+| 5 Quote | PASS only after term prices set by SQL (GAP-CAT-1) | PASS | PASS |
+| 6–7 Send, accept | PASS (single-use link) | PASS | PASS |
+| 8 Contract | PASS (3 concurrent converts → 1 contract) | PASS | PASS |
+| 9 Invoice | PASS | PASS | **FAIL** — hardware never invoiced (GAP-HYB-1) |
+| 10 Test payment | PASS (manual EFT, reconciled). PayFast BLOCKED (sandbox credentials, public notify URL) | PASS | PASS (monthly only) |
+| 11–12 Reserve, serial | PASS, but no stock or serial-uniqueness checks | PASS | PASS |
+| 13 Activation | PASS (manual, audited; provider IDs only in free text) | PASS | PASS |
+| 14 Fulfilment | PASS | PASS | **FAIL** — no delivery raised |
+| 15 Recurring billing | PASS, but 12-month term lost (GAP-TERM-1) | n/a | PASS |
+
+**Verdict:** rental qualified end to end on synthetic data (with #748 for step 1); outright purchase qualified through delivery; **hardware + subscription NOT qualified**.
+
+Audit-class gaps (not fixed; Architect / Mubaraq): **GAP-TEN-1** tenant B can reserve tenant A's radio (tenant-law breach); **GAP-ALLOC-1/2** same serial allocated or registered twice; **GAP-PAY-1/2** payment accepted on a DRAFT invoice, overpayment and concurrent duplicate payments accepted; **GAP-HYB-1** hybrid hardware never invoiced or delivered; **GAP-TERM-1** rental contract open-ended, minimum term lost; **GAP-EXP-1** expired quote still accepted. Others: GAP-STOCK-1, GAP-CUST-1 (duplicate customer), GAP-CAT-1, GAP-ACT-1, GAP-INC-1 (damage-incident API 500), GAP-OPS-1 (most operator steps need super_admin), GAP-ENV-1, GAP-WEB-1. Duplicate contract number returns 500 (DB blocks it); e-mail failure leaves the send "queued" silently (#728 scope).
+
+Held: duplicate open enquiry 409; repeat/concurrent acceptance; bad quantities; closed ledger period; no-email customer; activation failure retryable; cancelled contract stops billing; rental return; 401/403; cross-tenant 404 on quote, contract, invoice, client.
+
+Fixes on the branch (mutation-proven): **CV-1 — every 5xx alert in production logs the bearer access token and refresh cookie; now redacted. This is live in production today**; founder/architect to decide on Railway log retention and token exposure. CV-2 — illegal product lifecycle move 500 → 422.
+
+Gate: pre-push `governance:push` RC=0 GREEN, counts matched. Live slice suite 30/30 (on demand; not in the gate). An earlier gate went red on an untouched `@leos/lar` b5a-leases test that passed on later runs — intermittent, not proven environmental; recorded, not dismissed.
