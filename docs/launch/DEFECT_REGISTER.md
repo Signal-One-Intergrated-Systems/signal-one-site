@@ -127,3 +127,10 @@ Evidence: `BRAND_AUDIT.md` §9 (before/after metrics, consistency matrix, per-fi
 | New W1-02 · S2 | FIXED (branch) | Light status tints (`bg-signal-tint`, `bg-beta-tint`) and `text-live` were still painted on the dark stage in `/support`, the careers and guard forms, the pricing calculator and two success messages (light boxes under the overrides). Now `raised` notices with `*-inv` hues. |
 | New W1-03 · S2 | FIXED (branch) | `/pricing` had no action in the first viewport (persona walk P1). |
 | New W1-04 · S3 | BLOCKED — founder | Construction and event buyers: shortest stated rental term is 12 months; whether short-term/event rental exists is not established (`CUSTOMER_JOURNEYS.md` P8, P9). |
+
+### W1 verification (merged over `35fa09c`, W2 perf + KI-1)
+
+- `npm run build`: pass (design contract 23/23, branding/public-truth checks pass).
+- Full e2e suite on the merged tree (`flock`, 3 workers): **420 passed, 0 failed, 84 skipped** (opt-in evidence suites). Earlier W1-only runs: 397/17 (13 were tests pinning the retired styling, updated with reasons; 3 React #418 under load, since fixed by W2's KI-1 change; 1 shutter phase-poll), then 413/1.
+- Intermittent `visual-corrections.spec.ts:103` (product quote scroll, DR-025): like-for-like ×12 on the same machine — base `97331f4` 11/12, W1 12/12; pre-existing, not introduced.
+- Founder lock: hero pixel-identical (0 px > 24/255, header band excluded) to `35fa09c` at 1440/1280/1024/768, and at 390 after the intended 4 px start correction.
