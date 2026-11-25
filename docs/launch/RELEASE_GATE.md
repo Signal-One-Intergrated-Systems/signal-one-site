@@ -98,3 +98,5 @@ E2E on W2's final tree (one consolidated set; supersedes earlier figures for thi
 **Merged tree `35fa09c` (W2 merged over the L2 fixes):** `npm run build` RC=0 (branding, design and truth checks pass); full e2e suite under the shared lock **420 passed, 0 failed, 84 skipped** (418 from W2 + the two L2 tests; the 84 are the opt-in evidence suites).
 
 **Merged tree `435a5b2` (W1 visual consolidation + catalogue placeholder fix, over W2 and the L2 fixes):** `npm run build` RC=0; full e2e suite under the shared lock **420 passed, 0 failed, 84 skipped**. Catalogue checked by screenshot at 1440 and 390 after the fix.
+
+**Contract checks (L1 patch applied over the W1/W2 merge):** full e2e suite **420 passed, 0 failed, 84 skipped**; `contract:check` → contract 1.2.0 accepts all 10 manifest forms; `form-manifest --check` → covers all 8 observed forms after a real-browser run on the W1/W2 tree; `contract:release-check --leos … --ref claude/launch-integration-r1` → both vendored copies SAME.
