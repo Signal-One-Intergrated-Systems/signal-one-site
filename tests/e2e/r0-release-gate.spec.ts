@@ -315,3 +315,30 @@ test("a 400 the visitor can fix shows the message without diverting them to emai
   await expect(page.getByText("QA: please correct the form")).toBeVisible({ timeout: 15_000 });
   await expect(page.locator('main form a[href^="mailto:"]')).toHaveCount(0);
 });
+
+test("by default only sales enquiries go to the receiver; applications get the honest email route (audit L2-01)", async ({ request }) => {
+  const site = "http://localhost:3102"; // receiver configured, SIGNAL_ONE_INTAKE_KINDS unset
+  const headers = { ...from(site), "x-qa-edge-client-ip": "198.51.100.90" };
+  const guard = await request.post(site + "/api/intake", { data: { ...valid, kind: "guard", data: { intent: "guard-profile", fullName: "Synthetic QA" }, idempotencyKey: uuid() }, headers });
+  expect(guard.status()).toBe(503);
+  expect((await guard.json()).message).toContain("sales@signalone.co.za");
+  const sales = await request.post(site + "/api/intake", { data: { ...valid, kind: "sales", data: { intent: "sales-representative-application", fullName: "Synthetic QA" }, idempotencyKey: uuid() }, headers });
+  expect(sales.status()).toBe(503);
+  expect((await request.post(site + "/api/intake", { data: { ...valid, idempotencyKey: uuid() }, headers })).status()).toBe(200);
+});
+
+test("attribution the receiver would refuse is normalised or dropped, never sent (audit L2-08)", async ({ request }) => {
+  const key = uuid();
+  const res = await request.post(OK_BASE + "/api/intake", {
+    data: { ...valid, idempotencyKey: key, attribution: { utm_source: "google", referrerHost: "www.Google.com.", landingPath: "/ptt-radio-rental?x=1", gclid: "QA.l2-08" } },
+    headers: from(OK_BASE),
+  });
+  expect(res.status()).toBe(200);
+  const received = (await (await request.get("http://localhost:4010/received")).json()) as Array<{ body: { idempotencyKey: string; attribution?: Record<string, string> } }>;
+  const hit = received.find((r) => r.body.idempotencyKey === key)!;
+  expect(hit.body.attribution).toEqual({ utm_source: "google", referrerHost: "www.google.com", gclid: "QA.l2-08" });
+  const ipv6 = uuid();
+  await request.post(OK_BASE + "/api/intake", { data: { ...valid, idempotencyKey: ipv6, attribution: { utm_source: "google", referrerHost: "[::1]:8080" } }, headers: from(OK_BASE) });
+  const second = ((await (await request.get("http://localhost:4010/received")).json()) as Array<{ body: { idempotencyKey: string; attribution?: Record<string, string> } }>).find((r) => r.body.idempotencyKey === ipv6)!;
+  expect(second.body.attribution).toEqual({ utm_source: "google" });
+});

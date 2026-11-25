@@ -66,3 +66,21 @@ E2E (branch): **412 passed, 0 failed, 84 skipped** before the VA-04/06/11 change
 | Go live | BLOCKED | (1) Architect: renumber #704 around `main`'s 0187, rule on 0188/0189 overlaps (#728, #746, #720) and on 0192; rebase #704 + #748. (2) Audits: #704 fourth audit, #748 audit, open decisions (sales_manager mapping, erasure incl. the attribution column, lead-match indexes). (3) Founder: approve merge; issue the production credential through an approved step. (4) Founder: set `SIGNAL_ONE_INTAKE_URL=https://api.lancesatsuppliers.co.za/api/v1/integrations/website/v1/intake` and `SIGNAL_ONE_INTAKE_TOKEN` on the website's Railway service; one labelled smoke enquiry; assign it in the website queue. (5) Mubaraq: wire #728's email path into `onPersisted`. |
 
 Final website e2e on this state: **413 passed, 1 failed, 84 skipped**; the failure is KI-1 (React #418, `/get-started` @1440, one of ~500 loads), open.
+
+## Checkpoint 3 — independent audit (L2) of LEOS #704 and #748
+
+Full report: `LEOS_R1_AUDIT_L2.md`. Verdicts: **#704 PASS WITH CONDITIONS, #748 PASS WITH CONDITIONS.** Security core (credential hashing, constant-time compare, uniform 401, revocation incl. mid-request, tenant from credential only, idempotency, rollback) held under adversarial tests; 187/187 existing intake tests pass on #704+#748.
+
+| Finding | Sev | Blocks | Status |
+|---|---|---|---|
+| L2-01 guard/sales applications stored but unread | S1 | live intake of applications | **Mitigated on the website:** `SIGNAL_ONE_INTAKE_KINDS` defaults to `client`; applications keep the honest email route until a reader exists (test added). |
+| L2-02 matched enquiries invisible (no queue screen, no notification) | S1 | launch | Workstream S (queue in Sales OS) + notification outbox (next workstream). |
+| L2-03 erasure impossible (append-only triggers), no retention, no marketing-consent withdrawal | S1 | launch | Founder/legal decision + engineering design (privacy workstream). |
+| L2-04 no approved production credential issuance | S1 | go-live | L1 design. |
+| L2-05 migration numbers collide with main's 0187 | S2 | merge | L1 reconciliation. |
+| L2-06 in-memory post-commit hook, no outbox | S2 | reliable notification | Next workstream (outbox, reuse #728). |
+| L2-07 no index for lead matching (93–122 ms at 30k leads) | S2 | scale | L1 (receiver scope). |
+| L2-08 an unusual referrer host makes the receiver refuse the whole enquiry (422, no email route) | S3 | lost enquiries | **Fixed on the website:** referrer host and landing path normalised to the receiver's own patterns or dropped (test added); L1 to make the receiver drop rather than refuse. |
+| L2-09 credentials never expire; L2-10 NBSP company names miss matches; L2-11 marketing consent not carried to the lead; L2-12 receiver time budget vs the site's 10 s timeout | S2–S3 | — | L1 / privacy workstream. |
+
+Launch-minimum roles (audit condition 7): no `sales_manager` mapping; a **named `commercial_director` (or `super_admin`) as the queue owner — founder to name the person**; grants only to named people; `privacy.manage` held by `super_admin` only.

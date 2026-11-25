@@ -75,6 +75,20 @@ export function readAttribution(): Attribution | undefined {
   }
 }
 
+// The receiver's own patterns (lancesat-enterprise-platform website_intake_contract.ts). A value that does
+// not fit is dropped here on its own; sent as-is, the receiver refuses the WHOLE enquiry with 422 (audit L2-08).
+const RECEIVER_HOST = /^[A-Za-z0-9](?:[A-Za-z0-9-]{0,62})(?:\.[A-Za-z0-9](?:[A-Za-z0-9-]{0,62}))*(?::\d{1,5})?$/;
+const RECEIVER_PATH = /^\/[^?#\s]*$/;
+
+function fitsReceiver(key: string, value: string): string | undefined {
+  if (key === "referrerHost") {
+    const host = value.toLowerCase().replace(/\.+$/, ""); // "www.google.com." is the same host
+    return RECEIVER_HOST.test(host) ? host : undefined; // IPv6 literals and other forms are dropped
+  }
+  if (key === "landingPath") return RECEIVER_PATH.test(value) ? value : undefined;
+  return value;
+}
+
 /** Accepts only known keys with short printable string values. Used by the browser and the server. */
 export function sanitizeAttribution(input: unknown): Attribution | undefined {
   if (!input || typeof input !== "object" || Array.isArray(input)) return undefined;
@@ -83,7 +97,8 @@ export function sanitizeAttribution(input: unknown): Attribution | undefined {
   for (const [key, value] of Object.entries(input as Record<string, unknown>)) {
     if (!allowed.has(key) || typeof value !== "string") continue;
     const cleaned = clean(value);
-    if (cleaned) out[key as keyof Attribution] = cleaned;
+    const fitted = cleaned ? fitsReceiver(key, cleaned) : undefined;
+    if (fitted) out[key as keyof Attribution] = fitted;
   }
   return Object.keys(out).length ? out : undefined;
 }
