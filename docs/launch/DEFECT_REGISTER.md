@@ -33,6 +33,8 @@ Status: `OPEN` · `FIXED (branch)` — implemented and verified on a local produ
 | DR-023 | S3 | 404 page | — | — | Inherits `canonical: "/"`. | Layout default. | SEO hygiene. | Omit canonical on not-found. | OPEN |
 | DR-024 | S3 | Homepage wordmark links | 390 | touch users | `1GUARD`/`1Service` links 81×20 px. | Inline wordmark. | WCAG 2.5.8 (likely met by spacing exception). | Confirm spacing; pad to 24 px if needed. | OPEN |
 
+| DR-025 | S3 | `tests/e2e/visual-corrections.spec.ts:103` | 375, 1440 | — | "Product quote links scroll…" times out waiting for hydration in a Claude Code cloud container, on both `main` @ `8e89d24` and the fix branch. | Unknown (test harness or environment). | Release-gate reliability. | Investigate `hydrated()`; do not skip or loosen the test. | OPEN |
+
 ## Not defects (checked and rejected)
 
 - `/join/sales` absent from the sitemap: deliberate (noindex careers page, `app/sitemap.ts`).

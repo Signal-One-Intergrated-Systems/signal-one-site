@@ -33,7 +33,15 @@ Machine-readable state: `execution-state.json`. Newest entry first.
 | Disclosure caption inside container | DR-014 | `app/(marketing)/page.tsx` |
 | Rental page no longer lists the radios twice | DR-015 | `ptt-radio-rental/page.tsx` |
 
-Verification: `npm run build` (branding + design checks pass); before/after captures in `evidence/cmp-*.jpg`; nav fits at 1280/1440 with no overflow; e2e suite result recorded below.
+Verification: `npm run build` (branding + design checks pass); before/after captures in `evidence/cmp-*.jpg`; nav fits at 1280/1440 with no overflow.
+
+**E2E suite (467 tests, `PW_CHROMIUM=/opt/pw-browsers/chromium`) on the fix branch: 385 passed, 78 skipped, 4 failed.**
+
+| Failing test | Cause | Caused by this branch? |
+|---|---|---|
+| `layout.spec.ts` image OCR gate | `tesseract` missing in the container. After `apt-get install tesseract-ocr` the gate passes. | No (environment) |
+| `visual-corrections.spec.ts` product quote links scroll (375, 1440) | First run: my footer CTA shared the accessible name "Request a quote" with the hero button (a real ambiguity), fixed by giving it a distinct label. Re-run: both widths time out in the test's `hydrated()` wait (line 88). **The same timeout reproduces on unmodified `main` @ `8e89d24` in this container.** | No (pre-existing in this environment; needs investigation) |
+| `visual-mission.spec.ts` `/security-trust` @ 768 | React #418 hydration error: KI-1 (intermittent, documented in `docs/KNOWN_ISSUES.md`). Passed on re-run. | No |
 
 ### Not done this session (and why)
 - Phases 2 (external research write-up), 5 (design constitution), 6 and 10–16 — not started; Phase 6/11 are blocked on DR-001's LEOS receiver and on commercial decisions.
