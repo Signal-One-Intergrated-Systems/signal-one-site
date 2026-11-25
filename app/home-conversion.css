@@ -244,6 +244,13 @@ html[data-after-load] .so-home .so-introduction {
 html[data-after-load] .so-home .so-service-section {
   --scene: url("/images/backgrounds/restaurant-dining.webp");
 }
+/* PERFORMANCE-ONLY (W2, DR-003): the section photographs are loading="lazy", but on a slow connection
+   Chrome starts lazy images up to 2500 px below the viewport, so the first one (61 KB) downloaded while
+   the hero was still arriving. A display:none lazy image is not fetched; it appears after load with the
+   same box (the <img> is absolutely positioned inside its sized figure, so nothing shifts). */
+html:not([data-after-load]) .so-home .so-panel-photo-image {
+  display: none;
+}
 
 .so-home .so-kicker {
   font-size: 0.9375rem;

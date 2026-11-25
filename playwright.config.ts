@@ -35,7 +35,7 @@ export default defineConfig({
       port: 3101,
       reuseExistingServer: true,
       timeout: 60_000,
-      env: { SIGNAL_ONE_INTAKE_URL: "http://localhost:4010/intake", SIGNAL_ONE_INTAKE_TOKEN: "qa-token", INTAKE_MAX_PER_WINDOW: "100000" },
+      env: { SIGNAL_ONE_INTAKE_URL: "http://localhost:4010/intake", SIGNAL_ONE_INTAKE_TOKEN: "qa-token", INTAKE_MAX_PER_WINDOW: "100000", SIGNAL_ONE_INTAKE_KINDS: "client,guard,sales" },
     },
     {
       command: "npx next start -H 127.0.0.1 -p 3102",

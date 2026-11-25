@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import AxeBuilder from "@axe-core/playwright";
@@ -10,6 +11,20 @@ import { routes as allMarketingRoutes } from "./routes";
  * This exact JSX fixture was captured from production commit 4ed7047 before PR84.
  * Changing the hero markup breaks CI until explicitly reapproved.
  */
+/*
+ * What the lock protects (founder ruling 2026-11-25, DR-003): the approved photograph (byte-identical source
+ * file), its crop (object-fit / object-position and rendered box at 1440, 1280, 1024 and 390 px), the hero
+ * layout and copy (the JSX below, verbatim), the alt text and the loading priority. It does NOT freeze the
+ * delivery encoding: `quality` may change when an independent visual comparison shows no material
+ * degradation (q90 -> q75 was compared in docs/launch/evidence/hero-q90-vs-q75-*), but never below 75.
+ */
+const HERO_SOURCE = "public/images/home/approved-full-scene-guard-chef-2026.png";
+const HERO_SOURCE_SHA256 = "4d3aca7b4da412b9b37963950a7848bdca03a98d217e10401ea8bdbc6caedbd4";
+const HERO_ALT = "Illustrative wide daylight restaurant scene with green gardens on the left and, on the right, a Black woman security officer in a SECURITY vest reviewing a tablet with a white male chef in his chef hat";
+const HERO_MIN_QUALITY = 75;
+/** The only attribute allowed to differ from the approved fixture is the encode quality. */
+const withoutQuality = (jsx: string) => jsx.replace(/ quality=\{\d+\}/g, " quality={…}");
+
 test("FOUNDERS LOCK: approved home hero markup must never change accidentally", () => {
   const cwd = process.cwd();
   const file = readFileSync(resolve(cwd, "app/(marketing)/page.tsx"), "utf8");
@@ -18,14 +33,68 @@ test("FOUNDERS LOCK: approved home hero markup must never change accidentally", 
   const to = file.indexOf('      <section id="solutions"', from);
   expect(from).toBeGreaterThan(0);
   expect(to).toBeGreaterThan(from);
-  expect(file.slice(from, to), "Locked hero JSX was modified").toBe(baseline);
-  expect(file.slice(from, to)).toContain('approved-full-scene-guard-chef-2026.png');
-  expect(file.slice(from, to)).not.toContain("so-hero-people-glass");
-  expect(file.slice(from, to)).not.toContain("restaurant-courtyard.webp");
+  const hero = file.slice(from, to);
+  expect(withoutQuality(hero), "Locked hero JSX was modified").toBe(withoutQuality(baseline));
+  const qualities = [...hero.matchAll(/ quality=\{(\d+)\}/g)].map(match => Number(match[1]));
+  expect(qualities, "the hero has exactly one encode quality").toHaveLength(1);
+  expect(qualities[0], "hero encode quality floor (founder ruling 2026-11-25)").toBeGreaterThanOrEqual(HERO_MIN_QUALITY);
+  expect(hero).toContain('<Image src="/images/home/approved-full-scene-guard-chef-2026.png"');
+  expect(hero).toContain(`alt="${HERO_ALT}"`);
+  expect(hero).toContain('fill priority fetchPriority="high"');
+  expect(hero).toContain('sizes="100vw" className="so-hero-photo object-cover"');
+  expect(hero).not.toContain("so-hero-people-glass");
+  expect(hero).not.toContain("restaurant-courtyard.webp");
+  const source = createHash("sha256").update(readFileSync(resolve(cwd, HERO_SOURCE))).digest("hex");
+  expect(source, "the approved hero photograph file itself was replaced or edited").toBe(HERO_SOURCE_SHA256);
   const css = readFileSync(resolve(cwd, "app/home-conversion.css"), "utf8");
   expect(css).not.toContain(".so-home .so-hero-people-glass");
   expect(css).not.toContain(".so-home .so-hero-background-photo");
 });
+
+/** Rendered crop of the approved hero, measured on the approved state (main @ 97331f4, 2026-11-25). */
+const heroCrop = [
+  { viewport: { width: 1440, height: 900 }, fit: "contain", position: "50% 0%", box: [1440, 878] },
+  { viewport: { width: 1280, height: 800 }, fit: "contain", position: "50% 0%", box: [1280, 783] },
+  { viewport: { width: 1024, height: 768 }, fit: "contain", position: "50% 0%", box: [1024, 815] },
+  { viewport: { width: 390, height: 844 }, fit: "cover", position: "100% 0%", box: [390, 271] },
+] as const;
+for (const crop of heroCrop) {
+  test(`FOUNDERS LOCK: rendered hero photograph, crop and priority at ${crop.viewport.width}px`, async ({ page }) => {
+    await page.setViewportSize(crop.viewport);
+    await page.goto("/");
+    const photo = page.locator(".so-hero-media img.so-hero-photo");
+    await expect(photo).toHaveCount(1);
+    await expect.poll(() => photo.evaluate(img => (img as HTMLImageElement).complete && (img as HTMLImageElement).naturalWidth > 0)).toBe(true);
+    const seen = await photo.evaluate(node => {
+      const img = node as HTMLImageElement;
+      const style = getComputedStyle(img);
+      const rect = img.getBoundingClientRect();
+      return {
+        source: new URL(img.currentSrc).searchParams.get("url"),
+        alt: img.alt, fetchPriority: img.getAttribute("fetchpriority"), lazy: img.loading === "lazy", sizes: img.sizes,
+        fit: style.objectFit, position: style.objectPosition, transform: style.transform,
+        treatment: [style.filter, style.maskImage || style.getPropertyValue("-webkit-mask-image"), style.opacity, style.mixBlendMode].join(" | "),
+        box: [Math.round(rect.width), Math.round(rect.height)], left: Math.round(rect.left),
+        aspect: img.naturalWidth / img.naturalHeight,
+      };
+    });
+    expect(seen.source).toBe("/images/home/approved-full-scene-guard-chef-2026.png");
+    expect(seen.alt).toBe(HERO_ALT);
+    expect(seen.fetchPriority).toBe("high");
+    expect(seen.lazy).toBe(false);
+    expect(seen.sizes).toBe("100vw");
+    expect(seen.fit).toBe(crop.fit);
+    expect(seen.position).toBe(crop.position);
+    expect(seen.transform).toBe("none");
+    // The approved photograph is shown untreated: no filter, mask, fade or blend over it.
+    expect(seen.treatment).toBe("none | none | 1 | normal");
+    expect(seen.left).toBe(0);
+    expect(Math.abs(seen.box[0] - crop.box[0]), `hero width at ${crop.viewport.width}`).toBeLessThanOrEqual(2);
+    expect(Math.abs(seen.box[1] - crop.box[1]), `hero height at ${crop.viewport.width}`).toBeLessThanOrEqual(2);
+    // The delivered image is the whole photograph (no server-side crop): 1672 x 941.
+    expect(Math.abs(seen.aspect - 1672 / 941)).toBeLessThan(0.01);
+  });
+}
 
 /** Phase 7 production-like acceptance for every core acquisition path.
  * Run after `npm run build`; does not require live credentials.

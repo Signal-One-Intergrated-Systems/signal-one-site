@@ -185,6 +185,13 @@ export async function POST(request: Request) {
 
   const target = process.env.SIGNAL_ONE_INTAKE_URL;
   const token = process.env.SIGNAL_ONE_INTAKE_TOKEN;
+  // Which kinds go to the receiver. Default: sales enquiries only. Guard and sales applications stay on
+  // the email route until the platform has a screen where someone reads them (audit L2-01): an
+  // application acknowledged as "received" that nobody can see is worse than an honest email route.
+  const enabledKinds = new Set((process.env.SIGNAL_ONE_INTAKE_KINDS || "client").split(",").map((k) => k.trim()).filter(Boolean));
+  if (target && token && !enabledKinds.has(kind)) {
+    return reply(`Online applications are not connected yet, so nothing was sent. Please email ${EMAIL} and we will reply directly.`, 503);
+  }
   if (!target) {
     return reply(`Online forms are not connected yet, so nothing was sent. Please email ${EMAIL} and we will reply directly.`, 503);
   }
