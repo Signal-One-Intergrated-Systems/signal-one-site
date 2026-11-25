@@ -57,9 +57,8 @@ export function HardwareCard({
           <Status kind="quote">By quote</Status>
         </span>
       </div> : (
-        <div className="well-typographic">
-          <span className="well-typographic-badge"><Status kind="quote">By quote</Status></span>
-          <span aria-hidden="true">{product.type}</span>
+        <div className={compact ? "px-5 pt-5" : "px-6 pt-6 sm:px-7 sm:pt-7"}>
+          <Status kind="quote">By quote</Status>
         </div>
       )}
       <div className={"flex flex-1 flex-col " + (compact ? "p-5" : "p-6 sm:p-7")}>
