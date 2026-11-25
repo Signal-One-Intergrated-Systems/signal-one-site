@@ -35,16 +35,26 @@ function regionsFromGeoJSON(json:any):Region[] {
  }
  return regions;
 }
-function buildLand(regions:Region[]):Point[] {
+/**
+ * The land dots. Same grid, same test, same points as before; computed a few latitude rows per task
+ * (yielding between them) so this one-off ~300 ms job (4x-throttled phone) never blocks a tap (INP, W2).
+ * Resolves null if the globe unmounts meanwhile.
+ */
+async function buildLand(regions:Region[],alive:()=>boolean):Promise<Point[]|null> {
  const points:Point[]=[];
- for(let lat=-85;lat<=85;lat+=2.8)for(let lon=-180;lon<180;lon+=2.8){
-  for(const region of regions){
-   const [left,right,bottom,top]=region.bounds;
-   if(lon<left||lon>right||lat<bottom||lat>top)continue;
-   if(inside(lon,lat,region.rings[0])&&!region.rings.slice(1).some(h=>inside(lon,lat,h))){
-    points.push([lat,lon]);break;
+ let rows=0;
+ await new Promise(resolve=>setTimeout(resolve,0));if(!alive())return null;
+ for(let lat=-85;lat<=85;lat+=2.8){
+  for(let lon=-180;lon<180;lon+=2.8){
+   for(const region of regions){
+    const [left,right,bottom,top]=region.bounds;
+    if(lon<left||lon>right||lat<bottom||lat>top)continue;
+    if(inside(lon,lat,region.rings[0])&&!region.rings.slice(1).some(h=>inside(lon,lat,h))){
+     points.push([lat,lon]);break;
+    }
    }
   }
+  if(++rows%4===0){await new Promise(resolve=>setTimeout(resolve,0));if(!alive())return null;}
  }
  return points;
 }
@@ -71,9 +81,12 @@ export default function GlassGlobe(){
   // Locally hosted world geometry; data only, never executable source.
   fetch("/data/world.geojson")
    .then(r=>{if(!r.ok)throw Error("geography unavailable");return r.json()})
-   .then(data=>{if(alive){
-     geography=regionsFromGeoJSON(data);
-     land=buildLand(geography);
+   .then(async data=>{if(alive){
+     const regions=regionsFromGeoJSON(data);
+     const points=await buildLand(regions,()=>alive);
+     if(!points)return;
+     // Coastlines, land and the South Africa outline appear together, exactly as before.
+     geography=regions;land=points;
      const sa=(data.features||[]).find((f:any)=>f.properties?.name==="South Africa");
      southAfricaOutline=sa?.geometry?.type==="Polygon"?sa.geometry.coordinates[0]:sa?.geometry?.type==="MultiPolygon"?sa.geometry.coordinates[0][0]:[];
      request();

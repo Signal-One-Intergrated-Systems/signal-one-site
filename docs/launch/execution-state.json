@@ -98,9 +98,28 @@
   "performance": {
     "homepage_lcp_lab_ms": {
       "main": 4292,
-      "branch": 3156,
-      "branch_with_q75_hero_pending_founder": 2824
+      "before_w2_97331f4": 3180,
+      "w2_final": 2480,
+      "w2_per_change_5run_medians": {
+        "baseline": 3160,
+        "A_hero_q75": 2880,
+        "B_defer_first_section_photo": 2732,
+        "C_font_not_preloaded": 2460,
+        "D_inter_feature_subset": 2532,
+        "E_globe_land_sliced": 2496
+      },
+      "note": "final = 7 interleaved runs (2460-2504); <= 2.5 s in the lab median by a small margin, not in every run; production HTTP/2 not yet measured"
     },
-    "profile": "Moto G4, 1.6 Mbps, 150 ms RTT, 4x CPU, local next start (HTTP/1.1)"
+    "homepage_inp_proxy_lab_ms": {
+      "with_globe_animation": "530-650",
+      "reduced_motion_no_animation": "104-120",
+      "defect": "DR-026"
+    },
+    "cls": 0.0005,
+    "profile": "Moto G4, 1.6 Mbps, 150 ms RTT, 4x CPU, local next start (HTTP/1.1), interleaved builds"
+  },
+  "known_issues": {
+    "KI-1": "root cause found: React replay of suspended host element during hydration (Next 16.1.x bundle); workaround RouteContent on wip/w2-perf; upgrade to Next 16.4.x recommended",
+    "KI-2": "DR-026 globe animation INP"
   }
 }

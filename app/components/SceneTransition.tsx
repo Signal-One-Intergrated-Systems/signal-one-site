@@ -18,6 +18,19 @@ function identity(path: string): string {
   return "SIGNAL ONE";
 }
 
+/**
+ * KI-1 (React #418): the route content arrives as a server-rendered slot that can still be pending while the
+ * page hydrates under load. If a host element (the <div> below) is what suspends on it, the React build bundled
+ * with Next.js 16.1.x replays that <div> without rewinding the hydration cursor, finds the div's own first child
+ * where it expects the div, reports a mismatch and re-renders the whole page on the client. A function component
+ * between the div and the slot makes IT the unit that suspends and replays; function components claim no DOM,
+ * so the cursor stays right. Renders nothing of its own (no DOM, no visual change). Remove after the Next.js
+ * upgrade that bundles the React fix (verified in Next 16.4.6). See docs/KNOWN_ISSUES.md.
+ */
+function RouteContent({ children }: { children: ReactNode }) {
+  return children;
+}
+
 /** Persistent glass doors, pulse and identity; the overlay must survive the route commit. */
 export default function SceneTransition({ children }: { children: ReactNode }) {
   const pathname = usePathname();
@@ -147,7 +160,7 @@ export default function SceneTransition({ children }: { children: ReactNode }) {
   const isMaster = destination === "/" || destination.startsWith("/equipment") || destination.startsWith("/radios") || destination.startsWith("/ptt-radio");
   const isEquipment = destination.startsWith("/equipment") || destination.startsWith("/radios") || destination.startsWith("/ptt-radio");
   return <>
-    <div key={pathname} data-scene-route={pathname} className="s1-scene-route">{children}</div>
+    <div key={pathname} data-scene-route={pathname} className="s1-scene-route"><RouteContent>{children}</RouteContent></div>
     <div className="sg-entry-overlay" data-guard-entry={phase === "covered" ? "sealed" : phase} aria-hidden="true" data-exact-guard-transition>
       <div className="sg-glass-panel sg-entry-shutter sg-entry-shutter-left" />
       <div className="sg-glass-panel sg-entry-shutter sg-entry-shutter-right" />

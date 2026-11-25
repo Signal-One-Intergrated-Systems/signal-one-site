@@ -66,3 +66,13 @@ E2E (branch): **412 passed, 0 failed, 84 skipped** before the VA-04/06/11 change
 | Go live | BLOCKED | (1) Architect: renumber #704 around `main`'s 0187, rule on 0188/0189 overlaps (#728, #746, #720) and on 0192; rebase #704 + #748. (2) Audits: #704 fourth audit, #748 audit, open decisions (sales_manager mapping, erasure incl. the attribution column, lead-match indexes). (3) Founder: approve merge; issue the production credential through an approved step. (4) Founder: set `SIGNAL_ONE_INTAKE_URL=https://api.lancesatsuppliers.co.za/api/v1/integrations/website/v1/intake` and `SIGNAL_ONE_INTAKE_TOKEN` on the website's Railway service; one labelled smoke enquiry; assign it in the website queue. (5) Mubaraq: wire #728's email path into `onPersisted`. |
 
 Final website e2e on this state: **413 passed, 1 failed, 84 skipped**; the failure is KI-1 (React #418, `/get-started` @1440, one of ~500 loads), open.
+
+## Checkpoint W2 — performance and hydration (2026-11-25, local branch `wip/w2-perf`)
+
+| # | Criterion | Status now | Evidence |
+|---|---|---|---|
+| 10 | Lighthouse mobile performance ≥ 90 | NOT MEASURED | Lighthouse is not installed in the container; lab traces below instead. |
+| 11 | LCP ≤ 2.5 s, INP ≤ 200 ms, CLS ≤ 0.1 | **LCP: PASS in the lab median, marginal** (homepage 3.18 → 2.48 s on the final build, 7 interleaved runs 2.46–2.50 s; margin ~20 ms). **INP: FAIL in the lab** (DR-026: ~530–650 ms worst tap on the homepage with the animated globe, ~110 ms without; founder-locked animation, ruling needed). **CLS: PASS** (0.0005). Production must be measured after deploy (Cloudflare HTTP/2; no field data yet). | `DEFECT_REGISTER.md` W2 section. |
+| 6 | Zero broken critical interactions | PASS (unchanged) + KI-1 root-caused | React #418 is a framework bug triggered by `SceneTransition`; worked around on the branch; see `docs/KNOWN_ISSUES.md`. |
+
+E2E on W2's final tree (one consolidated set; supersedes earlier figures for this branch): **418 passed, 0 failed, 84 skipped**; the 84 skipped are the opt-in evidence suites `visual-audit` (72) and `visual-states` (12), which pass **84/84** when run with `VISUAL_AUDIT_DIR`. They are capture suites whose assertions overlap the always-on suites; skipping them does not drop a launch gate. Details: `DEFECT_REGISTER.md`, W2 section.
