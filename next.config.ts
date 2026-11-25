@@ -40,6 +40,8 @@ const nextConfig: NextConfig = {
     const ga = "https://*.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com";
     // Cloudflare Web Analytics: the edge injects this beacon into every page and it reports to cloudflareinsights.com.
     // Found blocked in production verification of R0 (2026-11-12). Rocket Loader and Zaraz remain NOT allowed.
+    // Google Ads conversion hosts, only when an Ads account tag is configured.
+    const ads = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID ? " https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com https://*.doubleclick.net" : "";
     const cfScript = "https://static.cloudflareinsights.com";
     const cfReport = "https://cloudflareinsights.com";
     const publicHeaders = [
@@ -54,11 +56,11 @@ const nextConfig: NextConfig = {
         key: "Content-Security-Policy",
         value: [
           "default-src 'self'",
-          `script-src 'self' 'unsafe-inline' ${ga} ${cfScript}`,
+          `script-src 'self' 'unsafe-inline' ${ga}${ads} ${cfScript}`,
           "style-src 'self' 'unsafe-inline'",
-          `img-src 'self' data: blob: ${ga}`,
+          `img-src 'self' data: blob: ${ga}${ads}`,
           "font-src 'self' data:",
-          `connect-src 'self' ${ga} ${cfReport}`,
+          `connect-src 'self' ${ga}${ads} ${cfReport}`,
           "frame-ancestors 'none'",
           "base-uri 'self'",
           "object-src 'none'",
