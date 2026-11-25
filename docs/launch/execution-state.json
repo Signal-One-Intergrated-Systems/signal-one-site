@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-25 (checkpoint 2)",
+  "updated": "2026-11-25 (all workstreams reported; readiness register written)",
   "branch": "claude/peaceful-johnson-azma60",
   "liveBaseline": {
     "url": "https://signalone.co.za",
@@ -10,15 +10,15 @@
     "1_independent_walkthrough": "done",
     "2_research_benchmarking": "done (primary sources; Motorola/POCSTARS unreachable)",
     "3_route_inventory_and_audit": "done",
-    "4_repository_reconciliation": "done for site + Sales OS; LEOS intake in progress",
-    "5_design_constitution": "not_started",
-    "6_radio_rental_vertical_slice": "in progress: LEOS receiver (workstream B)",
-    "7_shared_design_system_remediation": "started (VA-04, VA-06); token consolidation pending",
-    "8_radio_conversion_pages": "in progress",
-    "9_full_public_remediation": "not_started",
-    "10_sales_os_shell": "blocked: test access + active Sales OS stream owns the port",
-    "11_commercial_lifecycle_qualification": "blocked:DR-001,commercial_decisions",
-    "12_independent_rereview": "not_started",
+    "4_repository_reconciliation": "done: dependency map + migration requests in RELEASE_READINESS_REGISTER.md; Architect rulings pending (0188/0189, 0190-0201)",
+    "5_design_constitution": "done (docs/DESIGN_SYSTEM.md, W1)",
+    "6_radio_rental_vertical_slice": "qualified locally (LEOS #753): rental PASS, outright PASS, hardware+subscription FAIL",
+    "7_shared_design_system_remediation": "done on branch (W1 token consolidation)",
+    "8_radio_conversion_pages": "done on branch",
+    "9_full_public_remediation": "done on branch except DR-026 (founder) and BLOCKED facts",
+    "10_sales_os_shell": "qualified locally (LEOS #750 shell, #754 queue)",
+    "11_commercial_lifecycle_qualification": "qualified locally with 6 audit-class gaps (LEOS #753)",
+    "12_independent_rereview": "partial: #704/#748 audited (L2); #749-#754 and website branch not independently reviewed",
     "13_correct_review_findings": "not_started",
     "14_release_preparation": "not_started",
     "15_production_deployment": "not_started:requires_founder_approval",
@@ -121,5 +121,25 @@
   "known_issues": {
     "KI-1": "root cause found: React replay of suspended host element during hydration (Next 16.1.x bundle); workaround RouteContent on wip/w2-perf; upgrade to Next 16.4.x recommended",
     "KI-2": "DR-026 globe animation INP"
-  }
+  },
+  "candidates": {
+    "website": "claude/peaceful-johnson-azma60 (see git log)",
+    "leos": {
+      "749_receiver": "3ef1c67f",
+      "750_sales_os_shell": "248cbffc",
+      "751_outbox": "7a8a1037",
+      "752_privacy": "65c6767c",
+      "753_commercial_slice": "3761943d",
+      "754_enquiry_queue": "514c2545"
+    },
+    "production": {
+      "site_main": "8e89d24",
+      "leos_api": "5efcb303",
+      "leos_web": "d5f78f64"
+    },
+    "register": "docs/launch/RELEASE_READINESS_REGISTER.md"
+  },
+  "urgent": [
+    "CV-1: production logs bearer tokens and refresh cookies on every 5xx (fix in LEOS #753)"
+  ]
 }
