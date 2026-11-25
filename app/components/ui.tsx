@@ -389,8 +389,10 @@ export function PageHero({
 }) {
   return (
     <section className="split-hero surface-deep">
-      <div className="wrap grid gap-12 py-16 md:py-24 lg:grid-cols-[minmax(0,var(--hero-col))_minmax(0,1fr)] lg:items-center lg:gap-20 lg:py-32">
-        <div>
+      {/* Copy is top-aligned, not centred against the aside: a tall product column must never push
+          the headline and primary action below the first viewport (DR-005). It stays in view while the aside scrolls. */}
+      <div className="wrap grid gap-12 py-16 md:py-24 lg:grid-cols-[minmax(0,var(--hero-col))_minmax(0,1fr)] lg:items-start lg:gap-20 lg:py-28">
+        <div className="lg:sticky lg:top-28">
           {kicker || status ? (
             <div className="flex flex-wrap items-center gap-3">
               {kicker ? <Kicker tone="dark">{kicker}</Kicker> : null}

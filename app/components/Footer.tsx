@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SignalOneLogo from "./brand/SignalOneLogo";
 import ProductSignature from "./brand/ProductSignature";
+import FooterCta from "./FooterCta";
 
 const groups = [
   { title: "Platforms & equipment", links: [
@@ -24,14 +25,7 @@ export default function Footer() {
   return (
     <footer className="s1-premium-footer" aria-label="Signal One footer">
       <div className="wrap s1-premium-footer-shell">
-        <div className="s1-premium-footer-intro">
-          <div>
-            <p className="s1-footer-kicker">SIGNAL ONE · INTEGRATED SYSTEMS</p>
-            <h2>Run your business. As one.</h2>
-            <p>Security Business OS. Service Business OS. Mission-critical technology.</p>
-          </div>
-          <Link className="s1-footer-main-cta" href="/get-started">Get 14 Day Free Trial <span aria-hidden="true">↗</span></Link>
-        </div>
+        <FooterCta />
         <div className="s1-premium-footer-bottom">
           <div className="s1-footer-brand">
             <Link href="/" aria-label="Signal One home" className="s1-footer-logo"><SignalOneLogo size={24} tone="dark" descriptorMin={11} /></Link>

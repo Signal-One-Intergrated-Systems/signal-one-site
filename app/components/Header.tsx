@@ -30,10 +30,10 @@ const worlds: Record<
     homeHref: "/",
     primary: [
       { href: "/solutions/security", label: "1GUARD" },
+      // Radios are sold and rented today: name them and go straight to the catalogue and quote form (DR-002).
+      { href: "/radios-equipment", label: "Radios & equipment" },
       { href: "/service", label: "1Service" },
       { href: "/guard-marketplace", label: "Hire Guards" },
-      { href: "/equipment-marketplace", label: "Equipment" },
-      
     ],
     secondary: [
       { href: "/guards", label: "For guards" },
@@ -134,7 +134,11 @@ export default function Header() {
     };
   }, [open]);
 
-  const isCurrent = (href: string) => !href.includes("#") && href !== "/" && pathname.startsWith(href);
+  // The equipment journey spans three routes; all of them mark "Radios & equipment" as current.
+  const equipmentRoutes = ["/radios-equipment", "/ptt-radio-rental", "/equipment-marketplace"];
+  const isCurrent = (href: string) =>
+    !href.includes("#") && href !== "/" &&
+    (pathname.startsWith(href) || (href === "/radios-equipment" && equipmentRoutes.some((route) => pathname.startsWith(route))));
 
   return (
     <header data-home={pathname === "/" ? "" : undefined} data-scrolled={scrolled ? "" : undefined} className={"sticky top-0 z-50 " + config.shell}>

@@ -51,12 +51,11 @@ export default function PttRadioRentalPage() {
         </div>
       }
       capabilitiesTitle="What we rent"
+      // The radios themselves are listed in the hero; this section answers how renting works instead of repeating them (DR-017).
       capabilities={[
-        ["Hytera PNC360S", "PoC radio. Rental. Device with push-to-talk service and data."],
-        ["P30 Lite PoC", "PoC radio with SOS. Rental. Communications, SOS, SIM, data and platform access."],
-        ["E600 PoC LTE", "PoC LTE radio. Available by quote."],
-        ["PTT platform with SIM and data", "Monthly platform access with SIM and data for supported radios."],
         ["Rental terms", "12, 24 or 36 months."],
+        ["With or without connectivity", "Radios with SIM, data and the PTT platform, radios only if you have SIMs, or the platform and SIMs for radios you already own."],
+        ["Buying instead", "Radios are also sold outright, by quotation. Ask to compare buying and renting in one quote."],
         ["Quoted, not listed", "Final specification, availability and price are confirmed in a written quote. We do not publish prices, stock or delivery dates."],
       ]}
       stepsTitle="How the quote works"

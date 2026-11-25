@@ -463,7 +463,7 @@ body:has(.so-home) header.glass-nav .btn-primary{box-shadow:inset 0 1px rgba(255
     display:block;width:100%!important;
     flex:none;height:clamp(310px,58vw,450px)!important;
     min-height:0!important;
-    background:#cedcdb;
+    background:#081a2c;
     overflow:hidden;
   }
   .so-home .s1-brand-stage.so-hero .so-hero-media .so-hero-photo{
@@ -715,8 +715,10 @@ body:has(.so-home) header.glass-nav .btn-primary{box-shadow:inset 0 1px rgba(255
    ENTIRE page and BEHIND the real animated globe and frosted glass text panel.
    The security officer and chef stay at their original, distant scale on the
    right. Do not crop or artificially zoom this image to favor people's faces. */
+/* 2026-11-25 (DR-013, founder correction #1 of 2026-11-12): the band the uncropped photo leaves
+   above and below it is the hero's own deep navy, not sage green. The photo itself is unchanged. */
 .so-home .s1-brand-stage.so-hero .so-hero-media{
-  background:#b8d0b7!important;
+  background:#081a2c!important;
 }
 .so-home .s1-brand-stage.so-hero .so-hero-media .so-hero-photo{
   left:0!important;

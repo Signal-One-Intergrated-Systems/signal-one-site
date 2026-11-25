@@ -3,10 +3,9 @@ import Link from "next/link";
 import { HardwareShowcase } from "../../components/Hardware";
 import { catalogue } from "../../lib/catalogue";
 import { ButtonLink, Kicker } from "../../components/ui";
-import ProductSignature from "../../components/brand/ProductSignature";
 
 export const metadata: Metadata = {
- title: "Security Equipment Marketplace | Buy or Rent | Signal One",
+ title: "Security Equipment Marketplace | Buy or Rent",
  description: "Browse security equipment categories for purchase or rental enquiries: PTT radios, body cameras, vehicle tracking and related field technology. Quotes subject to availability.",
  alternates: { canonical: "/equipment-marketplace" },
 };
@@ -19,7 +18,7 @@ const categories = [
 export default function EquipmentMarketplacePage() {
  return <main id="main" className="s1-scene-page s1-scene-page--equipment">
  <section className="surface-deep section s1-equipment-hero"><div className="wrap grid items-center gap-10 lg:grid-cols-2"><div>
- <Kicker tone="dark"><ProductSignature name="GUARD" tone="dark" /> · Equipment marketplace</Kicker>
+ <Kicker tone="dark">Signal One · Equipment</Kicker>
  <h1 className="t-h1 mt-5">The right equipment. Ready for the field.</h1>
  <p className="t-lead measure mt-5 text-text-inv-2">Explore professional radios, PTT communications, tracking and security technology. Tell us what your operation needs and request purchase or rental pricing.</p>
  <div className="mt-8 flex flex-wrap gap-3"><ButtonLink href="/radios-equipment#quote" size="lg">Request equipment pricing</ButtonLink><ButtonLink href="#categories" variant="ghost-dark" size="lg">Browse categories</ButtonLink></div>
@@ -27,7 +26,7 @@ export default function EquipmentMarketplacePage() {
  </div><HardwareShowcase products={catalogue[0].products.slice(0, 2)} /></div></section>
  <section id="categories" className="surface-light section scroll-mt-[72px]"><div className="wrap">
  <div className="flex flex-wrap justify-between items-end gap-5"><div><Kicker>Equipment</Kicker><h2 className="t-h2 mt-4">Select what the operation requires.</h2></div><Link href="/radios-equipment" className="link-arrow text-signal-ink">See available equipment and request a quote →</Link></div>
- <div className="mt-10 grid gap-4 md:grid-cols-2">{categories.map(([name,detail,href])=><article key={name} className="card p-7"><h3 className="t-h3">{name}</h3><p className="t-body mt-3 text-text-2">{detail}</p><Link className="btn btn-ghost-light mt-6" href={href}>Enquire about availability →</Link></article>)}</div>
+ <div className="mt-10 grid gap-4 md:grid-cols-2">{categories.map(([name,detail,href])=><article key={name} className="card p-7"><h3 className="t-h3">{name}</h3><p className="t-body mt-3 text-text-2">{detail}</p><Link className="btn btn-ghost-light mt-6" href={href}>{href === "/contact" ? "Talk to Signal One →" : "Request a quote →"}</Link></article>)}</div>
  </div></section>
  <section className="surface-white section"><div className="wrap"><h2 className="t-h2">Buying or renting?</h2><p className="t-body measure mt-4 text-text-2">Tell us the deployment location, quantity, intended term and equipment type. A representative will confirm sale or rental options, availability and contractual requirements.</p><div className="mt-7"><ButtonLink href="/radios-equipment#quote">Request a written quotation</ButtonLink></div></div></section>
  </main>;
