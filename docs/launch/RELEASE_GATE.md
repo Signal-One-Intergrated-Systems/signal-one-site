@@ -100,3 +100,18 @@ E2E on W2's final tree (one consolidated set; supersedes earlier figures for thi
 **Merged tree `435a5b2` (W1 visual consolidation + catalogue placeholder fix, over W2 and the L2 fixes):** `npm run build` RC=0; full e2e suite under the shared lock **420 passed, 0 failed, 84 skipped**. Catalogue checked by screenshot at 1440 and 390 after the fix.
 
 **Contract checks (L1 patch applied over the W1/W2 merge):** full e2e suite **420 passed, 0 failed, 84 skipped**; `contract:check` → contract 1.2.0 accepts all 10 manifest forms; `form-manifest --check` → covers all 8 observed forms after a real-browser run on the W1/W2 tree; `contract:release-check --leos … --ref claude/launch-integration-r1` → both vendored copies SAME.
+
+## Checkpoint N1 — notification outbox, lead-match indexes, credential expiry (LEOS, 2026-11-25)
+
+**Unmerged.** Draft PR [#751](https://github.com/Signal-One-Intergrated-Systems/lancesat-enterprise-platform/pull/751), branch `claude/launch-intake-outbox-r1` @ `7a8a1037`, one commit on `claude/launch-integration-r1` @ `3ef1c67` (#749). Audit-class: must not merge before the pre-merge audit and founder approval.
+
+| Finding | Result | Evidence |
+|---|---|---|
+| L2-06 in-memory hook, no outbox | **Closed on the branch.** Transactional outbox (0197, class A): the notification row is written in the intake transaction; one delivery per recipient with a name-based idempotency key; backoff 30 s → 1 h, dead-letter after 10 attempts; poison rows bounded; `awaiting_recipient` kept and alerted, never dropped. Off until `WEBSITE_INTAKE_NOTIFICATIONS_ENABLED=true`. Reuses BullMQ `notifications-email` as transport; #728 composes on the same key later. | Mutation controls M1–M8, M12 each went red, restored, re-run green. |
+| L2-02 (notification half) | Recipients by stored role/grant only: enquiries → `website_queue.read` (today `commercial_director`, `super_admin`); applications → `privacy.manage`; sales roles refused for applications in code and by DB CHECK. Read endpoints `/notifications/sales-queue` and `/recruitment` for workstream S. | M9–M11 (tenant isolation, forged grant) red then green. |
+| L2-07 no lead-match index | **Closed on the branch.** 0198 (class B, indexes only): 48–99 ms → 0.04–0.05 ms at 50k leads; refuses above ~250k rows (non-concurrent build under `migrate.js`); adopts indexes pre-built with the CONCURRENTLY runbook. | EXPLAIN on scratch; M14. Measured on PG 16 only; production is PG 18. |
+| L2-09 credentials never expire | **Closed on the branch** (0199, class A): nullable `expires_at`, one predicate in resolution, cache and touch; `--expires-at` on the operator command. Rotation cadence and owner: founder. | M13 (200 instead of 401 when removed). |
+
+Gate: full `governance:push` RC=0 GREEN (178 migrations, `lancesat_test` recreated); pre-push gate RC=0 on tree `e26a313a`. `@lancesat/api` 5,331 passed / 7 skipped; intake suites 241/241. One vacuous control disclosed (`NEVER_RECRUITMENT_ROLES` cannot go red with today's role matrix).
+
+Still open: worker leg after hand-off (3 BullMQ attempts then DLQ; #728 makes it durable); no Redis in the gate (hand-off unit-tested only); no dead-letter redrive route; email recipient allowlist (0155) not enforced on the send path (observation for #728). Founder: arm the relay and the email transport; name the queue owner (until then enquiry notifications wait in `awaiting_recipient`); rotation cadence.
