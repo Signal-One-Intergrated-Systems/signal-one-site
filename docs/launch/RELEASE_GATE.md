@@ -94,3 +94,5 @@ Launch-minimum roles (audit condition 7): no `sales_manager` mapping; a **named 
 | 6 | Zero broken critical interactions | PASS (unchanged) + KI-1 root-caused | React #418 is a framework bug triggered by `SceneTransition`; worked around on the branch; see `docs/KNOWN_ISSUES.md`. |
 
 E2E on W2's final tree (one consolidated set; supersedes earlier figures for this branch): **418 passed, 0 failed, 84 skipped**; the 84 skipped are the opt-in evidence suites `visual-audit` (72) and `visual-states` (12), which pass **84/84** when run with `VISUAL_AUDIT_DIR`. They are capture suites whose assertions overlap the always-on suites; skipping them does not drop a launch gate. Details: `DEFECT_REGISTER.md`, W2 section.
+
+**Merged tree `35fa09c` (W2 merged over the L2 fixes):** `npm run build` RC=0 (branding, design and truth checks pass); full e2e suite under the shared lock **420 passed, 0 failed, 84 skipped** (418 from W2 + the two L2 tests; the 84 are the opt-in evidence suites).
