@@ -84,3 +84,13 @@ Full report: `LEOS_R1_AUDIT_L2.md`. Verdicts: **#704 PASS WITH CONDITIONS, #748 
 | L2-09 credentials never expire; L2-10 NBSP company names miss matches; L2-11 marketing consent not carried to the lead; L2-12 receiver time budget vs the site's 10 s timeout | S2–S3 | — | L1 / privacy workstream. |
 
 Launch-minimum roles (audit condition 7): no `sales_manager` mapping; a **named `commercial_director` (or `super_admin`) as the queue owner — founder to name the person**; grants only to named people; `privacy.manage` held by `super_admin` only.
+
+## Checkpoint W2 — performance and hydration (2026-11-25, local branch `wip/w2-perf`)
+
+| # | Criterion | Status now | Evidence |
+|---|---|---|---|
+| 10 | Lighthouse mobile performance ≥ 90 | NOT MEASURED | Lighthouse is not installed in the container; lab traces below instead. |
+| 11 | LCP ≤ 2.5 s, INP ≤ 200 ms, CLS ≤ 0.1 | **LCP: PASS in the lab median, marginal** (homepage 3.18 → 2.48 s on the final build, 7 interleaved runs 2.46–2.50 s; margin ~20 ms). **INP: FAIL in the lab** (DR-026: ~530–650 ms worst tap on the homepage with the animated globe, ~110 ms without; founder-locked animation, ruling needed). **CLS: PASS** (0.0005). Production must be measured after deploy (Cloudflare HTTP/2; no field data yet). | `DEFECT_REGISTER.md` W2 section. |
+| 6 | Zero broken critical interactions | PASS (unchanged) + KI-1 root-caused | React #418 is a framework bug triggered by `SceneTransition`; worked around on the branch; see `docs/KNOWN_ISSUES.md`. |
+
+E2E on W2's final tree (one consolidated set; supersedes earlier figures for this branch): **418 passed, 0 failed, 84 skipped**; the 84 skipped are the opt-in evidence suites `visual-audit` (72) and `visual-states` (12), which pass **84/84** when run with `VISUAL_AUDIT_DIR`. They are capture suites whose assertions overlap the always-on suites; skipping them does not drop a launch gate. Details: `DEFECT_REGISTER.md`, W2 section.

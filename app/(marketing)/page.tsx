@@ -56,7 +56,7 @@ export default function Home() {
         <div className="so-hero-media">
           <Image src="/images/home/approved-full-scene-guard-chef-2026.png"
             alt="Illustrative wide daylight restaurant scene with green gardens on the left and, on the right, a Black woman security officer in a SECURITY vest reviewing a tablet with a white male chef in his chef hat"
-            fill priority fetchPriority="high" quality={90}
+            fill priority fetchPriority="high" quality={75}
             sizes="100vw" className="so-hero-photo object-cover" />
           <div className="so-hero-wash" aria-hidden="true" />
         </div>
