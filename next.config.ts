@@ -68,6 +68,8 @@ const nextConfig: NextConfig = {
         ].join("; "),
       },
     ];
+    // Staging copies (SITE_NOINDEX=1, set only on the review service) must never be indexed.
+    if (process.env.SITE_NOINDEX === "1") publicHeaders.push({ key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" });
     return [
       { source: "/:path*", headers: publicHeaders },
       ...["/connect/:path*", "/present/:path*", "/contact/andisiwe", "/qr/:path*", "/connect-assets/:path*"].map(source => ({ source, headers })),
