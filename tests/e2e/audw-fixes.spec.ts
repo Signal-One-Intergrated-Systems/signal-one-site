@@ -341,7 +341,7 @@ test("AUDW-11 /about labels equipment By quote and names only labels the site us
   await expect(offers.locator(".badge-quote", { hasText: "By quote" })).toHaveCount(2);
   const text = await page.locator("main").innerText();
   expect(text).not.toMatch(/marked available, pilot, in development or planned/);
-  expect(text).toMatch(/(Pilot|Live), Beta, In development, Coming soon or By quote/);
+  expect(text).toMatch(/Available, (Pilot|Live), In development, Planned, Coming soon or By quote/);
 });
 
 // ---------- AUDW-10: homepage photographs are shown without JavaScript ----------

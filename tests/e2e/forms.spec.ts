@@ -37,7 +37,7 @@ const cases: Case[] = [
   { name: "marketplace interest", path: "/guard-marketplace", subject: "Guard Marketplace interest", intent: "marketplace-interest", kind: "client", run: simple },
   ...(
     [
-      ["Radios and PTT", "Equipment rental quote", "equipment-rental-quote"],
+      ["Radios and PTT", "Radio quote, Rent radios", "equipment-rental-quote"],
       ["Tracking", "Tracking quote", "tracking-quote"],
       ["Body cameras", "Body camera rental quote", "bodycam-rental-quote"],
     ] as const

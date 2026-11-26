@@ -16,7 +16,10 @@
 ## Website test evidence (final candidate)
 
 - **Build:** `npm run build` RC=0. Design contract 29/29; public-truth checks pass on the source and on the rendered output.
-- **Full e2e:** run on the merged light-first candidate `9f92d61`; its results are recorded in the commit that adds this file. Targeted runs after each later change were green: 144/144, 59/59, 35/35.
+- **Full e2e:**
+  - On the merged light-first candidate `9f92d61`: 453 passed, 0 failed, 84 skipped (opt-in evidence capture).
+  - On the final candidate with the walkthrough fixes: 452 passed and 2 failed, both tests expecting wording changed on purpose (email subject SW-11, status vocabulary SW-05). After updating them, `forms` passed 19/19 and `forms` + `audw-fixes` passed 38/38 with the remaining failure fixed.
+- **Targeted runs after each change:** 144/144, 59/59, 35/35.
 - **Staging walkthrough** (independent reviewer, fresh browser, 9 personas, 4 widths, 22 routes): "Ready with fixes": 1 S1, 7 S2, 22 S3.
   - Fixed: S1 SW-01; S2 SW-02, -03, -04, -05, -06, -07, -08; S3 SW-10, -11, -12, -13, -14, -22, -28, -29 (iOS claim removed; `/join/sales` stays out of the sitemap on purpose, because it is noindex).
   - Open S3 (polish, not blocking):
