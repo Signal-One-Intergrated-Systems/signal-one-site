@@ -319,8 +319,10 @@
     }
   }
 
+  /* The copy column: 38rem, narrowing between 1024 and 1320px so the photograph or aside beside it
+     keeps a useful width (it was 272px at 1024). */
   .split-hero {
-    --hero-col: 38rem;
+    --hero-col: clamp(28rem, 46vw, 38rem);
     position: relative;
   }
   @media (min-width: 1600px) {
@@ -449,8 +451,12 @@
 
   /* ---------- Buttons: two sizes, one primary, one secondary ---------- */
   /* Hover changes colour only: no lift, no glow (DESIGN_SYSTEM §Buttons). */
+  /* In a row a button never shrinks below its label (a squeezed pill wrapped "Talk to Signal One"
+     into three lines at 1024px); it still never exceeds its container. */
   .btn {
     display: inline-flex;
+    flex-shrink: 0;
+    max-width: 100%;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;

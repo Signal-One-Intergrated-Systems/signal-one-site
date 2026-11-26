@@ -241,7 +241,7 @@ export function SplitHero({
 }) {
   return (
     <section className="split-hero s1-person-first-split">
-      <div className="wrap grid gap-10 py-16 md:py-20 lg:grid-cols-[minmax(0,var(--hero-col))_minmax(0,1fr)] lg:items-center lg:gap-16 lg:py-24">
+      <div className={"wrap grid gap-10 py-16 md:py-20 lg:items-center lg:gap-16 lg:py-24 " + (side === "left" ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,var(--hero-col))]" : "lg:grid-cols-[minmax(0,var(--hero-col))_minmax(0,1fr)]")}>
         <div className={side === "left" ? "lg:order-2" : ""}>{children}</div>
         <figure className={"m-0 " + (side === "left" ? "lg:order-1" : "")}>
           <div className="s1-glass-people-photo aspect-video w-full" style={{ maxWidth: src.width }}>
