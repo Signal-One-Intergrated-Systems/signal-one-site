@@ -143,3 +143,17 @@ All three tasks were inspected at 11:09 UTC: each was progressing, none had stal
 - **Outstanding:**
   - reissue magic links;
   - the post-merge gate on main (running at the time of writing).
+
+## Final LEOS launch candidate r2 (#756 @ `f64489a9`, 2026-11-26)
+
+- **Contents:** main `5efcb303` + #749 receiver + #751 outbox + #752 privacy (`688428f1`) + #754 Sales OS queue. Integration fixes AUD-03/04/05/22/23 and migration 0203. Also #757 and #755 (now on main as `151936f4`). One test-only re-anchor of #755's wiring control, mutation-proven.
+- **Migrations:** 0190–0194 and 0197–0203, each once, each with a BACKUP CLASS and a reversal. 0198, 0200 and 0203 are class B. The fresh chain is byte-identical to the production chain + r2 (`pg_dump -s`); reversals 0203→0197 each match the chain below.
+- **Gate:** RC=0 GREEN, counts exact (api 522/5,412, web 244/2,245, worker 26/239). Pre-push GREEN.
+- **Browser (local, synthetic):**
+  - client kinds 26/26; all kinds 16/16; credentials 3/3; queue page 12/12; assignment with a mid-dispatch kill 7/7; restrict-after-erasure 409;
+  - the API log contained no secrets or e-mails.
+- **Remaining before release:**
+  - independent review of the never-audited parts (0203, the integration commits, #749 as renumbered, the #755 merge resolution): AUD-R2, running;
+  - Architect confirmation of migration numbers;
+  - founder merge approval;
+  - receiver credential issuance.
