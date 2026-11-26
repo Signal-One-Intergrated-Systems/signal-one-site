@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function GuardJoinPage() {
   return (
     <main id="main" className="min-h-[calc(100vh-72px)] s1-scene-page s1-scene-page--officer-apply">
-      <div className="wrap pt-8"><IntakeAvailability /></div>
+      <div className="wrap pt-8"><IntakeAvailability kind="guard" /></div>
       <GuardJoin />
     </main>
   );

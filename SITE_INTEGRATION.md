@@ -11,6 +11,7 @@ The LEOS receiver exists as **draft PR #704** (`feat/r1-intake-1`, lancesat-ente
 - Additional answers: 409 (same key, different payload), 413, 415, 429, 503 — the site already treats every non-validation status as "ours" (502 + email route).
 - Per-intent **field allow-list**: an unknown field is refused 422 and the enquiry is lost. The allow-list is the **vendored LEOS contract** `contracts/website-intake.contract.v1.json` (generated in LEOS from the receiver's code; `contractVersion` semver). `contracts/form-manifest.v1.json` records what each form actually sends (real browser: `npx playwright test tests/e2e/forms.spec.ts`, then `npm run contract:manifest`). `forms.spec.ts` fails if a form sends a field outside the contract or the manifest; `npm run contract:check` checks every manifest entry against the contract without a browser; `npm run contract:release-check -- --github Signal-One-Intergrated-Systems/lancesat-enterprise-platform --ref <LEOS release ref>` fails if either vendored copy differs from LEOS at that ref (LEOS holds the site's manifest in `apps/api/contracts/vendored/`). Version rule: additive/loosening = minor (LEOS deploys first); removal/rename/tightening = major with a dual-acceptance window.
 - `attribution` is sent only when present: #704 without #748 refuses any unknown top-level key.
+- `attribution` is sent only with `client` kinds (never on a guard or job application, AUDW-09), only when it holds at least one UTM tag or click identifier, and `capturedAt` only when it matches the receiver's ISO-8601 rule (AUDW-08). What it contains is described to visitors in `/privacy` "Campaign information" (notice version `2026-11-26`).
 - Leads arrive **unassigned**: reps (`crm.own.read`) see nothing until a lead is assigned through the website queue (`website_queue.act`: commercial_director, super_admin).
 
 ## `POST /api/intake` (website intake contract v1)
@@ -90,6 +91,18 @@ Order of checks: validation, then "not connected" (503), then the throttle, then
 Consent choices are never stored on the device or restored: every submission needs a fresh tick.
 
 Until both receiver variables are set in Railway, every form answers 503 "nothing was sent" and offers email. That is the current production state.
+
+### Environment variables (server-side, Railway)
+
+| Variable | Required | Meaning |
+|---|---|---|
+| `SIGNAL_ONE_INTAKE_URL` | for online forms | The receiver's intake endpoint. Unset: every form answers 503 and offers email. |
+| `SIGNAL_ONE_INTAKE_TOKEN` | for online forms | Bearer token sent to the receiver. Unset: same as an unset URL (503); a receiver without service authentication is not an approved configuration. |
+| `SIGNAL_ONE_INTAKE_KINDS` | no | Comma-separated kinds the site forwards: any of `client`, `guard`, `sales`. **Default `client`.** A kind not listed answers 503 with the email route, even with URL and token set: guard and sales applications stay on email until LEOS has a screen where someone reads them (audit L2-01). Set `client,guard,sales` only once that exists. |
+| `INTAKE_CLIENT_IP_HEADER` | in production | The header the trusted edge sets with the caller's address (Cloudflare: `cf-connecting-ip`). Unset, the throttle falls back to `x-real-ip`, which a caller can rotate. |
+| `INTAKE_MAX_PER_WINDOW` | no | Provisional per-process throttle, default 12 per 10 minutes per caller. |
+
+`GET /api/intake/status[?kind=client|guard|sales]` reports what a submission of that kind will actually do: `onlineSubmissionAvailable` is true only when the URL **and** the token are set **and** the kind is in `SIGNAL_ONE_INTAKE_KINDS` (one function, `app/lib/intakeConfig.ts`, answers both the status and the intake route). Without `kind` it describes `client`; `kinds` carries all three. Each form's "handled by email" notice asks for its own kind, so with the default configuration `/guards/join` and `/join/sales` say so on their first step (audit AUDW-02). Unknown `kind`: 400.
 
 - **Unset URL:** returns 503 with a message telling the visitor to email sales@signalone.co.za.
 - **Client fallback (all five forms):** on a 5xx response or a network failure, `app/lib/intake.ts` shows the server message plus a `mailto:sales@signalone.co.za` link. Subject is `Signal One website: <form type>` and the body is one `field label: value` line per answer (capped at 1,500 characters). Applies to contact, equipment quote, marketplace interest, client onboarding, guard join and sales application. 4xx errors show the message only.

@@ -34,9 +34,9 @@ const demoProfiles = [
 ] as const;
 
 const interestFields: IntakeField[] = [
-  { name: "contactName", label: "Your name", required: true, autoComplete: "name" },
-  { name: "companyName", label: "Security company", required: true, autoComplete: "organization" },
-  { name: "email", label: "Work email", type: "email", required: true, autoComplete: "email" },
+  { name: "contactName", label: "Your name", required: true, error: "Enter your name.", autoComplete: "name" },
+  { name: "companyName", label: "Security company", required: true, error: "Enter your security company's name.", autoComplete: "organization" },
+  { name: "email", label: "Work email", type: "email", required: true, error: "Enter your work email address.", autoComplete: "email" },
   { name: "mobile", label: "Mobile number", type: "tel", autoComplete: "tel", placeholder: "+27" },
   {
     name: "need",

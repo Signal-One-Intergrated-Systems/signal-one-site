@@ -30,16 +30,36 @@ function labelFor(field: Field): string {
   return label.replace(/\s*\(optional\)\s*/i, "").replace(/\s+/g, " ").trim();
 }
 
+/**
+ * The message a field wrote for itself (`data-error` on the control, or on its fieldset for a radio
+ * group). Every required field on the site carries one, so the visitor reads a natural sentence
+ * ("Choose whether to buy or rent.") instead of one assembled from the label (AUDW-05).
+ */
+function ownMessage(field: Field): string | undefined {
+  return field.dataset.error || field.closest<HTMLElement>("fieldset[data-error]")?.dataset.error || undefined;
+}
+
+/** Lower-cases the first letter of a label unless it starts an acronym ("SIM", "PSiRA", "PTT"). */
+function lowerFirst(text: string): string {
+  return /^[A-Z][A-Za-z]*[A-Z]/.test(text.split(" ")[0] || "") ? text : text.charAt(0).toLowerCase() + text.slice(1);
+}
+
+/** Fallback only, for a field without `data-error`: never "Choose buy or rent?." (AUDW-05). */
+function generatedMessage(field: Field, label: string): string {
+  if (/\?$/.test(label)) return "Answer this question: " + label;
+  const name = lowerFirst(label);
+  if (field instanceof HTMLSelectElement || field.type === "radio") return "Choose an option for " + name + ".";
+  if (field.type === "checkbox") return "Tick this box to continue.";
+  return "Enter " + name + ".";
+}
+
 function messageFor(field: Field): string {
   const v = field.validity;
   const label = labelFor(field);
-  if (v.valueMissing) {
-    if (field instanceof HTMLSelectElement) return "Choose " + label.toLowerCase() + ".";
-    if (field.type === "checkbox") return "Tick this box to continue.";
-    if (field.type === "radio") return "Choose an option for " + label.toLowerCase() + ".";
-    return "Enter " + label.toLowerCase() + ".";
-  }
+  if (v.valueMissing) return ownMessage(field) || generatedMessage(field, label);
   if (v.typeMismatch && field.type === "email") return "Enter an email address like name@company.co.za.";
+  if (v.typeMismatch && field.type === "url") return "Enter a web address that starts with https://.";
+  if (v.rangeUnderflow && field instanceof HTMLInputElement && field.min) return "Enter " + field.min + " or more.";
   if (v.rangeUnderflow || v.rangeOverflow || v.badInput) return field.validationMessage || "Enter a valid number.";
   return field.validationMessage || "Check this answer.";
 }
@@ -64,6 +84,8 @@ function setError(field: Field, message: string | null) {
   if (!message) {
     node?.remove();
     for (const f of group) {
+      // Only undo what this module set: a group the page validates itself (JMulti) keeps its own state.
+      if (!(f.getAttribute("aria-describedby") || "").split(" ").includes(id)) continue;
       f.removeAttribute("aria-invalid");
       const described = (f.getAttribute("aria-describedby") || "").split(" ").filter((x) => x && x !== id);
       if (described.length) f.setAttribute("aria-describedby", described.join(" "));
@@ -87,7 +109,15 @@ function setError(field: Field, message: string | null) {
   }
 }
 
-function renderSummary(form: HTMLFormElement, problems: Array<{ field: Field; message: string }>) {
+/**
+ * A problem that native constraints cannot express, such as "choose at least one" in a group of
+ * checkboxes. The caller shows its message beside the group; it is listed in the summary with the rest.
+ */
+export type ExtraProblem = { field: HTMLElement; message: string };
+
+type Problem = { field: HTMLElement; message: string };
+
+function renderSummary(form: HTMLFormElement, problems: Problem[], container: HTMLElement) {
   form.querySelector(`[${SUMMARY_ATTR}]`)?.remove();
   if (!problems.length) return null;
   const box = document.createElement("div");
@@ -102,7 +132,7 @@ function renderSummary(form: HTMLFormElement, problems: Array<{ field: Field; me
   for (const { field, message } of problems) {
     const item = document.createElement("li");
     const link = document.createElement("a");
-    link.href = "#" + (field.id || idFor(field));
+    link.href = "#" + field.id;
     link.textContent = message;
     link.addEventListener("click", (event) => {
       event.preventDefault();
@@ -113,13 +143,21 @@ function renderSummary(form: HTMLFormElement, problems: Array<{ field: Field; me
     list.appendChild(item);
   }
   box.append(title, list);
-  form.prepend(box);
+  container.prepend(box);
   return box;
 }
 
-/** Returns true when the form may be sent; otherwise shows every problem and focuses the summary. */
-export function validateBeforeSubmit(form: HTMLFormElement): boolean {
-  const problems: Array<{ field: Field; message: string }> = [];
+/**
+ * Returns true when the form may be sent; otherwise shows every problem and focuses the summary.
+ * `extra` adds problems the caller found itself (listed in document order with the rest).
+ * `container` is where the summary goes (default: the top of the form). A multi-step journey passes
+ * its current step, so the summary leaves with the step instead of lingering over the next one.
+ */
+export function validateBeforeSubmit(
+  form: HTMLFormElement,
+  { extra = [], container = form }: { extra?: ExtraProblem[]; container?: HTMLElement } = {},
+): boolean {
+  const problems: Problem[] = [];
   const seenGroups = new Set<string>();
   for (const field of fieldsOf(form)) {
     if (field.type === "radio") {
@@ -132,9 +170,12 @@ export function validateBeforeSubmit(form: HTMLFormElement): boolean {
     }
     const message = messageFor(field);
     setError(field, message);
+    if (!field.id) field.id = idFor(field).replace(/-error$/, "");
     problems.push({ field, message });
   }
-  const summary = renderSummary(form, problems);
+  for (const problem of extra) problems.push(problem);
+  problems.sort((a, b) => (a.field.compareDocumentPosition(b.field) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1));
+  const summary = renderSummary(form, problems, container);
   if (summary) {
     summary.focus();
     watch(form);

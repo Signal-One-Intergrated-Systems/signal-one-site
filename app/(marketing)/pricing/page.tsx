@@ -25,7 +25,9 @@ export default function PricingPage() {
   return (
     <main id="main" className="s1-premium-pricing s1-scene-page s1-scene-page--pricing">
       <section className="split-hero surface-deep">
-        <div className="wrap grid gap-12 py-16 md:py-24 lg:grid-cols-[minmax(0,var(--hero-col))_minmax(0,1fr)] lg:items-center lg:gap-20 lg:py-32">
+        {/* Two columns only from xl: at 1024 the price column left ~250 px for the three-part guard-day equation,
+            which broke its words one per line (AUDW-07). Below xl the equation sits under the price. */}
+        <div className="wrap grid gap-12 py-16 md:py-24 lg:py-32 xl:grid-cols-[minmax(0,var(--hero-col))_minmax(0,1fr)] xl:items-center xl:gap-20">
           <div>
             <Kicker tone="dark"><ProductSignature name="GUARD" tone="dark" /> · Security Business OS pricing</Kicker>
             <h1 className="mt-6 flex flex-wrap items-end gap-x-5 gap-y-2">
@@ -45,7 +47,7 @@ export default function PricingPage() {
             </div>
           </div>
 
-          <div>
+          <div className="max-w-[40rem]">
             <h2 className="t-h3">What is a guard day?</h2>
             <div className="mt-5 grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 text-center sm:gap-3">
               {[

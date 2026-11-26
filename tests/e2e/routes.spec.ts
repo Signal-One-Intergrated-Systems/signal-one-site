@@ -55,7 +55,7 @@ test("intake API validates input", async ({ request, baseURL }) => {
     data: {
       kind: "client",
       data: { intent: "consultation", a: "b" },
-      consent: { processing: true, marketing: false, noticeVersion: "2026-11-12", capturedAt: new Date().toISOString() },
+      consent: { processing: true, marketing: false, noticeVersion: "2026-11-26", capturedAt: new Date().toISOString() },
       idempotencyKey: "7c9e6679-7425-40de-944b-e07fc1f90ae7",
     },
   });

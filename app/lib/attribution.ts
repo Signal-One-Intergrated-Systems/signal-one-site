@@ -79,6 +79,8 @@ export function readAttribution(): Attribution | undefined {
 // not fit is dropped here on its own; sent as-is, the receiver refuses the WHOLE enquiry with 422 (audit L2-08).
 const RECEIVER_HOST = /^[A-Za-z0-9](?:[A-Za-z0-9-]{0,62})(?:\.[A-Za-z0-9](?:[A-Za-z0-9-]{0,62}))*(?::\d{1,5})?$/;
 const RECEIVER_PATH = /^\/[^?#\s]*$/;
+// capturedAt: the receiver's ISO_TIME, at most 40 characters, and a date Date.parse accepts (AUDW-08).
+const RECEIVER_TIME = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{1,9})?(Z|[+-]\d{2}:\d{2})$/;
 
 function fitsReceiver(key: string, value: string): string | undefined {
   if (key === "referrerHost") {
@@ -86,6 +88,7 @@ function fitsReceiver(key: string, value: string): string | undefined {
     return RECEIVER_HOST.test(host) ? host : undefined; // IPv6 literals and other forms are dropped
   }
   if (key === "landingPath") return RECEIVER_PATH.test(value) ? value : undefined;
+  if (key === "capturedAt") return value.length <= 40 && RECEIVER_TIME.test(value) && Number.isFinite(Date.parse(value)) ? value : undefined;
   return value;
 }
 
@@ -100,5 +103,7 @@ export function sanitizeAttribution(input: unknown): Attribution | undefined {
     const fitted = cleaned ? fitsReceiver(key, cleaned) : undefined;
     if (fitted) out[key as keyof Attribution] = fitted;
   }
-  return Object.keys(out).length ? out : undefined;
+  // Campaign visits only: without a UTM tag or click identifier there is no campaign to attribute, so a
+  // landing path, referrer or time on its own is not sent (AUDW-08; the capture rule above).
+  return ATTRIBUTION_KEYS.some((key) => out[key]) ? out : undefined;
 }

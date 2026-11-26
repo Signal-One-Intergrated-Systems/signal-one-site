@@ -3,7 +3,8 @@ import type { ReactNode } from "react";
 
 /**
  * The two consent controls every public form carries.
- * - Processing: required, specific to the request being made, links the notice.
+ * - Processing: required, specific to the request being made, links the notice. A real `required`
+ *   (not only aria-required), so the shared validation lists it with every other problem (AUDW-06).
  * - Marketing: optional, separate, never pre-ticked.
  */
 export default function ConsentFields({
@@ -24,7 +25,12 @@ export default function ConsentFields({
   return (
     <div className={className} data-consent-fields>
       <label className="check">
-        <input type="checkbox" name="consent-processing" aria-required="true" checked={consent} onChange={(event) => onConsent(event.target.checked)} />
+        <input
+          type="checkbox"
+          name="consent-processing"
+          required
+          data-error="Tick the consent box to send your details."
+          checked={consent} onChange={(event) => onConsent(event.target.checked)} />
         <span className="text-text-inv-2">
           {children}{" "}
           <Link href="/privacy" className="underline underline-offset-2">Privacy notice</Link>

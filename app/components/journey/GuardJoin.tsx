@@ -5,7 +5,8 @@ import IntakeError from "../IntakeError";
 import Link from "next/link";
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
 import { Check, Stepper } from "../ui";
-import { Consent, JMulti, JRadio, JSelect, JText, ReviewList } from "./fields";
+import { Consent, JMulti, JRadio, JSelect, JText, multiTarget, ReviewList } from "./fields";
+import { validateBeforeSubmit } from "../../lib/formValidation";
 import { useJourney } from "./useJourney";
 
 const ACCENT = "text-signal-300";
@@ -83,21 +84,22 @@ export default function GuardJoin() {
     lastStep.current = j.stepIndex;
   }, [j.hydrated, j.stepIndex]);
 
+  // "Choose at least one" groups, by step. Native validation cannot express them, so they join the summary as extras.
+  const requiredMulti: Partial<Record<(typeof steps)[number]["id"], { name: string; message: string }>> = {
+    experience: { name: "siteTypes", message: "Choose at least one type of site." },
+    skills: { name: "skills", message: "Choose at least one skill." },
+    availability: { name: "shifts", message: "Choose at least one shift type." },
+  };
+
   function onContinue(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (current.id === "experience" && !j.values.siteTypes) {
-      setMultiError("Choose at least one type of site.");
-      return;
-    }
-    if (current.id === "skills" && !j.values.skills) {
-      setMultiError("Choose at least one skill.");
-      return;
-    }
-    if (current.id === "availability" && !j.values.shifts) {
-      setMultiError("Choose at least one shift type.");
-      return;
-    }
-    setMultiError("");
+    const form = event.currentTarget;
+    const multi = requiredMulti[current.id];
+    const missing = multi && !j.values[multi.name] ? multi : null;
+    setMultiError(missing ? missing.message : "");
+    const target = missing ? multiTarget(form, missing.name) : null;
+    // Every problem on this step at once: inline messages, aria-invalid, and a focused summary (AUDW-04).
+    if (!validateBeforeSubmit(form, { extra: target && missing ? [{ field: target, message: missing.message }] : [], container: headingRef.current ?? form })) return;
     if (current.id === "review") {
       void j.submit();
       return;
@@ -163,7 +165,7 @@ export default function GuardJoin() {
         <Stepper steps={steps.map((step) => step.label)} index={j.stepIndex} label="Profile steps" />
       </div>
 
-      <form onSubmit={onContinue} className="mt-8">
+      <form onSubmit={onContinue} noValidate className="mt-8">
         <div ref={headingRef} tabIndex={-1} key={current.id} className="animate-enter outline-none">
           {current.id === "learn" ? (
             <>
@@ -204,13 +206,14 @@ export default function GuardJoin() {
               why="Signal One uses this to review your profile and contact you."
               next="How we contact you."
             >
-              <JText j={j} name="fullName" label="Full name" required autoComplete="name" />
+              <JText j={j} name="fullName" label="Full name" required autoComplete="name" error="Enter your full name." />
               <JText j={j} name="preferredName" label="What should we call you?" autoComplete="nickname" />
               <JRadio
                 j={j}
                 name="role"
                 label="What work do you do?"
                 required
+                error="Choose the work you do."
                 accentClass={ACCENT}
                 options={["Security officer", "Supervisor", "Control room operator"]}
                 columns="sm:grid-cols-1"
@@ -224,13 +227,14 @@ export default function GuardJoin() {
               why="Signal One uses this to confirm your details. We use it to contact you."
               next="Your PSiRA registration."
             >
-              <JText j={j} name="mobile" label="Mobile number" type="tel" required autoComplete="tel" inputMode="tel" placeholder="e.g. 082 123 4567" />
+              <JText j={j} name="mobile" label="Mobile number" type="tel" required autoComplete="tel" inputMode="tel" placeholder="e.g. 082 123 4567" error="Enter your mobile number." />
               <JText j={j} name="email" label="Email" type="email" autoComplete="email" inputMode="email" />
               <JRadio
                 j={j}
                 name="contactPreference"
                 label="Best way to contact you"
                 required
+                error="Choose the best way to contact you."
                 accentClass={ACCENT}
                 options={["WhatsApp", "SMS", "Phone call", "Email"]}
               />
@@ -251,17 +255,18 @@ export default function GuardJoin() {
               }
               next="Your experience."
             >
-              <JText j={j} name="psiraNumber" label="PSiRA registration number" required inputMode="numeric" autoComplete="off" />
+              <JText j={j} name="psiraNumber" label="PSiRA registration number" required inputMode="numeric" autoComplete="off" error="Enter your PSiRA registration number." />
               <JRadio
                 j={j}
                 name="psiraGrade"
                 label="PSiRA grade"
                 required
+                error="Choose your PSiRA grade."
                 accentClass={ACCENT}
                 options={["Grade A", "Grade B", "Grade C", "Grade D", "Grade E"]}
                 columns="grid-cols-2 sm:grid-cols-3"
               />
-              <JText j={j} name="psiraExpiry" label="Expiry date" type="month" required hint="Month and year, as shown on your registration." />
+              <JText j={j} name="psiraExpiry" label="Expiry date" type="month" required hint="Month and year, as shown on your registration." error="Enter the month and year your registration expires." />
               <p className="t-small text-text-inv-2">
                 Signal One records these details as you give them. We do not check them with PSiRA, so please make sure
                 they are correct.
@@ -280,6 +285,7 @@ export default function GuardJoin() {
                 name="experienceYears"
                 label="Years working in security"
                 required
+                error="Choose how many years you have worked in security."
                 accentClass={ACCENT}
                 options={["Less than 1 year", "1 to 2 years", "3 to 5 years", "6 to 10 years", "More than 10 years"]}
               />
@@ -339,13 +345,14 @@ export default function GuardJoin() {
               why="Where you can work is one of the things Marketplace is planned to search on. Nothing is shown to companies today."
               next="When you can work."
             >
-              <JSelect j={j} name="province" label="Province" required options={provinces} />
-              <JText j={j} name="areas" label="Areas you can travel to" required placeholder="e.g. Midrand, Tembisa, Kempton Park" />
+              <JSelect j={j} name="province" label="Province" required options={provinces} error="Choose your province." />
+              <JText j={j} name="areas" label="Areas you can travel to" required placeholder="e.g. Midrand, Tembisa, Kempton Park" error="Enter the areas you can travel to." />
               <JRadio
                 j={j}
                 name="transport"
                 label="How do you get to work?"
                 required
+                error="Choose how you get to work."
                 accentClass={ACCENT}
                 options={["Own transport", "Public transport", "Lift or company transport"]}
                 columns="sm:grid-cols-1"
@@ -364,6 +371,7 @@ export default function GuardJoin() {
                 name="availability"
                 label="When could you start?"
                 required
+                error="Choose when you could start."
                 accentClass={ACCENT}
                 options={["Now", "Within 2 weeks", "Within a month", "I am working, but open to offers"]}
               />

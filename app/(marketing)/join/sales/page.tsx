@@ -132,7 +132,7 @@ export default function SalesCareersPage() {
           </div>
           <div className="text-text-inv">
             {open ? (
-              <><IntakeAvailability /><SalesApplication roleCount={config.openRoles} /></>
+              <><IntakeAvailability kind="sales" /><SalesApplication roleCount={config.openRoles} /></>
             ) : (
               <div className="rounded-card bg-raised p-6 sm:p-8">
                 <h3 className="t-h3">No open roles at the moment</h3>

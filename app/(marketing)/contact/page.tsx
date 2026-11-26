@@ -12,15 +12,16 @@ export const metadata: Metadata = {
 };
 
 const fields: IntakeField[] = [
-  { name: "contactName", label: "Your name", required: true, autoComplete: "name" },
-  { name: "companyName", label: "Company or organisation", required: true, autoComplete: "organization" },
-  { name: "email", label: "Work email", type: "email", required: true, autoComplete: "email" },
-  { name: "mobile", label: "Mobile number", type: "tel", required: true, autoComplete: "tel", placeholder: "+27" },
+  { name: "contactName", label: "Your name", required: true, error: "Enter your name.", autoComplete: "name" },
+  { name: "companyName", label: "Company or organisation", required: true, error: "Enter your company or organisation.", autoComplete: "organization" },
+  { name: "email", label: "Work email", type: "email", required: true, error: "Enter your work email address.", autoComplete: "email" },
+  { name: "mobile", label: "Mobile number", type: "tel", required: true, error: "Enter your mobile number.", autoComplete: "tel", placeholder: "+27" },
   {
     name: "topic",
     label: "What would you like to talk about?",
     type: "select",
     required: true,
+    error: "Choose what you would like to talk about.",
     wide: true,
     options: [
       "1GUARD Security Business OS walkthrough",
