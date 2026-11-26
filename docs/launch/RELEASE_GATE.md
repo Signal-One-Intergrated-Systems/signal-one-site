@@ -164,3 +164,20 @@ Gate: pre-push `governance:push` RC=0 GREEN, counts matched. Live slice suite 30
 ## Checkpoint S — real Sales OS (LEOS, 2026-11-25)
 
 **Unmerged.** Phase 1 (preview presentation + 1GUARD shell): draft [#750](https://github.com/Signal-One-Intergrated-Systems/lancesat-enterprise-platform/pull/750) `claude/sales-os-integration-r1` @ `248cbffc`, against main, audit-class (sign-in). Phase 2 (website enquiry queue): draft [#754](https://github.com/Signal-One-Intergrated-Systems/lancesat-enterprise-platform/pull/754) `claude/sales-os-enquiry-queue-r1` @ `514c2545`, on #749. Both gates RC=0 GREEN (phase 1's first pre-push gate was RED on 4 unhandled errors from main's `LayerStackHost` timer; fixed in `248cbffc`, no dedicated test). Of the preview's 352 commits: 276 presentation commits carried, 65 audit-class commits not carried (#716, #718, #720/0189, #724–#726, #729, #731/#732), and 11 superseded (the preview gateway, #701). #703's `GET /clients/mine/:id` was reverted (tenant law). No `sales_manager` remap. Local walk: 208 passed, 2 failed (the manager has no quotes); cross-tenant 404. Queue: unassigned count, arrival, type, source/campaign, overdue (4 business hours), assignment history, confirm-then-receipt; `hooks.onAssigned` for N1. Migrations 0195–0196 unused. Consolidated status: `RELEASE_READINESS_REGISTER.md`.
+
+## Checkpoint L — security hotfix: secrets and PII out of logs (LEOS, 2026-11-26)
+
+**Unmerged.** Draft [#755](https://github.com/Signal-One-Intergrated-Systems/lancesat-enterprise-platform/pull/755), `claude/sec-log-redaction` @ `25f12120`, off main `5efcb303`. Audit-class.
+- **One redactor:** `packages/monitoring/src/log_redaction.ts`, which allow-lists headers, paths and error fields and scrubs everything else as a backstop.
+- **Request and alert logging:** logs now carry route patterns instead of raw URLs. That closes magic-link tokens in `/public/quotes/:token` and `/supplier-portal/invitations/:token/accept`, and `?hub.verify_token=` on the Meta webhook.
+- **Database errors:** a failed query's bound parameters are cut from the log.
+- **Other sites:** the auth log no longer records a token prefix, and the sweep closed further leaks in the worker (an SMS recipient's phone number), in billing and onboarding jobs (customer and admin emails), and in about 18 hand-written JSON log sites.
+- **Controls:** a real-stack control plants 14 secrets and finds none in the bytes written; 14 mutations each went red, then green.
+- **Gate:** RC=0 GREEN; pre-push gate GREEN.
+- **#749:** its conflict resolution is written in the PR body and was trial-verified.
+- **Founder decisions:**
+  - retention, deletion and read access for the existing Railway logs (POPIA);
+  - whether to revoke refresh tokens (7-day life) and force sign-out;
+  - whether to rotate outstanding quote and invitation magic links;
+  - whether to rotate `META_WHATSAPP_VERIFY_TOKEN` and any key that appeared in a 5xx.
+- **Out of scope:** some services store failed-query messages (with parameters) in database tables (`automation_rule_service:318`, `billing_schedule_service:524`).
