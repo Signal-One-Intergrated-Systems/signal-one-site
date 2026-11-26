@@ -12,7 +12,7 @@ Release scope is **frozen** (founder directive, 2026-11-26). Only work that clos
 | 2 | **Security hotfix: secrets out of logs**, draft #755 | LEOS `claude/sec-log-redaction` | `415ef593` | Stops bearer tokens, refresh cookies, magic-link tokens, query values and personal data reaching production logs. No migration. | RC=0 GREEN (api 505/5,144, worker 26/239); pre-push GREEN | AUDL1 FAIL → fixed; AUDL2 PASS WITH CONDITIONS → closed; **AUDL2 re-check of `415ef593`: PASS, nothing blocks release** | **Ready for production, pending founder approval.** Urgent: the exposure is live |
 | 3 | **Launch integration r2**, draft #756 | LEOS `claude/launch-integration-r2` | `3b1df485` (gate 2 running; final head pending) | Website enquiry receiver (#749), notification outbox (#751), privacy (#752), Sales OS enquiry queue (#754), plus integration fixes AUD-03/04/05/22/23; migrations 0190–0194 and 0197–0203 | Gate 1 GREEN on `656e2099`; gate 2 on `3b1df485` running | AUD1 (parts), AUD2 (#752); **integration commits, migration 0203 and #749-as-renumbered not yet independently reviewed** | **Not ready**: final #752 fix, final merge with #755 and #757, one gate, one review |
 | 4 | **Sales OS shell**, draft #750 | LEOS `claude/sales-os-integration-r1` | `248cbffc` | Approved preview presentation + 1GUARD shell | RC=0 GREEN | AUD1 PASS | Ready after #720 (manager role) and founder flag/domain decisions |
-| 5 | **Website**, branch `claude/peaceful-johnson-azma60` | site | see `git log` (app code = `9164c92` + FIX-W `6be8cbd`) | Brand, radios-first homepage, About/Support, attribution with consent, validation, receiver client | `npm run build` RC=0; e2e 440 passed / 0 failed / 84 skipped | AUDW1 ready with conditions → fixed (FIX-W) | Ready for staging; production needs the decisions in §4 and trimming `docs/launch/evidence/w1` (21 MB) |
+| 5 | **Website** (visual acceptance is separate: see `WEBSITE_RELEASE_READINESS.md`; staging https://web-staging-review-production.up.railway.app), branch `claude/peaceful-johnson-azma60` | site | see `git log` (app code = `9164c92` + FIX-W `6be8cbd`) | Brand, radios-first homepage, About/Support, attribution with consent, validation, receiver client | `npm run build` RC=0; e2e 440 passed / 0 failed / 84 skipped | AUDW1 ready with conditions → fixed (FIX-W) | Ready for staging; production needs the decisions in §4 and trimming `docs/launch/evidence/w1` (21 MB) |
 | — | Commercial slice, draft #753 | LEOS `claude/commercial-slice-qualification` | `3761943d` | Qualification evidence + CV-1/CV-2 | GREEN | — | **Not in this release.** Its CV-1 fix ships via #755. Rental and outright PASS; hardware+subscription FAIL |
 
 ## 2. Outstanding defects
@@ -36,7 +36,6 @@ Release scope is **frozen** (founder directive, 2026-11-26). Only work that clos
 - #752: AUD2-07 (a cross-tenant dry-run id gets 409; it reveals nothing).
 - #751: AUD-15 (marketing-consent ordering under a simultaneous convert and objection).
 - GAP-TERM-1: the 12-month rental minimum is not system-enforced; enforce it on paper at launch. GAP-STOCK-1, GAP-ALLOC-1/2 (stock and serials), GAP-PAY-1/2 (payments), GAP-EXP-1 (quote expiry): manual controls at launch.
-- Website: the DR-026 globe animation (INP).
 
 ## 3. Test results (latest per candidate)
 
