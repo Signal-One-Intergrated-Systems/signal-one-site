@@ -37,7 +37,7 @@ export default function RadiosEquipmentPage() {
           <HardwareShowcase products={catalogue[0].products.slice(0, 2)} />
           <dl className="m-0 grid gap-px overflow-hidden rounded-card border border-hairline bg-hairline">
             {[
-              ["Radios and PTT", "Hytera PNC360S and P30 Lite PoC, EasyTalk E600; push-to-talk platform, SIM and data"],
+              ["Radios and PTT", "Hytera PNC360S, P30 Lite PoC and P30G Pro; EasyTalk E600; push-to-talk platform, SIM and data"],
               ["Vehicle and asset tracking", "FMC920 and FMB920 trackers"],
               ["Body cameras", "SC780 body camera"],
             ].map(([term, detail]) => (

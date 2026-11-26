@@ -10,7 +10,7 @@ import { pageMetadata } from "../../lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "PTT Radio Rental for Security Companies",
   description:
-    "Push-to-talk over cellular radios on 12, 24 or 36-month rental terms: Hytera PNC360S, P30 Lite PoC and EasyTalk E600, by quote, from Signal One.",
+    "Push-to-talk over cellular radios on 12, 24 or 36-month rental terms: Hytera PNC360S, P30 Lite PoC, P30G Pro and EasyTalk E600, by quote, from Signal One.",
   alternates: { canonical: "/ptt-radio-rental" },
 });
 

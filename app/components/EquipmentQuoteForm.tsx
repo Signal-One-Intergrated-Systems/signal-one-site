@@ -40,7 +40,7 @@ const categories: Record<Category, { label: string; intent: string; summary: str
         error: "Choose a radio, or Not sure yet.",
         type: "select",
         required: true,
-        options: ["Hytera PNC360S", "P30 Lite PoC", "EasyTalk E600", "PTT platform + SIM only (I have radios)", "Not sure yet"],
+        options: ["Hytera PNC360S", "P30 Lite PoC", "P30G Pro", "EasyTalk E600", "PTT platform + SIM only (I have radios)", "Not sure yet"],
       },
       { name: "quantity", label: "How many radios?", error: "Enter how many radios you need.", type: "number", required: true, placeholder: "e.g. 24" },
       {
