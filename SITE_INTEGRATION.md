@@ -22,17 +22,20 @@ An HTTP 2xx is **not** proof of a save. The site reports success only when the r
 
 ```json
 { "status": "persisted",
-  "receipt": { "recordId": "<stored record id>", "recordType": "crm_lead | guard_application | recruitment_application | …",
+  "receipt": { "recordId": "SO-7K3M9QX2T8VB", "recordType": "website_enquiry",
                "idempotencyKey": "<the key sent>", "persistedAt": "<ISO time>", "duplicate": false } }
 ```
 
-- `recordId` must identify the stored row (6–80 characters, letters, digits, `. _ : -`).
+Revised 2026-11-13 (founder ruling), before any receiver was connected:
+
+- `recordId` is a **submission-specific opaque reference**: random, unique, and never the identifier of any stored row (6–80 characters, letters, digits, `. _ : -`). Staff can look it up; it reveals nothing.
+- `recordType` is fixed per kind and never depends on what the receiver did with the submission: `client` → `website_enquiry`, `guard` → `guard_application`, `sales` → `recruitment_application`. The site rejects any other value, including `crm_lead`.
+- Every valid submission is recorded and acknowledged the same way, whether or not the company or email address is already known to the receiver. The reply must not differ in status, shape or wording.
 - `idempotencyKey` must equal the key the site sent, so a receipt for another submission is rejected.
 - A repeat of the same key must return the **same** `recordId` with `duplicate: true` and create nothing.
 - `persistedAt` must be a full ISO-8601 timestamp.
-- A `guard` or `sales` submission acknowledged with `recordType: "crm_lead"` is rejected: applications are never accepted as sales leads.
 - Missing, malformed or mismatched receipt: the visitor is told the save could not be confirmed (502) and offered email. A timeout gives the same message (504).
-- The visitor sees the `recordId` as their reference. Receiver text is never shown on success.
+- The visitor sees the opaque `recordId` as their reference. Receiver text is never shown on success.
 - Receiver errors: only its validation answers (400, 422) reach the visitor, truncated. Any other receiver status (401, 403, 404, 429, 5xx) is our fault, not the visitor's: generic 502, email route offered, no receiver text.
 
 ### Idempotency key
