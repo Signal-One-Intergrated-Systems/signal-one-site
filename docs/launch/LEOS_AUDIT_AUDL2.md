@@ -199,7 +199,31 @@ None of the nine probe strings appeared in the log bytes. The alert's `headers` 
 
 ## Mutation results (single-point, under `leos-gate.lock`, own DB)
 
-MUTATION_TABLE_PLACEHOLDER
+**Method:**
+- Scope: the fixer's controls (api `security/sec_log_redaction_layers`, `security/sec_log_redaction_real_stack.integration`, `commercial_slice/cv1_alert_header_redaction`; worker `lib/__tests__/crash_handlers`, `lib/__tests__/logger_redaction`).
+- Each mutation was applied alone, and the monitoring dist was rebuilt when the mutation touched it.
+- After each run the file was restored and checked by sha256 against `git show 5af0f95a:<file>`; all four matched.
+- When: lock held 06:29:35Z–06:31:13Z.
+- Script and logs: `…/scratchpad/audl2/mut/` (`run.py`, `results.json`).
+
+**Baseline:** api 27/27 and worker 3/3 green. **Final re-run after restore:** api 27/27 and worker 3/3 green. The tree was clean.
+
+| Mutation | Result | Reading |
+|---|---|---|
+| M1: the 8 192-character cap removed from `redactText` | **RED** (1): layers › "a 64 KB value under any key is bounded in the written line" | Only the *length* assertion catches it. **Both performance controls stay green without the cap.** The cap is the only thing keeping the `JWT` pattern (AUDL2-01) bounded. Without it, a 64 KB `-eyJ` string costs about 600 ms or more, and no control would notice. |
+| M2: User-Agent cap removed (`observability.ts:73`) | **GREEN: vacuous** | The `redactText` cap still bounds it, so this is defence in depth with no guard. Acceptable, but say so. |
+| M3: api `uncaughtException` writes the raw `err.stack` (`index.ts:676`) | **GREEN: vacuous** | **No control guards the api fatal path.** The PR's AUDL-05 control covers only the worker. I proved the behaviour live (see AUDL-05), but a revert would go unnoticed. |
+| M4: worker crash handler no longer calls `exit(1)` | **RED** (2): crash_handlers › both kinds | Real. |
+| M5: `PG_ECHO` scrub removed | **RED** (1): layers › AUDL-04 free text | Real. |
+| M6: `CREDENTIAL_PATH` + `TOKEN_SEGMENT` backstops removed | **RED** (4): layers › AUDL-04 free text, layer 4 remediation, layer 6 logger backstop, primitives | Real. |
+
+**Verdict on the controls:**
+- The leak controls are real: M4, M5 and M6 went red.
+- The cost controls cannot see the pattern that is still super-linear. They go red only on the bounded line length (M1).
+- The api fatal path has no control (M3).
+- Recommended additions:
+  - the `-eyJ` shapes with a tighter budget;
+  - a real-process api crash test (spawn, raise a failed-query error, assert the bytes and the exit code), like the one in this audit.
 
 ## What I could not verify
 
