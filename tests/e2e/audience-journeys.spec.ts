@@ -5,7 +5,7 @@ test("homepage introduces purchasable journeys and clearly labels 1Community", a
   await expect(page.getByRole("heading", { level: 1, name: /Run your business/ })).toBeVisible();
   // The approved page offers each product from the hero bar, the section wordmark and the section action:
   // every link carrying the name must lead to that product. Equipment leads to the radio catalogue (2026-11-25).
-  for (const [name, href] of [[/Explore 1GUARD/, "/solutions/security"], [/Explore 1Service/, "/service"], [/See the catalogue/, "/radios-equipment"]] as const) {
+  for (const [name, href] of [[/Explore 1GUARD/, "/solutions/security"], [/Explore 1Service/, "/service"], [/Explore communications/, "/radios-equipment"]] as const) {
     const links = await page.getByRole("link", { name }).all();
     expect(links.length, String(name)).toBeGreaterThanOrEqual(1);
     for (const link of links) await expect(link).toHaveAttribute("href", href);
@@ -13,7 +13,7 @@ test("homepage introduces purchasable journeys and clearly labels 1Community", a
   await expect(page.getByText(/1Community is part of the future/)).toBeVisible();
   await expect(page.getByText(/1Community is part of the future/)).toBeVisible();
   await expect(page.locator(".s1-nav-upcoming")).toHaveCount(0);
-  const trialLinks = await page.getByRole("link", { name: /Get 14 Day Free Trial/ }).all();
+  const trialLinks = await page.getByRole("link", { name: /Request a 14-day trial/ }).all();
   expect(trialLinks.length).toBeGreaterThanOrEqual(1);
   for (const link of trialLinks) await expect(link).toHaveAttribute("href", "/get-started");
 });

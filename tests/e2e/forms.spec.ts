@@ -50,7 +50,7 @@ const cases: Case[] = [
     run: async (page) => {
       await hydrated(page);
       await tick(page.getByRole("radio", { name: label, exact: true }));
-      if (label === "Radios and PTT") await page.getByLabel("Buy or rent?").selectOption("Rent radios");
+      if (label === "Radios and PTT") await page.getByLabel("What do you need?").selectOption("Rent radios");
       await simple(page);
     },
   })),
@@ -115,7 +115,7 @@ test("a campaign visit's attribution reaches the receiver with the enquiry, clea
   await page.getByRole("link", { name: "Request a radio quote" }).first().click();
   await page.waitForURL(/radios-equipment/);
   await hydrated(page);
-  await page.getByLabel("Buy or rent?").selectOption("Rent radios");
+  await page.getByLabel("What do you need?").selectOption("Rent radios");
   await simple(page);
   await expect(page.locator('[role="status"]').first()).toBeVisible({ timeout: 15_000 });
   const received = (await (await request.get("http://localhost:4010/received")).json()) as Array<{ body: { data: { intent: string }; attribution?: Record<string, string> | null } }>;

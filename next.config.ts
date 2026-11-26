@@ -82,11 +82,17 @@ const nextConfig: NextConfig = {
     qualities: [70, 75, 90],
   },
   async redirects() {
-    return legacyRedirects.map(([source, destination]) => ({
-      source,
-      destination,
-      permanent: true,
-    }));
+    return [
+      // One canonical host (independent review, 2026-11): www → https://signalone.co.za, same path,
+      // query string kept by Next. 308 permanent. Only the www host matches, so there is no loop, and
+      // staging/Railway hosts are unaffected.
+      { source: "/:path*", has: [{ type: "host" as const, value: "www.signalone.co.za" }], destination: "https://signalone.co.za/:path*", permanent: true },
+      ...legacyRedirects.map(([source, destination]) => ({
+        source,
+        destination,
+        permanent: true,
+      })),
+    ];
   },
 };
 

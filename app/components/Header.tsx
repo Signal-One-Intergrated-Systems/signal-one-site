@@ -31,7 +31,8 @@ const worlds: Record<
     primary: [
       { href: "/solutions/security", label: "1GUARD" },
       // Radios are sold and rented today: name them and go straight to the catalogue and quote form (DR-002).
-      { href: "/radios-equipment", label: "Radios & equipment" },
+      { href: "/radios-equipment", label: "Communications" },
+      { href: "/pricing", label: "Pricing" },
       { href: "/service", label: "1Service" },
       { href: "/guard-marketplace", label: "Hire Guards" },
     ],
@@ -39,7 +40,7 @@ const worlds: Record<
       { href: "/guards", label: "For guards" },
       { href: "/join/sales", label: "Careers" },
     ],
-    cta: { href: "/get-started", label: "Get 14 Day Free Trial" },
+    cta: { href: "/get-started", label: "Request a 14-day trial" },
     shell: "glass-nav text-ink",
     link: "text-ink hover:bg-surface-2",
     cta_class: "btn btn-primary",

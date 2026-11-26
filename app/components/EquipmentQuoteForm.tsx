@@ -8,6 +8,7 @@ import { trackEvent } from "../lib/analytics";
 import { submitIntake, type IntakeFallback, newIdempotencyState } from "../lib/intake";
 import ConsentFields from "./ConsentFields";
 import IntakeError from "./IntakeError";
+import { radioQuoteTypes } from "../lib/offers";
 
 type Category = "radio" | "tracking" | "bodycam";
 type State = "idle" | "sending" | "done" | "error";
@@ -31,8 +32,8 @@ const categories: Record<Category, { label: string; intent: string; summary: str
     intent: "equipment-rental-quote",
     summary: "PoC radios on the cellular network, with or without SIM, data and the PTT platform.",
     fields: [
-      { name: "quoteType", label: "Buy or rent?", error: "Choose whether to buy or rent.", type: "select", required: true,
-        options: ["Buy radios", "Rent radios", "Compare buying and renting"], wide: true },
+      { name: "quoteType", label: "What do you need?", error: "Choose what you need.", type: "select", required: true,
+        options: [...radioQuoteTypes], wide: true },
       {
         name: "product",
         label: "Radio",
@@ -171,8 +172,14 @@ function QuoteForm({ initialCategory, initialProduct, initialQuoteType }: { init
   const started = useRef(false);
   const statusRef = useRef<HTMLDivElement>(null);
   const config = categories[category];
-  const fields = config.fields.filter(field => field.name !== "rentalTerm" || values.quoteType === "Rent radios" || values.quoteType === "Compare buying and renting")
-    .map(field => field.name === "rentalTerm" ? { ...field, required: values.quoteType === "Rent radios" } : field);
+  // Rental term only where renting is on the table; radios the customer already owns need no radio choice.
+  const ownRadios = values.quoteType === "Connect radios I already own";
+  const fields = config.fields
+    .filter(field => field.name !== "rentalTerm" || values.quoteType === "Rent radios" || values.quoteType === "Help me choose")
+    .filter(field => !(ownRadios && field.name === "product"))
+    .map(field => field.name === "rentalTerm" ? { ...field, required: values.quoteType === "Rent radios" } : field)
+    .map(field => ownRadios && field.name === "quantity" ? { ...field, label: "How many radios do you have?" } : field)
+    .map(field => ownRadios && field.name === "deployment" ? { ...field, label: "Make and model of your radios, and where they are used", placeholder: "e.g. 30 × Hytera PNC360S, 4 sites in Durban" } : field);
 
   function markStarted() {
     if (started.current) return;

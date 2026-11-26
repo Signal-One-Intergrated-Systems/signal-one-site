@@ -4,17 +4,18 @@ import SalesApplication from "../../../components/journey/SalesApplication";
 import { SplitHero } from "../../../components/ui";
 import { getCareersConfig } from "../../../lib/careers";
 import { photos } from "../../../lib/photos";
+import { pageMetadata } from "../../../lib/seo";
 
 // Recruitment status comes from server env at request time.
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: "Careers: Sales Representative at Signal One",
+export const metadata: Metadata = pageMetadata({
+  title: "Careers: Sales Representative",
   description:
     "Join Signal One's sales team bringing intelligent business operating systems to South African SMEs, beginning with security businesses.",
   alternates: { canonical: "/join/sales" },
   robots: { index: false, follow: true },
-};
+});
 
 const youWill = [
   "Meet SME owners and managers, beginning with security companies",

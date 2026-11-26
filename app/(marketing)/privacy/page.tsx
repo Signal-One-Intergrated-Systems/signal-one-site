@@ -1,17 +1,20 @@
 import type { Metadata } from "next";
 import LegalPage from "../../components/LegalPage";
 import { PRIVACY_NOTICE_VERSION } from "../../lib/intake";
+import { pageMetadata } from "../../lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Privacy Policy",
   description:
     "How Signal One handles personal information submitted through its public website, including enquiries, quote requests, onboarding, security-officer profiles and campaign information.",
   alternates: { canonical: "/privacy" },
-};
+});
 
 const sections = [
   ["Information we collect", "We collect information you choose to submit through enquiries, onboarding, quote requests and applications, such as names, company details, contact information and the information needed to respond to your request. When you arrive from an advertising or campaign link, we also keep the campaign information described below."],
   ["Why we use it", "We use submitted information to respond to enquiries, prepare quotes, assess applications, activate requested services, support customers and maintain an auditable business record."],
+  ["How your enquiry reaches us today", "Each form tells you how it will be sent before you start. While online submission is not available for a form, it prepares an email in your own email app: nothing reaches Signal One until you send that email, and it is then handled as an email to sales@signalone.co.za. Where online submission is available, your answers go directly to Signal One's customer records system and you are shown a reference once they have been saved. A form never reports that an enquiry was received unless our system has confirmed it."],
+  ["Product news and offers", "Replying to your enquiry and sending you marketing are separate. Product news and offers are sent only if you tick the optional box on the form, and you can unsubscribe at any time by replying or by emailing sales@signalone.co.za. If a form prepares an email for you instead, that email does not include this choice, so tell us in it if you would like product news."],
   [
     "Campaign information",
     <>

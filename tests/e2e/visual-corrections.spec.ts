@@ -74,9 +74,9 @@ test("purchase requests exclude a previous rental term and retain the selected m
   await page.goto("/radios-equipment?category=radio&product=Hytera%20PNC360S#quote");
   await hydrated(page);
   await expect(page.getByLabel("Radio", { exact: true })).toHaveValue("Hytera PNC360S");
-  await page.getByLabel("Buy or rent?").selectOption("Rent radios");
+  await page.getByLabel("What do you need?").selectOption("Rent radios");
   await page.getByRole("radio", { name: "24 months" }).check();
-  await page.getByLabel("Buy or rent?").selectOption("Buy radios");
+  await page.getByLabel("What do you need?").selectOption("Buy radios");
   await expect(page.getByRole("group", { name: "Rental term" })).toHaveCount(0);
   await fillVisible(page, "main form");
   await page.getByRole("button", { name: "Request a quote", exact: true }).click();

@@ -6,13 +6,14 @@ import IntakeForm, { type IntakeField } from "../../components/IntakeForm";
 import { ButtonLink, Check, PageHero, Status, Steps, GuardStatus } from "../../components/ui";
 import { guardIsLive } from "../../lib/guardStatus";
 import ProductSignature from "../../components/brand/ProductSignature";
+import { pageMetadata } from "../../lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Guard Marketplace | Company Registration & Hiring Access",
   description:
     "Guard Marketplace is being built into 1GUARD: filter by location, PSiRA grade, availability and skills, shortlist and send hire requests. Register interest.",
   alternates: { canonical: "/guard-marketplace" },
-};
+});
 
 const flow = [
   ["Contract won", "You have a new site, or more posts on an existing one."],

@@ -5,6 +5,14 @@ import fmb920 from "../../public/images/hardware/teltonika-fmb920.webp";
 import fmc920 from "../../public/images/hardware/teltonika-fmc920.webp";
 import pnc360s from "../../public/images/hardware/hytera-pnc360s.webp";
 
+export type Availability = "in_stock" | "available_for_rental" | "available_to_order" | "by_quote";
+export const availabilityLabel: Record<Availability, string> = {
+  in_stock: "In stock",
+  available_for_rental: "Available for rental",
+  available_to_order: "Available to order",
+  by_quote: "By quote",
+};
+
 export type CatalogueProduct = {
   model: string;
   type: string;
@@ -14,6 +22,13 @@ export type CatalogueProduct = {
   manufacturer?: string;
   /** First-party manufacturer image only; provenance in docs/ASSET_PROVENANCE.md. */
   image?: { src: StaticImageData; alt: string; bounds?: string };
+  /**
+   * Public availability. Only "by_quote" is used until Signal One's customer records (the inventory
+   * authority) supply a verified state; the website never holds its own stock figures.
+   */
+  availability?: Availability;
+  /** Manufacturer specifications, copied only from the official page named in `source` for this exact model. */
+  specs?: { source: string; sourceUrl: string; items: ReadonlyArray<readonly [string, string]> };
 };
 
 /**
@@ -44,14 +59,32 @@ export const catalogue: ReadonlyArray<{
       {
         model: "Hytera PNC360S",
         type: "PoC radio",
-        detail: "Purchase or rental. Ask about push-to-talk service, SIM and data.",
+        detail: "Purchase or rental. Push-to-talk service, SIM and data are a separate monthly line.",
         role: "Talk to every guard on a contract over the cellular network.",
         manufacturer: "Hytera",
         image: { src: pnc360s, alt: "Hytera PNC360S mini PoC radio, front view", bounds: productBounds.pnc360s },
+        // Hytera South Africa product page, read 2026-11-26.
+        specs: { source: "Hytera South Africa", sourceUrl: "https://hytera.co.za/products/pnc360s", items: [
+          ["Network", "2G, 3G and 4G push-to-talk over cellular; Wi-Fi and Bluetooth"],
+          ["Rugged", "IP67; MIL-STD-810H"],
+          ["Battery", "4,000 mAh, detachable"],
+          ["Weight", "About 190 g with back clip"],
+          ["SIM", "One nano SIM"],
+          ["Location", "GPS, BeiDou, GLONASS, Galileo"],
+        ] },
       },
-      { model: "P30 Lite PoC", manufacturer: "Hytera", image: { src: p30Lite, alt: "Hytera P30 Lite PoC radio, front view — manufacturer image", bounds: productBounds.p30Lite }, type: "PoC radio with SOS", detail: "Purchase or rental. Ask about communications, SOS, SIM, data and platform access.", role: "Push-to-talk with an SOS button for patrol officers." },
-      { model: "E600 PoC LTE", type: "PoC LTE radio", detail: "Available by quote.", role: "PoC over LTE for sites with 4G coverage." },
-      { model: "PTT platform + SIM & data", type: "Service", detail: "Monthly platform access with SIM and data for supported radios.", role: "The talk groups, SIM and data behind the radios." },
+      { model: "P30 Lite PoC", manufacturer: "Hytera", image: { src: p30Lite, alt: "Hytera P30 Lite PoC radio, front view — manufacturer image", bounds: productBounds.p30Lite }, type: "PoC radio", detail: "Purchase or rental. Push-to-talk service, SIM and data are a separate monthly line.", role: "Push-to-talk for patrol officers over the cellular network.",
+        // Hytera South Africa product page, read 2026-11-26. An SOS function is not confirmed there, so it is not claimed (DR-006).
+        specs: { source: "Hytera South Africa", sourceUrl: "https://hytera.co.za/products/p30-lite", items: [
+          ["Network", "2G, 3G and 4G push-to-talk over cellular"],
+          ["Rugged", "IP54 dust and water protection; 1.2 m drop"],
+          ["Battery", "3,300 mAh"],
+          ["Weight", "170 g without belt clip"],
+          ["SIM", "One nano SIM"],
+          ["Location", "GPS optional"],
+        ] } },
+      { model: "E600 PoC LTE", type: "PoC LTE radio", detail: "By quote. Specification confirmed in your written quote.", role: "PoC over LTE for sites with 4G coverage." },
+      { model: "PTT platform + SIM & data", type: "Service", detail: "Optional monthly service for supported radios. Or use your own SIMs.", role: "The talk groups, SIM and data behind the radios." },
     ],
     terms: "Purchase by quotation. Radio rental terms: 12, 24 or 36 months.",
   },
@@ -86,4 +119,17 @@ export const catalogue: ReadonlyArray<{
     products: [{ model: "SC780", manufacturer: "Hytera", image: { src: sc780, alt: "Hytera SC780 body camera, front view — manufacturer image" }, type: "Body camera", detail: "Rental.", role: "Recorded evidence on patrol, at access points and at events." }],
     terms: "Quoted per deployment.",
   },
+];
+
+/**
+ * Variants prepared for the catalogue but NOT published (founder directive 2026-11-26 §7). Each needs
+ * its exact manufacturer model name, official datasheet and manufacturer photograph, and founder
+ * confirmation of supply, before it moves into `catalogue`. Do not merge specifications across
+ * P30, P30 Lite, P30 Lite Pro, P30G Pro or GPS/Bluetooth variants. Hytera South Africa had no product
+ * page for either name on 2026-11-26 (its "Find a Product" page was returned for every slug tried).
+ */
+export const pendingVariants: ReadonlyArray<{ model: string; manufacturer: string; blockedOn: string }> = [
+  { model: "P30 Lite Pro", manufacturer: "Hytera", blockedOn: "Exact model name and official datasheet; supply confirmation" },
+  { model: "P30G Pro", manufacturer: "Hytera", blockedOn: "Exact model name and official datasheet (GPS/Bluetooth variant?); supply confirmation" },
+  { model: "E600 PoC LTE", manufacturer: "Unconfirmed", blockedOn: "Manufacturer and exact variant; no image or specifications until verified (listed by name only)" },
 ];

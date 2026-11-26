@@ -158,13 +158,13 @@ test("home: platform selector and signup links are actionable", async ({ page })
   await page.goto("/");
   await expect(page.getByRole("link", { name: /explore 1guard security business operating system/i })).toHaveAttribute("href", "/solutions/security");
   await expect(page.getByRole("link", { name: /explore 1service business operating system/i })).toHaveAttribute("href", "/service");
-  await expect(page.getByRole("link", { name: /get 14 day free trial/i }).first()).toHaveAttribute("href", "/get-started");
+  await expect(page.getByRole("link", { name: /request a 14-day trial/i }).first()).toHaveAttribute("href", "/get-started");
 });
 
 test("reduced motion and transparency do not conceal controls", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
-  await expect(page.getByRole("link", { name: /get 14 day free trial/i }).first()).toBeVisible();
+  await expect(page.getByRole("link", { name: /request a 14-day trial/i }).first()).toBeVisible();
   await expect(page.locator("header.glass-nav")).toBeVisible();
 });
 
@@ -377,7 +377,7 @@ test("approved homepage guard-and-chef photograph remains separate from interact
         expect(dimensions.imageTop, "Photo must start below the mobile navigation pill").toBeGreaterThanOrEqual(dimensions.navBottom - 3);
       }
     }
-    await expect(page.getByRole("link", { name: /get 14 day free trial/i }).first()).toBeVisible();
+    await expect(page.getByRole("link", { name: /request a 14-day trial/i }).first()).toBeVisible();
     await expect(page.locator(".s1-hero-globe-canvas")).toBeVisible();
   }
 });
@@ -442,7 +442,7 @@ test("approved full-scene hero spans behind the globe without cropping the chef 
     expect(metrics.imgWidth).toBeGreaterThan(metrics.mediaWidth * 0.98);
     expect(metrics.mask).toBe("none");
     await expect(page.locator(".s1-hero-globe-canvas")).toBeVisible();
-    await expect(page.getByRole("link",{name:/get 14 day free trial/i}).first()).toBeVisible();
+    await expect(page.getByRole("link",{name:/request a 14-day trial/i}).first()).toBeVisible();
   }
 });
 
@@ -596,7 +596,7 @@ test("homepage respects reduced motion and keeps all content readable without sc
   const motion=page.locator("#guard [data-motion-from]");
   await expect(motion.first()).toHaveCSS("opacity","1");
   await expect(motion.first()).toHaveCSS("transform","none");
-  await expect(page.getByRole("link",{name:/get 14 day free trial/i}).first()).toBeVisible();
+  await expect(page.getByRole("link",{name:/request a 14-day trial/i}).first()).toBeVisible();
   const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
   expect(overflow).toBeLessThanOrEqual(1);
 });

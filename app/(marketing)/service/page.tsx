@@ -3,12 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { ButtonLink, Status, Kicker } from "../../components/ui";
 import ProductSignature from "../../components/brand/ProductSignature";
+import { pageMetadata } from "../../lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "1Service | Restaurant-First Business Operating System",
   description: "Explore the 1Service vision from Signal One: restaurant operations, staff planning, kitchen workflows, stock, purchasing and decision support. In development; register interest.",
   alternates: { canonical: "/service" },
-};
+});
 
 const ambitions = [
   ["Run the day", "Connect bookings and orders with service, kitchen and exception workflows.", "/images/editorial/restaurant-staff-briefing.webp", "Illustrative chef and waiters preparing together before service"],

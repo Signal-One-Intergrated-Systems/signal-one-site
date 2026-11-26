@@ -1,3 +1,4 @@
+import { availabilityLabel } from "../lib/catalogue";
 import Image from "next/image";
 import Link from "next/link";
 import type { CatalogueProduct } from "../lib/catalogue";
@@ -54,11 +55,11 @@ export function HardwareCard({
             style={{ ["--bounds" as string]: product.image.bounds }}
           />
         <span className="glass-light absolute left-3 top-3 rounded-full px-3 py-1">
-          <Status kind="quote">By quote</Status>
+          <Status kind="quote">{availabilityLabel[product.availability ?? "by_quote"]}</Status>
         </span>
       </div> : (
         <div className={compact ? "px-5 pt-5" : "px-6 pt-6 sm:px-7 sm:pt-7"}>
-          <Status kind="quote">By quote</Status>
+          <Status kind="quote">{availabilityLabel[product.availability ?? "by_quote"]}</Status>
         </div>
       )}
       <div className={"flex flex-1 flex-col " + (compact ? "p-5" : "p-6 sm:p-7")}>
@@ -71,6 +72,21 @@ export function HardwareCard({
         </Heading>
         <p className="t-small mt-3 text-ink">{product.role}</p>
         <p className="t-small mt-1 text-ink-2">{product.detail}</p>
+        {product.specs && !compact ? (
+          <div className="hardware-specs mt-4">
+            <dl className="m-0 grid gap-1 t-small">
+              {product.specs.items.map(([label, value]) => (
+                <div key={label} className="grid grid-cols-[6.5rem_1fr] gap-2">
+                  <dt className="text-ink-2">{label}</dt>
+                  <dd className="m-0 text-ink">{value}</dd>
+                </div>
+              ))}
+            </dl>
+            <p className="t-caption mt-2 text-ink-2">
+              Manufacturer specification: <a href={product.specs.sourceUrl} rel="noopener" className="link-inline">{product.specs.source}</a>. Your quote confirms the supplied variant.
+            </p>
+          </div>
+        ) : null}
         <Link href={quoteHref} className="link-arrow mt-auto pt-5 text-accent">
           Request a quote<span className="sr-only"> for {product.model}</span> <span aria-hidden="true">→</span>
         </Link>

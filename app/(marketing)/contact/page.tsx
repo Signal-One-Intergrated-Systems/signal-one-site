@@ -3,13 +3,15 @@ import type { Metadata } from "next";
 import IntakeForm, { type IntakeField } from "../../components/IntakeForm";
 import { Kicker, Steps } from "../../components/ui";
 import { contact } from "../../lib/site";
+import EmailLink from "../../components/EmailLink";
+import { pageMetadata } from "../../lib/seo";
 
-export const metadata: Metadata = {
-  title: "Talk to Signal One | 1GUARD, 1Service and Equipment",
+export const metadata: Metadata = pageMetadata({
+  title: "Talk to Us: 1GUARD, Radios and Business Technology",
   description:
     "Talk to Signal One about 1GUARD, 1Service, security equipment and connected operations. Request a walkthrough or product quotation.",
   alternates: { canonical: "/contact" },
-};
+});
 
 const fields: IntakeField[] = [
   { name: "contactName", label: "Your name", required: true, error: "Enter your name.", autoComplete: "name" },
@@ -67,9 +69,7 @@ export default function ContactPage() {
           <div className="mt-10 grid gap-4 border-t border-hairline pt-6 sm:grid-cols-2">
             <div>
               <p className="t-small text-ink-2">Prefer email?</p>
-              <a href={"mailto:" + contact.email} className="mt-1 inline-flex min-h-[44px] items-center text-[1.25rem] font-semibold text-accent underline underline-offset-4">
-                {contact.email}
-              </a>
+              <EmailLink email={contact.email} className="mt-1 inline-flex min-h-[44px] items-center text-[1.25rem] font-semibold text-accent underline underline-offset-4" />
             </div>
             <div>
               <p className="t-small text-ink-2">Prefer WhatsApp?</p>
@@ -77,7 +77,9 @@ export default function ContactPage() {
                 {contact.whatsappDisplay}
               </a>
             </div>
-            <p className="t-small text-ink-2 sm:col-span-2">Already a customer? <a href="/support" className="link-inline font-semibold text-accent">Get support</a>.</p>
+            <p className="t-small text-ink-2 sm:col-span-2">
+              Already a customer? Email <EmailLink email={contact.supportEmail} className="link-inline font-semibold text-accent" /> or see <a href="/support" className="link-inline font-semibold text-accent">Support</a>.
+            </p>
           </div>
         </div>
 

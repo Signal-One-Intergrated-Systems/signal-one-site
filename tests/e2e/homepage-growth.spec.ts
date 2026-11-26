@@ -12,10 +12,11 @@ for (const width of [320, 390, 768, 1440]) {
     await expect(page.locator("#service")).toContainText("In development");
     await expect(page.locator("#equipment")).toContainText("Hytera PNC360S");
     await expect(page.locator("#equipment")).toContainText("Hytera P30 Lite");
-    const trial = page.locator(".so-hero-actions").getByRole("link", { name: /Get 14 Day Free Trial/ });
+    const trial = page.locator(".so-hero-actions").getByRole("link", { name: /Request a 14-day trial/ });
     await expect(trial).toHaveAttribute("href", "/get-started");
-    await expect(page.locator(".so-hero-actions").getByRole("link", { name: /Explore the solutions/ }))
-      .toHaveAttribute("href", "#solutions");
+    // Second principal journey (founder, 2026-11-26): radios are an immediate revenue priority.
+    await expect(page.locator(".so-hero-actions").getByRole("link", { name: /Radios & connectivity/ }))
+      .toHaveAttribute("href", "/radios-equipment");
     const walkthrough = page.locator(".so-final-actions").getByRole("link", { name: /Book a walkthrough/ });
     await expect(walkthrough).toHaveAttribute("href", "/contact");
     const state = await page.evaluate(() => {

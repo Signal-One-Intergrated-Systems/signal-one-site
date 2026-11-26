@@ -12,13 +12,15 @@ import pnc360s from "../../public/images/hardware/hytera-pnc360s.webp";
 import p30Lite from "../../public/images/hardware/hytera-p30-lite.png";
 import { productBounds } from "../lib/catalogue";
 import "../home-conversion.css";
+import { pageMetadata } from "../lib/seo";
+import { commsJourneys, quoteHref } from "../lib/offers";
 
-export const metadata: Metadata = {
-  title: { absolute: "Signal One | 1GUARD, 1Service & Business Equipment" },
+export const metadata: Metadata = pageMetadata({
+  title: { absolute: "Signal One | Security Software, Two-Way Radios & Business Technology" },
   description:
-    "Intelligent business operating systems for SMEs. Explore 1GUARD for security businesses, 1Service for service businesses and professional equipment and connectivity from Signal One.",
+    "Security operations software, professional two-way radios and connected business technology for South African businesses. Buy or rent radios, and request a 14-day 1GUARD trial.",
   alternates: { canonical: "/" },
-};
+});
 
 function Arrow() {
   return <span aria-hidden="true" className="so-arrow">↗</span>;
@@ -46,7 +48,7 @@ function TrialLink({ section = false }: { section?: boolean }) {
   return (
     <Link href="/get-started" data-analytics-event="homepage_trial_cta"
       data-analytics-label="homepage-14-day-trial" className={section ? "btn btn-primary btn-lg" : "btn btn-primary so-home-cta"}>
-      Get 14 Day Free Trial {section ? <Go /> : <Arrow />}
+      Request a 14-day trial {section ? <Go /> : <Arrow />}
     </Link>
   );
 }
@@ -75,11 +77,11 @@ export default function Home() {
             <p className="so-eyebrow"><span className="so-signal-dot" /> Signal One · Integrated Systems</p>
             <h1 id="so-hero-title">Run your business.<br /><span>As one.</span></h1>
             <p className="so-hero-lead">
-              Intelligent business operating systems for SMEs. Connect your customers, people, service delivery and business decisions in one smarter way of working.
+              Security operations software, managed business communications and connected technology for South African businesses.
             </p>
             <div className="so-hero-actions">
               <TrialLink />
-              <Link href="#solutions" className="btn so-home-outline">Explore the solutions <Arrow /></Link>
+              <Link href="/radios-equipment" data-analytics-event="homepage_equipment_quote" data-analytics-label="hero-radios-connectivity" className="btn so-home-outline">Radios & connectivity <Arrow /></Link>
             </div>
             <p className="so-hero-note">14-day trial by request for eligible 1GUARD companies. Activation and terms are confirmed before access.</p>
           </div>
@@ -87,7 +89,7 @@ export default function Home() {
         <div className="so-hero-bar" aria-label="Signal One business areas">
           <Link href="/solutions/security" className="so-hero-bar-item" aria-label="Explore 1GUARD Security Business Operating System"><strong className="so-platform-mark"><ProductSignature name="GUARD" tone="dark" /></strong><span>Security Business OS</span></Link>
           <Link href="/service" className="so-hero-bar-item" aria-label="Explore 1Service business operating system"><strong className="so-platform-mark"><ProductSignature name="Service" tone="dark" /></strong><span>Restaurant-first OS · In development</span></Link>
-          <Link href="/equipment-marketplace" className="so-hero-bar-item" aria-label="Explore enterprise equipment"><strong>Equipment</strong><span>Professional devices & connectivity</span></Link>
+          <Link href="/equipment-marketplace" className="so-hero-bar-item" aria-label="Buy or rent radios and equipment"><strong>Radios & equipment</strong><span>Buy or rent · Quoted today</span></Link>
           <a href="#community" className="so-hero-bar-item" aria-label="Learn about 1Community coming soon"><strong className="so-platform-mark"><ProductSignature name="Community" tone="dark" /></strong><span>Coming soon</span></a>
         </div>
         <span className="so-hero-photo-note">Illustrative scene</span>
@@ -138,17 +140,19 @@ export default function Home() {
       <section id="equipment" className="section so-equipment-section" aria-labelledby="so-equipment-title">
         <div className="wrap so-equipment-layout">
           <div data-motion-from="right" className="so-equipment-copy">
-            <p className="so-kicker">Radios & equipment · Buy or rent</p>
-            <h2 id="so-equipment-title">Push-to-talk radios. Bought or rented.</h2>
-            <p>Radios that run over the cellular network, so a supervisor in Midrand can reach a guard in Pretoria without repeaters. Buy outright or rent on 12, 24 or 36-month terms, with or without SIM, data and the PTT platform.</p>
+            <p className="so-kicker">Managed business communications</p>
+            <h2 id="so-equipment-title">Business radios. Managed and connected.</h2>
+            <p>Push-to-talk radios that run over the cellular network, so a supervisor in Midrand can reach a guard in Pretoria without repeaters, with the platform, SIM, data, setup and support your teams need.</p>
+            <ul className="so-journey-links" aria-label="Four ways to start">
+              {commsJourneys.map(j => <li key={j.id}><Link href={quoteHref(j.quoteType)} data-analytics-event="homepage_equipment_quote" data-analytics-label={"home-journey-" + j.id}><strong>{j.title}</strong><span>{j.summary}</span></Link></li>)}
+            </ul>
             <div className="so-equipment-types" aria-label="Available equipment categories">
               <span>PoC & PTT radios</span><span>Vehicle & asset tracking</span><span>Body cameras</span><span>CCTV & networks</span>
             </div>
             <div className="so-inline-actions">
-              <Link href="/radios-equipment#quote" data-analytics-event="homepage_equipment_quote"
-                data-analytics-label="homepage-equipment" className="btn btn-primary btn-lg">Request a radio quote <Go /></Link>
+              <Link href="/radios-equipment" data-analytics-event="homepage_equipment_quote"
+                data-analytics-label="homepage-equipment" className="btn btn-primary btn-lg">Explore communications <Go /></Link>
               <Link href="/ptt-radio-rental" className="link-arrow">Radio rental <Go /></Link>
-              <Link href="/radios-equipment" className="link-arrow">See the catalogue <Go /></Link>
             </div>
             <p className="so-disclosure">Prices, lead times and availability are confirmed by written quotation.</p>
           </div>

@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import LegalPage from "../../components/LegalPage";
+import { pageMetadata } from "../../lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Security and Trust: Access Control and Audit",
   description:
     "How 1GUARD controls access, keeps audit trails and handles hosting and data. Explore our product controls and service commitments.",
   alternates: { canonical: "/security-trust" },
-};
+});
 
 const sections = [
   ["Authentication & access", "Authenticated product areas use role and permission controls. Guard also separates company, supervisor, client and guard access paths."],

@@ -5,13 +5,14 @@ import LandingPage from "../../components/LandingPage";
 import { ButtonLink, Status } from "../../components/ui";
 import { catalogue } from "../../lib/catalogue";
 import { guardDayPricePhrase } from "../../lib/pricing";
+import { pageMetadata } from "../../lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "PTT Radio Rental for Security Companies",
   description:
     "Push-to-talk over cellular radios on 12, 24 or 36-month rental terms: Hytera PNC360S, P30 Lite PoC and E600 PoC LTE, by quote, from Signal One.",
   alternates: { canonical: "/ptt-radio-rental" },
-};
+});
 
 const radios = catalogue[0];
 
@@ -54,10 +55,10 @@ export default function PttRadioRentalPage() {
       capabilitiesTitle="What a rental includes, and what is quoted"
       // The radios themselves are listed in the hero; this section answers how renting works instead of repeating them (DR-017).
       capabilities={[
-        ["Rental terms", "12, 24 or 36 months."],
-        ["With or without connectivity", "Radios with SIM, data and the PTT platform, radios only if you have SIMs, or the platform and SIMs for radios you already own."],
+        ["The radio", "Rented on a 12, 24 or 36-month term, or bought outright."],
+        ["Connectivity, if you want it", "Push-to-talk service, SIM and data are a separate monthly line: take it with the radios, use your own SIMs, or add it to radios you already own."],
         ["Buying instead", "Radios are also sold outright, by quotation. Ask to compare buying and renting in one quote."],
-        ["Quoted, not listed", "Final specification, availability and price are confirmed in a written quote. We do not publish prices, stock or delivery dates. Ask about delivery, deposit, damage and loss, and early termination when you request it."],
+        ["Confirmed in your written quote", "Price, availability and final specification, plus accessories (chargers, earpieces, clips), delivery, any deposit, maintenance, damage, loss and replacement, and early termination. We do not publish prices, stock or delivery dates, and nothing here is included unless your quote says so."],
       ]}
       stepsTitle="How the quote works"
       // Supporting editorial panel (founder bright package, 05): an illustrative scene, never stock or inventory evidence.
@@ -84,7 +85,7 @@ export default function PttRadioRentalPage() {
       closingLead="Choose a 12, 24 or 36-month rental term. Your written quote confirms devices, connectivity, availability and the full rental cost."
       closingActions={<><ButtonLink href="/radios-equipment?quoteType=Rent%20radios#quote" size="lg">Request a radio quote</ButtonLink><ButtonLink href="/radios-equipment" variant="ghost-dark" size="lg">Compare equipment options</ButtonLink></>}
       related={[
-        ["/radios-equipment", "Radios, tracking and body cameras"],
+        ["/radios-equipment#journeys", "Buy, rent, connect your own radios, or get help choosing"],
         ["/solutions/security", "The 1GUARD platform"],
         ["/contact", "Talk to Signal One"],
       ]}
