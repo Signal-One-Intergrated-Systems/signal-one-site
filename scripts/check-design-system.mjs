@@ -103,7 +103,7 @@ const scopeMatch = /([^{}]+)\{(\s*--color-canvas: var\(--graphite-canvas\);[\s\S
 const scopeSelectors = (scopeMatch?.[1] || "").split(",").map((s) => s.trim()).filter(Boolean);
 const scopeBody = scopeMatch?.[2] || "";
 // Graphite is selective: only these named places may be graphite (DESIGN_SYSTEM §1).
-const approvedGraphite = [".tone-graphite", ".so-home .so-guard-section", ".s1-premium-footer-shell", ".product-window", ".phone-frame"];
+const approvedGraphite = [".tone-graphite", ".so-home .so-guard-section", ".s1-premium-footer-shell", ".product-window", ".phone-frame", ".sg-entry-overlay"];
 const toneGraphiteUses = count(markup, /\btone-graphite\b/g);
 
 // ---- Retired names ----------------------------------------------------------------------------

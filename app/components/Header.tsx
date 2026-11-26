@@ -163,7 +163,7 @@ export default function Header() {
               aria-current={isCurrent(item.href) ? "page" : undefined}
               aria-label={item.label}
               className={
-                "flex min-h-[44px] items-center rounded-ui px-3.5 text-[1rem] font-medium transition-colors aria-[current=page]:underline aria-[current=page]:underline-offset-8 " +
+                "flex min-h-[44px] items-center rounded-ui font-medium transition-colors aria-[current=page]:underline aria-[current=page]:underline-offset-8 " +
                 config.link
               }
             >
@@ -178,14 +178,14 @@ export default function Header() {
               key={item.href}
               href={item.href}
               className={
-                "flex min-h-[44px] items-center rounded-ui px-3 text-[0.9375rem] " +
+                "s1-nav-secondary flex min-h-[44px] items-center rounded-ui text-[0.9375rem] " +
                 "text-ink-2 hover:text-ink"
               }
             >
               {item.label}
             </Link>
           ))}
-          <Link href={config.cta.href} className={config.cta_class + " ml-3"}>
+          <Link href={config.cta.href} className={config.cta_class + " s1-nav-cta"}>
             {config.cta.label}
           </Link>
         </div>

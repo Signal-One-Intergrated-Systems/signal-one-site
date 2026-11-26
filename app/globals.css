@@ -102,13 +102,14 @@
     --graphite-danger: #ffb4ab;
   }
 
-  /* Graphite scope: the footer, the homepage 1GUARD operations chapter, product screenshot frames
-     and any `.tone-graphite` element. Same role names, graphite values. */
+  /* Graphite scope: the footer, the homepage 1GUARD operations chapter, product screenshot frames,
+     the 1GUARD entry shutter and any `.tone-graphite` element. Same role names, graphite values. */
   .tone-graphite,
   .so-home .so-guard-section,
   .s1-premium-footer-shell,
   .product-window,
-  .phone-frame {
+  .phone-frame,
+  .sg-entry-overlay {
     --color-canvas: var(--graphite-canvas);
     --color-surface: var(--graphite-surface);
     --color-surface-2: var(--graphite-surface-2);
@@ -342,6 +343,10 @@
   /* A chapter boundary is a hairline, not a colour seam. */
   main > section + section {
     border-top: 1px solid var(--color-hairline);
+  }
+  /* A section that continues the one before it (no top padding) is not a new chapter: no rule. */
+  main > section + section.pt-0 {
+    border-top: 0;
   }
   /* The closing band of a page (its last section) sits on the alternate light neutral, so a page
      ends on a calm, distinct band before the graphite footer. */
@@ -1012,6 +1017,37 @@
     padding: 8px 16px;
     font-size: 0.9375rem;
   }
+  header.glass-nav .s1-nav-secondary {
+    padding-inline: 12px;
+  }
+  header.glass-nav .s1-nav-cta {
+    margin-left: 12px;
+  }
+  /* Every header label stays on one line (five primary links, two secondary, the CTA), and the
+     lockup never shrinks under the links (its descriptor would run into them). */
+  header.glass-nav :is(a, .btn) {
+    white-space: nowrap;
+  }
+  header.glass-nav > .wrap > a:first-child {
+    flex-shrink: 0;
+  }
+  /* Over the dark band of the locked homepage hero, glass reads grey: the pill is solid white until
+     the page scrolls. */
+  header.glass-nav[data-home]:not([data-scrolled]) > .wrap {
+    background: var(--glass-nav-solid);
+  }
+  @media (min-width: 1280px) and (max-width: 1599px) {
+    header.glass-nav > .wrap {
+      gap: 8px;
+    }
+    header.glass-nav .s1-nav-secondary {
+      padding-inline: 8px;
+      font-size: 0.875rem;
+    }
+    header.glass-nav .s1-nav-cta {
+      margin-left: 6px;
+    }
+  }
   /* Exactly one header lockup at each width. */
   header.glass-nav .s1-nav-logo-wide,
   header.glass-nav .s1-nav-logo-medium {
@@ -1035,6 +1071,15 @@
       display: none;
     }
     header.glass-nav .s1-nav-logo-wide {
+      display: inline-flex;
+      align-items: center;
+    }
+  }
+  @media (min-width: 1280px) and (max-width: 1599px) {
+    header.glass-nav .s1-nav-logo-wide {
+      display: none;
+    }
+    header.glass-nav .s1-nav-logo-medium {
       display: inline-flex;
       align-items: center;
     }

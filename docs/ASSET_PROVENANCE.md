@@ -152,3 +152,24 @@ Original SHA-256 values:
 
 - `hytera-p30-lite-front.png`: `d28ce15636f8f4b20186657bdc26934d01c846f7948bfc2f640eae31e660089c`
 - `hytera-sc780-front.png`: `94b1e16eeae536643b37af70e477b94baf8f69c66301b7f9a42e27ba85c5ab1b`
+
+## 2026-11-26 — founder bright image package (light-first website)
+
+Supplied by the founder with the light-first direction ("brighter public website, asset handoff v2"). Every file was verified against the package manifest's SHA-256 before use and copied byte-for-byte to `public/images/bright/`; Next/Image performs delivery optimisation. None is upscaled: the largest drawn size is below the native width. All are **AI-generated illustrative scenes, not actual Signal One staff, clients, facilities, inventory or software**, and are captioned or disclosed as illustrative where they appear.
+
+| File | Native | SHA-256 | Alt text | Placed on |
+|---|---|---|---|---|
+| `01-restaurant-service.webp` | 1672 × 941 | `edbc5e06439248ec93a2f5ea4a5376c5583377b8ac0aabb7bb3adb7d4df57712` | Illustrative chef and server coordinating plated orders in a restaurant kitchen | `/service` hero (so "Run the day" keeps the existing approved `restaurant-staff-briefing.webp`) |
+| `02-team-planning.webp` | 1672 × 941 | `50707b3833f095f39e7b726631fd731518bb0002f1f5976bc4684fa6fafe28fb` | Illustrative restaurant team reviewing staffing and daily assignments | `/service` "Manage the team" |
+| `03-stock-and-margins.webp` | 1672 × 941 | `3fd79639104e498db33ea7ff235abaed426b525b993953378dbef9567bf86f57` | Illustrative kitchen team checking stock and purchasing records | `/service` "Understand the margins" |
+| `04-performance-review.webp` | 1672 × 941 | `3982f49918b04b4ecba08c137f812d9f522513d47866c6ae707e5fb9c0404c82` | Illustrative restaurant managers reviewing business performance documents in daylight | `/service` "Know what to improve" |
+| `05-radio-rental-workflow.webp` | 1672 × 941 | `3b4c8235a03e4002701939fe3a2c1d846119164304f61c97563cde48c1236e7d` | Illustrative team preparing communications equipment for deployment | `/ptt-radio-rental`, supporting panel beside "How the quote works", captioned "Illustrative scene · not actual rental stock" (never stock or inventory evidence) |
+| `06-bright-architecture.webp` | 1774 × 887 | `4f5e3272668d64392d40890548df010fb23044494eb322bef397af4fa3fe1115` | Illustrative contemporary glass and pale concrete atrium in daylight (decorative backdrop, no alt) | Homepage business introduction backdrop, under the light veil (replaces `business-park.webp` there) |
+| `07-hospitality-welcome.webp` | 1672 × 941 | `00813cc947295342c69a35cf0ea5756f33184231524226b7350fc368675a1287` | Illustrative hospitality reception professional in a sunlit lobby | Homepage "1Service staffing · Planned" card (replaces `restaurant-staff-briefing.webp` there) |
+| `08-kitchen-alternative.webp` | 1672 × 941 | `7422a7f00fc8554c22ab1752d8b867e42cca1838b13a142e624c17b42b214734` | — | **Not used** (alternative to 01; never both on one page). Not copied into `public/`. |
+
+Also placed from the existing approved editorial set (2026-10-30 package): `security-operations-review.webp` on the `/solutions/security` coverage chapter, captioned "Illustrative scene · fictional security company" (its uniforms carry fictional branding, the same open ruling as `security-site-planning`, `docs/launch/IMAGE_INVENTORY.md` #9).
+
+Not acquired: the package guide lists Pexels source candidates (office park, restaurant, warehouse). They were not fetched (licence and dimensions unverified, not reachable from the build environment); see `docs/launch/LIGHT_THEME.md`.
+
+Light-first treatment: photographs are no longer toned to graphite (the luminosity blend is removed) and no dark scrim is laid over them; scene backdrops sit under a light veil that clears away from the copy. The locked homepage hero and the approved SME control-room photograph are unchanged.

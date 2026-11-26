@@ -519,6 +519,47 @@ html:not([data-after-load]) .so-home .so-panel-photo-image {
   gap: 12px 24px;
   margin-top: 28px;
 }
+/* Four ways to start (equipment section): compact two-up links, not cards. */
+.so-home .so-journey-links {
+  display: grid;
+  gap: 8px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+}
+@media (min-width: 520px) {
+  .so-home .so-journey-links {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.so-home .so-journey-links a {
+  display: grid;
+  gap: 2px;
+  min-height: 44px;
+  height: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-ui);
+  background: var(--color-surface);
+  transition:
+    border-color 160ms var(--ease-out-soft),
+    background-color 160ms var(--ease-out-soft);
+}
+.so-home .so-journey-links a:hover {
+  border-color: var(--color-focus);
+  background: var(--color-surface-2);
+}
+.so-home .so-journey-links strong {
+  color: var(--color-accent);
+  font-size: 0.9375rem;
+  font-weight: 650;
+  line-height: 1.35;
+}
+.so-home .so-journey-links span {
+  color: var(--color-ink-2);
+  font-size: 0.875rem;
+  line-height: 1.45;
+}
 /* Capability tags: plain hairline tags, never button-shaped (VA-08). */
 .so-home :is(.so-service-scope, .so-equipment-types) {
   display: flex;
