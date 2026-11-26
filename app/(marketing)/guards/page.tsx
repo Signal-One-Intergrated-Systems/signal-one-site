@@ -22,7 +22,7 @@ const onShift = [
 
 const joinSteps = [
   ["Create your profile", "About 5 minutes on your phone. Your progress is saved as you go."],
-  ["Signal One reviews it", "We save your profile and review it."],
+  ["Signal One reviews it", "Signal One receives your profile and reviews it."],
   ["We contact you", "To confirm your details and your PSiRA registration."],
   ["Marketplace, when it launches", "Signed-in Signal One client companies will be able to find your profile and send you a hire request. You accept or decline."],
 ] as const;
@@ -79,7 +79,7 @@ export default function GuardsPage() {
           <div>
             <div className="flex flex-wrap items-center gap-3">
               <h2 className="t-h2">Planned: Guard Marketplace</h2>
-              <span className="badge badge-mvp">MVP in development</span>
+              <span className="badge badge-mvp">In development</span>
             </div>
             <p className="t-lead mt-4 text-ink-2">
               We are building Marketplace. When it launches, signed-in Signal One client companies will be able to find profiles by:
@@ -129,7 +129,7 @@ export default function GuardsPage() {
           <ul className="m-0 grid list-none gap-4 p-0 text-[1.125rem]">
             {[
               "Your profile is never shown on a public website or jobs board.",
-              "Today we save it and Signal One reviews it. When Marketplace launches, only signed-in Signal One client companies will be able to find it.",
+              "Today Signal One receives it and reviews it. When Marketplace launches, only signed-in Signal One client companies will be able to find it.",
               "We do not ask for your ID number on the form.",
               "When hire requests exist, you decide on each one.",
               "You can ask us to correct or delete your information at any time.",

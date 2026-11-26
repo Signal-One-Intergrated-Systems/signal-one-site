@@ -9,6 +9,7 @@ import { priceSentence } from "../lib/pricing";
  */
 export default function LandingPage({
   kicker,
+  status,
   title,
   lead,
   actions,
@@ -27,6 +28,8 @@ export default function LandingPage({
   scene = "security",
 }: {
   kicker: string;
+  /** Status shown beside the kicker, e.g. 1GUARD Pilot (SW-06). */
+  status?: ReactNode;
   title: string;
   lead: string;
   actions?: ReactNode;
@@ -49,7 +52,7 @@ export default function LandingPage({
 }) {
   return (
     <main id="main" className={`s1-scene-page s1-scene-page--${scene}`}>
-      <PageHero kicker={kicker} title={title} lead={lead} actions={actions} aside={aside} />
+      <PageHero kicker={kicker} status={status} title={title} lead={lead} actions={actions} aside={aside} />
       {story}
 
       <section className="surface-light section">

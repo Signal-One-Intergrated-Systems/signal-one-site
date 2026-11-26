@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import LandingPage from "../../components/LandingPage";
 import PatrolStory from "../../components/PatrolStory";
-import { ButtonLink, FactPanel, Photo } from "../../components/ui";
+import { ButtonLink, GuardStatus, FactPanel, Photo } from "../../components/ui";
 import { illustrativeCaption, photos } from "../../lib/photos";
 import { guardDayPricePhrase } from "../../lib/pricing";
 import { pageMetadata } from "../../lib/seo";
@@ -17,13 +17,14 @@ export default function GuardPatrolSoftwarePage() {
   return (
     <LandingPage
       scene="patrol"
+      status={<GuardStatus tone="dark" />}
       kicker="Guard patrol software"
       title="Prove the patrol was walked."
       lead="1GUARD turns each patrol into a record: QR or NFC checkpoints on the route, scanned on the guard's own phone or an authorised Central Device. Scans taken without signal are saved on the phone and sent when it returns."
       actions={
         <>
-          <ButtonLink href="/contact" size="lg">
-            Talk to Signal One
+          <ButtonLink href="/get-started" size="lg">
+            Request a 14-day trial
           </ButtonLink>
           <ButtonLink href="/solutions/security" variant="ghost-dark" size="lg">
             See the whole platform

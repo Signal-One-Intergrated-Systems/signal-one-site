@@ -43,7 +43,7 @@ export default function PricingPage() {
             {guardOnboardingLine ? <p className="t-small mt-3 font-semibold text-ink">{guardOnboardingLine}</p> : null}
             {/* The next step is in the first viewport, not only at the foot of the page (persona walk, CUSTOMER_JOURNEYS P1). */}
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <ButtonLink href="/get-started" size="lg">Start company onboarding</ButtonLink>
+              <ButtonLink href="/get-started" size="lg">Request a 14-day trial</ButtonLink>
               <ButtonLink href="#calculator" variant="ghost-dark" size="lg">Calculate your cost</ButtonLink>
             </div>
           </div>
@@ -142,7 +142,7 @@ export default function PricingPage() {
           <ul className="m-0 list-none p-0">
             {[
               { name: "Radios, PTT, tracking and body cameras", status: <Status kind="quote">By quote</Status>, body: "Buy or rent radios, with 12, 24 or 36-month rental terms. Equipment is quoted separately for your deployment.", href: "/radios-equipment" },
-              { name: "Accounting", status: <Status kind="beta">Beta</Status>, body: "Priced separately when activated for your company." },
+              { name: "Accounting", status: <Status kind="mvp">In development</Status>, body: "Not offered yet. Priced separately when it is available." },
               { name: "Payroll", status: <Status kind="soon">Coming soon</Status>, body: "Not available yet. Priced separately when it launches." },
             ].map((item) => (
               <li key={item.name} className="grid gap-2 border-t border-hairline py-5 sm:grid-cols-[1fr_auto] sm:items-start sm:gap-6">
@@ -175,7 +175,7 @@ export default function PricingPage() {
               Talk to us to buy guard days
             </ButtonLink>
             <ButtonLink href="/get-started" size="lg">
-              Start company onboarding
+              Request a 14-day trial
             </ButtonLink>
           </div>
         </div>

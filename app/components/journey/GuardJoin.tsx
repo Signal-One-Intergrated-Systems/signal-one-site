@@ -191,7 +191,7 @@ export default function GuardJoin() {
               <div className="mt-8 rounded-card bg-surface p-5 ring-1 ring-hairline">
                 <h2 className="t-h4">Your profile is private</h2>
                 <p className="mt-1 text-[1.0625rem] text-ink-2">
-                  We save your profile and Signal One reviews it. When Guard Marketplace launches, signed-in Signal One client companies will be able to find your profile and send you a hire request, which you accept or decline. Your profile is never shown on a public website.{" "}
+                  Signal One receives your profile and reviews it. When Guard Marketplace launches, signed-in Signal One client companies will be able to find your profile and send you a hire request, which you accept or decline. Your profile is never shown on a public website.{" "}
                   <Link href="/guards#your-information" className="link-inline text-accent">
                     How we use your information
                   </Link>

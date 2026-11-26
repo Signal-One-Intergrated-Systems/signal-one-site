@@ -172,7 +172,7 @@ export default function Header() {
           ))}
         </nav>
 
-        <div className="hidden items-center gap-1 lg:flex">
+        <div className="hidden items-center gap-1 xl:flex">
           {config.secondary.map((item) => (
             <Link
               key={item.href}

@@ -174,12 +174,16 @@ function QuoteForm({ initialCategory, initialProduct, initialQuoteType }: { init
   const config = categories[category];
   // Rental term only where renting is on the table; radios the customer already owns need no radio choice.
   const ownRadios = values.quoteType === "Connect radios I already own";
+  const helpChoose = values.quoteType === "Help me choose";
   const fields = config.fields
-    .filter(field => field.name !== "rentalTerm" || values.quoteType === "Rent radios" || values.quoteType === "Help me choose")
-    .filter(field => !(ownRadios && field.name === "product"))
+    .filter(field => field.name !== "rentalTerm" || values.quoteType === "Rent radios")
+    // "Help me choose" asks about the team, not a model (SW-10); "own radios" needs no model either.
+    .filter(field => !((ownRadios || helpChoose) && field.name === "product"))
     .map(field => field.name === "rentalTerm" ? { ...field, required: values.quoteType === "Rent radios" } : field)
     .map(field => ownRadios && field.name === "quantity" ? { ...field, label: "How many radios do you have?" } : field)
-    .map(field => ownRadios && field.name === "deployment" ? { ...field, label: "Make and model of your radios, and where they are used", placeholder: "e.g. 30 × Hytera PNC360S, 4 sites in Durban" } : field);
+    .map(field => ownRadios && field.name === "deployment" ? { ...field, label: "Make and model of your radios, and where they are used", placeholder: "e.g. 30 × Hytera PNC360S, 4 sites in Durban" } : field)
+    .map(field => helpChoose && field.name === "quantity" ? { ...field, label: "How many people need radios?" } : field)
+    .map(field => helpChoose && field.name === "deployment" ? { ...field, label: "Your sites, and how your team communicates today", placeholder: "e.g. 3 warehouses in Germiston; cell phones and WhatsApp today" } : field);
 
   function markStarted() {
     if (started.current) return;

@@ -163,3 +163,36 @@ test("the EasyTalk E600 is listed with its manufacturer image and supplied speci
   await expect(e600).toContainText("3,000 mAh");
   await expect(e600).not.toContainText("SOS");
 });
+
+test("staging walkthrough fixes hold: catalogue cards, E600 link, Help me choose, 1GUARD pilot and trial CTAs", async ({ page }) => {
+  await page.setViewportSize({ width: 1024, height: 900 });
+  await page.goto("/radios-equipment");
+  // SW-01: the single body-camera card keeps its text visible beside the image.
+  const sc780 = page.locator("article").filter({ hasText: "SC780" }).first();
+  const quote = sc780.getByRole("link", { name: /Request a quote/ });
+  await expect(quote).toBeVisible();
+  const [img, link] = await Promise.all([sc780.locator("img").first().boundingBox(), quote.boundingBox()]);
+  expect(link!.x, "the quote link sits outside the image panel").toBeGreaterThanOrEqual(img!.x + img!.width - 1);
+  // SW-02: a product without a verified image shows a same-size typographic panel.
+  await expect(page.locator("article").filter({ hasText: "P30G Pro" }).first()).toContainText("Manufacturer image to follow");
+  // SW-03: the E600 card preselects the E600 in the form.
+  await page.locator("article").filter({ hasText: "EasyTalk" }).first().getByRole("link", { name: /Request a quote/ }).click();
+  await expect(page.getByLabel("Radio", { exact: true })).toHaveValue("EasyTalk E600");
+  // SW-10: Help me choose asks about the team, not a model or term.
+  await page.goto("/radios-equipment?quoteType=Help%20me%20choose#quote-form");
+  await expect(page.getByLabel("What do you need?")).toHaveValue("Help me choose");
+  await expect(page.getByLabel("Radio", { exact: true })).toHaveCount(0);
+  await expect(page.getByLabel("How many people need radios?")).toBeVisible();
+  // SW-06/07: 1GUARD landing pages carry the Pilot label and a trial button in the body.
+  for (const route of ["/guard-patrol-software", "/guard-attendance-software", "/solutions/security"]) {
+    await page.goto(route);
+    await expect(page.locator("main").getByText("Pilot", { exact: true }).first(), route).toBeVisible();
+    await expect(page.locator("main").getByRole("link", { name: "Request a 14-day trial" }).first(), route).toHaveAttribute("href", "/get-started");
+  }
+  // SW-05: only the approved status vocabulary.
+  for (const route of ["/pricing", "/security-trust", "/about", "/guard-marketplace", "/guards"]) {
+    await page.goto(route);
+    const text = await page.locator("main").innerText();
+    expect(text, route).not.toMatch(/\bBeta\b|MVP in development/);
+  }
+});

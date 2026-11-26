@@ -58,7 +58,7 @@ export default function GuardMarketplacePage() {
         kicker="Guard Marketplace"
         status={
           <Status kind="mvp" tone="dark">
-            MVP in development
+            In development
           </Status>
         }
         title="Win the contract. Then staff it from the same system."

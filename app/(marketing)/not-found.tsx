@@ -13,14 +13,17 @@ export default function NotFound() {
         <Kicker tone="dark">Error 404</Kicker>
         <h1 className="t-hero mt-5">We could not find that page.</h1>
         <p className="t-lead measure mt-6 text-ink-2">
-          The link may be old or mistyped. 1GUARD, pricing and contact are one click away.
+          The link may be old or mistyped. Radios, 1GUARD and contact are one click away.
         </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <ButtonLink href="/" size="lg">
             Back to the home page
           </ButtonLink>
+          <ButtonLink href="/radios-equipment" variant="ghost-dark" size="lg">
+            Radios & connectivity
+          </ButtonLink>
           <ButtonLink href="/solutions/security" variant="ghost-dark" size="lg">
-            See the platform
+            1GUARD
           </ButtonLink>
           <ButtonLink href="/contact" variant="ghost-dark" size="lg">
             Talk to Signal One

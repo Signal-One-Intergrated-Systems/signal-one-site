@@ -51,7 +51,7 @@ const offers = [
 const principles = [
   ["Nothing is supplied until you accept a written quote", "Prices, terms, availability and delivery are confirmed in writing first."],
   // The labels the site actually uses (AUDW-11): 1GUARD's from lib/guardStatus.ts, the rest as shown on each page.
-  ["We label what is not ready", "Every product on this site carries its status: " + guardStatusLabel + ", Beta, In development, Coming soon or By quote. We do not sell a roadmap as a product."],
+  ["We label what is not ready", "Every product on this site carries its status: Available, " + guardStatusLabel + ", In development, Planned, Coming soon or By quote. We do not sell a roadmap as a product."],
   ["We do not claim what we have not earned", "No certifications, customer logos or testimonials appear here unless they are real and approved."],
   ["Your information is handled under POPIA", "We use what you send us to answer you, and only send news if you opt in."],
 ] as const;

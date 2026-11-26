@@ -10,7 +10,7 @@
 export type RadioQuoteType = "Buy radios" | "Rent radios" | "Connect radios I already own" | "Help me choose";
 export const radioQuoteTypes: readonly RadioQuoteType[] = ["Buy radios", "Rent radios", "Connect radios I already own", "Help me choose"];
 
-export const quoteHref = (type: RadioQuoteType) => "/radios-equipment?quoteType=" + encodeURIComponent(type) + "#quote";
+export const quoteHref = (type: RadioQuoteType) => "/radios-equipment?quoteType=" + encodeURIComponent(type) + "#quote-form";
 
 export const commsJourneys: ReadonlyArray<{ id: string; title: string; summary: string; detail: string; cta: string; quoteType: RadioQuoteType }> = [
   {

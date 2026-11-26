@@ -47,14 +47,14 @@ export default function SecurityPlatformPage() {
         </p>
         {guardOnboardingLine ? <p className="t-small mt-4 font-semibold text-ink">{guardOnboardingLine}</p> : null}
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-          <ButtonLink href="/contact" size="lg">
-            Talk to Signal One
+          <ButtonLink href="/get-started" size="lg">
+            Request a 14-day trial
           </ButtonLink>
           <ButtonLink href="/pricing" variant="ghost-dark" size="lg">
             {guardDayPricePhrase}
           </ButtonLink>
         </div>
-        <p className="t-caption mt-6 text-ink-2">Trial access is subject to company registration and activation confirmation. No trial begins when you submit a request.</p>
+        <p className="t-caption mt-6 text-ink-2">Trial access is subject to eligibility and activation. The 14 days start when your first guard clocks in.</p>
         <p className="t-caption mt-3 text-ink-2">{illustrativeCaption}</p>
       </SplitHero>
 

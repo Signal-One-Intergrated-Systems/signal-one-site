@@ -28,6 +28,8 @@ export type CatalogueProduct = {
    * authority) supply a verified state; the website never holds its own stock figures.
    */
   availability?: Availability;
+  /** The quote form's option for this product, when it differs from `model` (SW-03). */
+  quoteOption?: string;
   /** Manufacturer specifications, copied only from the official page named in `source` for this exact model. */
   specs?: { source: string; sourceUrl?: string; items: ReadonlyArray<readonly [string, string]> };
 };
@@ -89,7 +91,7 @@ export const catalogue: ReadonlyArray<{
       // Hytera P30 family. Name only until the exact variant is confirmed: no image (never the P30 Lite's) and no
       // variant-specific specifications.
       { model: "P30G Pro", manufacturer: "Hytera", type: "PoC radio", detail: "Purchase or rental. Specification and availability confirmed in your written quote.", role: "Push-to-talk over the cellular network, from the Hytera P30 family." },
-      { model: "E600", manufacturer: "EasyTalk", type: "PoC radio, 4G LTE", detail: "Purchase or rental. Push-to-talk service, SIM and data are a separate monthly line.", role: "Push-to-talk over 4G for sites with LTE coverage.",
+      { model: "E600", quoteOption: "EasyTalk E600", manufacturer: "EasyTalk", type: "PoC radio, 4G LTE", detail: "Purchase or rental. Push-to-talk service, SIM and data are a separate monthly line.", role: "Push-to-talk over 4G for sites with LTE coverage.",
         image: { src: e600, alt: "EasyTalk E600 push-to-talk over cellular radio, front view — manufacturer image", bounds: productBounds.e600 },
         // EasyTalk E600 brochure and product specification (2024-03-01), supplied by the founder 2026-11-26.
         // Only values both documents agree on, or that one states and the other leaves blank, are listed;

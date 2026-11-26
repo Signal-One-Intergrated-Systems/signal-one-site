@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import LandingPage from "../../components/LandingPage";
-import { ButtonLink, FactPanel, Photo } from "../../components/ui";
+import { ButtonLink, GuardStatus, FactPanel, Photo } from "../../components/ui";
 import { illustrativeCaption, photos } from "../../lib/photos";
 import { guardDayPricePhrase } from "../../lib/pricing";
 import { pageMetadata } from "../../lib/seo";
@@ -16,13 +16,14 @@ export default function GuardAttendanceSoftwarePage() {
   return (
     <LandingPage
       scene="attendance"
+      status={<GuardStatus tone="dark" />}
       kicker="Guard attendance and clock-in"
       title="Know who is on post, and prove it."
       lead="Guards clock in and out at the post on their own phone or an authorised Central Device. The roster shows which posts are short before the shift starts, and every attendance record feeds proof of service."
       actions={
         <>
-          <ButtonLink href="/contact" size="lg">
-            Talk to Signal One
+          <ButtonLink href="/get-started" size="lg">
+            Request a 14-day trial
           </ButtonLink>
           <ButtonLink href="/pricing#calculator" variant="ghost-dark" size="lg">
             Calculate guard cost

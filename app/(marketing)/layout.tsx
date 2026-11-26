@@ -92,7 +92,7 @@ const structuredData = {
       alternateName: brand.product,
       applicationCategory: "BusinessApplication",
       applicationSubCategory: "Security business operating system",
-      operatingSystem: "Web, Android, iOS",
+      operatingSystem: "Web, Android",
       publisher: { "@id": siteUrl + "/#organization" },
       description: guardIsLive ? description : description + " 1GUARD is in pilot with its first security companies.",
       offers: {

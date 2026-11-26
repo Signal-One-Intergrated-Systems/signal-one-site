@@ -152,7 +152,7 @@ export default function RadiosEquipmentPage() {
               />
             </div>
           </div>
-          <div><IntakeAvailability /><EquipmentQuoteForm /></div>
+          <div id="quote-form" className="scroll-mt-[96px]"><IntakeAvailability /><EquipmentQuoteForm /></div>
         </div>
       </section>
     </main>

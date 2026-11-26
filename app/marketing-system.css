@@ -127,9 +127,13 @@
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
+  /* The well fills its own column only: with an aspect ratio and height:100% it grew wider than its
+     column whenever the text (now with specifications) was taller, and painted over the text (SW-01). */
   .catalogue-grid > li:only-child .hardware-card > .s1-product-well {
-    aspect-ratio: 4 / 3;
-    height: 100%;
+    aspect-ratio: auto;
+    height: auto;
+    min-height: 300px;
+    min-width: 0;
   }
 }
 /* A product without a manufacturer image gets a typographic well of the same proportions, never a

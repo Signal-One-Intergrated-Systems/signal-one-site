@@ -86,7 +86,8 @@ const VISITOR_FIXABLE = new Set([400, 413, 422]);
 /** Builds a mailto: link prefilled with the visitor's answers. */
 export function buildMailto(data: Record<string, string>, labels: Record<string, string> = {}): IntakeFallback {
   const intent = data.intent || "";
-  const subject = "Signal One website: " + (subjects[intent] || intent || "Enquiry");
+  // A radio quote names its journey (Buy radios, Rent radios, …) rather than the generic intent (SW-11).
+  const subject = "Signal One website: " + (data.quoteType ? "Radio quote, " + data.quoteType : subjects[intent] || intent || "Enquiry");
   const lines = Object.entries(data)
     .filter(([name, value]) => name !== "intent" && value)
     .map(([name, value]) => (labels[name] || humanise(name)) + ": " + value);

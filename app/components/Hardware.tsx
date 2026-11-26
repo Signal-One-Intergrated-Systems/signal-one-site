@@ -40,7 +40,7 @@ export function HardwareCard({
 }) {
   const Heading = headingLevel === 4 ? "h4" : "h3";
   const category = product.model === "SC780" ? "bodycam" : /FM[BC]920/.test(product.model) ? "tracking" : "radio";
-  const selectedProduct = product.type === "Service" ? "PTT platform + SIM only (I have radios)" : product.model;
+  const selectedProduct = product.type === "Service" ? "PTT platform + SIM only (I have radios)" : product.quoteOption ?? product.model;
   const quoteHref = `/radios-equipment?${new URLSearchParams({ category, product: selectedProduct })}#quote`;
   return (
     <article className="hardware-card card relative flex h-full flex-col overflow-hidden">
@@ -57,9 +57,19 @@ export function HardwareCard({
         <span className="glass-light absolute left-3 top-3 rounded-full px-3 py-1">
           <Status kind="quote">{availabilityLabel[product.availability ?? "by_quote"]}</Status>
         </span>
-      </div> : (
-        <div className={compact ? "px-5 pt-5" : "px-6 pt-6 sm:px-7 sm:pt-7"}>
+      </div> : compact ? (
+        <div className="px-5 pt-5">
           <Status kind="quote">{availabilityLabel[product.availability ?? "by_quote"]}</Status>
+        </div>
+      ) : (
+        // No verified manufacturer image yet: a typographic well of the same proportions, never a stand-in
+        // photograph of a different device (DR-006), so the card keeps its shape beside its neighbours (SW-02).
+        <div className="relative aspect-[4/3] s1-product-well well hardware-well-typographic flex flex-col items-center justify-center p-6 text-center">
+          <span className="glass-light absolute left-3 top-3 rounded-full px-3 py-1">
+            <Status kind="quote">{availabilityLabel[product.availability ?? "by_quote"]}</Status>
+          </span>
+          <span className="t-h3 text-ink">{product.manufacturer ? product.manufacturer + " " : ""}{product.model}</span>
+          <span className="t-small mt-2 text-ink-2">Manufacturer image to follow</span>
         </div>
       )}
       <div className={"flex flex-1 flex-col " + (compact ? "p-5" : "p-6 sm:p-7")}>
