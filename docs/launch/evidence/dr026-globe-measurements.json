@@ -1,0 +1,62 @@
+{
+ "identity": {
+  "1440-reduce": {
+   "base": "ef903d6cd464342a:main-thread",
+   "new": "bef5440ad817f5ed:main-thread",
+   "identical": false
+  },
+  "390-reduce": {
+   "base": "c3f6ed1fde8a534d:main-thread",
+   "new": "fd3b3cedd94c1809:main-thread",
+   "identical": false
+  }
+ },
+ "perf": {
+  "base": [
+   {
+    "worstInteraction": 536,
+    "medianInteraction": 424,
+    "interactions": 8,
+    "fps": 10.6,
+    "longTaskMsPerSec": 968
+   },
+   {
+    "worstInteraction": 560,
+    "medianInteraction": 376,
+    "interactions": 8,
+    "fps": 10.4,
+    "longTaskMsPerSec": 967
+   },
+   {
+    "worstInteraction": 656,
+    "medianInteraction": 344,
+    "interactions": 8,
+    "fps": 10,
+    "longTaskMsPerSec": 975
+   }
+  ],
+  "new": [
+   {
+    "worstInteraction": 72,
+    "medianInteraction": 56,
+    "interactions": 8,
+    "fps": 59.9,
+    "longTaskMsPerSec": 0
+   },
+   {
+    "worstInteraction": 56,
+    "medianInteraction": 48,
+    "interactions": 8,
+    "fps": 60,
+    "longTaskMsPerSec": 0
+   },
+   {
+    "worstInteraction": 80,
+    "medianInteraction": 56,
+    "interactions": 8,
+    "fps": 60,
+    "longTaskMsPerSec": 0
+   }
+  ]
+ }
+}

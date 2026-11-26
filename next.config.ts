@@ -61,6 +61,8 @@ const nextConfig: NextConfig = {
           `img-src 'self' data: blob: ${ga}${ads}`,
           "font-src 'self' data:",
           `connect-src 'self' ${ga}${ads} ${cfReport}`,
+          // The hero globe draws in a Web Worker (DR-026); the bundler starts workers from a blob: URL.
+          "worker-src 'self' blob:",
           "frame-ancestors 'none'",
           "base-uri 'self'",
           "object-src 'none'",
