@@ -140,9 +140,8 @@ All three tasks were inspected at 11:09 UTC: each was progressing, none had stal
 - **Verification:** the API reports `data.gitSha` = `151936f4` and `/health` returns 200. The first deploy logs show no errors, only the AWS SDK Node-version notice and the probe's own 404, and request lines now log cleaned paths.
 - **Forced sign-out:** the founder runs the SQL personally (session revoke; sessions are soft-revoked and checked on every request).
 - **Old logs:** Railway offers no per-log deletion; logs age out with the plan's retention.
-- **Outstanding:**
-  - reissue magic links;
-  - the post-merge gate on main (running at the time of writing).
+- **Post-merge gate on main `151936f4`:** `governance:push` RC=0, GATE VERDICT GREEN. The first attempt exited 71 because the test-database variables were not loaded, so no suite ran and it is not counted. The re-run loaded `.env.test` and rebuilt the databases from main's chain.
+- **Outstanding:** founder runs the session-revoke and magic-link SQL; magic links are reissued from Sales OS.
 
 ## Final LEOS launch candidate r2 (#756 @ `f64489a9`, 2026-11-26)
 
@@ -153,7 +152,7 @@ All three tasks were inspected at 11:09 UTC: each was progressing, none had stal
   - client kinds 26/26; all kinds 16/16; credentials 3/3; queue page 12/12; assignment with a mid-dispatch kill 7/7; restrict-after-erasure 409;
   - the API log contained no secrets or e-mails.
 - **Remaining before release:**
-  - independent review of the never-audited parts (0203, the integration commits, #749 as renumbered, the #755 merge resolution): AUD-R2, running;
+  - independent review of the never-audited parts: **AUD-R2 PASS WITH CONDITIONS, no blockers** (`LEOS_AUDIT_R2.md`). Before release, verify the receiver's `transaction_timeout` (added in `258f11e2`) on Postgres 18: on 17+ it ends the whole session. Track R2-01 and R2-02 (test gaps);
   - Architect confirmation of migration numbers;
   - founder merge approval;
   - receiver credential issuance.
