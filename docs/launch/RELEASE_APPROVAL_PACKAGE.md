@@ -1,6 +1,6 @@
 # Release approval package — commercial launch
 
-Status as of 2026-11-26 11:15 UTC. **Nothing in this package is merged or deployed. No production merge, migration or deployment is authorised.** This file is the single place for release approval. Evidence detail lives in `RELEASE_READINESS_REGISTER.md`, `RELEASE_GATE.md` and the audit reports named below.
+Status as of 2026-11-26 17:40 UTC. **Released:** LEOS #757 (test fix) and #755 (security hotfix), founder-approved 2026-11-26. Merged to LEOS main as `82a57316` and `151936f4`; production API (`lancesat-enterprise-platform`) and worker (`peaceful-celebration`) pinned to and running `151936f4` (API live 17:29:57 UTC, worker 17:33:36 UTC). The LEOS web service had no change. Everything else in this package is unmerged. This file is the single place for release approval. Evidence detail lives in `RELEASE_READINESS_REGISTER.md`, `RELEASE_GATE.md` and the audit reports named below.
 
 Release scope is **frozen** (founder directive, 2026-11-26). Only work that closes a launch blocker continues.
 
@@ -8,8 +8,8 @@ Release scope is **frozen** (founder directive, 2026-11-26). Only work that clos
 
 | # | Candidate | Repo / branch | Head | What it ships | Gate | Independent review | State |
 |---|---|---|---|---|---|---|---|
-| 1 | **C1 test fix**, draft #757 | LEOS `claude/fix-c1-in4-second-boundary` | `fdb9d816` | Test only: a test that fails at random when the clock ticks over a second | RC=0 GREEN; pre-push GREEN | Not needed (no runtime change) | **Ready**: merge first |
-| 2 | **Security hotfix: secrets out of logs**, draft #755 | LEOS `claude/sec-log-redaction` | `415ef593` | Stops bearer tokens, refresh cookies, magic-link tokens, query values and personal data reaching production logs. No migration. | RC=0 GREEN (api 505/5,144, worker 26/239); pre-push GREEN | AUDL1 FAIL → fixed; AUDL2 PASS WITH CONDITIONS → closed; **AUDL2 re-check of `415ef593`: PASS, nothing blocks release** | **Ready for production, pending founder approval.** Urgent: the exposure is live |
+| 1 | **C1 test fix**, draft #757 | LEOS `claude/fix-c1-in4-second-boundary` | `fdb9d816` | Test only: a test that fails at random when the clock ticks over a second | RC=0 GREEN; pre-push GREEN | Not needed (no runtime change) | **Merged** 2026-11-26 (`82a57316`) |
+| 2 | **Security hotfix: secrets out of logs**, draft #755 | LEOS `claude/sec-log-redaction` | `415ef593` | Stops bearer tokens, refresh cookies, magic-link tokens, query values and personal data reaching production logs. No migration. | RC=0 GREEN (api 505/5,144, worker 26/239); pre-push GREEN | AUDL1 FAIL → fixed; AUDL2 PASS WITH CONDITIONS → closed; **AUDL2 re-check of `415ef593`: PASS, nothing blocks release** | **Deployed** 2026-11-26 (`151936f4`) |
 | 3 | **Launch integration r2**, draft #756 | LEOS `claude/launch-integration-r2` | `3b1df485` (gate 2 running; final head pending) | Website enquiry receiver (#749), notification outbox (#751), privacy (#752), Sales OS enquiry queue (#754), plus integration fixes AUD-03/04/05/22/23; migrations 0190–0194 and 0197–0203 | Gate 1 GREEN on `656e2099`; gate 2 on `3b1df485` running | AUD1 (parts), AUD2 (#752); **integration commits, migration 0203 and #749-as-renumbered not yet independently reviewed** | **Not ready**: final #752 fix, final merge with #755 and #757, one gate, one review |
 | 4 | **Sales OS shell**, draft #750 | LEOS `claude/sales-os-integration-r1` | `248cbffc` | Approved preview presentation + 1GUARD shell | RC=0 GREEN | AUD1 PASS | Ready after #720 (manager role) and founder flag/domain decisions |
 | 5 | **Website** (visual acceptance is separate: see `WEBSITE_RELEASE_READINESS.md`; staging https://web-staging-review-production.up.railway.app), branch `claude/peaceful-johnson-azma60` | site | see `git log` (app code = `9164c92` + FIX-W `6be8cbd`) | Brand, radios-first homepage, About/Support, attribution with consent, validation, receiver client | `npm run build` RC=0; e2e 440 passed / 0 failed / 84 skipped | AUDW1 ready with conditions → fixed (FIX-W) | Ready for staging; production needs the decisions in §4 and trimming `docs/launch/evidence/w1` (21 MB) |
@@ -131,3 +131,15 @@ All three tasks were inspected at 11:09 UTC: each was progressing, none had stal
 3. Recreate the local test databases from the branch's migration chain before any gate. Any database built with the earlier 0202 must be recreated: the runner tracks migrations by file name.
 4. Run the gate only as `pnpm run governance:push > log 2>&1; RC=$?` under the lock, with `pg_isready` first. Never use `--no-verify`, never force-push.
 5. Continue from the "Remaining work" column above, in the order #752 fix → final r2 merge and gate → final r2 review.
+
+
+## Hotfix release record (2026-11-26)
+
+- **Approvals:** founder approved merging #757 then #755, deploying both production services, forcing a sign-out, deleting what Railway allows from the old logs, and reissuing outstanding magic links. The founder declined rotating `META_WHATSAPP_VERIFY_TOKEN` for now.
+- **Deploy mechanism:** the API service was pinned to `5efcb303`, so a merge does not deploy it. It was re-pinned to `151936f4` with Railway "connect source". The worker previously followed `main` and was last deployed at `e1a60d8f`. It is now pinned to `151936f4` too. Its code difference was the hotfix plus a small `packages/auth/jwt_service.ts` change that the API already ran.
+- **Verification:** the API reports `data.gitSha` = `151936f4` and `/health` returns 200. The first deploy logs show no errors, only the AWS SDK Node-version notice and the probe's own 404, and request lines now log cleaned paths.
+- **Forced sign-out:** the founder runs the SQL personally (session revoke; sessions are soft-revoked and checked on every request).
+- **Old logs:** Railway offers no per-log deletion; logs age out with the plan's retention.
+- **Outstanding:**
+  - reissue magic links;
+  - the post-merge gate on main (running at the time of writing).
