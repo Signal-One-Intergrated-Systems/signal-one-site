@@ -133,3 +133,28 @@ The fixer's suite was run on the auditor's own aud2_t database, under `leos-gate
   - the race outputs, `o*.out` and `r*.out`;
   - the run logs.
 - Left in place: worktree `/home/user/leos-aud-wt-aud2` (clean, at `ecab5d34`); databases `aud2_priv`, `aud2_cls`, `aud2_t` and `aud2_t_template`; and cluster roles `aud2_app` and `aud2_dml`.
+
+## Re-check at 137a7088
+
+Saved by the lead from the auditor's returned text (the auditor's file write is refused in its environment).
+
+**Verdict: PASS WITH CONDITIONS.** AUD2-01, AUD2-02, AUD2-05 and AUD2-06 hold, each tested at the auditor's own pause points. AUD2-03 holds for every earlier forgery. One new forgery is accepted (R2-01, S3), and FIX-P's disclosed residual is accurate but understated. New findings: S1 0, S2 0, S3 1, S4 0.
+
+| Item | Result | Evidence |
+|---|---|---|
+| AUD2-01 conversion × erasure | **PASS** | Four runs (R-A1, R-A1-orig, R-A2, R-A2b) at different pause points: each ended consistent; either the erasure names the new lead and withdraws marketing, or the conversion gets 409 and no lead exists. Removing `FOR UPDATE` turned all 4 red; restored (sha256 identical), green. FIX-P's suite 22/22. |
+| AUD2-02 replay / changed set | **PASS** | Same count, different set → 409. Replay after new submissions aged in → 409 "already armed a run". A second run citing the same dry run is refused by the unique index `website_intake_retention_runs_armed_by_uidx`. |
+| AUD2-03 forged trail | **PASS for the earlier forgeries, PARTIAL overall** | As the non-owner DML role: F1–F7b, F8, F9, F11–F14 and F16 refused, plus a back-dated `executed_at` alone, a request inserted already executed, a future run `created_at` and an unarmed non-dry run. As the NOSUPERUSER owner: still able to disable triggers, delete markers, replace functions and drop the single-use index (unchanged AUD-13, decision D10). |
+| AUD2-05 | **PASS** | Restricting an erased submission → 409. `restricted_at` now falls after the erasure marker in the two-session run. |
+| AUD2-06 | **PASS** | Lock held > 3 s → 503 `PRIVACY_BUSY`, request still pending, 0 markers, one HIGH alert, no CRITICAL. |
+| AUD-10 | Still holds | o1 and r1 re-run: refused while a restriction is uncommitted. |
+
+**Disclosed residual — accurate but understated (N1, reproduced).** A forged dry run, back-dated 3 years with `candidates_sha256` "not-a-hash", plus a matching armed run with "period 365" and cutoff = now() and a sales rep as actor, erased a submission 33 seconds old. Suggested wording: "the cutoff need only be ≤ now() and is not tied to the period, so any submission up to the present can be erased under any stated period; the dry run's age and hash are not checked by the database." Also accepted (F8c): a rep creating and executing a request in the same transaction at now().
+
+**R2-01, S3: a forged lift of a legal hold is accepted (N2, non-owner DML role).** In one transaction: set the restriction's `lifted_at` to 2020-01-01 (earlier than its own `restricted_at`) with a fictitious `lifted_by`; insert a request with a fictitious `requested_by`; call `website_intake_redact`. It committed: the hold reads as lifted in 2020 by nobody, and the data is erased. Cause: the 0192 guard checks only that a lift happens once, and 0202 does not stamp lifts. Fix: in 0202, require `lifted_at` = the current time and `lifted_by` to be an active member, and check `requested_by` membership; otherwise disclose.
+
+**0202 amended in place.** Still class A: applied incrementally from 0201 by `migrate.js` over rows that break the new rules, RC=0, retention rows byte-identical (row md5). Schema fingerprint round-trip 0201 → 0202 → down → 0202 matches a fresh chain; the reversal refuses once a run carries a 0202 column. A database that applied the earlier 0202 (`ecab5d34`) is not upgraded by the runner and must be recreated.
+
+**Conditions:** (1) fix or disclose R2-01; (2) correct the residual's wording; (3) D10 remains the founder/Architect decision, and its NOSUPERUSER / not-a-member text is accurate; (4) recreate any database built with the earlier 0202.
+
+Evidence: session scratchpad `aud2/r2/`. Auditor error: an `\echo` with an apostrophe garbled two section labels in `forge4.sql`'s output; the statements and their refusals are recorded.
