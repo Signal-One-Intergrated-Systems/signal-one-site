@@ -27,8 +27,8 @@ export default function GetStartedPage() {
           <ol className="s1-trial-steps t-small mt-5 grid gap-2 text-ink-2" aria-label="How a 1GUARD trial works">
             <li><strong className="text-ink">1. You request it here.</strong> Nothing is activated and nothing is charged when you send this.</li>
             <li><strong className="text-ink">2. We confirm eligibility.</strong> 1GUARD is in pilot with security companies; we check that it fits your operation.</li>
-            <li><strong className="text-ink">3. We activate access.</strong> When the 14 days start and end, and what happens to your data afterwards, are confirmed in writing before your account is opened.</li>
-            <li><strong className="text-ink">4. After the trial.</strong> Continuing is your choice, on paid terms agreed with you before activation (public rate {guardDayPricePhrase}, excl. VAT).</li>
+            <li><strong className="text-ink">3. We activate access.</strong> Your 14 days start when your first guard clocks in, not when the account is opened.</li>
+            <li><strong className="text-ink">4. After the trial.</strong> Access pauses on day 14 and nothing is charged automatically. Your data is kept, and you continue by buying guard days ({guardDayPricePhrase}, excl. VAT).</li>
           </ol>
         </div>
         <IntakeAvailability trial />

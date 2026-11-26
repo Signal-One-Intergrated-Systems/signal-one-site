@@ -60,7 +60,7 @@ export default function ContactPage() {
             <Steps
               items={[
                 ["We read your message", "We review your business requirements and the solution you selected."],
-                ["We get in touch", "By email or phone, using the details you give us."],
+                ["We get in touch within one business day", "By email or phone, using the details you give us."],
                 ["We discuss your solution", "We explain the relevant platform, available options and next steps before you decide."],
               ]}
             />
@@ -92,7 +92,7 @@ export default function ContactPage() {
             events={{ start: "consultation_start", complete: "consultation_complete" }}
             consentText="I agree that Signal One may use these details to reply to me about this request."
             successTitle="Thanks. A Signal One representative will be in touch."
-            successBody="We reply by email or phone using the details you gave us. Nothing else happens until we have spoken."
+            successBody="We reply within one business day, by email or phone using the details you gave us. Nothing else happens until we have spoken."
           />
         </div>
       </div>

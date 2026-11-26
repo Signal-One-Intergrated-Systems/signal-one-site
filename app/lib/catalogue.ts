@@ -4,6 +4,7 @@ import sc780 from "../../public/images/hardware/hytera-sc780.png";
 import fmb920 from "../../public/images/hardware/teltonika-fmb920.webp";
 import fmc920 from "../../public/images/hardware/teltonika-fmc920.webp";
 import pnc360s from "../../public/images/hardware/hytera-pnc360s.webp";
+import e600 from "../../public/images/hardware/easytalk-e600.png";
 
 export type Availability = "in_stock" | "available_for_rental" | "available_to_order" | "by_quote";
 export const availabilityLabel: Record<Availability, string> = {
@@ -28,7 +29,7 @@ export type CatalogueProduct = {
    */
   availability?: Availability;
   /** Manufacturer specifications, copied only from the official page named in `source` for this exact model. */
-  specs?: { source: string; sourceUrl: string; items: ReadonlyArray<readonly [string, string]> };
+  specs?: { source: string; sourceUrl?: string; items: ReadonlyArray<readonly [string, string]> };
 };
 
 /**
@@ -41,6 +42,7 @@ export type CatalogueProduct = {
 export const productBounds = {
   pnc360s: "inset(5.3% 10.2% 5.3% 10.2%)",
   p30Lite: "inset(6.8% 34.3% 6.5% 31.7%)",
+  e600: "inset(5.9% 30.8% 5.9% 30.4%)",
 } as const;
 
 /** Rental catalogue shown on /radios-equipment, the home page and the PTT radio page. Named products only; no prices. */
@@ -83,7 +85,19 @@ export const catalogue: ReadonlyArray<{
           ["SIM", "One nano SIM"],
           ["Location", "GPS optional"],
         ] } },
-      { model: "E600 PoC LTE", type: "PoC LTE radio", detail: "By quote. Specification confirmed in your written quote.", role: "PoC over LTE for sites with 4G coverage." },
+      { model: "E600", manufacturer: "EasyTalk", type: "PoC radio, 4G LTE", detail: "Purchase or rental. Push-to-talk service, SIM and data are a separate monthly line.", role: "Push-to-talk over 4G for sites with LTE coverage.",
+        image: { src: e600, alt: "EasyTalk E600 push-to-talk over cellular radio, front view — manufacturer image", bounds: productBounds.e600 },
+        // EasyTalk E600 brochure and product specification (2024-03-01), supplied by the founder 2026-11-26.
+        // Only values both documents agree on, or that one states and the other leaves blank, are listed;
+        // the SOS key is marked "reserve" by the manufacturer, so it is not claimed.
+        specs: { source: "EasyTalk E600 brochure and product specification", items: [
+          ["Network", "4G LTE push-to-talk over cellular; no Wi-Fi or Bluetooth"],
+          ["Rugged", "IP68"],
+          ["Battery", "3,000 mAh, detachable"],
+          ["Weight", "166 g"],
+          ["SIM", "Dual micro SIM"],
+          ["Location", "GPS"],
+        ] } },
       { model: "PTT platform + SIM & data", type: "Service", detail: "Optional monthly service for supported radios. Or use your own SIMs.", role: "The talk groups, SIM and data behind the radios." },
     ],
     terms: "Purchase by quotation. Radio rental terms: 12, 24 or 36 months.",
@@ -116,7 +130,15 @@ export const catalogue: ReadonlyArray<{
     category: "Body cameras",
     id: "bodycams",
     lead: "Recorded evidence for patrols, access points and events, where a client contract asks for it.",
-    products: [{ model: "SC780", manufacturer: "Hytera", image: { src: sc780, alt: "Hytera SC780 body camera, front view — manufacturer image" }, type: "Body camera", detail: "Rental.", role: "Recorded evidence on patrol, at access points and at events." }],
+    products: [{ model: "SC780", manufacturer: "Hytera", image: { src: sc780, alt: "Hytera SC780 body camera, front view — manufacturer image" }, type: "Body camera", detail: "Rental.", role: "Recorded evidence on patrol, at access points and at events.",
+      // Hytera South Africa product page, read 2026-11-26.
+      specs: { source: "Hytera South Africa", sourceUrl: "https://hytera.co.za/products/sc780-smart-4g-body-camera", items: [
+        ["Rugged", "IP68; MIL-STD-810H; 1.5 m drop"],
+        ["Battery", "3,200 mAh; about 10 hours"],
+        ["Storage", "32 GB to 256 GB, by variant"],
+        ["Screen", "2.4-inch display; front and rear cameras"],
+        ["Weight", "180 g with battery"],
+      ] } }],
     terms: "Quoted per deployment.",
   },
 ];
@@ -129,7 +151,5 @@ export const catalogue: ReadonlyArray<{
  * page for either name on 2026-11-26 (its "Find a Product" page was returned for every slug tried).
  */
 export const pendingVariants: ReadonlyArray<{ model: string; manufacturer: string; blockedOn: string }> = [
-  { model: "P30 Lite Pro", manufacturer: "Hytera", blockedOn: "Exact model name and official datasheet; supply confirmation" },
-  { model: "P30G Pro", manufacturer: "Hytera", blockedOn: "Exact model name and official datasheet (GPS/Bluetooth variant?); supply confirmation" },
-  { model: "E600 PoC LTE", manufacturer: "Unconfirmed", blockedOn: "Manufacturer and exact variant; no image or specifications until verified (listed by name only)" },
+  { model: "P30G Pro", manufacturer: "Hytera", blockedOn: "Official datasheet and manufacturer photograph (no Hytera SA or global page found 2026-11-26)" },
 ];

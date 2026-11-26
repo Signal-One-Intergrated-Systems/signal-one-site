@@ -23,7 +23,7 @@ const andisiwe: FounderProfile = {
   publicEmail: "andisiwe@signalone.co.za",
   // Execution05: existing business sales recipient, qualification candidate only.
   introductionEmail: "sales@signalone.co.za",
-  whatsappPhone: "+27606335870",
+  whatsappPhone: "+27774844280",
   landlinePhone: "+27100231810",
   website: "https://signalone.co.za",
 };

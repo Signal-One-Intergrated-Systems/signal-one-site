@@ -34,7 +34,7 @@ const sections = [
   ],
   ["Access and security", "Access to operational systems is role-controlled. The platform includes authentication, permission controls and audit logging. We do not claim security certifications that have not been independently awarded."],
   ["Sharing", "Information may be processed by contracted infrastructure, communications, payment or service providers where needed to deliver the requested service. We do not publish private guard or customer records on the public website."],
-  ["Retention and rights", "Retention periods must follow the purpose of processing, contractual requirements and applicable South African law. Requests to access, correct or object to processing can be sent to sales@signalone.co.za until a dedicated privacy address is confirmed."],
+  ["Retention and rights", "An enquiry that does not lead to a customer relationship is erased 12 months after our last contact with you. A guard profile or job application that does not lead to work is erased 6 months after our last contact. Customer records are kept for as long as the contract and South African law require. To see, correct or delete your information, or to object to its use, email privacy@signalone.co.za."],
 ] as const;
 
 export default function PrivacyPage() {

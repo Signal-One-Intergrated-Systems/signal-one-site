@@ -38,7 +38,8 @@ test("trial calls to action say it is a request, never an instant free trial", a
   await page.goto("/get-started");
   const steps = page.getByRole("list", { name: "How a 1GUARD trial works" });
   await expect(steps).toContainText("Nothing is activated and nothing is charged");
-  await expect(steps).toContainText("confirmed in writing before your account is opened");
+  await expect(steps).toContainText("start when your first guard clocks in");
+  await expect(steps).toContainText("nothing is charged automatically");
 });
 
 test("homepage hero offers both current journeys and the header links to pricing", async ({ page }) => {
@@ -136,4 +137,29 @@ test("the four communications journeys are discoverable and open the right quote
   // Nothing in the offer is priced, called free, or claimed as financed.
   const text = (await page.locator("main").innerText()).toLowerCase();
   expect(text).not.toMatch(/\bfree\b|financ|twelve months connected|r\s?\d+[,.]?\d*\s*(per|\/)\s*(month|radio)/);
+});
+
+test("founder-approved commercial rules are stated: guard days, trial, reply time, retention, privacy address", async ({ page }) => {
+  await page.goto("/pricing");
+  await expect(page.locator("main")).toContainText("A guard day is used only when a guard clocks in and out");
+  await expect(page.locator("main")).toContainText("never expire while your account is active");
+  await page.goto("/contact");
+  await expect(page.locator("main")).toContainText("within one business day");
+  await page.goto("/privacy");
+  await expect(page.locator("main")).toContainText("erased 12 months after our last contact");
+  await expect(page.locator("main")).toContainText("privacy@signalone.co.za");
+  for (const route of ["/about", "/privacy", "/terms", "/contact"]) {
+    await page.goto(route);
+    expect(await page.content(), `${route} shows the registered company name`).not.toMatch(/Lancesat/i);
+  }
+});
+
+test("the EasyTalk E600 is listed with its manufacturer image and supplied specifications, no SOS claim", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/radios-equipment");
+  const e600 = page.locator("article").filter({ hasText: "EasyTalk" }).first();
+  await expect(e600.getByRole("img", { name: /EasyTalk E600/ })).toBeVisible();
+  await expect(e600).toContainText("IP68");
+  await expect(e600).toContainText("3,000 mAh");
+  await expect(e600).not.toContainText("SOS");
 });

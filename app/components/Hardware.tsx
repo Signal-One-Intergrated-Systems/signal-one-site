@@ -83,7 +83,7 @@ export function HardwareCard({
               ))}
             </dl>
             <p className="t-caption mt-2 text-ink-2">
-              Manufacturer specification: <a href={product.specs.sourceUrl} rel="noopener" className="link-inline">{product.specs.source}</a>. Your quote confirms the supplied variant.
+              Manufacturer specification: {product.specs.sourceUrl ? <a href={product.specs.sourceUrl} rel="noopener" className="link-inline">{product.specs.source}</a> : product.specs.source}. Your quote confirms the supplied variant.
             </p>
           </div>
         ) : null}

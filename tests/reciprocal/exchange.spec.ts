@@ -23,7 +23,7 @@ test('identity and form appear together; photo stays compact; grouped interests 
   await expect(page.getByRole('link',{name:'Save Contact',exact:true})).toHaveCount(0);
   await expectContacts(page,false);
   const initialHtml=await (await page.request.get('/connect/andisiwe')).text();
-  expect(initialHtml).not.toMatch(/andisiwe@signalone\.co\.za|606335870|010 023 1810|mailto:|wa\.me\//);
+  expect(initialHtml).not.toMatch(/andisiwe@signalone\.co\.za|606335870|774844280|010 023 1810|mailto:|wa\.me\//);
   const photo=await page.getByAltText('Black-and-white portrait of Andisiwe Satshwa').boundingBox();expect(photo!.width).toBeLessThanOrEqual(100);expect(photo!.height).toBeLessThanOrEqual(115);
   await expect(page.getByRole('checkbox',{name:/I acknowledge/})).not.toBeChecked();await expect(page.getByRole('checkbox',{name:/news and offers/})).not.toBeChecked();
   await expect(page.getByRole('dialog')).toHaveCount(0);await expect(page.getByText(/locked|unlock|padlock/i)).toHaveCount(0);

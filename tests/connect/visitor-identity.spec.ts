@@ -58,7 +58,7 @@ test("email WhatsApp and office telephone are actionable; CTA affordances read a
   await page.goto("/connect/andisiwe");
   const card = page.locator('section[aria-label="Andisiwe Satshwa digital business card"]');
   await expect(card.getByRole("link", { name: /andisiwe@signalone.co.za/i })).toHaveAttribute("href", "mailto:andisiwe@signalone.co.za");
-  await expect(card.getByRole("link", { name: /060 633 5870/ })).toHaveAttribute("href", "https://wa.me/27606335870");
+  await expect(card.getByRole("link", { name: /077 484 4280/ })).toHaveAttribute("href", "https://wa.me/27774844280");
   await expect(card.getByRole("link", { name: /010 023 1810/ })).toHaveAttribute("href", "tel:+27100231810");
 
 });
@@ -82,7 +82,7 @@ for (const width of [320, 360, 390]) {
 test("WhatsApp label and phone number never overlap on standard mobile", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/connect/andisiwe");
-  const row = page.locator('section[aria-label="Andisiwe Satshwa digital business card"] a[href="https://wa.me/27606335870"]');
+  const row = page.locator('section[aria-label="Andisiwe Satshwa digital business card"] a[href="https://wa.me/27774844280"]');
   const label = await row.locator("span").nth(0).boundingBox();
   const value = await row.locator("span").nth(1).boundingBox();
   expect(label).not.toBeNull();
