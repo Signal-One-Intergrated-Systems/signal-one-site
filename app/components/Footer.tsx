@@ -1,3 +1,5 @@
+import EmailLink from "./EmailLink";
+import { contact } from "../lib/site";
 import Link from "next/link";
 import SignalOneLogo from "./brand/SignalOneLogo";
 import ProductSignature from "./brand/ProductSignature";
@@ -11,7 +13,7 @@ const groups = [
     ["/ptt-radio-rental","PTT radio rental"],["/pricing","Pricing"]
   ] },
   { title: "Start & join", links: [
-    ["/get-started","Get 14 Day Free Trial"],["/contact","Talk to Signal One"],
+    ["/get-started","Request a 14-day trial"],["/contact","Talk to Signal One"],
     ["/guards","For security officers"],["/guards/join","Create a guard profile"],
     ["/join/sales","Careers"]
   ] },
@@ -31,7 +33,11 @@ export default function Footer() {
           <div className="s1-footer-brand">
             <Link href="/" aria-label="Signal One home" className="s1-footer-logo"><SignalOneLogo size={24} tone="dark" descriptorMin={11} /></Link>
             <p>Intelligent operating systems and connected technology built for the businesses that keep the world moving.</p>
-            <a href="mailto:sales@signalone.co.za" className="link-inline font-semibold text-signal-300">sales@signalone.co.za</a>
+            <p className="s1-footer-contact">
+              Sales <EmailLink email={contact.email} className="link-inline font-semibold text-signal-300" /><br />
+              Support <EmailLink email={contact.supportEmail} className="link-inline font-semibold text-signal-300" /><br />
+              WhatsApp <a href={contact.whatsappHref} rel="noopener" className="link-inline font-semibold text-signal-300">{contact.whatsappDisplay}</a>
+            </p>
           </div>
           <nav aria-label="Footer links" className="s1-footer-link-grid">
             {groups.map(group => (

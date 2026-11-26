@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import LegalPage from "../../components/LegalPage";
+import { pageMetadata } from "../../lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "POPIA and Data Handling for Security Software",
   description:
     "How Signal One approaches POPIA and data handling for public enquiries, guard profiles and operational product data in security guard management software.",
   alternates: { canonical: "/popia" },
-};
+});
 
 const sections = [
   ["Purpose limitation", "Collect information for a defined operational, commercial, onboarding or support purpose."],

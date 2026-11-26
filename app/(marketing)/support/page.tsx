@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
 import { ButtonLink, Check, FactPanel, PageHero } from "../../components/ui";
 import { contact } from "../../lib/site";
+import { pageMetadata } from "../../lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Customer Support",
   description:
     "Support for Signal One customers: radio and connectivity faults, lost or damaged equipment, 1GUARD access, billing and returns. How to reach us and what to include.",
   alternates: { canonical: "/support" },
-};
+});
 
-const subject = (topic: string) => "mailto:" + contact.email + "?subject=" + encodeURIComponent("Support: " + topic);
+const subject = (topic: string) => "mailto:" + contact.supportEmail + "?subject=" + encodeURIComponent("Support: " + topic);
 
 const topics = [
   ["Radio or connectivity fault", "A radio will not connect, talk groups are wrong, or SIM data has stopped. Tell us the radio model, serial or SIM number and the site.", "Radio or connectivity fault"],
@@ -44,7 +45,8 @@ export default function SupportPage() {
           <FactPanel
             title="How to reach us"
             facts={[
-              ["Email", contact.email + ". Start the subject with \"Support:\" and your company name"],
+              ["Email", contact.supportEmail + ". Start the subject with \"Support:\" and your company name"],
+              ["New enquiries", contact.email],
               ["WhatsApp", contact.whatsappDisplay],
               ["Hours and response times", "As set out in your customer agreement"],
               ["Emergencies", "Use your own control-room procedure and emergency services first"],

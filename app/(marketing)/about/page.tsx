@@ -3,13 +3,14 @@ import { ButtonLink, Check, FactPanel, PageHero, Status } from "../../components
 import { contact } from "../../lib/site";
 import { guardDayPricePhrase } from "../../lib/pricing";
 import { guardIsLive, guardOnboardingLine, guardStatusLabel } from "../../lib/guardStatus";
+import { pageMetadata } from "../../lib/seo";
 
-export const metadata: Metadata = {
-  title: "About Signal One",
+export const metadata: Metadata = pageMetadata({
+  title: "About Us: Who You Are Dealing With",
   description:
     "Who Signal One is: push-to-talk radios, tracking and body cameras for field teams, and 1GUARD for South African security companies. What is available today and what is still being built.",
   alternates: { canonical: "/about" },
-};
+});
 
 // Status words follow the site's truth labels (docs/PRODUCT_BRAND_ARCHITECTURE.md).
 const offers = [
@@ -75,7 +76,7 @@ export default function AboutPage() {
               ["Trading as", contact.tradingEntity + ", South Africa"],
               ["Sells and rents", "Push-to-talk radios, connectivity, vehicle tracking and body cameras, by written quote"],
               ["Software", "1GUARD for security companies, " + guardDayPricePhrase + " excl. VAT" + (guardIsLive ? "" : " (pilot)")],
-              ["Contact", contact.email + " · WhatsApp " + contact.whatsappDisplay],
+              ["Contact", "Sales " + contact.email + " · Support " + contact.supportEmail + " · WhatsApp " + contact.whatsappDisplay],
             ]}
           />
         }
@@ -135,7 +136,7 @@ export default function AboutPage() {
               <span className="t-h4 mt-1 block text-signal-300">{contact.whatsappDisplay}</span>
             </a>
             <p className="t-small text-text-inv-2 sm:col-span-2">
-              Already a customer? <a href="/support" className="link-inline font-semibold text-signal-300">Get support</a>.
+              Already a customer? Email <a href={"mailto:" + contact.supportEmail} className="link-inline font-semibold text-signal-300">{contact.supportEmail}</a> or see <a href="/support" className="link-inline font-semibold text-signal-300">Support</a>.
               Looking for work as a security officer? <a href="/guards" className="link-inline font-semibold text-signal-300">Start here</a>.
             </p>
           </div>

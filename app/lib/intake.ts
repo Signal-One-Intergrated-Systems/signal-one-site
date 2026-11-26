@@ -1,5 +1,5 @@
 import { readAttribution } from "./attribution";
-import { trackLeadConversion } from "./analytics";
+import { leadJourney, trackLeadConversion } from "./analytics";
 import { salesEmail } from "./site";
 
 export type IntakeKind = "client" | "guard" | "sales";
@@ -126,7 +126,7 @@ export async function submitIntake(
     const body = (await response.json().catch(() => ({}))) as { message?: string; receipt?: IntakeReceipt };
     // Success needs the receiver's receipt for THIS submission, not merely a 200.
     if (response.ok && body.receipt && typeof body.receipt.reference === "string" && body.receipt.idempotencyKey === idempotencyKey) {
-      if (kind === "client" && !body.receipt.duplicate) trackLeadConversion(body.receipt.reference, data.intent);
+      if (kind === "client" && !body.receipt.duplicate) trackLeadConversion(body.receipt.reference, data.intent, leadJourney(data));
       return { ok: true, message: body.message || "", receipt: body.receipt };
     }
     if (response.ok) {

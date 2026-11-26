@@ -6,13 +6,14 @@ import { Arrow, ButtonLink, Kicker, Status } from "../../components/ui";
 import { guardOnboardingLine } from "../../lib/guardStatus";
 import { num, rand } from "../../lib/format";
 import { exVat, guardDayPrice, guardDayPricePhrase, minimumPhrase } from "../../lib/pricing";
+import { pageMetadata } from "../../lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "1GUARD Pricing: " + guardDayPrice + " per Guard per Day",
   description:
     "1GUARD is " + guardDayPricePhrase + ", excluding VAT. No tiers or packages. Minimum " + minimumPhrase + "; unused days carry over. Calculate your cost.",
   alternates: { canonical: "/pricing" },
-};
+});
 
 const examples = [
   { guards: 10, days: 30 },

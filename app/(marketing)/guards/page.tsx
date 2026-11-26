@@ -3,13 +3,14 @@ import Link from "next/link";
 import { Check, SplitHero } from "../../components/ui";
 import { photos } from "../../lib/photos";
 import { guardApp, guardAppAvailable } from "../../lib/acquisition";
+import { pageMetadata } from "../../lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Security Officer App: Clock In, Patrol and SOS",
   description:
     "How the 1GUARD app works on shift for security officers: clock in, QR and NFC patrols, occurrence book and SOS. What PSiRA details we ask for and why.",
   alternates: { canonical: "/guards" },
-};
+});
 
 const onShift = [
   ["Clock in and out", "At your post, on your own phone or the site's authorised Central Device."],

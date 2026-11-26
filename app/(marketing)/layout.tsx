@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     "vehicle tracking for security companies",
   ],
   applicationName: brand.master,
-  alternates: { canonical: "/" },
+  // No site-wide canonical: each page declares its own, and the 404 must not claim the homepage (DR-023).
   openGraph: {
     title: "Signal One: 1GUARD, 1Service and Integrated Systems",
     description:
@@ -46,8 +46,6 @@ export const metadata: Metadata = {
     type: "website",
     siteName: brand.master,
     locale: "en_ZA",
-    url: "/",
-    
   },
   twitter: {
     card: "summary_large_image",

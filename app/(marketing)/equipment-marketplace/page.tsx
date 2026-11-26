@@ -3,12 +3,13 @@ import Link from "next/link";
 import { HardwareShowcase } from "../../components/Hardware";
 import { catalogue } from "../../lib/catalogue";
 import { ButtonLink, Kicker } from "../../components/ui";
+import { pageMetadata } from "../../lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
  title: "Security Equipment Marketplace | Buy or Rent",
  description: "Browse security equipment categories for purchase or rental enquiries: PTT radios, body cameras, vehicle tracking and related field technology. Quotes subject to availability.",
  alternates: { canonical: "/equipment-marketplace" },
-};
+});
 const categories = [
  ["PTT radios and communications", "PoC and radio systems for deployed teams.", "/radios-equipment?category=radio#quote"],
  ["Body cameras", "Recording hardware for field operations.", "/radios-equipment?category=bodycam#quote"],

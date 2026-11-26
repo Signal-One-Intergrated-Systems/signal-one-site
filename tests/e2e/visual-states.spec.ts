@@ -45,8 +45,8 @@ for (const width of [375, 768, 1440]) {
     await fs.mkdir(folder, { recursive: true });
     await page.goto("/radios-equipment#quote");
     await hydrated(page);
-    for (const choice of ["Buy radios", "Rent radios", "Compare buying and renting"]) {
-      await page.getByLabel("Buy or rent?").selectOption(choice);
+    for (const choice of ["Buy radios", "Rent radios", "Connect radios I already own", "Help me choose"]) {
+      await page.getByLabel("What do you need?").selectOption(choice);
       await page.locator("main form").screenshot({ path: path.join(folder, `equipment-${choice.replaceAll(" ", "-")}.png`), animations: "disabled", style: "header { visibility: hidden !important; }" });
     }
     for (const category of ["Tracking", "Body cameras"]) {
