@@ -97,10 +97,10 @@ export default function IntakeForm({
   if (state === "done") {
     return (
       <div role="status" className="card p-6 sm:p-8">
-        <p className="t-kicker text-live-inv">Received</p>
+        <p className="t-kicker text-live">Received</p>
         <h3 className="t-h3 mt-3">{successTitle}</h3>
         <ReceiptReference reference={reference} />
-        <p className="t-body mt-3 text-text-inv-2">{successBody}</p>
+        <p className="t-body mt-3 text-ink-2">{successBody}</p>
       </div>
     );
   }
@@ -116,7 +116,7 @@ export default function IntakeForm({
             <div key={field.name} className={"field " + (wide ? "sm:col-span-2" : "")}>
               <label htmlFor={fieldId} className="field-label">
                 {field.label}
-                {field.required ? null : <span className="font-normal text-text-inv-2"> (optional)</span>}
+                {field.required ? null : <span className="font-normal text-ink-2"> (optional)</span>}
               </label>
               {field.type === "textarea" ? (
                 <textarea

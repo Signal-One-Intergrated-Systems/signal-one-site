@@ -42,10 +42,10 @@ export default function SecurityPlatformPage() {
           <GuardStatus tone="dark" />
         </div>
         <h1 className="t-hero mt-5">Run your security business. As one.</h1>
-        <p className="t-lead measure mt-6 text-text-inv-2">
+        <p className="t-lead measure mt-6 text-ink-2">
           One operating system for the security business you are building. Connect your customers, workforce and service delivery. Today’s documented operational capabilities include sites, shifts, patrols, incidents, SOS and client proof of service.
         </p>
-        {guardOnboardingLine ? <p className="t-small mt-4 font-semibold text-text-inv">{guardOnboardingLine}</p> : null}
+        {guardOnboardingLine ? <p className="t-small mt-4 font-semibold text-ink">{guardOnboardingLine}</p> : null}
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <ButtonLink href="/contact" size="lg">
             Talk to Signal One
@@ -54,38 +54,38 @@ export default function SecurityPlatformPage() {
             {guardDayPricePhrase}
           </ButtonLink>
         </div>
-        <p className="t-caption mt-6 text-text-inv-2">Trial access is subject to company registration and activation confirmation. No trial begins when you submit a request.</p>
-        <p className="t-caption mt-3 text-text-inv-2">{illustrativeCaption}</p>
+        <p className="t-caption mt-6 text-ink-2">Trial access is subject to company registration and activation confirmation. No trial begins when you submit a request.</p>
+        <p className="t-caption mt-3 text-ink-2">{illustrativeCaption}</p>
       </SplitHero>
 
       <section className="surface-light section" aria-labelledby="guard-business-os-title">
         <div className="wrap">
           <Kicker>Built for the security business owner</Kicker>
           <h2 id="guard-business-os-title" className="t-h2 mt-4">More than guarding operations. A business operating system.</h2>
-          <p className="t-lead mt-5 max-w-3xl text-text-inv-2">Your business connects customers, contracts, people, service delivery, equipment and financial decisions. 1GUARD brings the security-specific work into one environment as the wider business lifecycle is integrated.</p>
+          <p className="t-lead mt-5 max-w-3xl text-ink-2">Your business connects customers, contracts, people, service delivery, equipment and financial decisions. 1GUARD brings the security-specific work into one environment as the wider business lifecycle is integrated.</p>
           <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {[
               ["Win and retain customers", "CRM, proposals and contracts are part of the intended connected business lifecycle."],
               ["Build your team", "Recruitment, personnel records, scheduling and site deployment, with industry-specific controls."],
               ["Deliver and prove the service", "Current focus: attendance, patrols, incidents, SOS and client reporting."],
               ["Understand the business", "Connected equipment, billing, financial visibility and intelligence as integration milestones."],
-            ].map(([title, detail]) => <article key={title} className="card p-6"><h3 className="t-h4">{title}</h3><p className="t-body mt-3 text-text-inv-2">{detail}</p></article>)}
+            ].map(([title, detail]) => <article key={title} className="card p-6"><h3 className="t-h4">{title}</h3><p className="t-body mt-3 text-ink-2">{detail}</p></article>)}
           </div>
-          <p className="t-small mt-5 text-text-inv-2">Business lifecycle modules described as intended or integration milestones are not represented as live today. Available functions depend on your activation and release stage.</p>
+          <p className="t-small mt-5 text-ink-2">Business lifecycle modules described as intended or integration milestones are not represented as live today. Available functions depend on your activation and release stage.</p>
         </div>
       </section>
 
-      {/* Coverage */}
-      <section className="surface-light section">
+      {/* Coverage: the page's one graphite chapter (the control room), DESIGN_SYSTEM §1. */}
+      <section className="surface-light section tone-graphite">
         <div className="wrap grid gap-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-14">
           <div>
             <Kicker>Coverage and supervision</Kicker>
             <h2 className="t-h2 mt-4">Know which posts are short before the client does.</h2>
-            <p className="t-body mt-5 text-text-inv-2">The supervisor&rsquo;s day in one place: your sites, the roster against each post, shortfalls, and every SOS or late patrol waiting for action.</p>
+            <p className="t-body mt-5 text-ink-2">The supervisor&rsquo;s day in one place: your sites, the roster against each post, shortfalls, and every SOS or late patrol waiting for action.</p>
             <ul className="m-0 mt-6 grid list-none gap-3 p-0">
               {["Sites, posts and shifts", "Roster or map view", "Shortfalls per post", "Guards on duty now"].map((item) => (
                 <li key={item} className="t-body flex gap-3">
-                  <Check className="mt-1 text-signal-300" />
+                  <Check className="mt-1 text-accent" />
                   {item}
                 </li>
               ))}
@@ -93,11 +93,19 @@ export default function SecurityPlatformPage() {
           </div>
           <div className="grid content-start gap-6">
             <h3 className="t-h3">The control room sees every SOS in order.</h3>
-            <p className="t-body text-text-inv-2">{control.body}</p>
-            <p className="t-body text-text-inv-2">
+            <p className="t-body text-ink-2">{control.body}</p>
+            <p className="t-body text-ink-2">
               Supervisors see each post&rsquo;s roster and any shortfall before the shift starts, and the map shows the last known
               position of each guard with its age.
             </p>
+            <Photo
+              src={photos.operationsReview.src}
+              alt={photos.operationsReview.alt}
+              sizes="(min-width: 1320px) 760px, (min-width: 1024px) 60vw, 100vw"
+              className="mt-2 w-full"
+              aspect="aspect-video"
+              caption={illustrativeCaption}
+            />
           </div>
         </div>
       </section>
@@ -110,7 +118,7 @@ export default function SecurityPlatformPage() {
               <Kicker>On site</Kicker>
               <h2 className="t-h2 mt-4">What the guard does, on record.</h2>
             </div>
-            <p className="t-body text-text-inv-2">
+            <p className="t-body text-ink-2">
               Guards use the 1GUARD app on their own phone or an authorised Central Device.
             </p>
           </div>
@@ -126,9 +134,9 @@ export default function SecurityPlatformPage() {
             />
             <ul className="m-0 grid list-none p-0">
               {fieldCapabilities.map(([title, body]) => (
-                <li key={title} className="border-t border-line-dark py-5">
+                <li key={title} className="border-t border-hairline py-5">
                   <h3 className="t-h4">{title}</h3>
-                  <p className="t-small mt-1 text-text-inv-2">{body}</p>
+                  <p className="t-small mt-1 text-ink-2">{body}</p>
                 </li>
               ))}
             </ul>
@@ -150,9 +158,9 @@ export default function SecurityPlatformPage() {
               ["Grade below what the post needs", "Can be overridden by an authorised user, who must give a reason. The override is logged."],
               ["What Signal One does not do", "Check registrations with PSiRA or run background checks. Records are as entered by your company."],
             ].map(([term, detail]) => (
-              <div key={term} className="grid gap-1 border-t border-line-dark py-4 sm:grid-cols-[14rem_1fr] sm:gap-6">
+              <div key={term} className="grid gap-1 border-t border-hairline py-4 sm:grid-cols-[14rem_1fr] sm:gap-6">
                 <dt className="font-semibold">{term}</dt>
-                <dd className="t-body m-0 text-text-inv-2">{detail}</dd>
+                <dd className="t-body m-0 text-ink-2">{detail}</dd>
               </div>
             ))}
           </dl>
@@ -169,13 +177,13 @@ export default function SecurityPlatformPage() {
                 <GuardStatus tone="dark" />
               </div>
               <h2 className="t-h2 mt-4">Show the client what was delivered.</h2>
-              <p className="t-body mt-5 text-text-inv-2">{proof.body}</p>
-              <p className="t-body mt-4 text-text-inv-2">
+              <p className="t-body mt-5 text-ink-2">{proof.body}</p>
+              <p className="t-body mt-4 text-ink-2">
                 Your clients get their own sign-in. They see only their authorised sites: service coverage, patrol and
                 checkpoint evidence, incidents, and proof-of-service reports that client users can generate themselves.
                 They never see the rest of your operation.
               </p>
-              <p className="t-small mt-6 border-t border-line-dark pt-4 text-text-inv-2">
+              <p className="t-small mt-6 border-t border-hairline pt-4 text-ink-2">
                 <Status kind="soon" tone="dark">
                   Coming soon
                 </Status>{" "}
@@ -211,7 +219,7 @@ export default function SecurityPlatformPage() {
           <div className="order-1 lg:order-2">
             <Kicker>People and access</Kicker>
             <h2 className="t-h2 mt-4">Supervisors see their sites. Nobody sees more than they should.</h2>
-            <p className="t-body mt-5 text-text-inv-2">{people.body}</p>
+            <p className="t-body mt-5 text-ink-2">{people.body}</p>
           </div>
         </div>
       </section>
@@ -220,7 +228,7 @@ export default function SecurityPlatformPage() {
         <div className="wrap flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-2xl">
             <h2 className="t-h2">See it on your own operation.</h2>
-            <p className="t-lead mt-4 text-text-inv-2">
+            <p className="t-lead mt-4 text-ink-2">
               Tell us your sites and guard numbers. We walk you through the platform using your setup, not a generic demo.
             </p>
           </div>

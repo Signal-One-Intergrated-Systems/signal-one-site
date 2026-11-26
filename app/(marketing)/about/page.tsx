@@ -87,13 +87,13 @@ export default function AboutPage() {
           <h2 id="about-offers" className="t-h2">What we offer, and what is ready</h2>
           <ul className="m-0 grid list-none gap-x-12 p-0 md:grid-cols-2">
             {offers.map((offer) => (
-              <li key={offer.name} className="border-t border-line-dark py-6">
+              <li key={offer.name} className="border-t border-hairline py-6">
                 <div className="flex flex-wrap items-center gap-3">
                   <h3 className="t-h4">{offer.name}</h3>
                   <Status kind={offer.status === "By quote" ? "quote" : offer.status === "Live" ? "live" : offer.status === "Pilot" ? "pilot" : "mvp"} tone="light">{offer.status}</Status>
                 </div>
-                <p className="t-small mt-2 text-text-inv-2">{offer.detail}</p>
-                <a href={offer.href} className="link-arrow mt-3 inline-flex text-signal-300" aria-label={"Learn more about " + offer.name}>Learn more →</a>
+                <p className="t-small mt-2 text-ink-2">{offer.detail}</p>
+                <a href={offer.href} className="link-arrow mt-3 inline-flex text-accent" aria-label={"Learn more about " + offer.name}>Learn more →</a>
               </li>
             ))}
           </ul>
@@ -104,17 +104,17 @@ export default function AboutPage() {
         <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
           <h2 id="about-company" className="t-h2">Who you are dealing with</h2>
           <div className="grid gap-6">
-            <p className="t-lead measure text-text-inv-2">
+            <p className="t-lead measure text-ink-2">
               Signal One Integrated Systems is a South African business. If your procurement process needs company
               registration, VAT or banking details, ask us and we will send them to you directly.
             </p>
             <ul className="m-0 grid list-none gap-4 p-0">
               {principles.map(([title, body]) => (
                 <li key={title} className="flex gap-3">
-                  <Check className="mt-1 shrink-0 text-signal-300" />
+                  <Check className="mt-1 shrink-0 text-accent" />
                   <div>
                     <p className="t-h4">{title}</p>
-                    <p className="t-small mt-1 text-text-inv-2">{body}</p>
+                    <p className="t-small mt-1 text-ink-2">{body}</p>
                   </div>
                 </li>
               ))}
@@ -128,16 +128,16 @@ export default function AboutPage() {
           <h2 id="about-contact" className="t-h2">Contact</h2>
           <div className="grid gap-4 sm:grid-cols-2">
             <a href={"mailto:" + contact.email} className="card p-6">
-              <span className="t-small text-text-inv-2">Email</span>
-              <span className="t-h4 mt-1 block text-signal-300">{contact.email}</span>
+              <span className="t-small text-ink-2">Email</span>
+              <span className="t-h4 mt-1 block text-accent">{contact.email}</span>
             </a>
             <a href={contact.whatsappHref} className="card p-6" rel="noopener">
-              <span className="t-small text-text-inv-2">WhatsApp</span>
-              <span className="t-h4 mt-1 block text-signal-300">{contact.whatsappDisplay}</span>
+              <span className="t-small text-ink-2">WhatsApp</span>
+              <span className="t-h4 mt-1 block text-accent">{contact.whatsappDisplay}</span>
             </a>
-            <p className="t-small text-text-inv-2 sm:col-span-2">
-              Already a customer? Email <a href={"mailto:" + contact.supportEmail} className="link-inline font-semibold text-signal-300">{contact.supportEmail}</a> or see <a href="/support" className="link-inline font-semibold text-signal-300">Support</a>.
-              Looking for work as a security officer? <a href="/guards" className="link-inline font-semibold text-signal-300">Start here</a>.
+            <p className="t-small text-ink-2 sm:col-span-2">
+              Already a customer? Email <a href={"mailto:" + contact.supportEmail} className="link-inline font-semibold text-accent">{contact.supportEmail}</a> or see <a href="/support" className="link-inline font-semibold text-accent">Support</a>.
+              Looking for work as a security officer? <a href="/guards" className="link-inline font-semibold text-accent">Start here</a>.
             </p>
           </div>
         </div>

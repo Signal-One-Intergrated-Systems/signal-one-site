@@ -8,7 +8,7 @@ import { Consent, JMulti, JRadio, JSelect, JText, JTextarea, multiTarget, Review
 import { validateBeforeSubmit } from "../../lib/formValidation";
 import { useJourney } from "./useJourney";
 
-const ACCENT = "text-signal-300";
+const ACCENT = "text-accent";
 
 const steps = [
   { id: "role", label: "Role" },
@@ -68,8 +68,8 @@ export default function SalesApplication({ roleCount }: { roleCount: number | nu
 
   if (j.status === "done") {
     return (
-      <div role="status" className="rounded-card bg-raised p-6 ring-1 ring-line-dark sm:p-10">
-        <p className="t-kicker text-signal-300">Application status</p>
+      <div role="status" className="rounded-card bg-surface p-6 ring-1 ring-hairline sm:p-10">
+        <p className="t-kicker text-accent">Application status</p>
         <h3 className="t-h2 mt-3">Thank you. Your application is in.</h3>
         <ReceiptReference reference={j.reference} />
         <ol className="m-0 mt-8 list-none p-0">
@@ -79,7 +79,7 @@ export default function SalesApplication({ roleCount }: { roleCount: number | nu
                 aria-hidden="true"
                 className={
                   "mt-1 grid h-6 w-6 place-items-center rounded-full border-2 " +
-                  (index === 0 ? "border-signal bg-signal" : "border-line-dark bg-raised")
+                  (index === 0 ? "border-signal bg-signal" : "border-hairline bg-surface")
                 }
               />
               <div>
@@ -87,12 +87,12 @@ export default function SalesApplication({ roleCount }: { roleCount: number | nu
                   {stage}
                   {index === 0 ? <span className="sr-only"> (current stage)</span> : null}
                 </p>
-                <p className="t-small text-text-inv-2">{note}</p>
+                <p className="t-small text-ink-2">{note}</p>
               </div>
             </li>
           ))}
         </ol>
-        <p className="t-small mt-6 border-t border-line-dark pt-4 text-text-inv-2">
+        <p className="t-small mt-6 border-t border-hairline pt-4 text-ink-2">
           There is no online status tracker yet. We will contact you by email at each stage.
         </p>
       </div>
@@ -100,9 +100,9 @@ export default function SalesApplication({ roleCount }: { roleCount: number | nu
   }
 
   return (
-    <div className="world-careers rounded-card bg-raised p-5 ring-1 ring-line-dark sm:p-8">
+    <div className="world-careers rounded-card bg-surface p-5 ring-1 ring-hairline sm:p-8">
       <div className="flex flex-wrap items-baseline justify-end gap-2">
-        <p className="t-small text-text-inv-2" aria-live="polite">
+        <p className="t-small text-ink-2" aria-live="polite">
           {j.hydrated ? "Your answers are saved in this browser" : ""}
         </p>
       </div>
@@ -110,7 +110,7 @@ export default function SalesApplication({ roleCount }: { roleCount: number | nu
         <Stepper steps={steps.map((step) => step.label)} index={j.stepIndex} label="Application steps" />
       </div>
 
-      <form onSubmit={onContinue} noValidate className="mt-8 border-t border-line-dark pt-8">
+      <form onSubmit={onContinue} noValidate className="mt-8 border-t border-hairline pt-8">
         <div ref={headingRef} tabIndex={-1} key={current.id} className="animate-enter grid gap-6 outline-none">
           {current.id === "role" ? (
             <>
@@ -182,9 +182,9 @@ export default function SalesApplication({ roleCount }: { roleCount: number | nu
           {current.id === "cv" ? (
             <>
               <h3 className="t-h3">Your CV</h3>
-              <div className="rounded-card border border-signal-400/40 bg-raised p-5">
+              <div className="rounded-card border border-signal-400/40 bg-surface p-5">
                 <p className="font-semibold">You do not need to upload anything now.</p>
-                <p className="t-small mt-1 text-text-inv-2">
+                <p className="t-small mt-1 text-ink-2">
                   If you are shortlisted, we will email you and ask for your CV. That keeps your documents out of public
                   web forms.
                 </p>
@@ -229,7 +229,7 @@ export default function SalesApplication({ roleCount }: { roleCount: number | nu
           {current.id === "interview" ? (
             <>
               <h3 className="t-h3">Interview preferences</h3>
-              <p className="t-body text-text-inv-2">
+              <p className="t-body text-ink-2">
                 We cannot book a slot online yet. Tell us what suits you, and we will email you specific times if you are
                 shortlisted.
               </p>

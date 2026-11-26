@@ -239,7 +239,7 @@ test("AUDW-05/06 an empty quote lists natural sentences, including the consent b
   expect(text).not.toMatch(/\?\./);
   expect(text).not.toMatch(/\bsim\b|\bptt\b/); // acronyms keep their capitals
   for (const message of [
-    "Choose whether to buy or rent.",
+    "Choose what you need.",
     "Enter how many radios you need.",
     "Choose what you need for SIM, data and PTT.",
     "Enter where the radios will be used.",

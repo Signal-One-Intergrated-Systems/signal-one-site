@@ -31,7 +31,7 @@ export default function ConsentFields({
           required
           data-error="Tick the consent box to send your details."
           checked={consent} onChange={(event) => onConsent(event.target.checked)} />
-        <span className="text-text-inv-2">
+        <span className="text-ink-2">
           {children}{" "}
           <Link href="/privacy" className="underline underline-offset-2">Privacy notice</Link>
           {" · "}
@@ -40,7 +40,7 @@ export default function ConsentFields({
       </label>
       <label className="check mt-3">
         <input type="checkbox" name="consent-marketing" checked={marketing} onChange={(event) => onMarketing(event.target.checked)} />
-        <span className="text-text-inv-2">
+        <span className="text-ink-2">
           Optional: Signal One may also send me product news and offers. I can unsubscribe at any time.
         </span>
       </label>

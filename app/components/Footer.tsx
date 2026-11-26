@@ -34,9 +34,9 @@ export default function Footer() {
             <Link href="/" aria-label="Signal One home" className="s1-footer-logo"><SignalOneLogo size={24} tone="dark" descriptorMin={11} /></Link>
             <p>Intelligent operating systems and connected technology built for the businesses that keep the world moving.</p>
             <p className="s1-footer-contact">
-              Sales <EmailLink email={contact.email} className="link-inline font-semibold text-signal-300" /><br />
-              Support <EmailLink email={contact.supportEmail} className="link-inline font-semibold text-signal-300" /><br />
-              WhatsApp <a href={contact.whatsappHref} rel="noopener" className="link-inline font-semibold text-signal-300">{contact.whatsappDisplay}</a>
+              Sales <EmailLink email={contact.email} className="link-inline font-semibold text-accent" /><br />
+              Support <EmailLink email={contact.supportEmail} className="link-inline font-semibold text-accent" /><br />
+              WhatsApp <a href={contact.whatsappHref} rel="noopener" className="link-inline font-semibold text-accent">{contact.whatsappDisplay}</a>
             </p>
           </div>
           <nav aria-label="Footer links" className="s1-footer-link-grid">

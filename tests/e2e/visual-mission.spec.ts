@@ -181,7 +181,8 @@ test("marketing introductions use relevant people or exact manufacturer products
   const prominentImages: Record<string, string> = {
     "/": "approved-full-scene-guard-chef-2026.png",
     "/solutions/security": "security-site-planning",
-    "/service": "service-restaurant-operations.jpg",
+    // Light-first bright package (founder, 2026-11-26): the /service hero uses 01-restaurant-service.
+    "/service": "01-restaurant-service",
     "/equipment-marketplace": "hytera-pnc360s",
     "/guard-marketplace": "hire-security.webp",
     // VA-16 (2026-11-25): officer-, sales- and attendance-led scenes replaced office-meeting and site-planning reuse.
@@ -681,10 +682,12 @@ test("homepage imagery is focused, with sector context and quiet product surface
     expect(srcs).toHaveLength(3);
     expect(new Set(srcs).size, "Marketplace images have distinct purposes").toBe(3);
     expect(srcs.some(src => src.includes("hire-security.webp"))).toBe(true);
-    expect(srcs.some(src => src.includes("restaurant-staff-briefing.webp"))).toBe(true);
+    // Light-first bright package (founder, 2026-11-26): the 1Service staffing card uses the hospitality welcome scene.
+    expect(srcs.some(src => src.includes("07-hospitality-welcome.webp"))).toBe(true);
     expect(srcs.some(src => src.includes("teltonika-fmc920.webp"))).toBe(true);
     const sections=[
-      ["#solutions","business-park.webp"],
+      // Light-first (2026-11-26): the business introduction sits on the people-free bright architecture accent.
+      ["#solutions","06-bright-architecture.webp"],
       ["#guard",null],
       ["#service","restaurant-dining.webp"],
       [".so-ecosystem-section",null],

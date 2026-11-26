@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { HardwareShowcase } from "../../components/Hardware";
 import LandingPage from "../../components/LandingPage";
 import { ButtonLink, Status } from "../../components/ui";
@@ -35,13 +36,13 @@ export default function PttRadioRentalPage() {
       aside={
         <div className="grid gap-5">
           <HardwareShowcase products={catalogue[0].products.slice(0, 2)} />
-          <ul className="m-0 grid list-none gap-px overflow-hidden rounded-card border border-line-dark bg-line-dark p-0">
+          <ul className="m-0 grid list-none gap-px overflow-hidden rounded-card border border-hairline bg-hairline p-0">
           {radios.products.map((product) => (
-            <li key={product.model} className="flex items-start justify-between gap-4 bg-raised p-5 sm:p-6">
+            <li key={product.model} className="flex items-start justify-between gap-4 bg-surface p-5 sm:p-6">
               <div>
-                <p className="t-small font-semibold text-signal-300">{product.type}</p>
+                <p className="t-small font-semibold text-accent">{product.type}</p>
                 <p className="t-h3 mt-1">{product.model}</p>
-                <p className="t-small mt-2 text-text-inv-2">{product.detail}</p>
+                <p className="t-small mt-2 text-ink-2">{product.detail}</p>
               </div>
               <Status kind="quote" tone="dark">
                 By quote
@@ -60,6 +61,16 @@ export default function PttRadioRentalPage() {
         ["Confirmed in your written quote", "Price, availability and final specification, plus accessories (chargers, earpieces, clips), delivery, any deposit, maintenance, damage, loss and replacement, and early termination. We do not publish prices, stock or delivery dates, and nothing here is included unless your quote says so."],
       ]}
       stepsTitle="How the quote works"
+      // Supporting editorial panel (founder bright package, 05): an illustrative scene, never stock or inventory evidence.
+      stepsVisual={
+        <figure className="m-0">
+          <div className="media-frame relative aspect-video">
+            <Image src="/images/bright/05-radio-rental-workflow.webp" alt="Illustrative team preparing communications equipment for deployment" fill
+              sizes="(min-width:1024px) 34vw, 92vw" className="object-cover" loading="lazy" />
+          </div>
+          <figcaption className="photo-caption mt-3">Illustrative scene · not actual rental stock</figcaption>
+        </figure>
+      }
       steps={[
         ["You send the requirement", "Product, quantity and where the radios will be used. About two minutes."],
         ["We confirm fit", "Network, accessories and availability for your sites."],

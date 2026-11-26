@@ -63,31 +63,31 @@ export function HardwareCard({
         </div>
       )}
       <div className={"flex flex-1 flex-col " + (compact ? "p-5" : "p-6 sm:p-7")}>
-        <p className="t-small font-semibold text-signal-300">
+        <p className="t-small font-semibold text-accent">
           {product.manufacturer ? product.manufacturer + " · " : ""}
           {product.type}
         </p>
         <Heading className="t-h3 mt-2">
           {product.model}
         </Heading>
-        <p className="t-small mt-3 text-text-inv">{product.role}</p>
-        <p className="t-small mt-1 text-text-inv-2">{product.detail}</p>
+        <p className="t-small mt-3 text-ink">{product.role}</p>
+        <p className="t-small mt-1 text-ink-2">{product.detail}</p>
         {product.specs && !compact ? (
           <div className="hardware-specs mt-4">
             <dl className="m-0 grid gap-1 t-small">
               {product.specs.items.map(([label, value]) => (
                 <div key={label} className="grid grid-cols-[6.5rem_1fr] gap-2">
-                  <dt className="text-text-inv-2">{label}</dt>
-                  <dd className="m-0 text-text-inv">{value}</dd>
+                  <dt className="text-ink-2">{label}</dt>
+                  <dd className="m-0 text-ink">{value}</dd>
                 </div>
               ))}
             </dl>
-            <p className="t-caption mt-2 text-text-inv-2">
+            <p className="t-caption mt-2 text-ink-2">
               Manufacturer specification: {product.specs.sourceUrl ? <a href={product.specs.sourceUrl} rel="noopener" className="link-inline">{product.specs.source}</a> : product.specs.source}. Your quote confirms the supplied variant.
             </p>
           </div>
         ) : null}
-        <Link href={quoteHref} className="link-arrow mt-auto pt-5 text-signal-300">
+        <Link href={quoteHref} className="link-arrow mt-auto pt-5 text-accent">
           Request a quote<span className="sr-only"> for {product.model}</span> <span aria-hidden="true">→</span>
         </Link>
       </div>

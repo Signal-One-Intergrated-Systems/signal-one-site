@@ -31,12 +31,12 @@ export default function IntakeAvailability({ trial = false, kind = "client" }: {
   const text = copy[trial ? "trial" : kind];
   const href = "mailto:sales@signalone.co.za" + (text.subject ? "?subject=" + encodeURIComponent(text.subject) : "");
   return (
-    <div role="status" data-intake-availability={kind} className="mb-7 rounded-card border border-signal-400/40 bg-raised p-5 text-text-inv">
+    <div role="status" data-intake-availability={kind} className="mb-7 rounded-card border border-signal-400/40 bg-surface p-5 text-ink">
       <p className="font-semibold text-[1.0625rem]">{text.what} are currently handled by email.</p>
-      <p className="mt-2 text-[0.9375rem] leading-relaxed text-text-inv-2">
+      <p className="mt-2 text-[0.9375rem] leading-relaxed text-ink-2">
         Complete the questions below to prepare an email with your details, then send it from your email app. {text.sent}
       </p>
-      <a className="mt-3 inline-flex min-h-12 items-center font-semibold text-signal-300 underline underline-offset-4" href={href}>
+      <a className="mt-3 inline-flex min-h-12 items-center font-semibold text-accent underline underline-offset-4" href={href}>
         Email Signal One directly
       </a>
     </div>
