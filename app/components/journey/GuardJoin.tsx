@@ -9,7 +9,7 @@ import { Consent, JMulti, JRadio, JSelect, JText, multiTarget, ReviewList } from
 import { validateBeforeSubmit } from "../../lib/formValidation";
 import { useJourney } from "./useJourney";
 
-const ACCENT = "text-signal-300";
+const ACCENT = "text-accent";
 
 const provinces = [
   "Gauteng",
@@ -49,13 +49,13 @@ function StepShell({
   return (
     <>
       <h1 className="t-h1">{title}</h1>
-      <div className="mt-4 rounded-card border border-signal-400/40 bg-raised p-4 text-[1.0625rem] leading-relaxed">
+      <div className="mt-4 rounded-card border border-signal-400/40 bg-surface p-4 text-[1.0625rem] leading-relaxed">
         <span className="font-semibold">Why we ask: </span>
         {why}
       </div>
       <div className="mt-8 grid gap-6">{children}</div>
-      <p className="t-small mt-8 border-t border-line-dark pt-4 text-text-inv-2">
-        <span className="font-semibold text-text-inv">Next: </span>
+      <p className="t-small mt-8 border-t border-hairline pt-4 text-ink-2">
+        <span className="font-semibold text-ink">Next: </span>
         {next}
       </p>
     </>
@@ -111,14 +111,14 @@ export default function GuardJoin() {
     return (
       <div className="world-guard mx-auto max-w-[720px] px-4 py-12 sm:px-6 md:py-16">
         <div role="status">
-          <span className="grid h-14 w-14 place-items-center rounded-full bg-signal text-deep">
+          <span className="grid h-14 w-14 place-items-center rounded-full bg-signal text-on-signal">
             <Check />
           </span>
           <h1 className="t-h1 mt-6">
             Thank you. Your profile is with Signal One.
           </h1>
           <ReceiptReference reference={j.reference} />
-          <p className="t-lead mt-4 text-text-inv-2">
+          <p className="t-lead mt-4 text-ink-2">
             Here is what happens today.
           </p>
         </div>
@@ -127,21 +127,21 @@ export default function GuardJoin() {
             ["Signal One reviews your profile", "We have saved what you sent and the Signal One team will review it."],
             ["We contact you", "Using the contact details you gave, to confirm your details and PSiRA registration. We cannot say when."],
           ].map(([title, body], index) => (
-            <li key={title} className="grid grid-cols-[2.75rem_1fr] gap-4 border-t border-line-dark py-5">
-              <span className="t-num pt-0.5 text-[1.5rem] text-signal-300">{index + 1}</span>
+            <li key={title} className="grid grid-cols-[2.75rem_1fr] gap-4 border-t border-hairline py-5">
+              <span className="t-num pt-0.5 text-[1.5rem] text-accent">{index + 1}</span>
               <div>
                 <h2 className="t-h4">{title}</h2>
-                <p className="mt-1 text-[1.0625rem] text-text-inv-2">{body}</p>
+                <p className="mt-1 text-[1.0625rem] text-ink-2">{body}</p>
               </div>
             </li>
           ))}
         </ol>
-        <p className="mt-6 text-[1.0625rem] text-text-inv-2">
+        <p className="mt-6 text-[1.0625rem] text-ink-2">
           Guard Marketplace is not live yet. When it launches, signed-in Signal One client companies will be able to find your profile and send you a hire request, which you accept or decline. Your profile is never shown on a public website.
         </p>
-        <p className="mt-4 text-[1.0625rem] text-text-inv-2">
+        <p className="mt-4 text-[1.0625rem] text-ink-2">
           Want something corrected or removed? Email{" "}
-          <a href="mailto:sales@signalone.co.za" className="link-inline font-semibold text-signal-300">
+          <a href="mailto:sales@signalone.co.za" className="link-inline font-semibold text-accent">
             sales@signalone.co.za
           </a>
           .
@@ -157,7 +157,7 @@ export default function GuardJoin() {
     <div className="world-guard mx-auto max-w-[720px] px-4 pb-16 pt-6 sm:px-6 md:pt-10">
       {/* Progress */}
       <div className="flex items-center justify-between gap-4 text-[1rem]">
-        <p className="text-text-inv-2" aria-live="polite">
+        <p className="text-ink-2" aria-live="polite">
           {j.hydrated ? "Saved on this phone" : ""}
         </p>
       </div>
@@ -172,7 +172,7 @@ export default function GuardJoin() {
               <h1 className="t-h1">
                 Create your guard profile
               </h1>
-              <p className="t-lead mt-4 text-text-inv-2">
+              <p className="t-lead mt-4 text-ink-2">
                 About 5 minutes. Your answers are saved on this phone, so you can stop and come back.
               </p>
               <h2 className="t-h3 mt-8">Have these ready</h2>
@@ -183,16 +183,16 @@ export default function GuardJoin() {
                   "The areas you can travel to for work",
                 ].map((item) => (
                   <li key={item} className="flex gap-3">
-                    <Check className="mt-1 text-signal-300" />
+                    <Check className="mt-1 text-accent" />
                     {item}
                   </li>
                 ))}
               </ul>
-              <div className="mt-8 rounded-card bg-raised p-5 ring-1 ring-line-dark">
+              <div className="mt-8 rounded-card bg-surface p-5 ring-1 ring-hairline">
                 <h2 className="t-h4">Your profile is private</h2>
-                <p className="mt-1 text-[1.0625rem] text-text-inv-2">
+                <p className="mt-1 text-[1.0625rem] text-ink-2">
                   We save your profile and Signal One reviews it. When Guard Marketplace launches, signed-in Signal One client companies will be able to find your profile and send you a hire request, which you accept or decline. Your profile is never shown on a public website.{" "}
-                  <Link href="/guards#your-information" className="link-inline text-signal-300">
+                  <Link href="/guards#your-information" className="link-inline text-accent">
                     How we use your information
                   </Link>
                 </p>
@@ -238,7 +238,7 @@ export default function GuardJoin() {
                 accentClass={ACCENT}
                 options={["WhatsApp", "SMS", "Phone call", "Email"]}
               />
-              <p className="t-small text-text-inv-2">
+              <p className="t-small text-ink-2">
                 We do not ask for your ID number on this form. If we need to see documents, we will ask you directly.
               </p>
             </StepShell>
@@ -267,7 +267,7 @@ export default function GuardJoin() {
                 columns="grid-cols-2 sm:grid-cols-3"
               />
               <JText j={j} name="psiraExpiry" label="Expiry date" type="month" required hint="Month and year, as shown on your registration." error="Enter the month and year your registration expires." />
-              <p className="t-small text-text-inv-2">
+              <p className="t-small text-ink-2">
                 Signal One records these details as you give them. We do not check them with PSiRA, so please make sure
                 they are correct.
               </p>
@@ -392,7 +392,7 @@ export default function GuardJoin() {
               <h1 className="t-h1">
                 Check your answers
               </h1>
-              <p className="mt-3 text-[1.0625rem] text-text-inv-2">Tap Edit to change anything.</p>
+              <p className="mt-3 text-[1.0625rem] text-ink-2">Tap Edit to change anything.</p>
               <div className="mt-6">
                 <ReviewList
                   j={j}
@@ -408,7 +408,7 @@ export default function GuardJoin() {
                   ]}
                 />
               </div>
-              <div className="mt-6 rounded-card bg-raised p-5 ring-1 ring-line-dark">
+              <div className="mt-6 rounded-card bg-surface p-5 ring-1 ring-hairline">
                 <Consent j={j}>
                   I agree that Signal One may use this information to assess my profile and contact me, and, when Guard
                   Marketplace launches, let signed-in Signal One client companies find my profile and send me hire requests. I can ask for it to be

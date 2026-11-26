@@ -31,15 +31,15 @@ export default function PricingPage() {
           <div>
             <Kicker tone="dark"><ProductSignature name="GUARD" tone="dark" /> · Security Business OS pricing</Kicker>
             <h1 className="mt-6 flex flex-wrap items-end gap-x-5 gap-y-2">
-              <span className="t-num text-[7rem] text-signal-300 sm:text-[10rem] lg:text-[12rem]">{guardDayPrice}</span>
+              <span className="t-num text-[7rem] text-accent sm:text-[10rem] lg:text-[12rem]">{guardDayPrice}</span>
               <span className="pb-4 font-display text-[1.75rem] font-semibold leading-tight sm:text-[2.25rem]">
                 per guard
                 <br />
                 per day
               </span>
             </h1>
-            <p className="t-lead mt-4 text-text-inv-2">Excluding VAT. A straightforward guard-day rate for the currently offered 1GUARD service. Future business OS capabilities and separately quoted equipment are not implied to be included.</p>
-            {guardOnboardingLine ? <p className="t-small mt-3 font-semibold text-text-inv">{guardOnboardingLine}</p> : null}
+            <p className="t-lead mt-4 text-ink-2">Excluding VAT. A straightforward guard-day rate for the currently offered 1GUARD service. Future business OS capabilities and separately quoted equipment are not implied to be included.</p>
+            {guardOnboardingLine ? <p className="t-small mt-3 font-semibold text-ink">{guardOnboardingLine}</p> : null}
             {/* The next step is in the first viewport, not only at the foot of the page (persona walk, CUSTOMER_JOURNEYS P1). */}
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <ButtonLink href="/get-started" size="lg">Start company onboarding</ButtonLink>
@@ -56,19 +56,19 @@ export default function PricingPage() {
                 ["1", "guard day"],
               ].map(([num, label], index) => (
                 <div key={label} className="contents">
-                  <div className="rounded-card border border-line-dark bg-raised px-2 py-4 sm:px-4">
-                    <p className="t-num text-[2.5rem] text-text-inv">{num}</p>
-                    <p className="mt-2 hyphens-auto text-[0.9375rem] leading-snug text-text-inv-2">{label}</p>
+                  <div className="rounded-card border border-hairline bg-surface px-2 py-4 sm:px-4">
+                    <p className="t-num text-[2.5rem] text-ink">{num}</p>
+                    <p className="mt-2 hyphens-auto text-[0.9375rem] leading-snug text-ink-2">{label}</p>
                   </div>
                   {index < 2 ? (
-                    <span aria-hidden="true" className="font-display text-[1.5rem] font-bold text-text-inv-2">
+                    <span aria-hidden="true" className="font-display text-[1.5rem] font-bold text-ink-2">
                       {index === 0 ? "×" : "="}
                     </span>
                   ) : null}
                 </div>
               ))}
             </div>
-            <p className="t-small mt-5 text-text-inv-2">
+            <p className="t-small mt-5 text-ink-2">
               A guard day is used when an allocated guard clocks in and out of an on-site shift.
             </p>
           </div>
@@ -89,9 +89,9 @@ export default function PricingPage() {
                 ["Tiers or packages", "None. The rate is the same for 10 guard days or 10 000."],
                 ["No-shows, cancellations, partial and multiple shifts", "Handled under your customer terms, agreed before you start."],
               ].map(([term, detail]) => (
-                <div key={term} className="border-t border-line-dark py-4">
+                <div key={term} className="border-t border-hairline py-4">
                   <dt className="font-semibold">{term}</dt>
-                  <dd className="t-small m-0 mt-1 text-text-inv-2">{detail}</dd>
+                  <dd className="t-small m-0 mt-1 text-ink-2">{detail}</dd>
                 </div>
               ))}
             </dl>
@@ -102,11 +102,11 @@ export default function PricingPage() {
       <section className="surface-white section">
         <div className="wrap">
           <h2 className="t-h2">Worked examples</h2>
-          <p className="t-body mt-3 text-text-inv-2">Plain arithmetic: guards × days × {guardDayPrice}, excluding VAT.</p>
-          <div className="mt-8 overflow-hidden rounded-card ring-1 ring-line-dark">
+          <p className="t-body mt-3 text-ink-2">Plain arithmetic: guards × days × {guardDayPrice}, excluding VAT.</p>
+          <div className="mt-8 overflow-hidden rounded-card ring-1 ring-hairline">
             <table className="w-full border-collapse text-left">
               <caption className="sr-only">Guard day cost examples</caption>
-              <thead className="bg-raised-2 text-[0.9375rem] text-text-inv">
+              <thead className="bg-surface-2 text-[0.9375rem] text-ink">
                 <tr>
                   <th scope="col" className="px-4 py-3 font-semibold sm:px-6">Guards</th>
                   <th scope="col" className="px-4 py-3 font-semibold sm:px-6">Days</th>
@@ -116,7 +116,7 @@ export default function PricingPage() {
               </thead>
               <tbody className="tabular text-[1.0625rem]">
                 {examples.map(({ guards, days }) => (
-                  <tr key={guards + "-" + days} className="border-t border-line-dark">
+                  <tr key={guards + "-" + days} className="border-t border-hairline">
                     <td className="px-4 py-4 sm:px-6">{guards}</td>
                     <td className="px-4 py-4 sm:px-6">{days}</td>
                     <td className="px-4 py-4 sm:px-6">{num(guards * days)}</td>
@@ -133,7 +133,7 @@ export default function PricingPage() {
         <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
           <div>
             <h2 className="t-h2">Priced separately</h2>
-            <p className="t-body mt-4 text-text-inv-2">
+            <p className="t-body mt-4 text-ink-2">
               Guard days cover the platform. These are optional and are never bundled into the {guardDayPrice} rate.
             </p>
           </div>
@@ -143,12 +143,12 @@ export default function PricingPage() {
               { name: "Accounting", status: <Status kind="beta">Beta</Status>, body: "Priced separately when activated for your company." },
               { name: "Payroll", status: <Status kind="soon">Coming soon</Status>, body: "Not available yet. Priced separately when it launches." },
             ].map((item) => (
-              <li key={item.name} className="grid gap-2 border-t border-line-dark py-5 sm:grid-cols-[1fr_auto] sm:items-start sm:gap-6">
+              <li key={item.name} className="grid gap-2 border-t border-hairline py-5 sm:grid-cols-[1fr_auto] sm:items-start sm:gap-6">
                 <div>
                   <h3 className="t-h4">{item.name}</h3>
-                  <p className="t-small mt-1 text-text-inv-2">{item.body}</p>
+                  <p className="t-small mt-1 text-ink-2">{item.body}</p>
                   {item.href ? (
-                    <Link href={item.href} className="link-arrow text-signal-300">
+                    <Link href={item.href} className="link-arrow text-accent">
                       Radios & Tracking <Arrow />
                     </Link>
                   ) : null}
@@ -164,7 +164,7 @@ export default function PricingPage() {
         <div className="wrap flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-2xl">
             <h2 className="t-h2">Ready to start with guard days?</h2>
-            <p className="t-lead mt-4 text-text-inv-2">
+            <p className="t-lead mt-4 text-ink-2">
               Tell us about your company and sites. We set up your workspace with you and confirm your customer terms.
             </p>
           </div>

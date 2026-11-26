@@ -224,22 +224,26 @@ body:has(.so-home) .so-home .s1-brand-stage.so-hero{padding-top:calc(151px + 88p
 /* ======================================================================================
    HOMEPAGE SECTIONS BELOW THE HERO — built on the shared tokens (globals.css).
    Section rhythm is the shared `.section` (80/96/112); panels are the shared card material;
-   buttons, links and badges are the shared components. Photographic backdrops (business
-   intro, 1Service) are toned to the graphite family like every other scene (VA-17).
+   buttons, links and badges are the shared components. Light-first (2026-11-26): photographic
+   backdrops (business intro, 1Service) keep their daylight colour under the light veil; the 1GUARD
+   operations chapter is the page's one graphite chapter (token scope in globals.css).
    ====================================================================================== */
+/* The locked hero sets a light text colour on .so-home; the sections below take the role ink. */
+.so-home > section:not(:first-child) {
+  color: var(--color-ink);
+}
 .so-home .so-introduction,
 .so-home .so-service-section {
-  background-color: var(--color-base);
+  background-color: var(--color-canvas);
   background-image: var(--scene-wash), var(--scene, none);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-blend-mode: normal, luminosity;
 }
 /* DR-003: below-the-fold photographs load after the page (components/AfterLoad.tsx); until then
    the same wash shows over the base colour, then the photograph appears beneath it. */
 html[data-after-load] .so-home .so-introduction {
-  --scene: url("/images/backgrounds/business-park.webp");
+  --scene: url("/images/bright/06-bright-architecture.webp");
 }
 html[data-after-load] .so-home .so-service-section {
   --scene: url("/images/backgrounds/restaurant-dining.webp");
@@ -257,7 +261,7 @@ html:not([data-after-load]) .so-home .so-panel-photo-image {
   font-weight: 650;
   line-height: 1.4;
   letter-spacing: 0.005em;
-  color: var(--color-signal-300);
+  color: var(--color-accent);
 }
 .so-home .so-disclosure,
 .so-home .so-editorial-disclosure,
@@ -265,7 +269,7 @@ html:not([data-after-load]) .so-home .so-panel-photo-image {
 .so-home .so-community-note {
   max-width: 62ch;
   margin-top: 16px;
-  color: var(--color-text-inv-3);
+  color: var(--color-ink-3);
   font-size: 0.875rem;
   line-height: 1.55;
 }
@@ -278,27 +282,27 @@ html:not([data-after-load]) .so-home .so-panel-photo-image {
   letter-spacing: -0.03em;
 }
 .so-home h2 span {
-  color: var(--color-signal-300);
+  color: var(--color-accent);
 }
 .so-home :is(.so-section-heading, .so-vertical-content, .so-equipment-copy, .so-ecosystem-intro, .so-final-inner) > p:not(.so-kicker):not(.so-disclosure),
 .so-home .so-section-heading > div > p:not(.so-kicker),
 .so-home .so-final-inner > div > p:not(.so-kicker) {
   max-width: 60ch;
   margin-top: 16px;
-  color: var(--color-text-inv-2);
+  color: var(--color-ink-2);
   font-size: 1.0625rem;
   line-height: 1.65;
 }
 
 /* One panel material: the solid card. Glass only where a photograph sits behind it (business intro). */
 .so-home :is(.so-vertical-content, .so-equipment-copy, .so-final-inner, .so-lifecycle, .so-journey-grid > div, .so-marketplace-grid article, .so-value-rail) {
-  border: 1px solid var(--color-line-dark);
+  border: 1px solid var(--color-hairline);
   border-radius: var(--radius-card);
-  background: var(--color-raised);
+  background: var(--color-surface);
   box-shadow: var(--shadow-card);
 }
 .so-home .so-introduction .so-section-heading {
-  border: 1px solid var(--color-line-dark);
+  border: 1px solid var(--color-hairline);
   border-radius: var(--radius-card);
   background: var(--glass-panel-solid);
   box-shadow: var(--shadow-float);
@@ -345,9 +349,9 @@ html:not([data-after-load]) .so-home .so-panel-photo-image {
   margin: 0;
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  border: 1px solid var(--color-line-dark);
+  border: 1px solid var(--color-hairline);
   border-radius: var(--radius-ui);
-  background: var(--color-raised-2);
+  background: var(--color-surface-2);
 }
 .so-home .so-panel-photo img {
   object-fit: cover;
@@ -363,7 +367,7 @@ html:not([data-after-load]) .so-home .so-panel-photo-image {
 /* Numbered items: one recipe for every 01–08 sequence on the page (VA-25). */
 .so-home :is(.so-value-rail span, .so-step, .so-lifecycle li > span) {
   display: block;
-  color: var(--color-signal-300);
+  color: var(--color-accent);
   font-size: 0.9375rem;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
@@ -377,7 +381,7 @@ html:not([data-after-load]) .so-home .so-panel-photo-image {
 }
 .so-home .so-value-rail > div {
   padding: clamp(24px, 3vw, 36px);
-  border-top: 1px solid var(--color-line-dark);
+  border-top: 1px solid var(--color-hairline);
 }
 .so-home .so-value-rail > div:first-child {
   border-top: 0;
@@ -392,7 +396,7 @@ html:not([data-after-load]) .so-home .so-panel-photo-image {
 }
 .so-home .so-value-rail p {
   margin-top: 8px;
-  color: var(--color-text-inv-2);
+  color: var(--color-ink-2);
   font-size: 0.9375rem;
   line-height: 1.55;
 }
@@ -402,7 +406,7 @@ html:not([data-after-load]) .so-home .so-panel-photo-image {
   }
   .so-home .so-value-rail > div {
     border-top: 0;
-    border-left: 1px solid var(--color-line-dark);
+    border-left: 1px solid var(--color-hairline);
   }
   .so-home .so-value-rail > div:first-child {
     border-left: 0;
@@ -445,9 +449,9 @@ html:not([data-after-load]) .so-home .so-panel-photo-image {
   position: relative;
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  border: 1px solid var(--color-line-dark);
+  border: 1px solid var(--color-hairline);
   border-radius: var(--radius-card);
-  background: var(--color-raised);
+  background: var(--color-surface);
   box-shadow: var(--shadow-card);
 }
 .so-home .so-vertical-visual img {
@@ -461,7 +465,7 @@ html:not([data-after-load]) .so-home .so-panel-photo-image {
   padding: 6px 12px;
   border-radius: 999px;
   background: var(--glass-panel-solid);
-  color: var(--color-text-inv);
+  color: var(--color-ink);
   font-size: 0.875rem;
 }
 .so-home .so-vertical-label {
@@ -472,10 +476,10 @@ html:not([data-after-load]) .so-home .so-panel-photo-image {
   font-size: 1.5rem;
   font-weight: 800;
   letter-spacing: -0.03em;
-  color: var(--color-text-inv);
+  color: var(--color-ink);
 }
 .so-home .so-vertical-label > .so-vertical-descriptor {
-  color: var(--color-text-inv-2);
+  color: var(--color-ink-2);
   font-size: 0.9375rem;
   font-weight: 600;
   letter-spacing: 0;
@@ -490,10 +494,10 @@ html:not([data-after-load]) .so-home .so-panel-photo-image {
   display: grid;
   gap: 4px 16px;
   padding: 14px 0;
-  border-top: 1px solid var(--color-line-dark);
+  border-top: 1px solid var(--color-hairline);
 }
 .so-home .so-checklist li:last-child {
-  border-bottom: 1px solid var(--color-line-dark);
+  border-bottom: 1px solid var(--color-hairline);
 }
 @media (min-width: 1190px) {
   .so-home .so-checklist li {
@@ -504,7 +508,7 @@ html:not([data-after-load]) .so-home .so-panel-photo-image {
   font-size: 1rem;
 }
 .so-home .so-checklist span {
-  color: var(--color-text-inv-2);
+  color: var(--color-ink-2);
   font-size: 0.9375rem;
   line-height: 1.5;
 }
@@ -524,9 +528,9 @@ html:not([data-after-load]) .so-home .so-panel-photo-image {
 }
 .so-home :is(.so-service-scope, .so-equipment-types) span {
   padding: 6px 12px;
-  border: 1px solid var(--color-line-dark);
+  border: 1px solid var(--color-hairline);
   border-radius: var(--radius-ui);
-  color: var(--color-text-inv-2);
+  color: var(--color-ink-2);
   font-size: 0.875rem;
   font-weight: 600;
 }
@@ -545,10 +549,10 @@ html:not([data-after-load]) .so-home .so-panel-photo-image {
   justify-content: space-between;
   gap: 12px;
   padding: 24px 16px;
-  border: 1px solid var(--color-line-dark);
+  border: 1px solid var(--color-hairline);
   border-radius: var(--radius-card);
   background: var(--color-well);
-  color: var(--color-text);
+  color: var(--color-ink);
   box-shadow: var(--shadow-card);
 }
 .so-home .so-hardware-product .so-product-image {
@@ -558,7 +562,7 @@ html:not([data-after-load]) .so-home .so-panel-photo-image {
   object-fit: contain;
 }
 .so-home .so-hardware-product span {
-  color: var(--color-text);
+  color: var(--color-ink);
   font-size: 1rem;
   font-weight: 700;
   text-align: center;
@@ -566,7 +570,7 @@ html:not([data-after-load]) .so-home .so-panel-photo-image {
 .so-home .so-hardware-product small {
   display: block;
   margin-top: 4px;
-  color: var(--color-text-2);
+  color: var(--color-ink-2);
   font-size: 0.875rem;
   font-weight: 500;
 }
@@ -596,7 +600,7 @@ html:not([data-after-load]) .so-home .so-panel-photo-image {
   align-items: center;
   gap: 12px;
   padding: 14px;
-  border: 1px solid var(--color-line-dark);
+  border: 1px solid var(--color-hairline);
   border-radius: var(--radius-ui);
 }
 .so-home .so-lifecycle li > strong {
@@ -627,7 +631,7 @@ html:not([data-after-load]) .so-home .so-panel-photo-image {
   padding: clamp(20px, 2.4vw, 32px);
 }
 .so-home .so-marketplace-grid .so-marketplace-kicker {
-  color: var(--color-signal-300);
+  color: var(--color-accent);
   font-size: 0.9375rem;
   font-weight: 650;
 }
@@ -642,7 +646,7 @@ html:not([data-after-load]) .so-home .so-panel-photo-image {
   letter-spacing: -0.012em;
 }
 .so-home :is(.so-marketplace-grid, .so-journey-grid) p {
-  color: var(--color-text-inv-2);
+  color: var(--color-ink-2);
   font-size: 0.9375rem;
   line-height: 1.55;
 }
@@ -679,7 +683,7 @@ html:not([data-after-load]) .so-home .so-panel-photo-image {
   max-width: none;
   margin-top: 0;
   padding-top: 20px;
-  border-top: 1px solid var(--color-line-dark);
+  border-top: 1px solid var(--color-hairline);
 }
 @media (max-width: 670px) {
   .so-home .so-inline-actions,

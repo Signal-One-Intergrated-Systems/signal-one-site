@@ -47,7 +47,7 @@ const interestFields: IntakeField[] = [
 ];
 
 function DemoChip({ children }: { children: React.ReactNode }) {
-  return <span className="rounded-full bg-white/10 px-3 py-1 text-[0.875rem] font-medium">{children}</span>;
+  return <span className="rounded-full bg-surface-2 px-3 py-1 text-[0.875rem] font-medium">{children}</span>;
 }
 
 export default function GuardMarketplacePage() {
@@ -63,9 +63,9 @@ export default function GuardMarketplacePage() {
         title="Win the contract. Then staff it from the same system."
         lead="When it launches, you will be able to find guards near the site, check what they have recorded, send a hire request and allocate the guards who accept. Inside your company workspace, next to the sites and shifts they will work."
         aside={
-          <div className="s1-marketplace-aside"><div className="s1-marketplace-photo s1-people-main-photo aspect-video"><Image src="/images/home/panels/hire-security.webp" unoptimized alt="Illustrative interview between a security employer and prospective officers" fill sizes="(min-width: 900px) 40vw, 100vw" className="object-cover" /></div><div className="rounded-card border border-line-dark bg-raised p-6 sm:p-8">
+          <div className="s1-marketplace-aside"><div className="s1-marketplace-photo s1-people-main-photo aspect-video"><Image src="/images/home/panels/hire-security.webp" unoptimized alt="Illustrative interview between a security employer and prospective officers" fill sizes="(min-width: 900px) 40vw, 100vw" className="object-cover" /></div><div className="rounded-card border border-hairline bg-surface p-6 sm:p-8">
             <h2 className="t-h3">Where Marketplace is today</h2>
-            <p className="t-body mt-3 text-text-inv-2">
+            <p className="t-body mt-3 text-ink-2">
               Marketplace is not live yet. We are building the MVP described on this page. Register interest and we will
               tell you when your company can use it.
             </p>
@@ -80,7 +80,7 @@ export default function GuardMarketplacePage() {
         <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
           <div>
             <h2 className="t-h2">From contract to shift, in ten steps.</h2>
-            <p className="t-body mt-4 text-text-inv-2">
+            <p className="t-body mt-4 text-ink-2">
               The planned hiring workflow ends where your operation already lives: a guard allocated to a site and a shift in 1GUARD.
             </p>
           </div>
@@ -88,11 +88,11 @@ export default function GuardMarketplacePage() {
             <Steps items={flow.slice(0, 5)} />
             <ol start={6} className="m-0 grid list-none gap-0 p-0">
               {flow.slice(5).map(([title, body], index) => (
-                <li key={title} className="grid grid-cols-[2.5rem_1fr] gap-4 border-t border-line-dark py-5">
-                  <span className="t-num pt-0.5 text-[1.5rem] text-signal-300">{index + 6}</span>
+                <li key={title} className="grid grid-cols-[2.5rem_1fr] gap-4 border-t border-hairline py-5">
+                  <span className="t-num pt-0.5 text-[1.5rem] text-accent">{index + 6}</span>
                   <div>
                     <h3 className="t-h4">{title}</h3>
-                    <p className="t-small mt-1 text-text-inv-2">{body}</p>
+                    <p className="t-small mt-1 text-ink-2">{body}</p>
                   </div>
                 </li>
               ))}
@@ -108,7 +108,7 @@ export default function GuardMarketplacePage() {
               <h2 id="demo-h" className="t-h2">
                 What it will look like
               </h2>
-              <p className="t-body measure mt-3 text-text-inv-2">
+              <p className="t-body measure mt-3 text-ink-2">
                 Sample profiles show the planned marketplace. No real guard data is displayed, and these preview controls do not place hire requests.
               </p>
             </div>
@@ -118,16 +118,16 @@ export default function GuardMarketplacePage() {
           </div>
 
           <div
-            className="mt-10 overflow-hidden rounded-card ring-1 ring-line-dark"
+            className="mt-10 overflow-hidden rounded-card ring-1 ring-hairline"
             role="img"
             aria-label="Illustrative Marketplace design preview with synthetic data: filters for location, PSiRA grade, availability, experience and skills, and three sample guard profiles with shortlist and hire request buttons"
           >
-            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-line-dark bg-white/10 px-4 py-3 text-[0.875rem] sm:px-6">
+            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-hairline bg-surface-2 px-4 py-3 text-[0.875rem] sm:px-6">
               <span className="font-semibold">Guard Marketplace · design preview</span>
-              <span className="text-text-inv-2">Illustrative demo · synthetic data</span>
+              <span className="text-ink-2">Illustrative demo · synthetic data</span>
             </div>
             <div className="grid md:grid-cols-[minmax(0,4fr)_minmax(0,8fr)]">
-              <div className="border-b border-line-dark bg-white/5 p-4 sm:p-6 md:border-b-0 md:border-r">
+              <div className="border-b border-hairline bg-surface-2 p-4 sm:p-6 md:border-b-0 md:border-r">
                 <p className="t-h4">Filters</p>
                 <dl className="mt-4 grid gap-3 text-[0.9375rem]">
                   {[
@@ -137,23 +137,23 @@ export default function GuardMarketplacePage() {
                     ["Experience", "2+ years"],
                     ["Skills", "Access control"],
                   ].map(([term, value]) => (
-                    <div key={term} className="rounded-ui bg-white/10 px-3 py-2 ring-1 ring-line-dark">
-                      <dt className="text-text-inv-2">{term}</dt>
+                    <div key={term} className="rounded-ui bg-surface-2 px-3 py-2 ring-1 ring-hairline">
+                      <dt className="text-ink-2">{term}</dt>
                       <dd className="m-0 font-semibold">{value}</dd>
                     </div>
                   ))}
                 </dl>
               </div>
-              <ul className="m-0 list-none divide-y divide-line-dark p-0">
+              <ul className="m-0 list-none divide-y divide-hairline p-0">
                 {demoProfiles.map((profile) => (
                   <li key={profile.tag} className="grid gap-4 p-4 xl:grid-cols-[1fr_auto] xl:items-center sm:p-6">
                     <div className="flex gap-4">
-                      <span aria-hidden="true" className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-white/10 font-display text-[1.125rem] font-bold">
+                      <span aria-hidden="true" className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-surface-2 font-display text-[1.125rem] font-bold">
                         {profile.tag.slice(-1)}
                       </span>
                       <div>
                         <p className="font-semibold">{profile.tag} · {profile.area}</p>
-                        <p className="t-small text-text-inv-2">
+                        <p className="t-small text-ink-2">
                           PSiRA grade {profile.grade} recorded · {profile.years} · {profile.availability}
                         </p>
                         <div className="mt-2 flex flex-wrap gap-2">
@@ -172,7 +172,7 @@ export default function GuardMarketplacePage() {
               </ul>
             </div>
           </div>
-          <p className="t-caption mt-3 text-text-inv-2">
+          <p className="t-caption mt-3 text-ink-2">
             Design preview, not the live product. No ratings, scores or badges will be shown on profiles.
           </p>
         </div>
@@ -191,18 +191,18 @@ export default function GuardMarketplacePage() {
                 "There will be no ratings, readiness scores or badges.",
               ].map((item) => (
                 <li key={item} className="t-body flex gap-3">
-                  <Check className="mt-1 text-signal-300" />
+                  <Check className="mt-1 text-accent" />
                   {item}
                 </li>
               ))}
             </ul>
           </div>
-          <div className="rounded-card bg-raised p-6 ring-1 ring-line-dark sm:p-8">
+          <div className="rounded-card bg-surface p-6 ring-1 ring-hairline sm:p-8">
             <div className="flex flex-wrap items-center gap-3">
               <h2 className="t-h3">{guardIsLive ? "Already live in " : "In the "}<ProductSignature name="GUARD" tone="dark" />{guardIsLive ? "" : " pilot"}</h2>
               <GuardStatus />
             </div>
-            <p className="t-body mt-4 text-text-inv-2">
+            <p className="t-body mt-4 text-ink-2">
               {guardIsLive ? "You can already offer open posts to your own guards." : "Pilot companies can offer open posts to their own guards."} Each guard sees the offer in the Guard app and accepts
               or declines it. Marketplace will extend the same accept-or-decline step to guards outside your company.
             </p>
@@ -217,13 +217,13 @@ export default function GuardMarketplacePage() {
         <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
           <div>
             <h2 className="t-h2">Register interest</h2>
-            <p className="t-body mt-4 text-text-inv-2">
+            <p className="t-body mt-4 text-ink-2">
               Tell us what you would hire for. We will let you know when Marketplace is ready for your company, and use your
               answers to shape the MVP.
             </p>
-            <p className="t-small mt-6 text-text-inv-2">
+            <p className="t-small mt-6 text-ink-2">
               Are you a guard?{" "}
-              <Link href="/guards" className="link-inline font-semibold text-signal-300">
+              <Link href="/guards" className="link-inline font-semibold text-accent">
                 Create your profile here
               </Link>
               .

@@ -40,10 +40,10 @@ const worlds: Record<
       { href: "/join/sales", label: "Careers" },
     ],
     cta: { href: "/get-started", label: "Get 14 Day Free Trial" },
-    shell: "glass-nav text-text-inv",
-    link: "text-text-inv hover:bg-white/8",
+    shell: "glass-nav text-ink",
+    link: "text-ink hover:bg-surface-2",
     cta_class: "btn btn-primary",
-    sheet: "bg-base text-text-inv",
+    sheet: "bg-surface text-ink",
   },
   guard: {
     identity: "For security officers",
@@ -55,10 +55,10 @@ const worlds: Record<
     ],
     secondary: [{ href: "/", label: "For security companies" }],
     cta: { href: "/guards/join", label: "Create your profile" },
-    shell: "glass-nav text-text-inv",
-    link: "text-text-inv hover:bg-white/8",
+    shell: "glass-nav text-ink",
+    link: "text-ink hover:bg-surface-2",
     cta_class: "btn btn-primary",
-    sheet: "bg-base text-text-inv",
+    sheet: "bg-surface text-ink",
   },
   careers: {
     identity: "Careers",
@@ -69,10 +69,10 @@ const worlds: Record<
     ],
     secondary: [{ href: "/about", label: "About Signal One" }],
     cta: { href: "/join/sales#apply", label: "Apply" },
-    shell: "glass-nav text-text-inv",
-    link: "text-text-inv hover:bg-white/8",
+    shell: "glass-nav text-ink",
+    link: "text-ink hover:bg-surface-2",
     cta_class: "btn btn-primary",
-    sheet: "bg-base text-text-inv",
+    sheet: "bg-surface text-ink",
   },
 };
 
@@ -86,7 +86,7 @@ export default function Header() {
   const pathname = usePathname() || "/";
   const world = worldFor(pathname);
   const config = worlds[world];
-  const dark = true; // the header is always dark: the lockup's light-surface colours are for light backgrounds only
+  const dark = false; // light-first (2026-11-26): the header is light glass, so it carries the light-surface lockup (docs/BRAND.md)
   const [open, setOpen] = useState(false);
   // Solid at the top of the page; glass once content scrolls underneath it.
   const [scrolled, setScrolled] = useState(false);
@@ -149,9 +149,9 @@ export default function Header() {
           aria-label={"Signal One " + config.identity + " home"}
         >
           {/* The canonical desktop lockup is 22px; reduce only where screen width requires it. */}
-          <span className="s1-nav-logo-wide"><SignalOneLogo size={22} tone="dark" pulse descriptorMin={10} /></span>
-          <span className="s1-nav-logo-medium"><SignalOneLogo size={19} tone="dark" pulse descriptorMin={10} /></span>
-          <span className="s1-nav-logo-small"><SignalOneMark size={34} tone="dark" pulse /></span>
+          <span className="s1-nav-logo-wide"><SignalOneLogo size={22} tone="light" pulse descriptorMin={10} /></span>
+          <span className="s1-nav-logo-medium"><SignalOneLogo size={19} tone="light" pulse descriptorMin={10} /></span>
+          <span className="s1-nav-logo-small"><SignalOneMark size={34} tone="light" pulse /></span>
         </Link>
 
         <nav className="hidden items-center gap-1 xl:flex" aria-label="Primary">
@@ -178,7 +178,7 @@ export default function Header() {
               href={item.href}
               className={
                 "flex min-h-[44px] items-center rounded-ui px-3 text-[0.9375rem] " +
-                "text-text-inv-2 hover:text-text-inv"
+                "text-ink-2 hover:text-ink"
               }
             >
               {item.label}
@@ -197,7 +197,7 @@ export default function Header() {
           aria-controls="mobile-nav"
           className={
             "flex min-h-[44px] items-center gap-2 rounded-ui border px-3.5 text-[1rem] font-semibold xl:hidden " +
-            (dark ? "border-white/30" : "border-line-strong")
+            (dark ? "border-line-strong" : "border-line-strong")
           }
         >
           <span>{open ? "Close" : "Menu"}</span>
@@ -216,7 +216,7 @@ export default function Header() {
           <nav className="wrap flex min-h-full flex-col pb-8 pt-4" aria-label="Mobile">
             <ul className="m-0 list-none p-0">
               {config.primary.map((item) => (
-                <li key={item.href} className={"border-b " + "border-line-dark"}>
+                <li key={item.href} className={"border-b " + "border-hairline"}>
                   <Link
                     href={item.href}
                     onClick={() => setOpen(false)}
@@ -224,7 +224,7 @@ export default function Header() {
                     className="flex min-h-[60px] items-center justify-between font-display text-[1.5rem] font-semibold"
                   >
                     {item.label === "1GUARD" ? <ProductSignature name="GUARD" /> : item.label === "1Service" ? <ProductSignature name="Service" /> : item.label}
-                    <span aria-hidden="true" className={dark ? "text-text-inv-2" : "text-text-inv-2"}>→</span>
+                    <span aria-hidden="true" className={dark ? "text-ink-2" : "text-ink-2"}>→</span>
                   </Link>
                 </li>
               ))}
@@ -247,7 +247,7 @@ export default function Header() {
                   <Link
                     href={item.href}
                     onClick={() => setOpen(false)}
-                    className={"flex min-h-[44px] items-center text-[1.0625rem] underline underline-offset-4 " + "text-text-inv-2"}
+                    className={"flex min-h-[44px] items-center text-[1.0625rem] underline underline-offset-4 " + "text-ink-2"}
                   >
                     {item.label}
                   </Link>
@@ -255,7 +255,7 @@ export default function Header() {
               ))}
             </ul>
 
-            <p className={"t-small mt-auto pt-10 " + "text-text-inv-2"}>
+            <p className={"t-small mt-auto pt-10 " + "text-ink-2"}>
               Signal One: Integrated Systems · South Africa ·{" "}
               <a href="mailto:sales@signalone.co.za" className="link-inline">
                 sales@signalone.co.za

@@ -62,16 +62,16 @@ export function HardwareCard({
         </div>
       )}
       <div className={"flex flex-1 flex-col " + (compact ? "p-5" : "p-6 sm:p-7")}>
-        <p className="t-small font-semibold text-signal-300">
+        <p className="t-small font-semibold text-accent">
           {product.manufacturer ? product.manufacturer + " · " : ""}
           {product.type}
         </p>
         <Heading className="t-h3 mt-2">
           {product.model}
         </Heading>
-        <p className="t-small mt-3 text-text-inv">{product.role}</p>
-        <p className="t-small mt-1 text-text-inv-2">{product.detail}</p>
-        <Link href={quoteHref} className="link-arrow mt-auto pt-5 text-signal-300">
+        <p className="t-small mt-3 text-ink">{product.role}</p>
+        <p className="t-small mt-1 text-ink-2">{product.detail}</p>
+        <Link href={quoteHref} className="link-arrow mt-auto pt-5 text-accent">
           Request a quote<span className="sr-only"> for {product.model}</span> <span aria-hidden="true">→</span>
         </Link>
       </div>

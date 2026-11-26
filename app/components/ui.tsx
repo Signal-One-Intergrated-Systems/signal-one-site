@@ -17,7 +17,7 @@ export function Kicker({
   className?: string;
 }) {
   return (
-    <p className={"t-kicker text-signal-300 " + className} data-tone={tone}>
+    <p className={"t-kicker text-accent " + className} data-tone={tone}>
       {children}
     </p>
   );
@@ -51,17 +51,17 @@ export function GuardStatus({ tone = "dark", children }: { tone?: Tone; children
   );
 }
 
-/** A short definition list on a raised dark panel: plain facts, no mock interface. */
+/** A short definition list on a card panel: plain facts, no mock interface. */
 export function FactPanel({ title, facts, tone = "dark" }: { title?: ReactNode; facts: ReadonlyArray<readonly [string, string]>; tone?: Tone }) {
   const dark = tone === "dark";
   return (
-    <div className={"overflow-hidden rounded-card border " + "border-line-dark bg-raised text-text-inv"}>
-      {title ? <div className={"border-b px-5 py-4 font-semibold sm:px-6 " + "border-line-dark"}>{title}</div> : null}
+    <div className={"overflow-hidden rounded-card border " + "border-hairline bg-surface text-ink"}>
+      {title ? <div className={"border-b px-5 py-4 font-semibold sm:px-6 " + "border-hairline"}>{title}</div> : null}
       <dl className="m-0">
         {facts.map(([term, detail]) => (
-          <div key={term} className={"border-b px-5 py-4 last:border-0 sm:px-6 " + "border-line-dark"}>
+          <div key={term} className={"border-b px-5 py-4 last:border-0 sm:px-6 " + "border-hairline"}>
             <dt className="t-h4">{term}</dt>
-            <dd className={"t-small m-0 mt-1 " + "text-text-inv-2"}>{detail}</dd>
+            <dd className={"t-small m-0 mt-1 " + "text-ink-2"}>{detail}</dd>
           </div>
         ))}
       </dl>
@@ -152,7 +152,7 @@ export function Photo({
         />
       </div>
       {caption ? (
-        <figcaption className={"photo-caption mt-2 " + (captionTone === "dark" ? "text-text-inv-2" : "")}>
+        <figcaption className={"photo-caption mt-2 " + (captionTone === "dark" ? "text-ink-2" : "")}>
           {caption}
         </figcaption>
       ) : null}
@@ -189,7 +189,7 @@ export function Stepper({ steps, index, label }: { steps: ReadonlyArray<string>;
 export function Steps({
   items,
   tone = "light",
-  accentClass = "text-signal-300",
+  accentClass = "text-accent",
 }: {
   items: ReadonlyArray<readonly [string, string]>;
   tone?: Tone;
@@ -202,13 +202,13 @@ export function Steps({
           key={title}
           className={
             "grid grid-cols-[2.5rem_1fr] gap-4 border-t py-5 " +
-            "border-line-dark"
+            "border-hairline"
           }
         >
           <span className={"t-num pt-0.5 text-[1.5rem] " + accentClass}>{index + 1}</span>
           <div>
             <h3 className="t-h4">{title}</h3>
-            <p className={"t-small mt-1 " + "text-text-inv-2"}>{body}</p>
+            <p className={"t-small mt-1 " + "text-ink-2"}>{body}</p>
           </div>
         </li>
       ))}
@@ -297,7 +297,7 @@ export function PageHero({
             </div>
           ) : null}
           <h1 className="t-hero mt-5">{title}</h1>
-          {lead ? <p className="t-lead measure mt-6 text-text-inv-2">{lead}</p> : null}
+          {lead ? <p className="t-lead measure mt-6 text-ink-2">{lead}</p> : null}
           {actions ? <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">{actions}</div> : null}
         </div>
         {aside ? <div>{aside}</div> : null}

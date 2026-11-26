@@ -234,7 +234,7 @@ export default function Home() {
             </article>
             <article data-motion-from="top" style={{ "--so-motion-delay": "240ms" } as CSSProperties}>
               <span className="so-marketplace-kicker"><ProductSignature name="Service" tone="dark" /> staffing · Planned</span>
-              <PanelPhoto src="/images/editorial/restaurant-staff-briefing.webp" alt="Illustrative restaurant team including chef, waiters and cleaning staff at a pre-service briefing" />
+              <PanelPhoto src="/images/bright/07-hospitality-welcome.webp" alt="Illustrative hospitality reception professional in a sunlit lobby" />
               <h3>Build the team behind the service.</h3>
               <p>Our direction includes hiring and deploying hospitality and other service workers, from kitchen teams and waiters to cleaning and management staff.</p>
               <Link href="/service" className="link-arrow"><span>Discover <ProductSignature name="Service" tone="dark" /></span> <Go /></Link>

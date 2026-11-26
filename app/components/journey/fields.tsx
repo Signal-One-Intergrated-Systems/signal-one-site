@@ -34,7 +34,7 @@ export function JText({
     <div className="field">
       <label htmlFor={id} className="field-label">
         {label}
-        {required ? null : <span className="font-normal text-text-inv-2"> (optional)</span>}
+        {required ? null : <span className="font-normal text-ink-2"> (optional)</span>}
       </label>
       <input
         id={id}
@@ -81,7 +81,7 @@ export function JTextarea({
     <div className="field">
       <label htmlFor={id} className="field-label">
         {label}
-        {required ? null : <span className="font-normal text-text-inv-2"> (optional)</span>}
+        {required ? null : <span className="font-normal text-ink-2"> (optional)</span>}
       </label>
       <textarea
         id={id}
@@ -126,7 +126,7 @@ export function JSelect({
     <div className="field">
       <label htmlFor={id} className="field-label">
         {label}
-        {required ? null : <span className="font-normal text-text-inv-2"> (optional)</span>}
+        {required ? null : <span className="font-normal text-ink-2"> (optional)</span>}
       </label>
       <select
         id={id}
@@ -180,7 +180,7 @@ export function JRadio({
     <fieldset className="m-0 border-0 p-0" data-error={error}>
       <legend className="field-label mb-1">
         {label}
-        {required ? null : <span className="font-normal text-text-inv-2"> (optional)</span>}
+        {required ? null : <span className="font-normal text-ink-2"> (optional)</span>}
       </legend>
       {hint ? <p className="field-hint mb-2">{hint}</p> : <div className="mb-2" />}
       <div className={"grid gap-2 " + columns}>
@@ -194,7 +194,7 @@ export function JRadio({
               checked={j.values[name] === option}
               onChange={() => j.set(name, option)}
             />
-            <span className="text-text-inv">{option}</span>
+            <span className="text-ink">{option}</span>
           </label>
         ))}
       </div>
@@ -245,7 +245,7 @@ export function JMulti({
               aria-invalid={shown ? true : undefined}
               aria-describedby={shown ? errorId : undefined}
             />
-            <span className="text-text-inv">{option}</span>
+            <span className="text-ink">{option}</span>
           </label>
         ))}
       </div>
@@ -284,7 +284,7 @@ export function ReviewList({
   return (
     <div className="grid gap-4">
       {groups.map((group) => (
-        <section key={group.title} className="rounded-card bg-raised p-5 ring-1 ring-line-dark">
+        <section key={group.title} className="rounded-card bg-surface p-5 ring-1 ring-hairline">
           <div className="flex items-center justify-between gap-4">
             <h3 className="t-h4">{group.title}</h3>
             <button
@@ -298,8 +298,8 @@ export function ReviewList({
           <dl className="m-0 mt-2 grid gap-2">
             {group.fields.map(([name, label]) => (
               <div key={name} className="grid gap-0.5 sm:grid-cols-[12rem_1fr] sm:gap-4">
-                <dt className="t-small text-text-inv-2">{label}</dt>
-                <dd className="m-0 break-words">{j.values[name] || <span className="text-text-inv-2">Not given</span>}</dd>
+                <dt className="t-small text-ink-2">{label}</dt>
+                <dd className="m-0 break-words">{j.values[name] || <span className="text-ink-2">Not given</span>}</dd>
               </div>
             ))}
           </dl>

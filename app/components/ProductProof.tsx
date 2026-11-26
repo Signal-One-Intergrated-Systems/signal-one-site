@@ -73,11 +73,11 @@ export function ProductWindow({
       <div className="product-window mx-auto hidden w-full max-w-[var(--frame-w)] md:block">
         <div className="product-window-bar">
           <span aria-hidden="true" className="flex gap-1.5">
-            <i className="block h-2.5 w-2.5 rounded-full bg-line-dark" />
-            <i className="block h-2.5 w-2.5 rounded-full bg-line-dark" />
-            <i className="block h-2.5 w-2.5 rounded-full bg-line-dark" />
+            <i className="block h-2.5 w-2.5 rounded-full bg-hairline" />
+            <i className="block h-2.5 w-2.5 rounded-full bg-hairline" />
+            <i className="block h-2.5 w-2.5 rounded-full bg-hairline" />
           </span>
-          <span className="font-semibold text-text-inv"><ProductSignature name="GUARD" tone="dark" /> · {screen}</span>
+          <span className="font-semibold text-ink"><ProductSignature name="GUARD" tone="dark" /> · {screen}</span>
           <span>Synthetic demo data</span>
         </div>
         <ProofImage shot={shot} priority={priority} />
@@ -87,7 +87,7 @@ export function ProductWindow({
         <div className="md:hidden">
           <div className="product-window">
             <div className="product-window-bar">
-              <span className="t-caption font-semibold text-text-inv"><ProductSignature name="GUARD" tone="dark" /> · {screen} · Synthetic demo data</span>
+              <span className="t-caption font-semibold text-ink"><ProductSignature name="GUARD" tone="dark" /> · {screen} · Synthetic demo data</span>
             </div>
             <ProofImage shot={shot} priority={priority} />
           </div>
@@ -96,8 +96,8 @@ export function ProductWindow({
       <div className="md:hidden">
         <div className="phone-frame mx-auto w-full max-w-[var(--phone-w)]">
           <div className="phone-screen">
-            <p className="flex justify-between px-3 pb-2 pt-3 text-[0.875rem] text-text-inv-3">
-              <span className="font-semibold text-text-inv">{screen}</span>
+            <p className="flex justify-between px-3 pb-2 pt-3 text-[0.875rem] text-ink-3">
+              <span className="font-semibold text-ink">{screen}</span>
               <span>Synthetic demo data</span>
             </p>
             <ProofImage shot={shot} priority={priority} />
@@ -154,8 +154,8 @@ export default function ProductProof({ initial = "control" }: { initial?: string
               className={
                 "min-h-[48px] rounded-ui border px-4 text-[1rem] font-semibold transition-colors " +
                 (selected
-                  ? "border-base bg-base text-text-inv"
-                  : "border-line-strong bg-transparent text-text-inv hover:bg-raised")
+                  ? "border-ink bg-ink text-surface"
+                  : "border-line-strong bg-transparent text-ink hover:bg-surface")
               }
             >
               {item.tab}
@@ -174,8 +174,8 @@ export default function ProductProof({ initial = "control" }: { initial?: string
         <div className="grid gap-4 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] lg:items-end lg:gap-16">
           <h3 className="t-h3">{view.title}</h3>
           <div>
-            <p className="t-body text-text-inv-2">{view.body}</p>
-            <p className="t-caption mt-3 text-text-inv-2">
+            <p className="t-body text-ink-2">{view.body}</p>
+            <p className="t-caption mt-3 text-ink-2">
               Real 1GUARD screen from our demo environment. Every name, site and record shown is synthetic.
             </p>
           </div>

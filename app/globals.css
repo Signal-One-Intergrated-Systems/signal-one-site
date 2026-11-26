@@ -6,15 +6,17 @@
  *
  * Rules for editing this file (enforced by scripts/check-design-system.mjs):
  *  - Colours, radii, shadows and glass recipes are defined ONCE, as tokens below.
- *    Components reference tokens; they do not introduce new hex/rgba values.
+ *    Components reference role tokens; they do not introduce new hex/rgba values.
  *  - No `!important` outside the reduced-motion/transparency safety nets and the
  *    founder-locked homepage hero block in home-conversion.css.
  *  - Fix a component at its source. Never append a later, more specific
  *    "override layer" to correct an earlier rule.
  *
- * The marketing site is one dark graphite stage (founder direction 2026-11-15,
- * "quiet graphite"; recorded in docs/DESIGN_SYSTEM.md §1). Light colours exist only
- * for manufacturer product wells.
+ * The marketing site is LIGHT-FIRST (founder direction 2026-11-26, docs/DESIGN_SYSTEM.md §1):
+ * white, off-white and light-neutral surfaces, dark readable text and Signal blue accents.
+ * Graphite is a scope, not a stage: `.tone-graphite` (and the few named chapters listed with it
+ * below) re-declares the same role tokens with graphite values, so every component works on
+ * both without a second recipe.
  */
 
 @theme inline {
@@ -23,61 +25,131 @@
 }
 
 @theme {
-  /* Graphite stage (one family, one temperature) */
-  --color-deep: #171d21;
-  --color-base: #1f2529;
-  --color-raised: #252b2e;
-  --color-raised-2: #2c3438;
-  --color-abyss: #0a0d12;
-  --color-line-dark: rgb(235 243 246 / 0.16);
-  --color-line-strong: #7c8da0;
+  /* ROLE TOKENS. Components use only these (`bg-surface`, `text-ink-2`, `var(--color-hairline)`).
+     Light by default; the graphite scope and the product-well scope below re-point the same roles.
+     Values live once, in the two palettes in `:root` (light and graphite). */
+  --color-canvas: var(--light-canvas); /* page */
+  --color-surface: var(--light-surface); /* cards, panels, form controls */
+  --color-surface-2: var(--light-surface-2); /* alternate band, sunken fills, typographic wells */
+  --color-ink: var(--light-ink); /* headings and primary text */
+  --color-ink-2: var(--light-ink-2); /* body copy */
+  --color-ink-3: var(--light-ink-3); /* captions, disclosures */
+  --color-accent: var(--light-accent); /* accent TEXT: links, kickers, numerals */
+  --color-hairline: var(--light-hairline); /* every border and rule */
+  --color-line-strong: var(--light-line-strong); /* form-control borders (WCAG 1.4.11) */
+  --color-focus: var(--light-focus); /* the 3px focus ring */
+  --color-live: var(--light-live);
+  --color-beta: var(--light-beta);
+  --color-soon: var(--light-soon);
+  --color-danger: var(--light-danger);
 
-  /* Text on the stage: solid colours, never opacity */
-  --color-text-inv: #f1f5f9;
-  --color-text-inv-2: #cbd5e1;
-  --color-text-inv-3: #94a3b8;
-
-  /* Manufacturer product wells (the only light surfaces) */
-  --color-well: #eef2f4;
-  --color-light: #f5f7fa;
-  --color-light-2: #e9eef4;
-  --color-line: #d5dde6;
-  --color-text: #0b1b2b;
-  --color-text-2: #33475b;
-
-  /* Signal blue */
-  --color-signal: #0ea5e9;
-  --color-signal-600: #0284c7;
-  --color-signal-400: #38bdf8;
-  --color-signal-300: #7dd3fc;
-  --color-signal-ink: #0270a8;
+  /* FIXED BRAND COLOURS (the same on every surface) */
+  --color-signal: #0ea5e9; /* primary button fill, the product numeral "1", the mark's dot */
+  --color-signal-400: #38bdf8; /* primary button hover; focus in graphite */
+  --color-signal-600: #0284c7; /* focus on light, current stepper segment */
+  --color-signal-ink: #0270a8; /* accent text on light */
+  --color-signal-300: #7dd3fc; /* accent text in graphite */
   --color-signal-tint: #e6f4fb;
-  --color-on-signal: #0b1118;
-
-  /* Status: `*-inv` on the stage, base/tint inside light wells */
-  --color-live: #166534;
-  --color-live-tint: #e5f2e9;
-  --color-live-inv: #6ee7a0;
-  --color-beta: #92400e;
-  --color-beta-tint: #fbf0dc;
-  --color-beta-inv: #fcd47a;
-  --color-soon: #374151;
-  --color-soon-tint: #e8e9ec;
-  --color-soon-inv: #d1d5db;
-  --color-danger: #b42318;
-  --color-danger-inv: #ffb4ab;
+  --color-on-signal: #0b1118; /* text on a signal fill (6.8:1) */
+  --color-abyss: #0a0d12; /* product screenshot and phone frames */
+  --color-well: #eef2f5; /* manufacturer product well */
 
   /* Geometry: three radii */
   --radius-ui: 12px;
   --radius-card: 24px;
   --radius-frame: 12px;
 
-  /* Elevation: two shadows */
-  --shadow-card: inset 0 1px 0 rgb(255 255 255 / 0.08), 0 22px 60px -36px rgb(0 0 0 / 0.6);
-  --shadow-float: inset 0 1px 0 rgb(255 255 255 / 0.18), 0 30px 80px -30px rgb(0 0 0 / 0.6);
+  /* Elevation: two shadows, soft and cool on light (re-pointed in graphite) */
+  --shadow-card: 0 1px 2px rgb(24 36 45 / 0.05), 0 18px 40px -28px rgb(24 36 45 / 0.22);
+  --shadow-float: 0 1px 2px rgb(24 36 45 / 0.06), 0 24px 60px -30px rgb(24 36 45 / 0.32);
 
   /* Motion */
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  /* THE TWO PALETTES. Every surface colour on the site is one of these values (contrast pairs in
+     docs/CONTRAST.md). Light is the site; graphite is for the scopes listed below. */
+  :root {
+    --light-canvas: #f7f9fb;
+    --light-surface: #ffffff;
+    --light-surface-2: #edf3f7;
+    --light-ink: #18242d; /* 14.1:1 on surface-2 */
+    --light-ink-2: #435566; /* 6.9:1 on surface-2 */
+    --light-ink-3: #56677a; /* 5.2:1 on surface-2 */
+    --light-accent: var(--color-signal-ink); /* 4.8:1 on surface-2, 5.4:1 on white */
+    --light-hairline: #dce4ea;
+    --light-line-strong: #75879a; /* 3.7:1 on white */
+    --light-focus: var(--color-signal-600); /* 4.1:1 on white */
+    --light-live: #166534;
+    --light-beta: #92400e;
+    --light-soon: #4b5563;
+    --light-danger: #b42318;
+
+    --graphite-canvas: #1e272d;
+    --graphite-surface: #263138;
+    --graphite-surface-2: #2e3a42;
+    --graphite-ink: #f1f5f9; /* 13.9:1 on canvas */
+    --graphite-ink-2: #cbd5e1; /* 9.0:1 on surface */
+    --graphite-ink-3: #a3b1c0; /* 5.3:1 on surface-2 */
+    --graphite-accent: var(--color-signal-300); /* 8.0:1 on surface */
+    --graphite-hairline: rgb(235 243 246 / 0.16);
+    --graphite-line-strong: #7c8da0;
+    --graphite-focus: var(--color-signal-400);
+    --graphite-live: #6ee7a0;
+    --graphite-beta: #fcd47a;
+    --graphite-soon: #d1d5db;
+    --graphite-danger: #ffb4ab;
+  }
+
+  /* Graphite scope: the footer, the homepage 1GUARD operations chapter, product screenshot frames
+     and any `.tone-graphite` element. Same role names, graphite values. */
+  .tone-graphite,
+  .so-home .so-guard-section,
+  .s1-premium-footer-shell,
+  .product-window,
+  .phone-frame {
+    --color-canvas: var(--graphite-canvas);
+    --color-surface: var(--graphite-surface);
+    --color-surface-2: var(--graphite-surface-2);
+    --color-ink: var(--graphite-ink);
+    --color-ink-2: var(--graphite-ink-2);
+    --color-ink-3: var(--graphite-ink-3);
+    --color-accent: var(--graphite-accent);
+    --color-hairline: var(--graphite-hairline);
+    --color-line-strong: var(--graphite-line-strong);
+    --color-focus: var(--graphite-focus);
+    --color-live: var(--graphite-live);
+    --color-beta: var(--graphite-beta);
+    --color-soon: var(--graphite-soon);
+    --color-danger: var(--graphite-danger);
+    --shadow-card: inset 0 1px 0 rgb(255 255 255 / 0.08), 0 22px 60px -36px rgb(0 0 0 / 0.6);
+    --glass-panel: rgb(30 39 45 / 0.74);
+    --glass-panel-solid: rgb(30 39 45 / 0.95);
+    --ghost-border: rgb(255 255 255 / 0.34);
+    --ghost-hover: rgb(255 255 255 / 0.08);
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    color-scheme: dark;
+  }
+  /* A manufacturer product well is light wherever it sits. */
+  .well,
+  .s1-product-well,
+  .s1-hardware-showcase-item,
+  .so-home .so-hardware-product,
+  .so-home .so-panel-photo--product {
+    --color-surface: var(--light-surface);
+    --color-surface-2: var(--light-surface-2);
+    --color-ink: var(--light-ink);
+    --color-ink-2: var(--light-ink-2);
+    --color-ink-3: var(--light-ink-3);
+    --color-accent: var(--light-accent);
+    --color-hairline: var(--light-hairline);
+    --color-focus: var(--light-focus);
+    --color-live: var(--light-live);
+    --color-beta: var(--light-beta);
+    --color-soon: var(--light-soon);
+  }
 }
 
 @layer base {
@@ -86,18 +158,25 @@
     --wrap-pad: 16px;
     /* Sticky header: 8px + 64px pill + 8px. Content under it clears exactly this. */
     --header-h: 80px;
-    /* The stage: painted once on <main>, never per section (VA-02). Body and footer are the deep end colour. */
-    --stage: radial-gradient(1400px 900px at 85% 0%, rgb(49 72 80 / 0.28), transparent 70%),
-      linear-gradient(170deg, #252b2e 0, #1c2226 1600px, #171d21 100%);
-    /* Glass tiers (DESIGN_SYSTEM §Glass): nav, panel over photography, product-well label. */
-    --glass-nav: rgb(23 33 38 / 0.72);
-    --glass-nav-solid: rgb(23 33 38 / 0.94);
-    --glass-panel: rgb(23 29 33 / 0.72);
-    --glass-panel-solid: rgb(23 29 33 / 0.95);
+    /* The page light: painted once on <main>, never per section. White at the top with a faint
+       Signal-blue daylight from the top right, settling to the canvas. */
+    --stage: radial-gradient(1200px 720px at 88% -8%, rgb(14 165 233 / 0.09), transparent 70%),
+      linear-gradient(180deg, #ffffff 0, var(--color-canvas) 820px);
+    /* Glass tiers (DESIGN_SYSTEM §6): nav, panel over photography, product-well label. Light glass. */
+    --glass-nav: rgb(255 255 255 / 0.86);
+    --glass-nav-solid: rgb(255 255 255 / 0.96);
+    --glass-panel: rgb(255 255 255 / 0.8);
+    --glass-panel-solid: rgb(255 255 255 / 0.94);
     --glass-well: rgb(255 255 255 / 0.85);
-    --glass-blur: blur(20px) saturate(110%);
-    /* Scene backdrop wash: photography behind a hero reads as context, not content. */
-    --scene-wash: linear-gradient(105deg, rgb(23 29 33 / 0.93), rgb(23 29 33 / 0.78));
+    --glass-blur: blur(20px) saturate(140%);
+    /* Secondary (ghost) button on light. Re-declared in the graphite scope. */
+    --ghost-border: #b5c3ce;
+    --ghost-hover: var(--color-surface-2);
+    /* Scene backdrop veil: a light veil over a daylight photograph, strongest behind the copy and
+       clear on the far side, so the photograph stays bright and natural (never a dark scrim). */
+    --veil-strong: rgb(247 249 251 / 0.93);
+    --veil-clear: rgb(247 249 251 / 0.22);
+    --scene-wash: linear-gradient(100deg, var(--veil-strong) 0%, var(--veil-strong) 30%, var(--veil-clear) 100%);
   }
   @media (min-width: 640px) {
     :root {
@@ -124,8 +203,8 @@
 
   html {
     min-width: 320px;
-    background: var(--color-deep);
-    color-scheme: dark;
+    background: var(--color-canvas);
+    color-scheme: light;
     -webkit-text-size-adjust: 100%;
     /* No scroll-padding-top: it dragged a scrolled page upward when a header link took focus.
        Header clearance is given to what lands under the header instead (scroll-margin-top below). */
@@ -134,8 +213,8 @@
   body {
     margin: 0;
     min-width: 320px;
-    background: var(--color-deep);
-    color: var(--color-text-inv);
+    background: var(--color-canvas);
+    color: var(--color-ink);
     font-family: var(--font-sans);
     font-size: 1.0625rem;
     line-height: 1.6;
@@ -177,12 +256,12 @@
 
   ::selection {
     background: var(--color-signal-300);
-    color: var(--color-text);
+    color: var(--color-on-signal);
   }
 
-  /* One focus recipe: 3px, offset 3px. signal-400 on the stage (≥ 7:1), signal-600 inside wells. */
+  /* One focus recipe: 3px, offset 3px, in the scope's focus colour (signal-600 on light, signal-400 in graphite). */
   :focus-visible {
-    outline: 3px solid var(--color-signal-400);
+    outline: 3px solid var(--color-focus);
     outline-offset: 3px;
     border-radius: 4px;
   }
@@ -249,19 +328,25 @@
     }
   }
 
-  /* Surfaces. The stage is continuous: sections are transparent and inherit the stage text colour.
-     `surface-*` names are kept as semantic markers (chapter, closing band); none paints a colour. */
+  /* Surfaces. Light-first: sections are transparent on the page light painted once on <main>,
+     so there are no colour seams. `surface-*` names are kept as semantic markers (chapter, closing
+     band); none paints a colour. A graphite chapter is the `.tone-graphite` scope (see the tokens). */
   .surface-deep,
   .surface-base,
   .surface-raised,
   .surface-light,
   .surface-light-2,
   .surface-white {
-    color: var(--color-text-inv);
+    color: var(--color-ink);
   }
   /* A chapter boundary is a hairline, not a colour seam. */
   main > section + section {
-    border-top: 1px solid var(--color-line-dark);
+    border-top: 1px solid var(--color-hairline);
+  }
+  /* The closing band of a page (its last section) sits on the alternate light neutral, so a page
+     ends on a calm, distinct band before the graphite footer. */
+  main > section:last-child:not(:first-child):not(.tone-graphite) {
+    background-color: var(--color-surface-2);
   }
 
   /* ---------- Type: one scale ---------- */
@@ -404,14 +489,14 @@
   /* Secondary: one ghost recipe. `btn-ghost-light` is kept as an alias for existing markup. */
   .btn-ghost-dark,
   .btn-ghost-light {
-    border-color: rgb(255 255 255 / 0.34);
-    color: var(--color-text-inv);
+    border-color: var(--ghost-border);
+    color: var(--color-ink);
     background: transparent;
   }
   .btn-ghost-dark:hover,
   .btn-ghost-light:hover {
-    background: rgb(255 255 255 / 0.08);
-    border-color: rgb(255 255 255 / 0.6);
+    background: var(--ghost-hover);
+    border-color: var(--color-ink-2);
   }
 
   /* Tertiary: text link with an arrow. → for internal, ↗ only for external. */
@@ -421,13 +506,13 @@
     gap: 0.4rem;
     min-height: 44px;
     font-weight: 650;
-    color: var(--color-signal-300);
+    color: var(--color-accent);
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 4px;
   }
   .link-arrow:hover {
-    color: var(--color-text-inv);
+    color: var(--color-ink);
     text-decoration-thickness: 2px;
   }
   .link-inline {
@@ -449,7 +534,7 @@
     font-size: 0.875rem;
     font-weight: 600;
     line-height: 1.3;
-    color: var(--badge, var(--color-signal-300));
+    color: var(--badge, var(--color-accent));
   }
   .badge::before {
     content: "";
@@ -459,37 +544,23 @@
     background: currentColor;
     box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 22%, transparent);
   }
+  /* State hues are role tokens, so a badge is right on light, in graphite and inside a well. */
   .badge-pilot,
   .badge-quote {
-    --badge: var(--color-signal-300);
+    --badge: var(--color-accent);
   }
   .badge-live {
-    --badge: var(--color-live-inv);
+    --badge: var(--color-live);
   }
   .badge-beta,
   .badge-mvp {
-    --badge: var(--color-beta-inv);
-  }
-  .badge-soon {
-    --badge: var(--color-soon-inv);
-  }
-  /* Inside a light product well the same badge uses the light-surface hues. */
-  .well .badge-pilot,
-  .well .badge-quote {
-    --badge: var(--color-signal-ink);
-  }
-  .well .badge-live {
-    --badge: var(--color-live);
-  }
-  .well .badge-beta,
-  .well .badge-mvp {
     --badge: var(--color-beta);
   }
-  .well .badge-soon {
+  .badge-soon {
     --badge: var(--color-soon);
   }
 
-  /* ---------- Forms (dark stage) ---------- */
+  /* ---------- Forms ---------- */
   .field {
     display: grid;
     gap: 0.5rem;
@@ -499,15 +570,15 @@
     font-size: 0.9375rem;
     font-weight: 650;
     line-height: 1.4;
-    color: var(--color-text-inv);
+    color: var(--color-ink);
   }
   legend {
-    color: var(--color-text-inv);
+    color: var(--color-ink);
   }
   .field-hint {
     font-size: 0.875rem;
     line-height: 1.5;
-    color: var(--color-text-inv-2);
+    color: var(--color-ink-2);
   }
   .field-input {
     width: 100%;
@@ -515,8 +586,8 @@
     padding: 0.75rem 0.9rem;
     border: 1px solid var(--color-line-strong);
     border-radius: var(--radius-ui);
-    background: var(--color-raised-2);
-    color: var(--color-text-inv);
+    background: var(--color-surface);
+    color: var(--color-ink);
     font-size: 1.0625rem;
     line-height: 1.4;
     transition:
@@ -524,20 +595,20 @@
       box-shadow 140ms ease;
   }
   .field-input::placeholder {
-    color: var(--color-text-inv-3);
+    color: var(--color-ink-3);
     opacity: 1;
   }
   .field-input:focus {
     outline: none;
-    border-color: var(--color-signal-400);
-    box-shadow: 0 0 0 3px rgb(56 189 248 / 0.35);
+    border-color: var(--color-focus);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-focus) 30%, transparent);
   }
   .field-input[aria-invalid="true"] {
-    border-color: var(--color-danger-inv);
-    box-shadow: 0 0 0 1px var(--color-danger-inv);
+    border-color: var(--color-danger);
+    box-shadow: 0 0 0 1px var(--color-danger);
   }
   fieldset:has([aria-invalid="true"]) > legend {
-    color: var(--color-danger-inv);
+    color: var(--color-danger);
   }
   textarea.field-input {
     min-height: 128px;
@@ -546,23 +617,23 @@
   select.field-input {
     appearance: none;
     padding-right: 2.5rem;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23cbd5e1' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23435566' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 0.9rem center;
   }
   select.field-input option {
-    background: var(--color-raised-2);
-    color: var(--color-text-inv);
+    background: var(--color-surface);
+    color: var(--color-ink);
   }
   input[type="month"].field-input,
   input[type="date"].field-input {
-    color-scheme: dark;
+    color-scheme: light;
   }
   .field-error,
   [role="alert"]:not(.s1-error-summary) {
     font-size: 0.9375rem;
     font-weight: 600;
-    color: var(--color-danger-inv);
+    color: var(--color-danger);
   }
 
   .check {
@@ -595,8 +666,8 @@
     padding: 0.75rem 1rem;
     border: 1px solid var(--color-line-strong);
     border-radius: var(--radius-ui);
-    background: var(--color-raised-2);
-    color: var(--color-text-inv);
+    background: var(--color-surface);
+    color: var(--color-ink);
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
@@ -605,40 +676,41 @@
       background-color 140ms ease;
   }
   .choice:hover {
-    border-color: var(--color-text-inv-2);
+    border-color: var(--color-ink-2);
+    background: var(--color-surface-2);
   }
   .choice input {
     width: 20px;
     height: 20px;
   }
   .choice:has(input:checked) {
-    border-color: var(--color-signal-400);
-    background: rgb(56 189 248 / 0.12);
-    box-shadow: inset 0 0 0 1px var(--color-signal-400);
+    border-color: var(--color-focus);
+    background: color-mix(in srgb, var(--color-signal) 10%, var(--color-surface));
+    box-shadow: inset 0 0 0 1px var(--color-focus);
   }
   .choice:has(input:focus-visible),
   .check:has(input:focus-visible) {
-    outline: 3px solid var(--color-signal-400);
+    outline: 3px solid var(--color-focus);
     outline-offset: 3px;
   }
 
   /* Form error summary (lib/formValidation.ts, GOV.UK pattern) */
   .s1-error-summary {
     margin: 0 0 1.5rem;
-    border: 2px solid var(--color-danger-inv);
+    border: 2px solid var(--color-danger);
     border-radius: var(--radius-ui);
-    background: rgb(255 180 171 / 0.08);
+    background: color-mix(in srgb, var(--color-danger) 6%, var(--color-surface));
     padding: 1rem 1.25rem;
   }
   .s1-error-summary:focus {
-    outline: 3px solid var(--color-danger-inv);
+    outline: 3px solid var(--color-danger);
     outline-offset: 3px;
   }
   .s1-error-summary-title {
     margin: 0 0 0.5rem;
     font-weight: 700;
     font-size: 1.0625rem;
-    color: var(--color-text-inv);
+    color: var(--color-ink);
   }
   .s1-error-summary ul {
     margin: 0;
@@ -648,7 +720,7 @@
     margin: 0.25rem 0;
   }
   .s1-error-summary a {
-    color: var(--color-danger-inv);
+    color: var(--color-danger);
     font-weight: 600;
     text-decoration: underline;
     text-underline-offset: 4px;
@@ -680,31 +752,31 @@
   }
   .stepper-track > li[data-state="current"] {
     height: 0.75rem;
-    background: var(--color-signal-300);
+    background: var(--color-signal-600);
     box-shadow: none;
   }
 
   /* ---------- Cards and panels ---------- */
-  /* Solid card on the stage: no blur over flat colour (VA-09). */
+  /* Solid white card on the light page (graphite card inside a graphite scope): no blur over flat colour (VA-09). */
   .card,
   .card-dark {
-    border: 1px solid var(--color-line-dark);
+    border: 1px solid var(--color-hairline);
     border-radius: var(--radius-card);
-    background: var(--color-raised);
+    background: var(--color-surface);
     box-shadow: var(--shadow-card);
     overflow-wrap: break-word;
   }
 
-  /* Glass panel: only over photography (hero captions, overlays on photo bands). */
+  /* Glass panel: only over photography (hero captions, overlays on photo bands). Light glass. */
   .glass {
-    border: 1px solid var(--color-line-dark);
+    border: 1px solid rgb(255 255 255 / 0.7);
     border-radius: var(--radius-card);
     background: var(--glass-panel-solid);
     box-shadow: var(--shadow-float);
   }
   /* Light glass: labels sitting on a light product well. */
   .glass-light {
-    border: 1px solid var(--color-line);
+    border: 1px solid var(--color-hairline);
     background: var(--glass-well);
   }
   @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
@@ -722,15 +794,12 @@
   .s1-product-well {
     position: relative;
     background: var(--color-well);
-    color: var(--color-text);
+    color: var(--color-ink);
   }
   /* Fit a product by its device bounds where the image declares them (lib/catalogue.ts productBounds). */
   .well img,
   .so-product-image {
     object-view-box: var(--bounds, none);
-  }
-  .well :focus-visible {
-    outline-color: var(--color-signal-600);
   }
 
   /* Framed media: one treatment for every photograph of people (VA-27). */
@@ -741,23 +810,23 @@
   .s1-service-capability-photo {
     position: relative;
     overflow: hidden;
-    border: 1px solid var(--color-line-dark);
+    border: 1px solid var(--color-hairline);
     border-radius: var(--radius-card);
-    background: var(--color-raised);
+    background: var(--color-surface);
     box-shadow: var(--shadow-card);
   }
 
   /* Rules */
   .rule-dark {
     border: 0;
-    border-top: 1px solid var(--color-line-dark);
+    border-top: 1px solid var(--color-hairline);
   }
 
-  /* Product window: real screenshots only */
+  /* Product window: real screenshots only. The frame is graphite on every surface (product chrome). */
   .product-window {
     overflow: hidden;
     border-radius: var(--radius-frame);
-    border: 1px solid var(--color-line-dark);
+    border: 1px solid var(--color-hairline);
     background: var(--color-abyss);
   }
   .product-window-bar {
@@ -766,15 +835,15 @@
     justify-content: space-between;
     gap: 1rem;
     padding: 0.625rem 1rem;
-    border-bottom: 1px solid var(--color-line-dark);
-    background: var(--color-base);
-    color: var(--color-text-inv-2);
+    border-bottom: 1px solid var(--color-hairline);
+    background: var(--color-surface);
+    color: var(--color-ink-2);
     font-size: 0.875rem;
     line-height: 1.3;
   }
   .phone-frame {
     border-radius: 36px;
-    border: 1px solid var(--color-line-dark);
+    border: 1px solid var(--color-hairline);
     background: var(--color-abyss);
     padding: 10px;
   }
@@ -789,12 +858,25 @@
   .photo {
     position: relative;
     overflow: hidden;
-    background: var(--color-raised-2);
+    background: var(--color-surface-2);
+  }
+  /* Caption chip over a photograph: light glass, ink text, bottom-left. */
+  .photo-chip {
+    position: absolute;
+    z-index: 2;
+    left: 16px;
+    bottom: 16px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: var(--glass-panel-solid);
+    color: var(--color-ink);
+    font-size: 0.875rem;
+    line-height: 1.4;
   }
   .photo-caption {
     font-size: 0.875rem;
     line-height: 1.45;
-    color: var(--color-text-inv-2);
+    color: var(--color-ink-2);
   }
 
   /* Hardware rail: thin, quiet scrollbar; snap handles alignment. */
@@ -898,7 +980,7 @@
     width: calc(100% - 2 * var(--wrap-pad));
     max-width: calc(var(--wrap-max) - 2 * var(--wrap-pad));
     padding-inline: clamp(12px, 1.6vw, 24px);
-    border: 1px solid rgb(247 252 255 / 0.4);
+    border: 1px solid var(--color-hairline);
     border-radius: 999px;
     background: var(--glass-nav-solid);
     box-shadow: var(--shadow-float);
@@ -923,7 +1005,7 @@
   }
   header.glass-nav nav[aria-label="Primary"] a:hover,
   header.glass-nav nav[aria-label="Primary"] a[aria-current="page"] {
-    background: rgb(255 255 255 / 0.09);
+    background: var(--color-surface-2);
   }
   header.glass-nav .btn-primary {
     min-height: 48px;
@@ -959,15 +1041,15 @@
   }
   #mobile-nav {
     top: var(--header-h);
-    background: var(--color-base);
-    color: var(--color-text-inv);
+    background: var(--color-surface);
+    color: var(--color-ink);
   }
   /* Every page clears the floating header once, on <main>. A first section (hero) is pulled back up
      under the pill with a transparent border of the same height, so its backdrop runs behind the
      header while its own padding utilities stay intact. */
   main {
     padding-top: var(--header-h);
-    background-color: var(--color-deep);
+    background-color: var(--color-canvas);
     background-image: var(--stage);
     background-repeat: no-repeat;
   }
@@ -1202,7 +1284,7 @@
   font-size: 0.65rem;
   font-weight: 650;
   letter-spacing: 0.32em;
-  color: var(--color-text-inv-2);
+  color: var(--color-ink-2);
   opacity: 0;
 }
 .sg-entry-master-logo {

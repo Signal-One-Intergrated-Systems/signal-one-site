@@ -32,7 +32,7 @@ export default function FooterCta() {
   return (
     <div className="s1-premium-footer-intro">
       <div>
-        <p className="t-kicker text-signal-300">{cta.kicker}</p>
+        <p className="t-kicker text-accent">{cta.kicker}</p>
         <h2>{cta.title}</h2>
         <p>{cta.body}</p>
       </div>

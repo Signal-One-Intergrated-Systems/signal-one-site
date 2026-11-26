@@ -12,7 +12,7 @@ export default function NotFound() {
       <div className="wrap py-16 md:py-24 lg:py-28">
         <Kicker tone="dark">Error 404</Kicker>
         <h1 className="t-hero mt-5">We could not find that page.</h1>
-        <p className="t-lead measure mt-6 text-text-inv-2">
+        <p className="t-lead measure mt-6 text-ink-2">
           The link may be old or mistyped. 1GUARD, pricing and contact are one click away.
         </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">

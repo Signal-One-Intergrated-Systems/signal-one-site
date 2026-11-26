@@ -204,3 +204,7 @@ The image audit implementation preserves the locked homepage hero and original b
 ## 2026-11-25 consolidation (W1)
 
 One token layer (this document); graphite confirmed as the single family (§1); homepage sections moved onto the shared scale, rhythm, buttons and badges; scene backdrops toned to graphite; header unified. Before/after metrics and evidence: `docs/launch/BRAND_AUDIT.md` §9, `docs/launch/evidence/w1/`.
+
+## Approved 2026-11-26 light-first direction
+
+(placeholder, rewritten below)

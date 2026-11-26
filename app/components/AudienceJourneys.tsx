@@ -10,29 +10,29 @@ const journeys = [
 
 export default function AudienceJourneys() {
   return (
-    <section aria-labelledby="audience-title" className="enterprise-journeys surface-white border-b border-line-dark py-16 md:py-20">
+    <section aria-labelledby="audience-title" className="enterprise-journeys surface-white border-b border-hairline py-16 md:py-20">
       <div className="wrap">
         <div className="flex flex-wrap items-end justify-between gap-5">
           <div className="max-w-2xl">
-            <p className="t-kicker text-signal-300">Your next step</p>
+            <p className="t-kicker text-accent">Your next step</p>
             <h2 id="audience-title" className="t-h2 mt-3">Find your place in Signal One.</h2>
-            <p className="t-body mt-4 text-text-inv-2">Two specialised platforms, one Signal One parent brand. Choose the product or service that fits your operation.</p>
+            <p className="t-body mt-4 text-ink-2">Two specialised platforms, one Signal One parent brand. Choose the product or service that fits your operation.</p>
           </div>
           <Link href="/contact" className="btn btn-ghost-light">Talk to our team <span aria-hidden="true">↗</span></Link>
         </div>
         <div className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {journeys.map((journey) => (
-            <article key={journey.audience} className="enterprise-product-card group flex min-w-0 flex-col rounded-card border border-line-dark bg-raised p-6 transition-colors hover:border-signal-400 focus-within:border-signal-400">
-              <p className="t-caption font-semibold text-signal-300">{journey.tag} · {journey.audience}</p>
+            <article key={journey.audience} className="enterprise-product-card group flex min-w-0 flex-col rounded-card border border-hairline bg-surface p-6 transition-colors hover:border-signal-400 focus-within:border-signal-400">
+              <p className="t-caption font-semibold text-accent">{journey.tag} · {journey.audience}</p>
               <h3 className="t-h3 mt-5">{journey.title}</h3>
-              <p className="t-small mt-3 flex-1 text-text-inv-2">{journey.detail}</p>
+              <p className="t-small mt-3 flex-1 text-ink-2">{journey.detail}</p>
               <Link href={journey.href} className="btn btn-primary mt-7 w-full justify-center text-center">
                 {journey.action} <span aria-hidden="true">↗</span>
               </Link>
             </article>
           ))}
         </div>
-        <p className="t-small mt-6 text-text-inv-2">Already a customer? Use your existing workspace invitation, or <Link href="/contact" className="font-semibold text-signal-300 underline underline-offset-4">contact support for access</Link>. Sales OS is reserved for Signal One representatives.</p>
+        <p className="t-small mt-6 text-ink-2">Already a customer? Use your existing workspace invitation, or <Link href="/contact" className="font-semibold text-accent underline underline-offset-4">contact support for access</Link>. Sales OS is reserved for Signal One representatives.</p>
       </div>
     </section>
   );

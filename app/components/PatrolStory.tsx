@@ -42,13 +42,13 @@ export default function PatrolStory({ tone = "light" }: { tone?: "light" | "dark
         {steps.map((step, index) => (
           <li key={step.title} className="reveal flex flex-col" style={{ ["--reveal-delay" as string]: index * 120 + "ms" }}>
             <div className="flex items-center gap-3">
-              <span className={"t-num text-[1.25rem] " + "text-signal-300"}>{index + 1}</span>
-              <span aria-hidden="true" className={"h-px flex-1 " + "bg-line-dark"} />
+              <span className={"t-num text-[1.25rem] " + "text-accent"}>{index + 1}</span>
+              <span aria-hidden="true" className={"h-px flex-1 " + "bg-hairline"} />
               <Kicker tone={tone} className="shrink-0">
                 {step.stage}
               </Kicker>
             </div>
-            <div className={"relative mt-4 aspect-[16/10] overflow-hidden rounded-card " + "bg-raised"}>
+            <div className={"relative mt-4 aspect-[16/10] overflow-hidden rounded-card " + "bg-surface"}>
               {"photo" in step ? (
                 <Image
                   src={step.photo.src}
@@ -61,9 +61,9 @@ export default function PatrolStory({ tone = "light" }: { tone?: "light" | "dark
               ) : (
                 <dl aria-label={step.stage === "Proof" ? "Proof-of-service outcomes" : step.stage === "Control room" ? "Control-room workflow" : "What is recorded with each scan"} className="absolute inset-0 m-0 flex flex-col justify-center gap-2 p-5">
                   {step.record.map((field) => (
-                    <div key={field} className={"flex items-center gap-3 border-b pb-2 last:border-0 " + "border-line-dark"}>
-                      <span aria-hidden="true" className={"h-1.5 w-1.5 rounded-full " + "bg-signal-300"} />
-                      <dt className={"t-small font-semibold " + "text-text-inv"}>{field}</dt>
+                    <div key={field} className={"flex items-center gap-3 border-b pb-2 last:border-0 " + "border-hairline"}>
+                      <span aria-hidden="true" className={"h-1.5 w-1.5 rounded-full " + "bg-accent"} />
+                      <dt className={"t-small font-semibold " + "text-ink"}>{field}</dt>
                       <dd className="sr-only">{step.stage === "Proof" ? "possible outcome" : step.stage === "Control room" ? "workflow item" : "recorded"}</dd>
                     </div>
                   ))}
@@ -71,11 +71,11 @@ export default function PatrolStory({ tone = "light" }: { tone?: "light" | "dark
               )}
             </div>
             <h3 className="t-h4 mt-4">{step.title}</h3>
-            <p className={"t-small mt-2 " + "text-text-inv-2"}>{step.body}</p>
+            <p className={"t-small mt-2 " + "text-ink-2"}>{step.body}</p>
           </li>
         ))}
       </ol>
-      <p className={"t-caption mt-6 " + "text-text-inv-2"}>Photographs: {illustrativeCaption.toLowerCase()}.</p>
+      <p className={"t-caption mt-6 " + "text-ink-2"}>Photographs: {illustrativeCaption.toLowerCase()}.</p>
     </div>
   );
 }

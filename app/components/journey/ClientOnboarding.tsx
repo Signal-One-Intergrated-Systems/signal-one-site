@@ -10,7 +10,7 @@ import { validateBeforeSubmit } from "../../lib/formValidation";
 import { useJourney } from "./useJourney";
 import { guardDayPricePhrase, minimumPhrase } from "../../lib/pricing";
 
-const ACCENT = "text-signal-300";
+const ACCENT = "text-accent";
 
 const steps = [
   { id: "company", label: "Company" },
@@ -53,12 +53,12 @@ export default function ClientOnboarding() {
   if (j.status === "done") {
     return (
       <div role="status" className="mx-auto max-w-[760px]">
-        <span className="grid h-14 w-14 place-items-center rounded-full bg-signal text-deep">
+        <span className="grid h-14 w-14 place-items-center rounded-full bg-signal text-on-signal">
           <Check />
         </span>
         <h2 className="t-h1 mt-6">Thanks. Your onboarding request is with Signal One.</h2>
         <ReceiptReference reference={j.reference} />
-        <p className="t-lead mt-4 text-text-inv-2">A representative will contact you about your selected products, trial request and account setup. A trial has not started yet.</p>
+        <p className="t-lead mt-4 text-ink-2">A representative will contact you about your selected products, trial request and account setup. A trial has not started yet.</p>
         <div className="mt-8">
           <Steps
             items={[
@@ -79,12 +79,12 @@ export default function ClientOnboarding() {
   return (
     <div className="grid gap-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
       <aside className="lg:sticky lg:top-[104px] lg:self-start">
-        <p className="t-kicker text-signal-300">Company onboarding</p>
+        <p className="t-kicker text-accent">Company onboarding</p>
         <p className="t-h3 mt-2">Tell us what your company needs.</p>
         <div className="mt-6 hidden lg:block">
           <Stepper steps={steps.map((step) => step.label)} index={j.stepIndex} label="Onboarding steps" />
         </div>
-        <p className="t-small mt-6 text-text-inv-2">
+        <p className="t-small mt-6 text-ink-2">
           Takes about three minutes. Eligible security companies can request a 14-day 1GUARD trial. 1Service is in development; equipment is quoted separately. No account or trial starts when you submit.
         </p>
       </aside>

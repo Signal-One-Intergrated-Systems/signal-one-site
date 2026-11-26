@@ -46,11 +46,11 @@ export default function SalesCareersPage() {
   return (
     <main id="main" className="s1-scene-page s1-scene-page--careers">
       <SplitHero src={photos.accountReview.src} alt={photos.accountReview.alt} objectPositionMobile="50% 40%" objectPosition="55% 46%">
-          <p className="t-kicker text-signal-300">Careers at Signal One</p>
+          <p className="t-kicker text-accent">Careers at Signal One</p>
           <h1 className="t-hero mt-4">
             Sell the operating systems SMEs run on.
           </h1>
-          <p className="t-lead measure mt-6 text-text-inv-2">
+          <p className="t-lead measure mt-6 text-ink-2">
             We are building a sales team to help South African SMEs adopt intelligent business operating systems. Our initial commercial focus is 1GUARD for security businesses; 1Service is in development.
           </p>
           <p className="mt-8 inline-flex flex-wrap items-center gap-3">
@@ -67,19 +67,19 @@ export default function SalesCareersPage() {
               </a>
             ) : null}
           </p>
-          <p className="t-caption mt-6 text-text-inv-2">Illustrative scene · fictional security company</p>
+          <p className="t-caption mt-6 text-ink-2">Illustrative scene · fictional security company</p>
       </SplitHero>
 
       <section id="role" className="section">
         <div className="wrap">
           <h2 className="t-h2">The role</h2>
-          <p className="t-lead measure mt-4 text-text-inv-2">Sales representative for SME business operating systems, with security as the initial focus.</p>
+          <p className="t-lead measure mt-4 text-ink-2">Sales representative for SME business operating systems, with security as the initial focus.</p>
           <div className="mt-10 grid gap-12 md:grid-cols-2">
             <div>
               <h3 className="t-h3">What you will do</h3>
               <ul className="m-0 mt-4 list-none p-0">
                 {youWill.map((item) => (
-                  <li key={item} className="t-body border-t border-line-dark py-3">
+                  <li key={item} className="t-body border-t border-hairline py-3">
                     {item}
                   </li>
                 ))}
@@ -89,14 +89,14 @@ export default function SalesCareersPage() {
               <h3 className="t-h3">What we look for</h3>
               <ul className="m-0 mt-4 list-none p-0">
                 {weExpect.map((item) => (
-                  <li key={item} className="t-body border-t border-line-dark py-3">
+                  <li key={item} className="t-body border-t border-hairline py-3">
                     {item}
                   </li>
                 ))}
               </ul>
             </div>
           </div>
-          <p className="t-small mt-10 text-text-inv-2">
+          <p className="t-small mt-10 text-ink-2">
             You will work in Signal One&apos;s internal Sales OS for leads, pipeline, follow-ups and quotes. Pay and terms
             are discussed at interview.
           </p>
@@ -109,9 +109,9 @@ export default function SalesCareersPage() {
           <ol className="m-0 mt-10 grid list-none gap-x-8 gap-y-8 p-0 sm:grid-cols-2 lg:grid-cols-3">
             {process.map(([title, body], index) => (
               <li key={title} className="border-t-2 border-brass pt-4">
-                <span className="t-num pt-0.5 text-[1.5rem] text-signal-300">{index + 1}</span>
+                <span className="t-num pt-0.5 text-[1.5rem] text-accent">{index + 1}</span>
                 <h3 className="t-h4 mt-1">{title}</h3>
-                <p className="t-small mt-1 text-text-inv-2">{body}</p>
+                <p className="t-small mt-1 text-ink-2">{body}</p>
               </li>
             ))}
           </ol>
@@ -124,19 +124,19 @@ export default function SalesCareersPage() {
             <h2 className="t-h2">
               {open ? "Apply" : "Applications are closed"}
             </h2>
-            <p className="t-body mt-4 text-text-inv-2">
+            <p className="t-body mt-4 text-ink-2">
               {open
                 ? "Seven short steps. Your answers are saved in this browser, so you can finish later."
                 : "We are not recruiting sales representatives right now. When the next intake opens, it will be announced on this page."}
             </p>
           </div>
-          <div className="text-text-inv">
+          <div className="text-ink">
             {open ? (
               <><IntakeAvailability kind="sales" /><SalesApplication roleCount={config.openRoles} /></>
             ) : (
-              <div className="rounded-card bg-raised p-6 sm:p-8">
+              <div className="rounded-card bg-surface p-6 sm:p-8">
                 <h3 className="t-h3">No open roles at the moment</h3>
-                <p className="t-body mt-3 text-text-inv-2">
+                <p className="t-body mt-3 text-ink-2">
                   Thank you for your interest. Please check this page again; we do not keep a waiting list.
                 </p>
               </div>
@@ -149,14 +149,14 @@ export default function SalesCareersPage() {
         <div className="wrap flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
             <h2 className="t-h4">Already a Signal One representative?</h2>
-            <p className="t-small text-text-inv-2">Open Sales OS after your account has been authorised and compulsory training completed.</p>
+            <p className="t-small text-ink-2">Open Sales OS after your account has been authorised and compulsory training completed.</p>
           </div>
           {config.salesOsUrl ? (
             <a href={config.salesOsUrl} className="btn btn-ghost-light" rel="noopener">
               Open Sales OS
             </a>
           ) : (
-            <p className="t-small rounded-ui bg-white/10 px-4 py-3 text-text-inv-2">
+            <p className="t-small rounded-ui bg-surface-2 px-4 py-3 text-ink-2">
               Sales OS sign-in: use the link from your onboarding email.
             </p>
           )}
