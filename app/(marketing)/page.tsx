@@ -64,8 +64,8 @@ export default function Home() {
       <HomeScrollChoreography />
       <section className="s1-brand-stage so-hero" aria-labelledby="so-hero-title">
         <div className="so-hero-media">
-          <Image src="/images/home/approved-full-scene-guard-chef-2026.png"
-            alt="Illustrative wide daylight restaurant scene with green gardens on the left and, on the right, a Black woman security officer in a SECURITY vest reviewing a tablet with a white male chef in his chef hat"
+          <Image src="/images/home/approved-enterprise-communications-2026.jpg"
+            alt="Illustrative daylight enterprise campus with three business and operations professionals reviewing a tablet and a handheld radio"
             fill priority fetchPriority="high" quality={75}
             sizes="100vw" className="so-hero-photo object-cover" />
           <div className="so-hero-wash" aria-hidden="true" />

@@ -173,3 +173,8 @@ Also placed from the existing approved editorial set (2026-10-30 package): `secu
 Not acquired: the package guide lists Pexels source candidates (office park, restaurant, warehouse). They were not fetched (licence and dimensions unverified, not reachable from the build environment); see `docs/launch/LIGHT_THEME.md`.
 
 Light-first treatment: photographs are no longer toned to graphite (the luminosity blend is removed) and no dark scrim is laid over them; scene backdrops sit under a light veil that clears away from the copy. The locked homepage hero and the approved SME control-room photograph are unchanged.
+
+
+## Founder-approved homepage hero replacement — 2026-11-26
+
+The founder explicitly requested the new enterprise communications scene for the homepage. The active hero is now `/images/home/approved-enterprise-communications-2026.jpg` (1672 × 941 JPEG; SHA-256 `224b5d8939787ccb3f10ec9cb33b2c1d5e1623471e8ecdea0eae1359c6f1e859`). This synthetic illustrative photograph is not evidence of actual staff, premises or customers. It replaces only the former guard-and-chef image and its descriptive alt text; the existing globe, glass, navigation, copy, responsive layout and loading priority remain unchanged. Earlier hero approvals above are historical; the previous asset is retained for rollback. The source fixture and visual tests now protect the replacement.

@@ -18,9 +18,9 @@ import { routes as allMarketingRoutes } from "./routes";
  * delivery encoding: `quality` may change when an independent visual comparison shows no material
  * degradation (q90 -> q75 was compared in docs/launch/evidence/hero-q90-vs-q75-*), but never below 75.
  */
-const HERO_SOURCE = "public/images/home/approved-full-scene-guard-chef-2026.png";
-const HERO_SOURCE_SHA256 = "4d3aca7b4da412b9b37963950a7848bdca03a98d217e10401ea8bdbc6caedbd4";
-const HERO_ALT = "Illustrative wide daylight restaurant scene with green gardens on the left and, on the right, a Black woman security officer in a SECURITY vest reviewing a tablet with a white male chef in his chef hat";
+const HERO_SOURCE = "public/images/home/approved-enterprise-communications-2026.jpg";
+const HERO_SOURCE_SHA256 = "224b5d8939787ccb3f10ec9cb33b2c1d5e1623471e8ecdea0eae1359c6f1e859";
+const HERO_ALT = "Illustrative daylight enterprise campus with three business and operations professionals reviewing a tablet and a handheld radio";
 const HERO_MIN_QUALITY = 75;
 /** The only attribute allowed to differ from the approved fixture is the encode quality. */
 const withoutQuality = (jsx: string) => jsx.replace(/ quality=\{\d+\}/g, " quality={…}");
@@ -38,7 +38,7 @@ test("FOUNDERS LOCK: approved home hero markup must never change accidentally", 
   const qualities = [...hero.matchAll(/ quality=\{(\d+)\}/g)].map(match => Number(match[1]));
   expect(qualities, "the hero has exactly one encode quality").toHaveLength(1);
   expect(qualities[0], "hero encode quality floor (founder ruling 2026-11-25)").toBeGreaterThanOrEqual(HERO_MIN_QUALITY);
-  expect(hero).toContain('<Image src="/images/home/approved-full-scene-guard-chef-2026.png"');
+  expect(hero).toContain('<Image src="/images/home/approved-enterprise-communications-2026.jpg"');
   expect(hero).toContain(`alt="${HERO_ALT}"`);
   expect(hero).toContain('fill priority fetchPriority="high"');
   expect(hero).toContain('sizes="100vw" className="so-hero-photo object-cover"');
@@ -78,7 +78,7 @@ for (const crop of heroCrop) {
         aspect: img.naturalWidth / img.naturalHeight,
       };
     });
-    expect(seen.source).toBe("/images/home/approved-full-scene-guard-chef-2026.png");
+    expect(seen.source).toBe("/images/home/approved-enterprise-communications-2026.jpg");
     expect(seen.alt).toBe(HERO_ALT);
     expect(seen.fetchPriority).toBe("high");
     expect(seen.lazy).toBe(false);
@@ -179,7 +179,7 @@ test("key acquisition pages have no critical automated accessibility violations"
 
 test("marketing introductions use relevant people or exact manufacturer products", async ({ page }) => {
   const prominentImages: Record<string, string> = {
-    "/": "approved-full-scene-guard-chef-2026.png",
+    "/": "approved-enterprise-communications-2026.jpg",
     "/solutions/security": "security-site-planning",
     // Light-first bright package (founder, 2026-11-26): the /service hero uses 01-restaurant-service.
     "/service": "01-restaurant-service",
@@ -331,7 +331,7 @@ test("homepage Guard and Service put people ahead of their section environments"
     expect(response.status()).toBe(200);
     expect(response.headers()["content-type"]).toContain(mime);
   }
-  await expect(page.locator(".so-hero-photo")).toHaveAttribute("src", /approved-full-scene-guard-chef-2026\.png/);
+  await expect(page.locator(".so-hero-photo")).toHaveAttribute("src", /approved-enterprise-communications-2026\.jpg/);
   for (const route of ["/", "/solutions/security", "/service"]) {
     await page.goto(route);
     const visibleImages = await page.locator("main img").evaluateAll(imgs =>
@@ -341,11 +341,11 @@ test("homepage Guard and Service put people ahead of their section environments"
   }
 });
 
-test("approved homepage guard-and-chef photograph remains separate from interactive controls", async ({ page, request }) => {
-  const photoPath = "/images/home/approved-full-scene-guard-chef-2026.png";
+test("approved homepage enterprise communications photograph remains separate from interactive controls", async ({ page, request }) => {
+  const photoPath = "/images/home/approved-enterprise-communications-2026.jpg";
   const response = await request.get(photoPath);
   expect(response.status()).toBe(200);
-  expect(response.headers()["content-type"]).toContain("image/png");
+  expect(response.headers()["content-type"]).toContain("image/jpeg");
   expect((await response.body()).byteLength).toBeGreaterThan(50000);
   for (const viewport of [
     { width: 375, height: 812 },
@@ -356,9 +356,9 @@ test("approved homepage guard-and-chef photograph remains separate from interact
     await page.goto("/");
     const image = page.locator(".so-hero-photo");
     const alt = await image.getAttribute("alt") || "";
-    expect(alt).toMatch(/security officer/i);
-    expect(alt).toMatch(/chef/i);
-    expect(alt).toMatch(/SECURITY vest/i);
+    expect(alt).toMatch(/enterprise campus/i);
+    expect(alt).toMatch(/tablet/i);
+    expect(alt).toMatch(/handheld radio/i);
     const dimensions = await image.evaluate(img => {
       const box = img.getBoundingClientRect();
       const media = img.parentElement!.getBoundingClientRect();
@@ -383,12 +383,12 @@ test("approved homepage guard-and-chef photograph remains separate from interact
 });
 
 
-test("desktop homepage shows the entire approved guard and chef photograph with no zoom", async ({ page }) => {
+test("desktop homepage shows the entire approved enterprise communications photograph with no zoom", async ({ page }) => {
   for (const viewport of [{ width: 1440, height: 900 }, { width: 1536, height: 960 }]) {
     await page.setViewportSize(viewport);
     await page.goto("/");
     const image = page.locator(".so-hero-photo");
-    await expect(image).toHaveAttribute("src", /approved-full-scene-guard-chef-2026[.]png/);
+    await expect(image).toHaveAttribute("src", /approved-enterprise-communications-2026[.]jpg/);
     const layout = await image.evaluate(img => {
       const media = img.parentElement!.getBoundingClientRect();
       const picture = img.getBoundingClientRect();
@@ -408,7 +408,7 @@ test("desktop homepage shows the entire approved guard and chef photograph with 
     expect(layout.naturalWidth).toBeGreaterThan(0);
     expect(layout.naturalHeight).toBeGreaterThan(0);
     expect(layout.pictureRight).toBeLessThanOrEqual(layout.mediaRight + 1);
-    expect(layout.pictureTop, "Chef's hat must start below glass navigation").toBeGreaterThanOrEqual(layout.navBottom - 3);
+    expect(layout.pictureTop, "Hero photograph must start below glass navigation").toBeGreaterThanOrEqual(layout.navBottom - 3);
     const ratio = layout.naturalWidth / layout.naturalHeight;
     const fitWidth = Math.min(layout.width, layout.height * ratio);
     const fitHeight = Math.min(layout.height, layout.width / ratio);
@@ -422,11 +422,11 @@ test("desktop homepage shows the entire approved guard and chef photograph with 
 
 // Wide full scene must be the foreground image layer across the *whole* hero,
 // not a cropped 59% panel on the right. The globe and glass must remain intact.
-test("approved full-scene hero spans behind the globe without cropping the chef on desktop", async ({page,request}) => {
-  const source="/images/home/approved-full-scene-guard-chef-2026.png";
+test("approved full-scene hero spans behind the globe without cropping the subjects on desktop", async ({page,request}) => {
+  const source="/images/home/approved-enterprise-communications-2026.jpg";
   const resp=await request.get(source);
   expect(resp.status()).toBe(200);
-  expect(resp.headers()["content-type"]).toContain("image/png");
+  expect(resp.headers()["content-type"]).toContain("image/jpeg");
   for(const width of [1280,1440,1536,1920]){
     await page.setViewportSize({width,height:960});
     await page.goto("/");
@@ -627,7 +627,7 @@ test("homepage keeps purposeful context while process steps remain clear", async
     expect(descriptions.every(description => description.length > 30)).toBe(true);
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
     expect(overflow).toBeLessThanOrEqual(1);
-    await expect(page.locator(".so-hero-media .so-hero-photo")).toHaveAttribute("src",/approved-full-scene-guard-chef-2026[.]png/);
+    await expect(page.locator(".so-hero-media .so-hero-photo")).toHaveAttribute("src",/approved-enterprise-communications-2026[.]jpg/);
     await expect(page.locator(".so-vertical-visual-guard img")).toHaveAttribute("src", /approved-sme-security-control-room-2026[.]png/);
   }
 });
@@ -769,7 +769,7 @@ test("the original business introduction glass card is restored without the cube
     await expect(section.locator(".so-value-rail > div")).toHaveCount(3);
     await expect(section.locator(".so-os-intro-stage,.so-os-float-anchor,.so-living-os,.so-os-experience,.so-os-cube-trigger")).toHaveCount(0);
     expect(await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth)).toBeLessThanOrEqual(1);
-    await expect(page.locator(".so-hero-media .so-hero-photo")).toHaveAttribute("src",/approved-full-scene-guard-chef-2026[.]png/);
+    await expect(page.locator(".so-hero-media .so-hero-photo")).toHaveAttribute("src",/approved-enterprise-communications-2026[.]jpg/);
   }
 });
 
