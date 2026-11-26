@@ -244,3 +244,111 @@ None of the nine probe strings appeared in the log bytes. The alert's `headers` 
 - Scratch: `/tmp/claude-0/-home-user/880ad5ad-058b-5c40-9bba-4c19903c0d78/scratchpad/audl2/` (`bench.mjs`, `fuzz.mjs`, `leak.mjs`, `probe.mjs`, `probe_auth.mjs`, `fatal_run.sh`, `mut/`, logs, `m_main.txt`, `m_25f.txt`).
 - Harness files `apps/api/audl2_tmp/` in the clone. They are removed at the end of the run.
 - AUDL-1's throwaway test, moved out of the clone, is at `…/scratchpad/audl2/audl1_tests/`.
+
+## Re-check at 415ef593
+
+**Scope:** the coordinator's narrow re-check of `5af0f95a..415ef593` (commits `7371df60`, `415ef593`). The PR body's "AUDL2 fixes" section was treated as claims only. Clone `/home/user/leos-audl` at `415ef593`, own database `audl2_api` (full chain), private Redis, the real API booted with **`NODE_ENV=production`**. Local dummy S3, export-key and JWT values were used; nothing real.
+
+### Verdict: PASS. Nothing blocks release.
+
+### What changed
+- `JWT` is anchored with a look-behind and every repetition is bounded (`log_redaction.ts`).
+- `COLON_SECRET` was added, and so were the `pwd`, `pass` and `privateKeyPem` keys.
+- `redactingFinalErrorHandler` is mounted last on the app (`index.ts`, after `app.use("/api", apiRouter)`).
+- The api fatal path was extracted to `fatal_handlers.ts`.
+- New controls: a linearity probe, a final-handler integration test, a real-process fatal test, and a User-Agent cap test.
+
+### 1. AUDL2-01: closed
+Authenticated echo route `GET /api/v1/finance/periods/<14 KB id>` (a 500), server CPU per request:
+
+| Input | main `5efcb303` | `5af0f95a` | `415ef593` |
+|---|---|---|---|
+| short id | 5.0 ms | 6.7 ms | 7.5 ms |
+| 14 KB letters | 8.3 ms | 11.7 ms | 13.8 ms |
+| 14 KB `-eyJ` | 11.7 ms | **133 ms** | **8.8 ms** |
+| 14 KB `eyJ--` / `pwdpassword:'` / e-mail labels / `+2 7 0` | — | — | 10.0 / 16.7 / 11.7 / 13.3 ms |
+
+**Primitive `redactText`, 16 KB:** `-eyJ` dropped from 48 ms to 0.29 ms. All 33 of my earlier shapes are at or below 1.3 ms.
+
+**Fresh hunt for super-linear patterns:**
+- Method: I ran the **uncapped** pattern pass (`__scrubUncappedForLinearityProbe`) over 12 000 random 2–4-atom interleavings from 63 atoms. The atoms included two-anchor mixes, quoted and escaped JSON, `password:'`, `x://y:`, and alternation-heavy units.
+- Result: worst 2.5 ms at 16 KB; nothing over 3 ms.
+- Scaling: 14 targeted shapes for bounded repeats with dense starts (COLON_SECRET quotes, JSON value with 4 100 characters unclosed, userinfo, `&`+63, `/`+600, e-mail labels, `cookie:`+4 100, long `eyJ` run) all scale about 4× from 64 KB to 256 KB. That is linear.
+- I found no super-linear pattern.
+
+### 2. AUDL2-02: closed for the three leaks; client bytes unchanged
+**Real HTTP, production mode, three trees.** The magic-link token count is from the log bytes. The password fragment count excludes the deliberately planted `Origin`.
+
+| Tree | Token in log | Password fragment in log |
+|---|---|---|
+| main | 6 | 1 |
+| `5af0f95a` | 2 | 1 |
+| `415ef593` | **0** | **0** |
+
+At `415ef593` each 4xx is logged as `URIError: request rejected` or `SyntaxError (entity.parse.failed): request rejected`.
+
+**PayFast failed query:**
+- Harness: the real router mounted as `index.ts` mounts it, `NODE_ENV=production`, a real drizzle failure, simulated edge provenance (loopback cannot be an edge peer).
+- Without the handler, the log shows `params: <payer>,Thabo,1499.00`. With it, the log shows `params: [REDACTED]` and 0 PII hits.
+- Status 500, all headers (except `date`) and the body sha were **identical** in both runs.
+
+**Client-visible bytes, main against `415ef593`:**
+- Compared: status, all headers except `date`, `x-correlation-id` and the rate-limit reset, and the body sha256.
+- **Identical for all 10 probes:**
+  - two `%A0` paths (400);
+  - three malformed-JSON logins (400);
+  - an unsupported charset and an unsupported `content-encoding` (415), both carrying the planted value, both logged as "request rejected";
+  - a CORS refusal (500);
+  - two malformed raw HTTP requests (Node's `clientError`: `400 Bad Request`, no log line on either tree).
+
+**Other raw-stack paths swept:**
+- No `server.on('clientError')` or `process.on('warning')` handler exists. Node's defaults log nothing for the former and print no request data for the latter.
+- Errors thrown by middleware before the router now end at the redacting final handler.
+- The remaining `console.error` sites in api and worker serialise through `redactLogValue`.
+- The `packages/workflows` event bus is not instantiated at runtime.
+- I found no other raw sink.
+
+### 3. Previously vacuous controls: now real
+Single-point mutations under `leos-gate.lock` (11:21:01–11:22:13Z), own DB. Each file was restored and its sha256 matched `git show 415ef593:<file>`. Baseline: api 39/39, worker 3/3. Final re-run: api 39/39, worker 3/3. The tree was clean.
+
+| Mutation | Result |
+|---|---|
+| M2: User-Agent cap removed | **RED**: layers › "observability hands the logger at most ~256 characters of User-Agent" |
+| M3: `writeFatal` writes the raw `err.stack` | **RED** (2): real-process fatal test › uncaughtException; bootstrap failure |
+
+### 4. My own mutations
+| Mutation | Result | Reading |
+|---|---|---|
+| **MB1:** `app.use(redactingFinalErrorHandler);` in `index.ts` commented out (the text is still present) | **GREEN: vacuous** | The production *wiring* of the AUDL2-02 fix is guarded only by a source-text check (`sec_log_redaction_fatal_process.test.ts`, "mounts the final handler last"), and a comment defeats it. The final-handler integration test builds its own app and never exercises `index.ts`. The fix is present and I verified it live over real HTTP, so this is a control gap, not a defect. |
+| **MB2:** the stand-in passes the caller-quoting 4xx message and stack through | **RED** (2): final-handler › unquoted login JSON; `%A0` magic-link path | Real. |
+
+### Classification
+
+**Blocks release: none.**
+- Every exposure this hotfix targets is closed on every path I could drive:
+  - CV-1 bearer and refresh tokens;
+  - AUD-30 magic-link and query tokens, including the `%A0` and final-handler paths;
+  - AUD-31 failed-query parameters, including the PayFast ITN path.
+- No security defect introduced by the PR remains. The redactor is linear on everything I measured.
+
+**Follow-up:**
+1. **MB1 control gap:** replace the source-text wiring check with a test that drives the real app from `index.ts` (or one exported app factory), so unmounting the handler goes red.
+2. **AUDL2-03 cut-boundary partials** remain: `thabo.mok…[truncated]` at `415ef593`. These are fragments only. A JWT cut at the boundary loses its signature and a cut token is not usable, so this is S3.
+3. **AUDL2-04:** no total work budget per log line. I found no reachable caller-sized input.
+4. **AUDL2-05 residuals:**
+   - Fixed at `415ef593`: `password: 'x'`, `password: x`, `pwd`, `pass`, `privateKeyPem`.
+   - Still open: numeric JSON secrets (`{"pin":4321,"otp":123456}`), `token: x` written in colon form, `id_no`, `accountNo`, phone shapes `(082)`, `082.555.0199`, `0027…`, double encodings, and Postgres `out of range` echoes.
+5. **AUDL2-06** diagnostic residuals (6–8-digit `code`, long `+` numbers).
+6. **Founder decisions** already disclosed in the PR: AUDL-02 (persisted copies in `audit_logs`, `audit_write_failures`, `workflow_failures` and the Redis DLQ) and AUDL-07 (an audit row per routed 5xx).
+7. **Pre-existing:** the api `unhandledRejection` handler logs (redacted) but does not exit. Main behaves the same way.
+
+### Limits
+- **Edge and environment:** I did not test Railway's edge, the real `PayfastPaymentService`, the full gate, or the `TURBO_HASH` guard under turbo.
+- **Role coverage:** only a `super_admin` token was used.
+- **Ad hoc check:** the residual list in follow-up 4 comes from a quick primitive check, not a full sweep.
+
+### Cleanup
+- **Clone:** `/home/user/leos-audl` is clean at `415ef593`.
+- **Processes and data:** `audl2_api` is dropped, Redis 6391 is stopped, no servers are running, and the harness files are removed.
+- **Lock:** acquire and release logged in `COORDINATION.md`.
+- **Scratch:** `…/scratchpad/audl2/` (`checks.mjs`, `checks-*.json`, `fuzz2.mjs`, `mut2/`, `prod-*.log`, `m_415.txt`, `m_prod_*.txt`).

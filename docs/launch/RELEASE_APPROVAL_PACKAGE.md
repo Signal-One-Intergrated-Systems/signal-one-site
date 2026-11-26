@@ -9,7 +9,7 @@ Release scope is **frozen** (founder directive, 2026-11-26). Only work that clos
 | # | Candidate | Repo / branch | Head | What it ships | Gate | Independent review | State |
 |---|---|---|---|---|---|---|---|
 | 1 | **C1 test fix**, draft #757 | LEOS `claude/fix-c1-in4-second-boundary` | `fdb9d816` | Test only: a test that fails at random when the clock ticks over a second | RC=0 GREEN; pre-push GREEN | Not needed (no runtime change) | **Ready**: merge first |
-| 2 | **Security hotfix: secrets out of logs**, draft #755 | LEOS `claude/sec-log-redaction` | `415ef593` | Stops bearer tokens, refresh cookies, magic-link tokens, query values and personal data reaching production logs. No migration. | RC=0 GREEN (api 505/5,144, worker 26/239); pre-push GREEN | AUDL1 FAIL → fixed; AUDL2 PASS WITH CONDITIONS → conditions closed at `415ef593`; **AUDL2 re-check of `415ef593` running** | **Urgent; separate release**: exposure is live in production |
+| 2 | **Security hotfix: secrets out of logs**, draft #755 | LEOS `claude/sec-log-redaction` | `415ef593` | Stops bearer tokens, refresh cookies, magic-link tokens, query values and personal data reaching production logs. No migration. | RC=0 GREEN (api 505/5,144, worker 26/239); pre-push GREEN | AUDL1 FAIL → fixed; AUDL2 PASS WITH CONDITIONS → closed; **AUDL2 re-check of `415ef593`: PASS, nothing blocks release** | **Ready for production, pending founder approval.** Urgent: the exposure is live |
 | 3 | **Launch integration r2**, draft #756 | LEOS `claude/launch-integration-r2` | `3b1df485` (gate 2 running; final head pending) | Website enquiry receiver (#749), notification outbox (#751), privacy (#752), Sales OS enquiry queue (#754), plus integration fixes AUD-03/04/05/22/23; migrations 0190–0194 and 0197–0203 | Gate 1 GREEN on `656e2099`; gate 2 on `3b1df485` running | AUD1 (parts), AUD2 (#752); **integration commits, migration 0203 and #749-as-renumbered not yet independently reviewed** | **Not ready**: final #752 fix, final merge with #755 and #757, one gate, one review |
 | 4 | **Sales OS shell**, draft #750 | LEOS `claude/sales-os-integration-r1` | `248cbffc` | Approved preview presentation + 1GUARD shell | RC=0 GREEN | AUD1 PASS | Ready after #720 (manager role) and founder flag/domain decisions |
 | 5 | **Website**, branch `claude/peaceful-johnson-azma60` | site | see `git log` (app code = `9164c92` + FIX-W `6be8cbd`) | Brand, radios-first homepage, About/Support, attribution with consent, validation, receiver client | `npm run build` RC=0; e2e 440 passed / 0 failed / 84 skipped | AUDW1 ready with conditions → fixed (FIX-W) | Ready for staging; production needs the decisions in §4 and trimming `docs/launch/evidence/w1` (21 MB) |
@@ -21,7 +21,7 @@ Release scope is **frozen** (founder directive, 2026-11-26). Only work that clos
 
 | Defect | Where | Why it blocks | Status |
 |---|---|---|---|
-| CV-1: tokens and personal data in production logs | production now | Live credential exposure | Fixed in #755; final re-check running |
+| CV-1: tokens and personal data in production logs | production now | Live credential exposure | Fixed in #755; independent re-check PASS. Needs merge approval |
 | R2-01: a direct database writer can fake the lifting of a legal hold, then erase | #752 / 0202 | Privacy record integrity | FIX-P fixing (stamp lifts, actor must be a member) |
 | Retention cutoff not tied to the stated period (understated residual) | #752 / 0202 | Privacy record integrity | FIX-P fixing |
 | Unreviewed audit-class code in r2 | #756 | Migration 0203 (class B) and the AUD-03/04/05/22/23 integration commits have had no independent review; #749 as renumbered has had none | One focused review of the final r2 diff, after the final merge |
@@ -32,7 +32,7 @@ Release scope is **frozen** (founder directive, 2026-11-26). Only work that clos
 
 ### Follow-ups, not blocking this release
 
-- #755: AUDL2-03 to -06. These are fragments of an email, phone number or token left where long text is cut off, no overall limit on redaction work per log line, numeric and double-encoded JSON secrets, and Meta error codes caught by the one-time-code rule. Also 13-digit ID numbers and "MFA code" written in prose.
+- #755: the final-handler wiring check reads source text, so commenting the line out stays green (replace with a test driving the real app). Also AUDL2-03 to -06. These are fragments of an email, phone number or token left where long text is cut off, no overall limit on redaction work per log line, numeric and double-encoded JSON secrets, and Meta error codes caught by the one-time-code rule. Also 13-digit ID numbers and "MFA code" written in prose.
 - #752: AUD2-07 (a cross-tenant dry-run id gets 409; it reveals nothing).
 - #751: AUD-15 (marketing-consent ordering under a simultaneous convert and objection).
 - GAP-TERM-1: the 12-month rental minimum is not system-enforced; enforce it on paper at launch. GAP-STOCK-1, GAP-ALLOC-1/2 (stock and serials), GAP-PAY-1/2 (payments), GAP-EXP-1 (quote expiry): manual controls at launch.
@@ -117,7 +117,7 @@ All three tasks were inspected at 11:09 UTC: each was progressing, none had stal
 |---|---|---|---|---|
 | INT (r2 / #756) | Full gate 2 on `3b1df485` (lock acquired 10:50) | `3b1df485` local, last pushed `ee35f194` | Push `3b1df485`. Then the final merge: last #752 head + #755 `415ef593` (its #749 merge recipe) + #757 `fdb9d816`; one gate, push, browser sets once | Final r2 head pushed, gate GREEN, browser 26/16/3/14/7 pass |
 | FIX-P (#752) | Writing the R2-01 / cutoff fixes in `/home/user/leos-fixp` | `137a7088` pushed | Targeted suites, one gate, push | Pushed; residual stated exactly |
-| AUDL2 (#755 re-check) | Queued for the lock (since 11:00) behind INT | reviewing `415ef593` | Targeted tests, 4 mutations, real-HTTP probes | Verdict with a blocking / follow-up split |
+| AUDL2 (#755 re-check) | **Done**: PASS, nothing blocks release | `415ef593` | — | — |
 | Review of final r2 | Not started (needs the final r2 head) | — | Focused review of what no auditor has seen: 0203, the integration commits, the #755 merge resolution, #749 as renumbered | Verdict |
 
 **To resume in a new session if the allowance runs out:**
@@ -131,4 +131,4 @@ All three tasks were inspected at 11:09 UTC: each was progressing, none had stal
    Local clones may be lost with the container.
 3. Recreate the local test databases from the branch's migration chain before any gate. Any database built with the earlier 0202 must be recreated: the runner tracks migrations by file name.
 4. Run the gate only as `pnpm run governance:push > log 2>&1; RC=$?` under the lock, with `pg_isready` first. Never use `--no-verify`, never force-push.
-5. Continue from the "Remaining work" column above, in the order #752 fix → #755 re-check → final r2 merge and gate → final r2 review.
+5. Continue from the "Remaining work" column above, in the order #752 fix → final r2 merge and gate → final r2 review.
