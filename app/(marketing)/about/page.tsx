@@ -15,13 +15,14 @@ export const metadata: Metadata = {
 const offers = [
   {
     name: "Push-to-talk radios and connectivity",
-    status: "Available",
+    // "By quote", as on /radios-equipment, /ptt-radio-rental and /pricing (AUDW-11).
+    status: "By quote",
     detail: "Radios that work over the cellular network, sold or rented on 12, 24 or 36-month terms, with or without SIM, data and the push-to-talk platform. By written quote.",
     href: "/radios-equipment",
   },
   {
     name: "Vehicle tracking and body cameras",
-    status: "Available",
+    status: "By quote",
     detail: "Trackers for vehicles and assets, and body cameras for patrols and access points. Quoted per deployment.",
     href: "/radios-equipment",
   },
@@ -48,7 +49,8 @@ const offers = [
 
 const principles = [
   ["Nothing is supplied until you accept a written quote", "Prices, terms, availability and delivery are confirmed in writing first."],
-  ["We label what is not ready", "Every capability on this site is marked available, pilot, in development or planned. We do not sell a roadmap as a product."],
+  // The labels the site actually uses (AUDW-11): 1GUARD's from lib/guardStatus.ts, the rest as shown on each page.
+  ["We label what is not ready", "Every product on this site carries its status: " + guardStatusLabel + ", Beta, In development, Coming soon or By quote. We do not sell a roadmap as a product."],
   ["We do not claim what we have not earned", "No certifications, customer logos or testimonials appear here unless they are real and approved."],
   ["Your information is handled under POPIA", "We use what you send us to answer you, and only send news if you opt in."],
 ] as const;
@@ -87,7 +89,7 @@ export default function AboutPage() {
               <li key={offer.name} className="border-t border-line-dark py-6">
                 <div className="flex flex-wrap items-center gap-3">
                   <h3 className="t-h4">{offer.name}</h3>
-                  <Status kind={offer.status === "Available" || offer.status === "Live" ? "live" : offer.status === "Pilot" ? "pilot" : "mvp"} tone="light">{offer.status}</Status>
+                  <Status kind={offer.status === "By quote" ? "quote" : offer.status === "Live" ? "live" : offer.status === "Pilot" ? "pilot" : "mvp"} tone="light">{offer.status}</Status>
                 </div>
                 <p className="t-small mt-2 text-text-inv-2">{offer.detail}</p>
                 <a href={offer.href} className="link-arrow mt-3 inline-flex text-signal-300" aria-label={"Learn more about " + offer.name}>Learn more →</a>

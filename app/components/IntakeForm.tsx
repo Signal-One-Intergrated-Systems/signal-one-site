@@ -18,6 +18,8 @@ export type IntakeField = {
   hint?: string;
   autoComplete?: string;
   wide?: boolean;
+  /** The sentence shown when a required answer is missing (lib/formValidation.ts, AUDW-05). */
+  error?: string;
 };
 
 type State = "idle" | "sending" | "done" | "error";
@@ -121,6 +123,7 @@ export default function IntakeForm({
                   id={fieldId}
                   name={field.name}
                   required={field.required}
+                  data-error={field.error}
                   rows={4}
                   aria-describedby={hintId}
                   value={values[field.name] || ""}
@@ -133,6 +136,7 @@ export default function IntakeForm({
                   id={fieldId}
                   name={field.name}
                   required={field.required}
+                  data-error={field.error}
                   aria-describedby={hintId}
                   value={values[field.name] || ""}
                   onChange={(event) => update(field.name, event.target.value)}
@@ -151,6 +155,7 @@ export default function IntakeForm({
                   name={field.name}
                   type={field.type || "text"}
                   required={field.required}
+                  data-error={field.error}
                   autoComplete={field.autoComplete}
                   aria-describedby={hintId}
                   value={values[field.name] || ""}

@@ -21,6 +21,8 @@ type Field = {
   hint?: string;
   placeholder?: string;
   wide?: boolean;
+  /** The sentence shown when a required answer is missing (lib/formValidation.ts, AUDW-05). */
+  error?: string;
 };
 
 const categories: Record<Category, { label: string; intent: string; summary: string; fields: Field[] }> = {
@@ -29,19 +31,21 @@ const categories: Record<Category, { label: string; intent: string; summary: str
     intent: "equipment-rental-quote",
     summary: "PoC radios on the cellular network, with or without SIM, data and the PTT platform.",
     fields: [
-      { name: "quoteType", label: "Buy or rent?", type: "select", required: true,
+      { name: "quoteType", label: "Buy or rent?", error: "Choose whether to buy or rent.", type: "select", required: true,
         options: ["Buy radios", "Rent radios", "Compare buying and renting"], wide: true },
       {
         name: "product",
         label: "Radio",
+        error: "Choose a radio, or Not sure yet.",
         type: "select",
         required: true,
         options: ["Hytera PNC360S", "P30 Lite PoC", "E600 PoC LTE", "PTT platform + SIM only (I have radios)", "Not sure yet"],
       },
-      { name: "quantity", label: "How many radios?", type: "number", required: true, placeholder: "e.g. 24" },
+      { name: "quantity", label: "How many radios?", error: "Enter how many radios you need.", type: "number", required: true, placeholder: "e.g. 24" },
       {
         name: "rentalTerm",
         label: "Rental term",
+        error: "Choose a rental term.",
         type: "radio",
         required: true,
         options: ["12 months", "24 months", "36 months"],
@@ -49,6 +53,7 @@ const categories: Record<Category, { label: string; intent: string; summary: str
       {
         name: "pttNeed",
         label: "SIM, data and PTT",
+        error: "Choose what you need for SIM, data and PTT.",
         type: "select",
         required: true,
         options: ["Radios with SIM, data and PTT platform", "Radios only, we have SIMs", "PTT platform and SIMs for our own radios", "Not sure, advise us"],
@@ -56,6 +61,7 @@ const categories: Record<Category, { label: string; intent: string; summary: str
       {
         name: "deployment",
         label: "Where will they be used?",
+        error: "Enter where the radios will be used.",
         type: "text",
         required: true,
         placeholder: "e.g. 6 sites in Midrand and Centurion",
@@ -71,22 +77,25 @@ const categories: Record<Category, { label: string; intent: string; summary: str
       {
         name: "assetType",
         label: "What do you want to track?",
+        error: "Choose what you want to track.",
         type: "radio",
         required: true,
         options: ["Vehicles", "Assets", "Both"],
       },
-      { name: "quantity", label: "How many vehicles or assets?", type: "number", required: true, placeholder: "e.g. 8" },
+      { name: "quantity", label: "How many vehicles or assets?", error: "Enter how many vehicles or assets you want to track.", type: "number", required: true, placeholder: "e.g. 8" },
       {
         name: "product",
         label: "Tracker",
+        error: "Choose a tracker, or Not sure.",
         type: "select",
         required: true,
         options: ["FMC920", "FMB920", "Not sure, advise us"],
       },
-      { name: "region", label: "Operating region", type: "text", required: true, placeholder: "e.g. Gauteng, mostly Tshwane" },
+      { name: "region", label: "Operating region", error: "Enter the region you operate in.", type: "text", required: true, placeholder: "e.g. Gauteng, mostly Tshwane" },
       {
         name: "installation",
         label: "Do you need installation?",
+        error: "Choose whether you need installation.",
         type: "radio",
         required: true,
         options: ["Yes", "No", "Not sure"],
@@ -94,6 +103,7 @@ const categories: Record<Category, { label: string; intent: string; summary: str
       {
         name: "visibility",
         label: "Who needs to see the positions?",
+        error: "Choose who needs to see the positions.",
         type: "select",
         required: true,
         options: ["Our control room", "Managers and supervisors", "Control room and managers", "Not sure yet"],
@@ -105,10 +115,11 @@ const categories: Record<Category, { label: string; intent: string; summary: str
     intent: "bodycam-rental-quote",
     summary: "SC780 body-camera rental for officers on patrol, at access points or at events.",
     fields: [
-      { name: "quantity", label: "How many cameras?", type: "number", required: true, placeholder: "e.g. 10" },
+      { name: "quantity", label: "How many cameras?", error: "Enter how many cameras you need.", type: "number", required: true, placeholder: "e.g. 10" },
       {
         name: "environment",
         label: "Where will officers wear them?",
+        error: "Choose where officers will wear the cameras.",
         type: "select",
         required: true,
         options: ["Patrol", "Access control", "Retail or mall", "Events", "Mixed sites"],
@@ -116,6 +127,7 @@ const categories: Record<Category, { label: string; intent: string; summary: str
       {
         name: "requirement",
         label: "What do you need the footage for?",
+        error: "Tell us what you need the footage for.",
         type: "textarea",
         required: true,
         placeholder: "e.g. a client contract requires recorded incident handling at two retail sites",
@@ -126,10 +138,10 @@ const categories: Record<Category, { label: string; intent: string; summary: str
 };
 
 const contactFields: Field[] = [
-  { name: "companyName", label: "Company", type: "text", required: true },
-  { name: "contactName", label: "Your name", type: "text", required: true },
-  { name: "email", label: "Email", type: "text", required: true },
-  { name: "mobile", label: "Mobile", type: "text", required: true },
+  { name: "companyName", label: "Company", error: "Enter your company name.", type: "text", required: true },
+  { name: "contactName", label: "Your name", error: "Enter your name.", type: "text", required: true },
+  { name: "email", label: "Email", error: "Enter your email address.", type: "text", required: true },
+  { name: "mobile", label: "Mobile", error: "Enter your mobile number.", type: "text", required: true },
 ];
 
 export default function EquipmentQuoteForm() {
@@ -233,7 +245,7 @@ function QuoteForm({ initialCategory, initialProduct, initialQuoteType }: { init
 
     if (field.type === "radio") {
       return (
-        <fieldset key={field.name} className={"field m-0 border-0 p-0 " + "sm:col-span-2"}>
+        <fieldset key={field.name} className={"field m-0 border-0 p-0 " + "sm:col-span-2"} data-error={field.error}>
           <legend className="field-label mb-2">{label}</legend>
           <div className="grid grid-cols-1 gap-2 min-[420px]:grid-cols-3">
             {field.options?.map((option) => (
@@ -243,6 +255,7 @@ function QuoteForm({ initialCategory, initialProduct, initialQuoteType }: { init
                   name={field.name}
                   value={option}
                   required={field.required}
+            data-error={field.error}
                   checked={value === option}
                   onChange={() => update(field.name, option)}
                 />
@@ -264,6 +277,7 @@ function QuoteForm({ initialCategory, initialProduct, initialQuoteType }: { init
             id={fieldId}
             name={field.name}
             required={field.required}
+            data-error={field.error}
             value={value}
             onChange={(event) => update(field.name, event.target.value)}
             className="field-input"
@@ -280,6 +294,7 @@ function QuoteForm({ initialCategory, initialProduct, initialQuoteType }: { init
             id={fieldId}
             name={field.name}
             required={field.required}
+            data-error={field.error}
             rows={4}
             value={value}
             placeholder={field.placeholder}
@@ -297,6 +312,7 @@ function QuoteForm({ initialCategory, initialProduct, initialQuoteType }: { init
               field.name === "email" ? "email" : field.name === "mobile" ? "tel" : field.name === "contactName" ? "name" : field.name === "companyName" ? "organization" : undefined
             }
             required={field.required}
+            data-error={field.error}
             value={value}
             placeholder={field.placeholder}
             onChange={(event) => update(field.name, event.target.value)}

@@ -24,7 +24,11 @@ export function onAfterLoad(callback: () => void): () => void {
   };
 }
 
+// Without JavaScript the attribute is never set, so the deferred section photographs would stay hidden
+// as empty frames (AUDW-10). Same selector as home-conversion.css, later in the document, so it wins.
+const NO_SCRIPT_CSS = "html:not([data-after-load]) .so-home .so-panel-photo-image{display:block}";
+
 export default function AfterLoad() {
   useEffect(() => onAfterLoad(() => document.documentElement.setAttribute("data-after-load", "")), []);
-  return null;
+  return <noscript dangerouslySetInnerHTML={{ __html: "<style>" + NO_SCRIPT_CSS + "</style>" }} />;
 }

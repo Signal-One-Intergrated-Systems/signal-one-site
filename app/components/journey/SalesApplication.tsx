@@ -4,7 +4,8 @@ import ReceiptReference from "../ReceiptReference";
 import { Stepper } from "../ui";
 import IntakeError from "../IntakeError";
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { Consent, JMulti, JRadio, JSelect, JText, JTextarea, ReviewList } from "./fields";
+import { Consent, JMulti, JRadio, JSelect, JText, JTextarea, multiTarget, ReviewList } from "./fields";
+import { validateBeforeSubmit } from "../../lib/formValidation";
 import { useJourney } from "./useJourney";
 
 const ACCENT = "text-signal-300";
@@ -51,11 +52,13 @@ export default function SalesApplication({ roleCount }: { roleCount: number | nu
 
   function onContinue(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (current.id === "interview" && !j.values.interviewDays) {
-      setMultiError("Choose at least one day.");
-      return;
-    }
-    setMultiError("");
+    const form = event.currentTarget;
+    const message = "Choose at least one day.";
+    const missing = current.id === "interview" && !j.values.interviewDays;
+    setMultiError(missing ? message : "");
+    const target = missing ? multiTarget(form, "interviewDays") : null;
+    // Every problem on this step at once: inline messages, aria-invalid, and a focused summary (AUDW-04).
+    if (!validateBeforeSubmit(form, { extra: target ? [{ field: target, message }] : [], container: headingRef.current ?? form })) return;
     if (current.id === "confirm") {
       void j.submit();
       return;
@@ -107,7 +110,7 @@ export default function SalesApplication({ roleCount }: { roleCount: number | nu
         <Stepper steps={steps.map((step) => step.label)} index={j.stepIndex} label="Application steps" />
       </div>
 
-      <form onSubmit={onContinue} className="mt-8 border-t border-line-dark pt-8">
+      <form onSubmit={onContinue} noValidate className="mt-8 border-t border-line-dark pt-8">
         <div ref={headingRef} tabIndex={-1} key={current.id} className="animate-enter grid gap-6 outline-none">
           {current.id === "role" ? (
             <>
@@ -117,6 +120,7 @@ export default function SalesApplication({ roleCount }: { roleCount: number | nu
                 name="role"
                 label="Role"
                 required
+                error="Choose the role you are applying for."
                 accentClass={ACCENT}
                 columns="sm:grid-cols-1"
                 options={["Sales representative — SME business OS (security focus)"]}
@@ -127,6 +131,7 @@ export default function SalesApplication({ roleCount }: { roleCount: number | nu
                 name="region"
                 label="Where would you sell?"
                 required
+                error="Choose where you would sell."
                 options={["Gauteng", "Western Cape", "KwaZulu-Natal", "Eastern Cape", "Free State", "Limpopo", "Mpumalanga", "North West", "Northern Cape"]}
               />
             </>
@@ -135,10 +140,10 @@ export default function SalesApplication({ roleCount }: { roleCount: number | nu
           {current.id === "basics" ? (
             <>
               <h3 className="t-h3">The basics</h3>
-              <JText j={j} name="fullName" label="Full name" required autoComplete="name" />
-              <JText j={j} name="email" label="Email" type="email" required autoComplete="email" />
-              <JText j={j} name="mobile" label="Mobile number" type="tel" required autoComplete="tel" placeholder="+27" />
-              <JText j={j} name="city" label="City or town" required autoComplete="address-level2" />
+              <JText j={j} name="fullName" label="Full name" required autoComplete="name" error="Enter your full name." />
+              <JText j={j} name="email" label="Email" type="email" required autoComplete="email" error="Enter your email address." />
+              <JText j={j} name="mobile" label="Mobile number" type="tel" required autoComplete="tel" placeholder="+27" error="Enter your mobile number." />
+              <JText j={j} name="city" label="City or town" required autoComplete="address-level2" error="Enter your city or town." />
             </>
           ) : null}
 
@@ -150,6 +155,7 @@ export default function SalesApplication({ roleCount }: { roleCount: number | nu
                 name="b2bYears"
                 label="Business-to-business sales experience"
                 required
+                error="Choose how much business-to-business sales experience you have."
                 accentClass={ACCENT}
                 options={["None yet", "Under 1 year", "1 to 3 years", "3 to 5 years", "More than 5 years"]}
               />
@@ -158,6 +164,7 @@ export default function SalesApplication({ roleCount }: { roleCount: number | nu
                 name="securityExposure"
                 label="Security industry experience"
                 required
+                error="Choose how much security industry experience you have."
                 accentClass={ACCENT}
                 options={["None", "Some exposure", "Security sales", "Security operations"]}
               />
@@ -166,6 +173,7 @@ export default function SalesApplication({ roleCount }: { roleCount: number | nu
                 name="experienceSummary"
                 label="What have you sold, and to whom?"
                 required
+                error="Tell us what you have sold, and to whom."
                 placeholder="A few sentences is enough."
               />
             </>
@@ -187,6 +195,7 @@ export default function SalesApplication({ roleCount }: { roleCount: number | nu
                 name="cvReady"
                 label="Is your CV up to date?"
                 required
+                error="Choose whether your CV is up to date."
                 accentClass={ACCENT}
                 options={["Yes, ready to send", "I will update it if shortlisted"]}
               />
@@ -201,6 +210,7 @@ export default function SalesApplication({ roleCount }: { roleCount: number | nu
                 name="currentStatus"
                 label="Current work"
                 required
+                error="Choose your current work situation."
                 accentClass={ACCENT}
                 options={["Employed", "Self-employed", "Between roles", "Studying or graduating"]}
               />
@@ -209,6 +219,7 @@ export default function SalesApplication({ roleCount }: { roleCount: number | nu
                 name="noticePeriod"
                 label="Notice period"
                 required
+                error="Choose your notice period."
                 accentClass={ACCENT}
                 options={["Available now", "2 weeks", "1 month", "More than 1 month"]}
               />
@@ -236,6 +247,7 @@ export default function SalesApplication({ roleCount }: { roleCount: number | nu
                 name="interviewTime"
                 label="Time of day"
                 required
+                error="Choose a time of day for an interview."
                 accentClass={ACCENT}
                 options={["Morning", "Afternoon", "Either"]}
                 columns="sm:grid-cols-3"
@@ -245,6 +257,7 @@ export default function SalesApplication({ roleCount }: { roleCount: number | nu
                 name="interviewFormat"
                 label="Format"
                 required
+                error="Choose an interview format."
                 accentClass={ACCENT}
                 options={["Video call", "In person", "Either"]}
                 columns="sm:grid-cols-3"

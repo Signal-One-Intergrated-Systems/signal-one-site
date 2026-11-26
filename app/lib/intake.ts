@@ -5,7 +5,7 @@ import { salesEmail } from "./site";
 export type IntakeKind = "client" | "guard" | "sales";
 
 /** Version of the privacy notice the visitor agreed to. Bump when /privacy or /popia changes materially. */
-export const PRIVACY_NOTICE_VERSION = "2026-11-12";
+export const PRIVACY_NOTICE_VERSION = "2026-11-26";
 
 /**
  * Consent captured with every submission (website intake contract v1).
@@ -119,7 +119,9 @@ export async function submitIntake(
     const response = await fetch("/api/intake", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ kind, data, consent, idempotencyKey, attribution: readAttribution() }),
+      // Campaign attribution belongs to sales enquiries only. A guard or job application is assessed as an
+      // application, so ad-click identifiers are never attached to it (AUDW-09; /privacy "Campaign information").
+      body: JSON.stringify({ kind, data, consent, idempotencyKey, ...(kind === "client" ? { attribution: readAttribution() } : {}) }),
     });
     const body = (await response.json().catch(() => ({}))) as { message?: string; receipt?: IntakeReceipt };
     // Success needs the receiver's receipt for THIS submission, not merely a 200.

@@ -3,8 +3,11 @@ import fs from "node:fs";
 
 /**
  * Ports: 3100 is the site with no intake upstream (503 path), 3101 is the
- * site pointed at a local mock intake (success path), 3102 has the canonical
- * host redirect switched on, 4010 is the mock.
+ * site pointed at a local mock intake (success path) with every kind enabled,
+ * 3102 has the canonical host redirect switched on and the PRODUCTION DEFAULT
+ * intake kinds (SIGNAL_ONE_INTAKE_KINDS unset = client only), 3104 has a
+ * receiver URL but no token (still "not connected"), 4010 is the mock. 3103 is
+ * taken: guard-status.spec.ts starts the GUARD_STATUS=live copy there.
  * Browser: set PW_CHROMIUM to use a specific Chromium binary; otherwise the
  * Playwright-managed browser (as in Dockerfile.qa) is used.
  */
@@ -43,6 +46,14 @@ export default defineConfig({
       reuseExistingServer: true,
       timeout: 60_000,
       env: { CANONICAL_REDIRECT: "1", INTAKE_CLIENT_IP_HEADER: "x-qa-edge-client-ip", SIGNAL_ONE_INTAKE_URL: "http://localhost:4010/intake", SIGNAL_ONE_INTAKE_TOKEN: "qa-token" },
+    },
+    // A receiver URL without its token is not a connected receiver (AUDW-02): status and intake must agree.
+    {
+      command: "npx next start -H 127.0.0.1 -p 3104",
+      port: 3104,
+      reuseExistingServer: true,
+      timeout: 60_000,
+      env: { SIGNAL_ONE_INTAKE_URL: "http://localhost:4010/intake" },
     },
   ],
 });

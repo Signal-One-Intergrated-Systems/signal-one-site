@@ -63,7 +63,7 @@ const SITE = "http://localhost:3100";
 const valid = {
   kind: "client",
   data: { intent: "consultation", name: "Synthetic QA" },
-  consent: { processing: true, marketing: false, noticeVersion: "2026-11-12", capturedAt: new Date().toISOString() },
+  consent: { processing: true, marketing: false, noticeVersion: "2026-11-26", capturedAt: new Date().toISOString() },
   idempotencyKey: "3f0e8f6a-5c0e-4b5e-9d3a-6b1f6f5d2a11",
 };
 const from = (origin: string) => ({ origin });
@@ -237,7 +237,7 @@ test("contact form forwards consent, a separate marketing choice and an idempote
   const hit = received.reverse().find((r) => r.body?.data?.email === "qa.r0@example.com");
   expect(hit, "receiver got the submission").toBeTruthy();
   expect(hit!.body.contract).toBe("website-intake/v1");
-  expect(hit!.body.consent).toMatchObject({ processing: true, marketing: false, noticeVersion: "2026-11-12" });
+  expect(hit!.body.consent).toMatchObject({ processing: true, marketing: false, noticeVersion: "2026-11-26" });
   expect(hit!.body.consent!.recordedAt).toMatch(/^\d{4}-\d{2}-\d{2}T/);
   expect(hit!.body.idempotencyKey).toMatch(/^[0-9a-f-]{36}$/);
   expect(hit!.headers?.["idempotency-key"]).toBe(hit!.body.idempotencyKey);
