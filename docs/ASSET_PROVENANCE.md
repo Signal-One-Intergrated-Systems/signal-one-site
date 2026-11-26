@@ -18,7 +18,7 @@ Originals are kept unmodified in `assets/hardware/originals/`. They are not serv
 | --- | --- |
 | P30 Lite PoC | Resolved 2026-11-15: exact Hytera P30 Lite manufacturer image added; see current source register below. |
 | SC780 body camera | Resolved 2026-11-15: exact Hytera SC780 manufacturer image added; see current source register below. |
-| E600 PoC LTE | No supplier documentation in any repository or doc confirms the manufacturer or exact branding. No image is used until the supplier documentation confirms it. |
+| EasyTalk E600 | `public/images/hardware/easytalk-e600.png` (494×494, sha256 `37227819e549e07650c3213670563f4fae7a306cfa9ce5e3ab6f3f9e4e785160`): front view cropped from the manufacturer's "Easytalk E600 Product specification" (2024-03-01), background removed. Specifications from that sheet and the EasyTalk E600 brochure, both supplied by the founder 2026-11-26. The SOS key is marked "reserve" by the manufacturer and is not claimed; LTE band lists differ between the two documents and are not published. |
 
 ## Domains unreachable from the build environment
 

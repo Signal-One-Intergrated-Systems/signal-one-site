@@ -86,9 +86,10 @@ export default function PricingPage() {
               {[
                 ["Price", guardDayPricePhrase + ", excluding VAT."],
                 ["Minimum purchase", minimumPhrase + "."],
-                ["Unused guard days", "Carry over. They stay available to your company."],
+                ["Unused guard days", "Carry over and never expire while your account is active."],
                 ["Tiers or packages", "None. The rate is the same for 10 guard days or 10 000."],
-                ["No-shows, cancellations, partial and multiple shifts", "Handled under your customer terms, agreed before you start."],
+                ["No-shows and cancelled shifts", "Not charged. A guard day is used only when a guard clocks in and out."],
+                ["Short and multiple shifts", "Each clocked-in and clocked-out shift uses one guard day, whatever its length. Two shifts in a day use two."],
               ].map(([term, detail]) => (
                 <div key={term} className="border-t border-line-dark py-4">
                   <dt className="font-semibold">{term}</dt>

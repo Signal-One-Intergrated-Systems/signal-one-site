@@ -73,7 +73,7 @@ export default function AboutPage() {
           <FactPanel
             title="Signal One at a glance"
             facts={[
-              ["Trading as", contact.tradingEntity + ", South Africa"],
+              ["Based in", "South Africa"],
               ["Sells and rents", "Push-to-talk radios, connectivity, vehicle tracking and body cameras, by written quote"],
               ["Software", "1GUARD for security companies, " + guardDayPricePhrase + " excl. VAT" + (guardIsLive ? "" : " (pilot)")],
               ["Contact", "Sales " + contact.email + " · Support " + contact.supportEmail + " · WhatsApp " + contact.whatsappDisplay],
@@ -105,8 +105,8 @@ export default function AboutPage() {
           <h2 id="about-company" className="t-h2">Who you are dealing with</h2>
           <div className="grid gap-6">
             <p className="t-lead measure text-text-inv-2">
-              Signal One Integrated Systems is a South African business. It currently trades as {contact.tradingEntity}.
-              If your procurement process needs company registration, VAT or banking details, ask us for them.
+              Signal One Integrated Systems is a South African business. If your procurement process needs company
+              registration, VAT or banking details, ask us and we will send them to you directly.
             </p>
             <ul className="m-0 grid list-none gap-4 p-0">
               {principles.map(([title, body]) => (

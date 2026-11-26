@@ -37,7 +37,7 @@ export default function RadiosEquipmentPage() {
           <HardwareShowcase products={catalogue[0].products.slice(0, 2)} />
           <dl className="m-0 grid gap-px overflow-hidden rounded-card border border-line-dark bg-line-dark">
             {[
-              ["Radios and PTT", "Hytera PNC360S, P30 Lite PoC, E600 PoC LTE; push-to-talk platform, SIM and data"],
+              ["Radios and PTT", "Hytera PNC360S and P30 Lite PoC, EasyTalk E600; push-to-talk platform, SIM and data"],
               ["Vehicle and asset tracking", "FMC920 and FMB920 trackers"],
               ["Body cameras", "SC780 body camera"],
             ].map(([term, detail]) => (
@@ -146,7 +146,7 @@ export default function RadiosEquipmentPage() {
                 items={[
                   ["You send the requirement", "Takes about two minutes."],
                   ["We confirm fit", "Network, accessories, installation and availability for your sites."],
-                  ["You get a written quote", "Term, quantities and price, by email."],
+                  ["You get a written quote", "Term, quantities and price, by email. We reply within one business day."],
                   ["You decide", "Nothing is supplied until you accept the quote."],
                 ]}
               />
