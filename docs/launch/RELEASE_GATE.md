@@ -167,7 +167,7 @@ Gate: pre-push `governance:push` RC=0 GREEN, counts matched. Live slice suite 30
 
 ## Checkpoint L — security hotfix: secrets and PII out of logs (LEOS, 2026-11-26)
 
-**Unmerged.** Draft [#755](https://github.com/Signal-One-Intergrated-Systems/lancesat-enterprise-platform/pull/755), `claude/sec-log-redaction` @ `25f12120`, off main `5efcb303`. Audit-class.
+**Unmerged.** Draft [#755](https://github.com/Signal-One-Intergrated-Systems/lancesat-enterprise-platform/pull/755), `claude/sec-log-redaction` @ `5af0f95a` (first version `25f12120`), off main `5efcb303`. Audit-class.
 - **One redactor:** `packages/monitoring/src/log_redaction.ts`, which allow-lists headers, paths and error fields and scrubs everything else as a backstop.
 - **Request and alert logging:** logs now carry route patterns instead of raw URLs. That closes magic-link tokens in `/public/quotes/:token` and `/supplier-portal/invitations/:token/accept`, and `?hub.verify_token=` on the Meta webhook.
 - **Database errors:** a failed query's bound parameters are cut from the log.
@@ -181,3 +181,7 @@ Gate: pre-push `governance:push` RC=0 GREEN, counts matched. Live slice suite 30
   - whether to rotate outstanding quote and invitation magic links;
   - whether to rotate `META_WHATSAPP_VERIFY_TOKEN` and any key that appeared in a 5xx.
 - **Out of scope:** some services store failed-query messages (with parameters) in database tables (`automation_rule_service:318`, `billing_schedule_service:524`).
+
+**AUDL1 fixes (2026-11-26, `5af0f95a`).** The independent audit (AUDL1, `LEOS_AUDIT_AUDL1.md`) failed `25f12120`: its redaction regexes were quadratic, so a 15 KB User-Agent stalled the API ~260 ms. The fix makes every pattern linear-time and caps input before matching (8 KB per string, 256-char User-Agent, 512-char header values, 2,048-char paths, 200 entries per array/object). The `params:` cut now runs to the end of the text, and stacks are rebuilt from the redacted message. South African phone shapes, credential keys, `toJSON`/`Map`/`Set`/`URL` objects and the api/worker fatal paths are now covered. Measured: 15 KB User-Agent 3 ms (main 3 ms, first version 276 ms); 64 KB inputs 1–4 ms. Gate RC=0 GREEN, pre-push GREEN; mutations MA1–MA10 each red, then green. Remaining gaps: free-text 13-digit ID numbers and an MFA code written as prose. Disclosed in the PR: the fixer's lock lapsed once (its mutation run overlapped another agent's gate for ~5 min) and ~2 min of its tests ran outside the lock. Stored copies (AUDL-02) and per-5xx audit rows (AUDL-07) go to the founder. Re-audit AUDL2 running.
+
+**#752 privacy fixes (2026-11-26, `ecab5d34`).** AUD1 failed `65c6767c`. Fixed: erasure and restriction serialise (AUD-10); the database rejects a forged erasure record (AUD-11, migration 0202, class A); bulk erasure needs super_admin, a trial run and a typed-back count (AUD-12); erased enquiries leave the queue, cannot be converted and pass no consent on (AUD-14). AUD-13 (the app's role owns its tables) is written up as D10/D11. Gate GREEN; pre-push GREEN on the authorised re-run after one failure in main's C1 IN-4 test (a second-boundary defect, test fix in progress). Re-audit AUD2 running; merge into r2 (#756) in progress.
