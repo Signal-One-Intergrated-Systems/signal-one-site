@@ -248,6 +248,18 @@ html[data-after-load] .so-home .so-introduction {
 html[data-after-load] .so-home .so-service-section {
   --scene: url("/images/backgrounds/restaurant-dining.webp");
 }
+/* The bright architecture accent is a 1774px master: on wider screens it is shown at its native width,
+   centred, and its sides fade into the canvas instead of being upscaled (founder package guide). */
+@media (min-width: 1775px) {
+  html[data-after-load] .so-home .so-introduction {
+    background-image: var(--scene-wash),
+      linear-gradient(90deg, var(--color-canvas) calc(50% - 887px), transparent calc(50% - 640px), transparent calc(50% + 640px), var(--color-canvas) calc(50% + 887px)),
+      linear-gradient(180deg, transparent 640px, var(--color-canvas) 887px),
+      var(--scene);
+    background-size: cover, cover, cover, 1774px auto;
+    background-position: center, center, center, center top;
+  }
+}
 /* PERFORMANCE-ONLY (W2, DR-003): the section photographs are loading="lazy", but on a slow connection
    Chrome starts lazy images up to 2500 px below the viewport, so the first one (61 KB) downloaded while
    the hero was still arriving. A display:none lazy image is not fetched; it appears after load with the

@@ -1,5 +1,25 @@
 # Contrast audit
 
+## 2026-11-26 light-first role pairs (computed; the build enforces them)
+
+The site moved to light-first surfaces on 2026-11-26 (`docs/DESIGN_SYSTEM.md` §1–2). Every role pair below is recomputed by `scripts/check-design-system.mjs` on every build. The measured audit further down is of the earlier graphite site and is kept for history; rerun the rendered-page audit before release.
+
+| Role | Light: canvas / surface / surface-2 | Graphite: canvas / surface / surface-2 |
+|---|---|---|
+| `ink` `#18242D` · `#F1F5F9` | 14.97 / 15.80 / 14.12 | 13.86 / 12.14 / 10.65 |
+| `ink-2` `#435566` · `#CBD5E1` | 7.29 / 7.69 / 6.87 | 10.22 / 8.96 / 7.86 |
+| `ink-3` `#56677A` · `#A3B1C0` | 5.50 / 5.81 / 5.19 | 6.95 / 6.09 / 5.34 |
+| `accent` `#0270A8` · `#7DD3FC` | 5.12 / 5.40 / 4.83 | 9.11 / 7.98 / 7.00 |
+| `live` `#166534` · `#6EE7A0` | 6.76 / 7.13 / 6.37 | 9.83 / 8.61 / 7.56 |
+| `beta` `#92400E` · `#FCD47A` | 6.72 / 7.09 / 6.34 | 10.73 / 9.40 / 8.24 |
+| `soon` `#4B5563` · `#D1D5DB` | 7.16 / 7.56 / 6.75 | 10.30 / 9.03 / 7.92 |
+| `danger` `#B42318` · `#FFB4AB` | 6.23 / 6.57 / 5.87 | 8.94 / 7.83 / 6.87 |
+| `line-strong (3:1)` `#75879A` · `#7C8DA0` | 3.50 / 3.69 / 3.30 | 4.46 / 3.91 / 3.43 |
+| `focus (3:1)` `#0284C7` · `#38BDF8` | 3.88 / 4.10 / 3.66 | 7.09 / 6.21 / 5.45 |
+| `on-signal #0B1118` on `signal #0EA5E9` (primary button) | 6.84 | same |
+
+## Measured audit of the graphite site (2026-11, superseded)
+
 Every text and background pair in use on the public routes at 1440px and 390px, measured in the rendered pages (computed colours composited over the real background stack; text over photographs is measured against the lightest and darkest 2% of the pixels behind it with the text hidden). Thresholds: 4.5:1 for normal text, 3:1 for large text (24px, or 18.66px bold). WCAG exempts logotypes, so the lockup wordmark is marked.
 
 53 unique pairs, 2290 text elements.
