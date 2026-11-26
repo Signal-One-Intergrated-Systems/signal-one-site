@@ -116,7 +116,15 @@ export const catalogue: ReadonlyArray<{
     category: "Body cameras",
     id: "bodycams",
     lead: "Recorded evidence for patrols, access points and events, where a client contract asks for it.",
-    products: [{ model: "SC780", manufacturer: "Hytera", image: { src: sc780, alt: "Hytera SC780 body camera, front view — manufacturer image" }, type: "Body camera", detail: "Rental.", role: "Recorded evidence on patrol, at access points and at events." }],
+    products: [{ model: "SC780", manufacturer: "Hytera", image: { src: sc780, alt: "Hytera SC780 body camera, front view — manufacturer image" }, type: "Body camera", detail: "Rental.", role: "Recorded evidence on patrol, at access points and at events.",
+      // Hytera South Africa product page, read 2026-11-26.
+      specs: { source: "Hytera South Africa", sourceUrl: "https://hytera.co.za/products/sc780-smart-4g-body-camera", items: [
+        ["Rugged", "IP68; MIL-STD-810H; 1.5 m drop"],
+        ["Battery", "3,200 mAh; about 10 hours"],
+        ["Storage", "32 GB to 256 GB, by variant"],
+        ["Screen", "2.4-inch display; front and rear cameras"],
+        ["Weight", "180 g with battery"],
+      ] } }],
     terms: "Quoted per deployment.",
   },
 ];
