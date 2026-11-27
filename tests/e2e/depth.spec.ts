@@ -152,9 +152,9 @@ test.describe("hero composition (founder, 2026-11-27)", () => {
       const copy = page.locator(".so-hero-copy");
       const style = await copy.evaluate(el => { const s = getComputedStyle(el); return [s.backgroundImage, s.backgroundColor, s.backdropFilter, s.borderTopWidth]; });
       expect(style).toEqual(["none", "rgba(0, 0, 0, 0)", "none", "0px"]);
-      // The photograph is never letterboxed or pillarboxed: its box has the photograph's own proportions.
+      // The photograph fills the width and is cropped below the people (72% of its height): no bands, no empty floor.
       const photo = await page.locator(".so-hero-media img.so-hero-photo").boundingBox();
-      expect(Math.abs(photo!.width / photo!.height - 1672 / 941), "photo box proportions").toBeLessThan(0.01);
+      expect(Math.abs(photo!.width / photo!.height - 1672 / (941 * 0.72)), "photo box proportions").toBeLessThan(0.02);
       // Full width up to the photograph's native 1672 px, never upscaled beyond it.
       expect(photo!.width).toBeGreaterThanOrEqual(Math.min(viewport.width, 1672) - 1);
       expect(photo!.width).toBeLessThanOrEqual(1672 + 1);
@@ -166,8 +166,8 @@ test.describe("hero composition (founder, 2026-11-27)", () => {
         a.x + a.width <= b.x || b.x + b.width <= a.x || a.y + a.height <= b.y || b.y + b.height <= a.y;
       for (const part of parts) expect(apart(part, radio), `radio overlaps ${part.what}`).toBe(true);
       expect(apart(bar, radio), "radio overlaps the business-areas rail").toBe(true);
-      // The radio stands on the photograph and inside the first screen.
-      expect(radio.y + radio.height).toBeLessThanOrEqual(Math.min(photo!.y + photo!.height, viewport.height) + 1);
+      // The radio stands in the photograph's mid-foreground, inside the first screen, clear of its bottom edge.
+      expect(radio.y + radio.height).toBeLessThanOrEqual(Math.min(photo!.y + photo!.height * 0.9, viewport.height) + 1);
       expect(radio.y).toBeGreaterThanOrEqual(photo!.y);
       // The rail never covers the photograph, and on laptops starts wholly below the fold.
       expect(bar.y).toBeGreaterThanOrEqual(photo!.y + photo!.height - 1);

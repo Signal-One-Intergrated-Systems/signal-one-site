@@ -51,15 +51,15 @@ test("FOUNDERS LOCK: approved home hero markup must never change accidentally", 
   expect(css).not.toContain(".so-home .so-hero-background-photo");
 });
 
-/** Rendered crop of the approved hero, re-measured for the founder's hero composition of 2026-11-27 (glass
- * panel removed, radios first, interactive radio). From 1024 px the whole photograph by width in a box of its
- * own proportions (no bands, never cropped, the copy on its sky); below 1024 px a full-width band above the
- * copy. Earlier: 1440 box 878, 1280 box 783, 1024 box 815 (contain with bands), 390 cover 100% 0% box 271. */
+/** Rendered crop of the approved hero. Founder composition correction (2026-11-27): the photograph is shown at
+ * full width, never upscaled, and cropped below the people's feet (72% of its height) so the empty foreground
+ * floor and the photographed pedestal no longer fill the hero; the radio stands on a CSS glass plinth.
+ * Earlier: the whole photograph (contain) at 1440x810, 1280x720, 1024x576 and 390x219. */
 const heroCrop = [
-  { viewport: { width: 1440, height: 900 }, fit: "contain", position: "50% 0%", box: [1440, 810] },
-  { viewport: { width: 1280, height: 800 }, fit: "contain", position: "50% 0%", box: [1280, 720] },
-  { viewport: { width: 1024, height: 768 }, fit: "contain", position: "50% 0%", box: [1024, 576] },
-  { viewport: { width: 390, height: 844 }, fit: "cover", position: "50% 32%", box: [390, 219] },
+  { viewport: { width: 1440, height: 900 }, fit: "cover", position: "50% 0%", box: [1440, 583] },
+  { viewport: { width: 1280, height: 800 }, fit: "cover", position: "50% 0%", box: [1280, 518] },
+  { viewport: { width: 1024, height: 768 }, fit: "cover", position: "50% 0%", box: [1024, 415] },
+  { viewport: { width: 390, height: 844 }, fit: "cover", position: "50% 32%", box: [390, 158] },
 ] as const;
 for (const crop of heroCrop) {
   test(`FOUNDERS LOCK: rendered hero photograph, crop and priority at ${crop.viewport.width}px`, async ({ page }) => {
@@ -316,7 +316,8 @@ test("responsive approved hero shows the full image stage before the message", a
     expect(m).not.toBeNull();
     expect(p).not.toBeNull();
     if (m && p) {
-      expect(m.height, "People need a meaningful image stage").toBeGreaterThan(265);
+      // Founder correction 2026-11-27: the photograph is cropped below the people so it no longer dominates.
+      expect(m.height, "People need a meaningful image stage").toBeGreaterThan(220);
       expect(p.y, "The copy starts below the photograph and never covers it").toBeGreaterThanOrEqual(m.y + m.height);
     }
     await expect(page.locator(".so-hero-copy a[href='/radios-equipment']")).toBeVisible();
@@ -409,7 +410,8 @@ test("desktop homepage shows the entire approved enterprise communications photo
         naturalHeight: (img as HTMLImageElement).naturalHeight,
       };
     });
-    expect(layout.fit, "Keep the entire photograph, never object-fit:cover").toBe("contain");
+    // Founder correction 2026-11-27: full width, cropped below the people (cover, anchored at the top).
+    expect(layout.fit).toBe("cover");
     expect(layout.width, "Wide photograph should extend behind the globe").toBeGreaterThanOrEqual(viewport.width - 2);
     expect(layout.naturalWidth).toBeGreaterThan(0);
     expect(layout.naturalHeight).toBeGreaterThan(0);
@@ -444,7 +446,7 @@ test("approved full-scene hero spans behind the globe without cropping the subje
         mask:style.maskImage,position:style.objectPosition,photoLoaded:(img as HTMLImageElement).naturalWidth>0};
     });
     expect(metrics.photoLoaded).toBe(true);
-    expect(metrics.fit).toBe("contain");
+    expect(metrics.fit).toBe("cover");
     expect(metrics.imgWidth).toBeGreaterThan(metrics.mediaWidth * 0.98);
     expect(metrics.mask).toBe("none");
     await expect(page.locator(".s1-hero-globe-canvas")).toBeVisible();

@@ -22,9 +22,10 @@
             <p className="so-hero-note">Radios are quoted in writing: buy, rent or connect the radios you already own.</p>
           </div>
         </div>
-        {/* The interactive radio (founder, 2026-11-27): a genuine manufacturer cut-out standing on the
-            photograph's sunlit paving. It is a link to radios; it never transmits. */}
+        {/* The interactive radio (founder, 2026-11-27): a genuine manufacturer cut-out on a slim glass plinth in
+            the mid-foreground. It is a link to radios; it never transmits. */}
         <div className="so-hero-radio">
+          <span className="so-hero-plinth" aria-hidden="true" />
           <HeroRadio />
         </div>
         <div className="so-hero-bar" aria-label="Signal One business areas">

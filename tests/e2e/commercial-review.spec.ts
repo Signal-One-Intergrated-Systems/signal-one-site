@@ -240,7 +240,7 @@ test("grouped header menus: single row, disclosure buttons, Escape and outside c
   await expect(partners).toBeFocused();
   await nav.getByRole("button", { name: "Communications" }).click();
   await expect(nav.getByRole("link", { name: /Ways to buy/ })).toBeVisible();
-  await page.mouse.click(700, 600);
+  await page.mouse.click(40, 640); // an empty spot: not the menu, not the hero radio
   await expect(nav.getByRole("link", { name: /Ways to buy/ })).toBeHidden();
   // Still one row: every primary entry sits on the same line as the logo.
   const tops = await nav.locator(":scope > a, :scope > div > button").evaluateAll(nodes => nodes.map(n => Math.round(n.getBoundingClientRect().top)));

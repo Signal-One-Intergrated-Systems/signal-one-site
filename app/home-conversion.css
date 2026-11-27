@@ -305,11 +305,22 @@ body:has(.so-home) .so-home .s1-brand-stage.so-hero{padding-top:calc(151px + 88p
     /* Never wider than the photograph's own 1672 px (no upscaling, brief §5 A6): on wider screens it is a
        centred stage at native size, framed like the site's other panels. */
     --hero-photo-w: min(100vw, 1672px);
-    --hero-photo-h: calc(var(--hero-photo-w) * 941 / 1672);
+    /* Composition correction (founder, 2026-11-27): the photograph is cropped below the people's feet, so the
+       empty foreground floor and the photographed pedestal no longer fill the hero; it is never upscaled. */
+    --hero-crop: 0.72;
+    --hero-full-h: calc(var(--hero-photo-w) * 941 / 1672);
+    --hero-photo-h: calc(var(--hero-full-h) * var(--hero-crop));
     --rail-gap: 18px;
     --rail-space: 160px;
-    min-height: calc(86px + var(--hero-photo-h) + var(--rail-gap) + var(--rail-space)) !important;
+    /* The rail follows the copy in the flow: below the photograph, or below the copy where the copy is taller
+       (small laptops), never over either. */
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    min-height: 0 !important;
+    padding-bottom: 40px !important;
   }
+  .so-home .s1-brand-stage.so-hero .so-hero-inner { min-height: calc(var(--hero-photo-h) - clamp(48px, 7vh, 80px)); }
   .so-home .s1-brand-stage.so-hero { background: linear-gradient(180deg, #e9f1f8, #f4f7fa) !important; }
   .so-home .s1-brand-stage.so-hero .so-hero-media {
     bottom: auto !important; height: calc(86px + var(--hero-photo-h)) !important;
@@ -317,9 +328,13 @@ body:has(.so-home) .so-home .s1-brand-stage.so-hero{padding-top:calc(151px + 88p
   }
   .so-home .s1-brand-stage.so-hero .so-hero-media .so-hero-photo {
     top: 86px !important; height: var(--hero-photo-h) !important;
-    object-fit: contain !important; object-position: 50% 0% !important;
+    object-fit: cover !important; object-position: 50% 0% !important;
   }
-  .so-home .s1-brand-stage.so-hero .so-hero-bar { top: calc(86px + var(--hero-photo-h) + var(--rail-gap)) !important; bottom: auto !important; border-radius: 18px !important; border-bottom: 1px solid rgba(11, 31, 51, 0.12) !important; }
+  .so-home .s1-brand-stage.so-hero .so-hero-bar {
+    position: relative !important; top: auto !important; bottom: auto !important; left: auto !important; transform: none !important;
+    margin: var(--rail-gap) auto 0 !important; width: min(1280px, calc(100% - 40px)) !important;
+    border-radius: 18px !important; border-bottom: 1px solid rgba(11, 31, 51, 0.12) !important;
+  }
   .so-home .s1-brand-stage.so-hero .so-hero-photo-note { top: 100px !important; bottom: auto !important; }
   .so-home .s1-brand-stage.so-hero .so-hero-photo-note { right: calc((100% - var(--hero-photo-w)) / 2 + clamp(16px, 3vw, 50px)) !important; }
   @media (min-width: 1673px) {
@@ -333,16 +348,18 @@ body:has(.so-home) .so-home .s1-brand-stage.so-hero{padding-top:calc(151px + 88p
     }
   }
   .so-home .s1-brand-stage.so-hero .so-hero-wash {
-    background: linear-gradient(90deg, rgba(241, 247, 253, 0.82) 0%, rgba(241, 247, 253, 0.7) 26%, rgba(241, 247, 253, 0.42) 38%, rgba(241, 247, 253, 0) 49%) !important;
+    background:
+      linear-gradient(0deg, #e9f1f8 0%, rgba(233, 241, 248, 0) 14%),
+      linear-gradient(90deg, rgba(241, 247, 253, 0.82) 0%, rgba(241, 247, 253, 0.7) 26%, rgba(241, 247, 253, 0.42) 38%, rgba(241, 247, 253, 0) 49%) !important;
   }
-  /* The radio stands on the photograph's glass pedestal (founder, 2026-11-27): its base on the pedestal's top
-     surface at 67.3% across and 77.8% down the photograph (measured on the 1672 x 941 source: surface x 872-1380,
-     y 690-760), 32% of the photograph's height, in the manufacturer image's own proportions. */
+  /* The radio is the product feature of the composition: in the mid-foreground beside the copy and actions,
+     on a slim glass plinth, at 24% of the photograph's full height (between the first and the oversized
+     versions), in the manufacturer image's own proportions. */
   .so-home .s1-brand-stage.so-hero .so-hero-radio {
-    --hero-radio-h: calc(var(--hero-photo-h) * 0.32);
+    --hero-radio-h: calc(var(--hero-full-h) * 0.24);
     --hero-radio-w: calc(var(--hero-radio-h) * 408 / 1040);
-    left: calc((100% - var(--hero-photo-w)) / 2 + var(--hero-photo-w) * 0.673 - var(--hero-radio-w) / 2);
-    top: calc(86px + var(--hero-photo-h) * 0.778 - var(--hero-radio-h));
+    left: calc((100% - var(--hero-photo-w)) / 2 + var(--hero-photo-w) * 0.5 - var(--hero-radio-w) / 2);
+    top: calc(86px + var(--hero-photo-h) * 0.86 - var(--hero-radio-h));
     bottom: auto;
   }
   .so-home .s1-brand-stage.so-hero .so-radio { --radio-w: var(--hero-radio-w); }
@@ -355,7 +372,8 @@ body:has(.so-home) .so-home .s1-brand-stage.so-hero{padding-top:calc(151px + 88p
   .so-home .s1-brand-stage.so-hero {
     /* The band shows the whole photograph, never cropped (founder). */
     --hero-photo-top: 80px;
-    --hero-band: calc(100vw * 941 / 1672);
+    --hero-full-band: calc(100vw * 941 / 1672);
+    --hero-band: calc(var(--hero-full-band) * 0.72);
   }
   body:has(.so-home) .so-home .s1-brand-stage.so-hero {
     display: flex !important;
@@ -406,12 +424,12 @@ body:has(.so-home) .so-home .s1-brand-stage.so-hero{padding-top:calc(151px + 88p
     border-radius: 18px !important; border-bottom: 1px solid rgba(11, 31, 51, 0.12) !important;
   }
   .so-home .s1-brand-stage.so-hero .so-hero-photo-note { top: calc(var(--hero-photo-top) + 10px) !important; bottom: auto !important; }
-  /* On the band, the radio stands on the same glass pedestal, at the same share of the photograph. */
+  /* On the band, the radio and its plinth keep the same place in the composition. */
   .so-home .s1-brand-stage.so-hero .so-hero-radio {
-    --hero-radio-h: calc(var(--hero-band) * 0.32);
+    --hero-radio-h: calc(var(--hero-full-band) * 0.26);
     --hero-radio-w: calc(var(--hero-radio-h) * 408 / 1040);
-    left: calc(100vw * 0.673 - var(--hero-radio-w) / 2);
-    top: calc(var(--hero-photo-top) + var(--hero-band) * 0.778 - var(--hero-radio-h));
+    left: calc(100vw * 0.5 - var(--hero-radio-w) / 2);
+    top: calc(var(--hero-photo-top) + var(--hero-band) * 0.86 - var(--hero-radio-h));
   }
   .so-home .s1-brand-stage.so-hero .so-radio { --radio-w: var(--hero-radio-w); }
   /* On a tap the label opens above the antenna, in the sky, not across the people. */
@@ -419,7 +437,7 @@ body:has(.so-home) .so-home .s1-brand-stage.so-hero{padding-top:calc(151px + 88p
   .so-home .s1-brand-stage.so-hero .so-radio:is(:hover, :focus-visible, [data-state="pressed"]) .so-radio-label { transform: none; }
 }
 @media (max-width: 670px) {
-  .so-home .s1-brand-stage.so-hero { --hero-photo-top: 76px; --hero-band: calc(100vw * 941 / 1672); }
+  .so-home .s1-brand-stage.so-hero { --hero-photo-top: 76px; }
   .so-home .s1-brand-stage.so-hero .so-hero-inner { margin-top: 24px !important; }
 }
 /* The radio on the glass pedestal: a tight contact shadow and a faint mirrored reflection in the glass. */
@@ -433,10 +451,33 @@ body:has(.so-home) .so-home .s1-brand-stage.so-hero{padding-top:calc(151px + 88p
   opacity: 0.34;
   transform: scaleY(-1);
   pointer-events: none;
-  -webkit-mask-image: linear-gradient(to top, #000 0%, transparent 42%);
-  mask-image: linear-gradient(to top, #000 0%, transparent 42%);
+  -webkit-mask-image: linear-gradient(to top, #000 0%, transparent 13%);
+  mask-image: linear-gradient(to top, #000 0%, transparent 13%);
 }
 @media (prefers-reduced-transparency: reduce) { .so-home .s1-brand-stage.so-hero .so-radio-reflection { display: none; } }
+/* The slim glass plinth under the radio: a premium support surface drawn in CSS (not part of the photograph),
+   a clear disc with a lit top edge, a fine aqua glass rim and a soft shadow on the ground beneath. */
+.so-home .s1-brand-stage.so-hero .so-hero-plinth {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  z-index: 0;
+  width: calc(var(--hero-radio-w) * 3.1);
+  height: calc(var(--hero-radio-w) * 3.1 * 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 50% 30%, rgba(255, 255, 255, 0.7), rgba(222, 238, 246, 0.42) 55%, rgba(196, 222, 232, 0.28) 78%, rgba(255, 255, 255, 0.12));
+  box-shadow:
+    inset 0 2px 1px rgba(255, 255, 255, 0.95),
+    inset 0 -3px 6px rgba(80, 150, 165, 0.22),
+    0 5px 0 -1px rgba(120, 190, 185, 0.6),
+    0 6px 0 0 rgba(255, 255, 255, 0.55),
+    0 16px 22px -10px rgba(10, 22, 32, 0.42);
+  transform: translate(-50%, -52%);
+  pointer-events: none;
+}
+.so-home .s1-brand-stage.so-hero .so-hero-radio .so-radio { position: relative; z-index: 1; }
+@media (prefers-reduced-transparency: reduce) { .so-home .s1-brand-stage.so-hero .so-hero-plinth { background: #e6eef3; } }
 /* ===== END FOUNDER-LOCKED HERO ===== */
 
 /* ======================================================================================
