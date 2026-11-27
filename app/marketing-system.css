@@ -4,14 +4,15 @@
  * Rules (docs/DESIGN_SYSTEM.md): no new colour literals, no `!important`, no override layers.
  */
 
-/* ---------- Scene heroes: sector context behind the introduction only ----------
-   Photography belongs to the sector introduction; everything below sits on the light page.
-   Light-first (2026-11-26): the daylight photograph keeps its natural colour under a light veil
-   that is strongest behind the copy and clears towards the far side (--scene-wash). No dark scrim,
-   no luminosity toning: the backdrop is bright context, never content. */
-.s1-scene-page--guard-os,
-.s1-scene-page--officers,
-.s1-scene-page--recruitment {
+/* ---------- Page atmospheres: which approved scene each page's environment uses ----------
+   DEPTH_SYSTEM §6. The material recipe is `.mat-scene` (globals.css); a page only names its scene and
+   where its copy sits. Each approved people-free scene is used ONCE on the site (the build checks), so no
+   two pages open on the same photograph. The veil holds full strength under the copy column and clears
+   beyond it; below 1024px the copy spans the width, so the veil is even. */
+.s1-scene-page--guard-os {
+  --scene: url("/images/backgrounds/small-control-room.webp");
+}
+.s1-scene-page--officers {
   --scene: url("/images/backgrounds/business-park.webp");
 }
 .s1-scene-page--service {
@@ -20,27 +21,19 @@
 .s1-scene-page--patrol {
   --scene: url("/images/backgrounds/warehouse-yard.webp");
 }
-:is(.s1-scene-page--guard-os, .s1-scene-page--officers, .s1-scene-page--recruitment, .s1-scene-page--service, .s1-scene-page--patrol)
-  > section:first-child {
-  /* The veil holds full strength under the copy column and clears beyond it. Below 1024px the copy
-     spans the width, so the veil is even and the photograph reads as a soft daylight texture. */
+.s1-scene-page > .mat-scene:first-child {
   --copy-end: 100%;
   --veil-angle: 90deg;
-  background-color: var(--color-canvas);
-  background-image: linear-gradient(var(--veil-angle), var(--veil-strong) 0, var(--veil-strong) var(--copy-end), var(--veil-clear) 100%), var(--scene);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
 }
 @media (min-width: 1024px) {
-  :is(.s1-scene-page--guard-os, .s1-scene-page--officers, .s1-scene-page--recruitment, .s1-scene-page--patrol) > section:first-child {
+  .s1-scene-page > .mat-scene:first-child {
     --copy-end: calc((100% - min(100%, var(--wrap-max))) / 2 + var(--wrap-pad) + var(--hero-col, 38rem) + 24px);
   }
-  .s1-scene-page--service > section:first-child {
+  .s1-scene-page--service > .mat-scene:first-child {
     --copy-end: 50%;
   }
   /* /guards puts the copy on the right of its photograph. */
-  .s1-scene-page--officers > section:first-child {
+  .s1-scene-page--officers > .mat-scene:first-child {
     --veil-angle: 270deg;
   }
 }
@@ -287,9 +280,11 @@
 }
 
 /* ---------- Footer ---------- */
+/* The footer stands on a silver ground that rises out of the page's horizon (no rule, no seam); the
+   graphite shell is lit along its top edge and casts its shadow up onto the ground (DEPTH_SYSTEM §5). */
 .s1-premium-footer {
   padding: clamp(24px, 4vw, 56px) 0 0;
-  border-top: 1px solid var(--color-hairline);
+  background: linear-gradient(180deg, var(--mat-horizon) 0, var(--mat-silver) 100%);
   color: var(--color-ink);
 }
 .s1-premium-footer-shell {
@@ -297,7 +292,9 @@
   border: 1px solid var(--color-hairline);
   border-bottom: 0;
   border-radius: var(--radius-card) var(--radius-card) 0 0;
-  background: var(--color-canvas);
+  background-color: var(--color-canvas);
+  background-image: radial-gradient(900px 420px at var(--sun-x) 0%, var(--graphite-glow), transparent 70%);
+  box-shadow: var(--edge-light), var(--shadow-rise);
 }
 .s1-premium-footer-intro {
   display: flex;

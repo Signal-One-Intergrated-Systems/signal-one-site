@@ -55,7 +55,7 @@ export function GuardStatus({ tone = "dark", children }: { tone?: Tone; children
 export function FactPanel({ title, facts, tone = "dark" }: { title?: ReactNode; facts: ReadonlyArray<readonly [string, string]>; tone?: Tone }) {
   const dark = tone === "dark";
   return (
-    <div className={"overflow-hidden rounded-card border " + "border-hairline bg-surface text-ink"}>
+    <div className="plane overflow-hidden text-ink">
       {title ? <div className={"border-b px-5 py-4 font-semibold sm:px-6 " + "border-hairline"}>{title}</div> : null}
       <dl className="m-0">
         {facts.map(([term, detail]) => (
@@ -229,10 +229,13 @@ export function SplitHero({
   children,
   side = "right",
   objectPosition = "50% 40%",
+  material = "mat-scene",
 }: {
   src: StaticImageData;
   alt: string;
   children: ReactNode;
+  /** Depth material of the hero (DEPTH_SYSTEM §2): the page's scene photograph by default. */
+  material?: string;
   /** Which side the photograph is on from lg up. */
   side?: "left" | "right";
   objectPosition?: string;
@@ -240,7 +243,7 @@ export function SplitHero({
   objectPositionMobile?: string;
 }) {
   return (
-    <section className="split-hero s1-person-first-split">
+    <section className={"split-hero s1-person-first-split " + material}>
       <div className={"wrap grid gap-10 py-16 md:py-20 lg:items-center lg:gap-16 lg:py-24 " + (side === "left" ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,var(--hero-col))]" : "lg:grid-cols-[minmax(0,var(--hero-col))_minmax(0,1fr)]")}>
         <div className={side === "left" ? "lg:order-2" : ""}>{children}</div>
         <figure className={"m-0 " + (side === "left" ? "lg:order-1" : "")}>
@@ -276,7 +279,10 @@ export function PageHero({
   lead,
   actions,
   aside,
+  material = "mat-day",
 }: {
+  /** Depth material of the hero (DEPTH_SYSTEM §2). */
+  material?: string;
   kicker?: ReactNode;
   status?: ReactNode;
   title: ReactNode;
@@ -285,7 +291,7 @@ export function PageHero({
   aside?: ReactNode;
 }) {
   return (
-    <section className="split-hero surface-deep">
+    <section className={"split-hero surface-deep " + material}>
       {/* Copy is top-aligned, not centred against the aside: a tall product column must never push
           the headline and primary action below the first viewport (DR-005). It stays in view while the aside scrolls. */}
       <div className="wrap grid gap-12 py-16 md:py-24 lg:grid-cols-[minmax(0,var(--hero-col))_minmax(0,1fr)] lg:items-start lg:gap-20 lg:py-28">

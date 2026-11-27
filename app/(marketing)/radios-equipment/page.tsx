@@ -19,6 +19,7 @@ export default function RadiosEquipmentPage() {
   return (
     <main id="main" className="s1-premium-radio s1-scene-page s1-scene-page--radios">
       <PageHero
+        material="mat-ice mat-signal"
         kicker="Communications"
         status={
           <Status kind="quote" tone="dark">
@@ -35,13 +36,13 @@ export default function RadiosEquipmentPage() {
         aside={
         <div className="grid gap-5">
           <HardwareShowcase products={catalogue[0].products.slice(0, 2)} />
-          <dl className="m-0 grid gap-px overflow-hidden rounded-card border border-hairline bg-hairline">
+          <dl className="plane plane-rows m-0 grid overflow-hidden">
             {[
               ["Radios and PTT", "Hytera PNC360S, P30 Lite PoC and P30G Pro; EasyTalk E600; push-to-talk platform, SIM and data"],
               ["Vehicle and asset tracking", "FMC920 and FMB920 trackers"],
               ["Body cameras", "SC780 body camera"],
             ].map(([term, detail]) => (
-              <div key={term} className="bg-surface p-5 sm:p-6">
+              <div key={term} className="p-5 sm:p-6">
                 <dt className="t-h4">{term}</dt>
                 <dd className="t-small m-0 mt-1 text-ink-2">{detail}</dd>
               </div>
@@ -51,7 +52,7 @@ export default function RadiosEquipmentPage() {
         }
       />
 
-      <section id="journeys" className="surface-light section scroll-mt-[72px]" aria-labelledby="journeys-h">
+      <section id="journeys" className="surface-light section scroll-mt-[72px] mat-silver" aria-labelledby="journeys-h">
         <div className="wrap">
           <h2 id="journeys-h" className="t-h2">Four ways to start</h2>
           <p className="t-body measure mt-3 text-ink-2">Pick the one closest to you. Each opens the quote form with the right questions.</p>
@@ -59,7 +60,7 @@ export default function RadiosEquipmentPage() {
         </div>
       </section>
 
-      <section className="surface-light section pt-0">
+      <section className="surface-light section pt-0 mat-silver">
         <div className="wrap">
           <h2 className="t-h2">The catalogue</h2>
           <p className="t-body measure mt-3 text-ink-2">
@@ -89,7 +90,7 @@ export default function RadiosEquipmentPage() {
             ))}
           </div>
 
-          <div className="mt-16 rounded-card bg-surface p-6 sm:p-8">
+          <div className="plane mt-16 p-6 sm:p-8">
             <div className="flex flex-wrap items-center gap-3">
               <h2 className="t-h4">Equipment and the Signal One platform</h2>
               <Status kind="soon">Coming soon</Status>
@@ -108,7 +109,7 @@ export default function RadiosEquipmentPage() {
         </div>
       </section>
 
-      <section className="surface-light section pt-0" aria-labelledby="components-h">
+      <section className="surface-light section mat-midnight" aria-labelledby="components-h">
         <div className="wrap grid gap-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
           <div>
             <h2 id="components-h" className="t-h2">What a solution can include</h2>
@@ -118,7 +119,7 @@ export default function RadiosEquipmentPage() {
         </div>
       </section>
 
-      <section className="surface-light section pt-0" aria-labelledby="industries-h">
+      <section className="surface-light section mat-day" aria-labelledby="industries-h">
         <div className="wrap">
           <h2 id="industries-h" className="t-h2">Who it is for</h2>
           <p className="t-body measure mt-3 text-ink-2">Teams that need to reach each other instantly across sites. Coverage depends on the cellular network where you work, and is confirmed for your sites before you commit.</p>
@@ -126,14 +127,14 @@ export default function RadiosEquipmentPage() {
         </div>
       </section>
 
-      <section className="surface-light section pt-0" aria-labelledby="faq-h">
+      <section className="surface-light section pt-0 mat-day" aria-labelledby="faq-h">
         <div className="wrap grid gap-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
           <h2 id="faq-h" className="t-h2">Questions</h2>
           <CommsFaq />
         </div>
       </section>
 
-      <section id="quote" className="surface-white section scroll-mt-[72px]">
+      <section id="quote" className="surface-white section scroll-mt-[72px] mat-close">
         <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
           <div>
             <h2 className="t-h2">Request a quote</h2>

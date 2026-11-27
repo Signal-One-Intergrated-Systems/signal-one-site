@@ -1,4 +1,5 @@
-import { readFileSync, readdirSync, statSync } from "node:fs";
+import { createHash } from "node:crypto";
+import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
 
 /*
@@ -7,6 +8,10 @@ import { join } from "node:path";
  * the light-first role-token layer (one layer, two palettes, graphite only as a named scope),
  * computed WCAG contrast for every role pair, no retired token layers, the founder-locked hero
  * kept in one marked block, the brand geometry and the shared component recipes.
+ * Depth (2026-11-27, docs/launch/DEPTH_SYSTEM.md): the materials, the midnight slab, the plinth and the
+ * three glass tiers are computed for WCAG AA at their WORST case (the darkest stop a text can sit on, and
+ * glass over the veil over the darkest pixel of each scene photograph); each scene photograph is used
+ * once; shadows fall away from the one light source; blur stays on the named glass only.
  */
 const root = new URL("../", import.meta.url);
 const read = (path) => readFileSync(new URL(path, root), "utf8");
@@ -21,6 +26,7 @@ const files = {
   logo: read("app/components/brand/SignalOneMark.tsx"),
   font: read("app/lib/body-font.ts"),
   docs: read("docs/DESIGN_SYSTEM.md"),
+  depthDoc: existsSync(new URL("docs/launch/DEPTH_SYSTEM.md", root)) ? read("docs/launch/DEPTH_SYSTEM.md") : "",
 };
 const stripComments = (css) => css.replace(/\/\*[\s\S]*?\*\//g, "");
 const BEGIN = "/* ===== BEGIN FOUNDER-LOCKED HERO ===== */";
@@ -94,6 +100,83 @@ const pairs = (set, name) => {
 };
 pairs(light, "light");
 pairs(graphite, "graphite");
+
+// ---- Depth: worst-case contrast of every material, plinth, slab and glass tier -------------------
+const rootVars = {};
+for (const [, key, value] of (/@theme\s*\{([\s\S]*?)\n\}/.exec(global)?.[1] || "").matchAll(/--([a-z0-9-]+):\s*([^;]+);/g)) rootVars[key] = value.trim();
+// Only the :root token blocks (the graphite and midnight scopes re-point some of the same names).
+for (const [, block] of global.matchAll(/:root\s*\{([^}]*)\}/g))
+  for (const [, key, value] of block.matchAll(/--([a-z0-9-]+):\s*([^;]+);/g)) if (!(key in rootVars)) rootVars[key] = value.trim();
+const rgbOf = (value, depth = 0) => {
+  const v = (value || "").trim();
+  const ref = /^var\(--([a-z0-9-]+)\)$/.exec(v);
+  if (ref && depth < 5) return rgbOf(rootVars[ref[1]] ?? (ref[1].startsWith("color-") ? brand[ref[1].slice(6)] : undefined), depth + 1);
+  let m = /^#([0-9a-f]{6})$/i.exec(v);
+  if (m) return [0, 2, 4].map((i) => parseInt(m[1].slice(i, i + 2), 16)).concat(1);
+  m = /^rgb\((\d+) (\d+) (\d+)(?: \/ ([\d.]+))?\)$/.exec(v);
+  if (m) return [+m[1], +m[2], +m[3], m[4] === undefined ? 1 : +m[4]];
+  return null;
+};
+const over = (top, bottom) => top.slice(0, 3).map((c, i) => c * top[3] + bottom[i] * (1 - top[3])).concat(1);
+const toHex = (c) => c.slice(0, 3).map((x) => Math.round(x).toString(16).padStart(2, "0")).join("");
+const lightText = ["ink", "ink-2", "ink-3", "accent", "live", "beta", "soon", "danger"];
+const depthFailures = [];
+const depthPairs = [];
+const surfaceCheck = (name, bg, set, prefix) => {
+  if (!bg) return depthFailures.push(name + " unresolved");
+  for (const role of lightText) {
+    const fg = hex(set[role]);
+    const r = ratio(fg, toHex(bg));
+    depthPairs.push(r);
+    if (r < 4.5) depthFailures.push(`${prefix} ${role} on ${name} ${r.toFixed(2)}:1`);
+  }
+};
+const plane = rgbOf(rootVars.plane);
+for (const mat of ["mat-horizon", "mat-silver", "mat-ice", "mat-stone", "mat-pearl", "plinth-top", "plinth-base"]) {
+  const body = rgbOf(rootVars[mat]);
+  surfaceCheck(mat, body, light, "light");
+  if (body && plane) surfaceCheck("plane over " + mat, over(plane, body), light, "light");
+}
+const midnightPlane = /\.mat-midnight,\s*\.so-home \.so-guard-section \{[^}]*--plane: (rgb\([^)]*\))/.exec(global)?.[1];
+for (const stop of ["midnight-canvas", "midnight-surface", "midnight-surface-2", "midnight-high", "midnight-low"]) {
+  const body = rgbOf(rootVars[stop]);
+  surfaceCheck(stop, body, graphite, "graphite");
+  if (body && midnightPlane) surfaceCheck("midnight plane over " + stop, over(rgbOf(midnightPlane), body), graphite, "graphite");
+}
+// The lit corner of the slab: the sky light at full strength over its lightest stop.
+const slabLight = /\.mat-midnight,\s*\.so-home \.so-guard-section \{[^}]*?radial-gradient\([^,]*, (rgb\([^)]*\))/.exec(global)?.[1];
+if (slabLight) surfaceCheck("midnight lit corner", over(rgbOf(slabLight), rgbOf(rootVars["midnight-high"])), graphite, "graphite");
+else depthFailures.push("midnight slab light unresolved");
+
+// Scenes: every photograph used as an environment is measured (docs/launch/depth-scene-floor.json),
+// unchanged since measurement, and used once. Text is checked over its darkest pixel.
+const floorPath = new URL("docs/launch/depth-scene-floor.json", root);
+const floor = existsSync(floorPath) ? JSON.parse(readFileSync(floorPath, "utf8")) : {};
+const sceneUses = [global, marketing, homeSections].join("\n").match(/url\("(\/images\/[^"]+)"\)/g) || [];
+const sceneUrls = sceneUses.map((u) => /url\("([^"]+)"\)/.exec(u)[1]);
+const sceneFailures = [];
+for (const url of new Set(sceneUrls)) {
+  const entry = floor[url];
+  if (!entry) { sceneFailures.push(url + " not measured"); continue; }
+  const sha = createHash("sha256").update(readFileSync(new URL("public" + url, root))).digest("hex");
+  if (sha !== entry.sha256) sceneFailures.push(url + " changed since measurement");
+  const dark = rgbOf(entry.darkest);
+  const veilStrong = over(rgbOf(rootVars["veil-strong"]), dark);
+  const veilMid = over(rgbOf(rootVars["veil-mid"]), dark);
+  surfaceCheck("veil-strong over " + url, veilStrong, light, "light");
+  surfaceCheck("glass over veil-mid over " + url, over(rgbOf(rootVars["glass-panel"]), veilMid), light, "light");
+  surfaceCheck("solid glass over " + url, over(rgbOf(rootVars["glass-panel-solid"]), dark), light, "light");
+}
+const repeatedScenes = sceneUrls.filter((u, i) => sceneUrls.indexOf(u) !== i);
+
+// Shadows fall away from the one light source (high on the right): every drop layer has x <= 0.
+const shadowTokens = ["shadow-contact", "shadow-card", "shadow-float"].map((k) => rootVars[k] || "");
+const shadowAgainstLight = shadowTokens.some((v) => !v || [...v.matchAll(/(?:^|,)\s*(-?\d+)(?:px)? (-?\d+)(?:px)? \d+px/g)].some(([, x]) => +x > 0));
+// Blur is expensive to scroll: only the named glass carries backdrop-filter (nav, photo glass, shutter).
+const blurDeclarations = count([global, marketing, homeSections].join("\n"), /(?<![-(])backdrop-filter:/g);
+const midnightUses = count(markup, /\bmat-midnight\b/g);
+// Materials come from the system: no section-level gradients or background photographs in markup.
+const adHocBackgrounds = /bg-\[(linear|radial)-gradient|bg-\[url\(|backgroundImage:/.test(markup);
 if (ratio(hex(brand["on-signal"]) || "000000", hex(brand.signal) || "000000") < 4.5) contrastFailures.push("on-signal on signal < 4.5");
 
 // ---- Role tokens: declared once in @theme (light), re-pointed in the graphite scope ------------
@@ -103,7 +186,7 @@ const scopeMatch = /([^{}]+)\{(\s*--color-canvas: var\(--graphite-canvas\);[\s\S
 const scopeSelectors = (scopeMatch?.[1] || "").split(",").map((s) => s.trim()).filter(Boolean);
 const scopeBody = scopeMatch?.[2] || "";
 // Graphite is selective: only these named places may be graphite (DESIGN_SYSTEM §1).
-const approvedGraphite = [".tone-graphite", ".so-home .so-guard-section", ".s1-premium-footer-shell", ".product-window", ".phone-frame", ".sg-entry-overlay"];
+const approvedGraphite = [".tone-graphite", ".mat-midnight", ".so-home .so-guard-section", ".s1-premium-footer-shell", ".product-window", ".phone-frame", ".sg-entry-overlay"];
 const toneGraphiteUses = count(markup, /\btone-graphite\b/g);
 
 // ---- Retired names ----------------------------------------------------------------------------
@@ -113,7 +196,7 @@ const retiredUtilities = /(?<![\w-])(text-text-inv(-[23])?|bg-raised(-2)?|(borde
 const sceneWash = ["scene-wash", "veil-strong", "veil-clear"].map((name) => new RegExp(`--${name}:\\s*([^;]+);`).exec(global)?.[1] || "").join(" ");
 const darkScrim = !/--veil-strong:/.test(global) || [...sceneWash.matchAll(/rgb\((\d+) (\d+) (\d+)/g)].some(([, r, g, b]) => Math.min(+r, +g, +b) < 200);
 
-const globalLiteralBudget = 70;
+const globalLiteralBudget = 104;
 const globalImportantBudget = 4;
 
 const checks = [
@@ -146,6 +229,13 @@ const checks = [
   ["Status labels use the one badge component", files.ui.includes('"badge badge-" + kind')],
   ["The footer band never out-ranks the page (2rem heading)", /\.s1-premium-footer-intro h2 \{[^}]*font-size: 2rem/.test(marketing)],
   ["Design constitution records the light-first decision", files.docs.includes("# Signal One website design constitution") && files.docs.includes("Approved 2026-11-26 light-first direction")],
+  [`Depth: WCAG AA at the worst case of every material, plinth, slab, veil and glass tier, computed (${depthPairs.length} pairs${depthFailures.length ? "; " + depthFailures.join("; ") : ""})`, depthFailures.length === 0 && depthPairs.length > 0],
+  [`Depth: every scene photograph is measured, unchanged and used once (${sceneFailures.concat(repeatedScenes.map((u) => u + " repeated")).join("; ") || new Set(sceneUrls).size + " scenes"})`, sceneFailures.length === 0 && repeatedScenes.length === 0 && sceneUrls.length > 0],
+  ["Depth: every shadow tier falls away from the one light source (x ≤ 0)", !shadowAgainstLight],
+  [`Depth: backdrop blur only on the named glass (${blurDeclarations} ≤ 6)`, blurDeclarations <= 6],
+  [`Depth: midnight stays selective (${midnightUses} ≤ 4 slabs in markup)`, midnightUses <= 4],
+  ["Depth: materials come from the system (no ad-hoc gradient or photo backgrounds in markup)", !adHocBackgrounds],
+  ["Depth system is documented and recorded in the constitution", files.depthDoc.includes("# Depth system") && files.docs.includes("Approved 2026-11-27 depth direction")],
 ];
 const errors = checks.filter(([, pass]) => !pass).map(([description]) => description);
 for (const [description, pass] of checks) {

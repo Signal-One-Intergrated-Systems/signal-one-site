@@ -60,6 +60,7 @@ export default function AboutPage() {
   return (
     <main id="main" className="s1-scene-page s1-scene-page--security">
       <PageHero
+        material="mat-stone"
         kicker="About Signal One"
         title="Equipment that keeps teams connected. Software that runs the business."
         lead="Signal One supplies push-to-talk radios, tracking and body cameras to South African businesses with people in the field, and builds operating systems for small and medium businesses, starting with 1GUARD for security companies."
@@ -82,7 +83,7 @@ export default function AboutPage() {
         }
       />
 
-      <section className="surface-light section" aria-labelledby="about-offers">
+      <section className="surface-light section mat-day" aria-labelledby="about-offers">
         <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
           <h2 id="about-offers" className="t-h2">What we offer, and what is ready</h2>
           <ul className="m-0 grid list-none gap-x-12 p-0 md:grid-cols-2">
@@ -100,7 +101,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="surface-light-2 section" aria-labelledby="about-company">
+      <section className="surface-light-2 section mat-silver" aria-labelledby="about-company">
         <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
           <h2 id="about-company" className="t-h2">Who you are dealing with</h2>
           <div className="grid gap-6">
@@ -123,7 +124,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="surface-light section" aria-labelledby="about-contact">
+      <section className="surface-light section mat-close" aria-labelledby="about-contact">
         <div className="wrap grid gap-8 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
           <h2 id="about-contact" className="t-h2">Contact</h2>
           <div className="grid gap-4 sm:grid-cols-2">

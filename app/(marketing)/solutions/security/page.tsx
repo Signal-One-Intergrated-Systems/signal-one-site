@@ -58,7 +58,7 @@ export default function SecurityPlatformPage() {
         <p className="t-caption mt-3 text-ink-2">{illustrativeCaption}</p>
       </SplitHero>
 
-      <section className="surface-light section" aria-labelledby="guard-business-os-title">
+      <section className="surface-light section mat-silver" aria-labelledby="guard-business-os-title">
         <div className="wrap">
           <Kicker>Built for the security business owner</Kicker>
           <h2 id="guard-business-os-title" className="t-h2 mt-4">More than guarding operations. A business operating system.</h2>
@@ -75,8 +75,8 @@ export default function SecurityPlatformPage() {
         </div>
       </section>
 
-      {/* Coverage: the page's one graphite chapter (the control room), DESIGN_SYSTEM §1. */}
-      <section className="surface-light section tone-graphite">
+      {/* Coverage: the page's midnight control chapter (DEPTH_SYSTEM §2.5). */}
+      <section className="surface-light section mat-midnight">
         <div className="wrap grid gap-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-14">
           <div>
             <Kicker>Coverage and supervision</Kicker>
@@ -111,7 +111,7 @@ export default function SecurityPlatformPage() {
       </section>
 
       {/* Field */}
-      <section className="surface-white section">
+      <section className="surface-white section mat-day">
         <div className="wrap">
           <div className="grid gap-10 lg:grid-cols-[minmax(0,8fr)_minmax(0,4fr)] lg:items-end lg:gap-14">
             <div>
@@ -145,7 +145,7 @@ export default function SecurityPlatformPage() {
       </section>
 
       {/* PSiRA */}
-      <section className="surface-light-2 section">
+      <section className="surface-light-2 section mat-silver">
         <div className="wrap grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-14">
           <div>
             <Kicker>PSiRA</Kicker>
@@ -168,7 +168,7 @@ export default function SecurityPlatformPage() {
       </section>
 
       {/* Proof + client portal */}
-      <section className="surface-base section">
+      <section className="surface-base section mat-ice">
         <div className="wrap">
           <div className="grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-14">
             <div>
@@ -204,7 +204,7 @@ export default function SecurityPlatformPage() {
       </section>
 
       {/* People & access */}
-      <section className="surface-light section">
+      <section className="surface-light section mat-day">
         <div className="wrap grid gap-10 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-center lg:gap-14">
           <div className="order-2 lg:order-1">
             <FactPanel
@@ -224,7 +224,7 @@ export default function SecurityPlatformPage() {
         </div>
       </section>
 
-      <section className="surface-base section">
+      <section className="surface-base section mat-close">
         <div className="wrap flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-2xl">
             <h2 className="t-h2">See it on your own operation.</h2>

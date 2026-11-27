@@ -28,7 +28,7 @@ export default function LegalPage({
   className?: string;
 }) {
   return (
-    <main id="main" className={"s1-legal-page " + className}>
+    <main id="main" className={"s1-legal-page mat-stone " + className}>
       <article className="wrap py-12 md:py-16 lg:py-20">
         <div className="s1-legal-layout">
           <header className="s1-legal-header">

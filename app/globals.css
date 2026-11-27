@@ -59,9 +59,11 @@
   --radius-card: 24px;
   --radius-frame: 12px;
 
-  /* Elevation: two shadows, soft and cool on light (re-pointed in graphite) */
-  --shadow-card: 0 1px 2px rgb(24 36 45 / 0.05), 0 18px 40px -28px rgb(24 36 45 / 0.22);
-  --shadow-float: 0 1px 2px rgb(24 36 45 / 0.06), 0 24px 60px -30px rgb(24 36 45 / 0.32);
+  /* Elevation (DEPTH_SYSTEM §4): three tiers of soft, realistic shadow. One light source, high on the
+     right, so every drop shadow falls down and slightly to the LEFT (negative x). Re-pointed in graphite. */
+  --shadow-contact: 0 1px 1px rgb(16 32 48 / 0.05), -1px 3px 8px -4px rgb(16 32 48 / 0.1);
+  --shadow-card: 0 1px 2px rgb(16 32 48 / 0.05), -6px 22px 44px -28px rgb(16 32 48 / 0.28);
+  --shadow-float: 0 1px 2px rgb(16 32 48 / 0.06), -12px 38px 80px -38px rgb(16 32 48 / 0.38);
 
   /* Motion */
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
@@ -100,11 +102,32 @@
     --graphite-beta: #fcd47a;
     --graphite-soon: #d1d5db;
     --graphite-danger: #ffb4ab;
+
+    /* Midnight: the selective contrast chapter (1GUARD control). Backgrounds only; it takes the graphite
+       text roles, so the build checks every graphite text role on every midnight stop. */
+    --midnight-canvas: #0f1b2b;
+    --midnight-surface: #15243a;
+    --midnight-surface-2: #1c2e46;
+    --midnight-high: #19304a; /* the lit corner of a midnight slab */
+    --midnight-low: #0b1522;
+
+    /* DEPTH MATERIALS (DEPTH_SYSTEM §2). Each light material fades to the shared horizon at both ends, so
+       any two materials meet on the same tone and a section boundary never shows a seam. The body tone
+       is the darkest light stop text may sit on (computed AA in the build, accent ≥ 4.5:1). */
+    --mat-horizon: #f7f9fb;
+    --mat-silver: #e6edf2;
+    --mat-ice: #e3edf5;
+    --mat-stone: #f1ebe3;
+    --mat-pearl: #ffffff;
+    /* Product plinth: lit from above, settling to silver at the base (text-safe), with a floor shadow. */
+    --plinth-top: #ffffff;
+    --plinth-base: #e8eef2;
   }
 
   /* Graphite scope: the footer, the homepage 1GUARD operations chapter, product screenshot frames,
      the 1GUARD entry shutter and any `.tone-graphite` element. Same role names, graphite values. */
   .tone-graphite,
+  .mat-midnight,
   .so-home .so-guard-section,
   .s1-premium-footer-shell,
   .product-window,
@@ -124,7 +147,10 @@
     --color-beta: var(--graphite-beta);
     --color-soon: var(--graphite-soon);
     --color-danger: var(--graphite-danger);
-    --shadow-card: inset 0 1px 0 rgb(255 255 255 / 0.08), 0 22px 60px -36px rgb(0 0 0 / 0.6);
+    --shadow-card: inset 0 1px 0 rgb(255 255 255 / 0.08), -8px 22px 60px -36px rgb(0 0 0 / 0.6);
+    --edge-light: inset 0 1px 0 rgb(255 255 255 / 0.08);
+    --plane: rgb(38 49 56 / 0.78);
+    --plane-edge: rgb(255 255 255 / 0.1);
     --glass-panel: rgb(30 39 45 / 0.74);
     --glass-panel-solid: rgb(30 39 45 / 0.95);
     --ghost-border: rgb(255 255 255 / 0.34);
@@ -132,6 +158,16 @@
     background-color: var(--color-canvas);
     color: var(--color-ink);
     color-scheme: dark;
+  }
+  /* Midnight re-points the graphite backgrounds to midnight blue; text roles stay graphite. */
+  .mat-midnight,
+  .so-home .so-guard-section {
+    --color-canvas: var(--midnight-canvas);
+    --color-surface: var(--midnight-surface);
+    --color-surface-2: var(--midnight-surface-2);
+    --plane: rgb(28 46 70 / 0.72);
+    --plane-edge: rgb(255 255 255 / 0.09);
+    --glass-panel-solid: rgb(21 36 58 / 0.94);
   }
   /* A manufacturer product well is light wherever it sits. */
   .well,
@@ -163,19 +199,44 @@
        Signal-blue daylight from the top right, settling to the canvas. */
     --stage: radial-gradient(1200px 720px at 88% -8%, rgb(14 165 233 / 0.09), transparent 70%),
       linear-gradient(180deg, #ffffff 0, var(--color-canvas) 820px);
+    /* DEPTH (docs/launch/DEPTH_SYSTEM.md). The light: one sun high on the right of every page. */
+    --sun-x: 84%;
+    --sun: rgb(255 255 255 / 0.7);
+    --sky: rgb(14 165 233 / 0.11); /* daylight from the sky side, cool */
+    --warm-sun: rgb(255 222 184 / 0.32); /* late daylight on warm materials */
+    /* A shaft of daylight across a material: lightening only, so it can never lower text contrast. */
+    --shaft: linear-gradient(112deg, transparent 40%, rgb(255 255 255 / 0.42) 50%, transparent 61%);
+    /* Restrained reflection: the lit top edge of a raised or glass surface. */
+    --edge-light: inset 0 1px 0 rgb(255 255 255 / 0.9);
+    /* The edge of frosted glass over photography, and the soft floor shadow a product stands on. */
+    --glass-edge: rgb(255 255 255 / 0.7);
+    --floor-shadow: rgb(16 32 48 / 0.17);
+    --plinth-light: linear-gradient(180deg, var(--plinth-top) 0%, var(--plinth-top) 30%, var(--plinth-base) 100%);
+    /* A shell standing on the page (footer): it casts upward onto the ground, its top lit faintly. */
+    --shadow-rise: 0 -24px 60px -40px rgb(16 32 48 / 0.35);
+    --graphite-glow: rgb(255 255 255 / 0.07);
+    /* Glass tier 1 (plane): a translucent sheet on a material, no blur (cheap to scroll). */
+    --plane: rgb(255 255 255 / 0.7);
+    --plane-edge: rgb(255 255 255 / 0.85);
+    /* How far a light material's horizon fade reaches at the top and bottom of a section. */
+    --mat-fade: min(140px, 18%);
     /* Glass tiers (DESIGN_SYSTEM §6): nav, panel over photography, product-well label. Light glass. */
     --glass-nav: rgb(255 255 255 / 0.86);
     --glass-nav-solid: rgb(255 255 255 / 0.96);
-    --glass-panel: rgb(255 255 255 / 0.8);
+    --glass-panel: rgb(255 255 255 / 0.86); /* glass tier 3 (frost): over photography, with blur */
     --glass-panel-solid: rgb(255 255 255 / 0.94);
     --glass-well: rgb(255 255 255 / 0.85);
-    --glass-blur: blur(20px) saturate(140%);
+    --glass-blur: blur(18px) saturate(150%);
     /* Secondary (ghost) button on light. Re-declared in the graphite scope. */
     --ghost-border: #b5c3ce;
     --ghost-hover: var(--color-surface-2);
     /* Scene backdrop veil: a light veil over a daylight photograph, strongest behind the copy and
        clear on the far side, so the photograph stays bright and natural (never a dark scrim). */
-    --veil-strong: rgb(247 249 251 / 0.93);
+    /* Three veil strengths (DEPTH_SYSTEM §7): strong under copy set directly on a photograph, mid under
+       frosted glass, clear where no text sits. The build checks text over each against the darkest pixel
+       of every scene (docs/launch/depth-scene-floor.json). */
+    --veil-strong: rgb(247 249 251 / 0.96);
+    --veil-mid: rgb(247 249 251 / 0.5);
     --veil-clear: rgb(247 249 251 / 0.22);
     --scene-wash: linear-gradient(100deg, var(--veil-strong) 0%, var(--veil-strong) 30%, var(--veil-clear) 100%);
   }
@@ -342,18 +403,10 @@
   .surface-white {
     color: var(--color-ink);
   }
-  /* A chapter boundary is a hairline, not a colour seam. */
-  main > section + section {
+  /* Between two plain daylight sections a chapter boundary is a hairline. A section on a depth material
+     (`mat-*`) needs no rule: materials meet on the shared horizon tone (DEPTH_SYSTEM §5). */
+  main > section:not([class*="mat-"]) + section:not([class*="mat-"]):not(.pt-0) {
     border-top: 1px solid var(--color-hairline);
-  }
-  /* A section that continues the one before it (no top padding) is not a new chapter: no rule. */
-  main > section + section.pt-0 {
-    border-top: 0;
-  }
-  /* The closing band of a page (its last section) sits on the alternate light neutral, so a page
-     ends on a calm, distinct band before the graphite footer. */
-  main > section:last-child:not(:first-child):not(.tone-graphite) {
-    background-color: var(--color-surface-2);
   }
 
   /* ---------- Type: one scale ---------- */
@@ -767,23 +820,38 @@
     box-shadow: none;
   }
 
-  /* ---------- Cards and panels ---------- */
-  /* Solid white card on the light page (graphite card inside a graphite scope): no blur over flat colour (VA-09). */
+  /* ---------- Cards and panels: the depth tiers (DEPTH_SYSTEM §3–4) ---------- */
+  /* Tier 2, raised: a lit sheet that lets the material show through faintly, separated by its soft
+     shadow and a lit top edge, not by a grey border. No blur over gradients (VA-09, scroll cost). */
   .card,
   .card-dark {
-    border: 1px solid var(--color-hairline);
+    border: 1px solid var(--plane-edge);
     border-radius: var(--radius-card);
-    background: var(--color-surface);
-    box-shadow: var(--shadow-card);
+    background: var(--plane);
+    box-shadow: var(--edge-light), var(--shadow-card);
     overflow-wrap: break-word;
+  }
+  /* Tier 1, plane: a quieter translucent sheet that groups content on a material (lists, facts, form
+     shells). It sits close to the surface: contact shadow only. */
+  .plane {
+    border: 1px solid var(--plane-edge);
+    border-radius: var(--radius-card);
+    background: var(--plane);
+    box-shadow: var(--edge-light), var(--shadow-contact);
+    overflow-wrap: break-word;
+  }
+  /* A ruled group inside a plane (definition lists): the hairline is the only line. */
+  .plane-rows > * + * {
+    border-top: 1px solid var(--color-hairline);
   }
 
   /* Glass panel: only over photography (hero captions, overlays on photo bands). Light glass. */
+  /* Tier 3, float: frosted glass over photography only. */
   .glass {
-    border: 1px solid rgb(255 255 255 / 0.7);
+    border: 1px solid var(--glass-edge);
     border-radius: var(--radius-card);
     background: var(--glass-panel-solid);
-    box-shadow: var(--shadow-float);
+    box-shadow: var(--edge-light), var(--shadow-float);
   }
   /* Light glass: labels sitting on a light product well. */
   .glass-light {
@@ -800,11 +868,13 @@
     }
   }
 
-  /* Manufacturer product well: neutral light, product shown whole with contain sizing. */
+  /* Manufacturer product well = a lit plinth: light from above settling to silver, the product shown
+     whole (contain) standing on a soft floor shadow. Precise and quiet; the product is the subject. */
   .well,
   .s1-product-well {
     position: relative;
-    background: var(--color-well);
+    background-color: var(--plinth-base);
+    background-image: radial-gradient(42% 7% at 50% var(--plinth-floor, 90%), var(--floor-shadow), transparent 72%), var(--plinth-light);
     color: var(--color-ink);
   }
   /* Fit a product by its device bounds where the image declares them (lib/catalogue.ts productBounds). */
@@ -821,10 +891,115 @@
   .s1-service-capability-photo {
     position: relative;
     overflow: hidden;
-    border: 1px solid var(--color-hairline);
+    border: 1px solid var(--plane-edge);
     border-radius: var(--radius-card);
     background: var(--color-surface);
-    box-shadow: var(--shadow-card);
+    box-shadow: var(--shadow-float);
+  }
+
+  /* ---------- Depth materials: the environment tier (DEPTH_SYSTEM §2, §5) ----------
+     A section takes ONE material class. Light materials: horizon → body → horizon, lit from the right by
+     the page's one sun, with a faint shaft of daylight. They only ever lighten their body tone, so the
+     body tone is the worst case for text (the build computes it). */
+  .mat-silver,
+  .mat-ice,
+  .mat-stone,
+  .mat-day,
+  .mat-close,
+  main > section:last-child:not(:first-child):not([class*="mat-"]):not(.tone-graphite) {
+    --mat-body: var(--mat-silver);
+    --mat-light: var(--sun);
+    position: relative;
+    background-color: var(--mat-body);
+    background-image: radial-gradient(900px 520px at var(--sun-x) 0%, var(--mat-light), transparent 72%), var(--shaft),
+      linear-gradient(180deg, var(--mat-horizon) 0, var(--mat-body) var(--mat-fade-top, var(--mat-fade)), var(--mat-body) calc(100% - var(--mat-fade-bottom, var(--mat-fade))), var(--mat-horizon) 100%);
+    background-repeat: no-repeat;
+  }
+  /* A section that continues the one before it (`pt-0`, same material) joins it without a horizon fade. */
+  section[class*="mat-"].pt-0 {
+    --mat-fade-top: 0px;
+    --mat-light: transparent;
+  }
+  section[class*="mat-"]:has(+ section.pt-0) {
+    --mat-fade-bottom: 0px;
+  }
+  .mat-ice {
+    --mat-body: var(--mat-ice);
+    --mat-light: var(--sky);
+  }
+  .mat-stone {
+    --mat-body: var(--mat-stone);
+    --mat-light: var(--warm-sun);
+  }
+  /* Daylight: pearl white under a cool sky; white as a material, used between deeper chapters. */
+  .mat-day {
+    --mat-body: var(--mat-pearl);
+    --mat-light: var(--sky);
+  }
+  /* The closing band of a page: ice under a broad daylight, so every page ends on light, not on a box.
+     (A page's last section gets it automatically unless it names another material.) */
+  .mat-close,
+  main > section:last-child:not(:first-child):not([class*="mat-"]):not(.tone-graphite) {
+    --mat-body: var(--mat-ice);
+    --mat-light: var(--sun);
+  }
+
+  /* Communications: a quiet coverage field radiating from the light source, the one motif on the site.
+     White arcs on ice (lightening only), faded out before they reach the copy. */
+  .mat-signal {
+    position: relative;
+    isolation: isolate;
+  }
+  .mat-signal::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: repeating-radial-gradient(circle at 92% 8%, transparent 0 62px, rgb(255 255 255 / 0.55) 63px 64px, transparent 65px 126px);
+    -webkit-mask-image: radial-gradient(900px 640px at 92% 8%, #000 20%, transparent 75%);
+    mask-image: radial-gradient(900px 640px at 92% 8%, #000 20%, transparent 75%);
+  }
+
+  /* Midnight: selective contrast. Never a full-bleed band: a slab on the content edge, lit in its top
+     right corner, floating on the light page with a deep soft shadow (DEPTH_SYSTEM §2.5). */
+  .mat-midnight,
+  .so-home .so-guard-section {
+    width: calc(100% - 2 * var(--wrap-pad));
+    max-width: calc(var(--wrap-max) - 2 * var(--wrap-pad));
+    margin-inline: auto;
+    border: 1px solid var(--plane-edge);
+    border-radius: 32px;
+    background-color: var(--midnight-canvas);
+    background-image: radial-gradient(900px 560px at var(--sun-x) 0%, rgb(56 189 248 / 0.14), transparent 70%),
+      linear-gradient(165deg, var(--midnight-high) 0%, var(--midnight-canvas) 55%, var(--midnight-low) 100%);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.1), -16px 48px 90px -48px rgb(11 21 34 / 0.55);
+  }
+  @media (max-width: 639px) {
+    .mat-midnight,
+    .so-home .so-guard-section {
+      border-radius: var(--radius-card);
+    }
+  }
+
+  /* Photographic environment: an approved people-free scene (`--scene`, set per page in
+     marketing-system.css) under the light veil, its edges dissolving into the horizon above and below so
+     it joins the materials around it. */
+  .mat-scene {
+    position: relative;
+    background-color: var(--mat-horizon);
+    background-image: linear-gradient(180deg, var(--mat-horizon) 0, transparent var(--scene-fade-top, 10%), transparent 90%, var(--mat-horizon) 100%),
+      linear-gradient(var(--veil-angle, 100deg), var(--veil-near, var(--veil-strong)) 0, var(--veil-near, var(--veil-strong)) var(--copy-end, 34%), var(--veil-far, var(--veil-clear)) 100%),
+      var(--scene, none);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  /* A scene whose text sits only on frosted glass: the mid veil everywhere (the glass is computed over it). */
+  .mat-scene.scene-glass {
+    --veil-near: var(--veil-mid);
+    --veil-far: var(--veil-mid);
   }
 
   /* Rules */

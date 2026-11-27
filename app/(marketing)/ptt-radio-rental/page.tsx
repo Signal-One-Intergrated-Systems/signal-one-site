@@ -36,9 +36,9 @@ export default function PttRadioRentalPage() {
       aside={
         <div className="grid gap-5">
           <HardwareShowcase products={catalogue[0].products.slice(0, 2)} />
-          <ul className="m-0 grid list-none gap-px overflow-hidden rounded-card border border-hairline bg-hairline p-0">
+          <ul className="plane plane-rows m-0 grid list-none overflow-hidden p-0">
           {radios.products.map((product) => (
-            <li key={product.model} className="flex items-start justify-between gap-4 bg-surface p-5 sm:p-6">
+            <li key={product.model} className="flex items-start justify-between gap-4 p-5 sm:p-6">
               <div>
                 <p className="t-small font-semibold text-accent">{product.type}</p>
                 <p className="t-h3 mt-1">{product.model}</p>

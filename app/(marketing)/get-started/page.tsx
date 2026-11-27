@@ -14,7 +14,7 @@ export const metadata: Metadata = pageMetadata({
 
 export default function GetStartedPage() {
   return (
-    <main id="main" className="s1-onboarding s1-scene-page s1-scene-page--trial">
+    <main id="main" className="s1-onboarding s1-scene-page s1-scene-page--trial mat-ice">
       <div className="wrap py-10 md:py-16">
         {/* Plain introduction, no card: the first question follows directly (UX correction #6, VA-23). */}
         <div className="s1-onboarding-intro mb-8 max-w-3xl">

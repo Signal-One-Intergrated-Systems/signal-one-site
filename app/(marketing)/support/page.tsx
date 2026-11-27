@@ -32,6 +32,7 @@ export default function SupportPage() {
   return (
     <main id="main" className="s1-scene-page s1-scene-page--security">
       <PageHero
+        material="mat-ice"
         kicker="Customer support"
         title="Something not working? Tell us what, where and since when."
         lead="Support for customers renting or buying radios, tracking and body cameras, and for companies piloting 1GUARD. Email or WhatsApp us; the details below help us answer the first time."
@@ -55,9 +56,9 @@ export default function SupportPage() {
         }
       />
 
-      <section className="surface-light section" aria-labelledby="support-safety">
+      <section className="surface-light section mat-day" aria-labelledby="support-safety">
         <div className="wrap">
-          <div className="rounded-card border border-signal-400/40 bg-surface p-6 sm:p-8">
+          <div className="card p-6 sm:p-8">
             <h2 id="support-safety" className="t-h3">If someone is in danger, do not wait for us</h2>
             <p className="t-body mt-3 measure text-ink-2">
               Follow your own emergency and control-room procedures first, and call emergency services if needed. Email and WhatsApp are not monitored as emergency lines.
@@ -66,7 +67,7 @@ export default function SupportPage() {
         </div>
       </section>
 
-      <section className="surface-light section pt-0" aria-labelledby="support-topics">
+      <section className="surface-light section pt-0 mat-day" aria-labelledby="support-topics">
         <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
           <h2 id="support-topics" className="t-h2">What do you need help with?</h2>
           <ul className="m-0 grid list-none gap-x-12 p-0 md:grid-cols-2">
@@ -83,7 +84,7 @@ export default function SupportPage() {
         </div>
       </section>
 
-      <section className="surface-light-2 section" aria-labelledby="support-include">
+      <section className="surface-light-2 section mat-close" aria-labelledby="support-include">
         <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
           <h2 id="support-include" className="t-h2">What to include</h2>
           <div>
