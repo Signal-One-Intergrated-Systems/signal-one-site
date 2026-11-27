@@ -46,7 +46,7 @@ export default function GuardPatrolSoftwarePage() {
         </div>
       }
       story={
-        <section className="surface-white section">
+        <section className="surface-white section mat-day">
           <div className="wrap">
             <h2 className="t-h2 max-w-3xl">From the checkpoint to the client&apos;s report.</h2>
             <div className="mt-10">

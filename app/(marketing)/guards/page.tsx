@@ -60,7 +60,7 @@ export default function GuardsPage() {
           <p className="t-caption mt-6 text-ink-2">Illustrative scene · fictional security company</p>
       </SplitHero>
 
-      <section id="how-it-works" className="section">
+      <section id="how-it-works" className="section mat-silver">
         <div className="wrap grid gap-12 lg:grid-cols-2 lg:gap-16">
           <div>
             <h2 className="t-h2">On shift: the Guard app</h2>
@@ -99,7 +99,7 @@ export default function GuardsPage() {
         </div>
       </section>
 
-      <section id="psira" className="section">
+      <section id="psira" className="section mat-day">
         <div className="wrap grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
           <div>
             <h2 className="t-h2">PSiRA: what we ask and why</h2>
@@ -120,7 +120,7 @@ export default function GuardsPage() {
         </div>
       </section>
 
-      <section id="your-information" className="section">
+      <section id="your-information" className="section mat-stone">
         <div className="wrap grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
           <div>
             <h2 className="t-h2">Your information</h2>
@@ -154,7 +154,7 @@ export default function GuardsPage() {
         </div>
       </section>
 
-      <section className="section">
+      <section className="section mat-close">
         <div className="wrap">
           <h2 className="t-h2">How joining works</h2>
           <ol className="m-0 mt-8 grid list-none gap-6 p-0 md:grid-cols-4">

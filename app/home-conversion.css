@@ -224,21 +224,14 @@ body:has(.so-home) .so-home .s1-brand-stage.so-hero{padding-top:calc(151px + 88p
 /* ======================================================================================
    HOMEPAGE SECTIONS BELOW THE HERO — built on the shared tokens (globals.css).
    Section rhythm is the shared `.section` (80/96/112); panels are the shared card material;
-   buttons, links and badges are the shared components. Light-first (2026-11-26): photographic
-   backdrops (business intro, 1Service) keep their daylight colour under the light veil; the 1GUARD
-   operations chapter is the page's one graphite chapter (token scope in globals.css).
+   buttons, links and badges are the shared components. Depth (2026-11-27, docs/launch/DEPTH_SYSTEM.md):
+   each chapter takes a depth material in markup (`mat-*`, globals.css): the business introduction and
+   1Service are photographic environments (`mat-scene`), 1GUARD is the page's midnight slab, equipment
+   is ice with the coverage field, the rest alternate daylight and silver, closing on ice.
    ====================================================================================== */
 /* The locked hero sets a light text colour on .so-home; the sections below take the role ink. */
 .so-home > section:not(:first-child) {
   color: var(--color-ink);
-}
-.so-home .so-introduction,
-.so-home .so-service-section {
-  background-color: var(--color-canvas);
-  background-image: var(--scene-wash), var(--scene, none);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
 }
 /* DR-003: below-the-fold photographs load after the page (components/AfterLoad.tsx); until then
    the same wash shows over the base colour, then the photograph appears beneath it. */
@@ -246,15 +239,15 @@ html[data-after-load] .so-home .so-introduction {
   --scene: url("/images/bright/06-bright-architecture.webp");
 }
 html[data-after-load] .so-home .so-service-section {
-  --scene: url("/images/backgrounds/restaurant-dining.webp");
+  --scene: url("/images/backgrounds/restaurant-courtyard.webp");
 }
 /* The bright architecture accent is a 1774px master: on wider screens it is shown at its native width,
    centred, and its sides fade into the canvas instead of being upscaled (founder package guide). */
 @media (min-width: 1775px) {
   html[data-after-load] .so-home .so-introduction {
-    background-image: var(--scene-wash),
-      linear-gradient(90deg, var(--color-canvas) calc(50% - 887px), transparent calc(50% - 640px), transparent calc(50% + 640px), var(--color-canvas) calc(50% + 887px)),
-      linear-gradient(180deg, transparent 640px, var(--color-canvas) 887px),
+    background-image: linear-gradient(var(--veil-angle, 100deg), var(--veil-near, var(--veil-strong)) 0, var(--veil-near, var(--veil-strong)) var(--copy-end, 34%), var(--veil-far, var(--veil-clear)) 100%),
+      linear-gradient(90deg, var(--mat-horizon) calc(50% - 887px), transparent calc(50% - 640px), transparent calc(50% + 640px), var(--mat-horizon) calc(50% + 887px)),
+      linear-gradient(180deg, transparent 640px, var(--mat-horizon) 887px),
       var(--scene);
     background-size: cover, cover, cover, 1774px auto;
     background-position: center, center, center, center top;
@@ -306,23 +299,35 @@ html:not([data-after-load]) .so-home .so-panel-photo-image {
   line-height: 1.65;
 }
 
-/* One panel material: the solid card. Glass only where a photograph sits behind it (business intro). */
-.so-home :is(.so-vertical-content, .so-equipment-copy, .so-final-inner, .so-lifecycle, .so-journey-grid > div, .so-marketplace-grid article, .so-value-rail) {
-  border: 1px solid var(--color-hairline);
+/* Panels follow the depth tiers (DEPTH_SYSTEM §3): raised sheets (tier 2) on materials, a plane (tier 1)
+   for grouped lists, frosted glass (tier 3) only where a photograph sits behind (business intro, 1Service).
+   On the midnight slab the same tokens resolve to midnight sheets. */
+.so-home .so-marketplace-grid article {
+  border: 1px solid var(--plane-edge);
   border-radius: var(--radius-card);
-  background: var(--color-surface);
-  box-shadow: var(--shadow-card);
+  background: var(--plane);
+  box-shadow: var(--edge-light), var(--shadow-card);
 }
-.so-home .so-introduction .so-section-heading {
-  border: 1px solid var(--color-hairline);
+.so-home :is(.so-lifecycle, .so-journey-grid) {
+  border: 1px solid var(--plane-edge);
+  border-radius: var(--radius-card);
+  background: var(--plane);
+  box-shadow: var(--edge-light), var(--shadow-contact);
+}
+/* On the midnight slab the copy sits on the slab itself: no box inside a box. */
+.so-home .so-guard-section .so-vertical-content {
+  padding-inline: 0;
+}
+.so-home :is(.so-introduction .so-section-heading, .so-introduction .so-value-rail, .so-service-section .so-vertical-content) {
+  border: 1px solid var(--glass-edge);
   border-radius: var(--radius-card);
   background: var(--glass-panel-solid);
-  box-shadow: var(--shadow-float);
+  box-shadow: var(--edge-light), var(--shadow-float);
   padding: clamp(24px, 3vw, 40px);
 }
 @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
   @media (min-width: 768px) {
-    .so-home .so-introduction .so-section-heading {
+    .so-home :is(.so-introduction .so-section-heading, .so-introduction .so-value-rail, .so-service-section .so-vertical-content) {
       background: var(--glass-panel);
       -webkit-backdrop-filter: var(--glass-blur);
       backdrop-filter: var(--glass-blur);
@@ -331,6 +336,17 @@ html:not([data-after-load]) .so-home .so-panel-photo-image {
 }
 .so-home :is(.so-vertical-content, .so-equipment-copy, .so-final-inner) {
   padding: clamp(24px, 3vw, 40px);
+}
+.so-home .so-guard-section .so-vertical-content {
+  padding-block: 0;
+}
+/* Equipment and the closing band sit directly on their material: no box on a light field. */
+.so-home :is(.so-equipment-copy, .so-final-inner) {
+  padding: 0;
+}
+/* The business introduction follows the hero's own dark band: its photograph starts at the seam. */
+.so-home .so-introduction {
+  --scene-fade-top: 0%;
 }
 
 /* Business introduction: the photograph gets a real column (VA-14), copy beside it. */
@@ -390,6 +406,9 @@ html:not([data-after-load]) .so-home .so-panel-photo-image {
   display: grid;
   margin-top: 24px;
   overflow: hidden;
+}
+.so-home .so-introduction .so-value-rail {
+  padding: 0;
 }
 .so-home .so-value-rail > div {
   padding: clamp(24px, 3vw, 36px);
@@ -461,10 +480,10 @@ html:not([data-after-load]) .so-home .so-panel-photo-image {
   position: relative;
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  border: 1px solid var(--color-hairline);
+  border: 1px solid var(--plane-edge);
   border-radius: var(--radius-card);
   background: var(--color-surface);
-  box-shadow: var(--shadow-card);
+  box-shadow: var(--shadow-float);
 }
 .so-home .so-vertical-visual img {
   object-fit: cover;
@@ -602,11 +621,12 @@ html:not([data-after-load]) .so-home .so-panel-photo-image {
   justify-content: space-between;
   gap: 12px;
   padding: 24px 16px;
-  border: 1px solid var(--color-hairline);
+  border: 1px solid var(--plane-edge);
   border-radius: var(--radius-card);
-  background: var(--color-well);
+  background-color: var(--plinth-base);
+  background-image: radial-gradient(40% 6% at 50% 74%, var(--floor-shadow), transparent 72%), var(--plinth-light);
   color: var(--color-ink);
-  box-shadow: var(--shadow-card);
+  box-shadow: var(--edge-light), var(--shadow-card);
 }
 .so-home .so-hardware-product .so-product-image {
   display: block;
@@ -674,6 +694,20 @@ html:not([data-after-load]) .so-home .so-panel-photo-image {
   .so-home .so-marketplace-grid,
   .so-home .so-journey-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+/* Three steps on one plane, divided by hairlines (not three boxes). */
+.so-home .so-journey-grid {
+  gap: 0;
+  overflow: hidden;
+}
+.so-home .so-journey-grid > div + div {
+  border-top: 1px solid var(--color-hairline);
+}
+@media (min-width: 960px) {
+  .so-home .so-journey-grid > div + div {
+    border-top: 0;
+    border-left: 1px solid var(--color-hairline);
   }
 }
 .so-home .so-marketplace-grid article,
@@ -798,5 +832,132 @@ html:not([data-after-load]) .so-home .so-panel-photo-image {
   }
   .so-home.so-motion-enabled [data-motion-from][data-motion-state] {
     transition-duration: 1320ms, 1080ms;
+  }
+}
+
+/* Interactive radio (components/HeroRadio.tsx, founder 2026-11-27). Ready to mount in the hero; its
+   placement in the hero composition is set with the hero itself. A genuine manufacturer cut-out on a soft
+   contact shadow, lit from the scene's daylight. Only transform and opacity animate. */
+.so-home .so-radio {
+  position: relative;
+  display: block;
+  width: var(--radio-w, clamp(64px, 6.5vw, 92px));
+  aspect-ratio: var(--radio-aspect);
+  color: var(--color-ink);
+  perspective: 600px;
+  -webkit-tap-highlight-color: transparent;
+}
+.so-home .so-radio-device {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 100%;
+  transform: rotateY(-6deg);
+  transition: transform 260ms var(--ease-out-soft);
+}
+.so-home .so-radio-image {
+  position: absolute;
+  left: var(--canvas-x);
+  top: var(--canvas-y);
+  width: var(--canvas-w);
+  height: var(--canvas-h);
+  max-width: none;
+  filter: drop-shadow(-6px 10px 10px var(--floor-shadow));
+  user-select: none;
+}
+.so-home .so-radio-shadow {
+  position: absolute;
+  left: -30%;
+  right: -60%;
+  bottom: -6%;
+  height: 14%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--floor-shadow), transparent);
+  transform: translateX(12%);
+}
+.so-home .so-radio-ptt {
+  position: absolute;
+  left: var(--ptt-x);
+  top: var(--ptt-y);
+  width: var(--ptt-w);
+  height: var(--ptt-h);
+  border-radius: 999px;
+  background: var(--color-signal-400);
+  opacity: 0;
+  filter: blur(3px);
+  transition: opacity 200ms ease;
+}
+.so-home .so-radio-waves > span {
+  position: absolute;
+  left: var(--antenna-x);
+  top: var(--antenna-y);
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  border: 1.5px solid var(--color-signal-400);
+  border-radius: 50%;
+  opacity: 0;
+}
+.so-home .so-radio-label {
+  position: absolute;
+  left: calc(100% + 14px);
+  top: 32%;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--glass-panel-solid);
+  box-shadow: var(--edge-light), var(--shadow-contact);
+  color: var(--color-ink);
+  font-size: 0.9375rem;
+  font-weight: 650;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition:
+    opacity 200ms ease,
+    transform 200ms var(--ease-out-soft);
+  pointer-events: none;
+}
+.so-home .so-radio:is(:hover, :focus-visible, [data-state="pressed"]) .so-radio-label {
+  opacity: 1;
+  transform: none;
+}
+.so-home .so-radio:is(:hover, :focus-visible, [data-state="pressed"]) .so-radio-ptt {
+  opacity: 0.85;
+}
+.so-home .so-radio:is(:hover, :focus-visible) .so-radio-device {
+  transform: rotateY(-12deg) rotateX(4deg);
+}
+.so-home .so-radio[data-state="pressed"] .so-radio-device {
+  transform: rotateY(-8deg) scale(0.96);
+  transition-duration: 120ms;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .so-home .so-radio[data-state="pressed"] .so-radio-waves > span {
+    animation: so-radio-wave 500ms ease-out both;
+  }
+  .so-home .so-radio[data-state="pressed"] .so-radio-waves > span:nth-child(2) {
+    animation-delay: 110ms;
+  }
+  .so-home .so-radio[data-state="pressed"] .so-radio-waves > span:nth-child(3) {
+    animation-delay: 220ms;
+  }
+}
+@keyframes so-radio-wave {
+  from {
+    opacity: 0.9;
+    transform: scale(0.4);
+  }
+  to {
+    opacity: 0;
+    transform: scale(2.6);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .so-home .so-radio-device,
+  .so-home .so-radio:is(:hover, :focus-visible, [data-state="pressed"]) .so-radio-device {
+    transform: none;
+    transition: none;
+  }
+  .so-home .so-radio-label {
+    transition: none;
   }
 }

@@ -46,7 +46,7 @@ export default function SalesCareersPage() {
 
   return (
     <main id="main" className="s1-scene-page s1-scene-page--careers">
-      <SplitHero src={photos.accountReview.src} alt={photos.accountReview.alt} objectPositionMobile="50% 40%" objectPosition="55% 46%">
+      <SplitHero material="mat-stone" src={photos.accountReview.src} alt={photos.accountReview.alt} objectPositionMobile="50% 40%" objectPosition="55% 46%">
           <p className="t-kicker text-accent">Careers at Signal One</p>
           <h1 className="t-hero mt-4">
             Sell the operating systems SMEs run on.
@@ -71,7 +71,7 @@ export default function SalesCareersPage() {
           <p className="t-caption mt-6 text-ink-2">Illustrative scene · fictional security company</p>
       </SplitHero>
 
-      <section id="role" className="section">
+      <section id="role" className="section mat-day">
         <div className="wrap">
           <h2 className="t-h2">The role</h2>
           <p className="t-lead measure mt-4 text-ink-2">Sales representative for SME business operating systems, with security as the initial focus.</p>
@@ -104,7 +104,7 @@ export default function SalesCareersPage() {
         </div>
       </section>
 
-      <section id="process" className="section">
+      <section id="process" className="section mat-silver">
         <div className="wrap">
           <h2 className="t-h2">How hiring works</h2>
           <ol className="m-0 mt-10 grid list-none gap-x-8 gap-y-8 p-0 sm:grid-cols-2 lg:grid-cols-3">
@@ -119,7 +119,7 @@ export default function SalesCareersPage() {
         </div>
       </section>
 
-      <section id="apply" className="section">
+      <section id="apply" className="section mat-close">
         <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
           <div>
             <h2 className="t-h2">
@@ -135,7 +135,7 @@ export default function SalesCareersPage() {
             {open ? (
               <><IntakeAvailability kind="sales" /><SalesApplication roleCount={config.openRoles} /></>
             ) : (
-              <div className="rounded-card bg-surface p-6 sm:p-8">
+              <div className="card p-6 sm:p-8">
                 <h3 className="t-h3">No open roles at the moment</h3>
                 <p className="t-body mt-3 text-ink-2">
                   Thank you for your interest. Please check this page again; we do not keep a waiting list.
@@ -146,7 +146,7 @@ export default function SalesCareersPage() {
         </div>
       </section>
 
-      <section className="py-12">
+      <section className="py-12 pt-0 mat-close">
         <div className="wrap flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
             <h2 className="t-h4">Already a Signal One representative?</h2>

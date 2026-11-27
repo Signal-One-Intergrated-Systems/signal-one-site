@@ -55,6 +55,7 @@ export default function GuardMarketplacePage() {
   return (
     <main id="main" className="s1-people-hiring s1-scene-page s1-scene-page--recruitment">
       <PageHero
+        material="mat-silver"
         kicker="Guard Marketplace"
         status={
           <Status kind="mvp" tone="dark">
@@ -64,7 +65,7 @@ export default function GuardMarketplacePage() {
         title="Win the contract. Then staff it from the same system."
         lead="When it launches, you will be able to find guards near the site, check what they have recorded, send a hire request and allocate the guards who accept. Inside your company workspace, next to the sites and shifts they will work."
         aside={
-          <div className="s1-marketplace-aside"><div className="s1-marketplace-photo s1-people-main-photo aspect-video"><Image src="/images/home/panels/hire-security.webp" unoptimized alt="Illustrative interview between a security employer and prospective officers" fill sizes="(min-width: 900px) 40vw, 100vw" className="object-cover" /></div><div className="rounded-card border border-hairline bg-surface p-6 sm:p-8">
+          <div className="s1-marketplace-aside"><div className="s1-marketplace-photo s1-people-main-photo aspect-video"><Image src="/images/home/panels/hire-security.webp" unoptimized alt="Illustrative interview between a security employer and prospective officers" fill sizes="(min-width: 900px) 40vw, 100vw" className="object-cover" /></div><div className="card p-6 sm:p-8">
             <h2 className="t-h3">Where Marketplace is today</h2>
             <p className="t-body mt-3 text-ink-2">
               Marketplace is not live yet. We are building the MVP described on this page. Register interest and we will
@@ -77,7 +78,7 @@ export default function GuardMarketplacePage() {
         }
       />
 
-      <section className="surface-light section">
+      <section className="surface-light section mat-day">
         <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
           <div>
             <h2 className="t-h2">From contract to shift, in ten steps.</h2>
@@ -102,7 +103,7 @@ export default function GuardMarketplacePage() {
         </div>
       </section>
 
-      <section className="surface-white section" aria-labelledby="demo-h">
+      <section className="surface-white section mat-midnight" aria-labelledby="demo-h">
         <div className="wrap">
           <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div>
@@ -119,7 +120,7 @@ export default function GuardMarketplacePage() {
           </div>
 
           <div
-            className="mt-10 overflow-hidden rounded-card ring-1 ring-hairline"
+            className="plane mt-10 overflow-hidden"
             role="img"
             aria-label="Illustrative Marketplace design preview with synthetic data: filters for location, PSiRA grade, availability, experience and skills, and three sample guard profiles with shortlist and hire request buttons"
           >
@@ -179,7 +180,7 @@ export default function GuardMarketplacePage() {
         </div>
       </section>
 
-      <section className="surface-light section">
+      <section className="surface-light section mat-silver">
         <div className="wrap grid gap-12 md:grid-cols-2 lg:gap-16">
           <div>
             <h2 className="t-h2">Private by design.</h2>
@@ -198,7 +199,7 @@ export default function GuardMarketplacePage() {
               ))}
             </ul>
           </div>
-          <div className="rounded-card bg-surface p-6 ring-1 ring-hairline sm:p-8">
+          <div className="card p-6 sm:p-8">
             <div className="flex flex-wrap items-center gap-3">
               <h2 className="t-h3">{guardIsLive ? "Already live in " : "In the "}<ProductSignature name="GUARD" tone="dark" />{guardIsLive ? "" : " pilot"}</h2>
               <GuardStatus />
@@ -214,7 +215,7 @@ export default function GuardMarketplacePage() {
         </div>
       </section>
 
-      <section id="interest" className="surface-white section scroll-mt-[72px]">
+      <section id="interest" className="surface-white section scroll-mt-[72px] mat-close">
         <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
           <div>
             <h2 className="t-h2">Register interest</h2>

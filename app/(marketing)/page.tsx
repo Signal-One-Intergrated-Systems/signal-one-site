@@ -3,6 +3,7 @@ import type { CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import HeroGlobeLayer from "../components/HeroGlobeLayer";
+import GuardScreens from "../components/GuardScreens";
 import HomeScrollChoreography from "../components/HomeScrollChoreography";
 import ProductSignature from "../components/brand/ProductSignature";
 import { guardDayPricePhrase } from "../lib/pricing";
@@ -95,7 +96,7 @@ export default function Home() {
         <span className="so-hero-photo-note">Illustrative scene</span>
       </section>
 
-      <section id="solutions" className="section so-chapter so-introduction" aria-labelledby="so-solutions-title">
+      <section id="solutions" className="section so-chapter so-introduction mat-scene scene-glass" aria-labelledby="so-solutions-title">
         <div className="wrap">
           <div className="so-section-heading">
             <div data-motion-from="left"><PanelPhoto src="/images/editorial/security-site-planning.webp" alt="Illustrative security supervisor reviewing the site plan with a client" /></div>
@@ -111,7 +112,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="guard" className="section so-vertical so-guard-section" aria-labelledby="so-guard-title">
+      <section id="guard" className="section so-vertical so-guard-section mat-midnight" aria-labelledby="so-guard-title">
         <div className="wrap so-vertical-layout">
           <div data-motion-from="top" className="so-vertical-visual so-vertical-visual-guard">
             <Image src="/images/home/approved-sme-security-control-room-2026.png" alt="Illustrative daylight security office for an SME, with three operators monitoring CCTV and a light-skinned Black male supervisor supporting the team"
@@ -127,6 +128,8 @@ export default function Home() {
               <li><strong>Patrol done or missed?</strong><span>Use QR/NFC checkpoints and recorded exceptions.</span></li>
               <li><strong>What needs action?</strong><span>Incidents, SOS and oversight in the control room.</span></li>
             </ul>
+            {/* Genuine 1GUARD screenshots only (lib/guardScreens.ts); renders nothing until they are supplied. */}
+            <GuardScreens slot="home-guard" className="mt-6" />
             <div className="so-inline-actions">
               <TrialLink section />
               <Link href="/solutions/security" className="link-arrow"><span>Explore <ProductSignature name="GUARD" tone="dark" /></span> <Go /></Link>
@@ -137,7 +140,7 @@ export default function Home() {
       </section>
 
       {/* Radios are sold and rented today: they lead the offers after 1GUARD (founder decision, 2026-11-25). */}
-      <section id="equipment" className="section so-equipment-section" aria-labelledby="so-equipment-title">
+      <section id="equipment" className="section so-equipment-section mat-ice mat-signal" aria-labelledby="so-equipment-title">
         <div className="wrap so-equipment-layout">
           <div data-motion-from="right" className="so-equipment-copy">
             <p className="so-kicker">Managed business communications</p>
@@ -174,7 +177,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="service" className="section so-vertical so-service-section" aria-labelledby="so-service-title">
+      <section id="service" className="section so-vertical so-service-section mat-scene scene-glass" aria-labelledby="so-service-title">
         <div className="wrap so-vertical-layout so-reverse-layout">
           <div data-motion-from="right" className="so-vertical-visual so-vertical-visual-service">
             <Image src="/images/home/service-restaurant-operations.jpg" alt="Illustrative restaurant kitchen team coordinating a live service in a professional hospitality environment"
@@ -199,7 +202,7 @@ export default function Home() {
 
 
       {/* Ecosystem vision: customer-facing capabilities only; no internal stack or platform names. */}
-      <section className="section so-ecosystem-section" aria-labelledby="so-ecosystem-title">
+      <section className="section so-ecosystem-section mat-stone" aria-labelledby="so-ecosystem-title">
         <div className="wrap so-ecosystem-layout">
           <div data-motion-from="left" className="so-ecosystem-intro">
             <p className="so-kicker">One connected business journey</p>
@@ -220,7 +223,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section so-marketplace-section" aria-labelledby="so-marketplace-title">
+      <section className="section so-marketplace-section mat-silver" aria-labelledby="so-marketplace-title">
         <div className="wrap">
           <div className="so-section-heading">
             <div data-motion-from="right"><p className="so-kicker">The ecosystem extends beyond software</p>
@@ -254,7 +257,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section so-onboarding-section" aria-labelledby="so-how-title">
+      <section className="section so-onboarding-section mat-day" aria-labelledby="so-how-title">
         <div className="wrap">
           <div className="so-section-heading">
             <div data-motion-from="top"><p className="so-kicker">A straightforward next step</p><h2 id="so-how-title">Start with the problem.<br /><span>We’ll help map the solution.</span></h2></div>
@@ -269,12 +272,14 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="community" className="section so-final-cta" aria-labelledby="so-final-title">
+      <section id="community" className="section so-final-cta mat-close" aria-labelledby="so-final-title">
         <div className="wrap"><div className="so-final-inner">
           <div data-motion-from="left"><p className="so-kicker">Make your business easier to run</p><h2 id="so-final-title">Ready for a smarter way to run your business?</h2>
             <p>Start with 1GUARD, explore what 1Service is becoming or speak to Signal One about field equipment.</p></div>
-          <div data-motion-from="right" style={{ "--so-motion-delay": "240ms" } as CSSProperties} className="so-final-actions"><TrialLink section /><Link href="/contact" data-analytics-event="homepage_walkthrough_cta"
-              data-analytics-label="homepage-book-walkthrough" className="btn btn-ghost-dark btn-lg">Book a walkthrough <Go /></Link></div>
+          <div data-motion-from="right" style={{ "--so-motion-delay": "240ms" } as CSSProperties} className="so-final-actions"><Link href="/radios-equipment" data-analytics-event="homepage_equipment_quote"
+              data-analytics-label="homepage-closing-radios" className="btn btn-primary btn-lg">Buy or rent radios <Go /></Link><Link href="/contact" data-analytics-event="homepage_walkthrough_cta"
+              data-analytics-label="homepage-book-walkthrough" className="btn btn-ghost-dark btn-lg">Book a walkthrough <Go /></Link>
+            <Link href="/get-started" data-analytics-event="homepage_trial_cta" data-analytics-label="homepage-closing-trial" className="link-arrow so-final-trial">Request a 14-day trial <Go /></Link></div>
           <p data-motion-from="bottom" style={{ "--so-motion-delay": "160ms" } as CSSProperties} className="so-community-note"><ProductSignature name="Community" tone="dark" /> is part of the future Signal One ecosystem and is not yet available.</p>
         </div></div>
       </section>

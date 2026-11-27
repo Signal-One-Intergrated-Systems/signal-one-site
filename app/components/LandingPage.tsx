@@ -7,6 +7,14 @@ import { priceSentence } from "../lib/pricing";
  * Product-true landing page: hero, what it does, how it works, what it does
  * not do yet, and the next step. Built only from capabilities that exist.
  */
+/** Each product journey has its own atmosphere (DEPTH_SYSTEM §6): hero, then the alternating chapters. */
+const atmospheres = {
+  security: { hero: "mat-silver", story: "mat-day", capabilities: "mat-day", steps: "mat-silver" },
+  attendance: { hero: "mat-silver", story: "mat-day", capabilities: "mat-day", steps: "mat-ice" },
+  patrol: { hero: "mat-scene", story: "mat-day", capabilities: "mat-silver", steps: "mat-day" },
+  "radio-rental": { hero: "mat-ice mat-signal", story: "mat-day", capabilities: "mat-day", steps: "mat-silver" },
+} as const;
+
 export default function LandingPage({
   kicker,
   status,
@@ -50,12 +58,13 @@ export default function LandingPage({
   /** Marketing background context for this product journey. */
   scene?: "security" | "attendance" | "patrol" | "radio-rental";
 }) {
+  const atmos = atmospheres[scene];
   return (
     <main id="main" className={`s1-scene-page s1-scene-page--${scene}`}>
-      <PageHero kicker={kicker} status={status} title={title} lead={lead} actions={actions} aside={aside} />
+      <PageHero material={atmos.hero} kicker={kicker} status={status} title={title} lead={lead} actions={actions} aside={aside} />
       {story}
 
-      <section className="surface-light section">
+      <section className={"surface-light section " + atmos.capabilities}>
         <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
           <h2 className="t-h2">{capabilitiesTitle}</h2>
           <ul className="m-0 grid list-none gap-x-12 p-0 md:grid-cols-2">
@@ -72,7 +81,7 @@ export default function LandingPage({
         </div>
       </section>
 
-      <section className="surface-light-2 section">
+      <section className={"surface-light-2 section " + atmos.steps}>
         <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
           {stepsVisual ? (
             <div className="grid content-start gap-8">
@@ -86,8 +95,8 @@ export default function LandingPage({
         </div>
       </section>
 
-      <section className="surface-light section">
-        <div className="wrap grid gap-8 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
+      <section className={"surface-light section pt-0 " + atmos.steps}>
+        <div className="wrap grid gap-8 border-t border-hairline pt-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
           <h2 className="t-h3">What it does not do yet</h2>
           <ul className="m-0 grid list-none gap-3 p-0">
             {limits.map((item) => (
@@ -99,7 +108,7 @@ export default function LandingPage({
         </div>
       </section>
 
-      <section className="surface-deep section">
+      <section className="surface-deep section mat-close">
         <div className="wrap grid gap-10 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-end lg:gap-16">
           <div>
             <h2 className="t-h2">{closing}</h2>

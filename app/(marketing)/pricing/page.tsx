@@ -25,7 +25,7 @@ const examples = [
 export default function PricingPage() {
   return (
     <main id="main" className="s1-premium-pricing s1-scene-page s1-scene-page--pricing">
-      <section className="split-hero surface-deep">
+      <section className="split-hero surface-deep mat-silver">
         {/* Two columns only from xl: at 1024 the price column left ~250 px for the three-part guard-day equation,
             which broke its words one per line (AUDW-07). Below xl the equation sits under the price. */}
         <div className="wrap grid gap-12 py-16 md:py-24 lg:py-32 xl:grid-cols-[minmax(0,var(--hero-col))_minmax(0,1fr)] xl:items-center xl:gap-20">
@@ -57,7 +57,7 @@ export default function PricingPage() {
                 ["1", "guard day"],
               ].map(([num, label], index) => (
                 <div key={label} className="contents">
-                  <div className="rounded-card border border-hairline bg-surface px-2 py-4 sm:px-4">
+                  <div className="card rounded-card px-2 py-4 sm:px-4">
                     <p className="t-num text-[2.5rem] text-ink">{num}</p>
                     <p className="mt-2 hyphens-auto text-[0.9375rem] leading-snug text-ink-2">{label}</p>
                   </div>
@@ -76,7 +76,7 @@ export default function PricingPage() {
         </div>
       </section>
 
-      <section id="calculator" className="surface-light section scroll-mt-[72px]">
+      <section id="calculator" className="surface-light section scroll-mt-[72px] mat-ice">
         <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-16">
           <GuardDayCalculator heading="Calculate your guard cost" />
 
@@ -101,14 +101,14 @@ export default function PricingPage() {
         </div>
       </section>
 
-      <section className="surface-white section">
+      <section className="surface-white section mat-day">
         <div className="wrap">
           <h2 className="t-h2">Worked examples</h2>
           <p className="t-body mt-3 text-ink-2">Plain arithmetic: guards × days × {guardDayPrice}, excluding VAT.</p>
-          <div className="mt-8 overflow-hidden rounded-card ring-1 ring-hairline">
+          <div className="plane mt-8 overflow-hidden">
             <table className="w-full border-collapse text-left">
               <caption className="sr-only">Guard day cost examples</caption>
-              <thead className="bg-surface-2 text-[0.9375rem] text-ink">
+              <thead className="text-[0.9375rem] text-ink">
                 <tr>
                   <th scope="col" className="px-4 py-3 font-semibold sm:px-6">Guards</th>
                   <th scope="col" className="px-4 py-3 font-semibold sm:px-6">Days</th>
@@ -131,7 +131,7 @@ export default function PricingPage() {
         </div>
       </section>
 
-      <section className="surface-light section">
+      <section className="surface-light section mat-silver">
         <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
           <div>
             <h2 className="t-h2">Priced separately</h2>
@@ -162,7 +162,7 @@ export default function PricingPage() {
         </div>
       </section>
 
-      <section className="surface-base section">
+      <section className="surface-base section mat-close">
         <div className="wrap flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-2xl">
             <h2 className="t-h2">Ready to start with guard days?</h2>

@@ -21,7 +21,7 @@ const ambitions = [
 export default function ServicePage() {
   return (
     <main id="main" className="s1-scene-page s1-scene-page--service">
-      <section className="surface-deep section s1-people-scene-service">
+      <section className="surface-deep section s1-people-scene-service mat-scene">
         <div className="wrap grid gap-10 items-center lg:grid-cols-2">
           <div>
             <Kicker tone="dark">Signal One · Service Business Operating System</Kicker>
@@ -42,7 +42,7 @@ export default function ServicePage() {
           </div>
         </div>
       </section>
-      <section id="vision" className="section surface-light scroll-mt-[96px]">
+      <section id="vision" className="section surface-light scroll-mt-[96px] mat-stone">
         <div className="wrap">
           <Kicker>From opening to close</Kicker>
           <h2 className="t-h2 mt-4">More than a roster. The operating system for your service business.</h2>
@@ -61,7 +61,7 @@ export default function ServicePage() {
           </div>
         </div>
       </section>
-      <section className="surface-deep section">
+      <section className="surface-deep section mat-close">
         <div className="wrap flex flex-col justify-between gap-8 lg:flex-row lg:items-center">
           <div>
             <h2 className="t-h2">Help shape the service-business OS.</h2>
