@@ -87,6 +87,10 @@ export default function HeroRadio({ asset = heroRadio, href = "/radios-equipment
           <span />
         </span>
       </span>
+      {/* A faint reflection in the glass the radio stands on: the same manufacturer image, mirrored and faded. */}
+      <span className="so-radio-reflection" aria-hidden="true">
+        <Image src={asset.src} alt="" sizes="(min-width: 1024px) 240px, 160px" quality={90} className="so-radio-image" draggable={false} />
+      </span>
       <span className="so-radio-label" aria-hidden="true">
         Press to connect
       </span>

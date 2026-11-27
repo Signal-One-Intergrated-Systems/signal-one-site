@@ -203,3 +203,14 @@ The founder explicitly requested the new enterprise communications scene for the
   - No email or phone number is visible, and no real people or companies are intended. That "Ikhaya Security Services" is not a real company was **not verified** (a web search found none).
 - **Checks:** OCR gate (`scripts/ocr-images.mjs`) passed, and the images were inspected by eye.
 - **Withheld:** proof of service. It shows today's in-progress shift only (0 of 9 services fully proven), not the "mostly proven week" the brief asks for. That needs genuine historical data, either from a staging tenant that has run for a week or from an approved local back-dating seed.
+
+## Homepage hero photograph, approved terrace scene — 2026-11-27
+
+- **File:** `public/images/home/approved-hero-terrace-2026-11-27.webp`, 1672 × 941, WebP, 232,660 bytes; SHA-256 `0ddcefca7c52c41b7db8af759cbb5f7baa674debb9e61e89f7a7b2b88322d2de`. The founder-lock test checks this hash.
+- **Source:** supplied by the founder in this session as the final approved hero background ("FINAL APPROVED HERO IMAGE"). It was generated for Signal One (the founder named ChatGPT as the source of the candidates), so it is an illustrative scene and the hero keeps its "Illustrative scene" label.
+- **Scene:** a daylight office terrace with Table Mountain behind, three professionals with a tablet beside a glass building, and an empty round glass pedestal in the foreground. The photograph contains no radio, logo, interface or text.
+- **Use:**
+  - Shown whole and never cropped or upscaled (see `HERO_RECOMPOSITION_2026-11-27.md`).
+  - Delivery sizes come from Next.js image optimisation (WebP/AVIF), and the file is committed byte-identical as supplied.
+  - The genuine Hytera manufacturer radio cut-out is a separate interactive element placed on the pedestal; it is not composited into the photograph.
+- **Replaces:** `approved-enterprise-communications-2026.jpg`, which stays in the repository, unused, for rollback.

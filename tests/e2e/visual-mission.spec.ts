@@ -18,9 +18,9 @@ import { routes as allMarketingRoutes } from "./routes";
  * delivery encoding: `quality` may change when an independent visual comparison shows no material
  * degradation (q90 -> q75 was compared in docs/launch/evidence/hero-q90-vs-q75-*), but never below 75.
  */
-const HERO_SOURCE = "public/images/home/approved-enterprise-communications-2026.jpg";
-const HERO_SOURCE_SHA256 = "224b5d8939787ccb3f10ec9cb33b2c1d5e1623471e8ecdea0eae1359c6f1e859";
-const HERO_ALT = "Illustrative daylight enterprise campus with three business and operations professionals reviewing a tablet and a handheld radio";
+const HERO_SOURCE = "public/images/home/approved-hero-terrace-2026-11-27.webp";
+const HERO_SOURCE_SHA256 = "0ddcefca7c52c41b7db8af759cbb5f7baa674debb9e61e89f7a7b2b88322d2de"; // founder-approved terrace photograph, 2026-11-27
+const HERO_ALT = "Illustrative daylight enterprise campus terrace in Cape Town with Table Mountain behind, three business and operations professionals reviewing a tablet by a glass building, and a round glass pedestal in the foreground";
 const HERO_MIN_QUALITY = 75;
 /** The only attribute allowed to differ from the approved fixture is the encode quality. */
 const withoutQuality = (jsx: string) => jsx.replace(/ quality=\{\d+\}/g, " quality={…}");
@@ -38,7 +38,7 @@ test("FOUNDERS LOCK: approved home hero markup must never change accidentally", 
   const qualities = [...hero.matchAll(/ quality=\{(\d+)\}/g)].map(match => Number(match[1]));
   expect(qualities, "the hero has exactly one encode quality").toHaveLength(1);
   expect(qualities[0], "hero encode quality floor (founder ruling 2026-11-25)").toBeGreaterThanOrEqual(HERO_MIN_QUALITY);
-  expect(hero).toContain('<Image src="/images/home/approved-enterprise-communications-2026.jpg"');
+  expect(hero).toContain('<Image src="/images/home/approved-hero-terrace-2026-11-27.webp"');
   expect(hero).toContain(`alt="${HERO_ALT}"`);
   expect(hero).toContain('fill priority fetchPriority="high"');
   expect(hero).toContain('sizes="100vw" className="so-hero-photo object-cover"');
@@ -81,7 +81,7 @@ for (const crop of heroCrop) {
         aspect: img.naturalWidth / img.naturalHeight,
       };
     });
-    expect(seen.source).toBe("/images/home/approved-enterprise-communications-2026.jpg");
+    expect(seen.source).toBe("/images/home/approved-hero-terrace-2026-11-27.webp");
     expect(seen.alt).toBe(HERO_ALT);
     expect(seen.fetchPriority).toBe("high");
     expect(seen.lazy).toBe(false);
@@ -182,7 +182,7 @@ test("key acquisition pages have no critical automated accessibility violations"
 
 test("marketing introductions use relevant people or exact manufacturer products", async ({ page }) => {
   const prominentImages: Record<string, string> = {
-    "/": "approved-enterprise-communications-2026.jpg",
+    "/": "approved-hero-terrace-2026-11-27.webp",
     "/solutions/security": "security-site-planning",
     // Light-first bright package (founder, 2026-11-26): the /service hero uses 01-restaurant-service.
     "/service": "01-restaurant-service",
@@ -337,7 +337,7 @@ test("homepage Guard and Service put people ahead of their section environments"
     expect(response.status()).toBe(200);
     expect(response.headers()["content-type"]).toContain(mime);
   }
-  await expect(page.locator(".so-hero-photo")).toHaveAttribute("src", /approved-enterprise-communications-2026\.jpg/);
+  await expect(page.locator(".so-hero-photo")).toHaveAttribute("src", /approved-hero-terrace-2026-11-27\.webp/);
   for (const route of ["/", "/solutions/security", "/service"]) {
     await page.goto(route);
     const visibleImages = await page.locator("main img").evaluateAll(imgs =>
@@ -348,10 +348,10 @@ test("homepage Guard and Service put people ahead of their section environments"
 });
 
 test("approved homepage enterprise communications photograph remains separate from interactive controls", async ({ page, request }) => {
-  const photoPath = "/images/home/approved-enterprise-communications-2026.jpg";
+  const photoPath = "/images/home/approved-hero-terrace-2026-11-27.webp";
   const response = await request.get(photoPath);
   expect(response.status()).toBe(200);
-  expect(response.headers()["content-type"]).toContain("image/jpeg");
+  expect(response.headers()["content-type"]).toContain("image/webp");
   expect((await response.body()).byteLength).toBeGreaterThan(50000);
   for (const viewport of [
     { width: 375, height: 812 },
@@ -364,7 +364,7 @@ test("approved homepage enterprise communications photograph remains separate fr
     const alt = await image.getAttribute("alt") || "";
     expect(alt).toMatch(/enterprise campus/i);
     expect(alt).toMatch(/tablet/i);
-    expect(alt).toMatch(/handheld radio/i);
+    expect(alt).toMatch(/glass pedestal/i);
     const dimensions = await image.evaluate(img => {
       const box = img.getBoundingClientRect();
       const media = img.parentElement!.getBoundingClientRect();
@@ -394,7 +394,7 @@ test("desktop homepage shows the entire approved enterprise communications photo
     await page.setViewportSize(viewport);
     await page.goto("/");
     const image = page.locator(".so-hero-photo");
-    await expect(image).toHaveAttribute("src", /approved-enterprise-communications-2026[.]jpg/);
+    await expect(image).toHaveAttribute("src", /approved-hero-terrace-2026-11-27[.]webp/);
     const layout = await image.evaluate(img => {
       const media = img.parentElement!.getBoundingClientRect();
       const picture = img.getBoundingClientRect();
@@ -429,10 +429,10 @@ test("desktop homepage shows the entire approved enterprise communications photo
 // Wide full scene must be the foreground image layer across the *whole* hero,
 // not a cropped 59% panel on the right. The globe and glass must remain intact.
 test("approved full-scene hero spans behind the globe without cropping the subjects on desktop", async ({page,request}) => {
-  const source="/images/home/approved-enterprise-communications-2026.jpg";
+  const source="/images/home/approved-hero-terrace-2026-11-27.webp";
   const resp=await request.get(source);
   expect(resp.status()).toBe(200);
-  expect(resp.headers()["content-type"]).toContain("image/jpeg");
+  expect(resp.headers()["content-type"]).toContain("image/webp");
   for(const width of [1280,1440,1536,1920]){
     await page.setViewportSize({width,height:960});
     await page.goto("/");
@@ -633,7 +633,7 @@ test("homepage keeps purposeful context while process steps remain clear", async
     expect(descriptions.every(description => description.length > 30)).toBe(true);
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
     expect(overflow).toBeLessThanOrEqual(1);
-    await expect(page.locator(".so-hero-media .so-hero-photo")).toHaveAttribute("src",/approved-enterprise-communications-2026[.]jpg/);
+    await expect(page.locator(".so-hero-media .so-hero-photo")).toHaveAttribute("src",/approved-hero-terrace-2026-11-27[.]webp/);
     await expect(page.locator(".so-vertical-visual-guard img")).toHaveAttribute("src", /approved-sme-security-control-room-2026[.]png/);
   }
 });
@@ -777,7 +777,7 @@ test("the original business introduction glass card is restored without the cube
     await expect(section.locator(".so-value-rail > div")).toHaveCount(3);
     await expect(section.locator(".so-os-intro-stage,.so-os-float-anchor,.so-living-os,.so-os-experience,.so-os-cube-trigger")).toHaveCount(0);
     expect(await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth)).toBeLessThanOrEqual(1);
-    await expect(page.locator(".so-hero-media .so-hero-photo")).toHaveAttribute("src",/approved-enterprise-communications-2026[.]jpg/);
+    await expect(page.locator(".so-hero-media .so-hero-photo")).toHaveAttribute("src",/approved-hero-terrace-2026-11-27[.]webp/);
   }
 });
 

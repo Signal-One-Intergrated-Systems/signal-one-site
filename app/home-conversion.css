@@ -291,7 +291,7 @@ body:has(.so-home) .so-home .s1-brand-stage.so-hero{padding-top:calc(151px + 88p
 .so-home .s1-brand-stage.so-hero .so-hero-photo-note { background: rgba(255, 255, 255, 0.82) !important; color: var(--hero-ink) !important; text-shadow: none !important; }
 /* The radio: on the paving, lit from the left, contact shadow falling right. */
 .so-home .s1-brand-stage.so-hero .so-hero-radio { position: absolute; z-index: 6; }
-.so-home .s1-brand-stage.so-hero .so-radio { --floor-shadow: rgba(18, 24, 30, 0.5); }
+.so-home .s1-brand-stage.so-hero .so-radio { --floor-shadow: rgba(14, 20, 26, 0.6); }
 /* A generous invisible hit area around the device. */
 .so-home .s1-brand-stage.so-hero .so-radio::before { content: ""; position: absolute; inset: -14px -18px; }
 
@@ -335,18 +335,17 @@ body:has(.so-home) .so-home .s1-brand-stage.so-hero{padding-top:calc(151px + 88p
   .so-home .s1-brand-stage.so-hero .so-hero-wash {
     background: linear-gradient(90deg, rgba(241, 247, 253, 0.82) 0%, rgba(241, 247, 253, 0.7) 26%, rgba(241, 247, 253, 0.42) 38%, rgba(241, 247, 253, 0) 49%) !important;
   }
-  /* The radio stands on the foreground paving near the bottom of the frame, close to the camera. */
+  /* The radio stands on the photograph's glass pedestal (founder, 2026-11-27): its base on the pedestal's top
+     surface at 67.3% across and 77.8% down the photograph (measured on the 1672 x 941 source: surface x 872-1380,
+     y 690-760), 32% of the photograph's height, in the manufacturer image's own proportions. */
   .so-home .s1-brand-stage.so-hero .so-hero-radio {
-    left: calc(var(--hero-content-left) + min(340px, 24vw));
-    /* Foot on the paving near the photograph's lower edge, kept inside the first screen. */
-    top: calc(min(86px + var(--hero-photo-h) * 0.95, 100svh - 20px) - var(--hero-radio-h));
-    --hero-radio-w: clamp(50px, 3.9vw, 70px);
-    --hero-radio-h: calc(var(--hero-radio-w) * 1040 / 408);
+    --hero-radio-h: calc(var(--hero-photo-h) * 0.32);
+    --hero-radio-w: calc(var(--hero-radio-h) * 408 / 1040);
+    left: calc((100% - var(--hero-photo-w)) / 2 + var(--hero-photo-w) * 0.673 - var(--hero-radio-w) / 2);
+    top: calc(86px + var(--hero-photo-h) * 0.778 - var(--hero-radio-h));
+    bottom: auto;
   }
   .so-home .s1-brand-stage.so-hero .so-radio { --radio-w: var(--hero-radio-w); }
-  /* On small laptops and landscape tablets the copy reaches down to the paving: the quoting note gives
-     way so the radio stands clear beside the stacked buttons. */
-  @media (max-width: 1279px) { .so-home .s1-brand-stage.so-hero .so-hero-note { display: none !important; } }
   /* The label opens over the open paving to the radio's left, never over the people. */
   .so-home .s1-brand-stage.so-hero .so-radio-label { left: auto; right: calc(100% + 14px); transform: translateX(6px); }
   .so-home .s1-brand-stage.so-hero .so-radio:is(:hover, :focus-visible, [data-state="pressed"]) .so-radio-label { transform: none; }
@@ -407,22 +406,37 @@ body:has(.so-home) .so-home .s1-brand-stage.so-hero{padding-top:calc(151px + 88p
     border-radius: 18px !important; border-bottom: 1px solid rgba(11, 31, 51, 0.12) !important;
   }
   .so-home .s1-brand-stage.so-hero .so-hero-photo-note { top: calc(var(--hero-photo-top) + 10px) !important; bottom: auto !important; }
-  /* On the band, the radio stands on the paving at the photograph's lower left, clear of the people. */
+  /* On the band, the radio stands on the same glass pedestal, at the same share of the photograph. */
   .so-home .s1-brand-stage.so-hero .so-hero-radio {
-    left: clamp(16px, 7vw, 72px);
-    top: calc(var(--hero-photo-top) + var(--hero-band) * 0.97 - var(--hero-radio-h));
-    --hero-radio-w: clamp(32px, 6vw, 54px);
-    --hero-radio-h: calc(var(--hero-radio-w) * 1040 / 408);
+    --hero-radio-h: calc(var(--hero-band) * 0.32);
+    --hero-radio-w: calc(var(--hero-radio-h) * 408 / 1040);
+    left: calc(100vw * 0.673 - var(--hero-radio-w) / 2);
+    top: calc(var(--hero-photo-top) + var(--hero-band) * 0.778 - var(--hero-radio-h));
   }
   .so-home .s1-brand-stage.so-hero .so-radio { --radio-w: var(--hero-radio-w); }
   /* On a tap the label opens above the antenna, in the sky, not across the people. */
-  .so-home .s1-brand-stage.so-hero .so-radio-label { left: 0; top: auto; bottom: calc(100% + 10px); transform: translateY(4px); }
+  .so-home .s1-brand-stage.so-hero .so-radio-label { left: auto; right: 0; top: auto; bottom: calc(100% + 10px); transform: translateY(4px); }
   .so-home .s1-brand-stage.so-hero .so-radio:is(:hover, :focus-visible, [data-state="pressed"]) .so-radio-label { transform: none; }
 }
 @media (max-width: 670px) {
   .so-home .s1-brand-stage.so-hero { --hero-photo-top: 76px; --hero-band: calc(100vw * 941 / 1672); }
   .so-home .s1-brand-stage.so-hero .so-hero-inner { margin-top: 24px !important; }
 }
+/* The radio on the glass pedestal: a tight contact shadow and a faint mirrored reflection in the glass. */
+.so-home .s1-brand-stage.so-hero .so-radio-shadow { left: -30%; right: -70%; bottom: -4%; height: 9%; transform: translateX(12%); background: radial-gradient(closest-side, rgba(10, 14, 18, 0.62), rgba(10, 14, 18, 0.3) 55%, transparent); filter: blur(2px); }
+.so-home .s1-brand-stage.so-hero .so-radio-reflection {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 100%;
+  height: 100%;
+  opacity: 0.34;
+  transform: scaleY(-1);
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to top, #000 0%, transparent 42%);
+  mask-image: linear-gradient(to top, #000 0%, transparent 42%);
+}
+@media (prefers-reduced-transparency: reduce) { .so-home .s1-brand-stage.so-hero .so-radio-reflection { display: none; } }
 /* ===== END FOUNDER-LOCKED HERO ===== */
 
 /* ======================================================================================
