@@ -91,3 +91,10 @@ An independent reviewer inspected staging at 9 viewports plus an emulated iPhone
 2. The site-wide glass shutter duration (S1-1 above).
 3. The hero photograph: choose one of the three candidates, or keep the current one.
 4. The curated 1GUARD demo tenant and the two app changes, before screenshots can be published.
+
+## Evidence files
+
+Before and after captures are in `docs/launch/evidence/hero-v3/`:
+
+- `before-{1440,1280,1024,390}.jpg`: staging at `9aed64a`.
+- `after-{1920,1440,1280,1024,390}.jpg`: staging at `e6c7611`, captured after its deploy.
