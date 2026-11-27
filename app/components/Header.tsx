@@ -18,7 +18,9 @@ const worlds: Record<
     homeHref: string;
     primary: NavItem[];
     secondary: NavItem[];
-    cta: NavItem;
+    /** The world's own call to action. The buyer header has none (founder, 2026-11-27): the 14-day trial
+     *  lives inside the 1GUARD journeys, and radios lead the homepage. */
+    cta: NavItem | null;
     shell: string;
     link: string;
     cta_class: string;
@@ -40,7 +42,7 @@ const worlds: Record<
       { href: "/guards", label: "For guards" },
       { href: "/join/sales", label: "Careers" },
     ],
-    cta: { href: "/get-started", label: "Request a 14-day trial" },
+    cta: null,
     shell: "glass-nav text-ink",
     link: "text-ink hover:bg-surface-2",
     cta_class: "btn btn-primary",
@@ -185,9 +187,11 @@ export default function Header() {
               {item.label}
             </Link>
           ))}
-          <Link href={config.cta.href} className={config.cta_class + " s1-nav-cta"}>
-            {config.cta.label}
-          </Link>
+          {config.cta ? (
+            <Link href={config.cta.href} className={config.cta_class + " s1-nav-cta"}>
+              {config.cta.label}
+            </Link>
+          ) : null}
         </div>
 
         <button
@@ -232,11 +236,13 @@ export default function Header() {
             </ul>
 
             <div className="mt-8 grid gap-3">
-              <Link href={config.cta.href} onClick={() => setOpen(false)} className={config.cta_class + " btn-lg w-full"}>
-                {config.cta.label}
-              </Link>
+              {config.cta ? (
+                <Link href={config.cta.href} onClick={() => setOpen(false)} className={config.cta_class + " btn-lg w-full"}>
+                  {config.cta.label}
+                </Link>
+              ) : null}
               {world === "buyer" ? (
-                <Link href="/contact" onClick={() => setOpen(false)} className="btn btn-ghost-dark btn-lg w-full">
+                <Link href="/contact" onClick={() => setOpen(false)} className="btn btn-primary btn-lg w-full">
                   Talk to Signal One
                 </Link>
               ) : null}

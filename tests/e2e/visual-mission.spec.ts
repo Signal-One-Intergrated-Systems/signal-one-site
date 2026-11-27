@@ -203,10 +203,12 @@ test("marketing introductions use relevant people or exact manufacturer products
     expect(match?.alt.toLowerCase()).not.toContain("empty");
     expect(match?.alt.toLowerCase()).not.toContain("unoccupied");
   }
+  // Depth direction (founder, 2026-11-27): each people-free scene is one page's environment, used once.
   for (const [route, expectedScene] of [
-    ["/solutions/security", "business-park.webp"],
+    ["/solutions/security", "small-control-room.webp"],
     ["/service", "restaurant-dining.webp"],
-    ["/guard-marketplace", "business-park.webp"],
+    ["/guards", "business-park.webp"],
+    ["/guard-patrol-software", "warehouse-yard.webp"],
   ] as const) {
     await page.goto(route);
     const background = await page.locator("main section").first().evaluate(node => getComputedStyle(node).backgroundImage);
@@ -233,7 +235,9 @@ for (const viewport of viewports) {
       if (name !== "hero") {
         const background = await scene.evaluate(node => getComputedStyle(node).backgroundImage);
         if (name === "service") {
-          expect(background).toContain("/images/backgrounds/restaurant-dining.webp");
+          // Depth direction (2026-11-27): the homepage 1Service environment is the courtyard (dining is /service's).
+          await page.waitForFunction(() => document.documentElement.hasAttribute("data-after-load"));
+          expect(await scene.evaluate(node => getComputedStyle(node).backgroundImage)).toContain("/images/backgrounds/restaurant-courtyard.webp");
         } else {
           expect(background, `${name} keeps the foreground product or illustration clear`).not.toContain("url(");
         }
@@ -689,7 +693,8 @@ test("homepage imagery is focused, with sector context and quiet product surface
       // Light-first (2026-11-26): the business introduction sits on the people-free bright architecture accent.
       ["#solutions","06-bright-architecture.webp"],
       ["#guard",null],
-      ["#service","restaurant-dining.webp"],
+      // Depth direction (2026-11-27): the 1Service environment is the courtyard; each scene is used once.
+      ["#service","restaurant-courtyard.webp"],
       [".so-ecosystem-section",null],
       [".so-marketplace-section",null],
       ["#equipment",null],
@@ -710,8 +715,9 @@ test("homepage imagery is focused, with sector context and quiet product surface
 
 test("sector imagery belongs to relevant introductions; forms and footer stay quiet",async({page})=>{
   for(const [route,expected] of [
-    ["/solutions/security","business-park.webp"], ["/service","restaurant-dining.webp"],
-    ["/guards","business-park.webp"], ["/guard-marketplace","business-park.webp"],
+    // Depth direction (2026-11-27): one scene per page, never repeated; the marketplace leads with its framed photograph.
+    ["/solutions/security","small-control-room.webp"], ["/service","restaurant-dining.webp"],
+    ["/guards","business-park.webp"], ["/guard-marketplace",null],
     ["/equipment-marketplace",null], ["/radios-equipment",null], ["/ptt-radio-rental",null],
     ["/contact",null], ["/pricing",null], ["/get-started",null],
   ] as const){

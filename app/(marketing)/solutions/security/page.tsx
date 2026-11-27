@@ -6,6 +6,7 @@ import { proofViews } from "../../../lib/productProof";
 import { guardDayPricePhrase } from "../../../lib/pricing";
 import ProductSignature from "../../../components/brand/ProductSignature";
 import { pageMetadata } from "../../../lib/seo";
+import GuardScreens from "../../../components/GuardScreens";
 
 export const metadata: Metadata = pageMetadata({
   title: "1GUARD | Security Business Operating System for SMEs",
@@ -106,6 +107,8 @@ export default function SecurityPlatformPage() {
               aspect="aspect-video"
               caption={illustrativeCaption}
             />
+            {/* Genuine 1GUARD screenshots only (lib/guardScreens.ts); renders nothing until they are supplied. */}
+            <GuardScreens slot="guard-platform" />
           </div>
         </div>
       </section>

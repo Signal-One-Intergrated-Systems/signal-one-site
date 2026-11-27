@@ -834,3 +834,130 @@ html:not([data-after-load]) .so-home .so-panel-photo-image {
     transition-duration: 1320ms, 1080ms;
   }
 }
+
+/* Interactive radio (components/HeroRadio.tsx, founder 2026-11-27). Ready to mount in the hero; its
+   placement in the hero composition is set with the hero itself. A genuine manufacturer cut-out on a soft
+   contact shadow, lit from the scene's daylight. Only transform and opacity animate. */
+.so-home .so-radio {
+  position: relative;
+  display: block;
+  width: var(--radio-w, clamp(64px, 6.5vw, 92px));
+  aspect-ratio: var(--radio-aspect);
+  color: var(--color-ink);
+  perspective: 600px;
+  -webkit-tap-highlight-color: transparent;
+}
+.so-home .so-radio-device {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 100%;
+  transform: rotateY(-6deg);
+  transition: transform 260ms var(--ease-out-soft);
+}
+.so-home .so-radio-image {
+  position: absolute;
+  left: var(--canvas-x);
+  top: var(--canvas-y);
+  width: var(--canvas-w);
+  height: var(--canvas-h);
+  max-width: none;
+  filter: drop-shadow(-6px 10px 10px var(--floor-shadow));
+  user-select: none;
+}
+.so-home .so-radio-shadow {
+  position: absolute;
+  left: -30%;
+  right: -60%;
+  bottom: -6%;
+  height: 14%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--floor-shadow), transparent);
+  transform: translateX(12%);
+}
+.so-home .so-radio-ptt {
+  position: absolute;
+  left: var(--ptt-x);
+  top: var(--ptt-y);
+  width: var(--ptt-w);
+  height: var(--ptt-h);
+  border-radius: 999px;
+  background: var(--color-signal-400);
+  opacity: 0;
+  filter: blur(3px);
+  transition: opacity 200ms ease;
+}
+.so-home .so-radio-waves > span {
+  position: absolute;
+  left: var(--antenna-x);
+  top: var(--antenna-y);
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  border: 1.5px solid var(--color-signal-400);
+  border-radius: 50%;
+  opacity: 0;
+}
+.so-home .so-radio-label {
+  position: absolute;
+  left: calc(100% + 14px);
+  top: 32%;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--glass-panel-solid);
+  box-shadow: var(--edge-light), var(--shadow-contact);
+  color: var(--color-ink);
+  font-size: 0.9375rem;
+  font-weight: 650;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition:
+    opacity 200ms ease,
+    transform 200ms var(--ease-out-soft);
+  pointer-events: none;
+}
+.so-home .so-radio:is(:hover, :focus-visible, [data-state="pressed"]) .so-radio-label {
+  opacity: 1;
+  transform: none;
+}
+.so-home .so-radio:is(:hover, :focus-visible, [data-state="pressed"]) .so-radio-ptt {
+  opacity: 0.85;
+}
+.so-home .so-radio:is(:hover, :focus-visible) .so-radio-device {
+  transform: rotateY(-12deg) rotateX(4deg);
+}
+.so-home .so-radio[data-state="pressed"] .so-radio-device {
+  transform: rotateY(-8deg) scale(0.96);
+  transition-duration: 120ms;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .so-home .so-radio[data-state="pressed"] .so-radio-waves > span {
+    animation: so-radio-wave 500ms ease-out both;
+  }
+  .so-home .so-radio[data-state="pressed"] .so-radio-waves > span:nth-child(2) {
+    animation-delay: 110ms;
+  }
+  .so-home .so-radio[data-state="pressed"] .so-radio-waves > span:nth-child(3) {
+    animation-delay: 220ms;
+  }
+}
+@keyframes so-radio-wave {
+  from {
+    opacity: 0.9;
+    transform: scale(0.4);
+  }
+  to {
+    opacity: 0;
+    transform: scale(2.6);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .so-home .so-radio-device,
+  .so-home .so-radio:is(:hover, :focus-visible, [data-state="pressed"]) .so-radio-device {
+    transform: none;
+    transition: none;
+  }
+  .so-home .so-radio-label {
+    transition: none;
+  }
+}

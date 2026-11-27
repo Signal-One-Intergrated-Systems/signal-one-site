@@ -167,6 +167,13 @@ for (const url of new Set(sceneUrls)) {
   surfaceCheck("glass over veil-mid over " + url, over(rgbOf(rootVars["glass-panel"]), veilMid), light, "light");
   surfaceCheck("solid glass over " + url, over(rgbOf(rootVars["glass-panel-solid"]), dark), light, "light");
 }
+// The floating header glass, over the darkest thing that can scroll beneath it (black): its text roles stay AA.
+for (const role of ["ink", "ink-2"]) {
+  const bg = over(rgbOf(rootVars["glass-nav"]), [0, 0, 0, 1]);
+  const r = ratio(hex(light[role]), toHex(bg));
+  depthPairs.push(r);
+  if (r < 4.5) depthFailures.push(`header ${role} on glass-nav over black ${r.toFixed(2)}:1`);
+}
 const repeatedScenes = sceneUrls.filter((u, i) => sceneUrls.indexOf(u) !== i);
 
 // Shadows fall away from the one light source (high on the right): every drop layer has x <= 0.

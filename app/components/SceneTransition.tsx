@@ -87,6 +87,8 @@ export default function SceneTransition({ children }: { children: ReactNode }) {
       if (!(element instanceof Element)) return;
       const link = element.closest("a[href]") as HTMLAnchorElement | null;
       if (!link || link.hasAttribute("download") || (link.target && link.target !== "_self")) return;
+      // A link that plays its own press first (the hero radio) is handed over once it releases.
+      if (link.hasAttribute("data-press-first") && link.dataset.pressFirst !== "released") return;
       const url = new URL(link.href, location.href);
       // Query/fragment changes stay on the current page. The transition commits
       // on pathname changes only; intercepting a product selection would lock

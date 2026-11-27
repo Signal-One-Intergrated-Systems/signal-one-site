@@ -221,8 +221,10 @@
     /* How far a light material's horizon fade reaches at the top and bottom of a section. */
     --mat-fade: min(140px, 18%);
     /* Glass tiers (DESIGN_SYSTEM §6): nav, panel over photography, product-well label. Light glass. */
-    --glass-nav: rgb(255 255 255 / 0.86);
+    --glass-nav: rgb(255 255 255 / 0.8); /* checked over black: ink and ink-2 stay AA */
     --glass-nav-solid: rgb(255 255 255 / 0.96);
+    --glass-nav-blur: blur(22px) saturate(180%);
+    --nav-current: rgb(16 32 48 / 0.06);
     --glass-panel: rgb(255 255 255 / 0.86); /* glass tier 3 (frost): over photography, with blur */
     --glass-panel-solid: rgb(255 255 255 / 0.94);
     --glass-well: rgb(255 255 255 / 0.85);
@@ -1150,12 +1152,14 @@
 
 /* ---------- Header: one floating pill on every route (VA-13) ---------- */
 @layer components {
+  /* One floating glass element, detached from the top (12px) and from the sides (it sits on the content
+     edge), with no call to action of its own on buyer pages (founder, 2026-11-27). */
   header.glass-nav {
     position: sticky;
     top: 0;
     z-index: 70;
     margin-bottom: calc(-1 * var(--header-h));
-    padding: 8px 0;
+    padding: 12px 0 4px;
     border: 0;
     background: transparent;
   }
@@ -1165,33 +1169,34 @@
     /* The pill's border sits on the content edge (VA-05). */
     width: calc(100% - 2 * var(--wrap-pad));
     max-width: calc(var(--wrap-max) - 2 * var(--wrap-pad));
-    padding-inline: clamp(12px, 1.6vw, 24px);
-    border: 1px solid var(--color-hairline);
+    padding-inline: clamp(14px, 1.8vw, 28px) clamp(10px, 1.2vw, 16px);
+    border: 1px solid var(--glass-edge);
     border-radius: 999px;
     background: var(--glass-nav-solid);
-    box-shadow: var(--shadow-float);
+    box-shadow: var(--edge-light), 0 0 0 1px var(--nav-current), var(--shadow-float);
   }
   @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
     header.glass-nav > .wrap {
       background: var(--glass-nav);
-      -webkit-backdrop-filter: var(--glass-blur);
-      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-nav-blur);
+      backdrop-filter: var(--glass-nav-blur);
     }
   }
   header.glass-nav nav[aria-label="Primary"] {
-    gap: 0;
+    gap: 2px;
   }
   header.glass-nav nav[aria-label="Primary"] a {
-    min-height: 40px;
-    padding-inline: clamp(7px, 1vw, 12px);
+    min-height: 44px;
+    padding-inline: clamp(8px, 1vw, 14px);
     border-radius: 999px;
     font-size: clamp(0.875rem, 1vw, 1rem);
     font-weight: 600;
+    letter-spacing: -0.006em;
     transition: background-color 0.2s ease;
   }
   header.glass-nav nav[aria-label="Primary"] a:hover,
   header.glass-nav nav[aria-label="Primary"] a[aria-current="page"] {
-    background: var(--color-surface-2);
+    background: var(--nav-current);
   }
   header.glass-nav .btn-primary {
     min-height: 48px;
