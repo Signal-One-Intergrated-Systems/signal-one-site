@@ -57,7 +57,7 @@ export default function PricingPage() {
                 ["1", "guard day"],
               ].map(([num, label], index) => (
                 <div key={label} className="contents">
-                  <div className="card px-2 py-4 sm:px-4">
+                  <div className="card rounded-card px-2 py-4 sm:px-4">
                     <p className="t-num text-[2.5rem] text-ink">{num}</p>
                     <p className="mt-2 hyphens-auto text-[0.9375rem] leading-snug text-ink-2">{label}</p>
                   </div>
