@@ -15,10 +15,13 @@ export function JText({
   placeholder,
   autoComplete,
   inputMode,
+  error,
 }: {
   j: Journey;
   name: string;
   label: string;
+  /** The sentence shown when a required answer is missing (lib/formValidation.ts). */
+  error?: string;
   type?: "text" | "email" | "tel" | "url" | "month" | "date";
   required?: boolean;
   hint?: string;
@@ -31,7 +34,7 @@ export function JText({
     <div className="field">
       <label htmlFor={id} className="field-label">
         {label}
-        {required ? null : <span className="font-normal text-text-2"> (optional)</span>}
+        {required ? null : <span className="font-normal text-ink-2"> (optional)</span>}
       </label>
       <input
         id={id}
@@ -41,6 +44,7 @@ export function JText({
         placeholder={placeholder}
         autoComplete={autoComplete}
         inputMode={inputMode}
+        data-error={error}
         aria-describedby={hint ? id + "-hint" : undefined}
         value={j.values[name] || ""}
         onChange={(event) => j.set(name, event.target.value)}
@@ -62,6 +66,7 @@ export function JTextarea({
   required = false,
   hint,
   placeholder,
+  error,
 }: {
   j: Journey;
   name: string;
@@ -69,18 +74,20 @@ export function JTextarea({
   required?: boolean;
   hint?: string;
   placeholder?: string;
+  error?: string;
 }) {
   const id = useId();
   return (
     <div className="field">
       <label htmlFor={id} className="field-label">
         {label}
-        {required ? null : <span className="font-normal text-text-2"> (optional)</span>}
+        {required ? null : <span className="font-normal text-ink-2"> (optional)</span>}
       </label>
       <textarea
         id={id}
         name={name}
         required={required}
+        data-error={error}
         rows={4}
         placeholder={placeholder}
         aria-describedby={hint ? id + "-hint" : undefined}
@@ -104,6 +111,7 @@ export function JSelect({
   options,
   required = false,
   hint,
+  error,
 }: {
   j: Journey;
   name: string;
@@ -111,18 +119,20 @@ export function JSelect({
   options: readonly string[];
   required?: boolean;
   hint?: string;
+  error?: string;
 }) {
   const id = useId();
   return (
     <div className="field">
       <label htmlFor={id} className="field-label">
         {label}
-        {required ? null : <span className="font-normal text-text-2"> (optional)</span>}
+        {required ? null : <span className="font-normal text-ink-2"> (optional)</span>}
       </label>
       <select
         id={id}
         name={name}
         required={required}
+        data-error={error}
         aria-describedby={hint ? id + "-hint" : undefined}
         value={j.values[name] || ""}
         onChange={(event) => j.set(name, event.target.value)}
@@ -154,6 +164,7 @@ export function JRadio({
   accentClass,
   columns = "sm:grid-cols-2",
   hint,
+  error,
 }: {
   j: Journey;
   name: string;
@@ -163,12 +174,13 @@ export function JRadio({
   accentClass: string;
   columns?: string;
   hint?: string;
+  error?: string;
 }) {
   return (
-    <fieldset className="m-0 border-0 p-0">
+    <fieldset className="m-0 border-0 p-0" data-error={error}>
       <legend className="field-label mb-1">
         {label}
-        {required ? null : <span className="font-normal text-text-2"> (optional)</span>}
+        {required ? null : <span className="font-normal text-ink-2"> (optional)</span>}
       </legend>
       {hint ? <p className="field-hint mb-2">{hint}</p> : <div className="mb-2" />}
       <div className={"grid gap-2 " + columns}>
@@ -182,7 +194,7 @@ export function JRadio({
               checked={j.values[name] === option}
               onChange={() => j.set(name, option)}
             />
-            <span className="text-text">{option}</span>
+            <span className="text-ink">{option}</span>
           </label>
         ))}
       </div>
@@ -190,7 +202,11 @@ export function JRadio({
   );
 }
 
-/** Multiple choice rendered as tiles (checkbox). Validation is done by the step. */
+/**
+ * Multiple choice rendered as tiles (checkbox). "Choose at least one" is checked by the step, which
+ * passes the message as `error` and lists it in the step's error summary (validateBeforeSubmit `extra`).
+ * The message is persistent, and every box is marked invalid and described by it (AUDW-04).
+ */
 export function JMulti({
   j,
   name,
@@ -210,25 +226,41 @@ export function JMulti({
   error?: string;
   columns?: string;
 }) {
+  const id = useId();
+  // The message stays until the visitor picks something, then goes at once.
+  const shown = error && !j.values[name] ? error : "";
+  const errorId = id + "-error";
   return (
-    <fieldset className="m-0 border-0 p-0" aria-invalid={error ? true : undefined}>
+    <fieldset className="m-0 border-0 p-0" data-multi={name}>
       <legend className="field-label mb-1">{label}</legend>
       {hint ? <p className="field-hint mb-2">{hint}</p> : <div className="mb-2" />}
       <div className={"grid gap-2 " + columns}>
-        {options.map((option) => (
+        {options.map((option, index) => (
           <label key={option} className={"choice " + accentClass}>
-            <input type="checkbox" checked={j.has(name, option)} onChange={() => j.toggle(name, option)} />
-            <span className="text-text">{option}</span>
+            <input
+              type="checkbox"
+              id={index === 0 ? id + "-first" : undefined}
+              checked={j.has(name, option)}
+              onChange={() => j.toggle(name, option)}
+              aria-invalid={shown ? true : undefined}
+              aria-describedby={shown ? errorId : undefined}
+            />
+            <span className="text-ink">{option}</span>
           </label>
         ))}
       </div>
-      {error ? (
-        <p role="alert" className="field-error mt-2">
-          {error}
+      {shown ? (
+        <p id={errorId} className="field-error mt-2">
+          {shown}
         </p>
       ) : null}
     </fieldset>
   );
+}
+
+/** The focus target for a JMulti group's entry in the error summary: its first box. */
+export function multiTarget(form: HTMLFormElement, name: string): HTMLElement | null {
+  return form.querySelector<HTMLElement>(`fieldset[data-multi="${name}"] input[type=checkbox]`);
 }
 
 export function Consent({ j, children }: { j: Journey; children: ReactNode }) {
@@ -252,7 +284,7 @@ export function ReviewList({
   return (
     <div className="grid gap-4">
       {groups.map((group) => (
-        <section key={group.title} className="rounded-card bg-white p-5 ring-1 ring-line">
+        <section key={group.title} className="rounded-card bg-surface p-5 ring-1 ring-hairline">
           <div className="flex items-center justify-between gap-4">
             <h3 className="t-h4">{group.title}</h3>
             <button
@@ -266,8 +298,8 @@ export function ReviewList({
           <dl className="m-0 mt-2 grid gap-2">
             {group.fields.map(([name, label]) => (
               <div key={name} className="grid gap-0.5 sm:grid-cols-[12rem_1fr] sm:gap-4">
-                <dt className="t-small text-text-2">{label}</dt>
-                <dd className="m-0 break-words">{j.values[name] || <span className="text-text-2">Not given</span>}</dd>
+                <dt className="t-small text-ink-2">{label}</dt>
+                <dd className="m-0 break-words">{j.values[name] || <span className="text-ink-2">Not given</span>}</dd>
               </div>
             ))}
           </dl>

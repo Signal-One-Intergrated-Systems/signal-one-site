@@ -2,7 +2,7 @@
  * Env-driven acquisition links (addendum A4). A link renders only when a real
  * URL is configured; nothing here ever falls back to a placeholder.
  *
- *   GUARD_APP_ANDROID_URL  Google Play listing for Signal One Guard (https://play.google.com/...)
+ *   GUARD_APP_ANDROID_URL  Google Play listing for 1GUARD (https://play.google.com/...)
  *   GUARD_APP_IOS_URL      App Store listing (https://apps.apple.com/...)
  *
  * Read at build time (the guard pages are static). The Sales OS sign-in link

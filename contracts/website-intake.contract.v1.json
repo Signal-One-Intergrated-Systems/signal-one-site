@@ -1,0 +1,384 @@
+{
+  "$comment": "GENERATED from apps/api/src/services/website_intake/website_intake_contract.ts by scripts/website-intake-contract.ts. Do not edit by hand.",
+  "contract": "website-intake/v1",
+  "contractVersion": "1.3.0",
+  "changelog": [
+    {
+      "version": "1.0.0",
+      "change": "R1-INTAKE-1..4 (#704): kinds, intents, per-intent field allow-list, receipt."
+    },
+    {
+      "version": "1.1.0",
+      "change": "#748: radio quote fields (incl. quoteType) on equipment-rental-quote and consultation; optional top-level `attribution`."
+    },
+    {
+      "version": "1.2.0",
+      "change": "LAUNCH-R1 (audit L2-08): `attribution` is FAIL-SOFT — an invalid value or unknown key is dropped and the enquiry kept (was 422). Loosening only: every 1.1 sender is valid."
+    },
+    {
+      "version": "1.3.0",
+      "change": "Partner programmes: reseller-application and technology-partnership (client), sales-partner-application (sales)"
+    }
+  ],
+  "source": "signal-one-site",
+  "endpoint": {
+    "method": "POST",
+    "paths": [
+      "/api/v1/integrations/website/v1/intake",
+      "/api/integrations/website/v1/intake"
+    ],
+    "headers": {
+      "Authorization": "Bearer <website intake credential>",
+      "Idempotency-Key": "<uuid, equal to body.idempotencyKey>",
+      "Content-Type": "application/json"
+    },
+    "tenant": "from the credential ONLY; any tenant-like header, cookie, query or body key is refused 422"
+  },
+  "limits": {
+    "maxBodyBytes": 65536,
+    "maxFields": 80,
+    "maxFieldChars": 6000,
+    "maxDataChars": 20000,
+    "fieldNamePattern": "^[A-Za-z][A-Za-z0-9_-]{0,63}$",
+    "clientColumnLimits": {
+      "companyName": 255,
+      "contactName": 255,
+      "email": 320,
+      "mobile": 50
+    }
+  },
+  "body": {
+    "topLevelKeys": [
+      "attribution",
+      "consent",
+      "contract",
+      "data",
+      "idempotencyKey",
+      "kind",
+      "source"
+    ],
+    "optionalTopLevelKeys": ["attribution"],
+    "consentKeys": [
+      "clientCapturedAt",
+      "marketing",
+      "noticeVersion",
+      "processing",
+      "recordedAt"
+    ],
+    "consentRules": {
+      "processing": "must be true",
+      "marketing": "boolean",
+      "noticeVersion": "^\\d{4}-\\d{2}-\\d{2}$",
+      "recordedAt": "ISO-8601, site server clock, 2024-01-01 .. now + 1 day",
+      "clientCapturedAt": "optional ISO-8601 or null, 2000-01-01 .. now + 366 days"
+    }
+  },
+  "kinds": {
+    "client": {
+      "intents": [
+        "bodycam-rental-quote",
+        "company-onboarding",
+        "consultation",
+        "equipment-rental-quote",
+        "marketplace-interest",
+        "reseller-application",
+        "technology-partnership",
+        "tracking-quote"
+      ],
+      "requiredFields": ["companyName", "contactName", "email"],
+      "receiptRecordType": "website_enquiry"
+    },
+    "guard": {
+      "intents": ["guard-profile"],
+      "requiredFields": ["fullName", "mobile", "psiraNumber"],
+      "receiptRecordType": "guard_application"
+    },
+    "sales": {
+      "intents": [
+        "sales-partner-application",
+        "sales-representative-application"
+      ],
+      "requiredFields": ["email", "fullName", "mobile"],
+      "receiptRecordType": "recruitment_application"
+    }
+  },
+  "intents": {
+    "bodycam-rental-quote": {
+      "kind": "client",
+      "fields": [
+        "category",
+        "companyName",
+        "contactName",
+        "email",
+        "environment",
+        "mobile",
+        "notes",
+        "quantity",
+        "requirement"
+      ]
+    },
+    "company-onboarding": {
+      "kind": "client",
+      "fields": [
+        "businessType",
+        "companyName",
+        "contactName",
+        "contactRole",
+        "currentTools",
+        "email",
+        "guardCount",
+        "interests",
+        "locations",
+        "mobile",
+        "nextStep",
+        "province",
+        "registrationNumber",
+        "siteCount",
+        "teamSize"
+      ]
+    },
+    "consultation": {
+      "kind": "client",
+      "fields": [
+        "category",
+        "companyName",
+        "contactName",
+        "deployment",
+        "email",
+        "message",
+        "mobile",
+        "notes",
+        "product",
+        "pttNeed",
+        "quantity",
+        "quoteType",
+        "rentalTerm",
+        "topic"
+      ]
+    },
+    "equipment-rental-quote": {
+      "kind": "client",
+      "fields": [
+        "category",
+        "companyName",
+        "contactName",
+        "deployment",
+        "email",
+        "mobile",
+        "notes",
+        "product",
+        "pttNeed",
+        "quantity",
+        "quoteType",
+        "rentalTerm"
+      ]
+    },
+    "guard-profile": {
+      "kind": "guard",
+      "fields": [
+        "areas",
+        "availability",
+        "contactPreference",
+        "email",
+        "experienceYears",
+        "fullName",
+        "mobile",
+        "preferredName",
+        "province",
+        "psiraExpiry",
+        "psiraGrade",
+        "psiraNumber",
+        "role",
+        "shifts",
+        "siteTypes",
+        "skills",
+        "transport"
+      ]
+    },
+    "marketplace-interest": {
+      "kind": "client",
+      "fields": ["companyName", "contactName", "email", "mobile", "need"]
+    },
+    "reseller-application": {
+      "kind": "client",
+      "fields": [
+        "businessType",
+        "companyName",
+        "contactName",
+        "contactRole",
+        "currentBrands",
+        "customerSegments",
+        "email",
+        "expectedVolume",
+        "interests",
+        "mobile",
+        "notes",
+        "regions",
+        "registrationStatus",
+        "salesChannels"
+      ]
+    },
+    "sales-partner-application": {
+      "kind": "sales",
+      "fields": [
+        "availability",
+        "background",
+        "email",
+        "fullName",
+        "interests",
+        "location",
+        "mobile",
+        "networks",
+        "notes",
+        "workingStatus"
+      ]
+    },
+    "sales-representative-application": {
+      "kind": "sales",
+      "fields": [
+        "b2bYears",
+        "city",
+        "currentStatus",
+        "cvReady",
+        "email",
+        "experienceSummary",
+        "fullName",
+        "interviewDays",
+        "interviewFormat",
+        "interviewTime",
+        "mobile",
+        "noticePeriod",
+        "profileUrl",
+        "region",
+        "role",
+        "securityExposure"
+      ]
+    },
+    "technology-partnership": {
+      "kind": "client",
+      "fields": [
+        "companyName",
+        "contactName",
+        "contactRole",
+        "email",
+        "mobile",
+        "notes",
+        "partnershipType",
+        "website"
+      ]
+    },
+    "tracking-quote": {
+      "kind": "client",
+      "fields": [
+        "assetType",
+        "category",
+        "companyName",
+        "contactName",
+        "email",
+        "installation",
+        "mobile",
+        "notes",
+        "product",
+        "quantity",
+        "region",
+        "visibility"
+      ]
+    }
+  },
+  "attribution": {
+    "required": false,
+    "failSoft": true,
+    "keys": {
+      "capturedAt": {
+        "maxChars": 40
+      },
+      "gbraid": {
+        "maxChars": 200
+      },
+      "gclid": {
+        "maxChars": 200
+      },
+      "landingPath": {
+        "maxChars": 512
+      },
+      "referrerHost": {
+        "maxChars": 260
+      },
+      "utm_campaign": {
+        "maxChars": 200
+      },
+      "utm_content": {
+        "maxChars": 200
+      },
+      "utm_medium": {
+        "maxChars": 200
+      },
+      "utm_source": {
+        "maxChars": 200
+      },
+      "utm_term": {
+        "maxChars": 200
+      },
+      "wbraid": {
+        "maxChars": 200
+      }
+    },
+    "landingPathPattern": "^\\/[^?#\\s]*$",
+    "referrerHostPattern": "^[A-Za-z0-9](?:[A-Za-z0-9-]{0,62})(?:\\.[A-Za-z0-9](?:[A-Za-z0-9-]{0,62}))*(?::\\d{1,5})?$",
+    "capturedAt": "ISO-8601",
+    "partOfIdempotencyHash": false
+  },
+  "receipt": {
+    "httpStatus": 200,
+    "shape": {
+      "status": "persisted",
+      "receipt": {
+        "recordId": "opaque reference SO-<12 Crockford base32>, never a row id",
+        "recordType": "fixed per kind (kinds.<kind>.receiptRecordType)",
+        "idempotencyKey": "the key sent",
+        "persistedAt": "ISO-8601",
+        "duplicate": "boolean; true for a replay of the same key and canonical body"
+      }
+    }
+  },
+  "answers": {
+    "200": "persisted (new or duplicate)",
+    "400": "unreadable body; `message` is visitor-safe",
+    "401": "credential missing, malformed, unknown or revoked (one indistinguishable answer)",
+    "409": "same Idempotency-Key, different canonical body; nothing written",
+    "413": "body over maxBodyBytes",
+    "415": "content type or encoding",
+    "422": "contract, allow-list, required field, email, consent or tenant-law refusal; `message` is visitor-safe",
+    "429": "rate limited (pre-auth failures, or the per-credential window)",
+    "500": "nothing persisted (the transaction rolled back)",
+    "503": "rate store unavailable, or a bounded lock/statement wait; retryable; nothing persisted"
+  },
+  "refusalCodes": {
+    "$comment": "Internal: audited and logged, NEVER sent to the caller. Listed so the two sides share one vocabulary.",
+    "codes": [
+      "content_type",
+      "content_encoding",
+      "body_unreadable",
+      "payload_too_large",
+      "invalid_json",
+      "tenant_field_supplied",
+      "query_string",
+      "duplicate_json_key",
+      "contract_unknown",
+      "idempotency_key_invalid",
+      "kind_intent_unknown",
+      "data_shape",
+      "field_not_allowed",
+      "field_value_invalid",
+      "field_too_long",
+      "required_field_missing",
+      "email_invalid",
+      "consent_invalid",
+      "idempotency_conflict",
+      "rate_limited",
+      "rate_limit_unavailable",
+      "credential_revoked_during_request",
+      "lock_timeout"
+    ]
+  }
+}

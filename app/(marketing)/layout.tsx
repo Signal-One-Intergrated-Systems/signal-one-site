@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { inter as body } from "../lib/body-font";
 import Analytics from "../components/Analytics";
+import AttributionCapture from "../components/AttributionCapture";
+import AfterLoad from "../components/AfterLoad";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Reveal from "../components/Reveal";
@@ -36,7 +38,7 @@ export const metadata: Metadata = {
     "vehicle tracking for security companies",
   ],
   applicationName: brand.master,
-  alternates: { canonical: "/" },
+  // No site-wide canonical: each page declares its own, and the 404 must not claim the homepage (DR-023).
   openGraph: {
     title: "Signal One: 1GUARD, 1Service and Integrated Systems",
     description:
@@ -44,8 +46,6 @@ export const metadata: Metadata = {
     type: "website",
     siteName: brand.master,
     locale: "en_ZA",
-    url: "/",
-    
   },
   twitter: {
     card: "summary_large_image",
@@ -59,10 +59,10 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  colorScheme: "light dark",
+  colorScheme: "light",
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#151a21" },
-    { media: "(prefers-color-scheme: dark)", color: "#151a21" },
+    { media: "(prefers-color-scheme: light)", color: "#f7f9fb" },
+    { media: "(prefers-color-scheme: dark)", color: "#f7f9fb" },
   ],
 };
 
@@ -88,13 +88,13 @@ const structuredData = {
     {
       "@type": "SoftwareApplication",
       "@id": siteUrl + "/#software",
-      name: "Signal One Guard",
+      name: "1GUARD",
       alternateName: brand.product,
       applicationCategory: "BusinessApplication",
       applicationSubCategory: "Security business operating system",
-      operatingSystem: "Web, Android, iOS",
+      operatingSystem: "Web, Android",
       publisher: { "@id": siteUrl + "/#organization" },
-      description: guardIsLive ? description : description + " Signal One Guard is in pilot with its first security companies.",
+      description: guardIsLive ? description : description + " 1GUARD is in pilot with its first security companies.",
       offers: {
         "@type": "Offer",
         url: siteUrl + "/pricing",
@@ -122,7 +122,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <a
           href="#main"
-          className="sr-only-focusable fixed left-4 top-3 z-[60] rounded-ui bg-light px-4 py-3 font-semibold text-text"
+          className="sr-only-focusable fixed left-4 top-3 z-[60] rounded-ui bg-surface px-4 py-3 font-semibold text-ink"
         >
           Skip to content
         </a>
@@ -134,6 +134,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SceneTransition>{children}</SceneTransition>
         <Footer />
         <Analytics />
+        <AttributionCapture />
+        <AfterLoad />
         <Reveal />
       </body>
     </html>

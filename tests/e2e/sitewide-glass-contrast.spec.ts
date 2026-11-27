@@ -21,7 +21,7 @@ for (const route of routes) {
   });
 }
 
-test("company-registration form renders high-contrast labels and dark inputs", async ({ page }) => {
+test("company-registration form renders high-contrast labels and light inputs", async ({ page }) => {
   await page.goto("/get-started");
   const label = page.getByText("Company name", { exact: true }).first();
   const field = page.getByRole("textbox", { name: "Company name" });
@@ -32,6 +32,7 @@ test("company-registration form renders high-contrast labels and dark inputs", a
     const input = document.querySelector(".s1-onboarding .field-input")!;
     return { label: getComputedStyle(label).color, input: getComputedStyle(input).backgroundColor };
   });
-  expect(colors.label).toMatch(/^rgb\(242, (249|250), 255\)$/);
-  expect(colors.input).not.toBe("rgb(255, 255, 255)");
+  // Light-first (founder, 2026-11-26): labels use the ink role (#18242d) on a white field surface, 15.8:1.
+  expect(colors.label).toBe("rgb(24, 36, 45)");
+  expect(colors.input).toBe("rgb(255, 255, 255)");
 });

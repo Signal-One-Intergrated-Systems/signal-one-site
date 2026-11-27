@@ -1,18 +1,19 @@
 import IntakeAvailability from "../../../components/journey/IntakeAvailability";
 import type { Metadata } from "next";
 import GuardJoin from "../../../components/journey/GuardJoin";
+import { pageMetadata } from "../../../lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Create Your Security Officer Profile",
   description:
     "Create a private Signal One guard profile with your PSiRA details, experience, skills and availability. Never shown on a public website; Signal One reviews it and contacts you.",
   alternates: { canonical: "/guards/join" },
-};
+});
 
 export default function GuardJoinPage() {
   return (
-    <main id="main" className="min-h-[calc(100vh-72px)] bg-light text-text s1-scene-page s1-scene-page--officer-apply">
-      <div className="wrap pt-8"><IntakeAvailability /></div>
+    <main id="main" className="min-h-[calc(100vh-72px)] s1-scene-page s1-scene-page--officer-apply mat-silver">
+      <div className="wrap pt-8"><IntakeAvailability kind="guard" /></div>
       <GuardJoin />
     </main>
   );

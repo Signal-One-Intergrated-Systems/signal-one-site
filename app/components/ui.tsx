@@ -17,47 +17,33 @@ export function Kicker({
   className?: string;
 }) {
   return (
-    <p className={"t-kicker " + (tone === "dark" ? "text-signal-400" : "text-signal-ink") + " " + className}>
+    <p className={"t-kicker text-accent " + className} data-tone={tone}>
       {children}
     </p>
   );
 }
 
-const statusStyles = {
-  pilot: { light: "bg-signal-tint text-signal-ink ring-1 ring-signal-ink/25", dark: "bg-signal-400/12 text-signal-400 ring-1 ring-signal-400/30" },
-  live: { light: "bg-live-tint text-live", dark: "bg-white/8 text-live-inv" },
-  beta: { light: "bg-beta-tint text-beta", dark: "bg-white/8 text-beta-inv" },
-  mvp: { light: "bg-beta-tint text-beta", dark: "bg-white/8 text-beta-inv" },
-  soon: { light: "bg-soon-tint text-soon", dark: "bg-white/8 text-soon-inv" },
-  quote: { light: "bg-signal-tint text-signal-ink", dark: "bg-white/8 text-signal-400" },
-} as const;
+const statusKinds = ["pilot", "live", "beta", "mvp", "soon", "quote"] as const;
 
 /**
- * Product status label. Use only where it changes what a buyer should expect.
+ * Product status label: a coloured dot and sentence-case text (DESIGN_SYSTEM §Status). One look on
+ * every page; never pill-shaped, so it cannot be mistaken for a button. Hues are fixed per state:
+ * live green, pilot and quote blue, beta/MVP amber, soon grey. `tone="light"` is only for labels
+ * sitting on a light product well (the `.well` ancestor supplies the light hues).
  */
 export function Status({
   kind,
   children,
-  tone = "light",
 }: {
-  kind: keyof typeof statusStyles;
+  kind: (typeof statusKinds)[number];
   children: ReactNode;
   tone?: Tone;
 }) {
-  return (
-    <span
-      className={
-        "inline-flex shrink-0 items-center whitespace-nowrap rounded-full px-3 py-1 text-[0.875rem] font-semibold leading-tight " +
-        statusStyles[kind][tone]
-      }
-    >
-      {children}
-    </span>
-  );
+  return <span className={"badge badge-" + kind}>{children}</span>;
 }
 
 /** Status of a Guard capability: Pilot or Live, from lib/guardStatus.ts. Server components only. */
-export function GuardStatus({ tone = "light", children }: { tone?: Tone; children?: ReactNode }) {
+export function GuardStatus({ tone = "dark", children }: { tone?: Tone; children?: ReactNode }) {
   return (
     <Status kind={guardStatusKind} tone={tone}>
       {children ?? guardStatusLabel}
@@ -65,17 +51,17 @@ export function GuardStatus({ tone = "light", children }: { tone?: Tone; childre
   );
 }
 
-/** A short definition list on a raised dark panel: plain facts, no mock interface. */
+/** A short definition list on a card panel: plain facts, no mock interface. */
 export function FactPanel({ title, facts, tone = "dark" }: { title?: ReactNode; facts: ReadonlyArray<readonly [string, string]>; tone?: Tone }) {
   const dark = tone === "dark";
   return (
-    <div className={"overflow-hidden rounded-card border " + (dark ? "border-line-dark bg-raised text-text-inv" : "border-line bg-white text-text")}>
-      {title ? <div className={"border-b px-5 py-4 font-semibold sm:px-6 " + (dark ? "border-line-dark" : "border-line")}>{title}</div> : null}
+    <div className="plane overflow-hidden text-ink">
+      {title ? <div className={"border-b px-5 py-4 font-semibold sm:px-6 " + "border-hairline"}>{title}</div> : null}
       <dl className="m-0">
         {facts.map(([term, detail]) => (
-          <div key={term} className={"border-b px-5 py-4 last:border-0 sm:px-6 " + (dark ? "border-line-dark" : "border-line")}>
+          <div key={term} className={"border-b px-5 py-4 last:border-0 sm:px-6 " + "border-hairline"}>
             <dt className="t-h4">{term}</dt>
-            <dd className={"t-small m-0 mt-1 " + (dark ? "text-text-inv-2" : "text-text-2")}>{detail}</dd>
+            <dd className={"t-small m-0 mt-1 " + "text-ink-2"}>{detail}</dd>
           </div>
         ))}
       </dl>
@@ -153,7 +139,7 @@ export function Photo({
 }) {
   return (
     <figure className={"m-0 " + className}>
-      <div className={"photo w-full " + (aspect || "h-full")}>
+      <div className={"photo media-frame w-full " + (aspect || "h-full")}>
         <Image
           src={src}
           alt={alt}
@@ -166,7 +152,7 @@ export function Photo({
         />
       </div>
       {caption ? (
-        <figcaption className={"photo-caption mt-2 " + (captionTone === "dark" ? "text-text-inv-2" : "")}>
+        <figcaption className={"photo-caption mt-2 " + (captionTone === "dark" ? "text-ink-2" : "")}>
           {caption}
         </figcaption>
       ) : null}
@@ -174,11 +160,36 @@ export function Photo({
   );
 }
 
+/**
+ * Form progress: the one stepper used by every multi-step form (VA-25). A segmented track with the
+ * current step named in text; finished, current and remaining steps are told apart by fill, not
+ * by colour alone (the label carries the position).
+ */
+export function Stepper({ steps, index, label }: { steps: ReadonlyArray<string>; index: number; label: string }) {
+  return (
+    <div className="stepper">
+      <p className="t-small font-semibold">
+        Step {index + 1} of {steps.length} · {steps[index]}
+      </p>
+      <ol className="stepper-track" aria-label={label}>
+        {steps.map((step, i) => (
+          <li key={step} aria-current={i === index ? "step" : undefined} data-state={i < index ? "done" : i === index ? "current" : "todo"}>
+            <span className="sr-only">
+              {step}
+              {i < index ? " (done)" : ""}
+            </span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
 /** Numbered steps rendered as an ordered list with rules, not cards. */
 export function Steps({
   items,
   tone = "light",
-  accentClass = "text-signal-ink",
+  accentClass = "text-accent",
 }: {
   items: ReadonlyArray<readonly [string, string]>;
   tone?: Tone;
@@ -191,13 +202,13 @@ export function Steps({
           key={title}
           className={
             "grid grid-cols-[2.5rem_1fr] gap-4 border-t py-5 " +
-            (tone === "dark" ? "border-line-dark" : "border-line")
+            "border-hairline"
           }
         >
           <span className={"t-num pt-0.5 text-[1.5rem] " + accentClass}>{index + 1}</span>
           <div>
             <h3 className="t-h4">{title}</h3>
-            <p className={"t-small mt-1 " + (tone === "dark" ? "text-text-inv-2" : "text-text-2")}>{body}</p>
+            <p className={"t-small mt-1 " + "text-ink-2"}>{body}</p>
           </div>
         </li>
       ))}
@@ -206,162 +217,51 @@ export function Steps({
 }
 
 /**
- * CSS for a photograph that never stretches past its native width: on a
- * viewport wider than `native` px the image is centred and its edges fade
- * into the section colour instead of upscaling.
- */
-function edgeFade(native: number): React.CSSProperties {
-  const mask = "linear-gradient(to right, transparent 0, #000 var(--fade), #000 calc(100% - var(--fade)), transparent 100%)";
-  return {
-    ["--fade" as string]: "clamp(0px, calc(100vw - " + native + "px), 200px)",
-    maskImage: mask,
-    WebkitMaskImage: mask,
-  };
-}
-
-/** Fades the top and bottom edges when a box reaches the photo's native height. */
-function verticalFade(native: number): React.CSSProperties {
-  const mask = "linear-gradient(to bottom, transparent 0, #000 var(--vfade), #000 calc(100% - var(--vfade)), transparent 100%)";
-  return {
-    ["--vfade" as string]: "clamp(0px, calc(100% - " + (native - 60) + "px), 80px)",
-    maskImage: mask,
-    WebkitMaskImage: mask,
-  };
-}
-
-/**
- * Full-bleed photographic band with a one-line headline over it.
- * Height is capped so very wide screens get a wider surround, not a taller crop.
- */
-export function PhotoBand({
-  src,
-  alt,
-  headline,
-  kicker,
-  objectPosition = "50% 50%",
-  textSide = "left",
-  caption,
-  sizes,
-}: {
-  src: StaticImageData;
-  alt: string;
-  headline: ReactNode;
-  kicker?: ReactNode;
-  objectPosition?: string;
-  textSide?: "left" | "right";
-  caption?: string;
-  sizes?: string;
-}) {
-  return (
-    <section className="surface-base relative">
-      <div className="relative mx-auto" style={{ maxWidth: src.width }}>
-        <div className="relative h-[max(300px,72vw)] overflow-hidden md:h-[clamp(420px,40vw,680px)]" style={edgeFade(src.width)}>
-          <Image
-            src={src}
-            alt={alt}
-            fill
-            sizes={sizes || "(min-width: " + src.width + "px) " + src.width + "px, 100vw"}
-            quality={75}
-            placeholder="blur"
-            className="object-cover"
-            style={{ objectPosition }}
-          />
-          <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-base from-0% via-base/85 via-30% to-transparent to-80%" />
-          <div
-            aria-hidden="true"
-            className={
-              "absolute inset-0 hidden md:block " +
-              (textSide === "left"
-                ? "bg-gradient-to-r from-base/70 via-transparent via-45% to-transparent"
-                : "bg-gradient-to-l from-base/70 via-transparent via-45% to-transparent")
-            }
-          />
-        </div>
-      </div>
-      <div className="absolute inset-0 flex items-end">
-        <div className={"wrap pb-8 md:pb-14 " + (textSide === "right" ? "md:flex md:justify-end" : "")}>
-          <div className="max-w-[40rem]">
-            {kicker ? <div className="glass mb-4 inline-flex rounded-ui px-3 py-2">{kicker}</div> : null}
-            <h2 className="t-h2 text-text-inv">{headline}</h2>
-            {caption ? <p className="t-caption mt-4 text-text-inv-2">{caption}</p> : null}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/**
- * Split hero. From lg up the text sits on solid dark on one side and the
- * photograph fills the other side full height, so no text can overlap a face
- * or figure. The photo box starts one text column plus gutters in from the
- * container edge, so the split holds at every width. Below lg the photo goes
- * full width on top, 56vw tall.
+ * Split hero for pages led by a photograph of people. Same geometry as PageHero: the copy column
+ * (--hero-col) beside the photograph from lg up; copy FIRST on smaller screens, so the headline and
+ * the primary action land in the first viewport on every buyer, guard and careers page (VA-24).
+ * The photograph sits in the shared framed-media component at its natural 16:9 proportion: shown
+ * complete, never cropped to a face, never enlarged past its source (`maxWidth` = source width).
  */
 export function SplitHero({
   src,
   alt,
   children,
   side = "right",
-  objectPositionMobile = "50% 40%",
   objectPosition = "50% 40%",
-  panel,
-  scene,
+  material = "mat-scene",
 }: {
-  src: StaticImageData | string;
+  src: StaticImageData;
   alt: string;
   children: ReactNode;
+  /** Depth material of the hero (DEPTH_SYSTEM §2): the page's scene photograph by default. */
+  material?: string;
   /** Which side the photograph is on from lg up. */
   side?: "left" | "right";
-  objectPositionMobile?: string;
   objectPosition?: string;
-  /** Desktop only: a glass information panel floating over the photograph's lower edge. */
-  panel?: ReactNode;
-  /** Supporting architectural context only: the human photograph remains the primary visual. */
-  scene?: string;
+  /** Retained for call-site compatibility; the photograph is shown complete at every width. */
+  objectPositionMobile?: string;
 }) {
-  const dimensions = typeof src === "string" ? { width: 1600, height: 900 } : src;
-  const inset = "calc(max(0px, (100vw - var(--wrap-max)) / 2) + var(--wrap-pad) + var(--hero-col) + 40px)";
-  const box: React.CSSProperties =
-    side === "right"
-      ? ({ ["--ph-l" as string]: inset, ["--ph-r" as string]: "0px" } as React.CSSProperties)
-      : ({ ["--ph-l" as string]: "0px", ["--ph-r" as string]: inset } as React.CSSProperties);
   return (
-    <section className="split-hero relative bg-deep text-text-inv s1-person-first-split" style={scene ? { ...box, backgroundImage: `linear-gradient(110deg, rgba(7,22,33,.93), rgba(10,28,40,.72)), url('${scene}')`, backgroundSize: "cover", backgroundPosition: "center" } : box}>
-      <div className="relative h-[56vw] lg:absolute lg:inset-y-0 lg:left-[var(--ph-l)] lg:right-[var(--ph-r)] lg:h-auto">
-        {/* Never taller or wider than the source: on a tall hero the photo is centred and fades into the surface. */}
-        <div className="s1-glass-people-photo relative mx-auto h-full lg:top-1/2 lg:-translate-y-1/2" style={{ maxWidth: dimensions.width, maxHeight: dimensions.height, ...verticalFade(dimensions.height) }}>
-          <Image
-            src={src}
-            alt={alt}
-            fill
-            priority
-            fetchPriority="high"
-            sizes={"(min-width: 1024px) 52vw, 100vw"}
-            quality={70}
-            placeholder={typeof src === "string" ? "empty" : "blur"}
-            className="object-cover [object-position:var(--pos-m)] lg:[object-position:var(--pos-d)]"
-            style={{ ["--pos-m" as string]: objectPositionMobile, ["--pos-d" as string]: objectPosition }}
-          />
-          <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-deep via-transparent to-transparent via-40% lg:hidden" />
-          <div
-            aria-hidden="true"
-            className={
-              "absolute inset-0 hidden lg:block " +
-              (side === "right"
-                ? "bg-gradient-to-r from-deep from-0% via-deep/60 via-6% to-transparent to-16%"
-                : "bg-gradient-to-l from-deep from-0% via-deep/60 via-6% to-transparent to-16%")
-            }
-          />
-        </div>
-        {panel ? (
-          <div className={"absolute bottom-8 hidden w-[min(24rem,calc(100%-4rem))] lg:block " + (side === "right" ? "right-8" : "left-8")}>
-            {panel}
+    <section className={"split-hero s1-person-first-split " + material}>
+      <div className={"wrap grid gap-10 py-16 md:py-20 lg:items-center lg:gap-16 lg:py-24 " + (side === "left" ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,var(--hero-col))]" : "lg:grid-cols-[minmax(0,var(--hero-col))_minmax(0,1fr)]")}>
+        <div className={side === "left" ? "lg:order-2" : ""}>{children}</div>
+        <figure className={"m-0 " + (side === "left" ? "lg:order-1" : "")}>
+          <div className="s1-glass-people-photo aspect-video w-full" style={{ maxWidth: src.width }}>
+            <Image
+              src={src}
+              alt={alt}
+              fill
+              priority
+              fetchPriority="high"
+              sizes="(min-width: 1024px) 46vw, 100vw"
+              quality={70}
+              placeholder="blur"
+              className="object-cover"
+              style={{ objectPosition }}
+            />
           </div>
-        ) : null}
-      </div>
-      <div className={"wrap relative pb-14 pt-10 lg:flex lg:min-h-[clamp(600px,44vw,760px)] lg:items-center lg:pb-24 lg:pt-24 " + (side === "left" ? "lg:justify-end" : "")}>
-        <div className="max-w-[38rem] lg:w-[var(--hero-col)] lg:max-w-none">{children}</div>
+        </figure>
       </div>
     </section>
   );
@@ -379,7 +279,10 @@ export function PageHero({
   lead,
   actions,
   aside,
+  material = "mat-day",
 }: {
+  /** Depth material of the hero (DEPTH_SYSTEM §2). */
+  material?: string;
   kicker?: ReactNode;
   status?: ReactNode;
   title: ReactNode;
@@ -388,9 +291,11 @@ export function PageHero({
   aside?: ReactNode;
 }) {
   return (
-    <section className="split-hero surface-deep">
-      <div className="wrap grid gap-12 py-16 md:py-24 lg:grid-cols-[minmax(0,var(--hero-col))_minmax(0,1fr)] lg:items-center lg:gap-20 lg:py-32">
-        <div>
+    <section className={"split-hero surface-deep " + material}>
+      {/* Copy is top-aligned, not centred against the aside: a tall product column must never push
+          the headline and primary action below the first viewport (DR-005). It stays in view while the aside scrolls. */}
+      <div className="wrap grid gap-12 py-16 md:py-24 lg:grid-cols-[minmax(0,var(--hero-col))_minmax(0,1fr)] lg:items-start lg:gap-20 lg:py-28">
+        <div className="lg:sticky lg:top-28">
           {kicker || status ? (
             <div className="flex flex-wrap items-center gap-3">
               {kicker ? <Kicker tone="dark">{kicker}</Kicker> : null}
@@ -398,7 +303,7 @@ export function PageHero({
             </div>
           ) : null}
           <h1 className="t-hero mt-5">{title}</h1>
-          {lead ? <p className="t-lead measure mt-6 text-text-inv-2">{lead}</p> : null}
+          {lead ? <p className="t-lead measure mt-6 text-ink-2">{lead}</p> : null}
           {actions ? <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">{actions}</div> : null}
         </div>
         {aside ? <div>{aside}</div> : null}

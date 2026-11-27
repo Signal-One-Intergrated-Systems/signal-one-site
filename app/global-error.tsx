@@ -8,11 +8,11 @@ export default function GlobalError({ reset }: { error: Error & { digest?: strin
     <html lang="en-ZA">
       <body className="surface-deep" style={{ minHeight: "100vh" }}>
         <main className="wrap py-32">
-          <p className="t-kicker text-signal-400">Something went wrong</p>
+          <p className="t-kicker text-accent">Something went wrong</p>
           <h1 className="t-hero mt-5">Signal One is not available right now.</h1>
-          <p className="t-lead measure mt-6 text-text-inv-2">
+          <p className="t-lead measure mt-6 text-ink-2">
             Please try again, or email{" "}
-            <a href="mailto:sales@signalone.co.za" className="link-inline font-semibold text-signal-400">
+            <a href="mailto:sales@signalone.co.za" className="link-inline font-semibold text-accent">
               sales@signalone.co.za
             </a>
             .

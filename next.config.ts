@@ -16,7 +16,6 @@ const legacyRedirects = [
   ["/solutions/utilities", "/solutions/security"],
   ["/systems", "/"],
   ["/marketplace", "/guard-marketplace"],
-  ["/partners", "/contact"],
 ] as const;
 
 const nextConfig: NextConfig = {
@@ -40,6 +39,8 @@ const nextConfig: NextConfig = {
     const ga = "https://*.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com";
     // Cloudflare Web Analytics: the edge injects this beacon into every page and it reports to cloudflareinsights.com.
     // Found blocked in production verification of R0 (2026-11-12). Rocket Loader and Zaraz remain NOT allowed.
+    // Google Ads conversion hosts, only when an Ads account tag is configured.
+    const ads = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID ? " https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com https://*.doubleclick.net" : "";
     const cfScript = "https://static.cloudflareinsights.com";
     const cfReport = "https://cloudflareinsights.com";
     const publicHeaders = [
@@ -54,11 +55,13 @@ const nextConfig: NextConfig = {
         key: "Content-Security-Policy",
         value: [
           "default-src 'self'",
-          `script-src 'self' 'unsafe-inline' ${ga} ${cfScript}`,
+          `script-src 'self' 'unsafe-inline' ${ga}${ads} ${cfScript}`,
           "style-src 'self' 'unsafe-inline'",
-          `img-src 'self' data: blob: ${ga}`,
+          `img-src 'self' data: blob: ${ga}${ads}`,
           "font-src 'self' data:",
-          `connect-src 'self' ${ga} ${cfReport}`,
+          `connect-src 'self' ${ga}${ads} ${cfReport}`,
+          // The hero globe draws in a Web Worker (DR-026); the bundler starts workers from a blob: URL.
+          "worker-src 'self' blob:",
           "frame-ancestors 'none'",
           "base-uri 'self'",
           "object-src 'none'",
@@ -66,6 +69,8 @@ const nextConfig: NextConfig = {
         ].join("; "),
       },
     ];
+    // Staging copies (SITE_NOINDEX=1, set only on the review service) must never be indexed.
+    if (process.env.SITE_NOINDEX === "1") publicHeaders.push({ key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" });
     return [
       { source: "/:path*", headers: publicHeaders },
       ...["/connect/:path*", "/present/:path*", "/contact/andisiwe", "/qr/:path*", "/connect-assets/:path*"].map(source => ({ source, headers })),
@@ -76,11 +81,17 @@ const nextConfig: NextConfig = {
     qualities: [70, 75, 90],
   },
   async redirects() {
-    return legacyRedirects.map(([source, destination]) => ({
-      source,
-      destination,
-      permanent: true,
-    }));
+    return [
+      // One canonical host (independent review, 2026-11): www → https://signalone.co.za, same path,
+      // query string kept by Next. 308 permanent. Only the www host matches, so there is no loop, and
+      // staging/Railway hosts are unaffected.
+      { source: "/:path*", has: [{ type: "host" as const, value: "www.signalone.co.za" }], destination: "https://signalone.co.za/:path*", permanent: true },
+      ...legacyRedirects.map(([source, destination]) => ({
+        source,
+        destination,
+        permanent: true,
+      })),
+    ];
   },
 };
 

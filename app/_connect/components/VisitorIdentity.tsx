@@ -47,7 +47,7 @@ export function VisitorIdentity({ profile, exchangeEnabled=false, alreadyConnect
           </a>
           <a className={styles.contactRow} href={whatsapp} target="_blank" rel="noopener noreferrer">
             <span className={styles.contactLabel}>WhatsApp</span>
-            <span className={styles.contactValue}>060 633 5870</span>
+            <span className={styles.contactValue}>077 484 4280</span>
             <span className={styles.contactArrow} aria-hidden="true">↗</span>
           </a>
           <a className={styles.contactRow} href={`tel:${profile.landlinePhone}`}>

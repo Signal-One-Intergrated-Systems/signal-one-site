@@ -1,0 +1,994 @@
+{
+ "security-company-owner": [
+  {
+   "url": "/",
+   "title": "Signal One | 1GUARD, 1Service & Business Equipment",
+   "h1": "Run your business.As one.",
+   "h1Top": 329,
+   "ctasInFirstView": [
+    "Get 14 Day Free Trial ↗",
+    "Explore the solutions ↗"
+   ],
+   "statuses": [
+    "Pilot",
+    "In development"
+   ],
+   "hasWhatsApp": false,
+   "hasPhone": false,
+   "mentions": [
+    "price",
+    "R2,50",
+    "delivery",
+    "12, 24 or 36",
+    "quote",
+    "POPIA",
+    "support"
+   ],
+   "screens": 8.5,
+   "shot": "security-company-owner_0.jpg"
+  },
+  {
+   "url": "/solutions/security",
+   "title": "1GUARD | Security Business Operating System for SMEs | Signal One",
+   "h1": "Run your security business. As one.",
+   "h1Top": 217,
+   "ctasInFirstView": [
+    "Talk to Signal One",
+    "R2,50 per guard per day"
+   ],
+   "statuses": [
+    "Pilot",
+    "Pilot",
+    "Coming soon"
+   ],
+   "hasWhatsApp": false,
+   "hasPhone": false,
+   "mentions": [
+    "price",
+    "R2,50",
+    "delivery",
+    "POPIA",
+    "support",
+    "PSiRA"
+   ],
+   "screens": 6.7,
+   "shot": "security-company-owner_1.jpg"
+  },
+  {
+   "url": "/pricing",
+   "title": "1GUARD Pricing: R2,50 per Guard per Day | Signal One",
+   "h1": "R2,50per guardper day",
+   "h1Top": 253,
+   "ctasInFirstView": [],
+   "statuses": [
+    "By quote",
+    "Beta",
+    "Coming soon"
+   ],
+   "hasWhatsApp": false,
+   "hasPhone": false,
+   "mentions": [
+    "price",
+    "R2,50",
+    "12, 24 or 36",
+    "quote",
+    "POPIA",
+    "support"
+   ],
+   "screens": 4.1,
+   "shot": "security-company-owner_2.jpg"
+  },
+  {
+   "url": "/get-started",
+   "title": "Request Your 14-Day Trial | Signal One",
+   "h1": "Start with what your business needs.",
+   "h1Top": 177,
+   "ctasInFirstView": [],
+   "statuses": [],
+   "hasWhatsApp": false,
+   "hasPhone": false,
+   "mentions": [
+    "price",
+    "quote",
+    "POPIA",
+    "support"
+   ],
+   "screens": 2.2,
+   "shot": "security-company-owner_3.jpg"
+  }
+ ],
+ "operations-director": [
+  {
+   "url": "/ptt-radio-rental",
+   "title": "PTT Radio Rental for Security Companies | Signal One",
+   "h1": "Push-to-talk radios for your security contracts.",
+   "h1Top": 233,
+   "ctasInFirstView": [
+    "Request a radio quote",
+    "See all equipment"
+   ],
+   "statuses": [
+    "By quote",
+    "By quote",
+    "By quote",
+    "By quote"
+   ],
+   "hasWhatsApp": false,
+   "hasPhone": false,
+   "mentions": [
+    "price",
+    "R2,50",
+    "deposit",
+    "delivery",
+    "12, 24 or 36",
+    "quote",
+    "POPIA",
+    "support"
+   ],
+   "screens": 4.4,
+   "shot": "operations-director_0.jpg"
+  },
+  {
+   "url": "/radios-equipment?quoteType=Rent%20radios#quote",
+   "title": "Buy or Rent Two-Way Radios, Tracking and Body Cameras | Signal One",
+   "h1": "Buy or rent radios. Keep your team connected.",
+   "h1Top": 544,
+   "ctasInFirstView": [],
+   "statuses": [
+    "By quote",
+    "By quote",
+    "By quote",
+    "By quote",
+    "By quote",
+    "By quote",
+    "By quote",
+    "By quote"
+   ],
+   "hasWhatsApp": false,
+   "hasPhone": false,
+   "mentions": [
+    "price",
+    "delivery",
+    "12, 24 or 36",
+    "quote",
+    "POPIA",
+    "support"
+   ],
+   "screens": 7.4,
+   "shot": "operations-director_1.jpg"
+  }
+ ],
+ "procurement-manager": [
+  {
+   "url": "/radios-equipment",
+   "title": "Buy or Rent Two-Way Radios, Tracking and Body Cameras | Signal One",
+   "h1": "Buy or rent radios. Keep your team connected.",
+   "h1Top": 233,
+   "ctasInFirstView": [
+    "Request a quote"
+   ],
+   "statuses": [
+    "By quote",
+    "By quote",
+    "By quote",
+    "By quote",
+    "By quote",
+    "By quote",
+    "By quote",
+    "By quote"
+   ],
+   "hasWhatsApp": false,
+   "hasPhone": false,
+   "mentions": [
+    "price",
+    "delivery",
+    "12, 24 or 36",
+    "quote",
+    "POPIA",
+    "support"
+   ],
+   "screens": 7.3,
+   "shot": "procurement-manager_0.jpg"
+  },
+  {
+   "url": "/equipment-marketplace",
+   "title": "Security Equipment Marketplace | Buy or Rent | Signal One",
+   "h1": "The right equipment. Ready for the field.",
+   "h1Top": 233,
+   "ctasInFirstView": [
+    "Request equipment pricing",
+    "Browse categories"
+   ],
+   "statuses": [],
+   "hasWhatsApp": false,
+   "hasPhone": false,
+   "mentions": [
+    "price",
+    "deposit",
+    "delivery",
+    "12, 24 or 36",
+    "quote",
+    "POPIA",
+    "support"
+   ],
+   "screens": 3,
+   "shot": "procurement-manager_1.jpg"
+  },
+  {
+   "url": "/about",
+   "title": "About Signal One | Signal One",
+   "h1": "Equipment that keeps teams connected. Software that runs the business.",
+   "h1Top": 233,
+   "ctasInFirstView": [
+    "Talk to Signal One",
+    "See radios and equipment"
+   ],
+   "statuses": [
+    "Available",
+    "Available",
+    "Pilot",
+    "In development",
+    "In development"
+   ],
+   "hasWhatsApp": true,
+   "hasPhone": true,
+   "mentions": [
+    "price",
+    "R2,50",
+    "delivery",
+    "12, 24 or 36",
+    "quote",
+    "POPIA",
+    "support"
+   ],
+   "screens": 4,
+   "shot": "procurement-manager_2.jpg"
+  }
+ ],
+ "property-manager": [
+  {
+   "url": "/",
+   "title": "Signal One | 1GUARD, 1Service & Business Equipment",
+   "h1": "Run your business.As one.",
+   "h1Top": 329,
+   "ctasInFirstView": [
+    "Get 14 Day Free Trial ↗",
+    "Explore the solutions ↗"
+   ],
+   "statuses": [
+    "Pilot",
+    "In development"
+   ],
+   "hasWhatsApp": false,
+   "hasPhone": false,
+   "mentions": [
+    "price",
+    "R2,50",
+    "delivery",
+    "12, 24 or 36",
+    "quote",
+    "POPIA",
+    "support"
+   ],
+   "screens": 8.5,
+   "shot": "property-manager_0.jpg"
+  },
+  {
+   "url": "/guard-marketplace",
+   "title": "Guard Marketplace | Company Registration & Hiring Access | Signal One",
+   "h1": "Win the contract. Then staff it from the same system.",
+   "h1Top": 233,
+   "ctasInFirstView": [
+    "Register interest"
+   ],
+   "statuses": [
+    "MVP in development",
+    "Illustrative demo · synthetic data",
+    "Pilot"
+   ],
+   "hasWhatsApp": false,
+   "hasPhone": false,
+   "mentions": [
+    "price",
+    "POPIA",
+    "support",
+    "PSiRA"
+   ],
+   "screens": 5.5,
+   "shot": "property-manager_1.jpg"
+  },
+  {
+   "url": "/contact",
+   "title": "Talk to Signal One | 1GUARD, 1Service and Equipment | Signal One",
+   "h1": "Tell us what you need. We will show you the right solution.",
+   "h1Top": 197,
+   "ctasInFirstView": [],
+   "statuses": [],
+   "hasWhatsApp": true,
+   "hasPhone": true,
+   "mentions": [
+    "price",
+    "POPIA",
+    "support"
+   ],
+   "screens": 2.1,
+   "shot": "property-manager_2.jpg"
+  }
+ ],
+ "facilities-manager": [
+  {
+   "url": "/",
+   "title": "Signal One | 1GUARD, 1Service & Business Equipment",
+   "h1": "Run your business.As one.",
+   "h1Top": 325,
+   "ctasInFirstView": [
+    "Get 14 Day Free Trial ↗",
+    "Explore the solutions ↗"
+   ],
+   "statuses": [
+    "Pilot",
+    "In development"
+   ],
+   "hasWhatsApp": false,
+   "hasPhone": false,
+   "mentions": [
+    "price",
+    "R2,50",
+    "delivery",
+    "12, 24 or 36",
+    "quote",
+    "POPIA",
+    "support"
+   ],
+   "screens": 8.3,
+   "shot": "facilities-manager_0.jpg"
+  },
+  {
+   "url": "/equipment-marketplace",
+   "title": "Security Equipment Marketplace | Buy or Rent | Signal One",
+   "h1": "The right equipment. Ready for the field.",
+   "h1Top": 233,
+   "ctasInFirstView": [
+    "Request equipment pricing",
+    "Browse categories"
+   ],
+   "statuses": [],
+   "hasWhatsApp": false,
+   "hasPhone": false,
+   "mentions": [
+    "price",
+    "deposit",
+    "delivery",
+    "12, 24 or 36",
+    "quote",
+    "POPIA",
+    "support"
+   ],
+   "screens": 3,
+   "shot": "facilities-manager_1.jpg"
+  },
+  {
+   "url": "/radios-equipment",
+   "title": "Buy or Rent Two-Way Radios, Tracking and Body Cameras | Signal One",
+   "h1": "Buy or rent radios. Keep your team connected.",
+   "h1Top": 233,
+   "ctasInFirstView": [
+    "Request a quote"
+   ],
+   "statuses": [
+    "By quote",
+    "By quote",
+    "By quote",
+    "By quote",
+    "By quote",
+    "By quote",
+    "By quote",
+    "By quote"
+   ],
+   "hasWhatsApp": false,
+   "hasPhone": false,
+   "mentions": [
+    "price",
+    "delivery",
+    "12, 24 or 36",
+    "quote",
+    "POPIA",
+    "support"
+   ],
+   "screens": 7.2,
+   "shot": "facilities-manager_2.jpg"
+  }
+ ],
+ "financial-director": [
+  {
+   "url": "/pricing",
+   "title": "1GUARD Pricing: R2,50 per Guard per Day | Signal One",
+   "h1": "R2,50per guardper day",
+   "h1Top": 253,
+   "ctasInFirstView": [],
+   "statuses": [
+    "By quote",
+    "Beta",
+    "Coming soon"
+   ],
+   "hasWhatsApp": false,
+   "hasPhone": false,
+   "mentions": [
+    "price",
+    "R2,50",
+    "12, 24 or 36",
+    "quote",
+    "POPIA",
+    "support"
+   ],
+   "screens": 4.1,
+   "shot": "financial-director_0.jpg"
+  },
+  {
+   "url": "/terms",
+   "title": "Website Terms | Signal One",
+   "h1": "Website terms",
+   "h1Top": 197,
+   "ctasInFirstView": [],
+   "statuses": [],
+   "hasWhatsApp": false,
+   "hasPhone": false,
+   "mentions": [
+    "price",
+    "R2,50",
+    "quote",
+    "POPIA",
+    "support"
+   ],
+   "screens": 2.5,
+   "shot": "financial-director_1.jpg"
+  }
+ ],
+ "logistics-manager": [
+  {
+   "url": "/radios-equipment#tracking",
+   "title": "Buy or Rent Two-Way Radios, Tracking and Body Cameras | Signal One",
+   "h1": "Buy or rent radios. Keep your team connected.",
+   "h1Top": 544,
+   "ctasInFirstView": [],
+   "statuses": [
+    "By quote",
+    "By quote",
+    "By quote",
+    "By quote",
+    "By quote",
+    "By quote",
+    "By quote",
+    "By quote"
+   ],
+   "hasWhatsApp": false,
+   "hasPhone": false,
+   "mentions": [
+    "price",
+    "delivery",
+    "12, 24 or 36",
+    "quote",
+    "POPIA",
+    "support"
+   ],
+   "screens": 7.2,
+   "shot": "logistics-manager_0.jpg"
+  },
+  {
+   "url": "/radios-equipment?category=tracking&product=FMC920#quote",
+   "title": "Buy or Rent Two-Way Radios, Tracking and Body Cameras | Signal One",
+   "h1": "Buy or rent radios. Keep your team connected.",
+   "h1Top": 544,
+   "ctasInFirstView": [],
+   "statuses": [
+    "By quote",
+    "By quote",
+    "By quote",
+    "By quote",
+    "By quote",
+    "By quote",
+    "By quote",
+    "By quote"
+   ],
+   "hasWhatsApp": false,
+   "hasPhone": false,
+   "mentions": [
+    "price",
+    "delivery",
+    "12, 24 or 36",
+    "quote",
+    "POPIA",
+    "support"
+   ],
+   "screens": 7.3,
+   "shot": "logistics-manager_1.jpg"
+  }
+ ],
+ "construction-manager": [
+  {
+   "url": "/ptt-radio-rental",
+   "title": "PTT Radio Rental for Security Companies | Signal One",
+   "h1": "Push-to-talk radios for your security contracts.",
+   "h1Top": 233,
+   "ctasInFirstView": [
+    "Request a radio quote",
+    "See all equipment"
+   ],
+   "statuses": [
+    "By quote",
+    "By quote",
+    "By quote",
+    "By quote"
+   ],
+   "hasWhatsApp": false,
+   "hasPhone": false,
+   "mentions": [
+    "price",
+    "R2,50",
+    "deposit",
+    "delivery",
+    "12, 24 or 36",
+    "quote",
+    "POPIA",
+    "support"
+   ],
+   "screens": 4.9,
+   "shot": "construction-manager_0.jpg"
+  },
+  {
+   "url": "/equipment-marketplace",
+   "title": "Security Equipment Marketplace | Buy or Rent | Signal One",
+   "h1": "The right equipment. Ready for the field.",
+   "h1Top": 217,
+   "ctasInFirstView": [
+    "Request equipment pricing",
+    "Browse categories"
+   ],
+   "statuses": [],
+   "hasWhatsApp": false,
+   "hasPhone": false,
+   "mentions": [
+    "price",
+    "deposit",
+    "delivery",
+    "12, 24 or 36",
+    "quote",
+    "POPIA",
+    "support"
+   ],
+   "screens": 3.4,
+   "shot": "construction-manager_1.jpg"
+  }
+ ],
+ "event-organiser": [
+  {
+   "url": "/",
+   "title": "Signal One | 1GUARD, 1Service & Business Equipment",
+   "h1": "Run your business.As one.",
+   "h1Top": 385,
+   "ctasInFirstView": [
+    "Get 14 Day Free Trial ↗",
+    "Explore the solutions ↗"
+   ],
+   "statuses": [
+    "Pilot",
+    "In development"
+   ],
+   "hasWhatsApp": false,
+   "hasPhone": false,
+   "mentions": [
+    "price",
+    "R2,50",
+    "delivery",
+    "12, 24 or 36",
+    "quote",
+    "POPIA",
+    "support"
+   ],
+   "screens": 14.2,
+   "shot": "event-organiser_0.jpg"
+  },
+  {
+   "url": "/ptt-radio-rental",
+   "title": "PTT Radio Rental for Security Companies | Signal One",
+   "h1": "Push-to-talk radios for your security contracts.",
+   "h1Top": 185,
+   "ctasInFirstView": [
+    "Request a radio quote",
+    "See all equipment"
+   ],
+   "statuses": [
+    "By quote",
+    "By quote",
+    "By quote",
+    "By quote"
+   ],
+   "hasWhatsApp": false,
+   "hasPhone": false,
+   "mentions": [
+    "price",
+    "R2,50",
+    "deposit",
+    "delivery",
+    "12, 24 or 36",
+    "quote",
+    "POPIA",
+    "support"
+   ],
+   "screens": 6.6,
+   "shot": "event-organiser_1.jpg"
+  },
+  {
+   "url": "/radios-equipment#body-cameras",
+   "title": "Buy or Rent Two-Way Radios, Tracking and Body Cameras | Signal One",
+   "h1": "Buy or rent radios. Keep your team connected.",
+   "h1Top": 185,
+   "ctasInFirstView": [
+    "Request a quote"
+   ],
+   "statuses": [
+    "By quote",
+    "By quote",
+    "By quote",
+    "By quote",
+    "By quote",
+    "By quote",
+    "By quote",
+    "By quote"
+   ],
+   "hasWhatsApp": false,
+   "hasPhone": false,
+   "mentions": [
+    "price",
+    "delivery",
+    "12, 24 or 36",
+    "quote",
+    "POPIA",
+    "support"
+   ],
+   "screens": 12.6,
+   "shot": "event-organiser_2.jpg"
+  }
+ ],
+ "small-business-owner": [
+  {
+   "url": "/",
+   "title": "Signal One | 1GUARD, 1Service & Business Equipment",
+   "h1": "Run your business.As one.",
+   "h1Top": 385,
+   "ctasInFirstView": [
+    "Get 14 Day Free Trial ↗",
+    "Explore the solutions ↗"
+   ],
+   "statuses": [
+    "Pilot",
+    "In development"
+   ],
+   "hasWhatsApp": false,
+   "hasPhone": false,
+   "mentions": [
+    "price",
+    "R2,50",
+    "delivery",
+    "12, 24 or 36",
+    "quote",
+    "POPIA",
+    "support"
+   ],
+   "screens": 14.2,
+   "shot": "small-business-owner_0.jpg"
+  },
+  {
+   "url": "/service",
+   "title": "1Service | Restaurant-First Business Operating System | Signal One",
+   "h1": "1Service",
+   "h1Top": 252,
+   "ctasInFirstView": [
+    "Discuss early access",
+    "Explore the vision"
+   ],
+   "statuses": [
+    "In development · Restaurant-first"
+   ],
+   "hasWhatsApp": false,
+   "hasPhone": false,
+   "mentions": [
+    "price",
+    "POPIA",
+    "support"
+   ],
+   "screens": 5.6,
+   "shot": "small-business-owner_1.jpg"
+  },
+  {
+   "url": "/contact",
+   "title": "Talk to Signal One | 1GUARD, 1Service and Equipment | Signal One",
+   "h1": "Tell us what you need. We will show you the right solution.",
+   "h1Top": 165,
+   "ctasInFirstView": [],
+   "statuses": [],
+   "hasWhatsApp": true,
+   "hasPhone": true,
+   "mentions": [
+    "price",
+    "POPIA",
+    "support"
+   ],
+   "screens": 4.4,
+   "shot": "small-business-owner_2.jpg"
+  }
+ ],
+ "it-manager": [
+  {
+   "url": "/security-trust",
+   "title": "Security and Trust: Access Control and Audit | Signal One",
+   "h1": "Access, accountability and data protection.",
+   "h1Top": 197,
+   "ctasInFirstView": [],
+   "statuses": [],
+   "hasWhatsApp": false,
+   "hasPhone": false,
+   "mentions": [
+    "price",
+    "POPIA",
+    "support"
+   ],
+   "screens": 3.3,
+   "shot": "it-manager_0.jpg"
+  },
+  {
+   "url": "/popia",
+   "title": "POPIA and Data Handling for Security Software | Signal One",
+   "h1": "POPIA and data handling",
+   "h1Top": 197,
+   "ctasInFirstView": [],
+   "statuses": [],
+   "hasWhatsApp": false,
+   "hasPhone": false,
+   "mentions": [
+    "price",
+    "POPIA",
+    "support"
+   ],
+   "screens": 2.8,
+   "shot": "it-manager_1.jpg"
+  },
+  {
+   "url": "/privacy",
+   "title": "Privacy Policy | Signal One",
+   "h1": "Privacy policy",
+   "h1Top": 197,
+   "ctasInFirstView": [],
+   "statuses": [],
+   "hasWhatsApp": false,
+   "hasPhone": false,
+   "mentions": [
+    "price",
+    "quote",
+    "POPIA",
+    "support"
+   ],
+   "screens": 2.6,
+   "shot": "it-manager_2.jpg"
+  }
+ ],
+ "existing-customer": [
+  {
+   "url": "/",
+   "title": "Signal One | 1GUARD, 1Service & Business Equipment",
+   "h1": "Run your business.As one.",
+   "h1Top": 329,
+   "ctasInFirstView": [
+    "Get 14 Day Free Trial ↗",
+    "Explore the solutions ↗"
+   ],
+   "statuses": [
+    "Pilot",
+    "In development"
+   ],
+   "hasWhatsApp": false,
+   "hasPhone": false,
+   "mentions": [
+    "price",
+    "R2,50",
+    "delivery",
+    "12, 24 or 36",
+    "quote",
+    "POPIA",
+    "support"
+   ],
+   "screens": 8.5,
+   "shot": "existing-customer_0.jpg"
+  },
+  {
+   "url": "/support",
+   "title": "Customer Support | Signal One",
+   "h1": "Something not working? Tell us what, where and since when.",
+   "h1Top": 233,
+   "ctasInFirstView": [
+    "Email support",
+    "WhatsApp +27 60 633 5870"
+   ],
+   "statuses": [],
+   "hasWhatsApp": true,
+   "hasPhone": true,
+   "mentions": [
+    "price",
+    "quote",
+    "POPIA",
+    "support"
+   ],
+   "screens": 3.3,
+   "shot": "existing-customer_1.jpg"
+  }
+ ],
+ "security-guard": [
+  {
+   "url": "/guards",
+   "title": "Security Officer App: Clock In, Patrol and SOS | Signal One",
+   "h1": "Your work, on record. Your next job, your choice.",
+   "h1Top": 181,
+   "ctasInFirstView": [
+    "Create your profile",
+    "How it works"
+   ],
+   "statuses": [
+    "MVP in development"
+   ],
+   "hasWhatsApp": false,
+   "hasPhone": false,
+   "mentions": [
+    "price",
+    "POPIA",
+    "support",
+    "PSiRA"
+   ],
+   "screens": 7.4,
+   "shot": "security-guard_0.jpg"
+  },
+  {
+   "url": "/guards/join",
+   "title": "Create Your Security Officer Profile | Signal One",
+   "h1": "Create your guard profile",
+   "h1Top": 519,
+   "ctasInFirstView": [],
+   "statuses": [],
+   "hasWhatsApp": false,
+   "hasPhone": false,
+   "mentions": [
+    "price",
+    "POPIA",
+    "support",
+    "PSiRA"
+   ],
+   "screens": 3,
+   "shot": "security-guard_1.jpg"
+  }
+ ],
+ "job-applicant": [
+  {
+   "url": "/join/sales",
+   "title": "Careers: Sales Representative at Signal One | Signal One",
+   "h1": "Sell the operating systems SMEs run on.",
+   "h1Top": 181,
+   "ctasInFirstView": [
+    "Apply now"
+   ],
+   "statuses": [
+    "Applications open"
+   ],
+   "hasWhatsApp": false,
+   "hasPhone": false,
+   "mentions": [
+    "price",
+    "quote",
+    "POPIA",
+    "support"
+   ],
+   "screens": 6.9,
+   "shot": "job-applicant_0.jpg"
+  }
+ ],
+ "unfamiliar-mobile-visitor": [
+  {
+   "url": "/",
+   "title": "Signal One | 1GUARD, 1Service & Business Equipment",
+   "h1": "Run your business.As one.",
+   "h1Top": 385,
+   "ctasInFirstView": [
+    "Get 14 Day Free Trial ↗",
+    "Explore the solutions ↗"
+   ],
+   "statuses": [
+    "Pilot",
+    "In development"
+   ],
+   "hasWhatsApp": false,
+   "hasPhone": false,
+   "mentions": [
+    "price",
+    "R2,50",
+    "delivery",
+    "12, 24 or 36",
+    "quote",
+    "POPIA",
+    "support"
+   ],
+   "screens": 14.2,
+   "shot": "unfamiliar-mobile-visitor_0.jpg"
+  },
+  {
+   "url": "/",
+   "title": "Signal One | 1GUARD, 1Service & Business Equipment",
+   "h1": "Run your business.As one.",
+   "h1Top": 385,
+   "ctasInFirstView": [
+    "Get 14 Day Free Trial ↗",
+    "Explore the solutions ↗"
+   ],
+   "statuses": [
+    "Pilot",
+    "In development"
+   ],
+   "hasWhatsApp": false,
+   "hasPhone": false,
+   "mentions": [
+    "price",
+    "R2,50",
+    "delivery",
+    "12, 24 or 36",
+    "quote",
+    "POPIA",
+    "support"
+   ],
+   "screens": 14.2,
+   "shot": "unfamiliar-mobile-visitor_1.jpg"
+  }
+ ],
+ "inexperienced-visitor": [
+  {
+   "url": "/",
+   "title": "Signal One | 1GUARD, 1Service & Business Equipment",
+   "h1": "Run your business.As one.",
+   "h1Top": 489,
+   "ctasInFirstView": [
+    "Get 14 Day Free Trial ↗",
+    "Explore the solutions ↗"
+   ],
+   "statuses": [
+    "Pilot",
+    "In development"
+   ],
+   "hasWhatsApp": false,
+   "hasPhone": false,
+   "mentions": [
+    "price",
+    "R2,50",
+    "delivery",
+    "12, 24 or 36",
+    "quote",
+    "POPIA",
+    "support"
+   ],
+   "screens": 10.7,
+   "shot": "inexperienced-visitor_0.jpg"
+  },
+  {
+   "url": "/contact",
+   "title": "Talk to Signal One | 1GUARD, 1Service and Equipment | Signal One",
+   "h1": "Tell us what you need. We will show you the right solution.",
+   "h1Top": 197,
+   "ctasInFirstView": [],
+   "statuses": [],
+   "hasWhatsApp": true,
+   "hasPhone": true,
+   "mentions": [
+    "price",
+    "POPIA",
+    "support"
+   ],
+   "screens": 2.8,
+   "shot": "inexperienced-visitor_1.jpg"
+  }
+ ]
+}

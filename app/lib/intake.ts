@@ -1,9 +1,11 @@
+import { readAttribution } from "./attribution";
+import { leadJourney, trackLeadConversion } from "./analytics";
 import { salesEmail } from "./site";
 
 export type IntakeKind = "client" | "guard" | "sales";
 
 /** Version of the privacy notice the visitor agreed to. Bump when /privacy or /popia changes materially. */
-export const PRIVACY_NOTICE_VERSION = "2026-11-12";
+export const PRIVACY_NOTICE_VERSION = "2026-11-26";
 
 /**
  * Consent captured with every submission (website intake contract v1).
@@ -35,6 +37,9 @@ const subjects: Record<string, string> = {
   "marketplace-interest": "Guard Marketplace interest",
   "guard-profile": "Guard join",
   "sales-representative-application": "Sales application",
+  "reseller-application": "Reseller application",
+  "sales-partner-application": "Sales partner application",
+  "technology-partnership": "Technology partnership",
 };
 
 // Mail clients and some OSes truncate very long mailto: links.
@@ -84,7 +89,8 @@ const VISITOR_FIXABLE = new Set([400, 413, 422]);
 /** Builds a mailto: link prefilled with the visitor's answers. */
 export function buildMailto(data: Record<string, string>, labels: Record<string, string> = {}): IntakeFallback {
   const intent = data.intent || "";
-  const subject = "Signal One website: " + (subjects[intent] || intent || "Enquiry");
+  // A radio quote names its journey (Buy radios, Rent radios, …) rather than the generic intent (SW-11).
+  const subject = "Signal One website: " + (data.quoteType ? "Radio quote, " + data.quoteType : subjects[intent] || intent || "Enquiry");
   const lines = Object.entries(data)
     .filter(([name, value]) => name !== "intent" && value)
     .map(([name, value]) => (labels[name] || humanise(name)) + ": " + value);
@@ -117,11 +123,14 @@ export async function submitIntake(
     const response = await fetch("/api/intake", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ kind, data, consent, idempotencyKey }),
+      // Campaign attribution belongs to sales enquiries only. A guard or job application is assessed as an
+      // application, so ad-click identifiers are never attached to it (AUDW-09; /privacy "Campaign information").
+      body: JSON.stringify({ kind, data, consent, idempotencyKey, ...(kind === "client" ? { attribution: readAttribution() } : {}) }),
     });
     const body = (await response.json().catch(() => ({}))) as { message?: string; receipt?: IntakeReceipt };
     // Success needs the receiver's receipt for THIS submission, not merely a 200.
     if (response.ok && body.receipt && typeof body.receipt.reference === "string" && body.receipt.idempotencyKey === idempotencyKey) {
+      if (kind === "client" && !body.receipt.duplicate) trackLeadConversion(body.receipt.reference, data.intent, leadJourney(data));
       return { ok: true, message: body.message || "", receipt: body.receipt };
     }
     if (response.ok) {

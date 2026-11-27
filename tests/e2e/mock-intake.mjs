@@ -39,7 +39,7 @@ http
       if (mode === "no-id") return res.end(JSON.stringify({ status: "persisted", receipt: { recordType: "crm_lead", idempotencyKey: key, persistedAt: new Date().toISOString() } }));
       const duplicate = records.has(key);
       if (!duplicate) {
-        const recordType = parsed.kind === "guard" ? "guard_application" : parsed.kind === "sales" ? "recruitment_application" : "crm_lead";
+        const recordType = parsed.kind === "guard" ? "guard_application" : parsed.kind === "sales" ? "recruitment_application" : "website_enquiry"; // as the real LEOS receiver answers client kinds (#704)
         records.set(key, { recordId: `QA-${recordType.toUpperCase().replace(/_/g, "-")}-${++seq}`, recordType, persistedAt: new Date().toISOString() });
       }
       res.end(JSON.stringify({ status: "persisted", receipt: { ...records.get(key), idempotencyKey: key, duplicate } }));

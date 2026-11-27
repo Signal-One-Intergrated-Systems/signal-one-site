@@ -1,5 +1,5 @@
 /**
- * Captures the Signal One Guard screens used in the product-proof frames.
+ * Captures the 1GUARD screens used in the product-proof frames.
  *
  *   GUARD_CAPTURE_URL=https://staging.example GUARD_CAPTURE_USER=... GUARD_CAPTURE_PASS=... \
  *     node scripts/capture-product.mjs

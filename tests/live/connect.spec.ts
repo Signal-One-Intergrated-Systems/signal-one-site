@@ -56,7 +56,7 @@ test('live visitor brand, safe collection gate and direct business contact actio
   expect(fonts.fonts.some(font=>font.isCustomFont && /Inter/i.test(font.familyName) && font.glyphCount>0)).toBe(true);
   expect(await page.locator('a[href="mailto:andisiwe@signalone.co.za"]').count()).toBe(1);
   expect(await page.locator('a[href="tel:+27100231810"]').count()).toBe(1);
-  expect(await page.locator('a[href="https://wa.me/27606335870"]').count()).toBe(1);
+  expect(await page.locator('a[href="https://wa.me/27774844280"]').count()).toBe(1);
   await expect(page.getByRole('link',{name:/Save.*contact/i})).toHaveCount(0);
   await expect(page.locator('form,input,textarea')).toHaveCount(0);
   const photo=await image.boundingBox();expect(photo!.width).toBeLessThanOrEqual(100);expect(photo!.height).toBeLessThanOrEqual(115);

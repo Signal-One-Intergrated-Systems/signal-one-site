@@ -3,25 +3,26 @@ import type { CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import HeroGlobeLayer from "../components/HeroGlobeLayer";
+import HeroRadio from "../components/HeroRadio";
+import GuardScreens from "../components/GuardScreens";
 import HomeScrollChoreography from "../components/HomeScrollChoreography";
 import ProductSignature from "../components/brand/ProductSignature";
 import { guardDayPricePhrase } from "../lib/pricing";
 import { guardOnboardingLine } from "../lib/guardStatus";
-import { GuardStatus } from "../components/ui";
+import { GuardStatus, Status } from "../components/ui";
 import pnc360s from "../../public/images/hardware/hytera-pnc360s.webp";
 import p30Lite from "../../public/images/hardware/hytera-p30-lite.png";
+import { productBounds } from "../lib/catalogue";
 import "../home-conversion.css";
+import { pageMetadata } from "../lib/seo";
+import { commsJourneys, quoteHref } from "../lib/offers";
 
-export const metadata: Metadata = {
-  title: { absolute: "Signal One | 1GUARD, 1Service & Business Equipment" },
+export const metadata: Metadata = pageMetadata({
+  title: { absolute: "Signal One | Security Software, Two-Way Radios & Business Technology" },
   description:
-    "Intelligent business operating systems for SMEs. Explore 1GUARD for security businesses, 1Service for service businesses and professional equipment and connectivity from Signal One.",
+    "Security operations software, professional two-way radios and connected business technology for South African businesses. Buy or rent radios, and request a 14-day 1GUARD trial.",
   alternates: { canonical: "/" },
-};
-
-function Arrow() {
-  return <span aria-hidden="true" className="so-arrow">↗</span>;
-}
+});
 
 /** Compact documentary photography: purposeful context without dominating copy. */
 function PanelPhoto({
@@ -39,13 +40,19 @@ function PanelPhoto({
   );
 }
 
-function TrialLink({ className = "" }: { className?: string }) {
+/** The trial action. It lives in the 1GUARD journey only (founder, 2026-11-27: radios lead the hero). */
+function TrialLink() {
   return (
     <Link href="/get-started" data-analytics-event="homepage_trial_cta"
-      data-analytics-label="homepage-14-day-trial" className={"btn btn-primary so-home-cta " + className}>
-      Get 14 Day Free Trial <Arrow />
+      data-analytics-label="homepage-14-day-trial" className="btn btn-primary btn-lg">
+      Request a 14-day trial <Go />
     </Link>
   );
+}
+
+/** Internal-link arrow for everything below the hero. ↗ is reserved for links that leave the site. */
+function Go() {
+  return <span aria-hidden="true">→</span>;
 }
 
 export default function Home() {
@@ -54,9 +61,9 @@ export default function Home() {
       <HomeScrollChoreography />
       <section className="s1-brand-stage so-hero" aria-labelledby="so-hero-title">
         <div className="so-hero-media">
-          <Image src="/images/home/approved-full-scene-guard-chef-2026.png"
-            alt="Illustrative wide daylight restaurant scene with green gardens on the left and, on the right, a Black woman security officer in a SECURITY vest reviewing a tablet with a white male chef in his chef hat"
-            fill priority fetchPriority="high" quality={90}
+          <Image src="/images/home/approved-hero-terrace-v2-2026-11-27.webp"
+            alt="Illustrative daylight enterprise campus terrace with a city skyline behind, and three business and security professionals reviewing a tablet beside a glass office building"
+            fill priority fetchPriority="high" quality={75}
             sizes="100vw" className="so-hero-photo object-cover" />
           <div className="so-hero-wash" aria-hidden="true" />
         </div>
@@ -67,31 +74,37 @@ export default function Home() {
             <p className="so-eyebrow"><span className="so-signal-dot" /> Signal One · Integrated Systems</p>
             <h1 id="so-hero-title">Run your business.<br /><span>As one.</span></h1>
             <p className="so-hero-lead">
-              Intelligent business operating systems for SMEs. Connect your customers, people, service delivery and business decisions in one smarter way of working.
+              Security operations software, managed business communications and connected technology for South African businesses.
             </p>
             <div className="so-hero-actions">
-              <TrialLink />
-              <Link href="#solutions" className="btn so-home-outline">Explore the solutions <Arrow /></Link>
+              <Link href="/radios-equipment" data-analytics-event="homepage_equipment_quote" data-analytics-label="hero-buy-rent-radios" className="btn so-home-cta">Buy or rent radios <Go /></Link>
+              <Link href="/solutions/security" className="btn so-home-outline">Explore 1GUARD <Go /></Link>
             </div>
-            <p className="so-hero-note">14-day trial by request for eligible 1GUARD companies. Activation and terms are confirmed before access.</p>
+            <p className="so-hero-note">Radios are quoted in writing: buy, rent or connect the radios you already own.</p>
           </div>
+        </div>
+        {/* The interactive radio (founder, 2026-11-27): a genuine manufacturer cut-out on a slim glass plinth in
+            the mid-foreground. It is a link to radios; it never transmits. */}
+        <div className="so-hero-radio">
+          <span className="so-hero-plinth" aria-hidden="true" />
+          <HeroRadio />
         </div>
         <div className="so-hero-bar" aria-label="Signal One business areas">
           <Link href="/solutions/security" className="so-hero-bar-item" aria-label="Explore 1GUARD Security Business Operating System"><strong className="so-platform-mark"><ProductSignature name="GUARD" tone="dark" /></strong><span>Security Business OS</span></Link>
           <Link href="/service" className="so-hero-bar-item" aria-label="Explore 1Service business operating system"><strong className="so-platform-mark"><ProductSignature name="Service" tone="dark" /></strong><span>Restaurant-first OS · In development</span></Link>
-          <Link href="/equipment-marketplace" className="so-hero-bar-item" aria-label="Explore enterprise equipment"><strong>Equipment</strong><span>Professional devices & connectivity</span></Link>
+          <Link href="/radios-equipment" className="so-hero-bar-item" aria-label="Buy or rent radios and equipment"><strong>Radios & equipment</strong><span>Buy or rent · By quote</span></Link>
           <a href="#community" className="so-hero-bar-item" aria-label="Learn about 1Community coming soon"><strong className="so-platform-mark"><ProductSignature name="Community" tone="dark" /></strong><span>Coming soon</span></a>
         </div>
         <span className="so-hero-photo-note">Illustrative scene</span>
       </section>
 
-      <section id="solutions" className="so-chapter so-introduction" aria-labelledby="so-solutions-title">
+      <section id="solutions" className="section so-chapter so-introduction mat-scene scene-glass" aria-labelledby="so-solutions-title">
         <div className="wrap">
           <div className="so-section-heading">
-            <div data-motion-from="left"><PanelPhoto src="/images/editorial/security-site-planning.webp" alt="Illustrative security supervisor reviewing the site plan with a client" /><p className="so-kicker">Built around how you operate</p>
+            <div data-motion-from="left"><PanelPhoto src="/images/editorial/security-site-planning.webp" alt="Illustrative security supervisor reviewing the site plan with a client" /></div>
+            <div data-motion-from="right" style={{ "--so-motion-delay": "260ms" } as CSSProperties}><p className="so-kicker">Built around how you operate</p>
               <h2 id="so-solutions-title">Every part of your business.<br /><span>Working as one.</span></h2>
-            </div>
-            <p data-motion-from="right" style={{ "--so-motion-delay": "260ms" } as CSSProperties}>From winning a customer and finding the right people to delivering the work, proving the result and growing the business: Signal One is building industry-specific operating systems around the full journey.</p>
+            <p>From winning a customer and finding the right people to delivering the work, proving the result and growing the business: Signal One is building industry-specific operating systems around the full journey.</p></div>
           </div>
           <div className="so-value-rail" aria-label="What matters to your business">
             <div data-motion-from="bottom"><span>01</span><strong>Win & organise the work</strong><p>Customers, assignments, teams and requirements.</p></div>
@@ -101,15 +114,19 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="guard" className="so-vertical so-guard-section" aria-labelledby="so-guard-title">
+      <section id="guard" className="section so-vertical so-guard-section mat-midnight" aria-labelledby="so-guard-title">
         <div className="wrap so-vertical-layout">
-          <div data-motion-from="top" className="so-vertical-visual so-vertical-visual-guard">
-            <Image src="/images/home/approved-sme-security-control-room-2026.png" alt="Illustrative daylight security office for an SME, with three operators monitoring CCTV and a light-skinned Black male supervisor supporting the team"
-              fill sizes="(min-width:1024px) 49vw, 100vw" className="object-cover" />
-            <div className="so-image-caption">Illustrative SME security operations</div>
+          <div className="so-vertical-aside">
+            <div data-motion-from="top" className="so-vertical-visual so-vertical-visual-guard">
+              <Image src="/images/home/approved-sme-security-control-room-2026.png" alt="Illustrative daylight security office for an SME, with three operators monitoring CCTV and a light-skinned Black male supervisor supporting the team"
+                fill sizes="(min-width:1024px) 49vw, 100vw" className="object-cover" />
+              <div className="so-image-caption">Illustrative SME security operations</div>
+            </div>
+            {/* Genuine 1GUARD screenshot (lib/guardScreens.ts): the real control room, synthetic demo data. */}
+            <GuardScreens slot="home-guard" className="mt-6" />
           </div>
           <div data-motion-from="left" style={{ "--so-motion-delay": "240ms" } as CSSProperties} className="so-vertical-content">
-            <div className="so-vertical-label"><Link href="/solutions/security" className="so-platform-mark" aria-label="Explore 1GUARD"><ProductSignature name="GUARD" tone="dark" /></Link> <span>SECURITY BUSINESS OS</span> <GuardStatus tone="dark" /></div>
+            <div className="so-vertical-label"><Link href="/solutions/security" className="so-platform-mark" aria-label="Explore 1GUARD"><ProductSignature name="GUARD" tone="dark" /></Link> <span className="so-vertical-descriptor">Security business OS</span> <GuardStatus tone="dark" /></div>
             <h2 id="so-guard-title">A complete business vision. Built for real security SMEs.</h2>
             <p>1GUARD is being built around the security company, not only its control room: customers, guards, staffing, sites, operations, equipment and business oversight. Start with documented shift, patrol and incident workflows as the broader business lifecycle is developed.</p>
             <ul className="so-checklist">
@@ -119,14 +136,75 @@ export default function Home() {
             </ul>
             <div className="so-inline-actions">
               <TrialLink />
-              <Link href="/solutions/security" className="so-text-link">Explore 1GUARD <Arrow /></Link>
+              <Link href="/solutions/security" className="link-arrow"><span>Explore <ProductSignature name="GUARD" tone="dark" /></span> <Go /></Link>
             </div>
             <p className="so-disclosure">{guardOnboardingLine ?? "Already live with security companies."} Current public pricing: {guardDayPricePhrase}, excl. VAT. Trial access requires confirmation.</p>
           </div>
         </div>
       </section>
 
-      <section id="service" className="so-vertical so-service-section" aria-labelledby="so-service-title">
+      {/* Radios are sold and rented today: they lead the offers after 1GUARD (founder decision, 2026-11-25). */}
+      <section id="equipment" className="section so-equipment-section mat-ice mat-signal" aria-labelledby="so-equipment-title">
+        <div className="wrap so-equipment-layout">
+          <div data-motion-from="right" className="so-equipment-copy">
+            <p className="so-kicker">Managed business communications</p>
+            <h2 id="so-equipment-title">Business radios. Managed and connected.</h2>
+            <p>Push-to-talk radios that run over the cellular network, so a supervisor in Midrand can reach a guard in Pretoria without repeaters, with the platform, SIM, data, setup and support your teams need.</p>
+            <ul className="so-journey-links" aria-label="Four ways to start">
+              {commsJourneys.map(j => <li key={j.id}><Link href={quoteHref(j.quoteType)} data-analytics-event="homepage_equipment_quote" data-analytics-label={"home-journey-" + j.id}><strong>{j.title}</strong><span>{j.summary}</span></Link></li>)}
+            </ul>
+            <div className="so-equipment-types" aria-label="Available equipment categories">
+              <span>PoC & PTT radios</span><span>Vehicle & asset tracking</span><span>Body cameras</span><span>CCTV & networks</span>
+            </div>
+            <div className="so-inline-actions">
+              <Link href="/radios-equipment" data-analytics-event="homepage_equipment_quote"
+                data-analytics-label="homepage-equipment" className="btn btn-primary btn-lg">Explore communications <Go /></Link>
+              <Link href="/ptt-radio-rental" className="link-arrow">Radio rental <Go /></Link>
+            </div>
+            <p className="so-disclosure">Prices, lead times and availability are confirmed by written quotation.</p>
+          </div>
+          <div data-motion-from="left" style={{ "--so-motion-delay": "280ms" } as CSSProperties} className="so-hardware-gallery" aria-label="Actual manufacturer product imagery">
+            <div className="so-hardware-product so-radio-product">
+              <Image src={pnc360s} alt="Hytera PNC360S push-to-talk over cellular radio, original manufacturer product image"
+                sizes="(min-width:1024px) 300px, 45vw" className="so-product-image"
+                style={{ ["--bounds" as string]: productBounds.pnc360s }} />
+              <span>Hytera PNC360S <small>Push-to-talk radio</small></span>
+            </div>
+            <div className="so-hardware-product so-radio-product">
+              <Image src={p30Lite} alt="Hytera P30 Lite push-to-talk over cellular radio, original manufacturer product image"
+                sizes="(min-width:1024px) 240px, 45vw" className="so-product-image"
+                style={{ ["--bounds" as string]: productBounds.p30Lite }} />
+              <span>Hytera P30 Lite <small>Push-to-talk radio</small></span>
+            </div>
+            <p className="so-hardware-note">Original manufacturer product images. Products shown for category illustration, subject to quotation.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Partner recruitment (founder, 2026-11-27): resellers and independent sales partners, each with its own journey. */}
+      <section id="partners" className="section so-partners-section mat-day" aria-labelledby="so-partners-title">
+        <div className="wrap">
+          <div className="so-partners-head">
+            <p className="t-kicker text-accent">Partners</p>
+            <h2 id="so-partners-title" className="t-h2 mt-3">Grow your business with Signal One.</h2>
+            <p className="t-body mt-4 measure text-ink-2">Sell professional communications as a dealer, or introduce customers as an independent sales partner. Every application is reviewed.</p>
+          </div>
+          <ul className="so-partners-grid m-0 mt-8 grid list-none gap-4 p-0 md:grid-cols-2">
+            <li className="card flex flex-col p-6 sm:p-8">
+              <h3 className="t-h3">Become a Reseller</h3>
+              <p className="t-body mt-3 text-ink-2">For radio dealers, security suppliers, IT and telecoms businesses. Buy at wholesale on prepaid terms and sell radios with the communications service that keeps them working.</p>
+              <Link href="/partners/reseller" className="btn btn-primary btn-lg mt-6 self-start">Become a Reseller <Go /></Link>
+            </li>
+            <li className="card flex flex-col p-6 sm:p-8">
+              <h3 className="t-h3">Become a Sales Partner</h3>
+              <p className="t-body mt-3 text-ink-2">For independent people with business networks. Introduce companies to our radios, communications services and 1GUARD, and earn commission on eligible sales under a partner agreement.</p>
+              <Link href="/partners/sales" className="btn btn-ghost-light btn-lg mt-6 self-start">Become a Sales Partner <Go /></Link>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="service" className="section so-vertical so-service-section mat-scene scene-glass" aria-labelledby="so-service-title">
         <div className="wrap so-vertical-layout so-reverse-layout">
           <div data-motion-from="right" className="so-vertical-visual so-vertical-visual-service">
             <Image src="/images/home/service-restaurant-operations.jpg" alt="Illustrative restaurant kitchen team coordinating a live service in a professional hospitality environment"
@@ -134,7 +212,7 @@ export default function Home() {
             <div className="so-image-caption">Illustrative restaurant team at work</div>
           </div>
           <div data-motion-from="top" style={{ "--so-motion-delay": "280ms" } as CSSProperties} className="so-vertical-content">
-            <div className="so-vertical-label"><Link href="/service" className="so-platform-mark" aria-label="Explore 1Service"><ProductSignature name="Service" tone="dark" /></Link> <span className="so-status">IN DEVELOPMENT</span></div>
+            <div className="so-vertical-label"><Link href="/service" className="so-platform-mark" aria-label="Explore 1Service"><ProductSignature name="Service" tone="dark" /></Link> <Status kind="beta">In development</Status></div>
             <h2 id="so-service-title">Your service business deserves its own OS.</h2>
             <p>1Service is being developed as the operating system for service-based businesses, starting with restaurants. The vision connects the front of house, back of house, people and business performance.</p>
             <div className="so-service-scope">
@@ -142,8 +220,8 @@ export default function Home() {
             </div>
             <p className="so-disclosure">These are planned product capabilities, not a claim that the full restaurant operating system is already available.</p>
             <div className="so-inline-actions">
-              <Link href="/service" className="btn btn-primary so-home-cta">Explore 1Service <Arrow /></Link>
-              <Link href="/contact" data-analytics-event="homepage_service_interest" className="so-text-link">Discuss early access <Arrow /></Link>
+              <Link href="/service" className="btn btn-primary btn-lg">Explore 1Service <Go /></Link>
+              <Link href="/contact" data-analytics-event="homepage_service_interest" className="link-arrow">Discuss early access <Go /></Link>
             </div>
           </div>
         </div>
@@ -151,7 +229,7 @@ export default function Home() {
 
 
       {/* Ecosystem vision: customer-facing capabilities only; no internal stack or platform names. */}
-      <section className="so-ecosystem-section" aria-labelledby="so-ecosystem-title">
+      <section className="section so-ecosystem-section mat-stone" aria-labelledby="so-ecosystem-title">
         <div className="wrap so-ecosystem-layout">
           <div data-motion-from="left" className="so-ecosystem-intro">
             <p className="so-kicker">One connected business journey</p>
@@ -172,7 +250,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="so-marketplace-section" aria-labelledby="so-marketplace-title">
+      <section className="section so-marketplace-section mat-silver" aria-labelledby="so-marketplace-title">
         <div className="wrap">
           <div className="so-section-heading">
             <div data-motion-from="right"><p className="so-kicker">The ecosystem extends beyond software</p>
@@ -186,59 +264,27 @@ export default function Home() {
               <PanelPhoto src="/images/home/panels/hire-security.webp" alt="Illustrative interview between a security employer and prospective officers" />
               <h3>Find the right security officers.</h3>
               <p>A planned route for eligible officers and companies to find one another, with hiring and assignment workflows designed to connect back to operations.</p>
-              <Link href="/guard-marketplace">Explore guard hiring <Arrow /></Link>
+              <Link href="/guard-marketplace" className="link-arrow">Explore guard hiring <Go /></Link>
             </article>
             <article data-motion-from="top" style={{ "--so-motion-delay": "240ms" } as CSSProperties}>
-              <span className="so-marketplace-kicker">1Service staffing · Planned</span>
-              <PanelPhoto src="/images/editorial/restaurant-staff-briefing.webp" alt="Illustrative restaurant team including chef, waiters and cleaning staff at a pre-service briefing" />
+              <span className="so-marketplace-kicker"><ProductSignature name="Service" tone="dark" /> staffing · Planned</span>
+              <PanelPhoto src="/images/bright/07-hospitality-welcome.webp" alt="Illustrative hospitality reception professional in a sunlit lobby" />
               <h3>Build the team behind the service.</h3>
               <p>Our direction includes hiring and deploying hospitality and other service workers, from kitchen teams and waiters to cleaning and management staff.</p>
-              <Link href="/service">Discover 1Service <Arrow /></Link>
+              <Link href="/service" className="link-arrow"><span>Discover <ProductSignature name="Service" tone="dark" /></span> <Go /></Link>
             </article>
             <article data-motion-from="right" style={{ "--so-motion-delay": "380ms" } as CSSProperties}>
               <span className="so-marketplace-kicker">Professional technology · Quote-led</span>
               <PanelPhoto src="/images/hardware/teltonika-fmc920.webp" alt="Genuine Teltonika connectivity tracking device manufacturer product photograph" />
               <h3>Get the devices the work requires.</h3>
               <p>Radios, body cameras, tracking, CCTV and connectivity specified for the operation, with pricing and fulfilment confirmed by quotation.</p>
-              <Link href="/equipment-marketplace">Browse technology <Arrow /></Link>
+              <Link href="/equipment-marketplace" className="link-arrow">Browse technology <Go /></Link>
             </article>
           </div>
         </div>
       </section>
 
-      <section id="equipment" className="so-equipment-section" aria-labelledby="so-equipment-title">
-        <div className="wrap so-equipment-layout">
-          <div data-motion-from="right" className="so-equipment-copy">
-            <p className="so-kicker">Signal One · Business equipment</p>
-            <h2 id="so-equipment-title">The right technology. For the real job.</h2>
-            <p>Professional push-to-talk radios, tracking and connectivity should be specified for the deployment, not sold as a generic gadget. Talk to the team that understands field operations.</p>
-            <div className="so-equipment-types" aria-label="Available equipment categories">
-              <span>PoC & PTT radios</span><span>Vehicle & asset tracking</span><span>Body cameras</span><span>CCTV & networks</span>
-            </div>
-            <div className="so-inline-actions">
-              <Link href="/radios-equipment#quote" data-analytics-event="homepage_equipment_quote"
-                data-analytics-label="homepage-equipment" className="btn btn-primary so-home-cta">Request equipment quote <Arrow /></Link>
-              <Link href="/equipment-marketplace" className="so-text-link">Explore equipment <Arrow /></Link>
-            </div>
-            <p className="so-disclosure">Prices, lead times and availability are confirmed by written quotation.</p>
-          </div>
-          <div data-motion-from="left" style={{ "--so-motion-delay": "280ms" } as CSSProperties} className="so-hardware-gallery" aria-label="Actual manufacturer product imagery">
-            <div className="so-hardware-product so-radio-product">
-              <Image src={pnc360s} alt="Hytera PNC360S push-to-talk over cellular radio, original manufacturer product image"
-                sizes="(min-width:1024px) 300px, 45vw" className="so-product-image" />
-              <span>Hytera PNC360S <small>Push-to-talk radio</small></span>
-            </div>
-            <div className="so-hardware-product so-radio-product">
-              <Image src={p30Lite} alt="Hytera P30 Lite push-to-talk over cellular radio, original manufacturer product image"
-                sizes="(min-width:1024px) 240px, 45vw" className="so-product-image" />
-              <span>Hytera P30 Lite <small>Push-to-talk radio</small></span>
-            </div>
-            <p className="so-hardware-note">Original manufacturer product images. Products shown for category illustration, subject to quotation.</p>
-          </div>
-        </div>
-      </section>
-
-      <section className="so-onboarding-section" aria-labelledby="so-how-title">
+      <section className="section so-onboarding-section mat-day" aria-labelledby="so-how-title">
         <div className="wrap">
           <div className="so-section-heading">
             <div data-motion-from="top"><p className="so-kicker">A straightforward next step</p><h2 id="so-how-title">Start with the problem.<br /><span>We’ll help map the solution.</span></h2></div>
@@ -249,18 +295,20 @@ export default function Home() {
             <div data-motion-from="top" style={{ "--so-motion-delay": "240ms" } as CSSProperties}><span className="so-step">02</span><h3>Tell us about your operation</h3><p>Share the sites, teams, requirements or devices your business needs.</p></div>
             <div data-motion-from="right" style={{ "--so-motion-delay": "400ms" } as CSSProperties}><span className="so-step">03</span><h3>Confirm the right starting point</h3><p>We explain eligibility, supported capabilities, terms and activation before the work begins.</p></div>
           </div>
+          <p className="so-editorial-disclosure">People and workplace scenes are illustrative; equipment photographs are original manufacturer imagery.</p>
         </div>
-        <p className="so-editorial-disclosure">People and workplace scenes are illustrative; equipment photographs are original manufacturer imagery.</p>
       </section>
 
-      <section id="community" className="so-final-cta" aria-labelledby="so-final-title">
-        <div className="wrap so-final-inner">
+      <section id="community" className="section so-final-cta mat-close" aria-labelledby="so-final-title">
+        <div className="wrap"><div className="so-final-inner">
           <div data-motion-from="left"><p className="so-kicker">Make your business easier to run</p><h2 id="so-final-title">Ready for a smarter way to run your business?</h2>
             <p>Start with 1GUARD, explore what 1Service is becoming or speak to Signal One about field equipment.</p></div>
-          <div data-motion-from="right" style={{ "--so-motion-delay": "240ms" } as CSSProperties} className="so-final-actions"><TrialLink /><Link href="/contact" data-analytics-event="homepage_walkthrough_cta"
-              data-analytics-label="homepage-book-walkthrough" className="btn so-home-outline">Book a walkthrough <Arrow /></Link></div>
+          <div data-motion-from="right" style={{ "--so-motion-delay": "240ms" } as CSSProperties} className="so-final-actions"><Link href="/radios-equipment" data-analytics-event="homepage_equipment_quote"
+              data-analytics-label="homepage-closing-radios" className="btn btn-primary btn-lg">Buy or rent radios <Go /></Link><Link href="/contact" data-analytics-event="homepage_walkthrough_cta"
+              data-analytics-label="homepage-book-walkthrough" className="btn btn-ghost-dark btn-lg">Book a walkthrough <Go /></Link>
+            <Link href="/get-started" data-analytics-event="homepage_trial_cta" data-analytics-label="homepage-closing-trial" className="link-arrow so-final-trial">Request a 14-day trial <Go /></Link></div>
           <p data-motion-from="bottom" style={{ "--so-motion-delay": "160ms" } as CSSProperties} className="so-community-note"><ProductSignature name="Community" tone="dark" /> is part of the future Signal One ecosystem and is not yet available.</p>
-        </div>
+        </div></div>
       </section>
     </main>
   );

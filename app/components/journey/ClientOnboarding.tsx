@@ -4,12 +4,13 @@ import ReceiptReference from "../ReceiptReference";
 import IntakeError from "../IntakeError";
 import Link from "next/link";
 import { useEffect, useRef, type FormEvent } from "react";
-import { Check, Steps } from "../ui";
+import { Check, Stepper, Steps } from "../ui";
 import { Consent, JMulti, JRadio, JSelect, JText, ReviewList } from "./fields";
+import { validateBeforeSubmit } from "../../lib/formValidation";
 import { useJourney } from "./useJourney";
 import { guardDayPricePhrase, minimumPhrase } from "../../lib/pricing";
 
-const ACCENT = "text-signal-ink";
+const ACCENT = "text-accent";
 
 const steps = [
   { id: "company", label: "Company" },
@@ -28,6 +29,7 @@ export default function ClientOnboarding() {
     events: { start: "client_onboarding_start", complete: "client_onboarding_complete" },
   });
   const headingRef = useRef<HTMLHeadingElement>(null);
+  const stepRef = useRef<HTMLDivElement>(null);
   const lastStep = useRef<number | null>(null);
   const current = steps[j.stepIndex];
 
@@ -39,6 +41,8 @@ export default function ClientOnboarding() {
 
   function onContinue(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    // Every problem on this step at once: inline messages, aria-invalid, and a focused summary (AUDW-04).
+    if (!validateBeforeSubmit(event.currentTarget, { container: stepRef.current ?? event.currentTarget })) return;
     if (current.id === "review") {
       void j.submit();
       return;
@@ -49,12 +53,12 @@ export default function ClientOnboarding() {
   if (j.status === "done") {
     return (
       <div role="status" className="mx-auto max-w-[760px]">
-        <span className="grid h-14 w-14 place-items-center rounded-full bg-signal text-deep">
+        <span className="grid h-14 w-14 place-items-center rounded-full bg-signal text-on-signal">
           <Check />
         </span>
         <h2 className="t-h1 mt-6">Thanks. Your onboarding request is with Signal One.</h2>
         <ReceiptReference reference={j.reference} />
-        <p className="t-lead mt-4 text-text-2">A representative will contact you about your selected products, trial request and account setup. A trial has not started yet.</p>
+        <p className="t-lead mt-4 text-ink-2">A representative will contact you about your selected products, trial request and account setup. A trial has not started yet.</p>
         <div className="mt-8">
           <Steps
             items={[
@@ -75,47 +79,29 @@ export default function ClientOnboarding() {
   return (
     <div className="grid gap-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
       <aside className="lg:sticky lg:top-[104px] lg:self-start">
-        <p className="t-kicker text-signal-ink">Company onboarding</p>
-        <p className="mt-2 font-display text-[1.5rem] font-bold leading-tight">Tell us what your company needs.</p>
-        <ol className="m-0 mt-6 hidden list-none p-0 lg:block" aria-label="Onboarding steps">
-          {steps.map((step, index) => (
-            <li
-              key={step.id}
-              aria-current={index === j.stepIndex ? "step" : undefined}
-              className={
-                "flex items-center gap-3 border-t border-line py-3 text-[1rem] " +
-                (index === j.stepIndex ? "font-semibold text-text" : "text-text-2")
-              }
-            >
-              <span
-                className={
-                  "grid h-7 w-7 place-items-center rounded-full text-[0.875rem] font-semibold " +
-                  (index < j.stepIndex ? "bg-signal text-deep" : index === j.stepIndex ? "bg-base text-text-inv" : "bg-[#35434c] text-[#e8f2fb]")
-                }
-              >
-                {index < j.stepIndex ? "✓" : index + 1}
-              </span>
-              {step.label}
-            </li>
-          ))}
-        </ol>
-        <p className="t-small mt-6 text-text-2">
+        <p className="t-kicker text-accent">Company onboarding</p>
+        <p className="t-h3 mt-2">Tell us what your company needs.</p>
+        <div className="mt-6 hidden lg:block">
+          <Stepper steps={steps.map((step) => step.label)} index={j.stepIndex} label="Onboarding steps" />
+        </div>
+        <p className="t-small mt-6 text-ink-2">
           Takes about three minutes. Eligible security companies can request a 14-day 1GUARD trial. 1Service is in development; equipment is quoted separately. No account or trial starts when you submit.
         </p>
       </aside>
 
-      <form onSubmit={onContinue} className="card p-5 sm:p-8">
-        <p className="t-small font-semibold text-text-2 lg:hidden">
-          Step {j.stepIndex + 1} of {steps.length} · {current.label}
-        </p>
-        <div key={current.id} className="animate-enter grid gap-6">
+      <form onSubmit={onContinue} noValidate className="card p-5 sm:p-8">
+        {/* Below lg the aside sits above the intro copy, so the progress track sits at the top of the form instead. */}
+        <div className="mb-6 lg:hidden">
+          <Stepper steps={steps.map((step) => step.label)} index={j.stepIndex} label="Onboarding steps" />
+        </div>
+        <div ref={stepRef} key={current.id} className="animate-enter grid gap-6">
           {current.id === "company" ? (
             <>
               <h2 ref={headingRef} tabIndex={-1} className="t-h2 outline-none">
                 Your company
               </h2>
-              <JText j={j} name="companyName" label="Company name" required autoComplete="organization" />
-              <JRadio j={j} name="businessType" label="Which best describes your operation?" required accentClass={ACCENT}
+              <JText j={j} name="companyName" label="Company name" required autoComplete="organization" error="Enter your company name." />
+              <JRadio j={j} name="businessType" label="Which best describes your operation?" required error="Choose what best describes your operation." accentClass={ACCENT}
                 options={["Security services", "Restaurant or hospitality", "Other service business", "Equipment procurement"]} />
               <JText j={j} name="registrationNumber" label="Company registration number" />
               <JSelect
@@ -123,6 +109,7 @@ export default function ClientOnboarding() {
                 name="province"
                 label="Where do you mainly operate?"
                 required
+                error="Choose where you mainly operate."
                 options={[
                   "Gauteng",
                   "Western Cape",
@@ -144,17 +131,18 @@ export default function ClientOnboarding() {
               <h2 ref={headingRef} tabIndex={-1} className="t-h2 outline-none">
                 Who should we speak to?
               </h2>
-              <JText j={j} name="contactName" label="Your name" required autoComplete="name" />
+              <JText j={j} name="contactName" label="Your name" required autoComplete="name" error="Enter your name." />
               <JRadio
                 j={j}
                 name="contactRole"
                 label="Your role"
                 required
+                error="Choose your role."
                 accentClass={ACCENT}
                 options={["Owner or director", "Operations manager", "Control room manager", "Other"]}
               />
-              <JText j={j} name="email" label="Work email" type="email" required autoComplete="email" />
-              <JText j={j} name="mobile" label="Mobile number" type="tel" required autoComplete="tel" placeholder="+27" />
+              <JText j={j} name="email" label="Work email" type="email" required autoComplete="email" error="Enter your work email address." />
+              <JText j={j} name="mobile" label="Mobile number" type="tel" required autoComplete="tel" placeholder="+27" error="Enter your mobile number." />
             </>
           ) : null}
 
@@ -165,16 +153,16 @@ export default function ClientOnboarding() {
               </h2>
               {j.values.businessType === "Security services" ? (
                 <>
-                  <JRadio j={j} name="guardCount" label="Roughly how many guards?" required accentClass={ACCENT}
+                  <JRadio j={j} name="guardCount" label="Roughly how many guards?" required error="Choose roughly how many guards you have." accentClass={ACCENT}
                     options={["Under 25", "25 to 100", "100 to 500", "More than 500"]} />
-                  <JRadio j={j} name="siteCount" label="Roughly how many security sites?" required accentClass={ACCENT}
+                  <JRadio j={j} name="siteCount" label="Roughly how many security sites?" required error="Choose roughly how many security sites you have." accentClass={ACCENT}
                     options={["1 to 5", "6 to 20", "21 to 100", "More than 100"]} />
                 </>
               ) : (
                 <>
-                  <JRadio j={j} name="teamSize" label="Roughly how many people work across your operation?" required accentClass={ACCENT}
+                  <JRadio j={j} name="teamSize" label="Roughly how many people work across your operation?" required error="Choose roughly how many people work across your operation." accentClass={ACCENT}
                     options={["1 to 10", "11 to 50", "51 to 200", "More than 200"]} />
-                  <JRadio j={j} name="locations" label="How many locations do you operate?" required accentClass={ACCENT}
+                  <JRadio j={j} name="locations" label="How many locations do you operate?" required error="Choose how many locations you operate." accentClass={ACCENT}
                     options={["1", "2 to 5", "6 to 20", "More than 20"]} />
                 </>
               )}
@@ -215,6 +203,7 @@ export default function ClientOnboarding() {
                 name="nextStep"
                 label="Best next step for you"
                 required
+                error="Choose the best next step for you."
                 accentClass={ACCENT}
                 columns="sm:grid-cols-1"
                 options={j.values.businessType === "Security services"

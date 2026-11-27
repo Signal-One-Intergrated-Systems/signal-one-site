@@ -26,7 +26,8 @@ test("image OCR gate passes on public/images", () => {
 });
 
 test("rendered pages never show forbidden wording", async ({ request }) => {
-  const forbidden = [/\bLEOS\b/, /shared[\s-]+phones?/i, /\bVerified\b/, /\b(Starter|Enterprise)\b/];
+  // "Signal One Guard"/"Signal One Security": the product is 1GUARD (founder decision, 2026-11-25).
+  const forbidden = [/\bLEOS\b/, /shared[\s-]+phones?/i, /\bVerified\b/, /\b(Starter|Enterprise)\b/, /Signal One (Guard|Security)\b/];
   for (const route of routes) {
     const html = (await (await request.get(route)).text()).replace(/<script[\s\S]*?<\/script>/g, " ").replace(/<style[\s\S]*?<\/style>/g, " ");
     const text = html.replace(/<[^>]+>/g, " ");

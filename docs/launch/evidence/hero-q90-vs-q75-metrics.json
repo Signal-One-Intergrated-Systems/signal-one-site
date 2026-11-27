@@ -1,0 +1,290 @@
+{
+ "1080": {
+  "size": [
+   1080,
+   608
+  ],
+  "q90_vs_src": {
+   "psnr": 38.25,
+   "ssim": 0.9892,
+   "meanAbs": 2.28,
+   "p99Abs": 10.0
+  },
+  "q75_vs_src": {
+   "psnr": 35.47,
+   "ssim": 0.9808,
+   "meanAbs": 3.11,
+   "p99Abs": 14.0
+  },
+  "q75_vs_q90": {
+   "psnr": 35.08,
+   "ssim": 0.9787,
+   "meanAbs": 3.25,
+   "p99Abs": 14.0
+  },
+  "regions": {
+   "guard_face": {
+    "q90_vs_src": {
+     "psnr": 37.26,
+     "ssim": 0.99
+    },
+    "q75_vs_src": {
+     "psnr": 34.29,
+     "ssim": 0.9803
+    }
+   },
+   "chef_face": {
+    "q90_vs_src": {
+     "psnr": 37.32,
+     "ssim": 0.987
+    },
+    "q75_vs_src": {
+     "psnr": 34.44,
+     "ssim": 0.9751
+    }
+   },
+   "vest_text": {
+    "q90_vs_src": {
+     "psnr": 38.43,
+     "ssim": 0.988
+    },
+    "q75_vs_src": {
+     "psnr": 35.36,
+     "ssim": 0.9752
+    }
+   },
+   "chef_hat": {
+    "q90_vs_src": {
+     "psnr": 38.44,
+     "ssim": 0.9808
+    },
+    "q75_vs_src": {
+     "psnr": 36.11,
+     "ssim": 0.9661
+    }
+   },
+   "tablet_hands": {
+    "q90_vs_src": {
+     "psnr": 38.9,
+     "ssim": 0.9916
+    },
+    "q75_vs_src": {
+     "psnr": 35.75,
+     "ssim": 0.9847
+    }
+   },
+   "background_trees": {
+    "q90_vs_src": {
+     "psnr": 37.81,
+     "ssim": 0.9906
+    },
+    "q75_vs_src": {
+     "psnr": 34.86,
+     "ssim": 0.983
+    }
+   },
+   "floor": {
+    "q90_vs_src": {
+     "psnr": 40.16,
+     "ssim": 0.9846
+    },
+    "q75_vs_src": {
+     "psnr": 38.11,
+     "ssim": 0.9746
+    }
+   }
+  }
+ },
+ "1200": {
+  "size": [
+   1200,
+   675
+  ],
+  "q90_vs_src": {
+   "psnr": 37.72,
+   "ssim": 0.9875,
+   "meanAbs": 2.38,
+   "p99Abs": 11.0
+  },
+  "q75_vs_src": {
+   "psnr": 35.38,
+   "ssim": 0.9794,
+   "meanAbs": 3.11,
+   "p99Abs": 14.0
+  },
+  "q75_vs_q90": {
+   "psnr": 35.49,
+   "ssim": 0.9788,
+   "meanAbs": 3.09,
+   "p99Abs": 13.0
+  },
+  "regions": {
+   "guard_face": {
+    "q90_vs_src": {
+     "psnr": 36.7,
+     "ssim": 0.988
+    },
+    "q75_vs_src": {
+     "psnr": 34.08,
+     "ssim": 0.9768
+    }
+   },
+   "chef_face": {
+    "q90_vs_src": {
+     "psnr": 36.63,
+     "ssim": 0.9839
+    },
+    "q75_vs_src": {
+     "psnr": 34.12,
+     "ssim": 0.9722
+    }
+   },
+   "vest_text": {
+    "q90_vs_src": {
+     "psnr": 37.87,
+     "ssim": 0.9852
+    },
+    "q75_vs_src": {
+     "psnr": 35.48,
+     "ssim": 0.9764
+    }
+   },
+   "chef_hat": {
+    "q90_vs_src": {
+     "psnr": 37.03,
+     "ssim": 0.9773
+    },
+    "q75_vs_src": {
+     "psnr": 35.37,
+     "ssim": 0.9622
+    }
+   },
+   "tablet_hands": {
+    "q90_vs_src": {
+     "psnr": 38.91,
+     "ssim": 0.9906
+    },
+    "q75_vs_src": {
+     "psnr": 36.14,
+     "ssim": 0.9856
+    }
+   },
+   "background_trees": {
+    "q90_vs_src": {
+     "psnr": 37.78,
+     "ssim": 0.9899
+    },
+    "q75_vs_src": {
+     "psnr": 35.15,
+     "ssim": 0.9824
+    }
+   },
+   "floor": {
+    "q90_vs_src": {
+     "psnr": 38.78,
+     "ssim": 0.9798
+    },
+    "q75_vs_src": {
+     "psnr": 37.38,
+     "ssim": 0.9708
+    }
+   }
+  }
+ },
+ "1920": {
+  "size": [
+   1672,
+   941
+  ],
+  "q90_vs_src": {
+   "psnr": 40.12,
+   "ssim": 0.9891,
+   "meanAbs": 1.84,
+   "p99Abs": 8.0
+  },
+  "q75_vs_src": {
+   "psnr": 37.43,
+   "ssim": 0.9819,
+   "meanAbs": 2.47,
+   "p99Abs": 11.0
+  },
+  "q75_vs_q90": {
+   "psnr": 36.97,
+   "ssim": 0.98,
+   "meanAbs": 2.6,
+   "p99Abs": 11.0
+  },
+  "regions": {
+   "guard_face": {
+    "q90_vs_src": {
+     "psnr": 38.82,
+     "ssim": 0.9892
+    },
+    "q75_vs_src": {
+     "psnr": 35.89,
+     "ssim": 0.9793
+    }
+   },
+   "chef_face": {
+    "q90_vs_src": {
+     "psnr": 38.82,
+     "ssim": 0.9852
+    },
+    "q75_vs_src": {
+     "psnr": 35.92,
+     "ssim": 0.9728
+    }
+   },
+   "vest_text": {
+    "q90_vs_src": {
+     "psnr": 39.58,
+     "ssim": 0.9836
+    },
+    "q75_vs_src": {
+     "psnr": 36.77,
+     "ssim": 0.9714
+    }
+   },
+   "chef_hat": {
+    "q90_vs_src": {
+     "psnr": 40.63,
+     "ssim": 0.9842
+    },
+    "q75_vs_src": {
+     "psnr": 38.01,
+     "ssim": 0.9713
+    }
+   },
+   "tablet_hands": {
+    "q90_vs_src": {
+     "psnr": 40.13,
+     "ssim": 0.9911
+    },
+    "q75_vs_src": {
+     "psnr": 37.38,
+     "ssim": 0.985
+    }
+   },
+   "background_trees": {
+    "q90_vs_src": {
+     "psnr": 40.01,
+     "ssim": 0.9907
+    },
+    "q75_vs_src": {
+     "psnr": 37.24,
+     "ssim": 0.9842
+    }
+   },
+   "floor": {
+    "q90_vs_src": {
+     "psnr": 42.13,
+     "ssim": 0.9858
+    },
+    "q75_vs_src": {
+     "psnr": 39.99,
+     "ssim": 0.9771
+    }
+   }
+  }
+ }
+}

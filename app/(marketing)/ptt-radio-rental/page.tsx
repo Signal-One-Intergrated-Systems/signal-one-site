@@ -1,16 +1,18 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { HardwareShowcase } from "../../components/Hardware";
 import LandingPage from "../../components/LandingPage";
 import { ButtonLink, Status } from "../../components/ui";
 import { catalogue } from "../../lib/catalogue";
 import { guardDayPricePhrase } from "../../lib/pricing";
+import { pageMetadata } from "../../lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "PTT Radio Rental for Security Companies",
   description:
-    "Push-to-talk over cellular radios on 12, 24 or 36-month rental terms: Hytera PNC360S, P30 Lite PoC and E600 PoC LTE, by quote, from Signal One.",
+    "Push-to-talk over cellular radios on 12, 24 or 36-month rental terms: Hytera PNC360S, P30 Lite PoC and P30G Pro, by quote, from Signal One.",
   alternates: { canonical: "/ptt-radio-rental" },
-};
+});
 
 const radios = catalogue[0];
 
@@ -34,13 +36,13 @@ export default function PttRadioRentalPage() {
       aside={
         <div className="grid gap-5">
           <HardwareShowcase products={catalogue[0].products.slice(0, 2)} />
-          <ul className="m-0 grid list-none gap-px overflow-hidden rounded-card border border-line-dark bg-line-dark p-0">
+          <ul className="plane plane-rows m-0 grid list-none overflow-hidden p-0">
           {radios.products.map((product) => (
-            <li key={product.model} className="flex items-start justify-between gap-4 bg-raised p-5 sm:p-6">
+            <li key={product.model} className="flex items-start justify-between gap-4 p-5 sm:p-6">
               <div>
-                <p className="t-small font-semibold text-signal-400">{product.type}</p>
-                <p className="font-display mt-1 text-[1.5rem] font-bold leading-tight tracking-[-0.03em]">{product.model}</p>
-                <p className="t-small mt-2 text-text-inv-2">{product.detail}</p>
+                <p className="t-small font-semibold text-accent">{product.type}</p>
+                <p className="t-h3 mt-1">{product.model}</p>
+                <p className="t-small mt-2 text-ink-2">{product.detail}</p>
               </div>
               <Status kind="quote" tone="dark">
                 By quote
@@ -50,16 +52,25 @@ export default function PttRadioRentalPage() {
           </ul>
         </div>
       }
-      capabilitiesTitle="What we rent"
+      capabilitiesTitle="What a rental includes, and what is quoted"
+      // The radios themselves are listed in the hero; this section answers how renting works instead of repeating them (DR-017).
       capabilities={[
-        ["Hytera PNC360S", "PoC radio. Rental. Device with push-to-talk service and data."],
-        ["P30 Lite PoC", "PoC radio with SOS. Rental. Communications, SOS, SIM, data and platform access."],
-        ["E600 PoC LTE", "PoC LTE radio. Available by quote."],
-        ["PTT platform with SIM and data", "Monthly platform access with SIM and data for supported radios."],
-        ["Rental terms", "12, 24 or 36 months."],
-        ["Quoted, not listed", "Final specification, availability and price are confirmed in a written quote. We do not publish prices, stock or delivery dates."],
+        ["The radio", "Rented on a 12, 24 or 36-month term, or bought outright."],
+        ["Connectivity, if you want it", "Push-to-talk service, SIM and data are a separate monthly line: take it with the radios, use your own SIMs, or add it to radios you already own."],
+        ["Buying instead", "Radios are also sold outright, by quotation. Ask to compare buying and renting in one quote."],
+        ["Confirmed in your written quote", "Price, availability and final specification, plus accessories (chargers, earpieces, clips), delivery, any deposit, maintenance, damage, loss and replacement, and early termination. We do not publish prices, stock or delivery dates, and nothing here is included unless your quote says so."],
       ]}
       stepsTitle="How the quote works"
+      // Supporting editorial panel (founder bright package, 05): an illustrative scene, never stock or inventory evidence.
+      stepsVisual={
+        <figure className="m-0">
+          <div className="media-frame relative aspect-video">
+            <Image src="/images/bright/05-radio-rental-workflow.webp" alt="Illustrative team preparing communications equipment for deployment" fill
+              sizes="(min-width:1024px) 34vw, 92vw" className="object-cover" loading="lazy" />
+          </div>
+          <figcaption className="photo-caption mt-3">Illustrative scene · not actual rental stock</figcaption>
+        </figure>
+      }
       steps={[
         ["You send the requirement", "Product, quantity and where the radios will be used. About two minutes."],
         ["We confirm fit", "Network, accessories and availability for your sites."],
@@ -67,15 +78,15 @@ export default function PttRadioRentalPage() {
         ["You decide", "Nothing is supplied until you accept the quote."],
       ]}
       limits={[
-        "Renting a radio does not yet connect it to Signal One Guard. Activating devices and viewing tracking from inside Signal One Guard is coming soon.",
-        "Equipment is rented alongside Signal One Security, and priced separately from the " + guardDayPricePhrase + " platform rate.",
+        "Renting a radio does not yet connect it to 1GUARD. Activating devices and viewing tracking from inside 1GUARD is coming soon.",
+        "Equipment is rented alongside 1GUARD, and priced separately from the " + guardDayPricePhrase + " platform rate.",
       ]}
       closing="Radios for the contract, by quote."
       closingLead="Choose a 12, 24 or 36-month rental term. Your written quote confirms devices, connectivity, availability and the full rental cost."
       closingActions={<><ButtonLink href="/radios-equipment?quoteType=Rent%20radios#quote" size="lg">Request a radio quote</ButtonLink><ButtonLink href="/radios-equipment" variant="ghost-dark" size="lg">Compare equipment options</ButtonLink></>}
       related={[
-        ["/radios-equipment", "Radios, tracking and body cameras"],
-        ["/solutions/security", "The Signal One Security platform"],
+        ["/radios-equipment#journeys", "Buy, rent, connect your own radios, or get help choosing"],
+        ["/solutions/security", "The 1GUARD platform"],
         ["/contact", "Talk to Signal One"],
       ]}
     />

@@ -1,8 +1,8 @@
       <section className="s1-brand-stage so-hero" aria-labelledby="so-hero-title">
         <div className="so-hero-media">
-          <Image src="/images/home/approved-full-scene-guard-chef-2026.png"
-            alt="Illustrative wide daylight restaurant scene with green gardens on the left and, on the right, a Black woman security officer in a SECURITY vest reviewing a tablet with a white male chef in his chef hat"
-            fill priority fetchPriority="high" quality={90}
+          <Image src="/images/home/approved-hero-terrace-v2-2026-11-27.webp"
+            alt="Illustrative daylight enterprise campus terrace with a city skyline behind, and three business and security professionals reviewing a tablet beside a glass office building"
+            fill priority fetchPriority="high" quality={75}
             sizes="100vw" className="so-hero-photo object-cover" />
           <div className="so-hero-wash" aria-hidden="true" />
         </div>
@@ -13,19 +13,25 @@
             <p className="so-eyebrow"><span className="so-signal-dot" /> Signal One · Integrated Systems</p>
             <h1 id="so-hero-title">Run your business.<br /><span>As one.</span></h1>
             <p className="so-hero-lead">
-              Intelligent business operating systems for SMEs. Connect your customers, people, service delivery and business decisions in one smarter way of working.
+              Security operations software, managed business communications and connected technology for South African businesses.
             </p>
             <div className="so-hero-actions">
-              <TrialLink />
-              <Link href="#solutions" className="btn so-home-outline">Explore the solutions <Arrow /></Link>
+              <Link href="/radios-equipment" data-analytics-event="homepage_equipment_quote" data-analytics-label="hero-buy-rent-radios" className="btn so-home-cta">Buy or rent radios <Go /></Link>
+              <Link href="/solutions/security" className="btn so-home-outline">Explore 1GUARD <Go /></Link>
             </div>
-            <p className="so-hero-note">14-day trial by request for eligible 1GUARD companies. Activation and terms are confirmed before access.</p>
+            <p className="so-hero-note">Radios are quoted in writing: buy, rent or connect the radios you already own.</p>
           </div>
+        </div>
+        {/* The interactive radio (founder, 2026-11-27): a genuine manufacturer cut-out on a slim glass plinth in
+            the mid-foreground. It is a link to radios; it never transmits. */}
+        <div className="so-hero-radio">
+          <span className="so-hero-plinth" aria-hidden="true" />
+          <HeroRadio />
         </div>
         <div className="so-hero-bar" aria-label="Signal One business areas">
           <Link href="/solutions/security" className="so-hero-bar-item" aria-label="Explore 1GUARD Security Business Operating System"><strong className="so-platform-mark"><ProductSignature name="GUARD" tone="dark" /></strong><span>Security Business OS</span></Link>
           <Link href="/service" className="so-hero-bar-item" aria-label="Explore 1Service business operating system"><strong className="so-platform-mark"><ProductSignature name="Service" tone="dark" /></strong><span>Restaurant-first OS · In development</span></Link>
-          <Link href="/equipment-marketplace" className="so-hero-bar-item" aria-label="Explore enterprise equipment"><strong>Equipment</strong><span>Professional devices & connectivity</span></Link>
+          <Link href="/radios-equipment" className="so-hero-bar-item" aria-label="Buy or rent radios and equipment"><strong>Radios & equipment</strong><span>Buy or rent · By quote</span></Link>
           <a href="#community" className="so-hero-bar-item" aria-label="Learn about 1Community coming soon"><strong className="so-platform-mark"><ProductSignature name="Community" tone="dark" /></strong><span>Coming soon</span></a>
         </div>
         <span className="so-hero-photo-note">Illustrative scene</span>

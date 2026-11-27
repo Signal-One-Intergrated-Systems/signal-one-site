@@ -7,8 +7,17 @@ import { priceSentence } from "../lib/pricing";
  * Product-true landing page: hero, what it does, how it works, what it does
  * not do yet, and the next step. Built only from capabilities that exist.
  */
+/** Each product journey has its own atmosphere (DEPTH_SYSTEM §6): hero, then the alternating chapters. */
+const atmospheres = {
+  security: { hero: "mat-silver", story: "mat-day", capabilities: "mat-day", steps: "mat-silver" },
+  attendance: { hero: "mat-silver", story: "mat-day", capabilities: "mat-day", steps: "mat-ice" },
+  patrol: { hero: "mat-scene", story: "mat-day", capabilities: "mat-silver", steps: "mat-day" },
+  "radio-rental": { hero: "mat-ice mat-signal", story: "mat-day", capabilities: "mat-day", steps: "mat-silver" },
+} as const;
+
 export default function LandingPage({
   kicker,
+  status,
   title,
   lead,
   actions,
@@ -17,6 +26,7 @@ export default function LandingPage({
   capabilities,
   stepsTitle,
   steps,
+  stepsVisual,
   limits,
   closing,
   closingLead = priceSentence,
@@ -26,6 +36,8 @@ export default function LandingPage({
   scene = "security",
 }: {
   kicker: string;
+  /** Status shown beside the kicker, e.g. 1GUARD Pilot (SW-06). */
+  status?: ReactNode;
   title: string;
   lead: string;
   actions?: ReactNode;
@@ -34,6 +46,8 @@ export default function LandingPage({
   capabilities: ReadonlyArray<readonly [string, string]>;
   stepsTitle: string;
   steps: ReadonlyArray<readonly [string, string]>;
+  /** Optional framed photograph under the steps heading (fills the heading column on desktop). */
+  stepsVisual?: ReactNode;
   limits: ReadonlyArray<string>;
   closing: string;
   closingLead?: string;
@@ -44,41 +58,49 @@ export default function LandingPage({
   /** Marketing background context for this product journey. */
   scene?: "security" | "attendance" | "patrol" | "radio-rental";
 }) {
+  const atmos = atmospheres[scene];
   return (
     <main id="main" className={`s1-scene-page s1-scene-page--${scene}`}>
-      <PageHero kicker={kicker} title={title} lead={lead} actions={actions} aside={aside} />
+      <PageHero material={atmos.hero} kicker={kicker} status={status} title={title} lead={lead} actions={actions} aside={aside} />
       {story}
 
-      <section className="surface-light section">
+      <section className={"surface-light section " + atmos.capabilities}>
         <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
           <h2 className="t-h2">{capabilitiesTitle}</h2>
           <ul className="m-0 grid list-none gap-x-12 p-0 md:grid-cols-2">
             {capabilities.map(([name, body]) => (
-              <li key={name} className="border-t border-line py-6">
+              <li key={name} className="border-t border-hairline py-6">
                 <h3 className="t-h4 flex gap-3">
-                  <Check className="mt-0.5 text-signal-ink" />
+                  <Check className="mt-0.5 text-accent" />
                   {name}
                 </h3>
-                <p className="t-small mt-2 text-text-2">{body}</p>
+                <p className="t-small mt-2 text-ink-2">{body}</p>
               </li>
             ))}
           </ul>
         </div>
       </section>
 
-      <section className="surface-light-2 section">
+      <section className={"surface-light-2 section " + atmos.steps}>
         <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
-          <h2 className="t-h2">{stepsTitle}</h2>
+          {stepsVisual ? (
+            <div className="grid content-start gap-8">
+              <h2 className="t-h2">{stepsTitle}</h2>
+              {stepsVisual}
+            </div>
+          ) : (
+            <h2 className="t-h2">{stepsTitle}</h2>
+          )}
           <Steps items={steps} />
         </div>
       </section>
 
-      <section className="surface-light section">
-        <div className="wrap grid gap-8 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
+      <section className={"surface-light section pt-0 " + atmos.steps}>
+        <div className="wrap grid gap-8 border-t border-hairline pt-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
           <h2 className="t-h3">What it does not do yet</h2>
           <ul className="m-0 grid list-none gap-3 p-0">
             {limits.map((item) => (
-              <li key={item} className="t-body text-text-2">
+              <li key={item} className="t-body text-ink-2">
                 {item}
               </li>
             ))}
@@ -86,11 +108,11 @@ export default function LandingPage({
         </div>
       </section>
 
-      <section className="surface-deep section">
+      <section className="surface-deep section mat-close">
         <div className="wrap grid gap-10 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-end lg:gap-16">
           <div>
             <h2 className="t-h2">{closing}</h2>
-            <p className="t-lead measure mt-5 text-text-inv-2">{closingLead}</p>
+            <p className="t-lead measure mt-5 text-ink-2">{closingLead}</p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               {closingActions ?? <>
               <ButtonLink href="/contact" size="lg">
@@ -105,7 +127,7 @@ export default function LandingPage({
           <ul className="m-0 grid list-none gap-3 p-0">
             {related.map(([href, label]) => (
               <li key={href}>
-                <Link href={href} className="link-arrow text-signal-400">
+                <Link href={href} className="link-arrow text-accent">
                   {label}
                 </Link>
               </li>

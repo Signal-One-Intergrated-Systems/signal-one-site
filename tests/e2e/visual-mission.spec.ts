@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import AxeBuilder from "@axe-core/playwright";
@@ -10,6 +11,20 @@ import { routes as allMarketingRoutes } from "./routes";
  * This exact JSX fixture was captured from production commit 4ed7047 before PR84.
  * Changing the hero markup breaks CI until explicitly reapproved.
  */
+/*
+ * What the lock protects (founder ruling 2026-11-25, DR-003): the approved photograph (byte-identical source
+ * file), its crop (object-fit / object-position and rendered box at 1440, 1280, 1024 and 390 px), the hero
+ * layout and copy (the JSX below, verbatim), the alt text and the loading priority. It does NOT freeze the
+ * delivery encoding: `quality` may change when an independent visual comparison shows no material
+ * degradation (q90 -> q75 was compared in docs/launch/evidence/hero-q90-vs-q75-*), but never below 75.
+ */
+const HERO_SOURCE = "public/images/home/approved-hero-terrace-v2-2026-11-27.webp";
+const HERO_SOURCE_SHA256 = "fa2b33562be0e94d83e35020683991855dceb74c4881049459e83b22aca07967"; // founder-approved terrace photograph v2 (brief v2), 2026-11-27
+const HERO_ALT = "Illustrative daylight enterprise campus terrace with a city skyline behind, and three business and security professionals reviewing a tablet beside a glass office building";
+const HERO_MIN_QUALITY = 75;
+/** The only attribute allowed to differ from the approved fixture is the encode quality. */
+const withoutQuality = (jsx: string) => jsx.replace(/ quality=\{\d+\}/g, " quality={…}");
+
 test("FOUNDERS LOCK: approved home hero markup must never change accidentally", () => {
   const cwd = process.cwd();
   const file = readFileSync(resolve(cwd, "app/(marketing)/page.tsx"), "utf8");
@@ -18,14 +33,71 @@ test("FOUNDERS LOCK: approved home hero markup must never change accidentally", 
   const to = file.indexOf('      <section id="solutions"', from);
   expect(from).toBeGreaterThan(0);
   expect(to).toBeGreaterThan(from);
-  expect(file.slice(from, to), "Locked hero JSX was modified").toBe(baseline);
-  expect(file.slice(from, to)).toContain('approved-full-scene-guard-chef-2026.png');
-  expect(file.slice(from, to)).not.toContain("so-hero-people-glass");
-  expect(file.slice(from, to)).not.toContain("restaurant-courtyard.webp");
+  const hero = file.slice(from, to);
+  expect(withoutQuality(hero), "Locked hero JSX was modified").toBe(withoutQuality(baseline));
+  const qualities = [...hero.matchAll(/ quality=\{(\d+)\}/g)].map(match => Number(match[1]));
+  expect(qualities, "the hero has exactly one encode quality").toHaveLength(1);
+  expect(qualities[0], "hero encode quality floor (founder ruling 2026-11-25)").toBeGreaterThanOrEqual(HERO_MIN_QUALITY);
+  expect(hero).toContain('<Image src="/images/home/approved-hero-terrace-v2-2026-11-27.webp"');
+  expect(hero).toContain(`alt="${HERO_ALT}"`);
+  expect(hero).toContain('fill priority fetchPriority="high"');
+  expect(hero).toContain('sizes="100vw" className="so-hero-photo object-cover"');
+  expect(hero).not.toContain("so-hero-people-glass");
+  expect(hero).not.toContain("restaurant-courtyard.webp");
+  const source = createHash("sha256").update(readFileSync(resolve(cwd, HERO_SOURCE))).digest("hex");
+  expect(source, "the approved hero photograph file itself was replaced or edited").toBe(HERO_SOURCE_SHA256);
   const css = readFileSync(resolve(cwd, "app/home-conversion.css"), "utf8");
   expect(css).not.toContain(".so-home .so-hero-people-glass");
   expect(css).not.toContain(".so-home .so-hero-background-photo");
 });
+
+/** Rendered crop of the approved hero. Founder composition correction (2026-11-27): the photograph is shown at
+ * full width, never upscaled, and cropped below the people's feet (72% of its height) so the empty foreground
+ * floor and the photographed pedestal no longer fill the hero; the radio stands on a CSS glass plinth.
+ * Earlier: the whole photograph (contain) at 1440x810, 1280x720, 1024x576 and 390x219. */
+const heroCrop = [
+  { viewport: { width: 1440, height: 900 }, fit: "cover", position: "50% 28.6%", box: [1440, 583] },
+  { viewport: { width: 1280, height: 800 }, fit: "cover", position: "50% 28.6%", box: [1280, 518] },
+  { viewport: { width: 1024, height: 768 }, fit: "cover", position: "50% 28.6%", box: [1024, 415] },
+  { viewport: { width: 390, height: 844 }, fit: "cover", position: "50% 28.6%", box: [390, 158] },
+] as const;
+for (const crop of heroCrop) {
+  test(`FOUNDERS LOCK: rendered hero photograph, crop and priority at ${crop.viewport.width}px`, async ({ page }) => {
+    await page.setViewportSize(crop.viewport);
+    await page.goto("/");
+    const photo = page.locator(".so-hero-media img.so-hero-photo");
+    await expect(photo).toHaveCount(1);
+    await expect.poll(() => photo.evaluate(img => (img as HTMLImageElement).complete && (img as HTMLImageElement).naturalWidth > 0)).toBe(true);
+    const seen = await photo.evaluate(node => {
+      const img = node as HTMLImageElement;
+      const style = getComputedStyle(img);
+      const rect = img.getBoundingClientRect();
+      return {
+        source: new URL(img.currentSrc).searchParams.get("url"),
+        alt: img.alt, fetchPriority: img.getAttribute("fetchpriority"), lazy: img.loading === "lazy", sizes: img.sizes,
+        fit: style.objectFit, position: style.objectPosition, transform: style.transform,
+        treatment: [style.filter, style.maskImage || style.getPropertyValue("-webkit-mask-image"), style.opacity, style.mixBlendMode].join(" | "),
+        box: [Math.round(rect.width), Math.round(rect.height)], left: Math.round(rect.left),
+        aspect: img.naturalWidth / img.naturalHeight,
+      };
+    });
+    expect(seen.source).toBe("/images/home/approved-hero-terrace-v2-2026-11-27.webp");
+    expect(seen.alt).toBe(HERO_ALT);
+    expect(seen.fetchPriority).toBe("high");
+    expect(seen.lazy).toBe(false);
+    expect(seen.sizes).toBe("100vw");
+    expect(seen.fit).toBe(crop.fit);
+    expect(seen.position).toBe(crop.position);
+    expect(seen.transform).toBe("none");
+    // The approved photograph is shown untreated: no filter, mask, fade or blend over it.
+    expect(seen.treatment).toBe("none | none | 1 | normal");
+    expect(seen.left).toBe(0);
+    expect(Math.abs(seen.box[0] - crop.box[0]), `hero width at ${crop.viewport.width}`).toBeLessThanOrEqual(2);
+    expect(Math.abs(seen.box[1] - crop.box[1]), `hero height at ${crop.viewport.width}`).toBeLessThanOrEqual(2);
+    // The delivered image is the whole photograph (no server-side crop): 1672 x 941.
+    expect(Math.abs(seen.aspect - 1672 / 941)).toBeLessThan(0.01);
+  });
+}
 
 /** Phase 7 production-like acceptance for every core acquisition path.
  * Run after `npm run build`; does not require live credentials.
@@ -89,13 +161,13 @@ test("home: platform selector and signup links are actionable", async ({ page })
   await page.goto("/");
   await expect(page.getByRole("link", { name: /explore 1guard security business operating system/i })).toHaveAttribute("href", "/solutions/security");
   await expect(page.getByRole("link", { name: /explore 1service business operating system/i })).toHaveAttribute("href", "/service");
-  await expect(page.getByRole("link", { name: /get 14 day free trial/i }).first()).toHaveAttribute("href", "/get-started");
+  await expect(page.getByRole("link", { name: /request a 14-day trial/i }).first()).toHaveAttribute("href", "/get-started");
 });
 
 test("reduced motion and transparency do not conceal controls", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
-  await expect(page.getByRole("link", { name: /get 14 day free trial/i }).first()).toBeVisible();
+  await expect(page.getByRole("link", { name: /request a 14-day trial/i }).first()).toBeVisible();
   await expect(page.locator("header.glass-nav")).toBeVisible();
 });
 
@@ -110,14 +182,16 @@ test("key acquisition pages have no critical automated accessibility violations"
 
 test("marketing introductions use relevant people or exact manufacturer products", async ({ page }) => {
   const prominentImages: Record<string, string> = {
-    "/": "approved-full-scene-guard-chef-2026.png",
+    "/": "approved-hero-terrace-v2-2026-11-27.webp",
     "/solutions/security": "security-site-planning",
-    "/service": "service-restaurant-operations.jpg",
+    // Light-first bright package (founder, 2026-11-26): the /service hero uses 01-restaurant-service.
+    "/service": "01-restaurant-service",
     "/equipment-marketplace": "hytera-pnc360s",
     "/guard-marketplace": "hire-security.webp",
-    "/guards": "hire-security",
-    "/join/sales": "customer-enquiry",
-    "/guard-attendance-software": "security-site-planning",
+    // VA-16 (2026-11-25): officer-, sales- and attendance-led scenes replaced office-meeting and site-planning reuse.
+    "/guards": "security-access-scan",
+    "/join/sales": "security-office-park-site-review",
+    "/guard-attendance-software": "security-team-briefing",
     "/guard-patrol-software": "checkpoint",
     "/ptt-radio-rental": "hytera-p30-lite",
     "/radios-equipment": "hytera-pnc360s",
@@ -132,10 +206,12 @@ test("marketing introductions use relevant people or exact manufacturer products
     expect(match?.alt.toLowerCase()).not.toContain("empty");
     expect(match?.alt.toLowerCase()).not.toContain("unoccupied");
   }
+  // Depth direction (founder, 2026-11-27): each people-free scene is one page's environment, used once.
   for (const [route, expectedScene] of [
-    ["/solutions/security", "business-park.webp"],
+    ["/solutions/security", "small-control-room.webp"],
     ["/service", "restaurant-dining.webp"],
-    ["/guard-marketplace", "business-park.webp"],
+    ["/guards", "business-park.webp"],
+    ["/guard-patrol-software", "warehouse-yard.webp"],
   ] as const) {
     await page.goto(route);
     const background = await page.locator("main section").first().evaluate(node => getComputedStyle(node).backgroundImage);
@@ -162,7 +238,9 @@ for (const viewport of viewports) {
       if (name !== "hero") {
         const background = await scene.evaluate(node => getComputedStyle(node).backgroundImage);
         if (name === "service") {
-          expect(background).toContain("/images/backgrounds/restaurant-dining.webp");
+          // Depth direction (2026-11-27): the homepage 1Service environment is the courtyard (dining is /service's).
+          await page.waitForFunction(() => document.documentElement.hasAttribute("data-after-load"));
+          expect(await scene.evaluate(node => getComputedStyle(node).backgroundImage)).toContain("/images/backgrounds/restaurant-courtyard.webp");
         } else {
           expect(background, `${name} keeps the foreground product or illustration clear`).not.toContain("url(");
         }
@@ -217,14 +295,14 @@ test("hero globe animates, liquid CTA responds and actual routes work", async ({
   const transform = await cta.evaluate(el => getComputedStyle(el).transform);
   expect(transform, "CTA should give tactile hover feedback").not.toBe("none");
   await cta.click();
-  await expect(page).toHaveURL(/\/get-started/);
+  await expect(page).toHaveURL(/\/radios-equipment/);
   await page.goto("/");
   await page.getByRole("link", { name: /explore 1service business operating system/i }).click();
   await expect(page).toHaveURL(/\/service/);
 });
 
 
-test("responsive approved hero shows the full image stage before the glass message", async ({ page }) => {
+test("responsive approved hero shows the full image stage before the message", async ({ page }) => {
   for (const width of [375, 768]) {
     await page.setViewportSize({ width, height: width === 375 ? 812 : 1024 });
     await page.goto("/");
@@ -238,11 +316,11 @@ test("responsive approved hero shows the full image stage before the glass messa
     expect(m).not.toBeNull();
     expect(p).not.toBeNull();
     if (m && p) {
-      expect(m.height, "People need a meaningful image stage").toBeGreaterThan(265);
-      expect(p.y, "Glass should start after the image, apart from a small float overlap")
-        .toBeGreaterThanOrEqual(m.y + m.height - 55);
+      // Founder correction 2026-11-27: the photograph is cropped below the people so it no longer dominates.
+      expect(m.height, "People need a meaningful image stage").toBeGreaterThan(220);
+      expect(p.y, "The copy starts below the photograph and never covers it").toBeGreaterThanOrEqual(m.y + m.height);
     }
-    await expect(page.locator(".so-hero-copy a[href='/get-started']")).toBeVisible();
+    await expect(page.locator(".so-hero-copy a[href='/radios-equipment']")).toBeVisible();
     expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(1);
   }
 });
@@ -260,7 +338,7 @@ test("homepage Guard and Service put people ahead of their section environments"
     expect(response.status()).toBe(200);
     expect(response.headers()["content-type"]).toContain(mime);
   }
-  await expect(page.locator(".so-hero-photo")).toHaveAttribute("src", /approved-full-scene-guard-chef-2026\.png/);
+  await expect(page.locator(".so-hero-photo")).toHaveAttribute("src", /approved-hero-terrace-v2-2026-11-27\.webp/);
   for (const route of ["/", "/solutions/security", "/service"]) {
     await page.goto(route);
     const visibleImages = await page.locator("main img").evaluateAll(imgs =>
@@ -270,11 +348,11 @@ test("homepage Guard and Service put people ahead of their section environments"
   }
 });
 
-test("approved homepage guard-and-chef photograph remains separate from interactive controls", async ({ page, request }) => {
-  const photoPath = "/images/home/approved-full-scene-guard-chef-2026.png";
+test("approved homepage enterprise communications photograph remains separate from interactive controls", async ({ page, request }) => {
+  const photoPath = "/images/home/approved-hero-terrace-v2-2026-11-27.webp";
   const response = await request.get(photoPath);
   expect(response.status()).toBe(200);
-  expect(response.headers()["content-type"]).toContain("image/png");
+  expect(response.headers()["content-type"]).toContain("image/webp");
   expect((await response.body()).byteLength).toBeGreaterThan(50000);
   for (const viewport of [
     { width: 375, height: 812 },
@@ -285,9 +363,9 @@ test("approved homepage guard-and-chef photograph remains separate from interact
     await page.goto("/");
     const image = page.locator(".so-hero-photo");
     const alt = await image.getAttribute("alt") || "";
-    expect(alt).toMatch(/security officer/i);
-    expect(alt).toMatch(/chef/i);
-    expect(alt).toMatch(/SECURITY vest/i);
+    expect(alt).toMatch(/enterprise campus/i);
+    expect(alt).toMatch(/tablet/i);
+    expect(alt).toMatch(/three business and security professionals/i);
     const dimensions = await image.evaluate(img => {
       const box = img.getBoundingClientRect();
       const media = img.parentElement!.getBoundingClientRect();
@@ -306,18 +384,18 @@ test("approved homepage guard-and-chef photograph remains separate from interact
         expect(dimensions.imageTop, "Photo must start below the mobile navigation pill").toBeGreaterThanOrEqual(dimensions.navBottom - 3);
       }
     }
-    await expect(page.getByRole("link", { name: /get 14 day free trial/i }).first()).toBeVisible();
+    await expect(page.getByRole("link", { name: /buy or rent radios/i }).first()).toBeVisible();
     await expect(page.locator(".s1-hero-globe-canvas")).toBeVisible();
   }
 });
 
 
-test("desktop homepage shows the entire approved guard and chef photograph with no zoom", async ({ page }) => {
+test("desktop homepage shows the entire approved enterprise communications photograph with no zoom", async ({ page }) => {
   for (const viewport of [{ width: 1440, height: 900 }, { width: 1536, height: 960 }]) {
     await page.setViewportSize(viewport);
     await page.goto("/");
     const image = page.locator(".so-hero-photo");
-    await expect(image).toHaveAttribute("src", /approved-full-scene-guard-chef-2026[.]png/);
+    await expect(image).toHaveAttribute("src", /approved-hero-terrace-v2-2026-11-27[.]webp/);
     const layout = await image.evaluate(img => {
       const media = img.parentElement!.getBoundingClientRect();
       const picture = img.getBoundingClientRect();
@@ -332,12 +410,13 @@ test("desktop homepage shows the entire approved guard and chef photograph with 
         naturalHeight: (img as HTMLImageElement).naturalHeight,
       };
     });
-    expect(layout.fit, "Keep the entire photograph, never object-fit:cover").toBe("contain");
+    // Founder correction 2026-11-27: full width, cropped below the people (cover, anchored at the top).
+    expect(layout.fit).toBe("cover");
     expect(layout.width, "Wide photograph should extend behind the globe").toBeGreaterThanOrEqual(viewport.width - 2);
     expect(layout.naturalWidth).toBeGreaterThan(0);
     expect(layout.naturalHeight).toBeGreaterThan(0);
     expect(layout.pictureRight).toBeLessThanOrEqual(layout.mediaRight + 1);
-    expect(layout.pictureTop, "Chef's hat must start below glass navigation").toBeGreaterThanOrEqual(layout.navBottom - 3);
+    expect(layout.pictureTop, "Hero photograph must start below glass navigation").toBeGreaterThanOrEqual(layout.navBottom - 3);
     const ratio = layout.naturalWidth / layout.naturalHeight;
     const fitWidth = Math.min(layout.width, layout.height * ratio);
     const fitHeight = Math.min(layout.height, layout.width / ratio);
@@ -351,11 +430,11 @@ test("desktop homepage shows the entire approved guard and chef photograph with 
 
 // Wide full scene must be the foreground image layer across the *whole* hero,
 // not a cropped 59% panel on the right. The globe and glass must remain intact.
-test("approved full-scene hero spans behind the globe without cropping the chef on desktop", async ({page,request}) => {
-  const source="/images/home/approved-full-scene-guard-chef-2026.png";
+test("approved full-scene hero spans behind the globe without cropping the subjects on desktop", async ({page,request}) => {
+  const source="/images/home/approved-hero-terrace-v2-2026-11-27.webp";
   const resp=await request.get(source);
   expect(resp.status()).toBe(200);
-  expect(resp.headers()["content-type"]).toContain("image/png");
+  expect(resp.headers()["content-type"]).toContain("image/webp");
   for(const width of [1280,1440,1536,1920]){
     await page.setViewportSize({width,height:960});
     await page.goto("/");
@@ -367,11 +446,11 @@ test("approved full-scene hero spans behind the globe without cropping the chef 
         mask:style.maskImage,position:style.objectPosition,photoLoaded:(img as HTMLImageElement).naturalWidth>0};
     });
     expect(metrics.photoLoaded).toBe(true);
-    expect(metrics.fit).toBe("contain");
+    expect(metrics.fit).toBe("cover");
     expect(metrics.imgWidth).toBeGreaterThan(metrics.mediaWidth * 0.98);
     expect(metrics.mask).toBe("none");
     await expect(page.locator(".s1-hero-globe-canvas")).toBeVisible();
-    await expect(page.getByRole("link",{name:/get 14 day free trial/i}).first()).toBeVisible();
+    await expect(page.getByRole("link",{name:/buy or rent radios/i}).first()).toBeVisible();
   }
 });
 
@@ -525,7 +604,7 @@ test("homepage respects reduced motion and keeps all content readable without sc
   const motion=page.locator("#guard [data-motion-from]");
   await expect(motion.first()).toHaveCSS("opacity","1");
   await expect(motion.first()).toHaveCSS("transform","none");
-  await expect(page.getByRole("link",{name:/get 14 day free trial/i}).first()).toBeVisible();
+  await expect(page.getByRole("link",{name:/request a 14-day trial/i}).first()).toBeVisible();
   const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
   expect(overflow).toBeLessThanOrEqual(1);
 });
@@ -556,7 +635,7 @@ test("homepage keeps purposeful context while process steps remain clear", async
     expect(descriptions.every(description => description.length > 30)).toBe(true);
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
     expect(overflow).toBeLessThanOrEqual(1);
-    await expect(page.locator(".so-hero-media .so-hero-photo")).toHaveAttribute("src",/approved-full-scene-guard-chef-2026[.]png/);
+    await expect(page.locator(".so-hero-media .so-hero-photo")).toHaveAttribute("src",/approved-hero-terrace-v2-2026-11-27[.]webp/);
     await expect(page.locator(".so-vertical-visual-guard img")).toHaveAttribute("src", /approved-sme-security-control-room-2026[.]png/);
   }
 });
@@ -611,18 +690,23 @@ test("homepage imagery is focused, with sector context and quiet product surface
     expect(srcs).toHaveLength(3);
     expect(new Set(srcs).size, "Marketplace images have distinct purposes").toBe(3);
     expect(srcs.some(src => src.includes("hire-security.webp"))).toBe(true);
-    expect(srcs.some(src => src.includes("restaurant-staff-briefing.webp"))).toBe(true);
+    // Light-first bright package (founder, 2026-11-26): the 1Service staffing card uses the hospitality welcome scene.
+    expect(srcs.some(src => src.includes("07-hospitality-welcome.webp"))).toBe(true);
     expect(srcs.some(src => src.includes("teltonika-fmc920.webp"))).toBe(true);
     const sections=[
-      ["#solutions","business-park.webp"],
+      // Light-first (2026-11-26): the business introduction sits on the people-free bright architecture accent.
+      ["#solutions","06-bright-architecture.webp"],
       ["#guard",null],
-      ["#service","restaurant-dining.webp"],
+      // Depth direction (2026-11-27): the 1Service environment is the courtyard; each scene is used once.
+      ["#service","restaurant-courtyard.webp"],
       [".so-ecosystem-section",null],
       [".so-marketplace-section",null],
       ["#equipment",null],
       [".so-onboarding-section",null],
       ["#community",null],
     ] as const;
+    // Section photographs load after the page (components/AfterLoad.tsx, DR-003); assert them once they have.
+    await page.waitForFunction(()=>document.documentElement.hasAttribute("data-after-load"));
     for(const [selector,image] of sections){
       const bg=await page.locator(selector).evaluate(node=>getComputedStyle(node).backgroundImage);
       if (image) expect(bg,`Scene missing on ${selector}`).toContain(image);
@@ -635,8 +719,9 @@ test("homepage imagery is focused, with sector context and quiet product surface
 
 test("sector imagery belongs to relevant introductions; forms and footer stay quiet",async({page})=>{
   for(const [route,expected] of [
-    ["/solutions/security","business-park.webp"], ["/service","restaurant-dining.webp"],
-    ["/guards","business-park.webp"], ["/guard-marketplace","business-park.webp"],
+    // Depth direction (2026-11-27): one scene per page, never repeated; the marketplace leads with its framed photograph.
+    ["/solutions/security","small-control-room.webp"], ["/service","restaurant-dining.webp"],
+    ["/guards","business-park.webp"], ["/guard-marketplace",null],
     ["/equipment-marketplace",null], ["/radios-equipment",null], ["/ptt-radio-rental",null],
     ["/contact",null], ["/pricing",null], ["/get-started",null],
   ] as const){
@@ -694,7 +779,7 @@ test("the original business introduction glass card is restored without the cube
     await expect(section.locator(".so-value-rail > div")).toHaveCount(3);
     await expect(section.locator(".so-os-intro-stage,.so-os-float-anchor,.so-living-os,.so-os-experience,.so-os-cube-trigger")).toHaveCount(0);
     expect(await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth)).toBeLessThanOrEqual(1);
-    await expect(page.locator(".so-hero-media .so-hero-photo")).toHaveAttribute("src",/approved-full-scene-guard-chef-2026[.]png/);
+    await expect(page.locator(".so-hero-media .so-hero-photo")).toHaveAttribute("src",/approved-hero-terrace-v2-2026-11-27[.]webp/);
   }
 });
 
@@ -718,17 +803,31 @@ test("glass navigation seals old page before scroll reset and opens onto station
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(450);
   const link = page.locator('header a[href="/service"]:visible').first();
   await expect(link).toBeVisible();
+  // Record every phase (with scroll position and the overlay colour) as it happens. Polling the attribute
+  // could miss the short sealed phase under load and fail the same way on an unchanged tree (2026-11-27:
+  // 2/8 on 9aed64a, 1/8 on b9ec826), which measured the test's sampling, not the transition.
+  await page.evaluate(() => {
+    const overlay = document.querySelector(".sg-entry-overlay")!;
+    const log: { phase: string | null; y: number; bg: string; path: string }[] = [];
+    (window as unknown as { __phases: typeof log }).__phases = log;
+    new MutationObserver(() => log.push({ phase: overlay.getAttribute("data-guard-entry"), y: window.scrollY, bg: getComputedStyle(overlay).backgroundColor, path: location.pathname }))
+      .observe(overlay, { attributes: true, attributeFilter: ["data-guard-entry"] });
+  });
+  const startY = await page.evaluate(() => window.scrollY);
   await link.click();
   const glass = page.locator(".sg-entry-overlay");
-  await expect(glass).toHaveAttribute("data-guard-entry", "closing", { timeout: 5000 });
-  const oldY = await page.evaluate(() => window.scrollY);
-  await page.waitForTimeout(150);
-  expect(Math.abs((await page.evaluate(() => window.scrollY)) - oldY)).toBeLessThan(3);
-  await expect(glass).toHaveAttribute("data-guard-entry", "sealed", { timeout: 6000 });
-  await expect(glass).toHaveCSS("background-color", "rgb(25, 33, 39)");
   await page.waitForURL(/service$/, { timeout: 10000 });
-  await expect(glass).toHaveAttribute("data-guard-entry", "opening", { timeout: 7000 });
-  expect(await page.evaluate(() => window.scrollY)).toBe(0);
-  await expect(glass).toHaveAttribute("data-guard-entry", "idle", { timeout: 6000 });
+  await expect(glass).toHaveAttribute("data-guard-entry", "idle", { timeout: 8000 });
+  const phases = await page.evaluate(() => (window as unknown as { __phases: { phase: string | null; y: number; bg: string; path: string }[] }).__phases);
+  expect(phases.map(p => p.phase)).toEqual(["closing", "sealed", "opening", "idle"]);
+  const [closing, sealed, opening] = phases;
+  // The old page does not scroll while the glass closes and seals.
+  expect(closing.path).toBe("/");
+  expect(Math.abs(closing.y - startY)).toBeLessThan(3);
+  expect(Math.abs(sealed.y - startY)).toBeLessThan(3);
+  expect(sealed.bg).toBe("rgb(25, 33, 39)");
+  // The destination is placed at the top behind sealed glass before it opens.
+  expect(opening.path).toBe("/service");
+  expect(opening.y).toBe(0);
   await expect(page.locator("main h1").first()).toBeVisible();
 });

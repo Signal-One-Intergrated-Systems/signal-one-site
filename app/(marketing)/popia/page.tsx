@@ -1,21 +1,22 @@
 import type { Metadata } from "next";
 import LegalPage from "../../components/LegalPage";
+import { pageMetadata } from "../../lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "POPIA and Data Handling for Security Software",
   description:
     "How Signal One approaches POPIA and data handling for public enquiries, guard profiles and operational product data in security guard management software.",
   alternates: { canonical: "/popia" },
-};
+});
 
 const sections = [
   ["Purpose limitation", "Collect information for a defined operational, commercial, onboarding or support purpose."],
   ["Least access", "Use role and tenant boundaries so users see only the information needed for their work."],
   ["Private workforce data", "Guard profiles and employment documents are never published on the public website and are not publicly browsable."],
-  ["Guard profile applications", "Details a guard submits through the website are used to assess the application and contact the guard. When Guard Marketplace launches, an eligible profile is shown only to signed-in Signal One client companies, and the guard decides whether to accept any hire request. A guard can ask for their information to be corrected or deleted by emailing sales@signalone.co.za."],
+  ["Guard profile applications", "Details a guard submits through the website are used to assess the application and contact the guard. When Guard Marketplace launches, an eligible profile is shown only to signed-in Signal One client companies, and the guard decides whether to accept any hire request. A guard can ask for their information to be corrected or deleted by emailing privacy@signalone.co.za."],
   ["Auditability", "Sensitive operational actions should leave an auditable record rather than relying on informal changes."],
   ["Corrections", "Provide a process for authorised correction of inaccurate personal information."],
-  ["Retention", "Retain information only for the period justified by its operational, contractual or legal purpose; the final schedule remains subject to legal review."],
+  ["Retention", "Enquiries that do not lead to a customer relationship are erased 12 months after the last contact; guard profiles and job applications that do not lead to work, 6 months after the last contact. Customer records are kept for as long as the contract and South African law require."],
 ] as const;
 
 export default function PopiaPage() {

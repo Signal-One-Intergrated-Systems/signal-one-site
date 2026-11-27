@@ -1,5 +1,6 @@
 "use client";
 
+import { validateBeforeSubmit } from "../lib/formValidation";
 import ReceiptReference from "./ReceiptReference";
 import { FormEvent, useId, useRef, useState } from "react";
 import { trackEvent, type SignalOneEvent } from "../lib/analytics";
@@ -17,6 +18,8 @@ export type IntakeField = {
   hint?: string;
   autoComplete?: string;
   wide?: boolean;
+  /** The sentence shown when a required answer is missing (lib/formValidation.ts, AUDW-05). */
+  error?: string;
 };
 
 type State = "idle" | "sending" | "done" | "error";
@@ -66,6 +69,8 @@ export default function IntakeForm({
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    // Every problem is shown at once, next to its field and in a summary (lib/formValidation.ts).
+    if (!validateBeforeSubmit(event.currentTarget)) return;
     if (state === "sending") return;
     if (!consent) {
       setState("error");
@@ -95,13 +100,13 @@ export default function IntakeForm({
         <p className="t-kicker text-live">Received</p>
         <h3 className="t-h3 mt-3">{successTitle}</h3>
         <ReceiptReference reference={reference} />
-        <p className="t-body mt-3 text-text-2">{successBody}</p>
+        <p className="t-body mt-3 text-ink-2">{successBody}</p>
       </div>
     );
   }
 
   return (
-    <form onSubmit={submit} noValidate={false} className="card p-5 sm:p-8">
+    <form onSubmit={submit} noValidate className="card p-5 sm:p-8">
       <div className="grid gap-5 sm:grid-cols-2">
         {fields.map((field) => {
           const fieldId = id + "-" + field.name;
@@ -111,13 +116,14 @@ export default function IntakeForm({
             <div key={field.name} className={"field " + (wide ? "sm:col-span-2" : "")}>
               <label htmlFor={fieldId} className="field-label">
                 {field.label}
-                {field.required ? null : <span className="font-normal text-text-2"> (optional)</span>}
+                {field.required ? null : <span className="font-normal text-ink-2"> (optional)</span>}
               </label>
               {field.type === "textarea" ? (
                 <textarea
                   id={fieldId}
                   name={field.name}
                   required={field.required}
+                  data-error={field.error}
                   rows={4}
                   aria-describedby={hintId}
                   value={values[field.name] || ""}
@@ -130,6 +136,7 @@ export default function IntakeForm({
                   id={fieldId}
                   name={field.name}
                   required={field.required}
+                  data-error={field.error}
                   aria-describedby={hintId}
                   value={values[field.name] || ""}
                   onChange={(event) => update(field.name, event.target.value)}
@@ -148,6 +155,7 @@ export default function IntakeForm({
                   name={field.name}
                   type={field.type || "text"}
                   required={field.required}
+                  data-error={field.error}
                   autoComplete={field.autoComplete}
                   aria-describedby={hintId}
                   value={values[field.name] || ""}

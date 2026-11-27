@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import LegalPage from "../../components/LegalPage";
+import { pageMetadata } from "../../lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Security and Trust: Access Control and Audit",
   description:
-    "How Signal One Security controls access, keeps audit trails and handles hosting and data. Explore our product controls and service commitments.",
+    "How 1GUARD controls access, keeps audit trails and handles hosting and data. Explore our product controls and service commitments.",
   alternates: { canonical: "/security-trust" },
-};
+});
 
 const sections = [
   ["Authentication & access", "Authenticated product areas use role and permission controls. Guard also separates company, supervisor, client and guard access paths."],
@@ -16,7 +17,7 @@ const sections = [
   ["Backup & recovery", "Backup, restoration and recovery controls exist in the platform engineering stack. Public RPO, RTO and retention commitments are not published until they are formally approved."],
   ["POPIA", "Signal One's product design uses purpose-limited access and private operational workspaces. The final POPIA notice and operator responsibilities remain subject to legal review."],
   ["Support", "Customer support and incident handling are part of the operating model. Exact support hours and response-time commitments will be stated in the customer agreement."],
-  ["Product status", "Capabilities are labelled Pilot, Live, Beta, MVP in development or Coming soon. Signal One Guard is Pilot until production is running for a first customer. A planned feature or integration is not marketed as live."],
+  ["Product status", "Capabilities are labelled Available, Pilot, In development, Planned, Coming soon or By quote. 1GUARD is Pilot until production is running for a first customer. A planned feature or integration is not marketed as live."],
 ] as const;
 
 export default function SecurityTrustPage() {
@@ -28,7 +29,7 @@ export default function SecurityTrustPage() {
       sections={sections}
       footer={
         <>
-          Procurement or security review? Contact <a href="mailto:sales@signalone.co.za" className="link-inline font-semibold text-signal-ink">sales@signalone.co.za</a>. Contractual support hours, data-location commitments, backup retention and recovery objectives are confirmed in the applicable customer agreement.
+          Procurement or security review? Contact <a href="mailto:sales@signalone.co.za" className="link-inline font-semibold text-accent">sales@signalone.co.za</a>. Contractual support hours, data-location commitments, backup retention and recovery objectives are confirmed in the applicable customer agreement.
         </>
       }
     />

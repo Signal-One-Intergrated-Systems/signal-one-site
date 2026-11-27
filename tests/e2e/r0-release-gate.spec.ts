@@ -63,7 +63,7 @@ const SITE = "http://localhost:3100";
 const valid = {
   kind: "client",
   data: { intent: "consultation", name: "Synthetic QA" },
-  consent: { processing: true, marketing: false, noticeVersion: "2026-11-12", capturedAt: new Date().toISOString() },
+  consent: { processing: true, marketing: false, noticeVersion: "2026-11-26", capturedAt: new Date().toISOString() },
   idempotencyKey: "3f0e8f6a-5c0e-4b5e-9d3a-6b1f6f5d2a11",
 };
 const from = (origin: string) => ({ origin });
@@ -96,8 +96,8 @@ test("a persisted-record receipt is required: the reply carries the stored recor
   const res = await request.post(OK_BASE + "/api/intake", { data: { ...valid, idempotencyKey: key }, headers: from(OK_BASE) });
   expect(res.status()).toBe(200);
   const body = await res.json();
-  expect(body.receipt.reference).toMatch(/^QA-CRM-LEAD-\d+$/);
-  expect(body.receipt.recordType).toBe("crm_lead");
+  expect(body.receipt.reference).toMatch(/^QA-WEBSITE-ENQUIRY-\d+$/);
+  expect(body.receipt.recordType).toBe("website_enquiry");
   expect(body.receipt.idempotencyKey).toBe(key);
   expect(body.receipt.duplicate).toBe(false);
 
@@ -231,13 +231,13 @@ test("contact form forwards consent, a separate marketing choice and an idempote
   await tick(form.locator('input[name="consent-processing"]'));
   await form.locator("button[type=submit]").click();
   await expect(page.locator('[role="status"]').first()).toBeVisible({ timeout: 15_000 });
-  await expect(page.locator("[data-receipt-reference]")).toContainText(/Reference: QA-CRM-LEAD-\d+/);
+  await expect(page.locator("[data-receipt-reference]")).toContainText(/Reference: QA-WEBSITE-ENQUIRY-\d+/);
   type Hit = { headers?: Record<string, string>; body: { contract?: string; idempotencyKey?: string; consent?: { processing: boolean; marketing: boolean; noticeVersion: string; recordedAt: string }; data: Record<string, string> } };
   const received = (await (await request.get("http://localhost:4010/received")).json()) as Hit[];
   const hit = received.reverse().find((r) => r.body?.data?.email === "qa.r0@example.com");
   expect(hit, "receiver got the submission").toBeTruthy();
   expect(hit!.body.contract).toBe("website-intake/v1");
-  expect(hit!.body.consent).toMatchObject({ processing: true, marketing: false, noticeVersion: "2026-11-12" });
+  expect(hit!.body.consent).toMatchObject({ processing: true, marketing: false, noticeVersion: "2026-11-26" });
   expect(hit!.body.consent!.recordedAt).toMatch(/^\d{4}-\d{2}-\d{2}T/);
   expect(hit!.body.idempotencyKey).toMatch(/^[0-9a-f-]{36}$/);
   expect(hit!.headers?.["idempotency-key"]).toBe(hit!.body.idempotencyKey);
@@ -314,4 +314,31 @@ test("a 400 the visitor can fix shows the message without diverting them to emai
   await form.locator("button[type=submit]").click();
   await expect(page.getByText("QA: please correct the form")).toBeVisible({ timeout: 15_000 });
   await expect(page.locator('main form a[href^="mailto:"]')).toHaveCount(0);
+});
+
+test("by default only sales enquiries go to the receiver; applications get the honest email route (audit L2-01)", async ({ request }) => {
+  const site = "http://localhost:3102"; // receiver configured, SIGNAL_ONE_INTAKE_KINDS unset
+  const headers = { ...from(site), "x-qa-edge-client-ip": "198.51.100.90" };
+  const guard = await request.post(site + "/api/intake", { data: { ...valid, kind: "guard", data: { intent: "guard-profile", fullName: "Synthetic QA" }, idempotencyKey: uuid() }, headers });
+  expect(guard.status()).toBe(503);
+  expect((await guard.json()).message).toContain("sales@signalone.co.za");
+  const sales = await request.post(site + "/api/intake", { data: { ...valid, kind: "sales", data: { intent: "sales-representative-application", fullName: "Synthetic QA" }, idempotencyKey: uuid() }, headers });
+  expect(sales.status()).toBe(503);
+  expect((await request.post(site + "/api/intake", { data: { ...valid, idempotencyKey: uuid() }, headers })).status()).toBe(200);
+});
+
+test("attribution the receiver would refuse is normalised or dropped, never sent (audit L2-08)", async ({ request }) => {
+  const key = uuid();
+  const res = await request.post(OK_BASE + "/api/intake", {
+    data: { ...valid, idempotencyKey: key, attribution: { utm_source: "google", referrerHost: "www.Google.com.", landingPath: "/ptt-radio-rental?x=1", gclid: "QA.l2-08" } },
+    headers: from(OK_BASE),
+  });
+  expect(res.status()).toBe(200);
+  const received = (await (await request.get("http://localhost:4010/received")).json()) as Array<{ body: { idempotencyKey: string; attribution?: Record<string, string> } }>;
+  const hit = received.find((r) => r.body.idempotencyKey === key)!;
+  expect(hit.body.attribution).toEqual({ utm_source: "google", referrerHost: "www.google.com", gclid: "QA.l2-08" });
+  const ipv6 = uuid();
+  await request.post(OK_BASE + "/api/intake", { data: { ...valid, idempotencyKey: ipv6, attribution: { utm_source: "google", referrerHost: "[::1]:8080" } }, headers: from(OK_BASE) });
+  const second = ((await (await request.get("http://localhost:4010/received")).json()) as Array<{ body: { idempotencyKey: string; attribution?: Record<string, string> } }>).find((r) => r.body.idempotencyKey === ipv6)!;
+  expect(second.body.attribution).toEqual({ utm_source: "google" });
 });

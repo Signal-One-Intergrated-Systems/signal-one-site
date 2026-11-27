@@ -18,7 +18,7 @@ Originals are kept unmodified in `assets/hardware/originals/`. They are not serv
 | --- | --- |
 | P30 Lite PoC | Resolved 2026-11-15: exact Hytera P30 Lite manufacturer image added; see current source register below. |
 | SC780 body camera | Resolved 2026-11-15: exact Hytera SC780 manufacturer image added; see current source register below. |
-| E600 PoC LTE | No supplier documentation in any repository or doc confirms the manufacturer or exact branding. No image is used until the supplier documentation confirms it. |
+| EasyTalk E600 | `public/images/hardware/easytalk-e600.png` (494×494, sha256 `37227819e549e07650c3213670563f4fae7a306cfa9ce5e3ab6f3f9e4e785160`): front view cropped from the manufacturer's "Easytalk E600 Product specification" (2024-03-01), background removed. Specifications from that sheet and the EasyTalk E600 brochure, both supplied by the founder 2026-11-26. The SOS key is marked "reserve" by the manufacturer and is not claimed; LTE band lists differ between the two documents and are not published. |
 
 ## Domains unreachable from the build environment
 
@@ -152,3 +152,76 @@ Original SHA-256 values:
 
 - `hytera-p30-lite-front.png`: `d28ce15636f8f4b20186657bdc26934d01c846f7948bfc2f640eae31e660089c`
 - `hytera-sc780-front.png`: `94b1e16eeae536643b37af70e477b94baf8f69c66301b7f9a42e27ba85c5ab1b`
+
+## 2026-11-26 — founder bright image package (light-first website)
+
+Supplied by the founder with the light-first direction ("brighter public website, asset handoff v2"). Every file was verified against the package manifest's SHA-256 before use and copied byte-for-byte to `public/images/bright/`; Next/Image performs delivery optimisation. None is upscaled: the largest drawn size is below the native width. All are **AI-generated illustrative scenes, not actual Signal One staff, clients, facilities, inventory or software**, and are captioned or disclosed as illustrative where they appear.
+
+| File | Native | SHA-256 | Alt text | Placed on |
+|---|---|---|---|---|
+| `01-restaurant-service.webp` | 1672 × 941 | `edbc5e06439248ec93a2f5ea4a5376c5583377b8ac0aabb7bb3adb7d4df57712` | Illustrative chef and server coordinating plated orders in a restaurant kitchen | `/service` hero (so "Run the day" keeps the existing approved `restaurant-staff-briefing.webp`) |
+| `02-team-planning.webp` | 1672 × 941 | `50707b3833f095f39e7b726631fd731518bb0002f1f5976bc4684fa6fafe28fb` | Illustrative restaurant team reviewing staffing and daily assignments | `/service` "Manage the team" |
+| `03-stock-and-margins.webp` | 1672 × 941 | `3fd79639104e498db33ea7ff235abaed426b525b993953378dbef9567bf86f57` | Illustrative kitchen team checking stock and purchasing records | `/service` "Understand the margins" |
+| `04-performance-review.webp` | 1672 × 941 | `3982f49918b04b4ecba08c137f812d9f522513d47866c6ae707e5fb9c0404c82` | Illustrative restaurant managers reviewing business performance documents in daylight | `/service` "Know what to improve" |
+| `05-radio-rental-workflow.webp` | 1672 × 941 | `3b4c8235a03e4002701939fe3a2c1d846119164304f61c97563cde48c1236e7d` | Illustrative team preparing communications equipment for deployment | `/ptt-radio-rental`, supporting panel beside "How the quote works", captioned "Illustrative scene · not actual rental stock" (never stock or inventory evidence) |
+| `06-bright-architecture.webp` | 1774 × 887 | `4f5e3272668d64392d40890548df010fb23044494eb322bef397af4fa3fe1115` | Illustrative contemporary glass and pale concrete atrium in daylight (decorative backdrop, no alt) | Homepage business introduction backdrop, under the light veil (replaces `business-park.webp` there) |
+| `07-hospitality-welcome.webp` | 1672 × 941 | `00813cc947295342c69a35cf0ea5756f33184231524226b7350fc368675a1287` | Illustrative hospitality reception professional in a sunlit lobby | Homepage "1Service staffing · Planned" card (replaces `restaurant-staff-briefing.webp` there) |
+| `08-kitchen-alternative.webp` | 1672 × 941 | `7422a7f00fc8554c22ab1752d8b867e42cca1838b13a142e624c17b42b214734` | — | **Not used** (alternative to 01; never both on one page). Not copied into `public/`. |
+
+Also placed from the existing approved editorial set (2026-10-30 package): `security-operations-review.webp` on the `/solutions/security` coverage chapter, captioned "Illustrative scene · fictional security company" (its uniforms carry fictional branding, the same open ruling as `security-site-planning`, `docs/launch/IMAGE_INVENTORY.md` #9).
+
+Not acquired: the package guide lists Pexels source candidates (office park, restaurant, warehouse). They were not fetched (licence and dimensions unverified, not reachable from the build environment); see `docs/launch/LIGHT_THEME.md`.
+
+Light-first treatment: photographs are no longer toned to graphite (the luminosity blend is removed) and no dark scrim is laid over them; scene backdrops sit under a light veil that clears away from the copy. The locked homepage hero and the approved SME control-room photograph are unchanged.
+
+
+## Founder-approved homepage hero replacement — 2026-11-26
+
+The founder explicitly requested the new enterprise communications scene for the homepage. The active hero is now `/images/home/approved-enterprise-communications-2026.jpg` (1672 × 941 JPEG; SHA-256 `224b5d8939787ccb3f10ec9cb33b2c1d5e1623471e8ecdea0eae1359c6f1e859`). This synthetic illustrative photograph is not evidence of actual staff, premises or customers. It replaces only the former guard-and-chef image and its descriptive alt text; the existing globe, glass, navigation, copy, responsive layout and loading priority remain unchanged. Earlier hero approvals above are historical; the previous asset is retained for rollback. The source fixture and visual tests now protect the replacement.
+
+## Hytera P30 Lite, 1200 px official cut-out (hero radio) — 2026-11-27
+
+`public/images/hardware/hytera-p30-lite-1200.png` (1200 × 1200 RGBA, SHA-256 `b1f198a9dfab…` — full hash in git) is the largest image in the official set served on Hytera South Africa's P30 Lite product page (`https://hytera.co.za/products/p30-lite`, images hosted at `hytera.ae/imager/images/1827303/`). Same front view as the 600 px catalogue file at exactly 2×. Used only as the homepage hero's interactive radio. Authorised dealer basis as for the other manufacturer images. Hytera publishes no other angles or 3D assets for this model on those pages (checked 2026-11-27).
+
+## 1GUARD product screenshots (genuine app, curated synthetic tenant) — 2026-11-27
+
+- **Files:** `public/images/1guard/1guard-control-room.webp`, `1guard-my-operation.webp` and `1guard-client-service-today.webp`. They are scaled from 2× PNG captures; the only other edit is cropping out the navigation tabs.
+- **App build:** the 1GUARD web app from `signal-one-guard`, branch `claude/capture-ready-display`:
+  - `b4d4f0b`: round checkpoint count;
+  - `2708a0c`: en-ZA 24-hour dates and codes in words;
+  - `100716a`: proof reasons and one-word codes in words. **This commit is local only and not yet pushed**, and the control-room text depends on it.
+  - Base: `f43e995`.
+  - **Publish these images only once these commits are merged in 1GUARD**, so that the product matches what the website shows.
+- **Capture:** Playwright Chromium, en-ZA locale, timezone Africa/Johannesburg, 1440×900 at 2× scale; the original 2× PNGs are 2880 px wide.
+- **Data:** synthetic only, created through the app's real API by a local script (`ikhaya-tenant.mjs`, kept in the session scratchpad):
+  - an invented company, "Ikhaya Security Services", with four invented sites;
+  - 34 invented guards;
+  - a short-staffed post, patrols, one SOS (resolved), an incident, and occurrence-book entries.
+- **Data caveats:**
+  - Activity was replayed compressed, so checkpoint times are minutes apart.
+  - A stray replay process added extra round-1 patrol starts; these are genuine API calls.
+  - No email or phone number is visible, and no real people or companies are intended. That "Ikhaya Security Services" is not a real company was **not verified** (a web search found none).
+- **Checks:** OCR gate (`scripts/ocr-images.mjs`) passed, and the images were inspected by eye.
+- **Withheld:** proof of service. It shows today's in-progress shift only (0 of 9 services fully proven), not the "mostly proven week" the brief asks for. That needs genuine historical data, either from a staging tenant that has run for a week or from an approved local back-dating seed.
+
+## Homepage hero photograph, approved terrace scene — 2026-11-27
+
+- **File:** `public/images/home/approved-hero-terrace-2026-11-27.webp`, 1672 × 941, WebP, 232,660 bytes; SHA-256 `0ddcefca7c52c41b7db8af759cbb5f7baa674debb9e61e89f7a7b2b88322d2de`. The founder-lock test checks this hash.
+- **Source:** supplied by the founder in this session as the final approved hero background ("FINAL APPROVED HERO IMAGE"). It was generated for Signal One (the founder named ChatGPT as the source of the candidates), so it is an illustrative scene and the hero keeps its "Illustrative scene" label.
+- **Scene:** a daylight office terrace with Table Mountain behind, three professionals with a tablet beside a glass building, and an empty round glass pedestal in the foreground. The photograph contains no radio, logo, interface or text.
+- **Use:**
+  - Shown whole and never cropped or upscaled (see `HERO_RECOMPOSITION_2026-11-27.md`).
+  - Delivery sizes come from Next.js image optimisation (WebP/AVIF), and the file is committed byte-identical as supplied.
+  - The genuine Hytera manufacturer radio cut-out is a separate interactive element placed on the pedestal; it is not composited into the photograph.
+- **Replaces:** `approved-enterprise-communications-2026.jpg`, which stays in the repository, unused, for rollback.
+
+## Homepage hero photograph v2, from brief v2 — 2026-11-27
+
+- **File:** `public/images/home/approved-hero-terrace-v2-2026-11-27.webp`, 1672 × 941, WebP, 271,850 bytes; SHA-256 `fa2b33562be0e94d83e35020683991855dceb74c4881049459e83b22aca07967`. The founder-lock test checks this hash.
+- **Source:** supplied by the founder as the replacement generated from `docs/launch/HERO_PHOTO_BRIEF_V2.md`. It is an illustrative scene, and the "Illustrative scene" label stays.
+- **Scene:** a daylight terrace with a city skyline, a glass office building, a planter, and three professionals further back on the right with a tablet. There is no pedestal, radio, logo or text.
+- **Deviations from the brief:**
+  - It is 1672 px wide, not the 2560 px the brief asked for. It is never upscaled; above 1672 px it is a framed stage.
+  - A planter occupies the brief's radio zone (x 44–58%), so the radio's base sits on the paving in front of the planter (y ≈ 71% of the photograph) instead of at y ≈ 62%.
+- **Use:** the site shows the band from 8% to 80% of the photograph's height (`object-position: 50% 28.6%`). The radio is at 24% of the photograph's height, centred at 50%, with its base at 88% of the visible band on a CSS glass plinth.
+- **Replaces:** `approved-hero-terrace-2026-11-27.webp`, which is kept for rollback.

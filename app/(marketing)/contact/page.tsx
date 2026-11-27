@@ -2,24 +2,28 @@ import IntakeAvailability from "../../components/journey/IntakeAvailability";
 import type { Metadata } from "next";
 import IntakeForm, { type IntakeField } from "../../components/IntakeForm";
 import { Kicker, Steps } from "../../components/ui";
+import { contact } from "../../lib/site";
+import EmailLink from "../../components/EmailLink";
+import { pageMetadata } from "../../lib/seo";
 
-export const metadata: Metadata = {
-  title: "Talk to Signal One | 1GUARD, 1Service and Equipment",
+export const metadata: Metadata = pageMetadata({
+  title: "Talk to Us: 1GUARD, Radios and Business Technology",
   description:
     "Talk to Signal One about 1GUARD, 1Service, security equipment and connected operations. Request a walkthrough or product quotation.",
   alternates: { canonical: "/contact" },
-};
+});
 
 const fields: IntakeField[] = [
-  { name: "contactName", label: "Your name", required: true, autoComplete: "name" },
-  { name: "companyName", label: "Company or organisation", required: true, autoComplete: "organization" },
-  { name: "email", label: "Work email", type: "email", required: true, autoComplete: "email" },
-  { name: "mobile", label: "Mobile number", type: "tel", required: true, autoComplete: "tel", placeholder: "+27" },
+  { name: "contactName", label: "Your name", required: true, error: "Enter your name.", autoComplete: "name" },
+  { name: "companyName", label: "Company or organisation", required: true, error: "Enter your company or organisation.", autoComplete: "organization" },
+  { name: "email", label: "Work email", type: "email", required: true, error: "Enter your work email address.", autoComplete: "email" },
+  { name: "mobile", label: "Mobile number", type: "tel", required: true, error: "Enter your mobile number.", autoComplete: "tel", placeholder: "+27" },
   {
     name: "topic",
     label: "What would you like to talk about?",
     type: "select",
     required: true,
+    error: "Choose what you would like to talk about.",
     wide: true,
     options: [
       "1GUARD Security Business OS walkthrough",
@@ -41,12 +45,12 @@ const fields: IntakeField[] = [
 
 export default function ContactPage() {
   return (
-    <main id="main" className="surface-light s1-premium-contact s1-scene-page s1-scene-page--contact">
+    <main id="main" className="surface-light s1-premium-contact s1-scene-page s1-scene-page--contact mat-ice">
       <div className="wrap grid gap-12 py-12 md:py-20 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
         <div>
           <Kicker>Talk to Signal One</Kicker>
           <h1 className="t-h1 mt-4">Tell us what you need. We will show you the right solution.</h1>
-          <p className="t-lead mt-5 text-text-2">
+          <p className="t-lead mt-5 text-ink-2">
             From business operating systems for security and service SMEs to radios and connected equipment, tell us what you are trying to achieve.
           </p>
 
@@ -56,17 +60,26 @@ export default function ContactPage() {
             <Steps
               items={[
                 ["We read your message", "We review your business requirements and the solution you selected."],
-                ["We get in touch", "By email or phone, using the details you give us."],
+                ["We get in touch within one business day", "By email or phone, using the details you give us."],
                 ["We discuss your solution", "We explain the relevant platform, available options and next steps before you decide."],
               ]}
             />
           </div>
 
-          <div className="mt-10 border-t border-line pt-6">
-            <p className="t-small text-text-2">Prefer email?</p>
-            <a href="mailto:sales@signalone.co.za" className="mt-1 inline-flex min-h-[44px] items-center text-[1.25rem] font-semibold text-signal-ink underline underline-offset-4">
-              sales@signalone.co.za
-            </a>
+          <div className="mt-10 grid gap-4 border-t border-hairline pt-6 sm:grid-cols-2">
+            <div>
+              <p className="t-small text-ink-2">Prefer email?</p>
+              <EmailLink email={contact.email} className="mt-1 inline-flex min-h-[44px] items-center text-[1.25rem] font-semibold text-accent underline underline-offset-4" />
+            </div>
+            <div>
+              <p className="t-small text-ink-2">Prefer WhatsApp?</p>
+              <a href={contact.whatsappHref} rel="noopener" className="mt-1 inline-flex min-h-[44px] items-center text-[1.25rem] font-semibold text-accent underline underline-offset-4">
+                {contact.whatsappDisplay}
+              </a>
+            </div>
+            <p className="t-small text-ink-2 sm:col-span-2">
+              Already a customer? Email <EmailLink email={contact.supportEmail} className="link-inline font-semibold text-accent" /> or see <a href="/support" className="link-inline font-semibold text-accent">Support</a>.
+            </p>
           </div>
         </div>
 
@@ -79,7 +92,7 @@ export default function ContactPage() {
             events={{ start: "consultation_start", complete: "consultation_complete" }}
             consentText="I agree that Signal One may use these details to reply to me about this request."
             successTitle="Thanks. A Signal One representative will be in touch."
-            successBody="We reply by email or phone using the details you gave us. Nothing else happens until we have spoken."
+            successBody="We reply within one business day, by email or phone using the details you gave us. Nothing else happens until we have spoken."
           />
         </div>
       </div>

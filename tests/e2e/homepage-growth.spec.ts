@@ -8,18 +8,19 @@ for (const width of [320, 390, 768, 1440]) {
     await expect(page.locator(".s1-hero-globe-layer")).toBeAttached();
     await expect(page.locator(".so-hero-media img")).toBeVisible();
     await expect(page.locator(".so-hero-bar")).toBeVisible();
-    await expect(page.locator("#service")).toContainText("IN DEVELOPMENT");
+    // Sentence-case status label (DESIGN_SYSTEM §3: the lockup is the only all-caps text, VA-10).
+    await expect(page.locator("#service")).toContainText("In development");
     await expect(page.locator("#equipment")).toContainText("Hytera PNC360S");
     await expect(page.locator("#equipment")).toContainText("Hytera P30 Lite");
-    const trial = page.locator(".so-hero-actions").getByRole("link", { name: /Get 14 Day Free Trial/ });
-    await expect(trial).toHaveAttribute("href", "/get-started");
-    await expect(page.locator(".so-hero-actions").getByRole("link", { name: /Explore the solutions/ }))
-      .toHaveAttribute("href", "#solutions");
+    // Radios lead the hero; 1GUARD follows (founder, 2026-11-27). The trial lives in the 1GUARD section.
+    await expect(page.locator(".so-hero-actions").getByRole("link", { name: /Buy or rent radios/ })).toHaveAttribute("href", "/radios-equipment");
+    await expect(page.locator(".so-hero-actions").getByRole("link", { name: /Explore 1GUARD/ })).toHaveAttribute("href", "/solutions/security");
+    await expect(page.locator(".so-hero-actions").getByRole("link", { name: /Request a 14-day trial/ })).toHaveCount(0);
     const walkthrough = page.locator(".so-final-actions").getByRole("link", { name: /Book a walkthrough/ });
     await expect(walkthrough).toHaveAttribute("href", "/contact");
     const state = await page.evaluate(() => {
       const main = document.querySelector("main")!;
-      const trial = main.querySelector(".so-hero-actions .so-home-cta")!;
+      const trial = main.querySelector(".so-hero-actions .so-home-cta")!; // the primary hero action
       const image = main.querySelector(".so-hero-media img") as HTMLImageElement;
       return {
         overflow: document.documentElement.scrollWidth - window.innerWidth,

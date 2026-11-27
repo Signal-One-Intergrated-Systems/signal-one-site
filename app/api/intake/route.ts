@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { PRIVACY_NOTICE_VERSION } from "../../lib/intake";
+import { sanitizeAttribution } from "../../lib/attribution";
+import { enabledIntakeKinds, intakeReceiver } from "../../lib/intakeConfig";
 
 /**
  * Website intake contract v1 (SITE_INTEGRATION.md).
@@ -14,9 +16,9 @@ export const dynamic = "force-dynamic";
 
 // A Map, not an object: "constructor" or "__proto__" as a kind must be an ordinary unknown value.
 const INTENTS = new Map<string, ReadonlySet<string>>([
-  ["client", new Set(["consultation", "company-onboarding", "equipment-rental-quote", "tracking-quote", "bodycam-rental-quote", "marketplace-interest"])],
+  ["client", new Set(["consultation", "company-onboarding", "equipment-rental-quote", "tracking-quote", "bodycam-rental-quote", "marketplace-interest", "reseller-application", "technology-partnership"])],
   ["guard", new Set(["guard-profile"])],
-  ["sales", new Set(["sales-representative-application"])],
+  ["sales", new Set(["sales-representative-application", "sales-partner-application"])],
 ]);
 const MAX_BODY_BYTES = 64 * 1024;
 const MAX_PAYLOAD_CHARS = 20_000;
@@ -144,11 +146,12 @@ export async function POST(request: Request) {
   }
   if (!body || typeof body !== "object" || Array.isArray(body)) return reply("Invalid request.", 400);
 
-  const { kind, data, consent, idempotencyKey } = body as {
+  const { kind, data, consent, idempotencyKey, attribution } = body as {
     kind?: unknown;
     data?: unknown;
     consent?: { processing?: unknown; marketing?: unknown; noticeVersion?: unknown; capturedAt?: unknown };
     idempotencyKey?: unknown;
+    attribution?: unknown;
   };
   const intents = typeof kind === "string" ? INTENTS.get(kind) : undefined;
   if (typeof kind !== "string" || !intents || !data || typeof data !== "object" || Array.isArray(data)) {
@@ -181,8 +184,12 @@ export async function POST(request: Request) {
   }
   if (typeof idempotencyKey !== "string" || !UUID.test(idempotencyKey)) return reply("Invalid request.", 400);
 
-  const target = process.env.SIGNAL_ONE_INTAKE_URL;
-  const token = process.env.SIGNAL_ONE_INTAKE_TOKEN;
+  // The same configuration GET /api/intake/status reports (lib/intakeConfig.ts), so the page's notice
+  // and this answer cannot disagree. Default kinds: client enquiries only (audit L2-01).
+  const { url: target, token } = intakeReceiver();
+  if (target && token && !enabledIntakeKinds().has(kind)) {
+    return reply(`Online applications are not connected yet, so nothing was sent. Please email ${EMAIL} and we will reply directly.`, 503);
+  }
   if (!target) {
     return reply(`Online forms are not connected yet, so nothing was sent. Please email ${EMAIL} and we will reply directly.`, 503);
   }
@@ -198,6 +205,7 @@ export async function POST(request: Request) {
   }
 
 
+  const campaign = kind === "client" ? sanitizeAttribution(attribution) : undefined;
   const unconfirmed = `We could not confirm that this was saved, so please treat it as not received. Try again, or email ${EMAIL}.`;
   try {
     const upstream = await fetch(target, {
@@ -221,6 +229,11 @@ export async function POST(request: Request) {
           clientCapturedAt: typeof consent.capturedAt === "string" ? consent.capturedAt.slice(0, 40) : null,
         },
         idempotencyKey,
+        // Optional (contract v1.1): campaign source of the visit. Unknown keys and unsafe values are dropped.
+        // Sent ONLY when present: a v1 receiver (platform PR #704 without #748) refuses any unknown top-level
+        // key, even null, so an always-present key would lose every enquiry. Client enquiries only: never on
+        // a guard or job application, whatever the request carries (AUDW-09).
+        ...(campaign ? { attribution: campaign } : {}),
         source: "signal-one-site",
       }),
       cache: "no-store",

@@ -1,0 +1,44 @@
+{
+ "bg colours (values / clusters)": "21 / 16",
+ "text colours (values / clusters)": "21 / 18",
+ "border colours (values / clusters)": "14 / 12",
+ "font sizes": 38,
+ "font weights": 10,
+ "line-heights": 69,
+ "letter-spacings": 29,
+ "text < 14px (elements, excl. lockup descriptor)": 15,
+ "uppercase text elements": 2,
+ "radii (non-zero)": 9,
+ "box-shadows": 10,
+ "backdrop-filters": 5,
+ "glass recipes (filter x bg x radius)": 7,
+ "H1 sizes at 1440": 4,
+ "_h1": {
+  "60.8px": 13,
+  "46px": 7,
+  "67.68px": 1,
+  "17px": 1
+ },
+ "primary button variants at 1440 (h x radius x size x weight)": 3,
+ "_btn": [
+  [
+   48,
+   "999px",
+   "15px",
+   "650"
+  ],
+  [
+   56,
+   "999px",
+   "16px",
+   "700"
+  ],
+  [
+   56,
+   "999px",
+   "17px",
+   "650"
+  ]
+ ],
+ "routes": 22
+}

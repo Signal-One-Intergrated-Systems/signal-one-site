@@ -1,28 +1,30 @@
 import type { Metadata } from "next";
 import LandingPage from "../../components/LandingPage";
 import PatrolStory from "../../components/PatrolStory";
-import { ButtonLink, FactPanel, Photo } from "../../components/ui";
+import { ButtonLink, GuardStatus, FactPanel, Photo } from "../../components/ui";
 import { illustrativeCaption, photos } from "../../lib/photos";
 import { guardDayPricePhrase } from "../../lib/pricing";
+import { pageMetadata } from "../../lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Guard Patrol Software for Security Companies",
   description:
-    "QR and NFC checkpoint patrols, with scans saved on the phone when signal drops, and missed and late checkpoints in proof of service. Signal One Guard is " + guardDayPricePhrase + ", excl. VAT.",
+    "QR and NFC checkpoint patrols, with scans saved on the phone when signal drops, and missed and late checkpoints in proof of service. 1GUARD is " + guardDayPricePhrase + ", excl. VAT.",
   alternates: { canonical: "/guard-patrol-software" },
-};
+});
 
 export default function GuardPatrolSoftwarePage() {
   return (
     <LandingPage
       scene="patrol"
+      status={<GuardStatus tone="dark" />}
       kicker="Guard patrol software"
       title="Prove the patrol was walked."
-      lead="Signal One Guard turns each patrol into a record: QR or NFC checkpoints on the route, scanned on the guard's own phone or an authorised Central Device. Scans taken without signal are saved on the phone and sent when it returns."
+      lead="1GUARD turns each patrol into a record: QR or NFC checkpoints on the route, scanned on the guard's own phone or an authorised Central Device. Scans taken without signal are saved on the phone and sent when it returns."
       actions={
         <>
-          <ButtonLink href="/contact" size="lg">
-            Talk to Signal One
+          <ButtonLink href="/get-started" size="lg">
+            Request a 14-day trial
           </ButtonLink>
           <ButtonLink href="/solutions/security" variant="ghost-dark" size="lg">
             See the whole platform
@@ -33,7 +35,7 @@ export default function GuardPatrolSoftwarePage() {
         <div className="grid gap-5">
           <Photo src={photos.guardPatrol.src} alt={photos.guardPatrol.alt} sizes="(min-width:1024px) 46vw, 100vw" aspect="aspect-[16/9]" caption={illustrativeCaption} />
           <FactPanel
-          title="Signal One Guard · patrols"
+          title="1GUARD · patrols"
           facts={[
             ["QR or NFC checkpoints", "Set per site; scanned on the route."],
             ["Time and GPS on every scan", "Recorded with the checkpoint and the patrol."],
@@ -44,7 +46,7 @@ export default function GuardPatrolSoftwarePage() {
         </div>
       }
       story={
-        <section className="surface-white section">
+        <section className="surface-white section mat-day">
           <div className="wrap">
             <h2 className="t-h2 max-w-3xl">From the checkpoint to the client&apos;s report.</h2>
             <div className="mt-10">
@@ -77,7 +79,7 @@ export default function GuardPatrolSoftwarePage() {
       closing="Patrols that leave a record."
       related={[
         ["/guard-attendance-software", "Guard attendance and clock-in"],
-        ["/solutions/security", "The Signal One Security platform"],
+        ["/solutions/security", "The 1GUARD platform"],
         ["/pricing", "Pricing: " + guardDayPricePhrase],
       ]}
     />

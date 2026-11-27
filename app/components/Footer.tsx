@@ -1,6 +1,9 @@
+import EmailLink from "./EmailLink";
+import { contact } from "../lib/site";
 import Link from "next/link";
 import SignalOneLogo from "./brand/SignalOneLogo";
 import ProductSignature from "./brand/ProductSignature";
+import FooterCta from "./FooterCta";
 
 const groups = [
   { title: "Platforms & equipment", links: [
@@ -10,11 +13,13 @@ const groups = [
     ["/ptt-radio-rental","PTT radio rental"],["/pricing","Pricing"]
   ] },
   { title: "Start & join", links: [
-    ["/get-started","Get 14 Day Free Trial"],["/contact","Talk to Signal One"],
+    ["/get-started","Request a 14-day trial"],["/contact","Talk to Signal One"],
     ["/guards","For security officers"],["/guards/join","Create a guard profile"],
-    ["/join/sales","Careers"]
+    ["/partners/reseller","Become a reseller"],["/partners/sales","Become a sales partner"],
+    ["/partners#technology","Technology partnerships"],["/join/sales","Careers"]
   ] },
-  { title: "Trust & legal", links: [
+  { title: "Company & trust", links: [
+    ["/about","About Signal One"],["/support","Customer support"],
     ["/security-trust","Security & trust"],["/popia","POPIA & data handling"],
     ["/privacy","Privacy"],["/terms","Terms"]
   ] },
@@ -23,20 +28,17 @@ const groups = [
 export default function Footer() {
   return (
     <footer className="s1-premium-footer" aria-label="Signal One footer">
-      <div className="wrap s1-premium-footer-shell">
-        <div className="s1-premium-footer-intro">
-          <div>
-            <p className="s1-footer-kicker">SIGNAL ONE · INTEGRATED SYSTEMS</p>
-            <h2>Run your business. As one.</h2>
-            <p>Security Business OS. Service Business OS. Mission-critical technology.</p>
-          </div>
-          <Link className="s1-footer-main-cta" href="/get-started">Get 14 Day Free Trial <span aria-hidden="true">↗</span></Link>
-        </div>
+      <div className="shell s1-premium-footer-shell">
+        <FooterCta />
         <div className="s1-premium-footer-bottom">
           <div className="s1-footer-brand">
             <Link href="/" aria-label="Signal One home" className="s1-footer-logo"><SignalOneLogo size={24} tone="dark" descriptorMin={11} /></Link>
             <p>Intelligent operating systems and connected technology built for the businesses that keep the world moving.</p>
-            <a href="mailto:sales@signalone.co.za">sales@signalone.co.za</a>
+            <p className="s1-footer-contact">
+              Sales <EmailLink email={contact.email} className="link-inline font-semibold text-accent" /><br />
+              Support <EmailLink email={contact.supportEmail} className="link-inline font-semibold text-accent" /><br />
+              WhatsApp <a href={contact.whatsappHref} rel="noopener" className="link-inline font-semibold text-accent">{contact.whatsappDisplay}</a>
+            </p>
           </div>
           <nav aria-label="Footer links" className="s1-footer-link-grid">
             {groups.map(group => (

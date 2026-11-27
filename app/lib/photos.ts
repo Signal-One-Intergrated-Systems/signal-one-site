@@ -27,11 +27,20 @@ import checkpoint from "../../public/images/story/checkpoint.webp";
 import sitePlanning from "../../public/images/editorial/security-site-planning.webp";
 import recruitment from "../../public/images/home/panels/hire-security.webp";
 import enquiry from "../../public/images/home/panels/customer-enquiry.webp";
+import officerAccess from "../../public/images/editorial/security-access-scan.webp";
+import shiftBriefing from "../../public/images/editorial/security-team-briefing.webp";
+import accountReview from "../../public/images/editorial/security-office-park-site-review.webp";
+import operationsReview from "../../public/images/editorial/security-operations-review.webp";
 
 export const photos = {
   sitePlanning: { src: sitePlanning, alt: "Illustrative security supervisor reviewing a site plan with a client" },
   recruitment: { src: recruitment, alt: "Illustrative interview between a security employer and prospective officers" },
   enquiry: { src: enquiry, alt: "Illustrative business representatives discussing a customer enquiry" },
+  /* Officer-led scenes, so each page's hero makes the same claim as its headline (VA-16). */
+  officerAccess: { src: officerAccess, alt: "Illustrative security officer validating an access point while her supervisor checks a tablet" },
+  shiftBriefing: { src: shiftBriefing, alt: "Illustrative security officers planning shift assignments at a briefing board" },
+  accountReview: { src: accountReview, alt: "Illustrative security account manager reviewing a site plan with a client at an office park" },
+  operationsReview: { src: operationsReview, alt: "Illustrative SME security managers reviewing operational records beside a small control room" },
   hero: {
     src: hero,
     alt: "Security officers and a supervisor with a tablet at the boom gate of a Johannesburg business park in morning light",

@@ -1,27 +1,29 @@
 import type { Metadata } from "next";
 import LandingPage from "../../components/LandingPage";
-import { ButtonLink, FactPanel, Photo } from "../../components/ui";
+import { ButtonLink, GuardStatus, FactPanel, Photo } from "../../components/ui";
 import { illustrativeCaption, photos } from "../../lib/photos";
 import { guardDayPricePhrase } from "../../lib/pricing";
+import { pageMetadata } from "../../lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Guard Attendance and Clock-In Software",
   description:
     "Clock-in at the post on the guard's phone or a Central Device, the roster against every post, and PSiRA rules built in. " + guardDayPricePhrase + ", excl. VAT.",
   alternates: { canonical: "/guard-attendance-software" },
-};
+});
 
 export default function GuardAttendanceSoftwarePage() {
   return (
     <LandingPage
       scene="attendance"
+      status={<GuardStatus tone="dark" />}
       kicker="Guard attendance and clock-in"
       title="Know who is on post, and prove it."
       lead="Guards clock in and out at the post on their own phone or an authorised Central Device. The roster shows which posts are short before the shift starts, and every attendance record feeds proof of service."
       actions={
         <>
-          <ButtonLink href="/contact" size="lg">
-            Talk to Signal One
+          <ButtonLink href="/get-started" size="lg">
+            Request a 14-day trial
           </ButtonLink>
           <ButtonLink href="/pricing#calculator" variant="ghost-dark" size="lg">
             Calculate guard cost
@@ -30,9 +32,9 @@ export default function GuardAttendanceSoftwarePage() {
       }
       aside={
         <div className="grid gap-5">
-          <Photo src={photos.sitePlanning.src} alt={photos.sitePlanning.alt} sizes="(min-width:1024px) 46vw, 100vw" aspect="aspect-[16/9]" caption={illustrativeCaption} />
+          <Photo src={photos.shiftBriefing.src} alt={photos.shiftBriefing.alt} sizes="(min-width:1024px) 46vw, 100vw" aspect="aspect-[16/9]" caption={illustrativeCaption} />
           <FactPanel
-          title="Signal One Guard · attendance"
+          title="1GUARD · attendance"
           facts={[
             ["Clock in at the post", "On the guard's own phone or an authorised Central Device."],
             ["Against the shift and post", "The attendance record belongs to the shift and the post."],
@@ -66,7 +68,7 @@ export default function GuardAttendanceSoftwarePage() {
       closing="Attendance you can show your client."
       related={[
         ["/guard-patrol-software", "Guard patrol software"],
-        ["/solutions/security", "The Signal One Security platform"],
+        ["/solutions/security", "The 1GUARD platform"],
         ["/pricing", "Pricing: " + guardDayPricePhrase],
       ]}
     />

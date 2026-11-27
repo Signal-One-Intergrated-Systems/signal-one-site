@@ -1,5 +1,20 @@
+import { mkdirSync, writeFileSync } from "node:fs";
 import { expect, test, type Page } from "@playwright/test";
 import { decodeMailto, fillVisible, hydrated, OK_BASE, tick, walkJourney } from "./helpers";
+import contract from "../../contracts/website-intake.contract.v1.json";
+import manifest from "../../contracts/form-manifest.v1.json";
+
+/**
+ * Fields the real LEOS receiver accepts per intent: the VENDORED LEOS contract (generated in LEOS from
+ * the receiver's own code; refreshed with scripts/contract-release-check.mjs). A key outside it is
+ * refused 422 and the enquiry is lost.
+ */
+function expectReceiverAccepts(intent: string, data: Record<string, string>) {
+  const allowed = (contract.intents as Record<string, { fields: string[] }>)[intent]?.fields;
+  expect(allowed, `receiver knows intent ${intent}`).toBeTruthy();
+  const unknown = Object.keys(data).filter((key) => key !== "intent" && !allowed.includes(key));
+  expect(unknown, `fields the receiver would refuse for ${intent}`).toEqual([]);
+}
 
 type Case = {
   name: string;
@@ -20,9 +35,12 @@ const simple = async (page: Page) => {
 const cases: Case[] = [
   { name: "contact", path: "/contact", subject: "Consultation request", intent: "consultation", kind: "client", run: simple },
   { name: "marketplace interest", path: "/guard-marketplace", subject: "Guard Marketplace interest", intent: "marketplace-interest", kind: "client", run: simple },
+  { name: "reseller application", path: "/partners/reseller", subject: "Reseller application", intent: "reseller-application", kind: "client", run: simple },
+  { name: "sales partner application", path: "/partners/sales", subject: "Sales partner application", intent: "sales-partner-application", kind: "sales", run: simple },
+  { name: "technology partnership", path: "/partners", subject: "Technology partnership", intent: "technology-partnership", kind: "client", run: simple },
   ...(
     [
-      ["Radios and PTT", "Equipment rental quote", "equipment-rental-quote"],
+      ["Radios and PTT", "Radio quote, Rent radios", "equipment-rental-quote"],
       ["Tracking", "Tracking quote", "tracking-quote"],
       ["Body cameras", "Body camera rental quote", "bodycam-rental-quote"],
     ] as const
@@ -35,7 +53,7 @@ const cases: Case[] = [
     run: async (page) => {
       await hydrated(page);
       await tick(page.getByRole("radio", { name: label, exact: true }));
-      if (label === "Radios and PTT") await page.getByLabel("Buy or rent?").selectOption("Rent radios");
+      if (label === "Radios and PTT") await page.getByLabel("What do you need?").selectOption("Rent radios");
       await simple(page);
     },
   })),
@@ -79,6 +97,67 @@ for (const c of cases) {
     expect(hit, "upstream received the payload").toBeTruthy();
     expect(hit!.body.kind).toBe(c.kind);
     expect(hit!.body.source).toBe("signal-one-site");
+    expectReceiverAccepts(hit!.body.data.intent, hit!.body.data as unknown as Record<string, string>);
+    // The form manifest (contracts/form-manifest.v1.json) must list every field this form sent; the
+    // observation is also written for scripts/form-manifest.mjs --write.
+    const sent = Object.keys(hit!.body.data).filter((k) => k !== "intent").sort();
+    // Record the observation first, so `npm run contract:manifest` can learn a new form; the check below
+    // still fails until the committed manifest lists it.
+    mkdirSync("test-results/form-manifest", { recursive: true });
+    writeFileSync(`test-results/form-manifest/${c.name.replace(/[^a-z0-9]+/gi, "-")}.json`, JSON.stringify({ journey: c.name, path: c.path, kind: c.kind, intent: c.intent, fields: sent }));
+    const listed = manifest.forms.find((f) => f.path === c.path && f.intent === c.intent)?.fields ?? [];
+    expect(sent.filter((k) => !listed.includes(k)), `fields missing from the form manifest for ${c.path}#${c.intent}`).toEqual([]);
+    // A visit without campaign parameters sends no attribution key at all (v1 receivers refuse unknown keys).
+    expect(Object.keys(hit!.body)).not.toContain("attribution");
     expect(hit!.auth).toBe("Bearer qa-token");
   });
 }
+
+test("a campaign visit's attribution reaches the receiver with the enquiry, cleaned", async ({ page, request }) => {
+  // Land from an ad on the rental page, then follow the site's own path to the quote form.
+  await page.goto(OK_BASE + "/ptt-radio-rental?utm_source=google&utm_medium=cpc&utm_campaign=qa-radio-rental&gclid=QA.test-123&utm_term=%3Cscript%3E");
+  await page.waitForLoadState("networkidle");
+  await page.getByRole("link", { name: "Request a radio quote" }).first().click();
+  await page.waitForURL(/radios-equipment/);
+  await hydrated(page);
+  await page.getByLabel("What do you need?").selectOption("Rent radios");
+  await simple(page);
+  await expect(page.locator('[role="status"]').first()).toBeVisible({ timeout: 15_000 });
+  const received = (await (await request.get("http://localhost:4010/received")).json()) as Array<{ body: { data: { intent: string }; attribution?: Record<string, string> | null } }>;
+  const hit = received.reverse().find((r) => r.body?.attribution?.utm_campaign === "qa-radio-rental");
+  expect(hit, "upstream received the attribution").toBeTruthy();
+  expect(hit!.body.attribution).toMatchObject({ utm_source: "google", utm_medium: "cpc", gclid: "QA.test-123", landingPath: "/ptt-radio-rental" });
+  // Markup in a parameter is dropped, never forwarded into the CRM.
+  expect(hit!.body.attribution!.utm_term).toBeUndefined();
+});
+
+test("an empty quote shows every problem at once, next to each field and in a focused summary", async ({ page }) => {
+  await page.goto("/radios-equipment#quote");
+  await hydrated(page);
+  await page.locator("main form button[type=submit]").first().click();
+  const summary = page.locator("main form [data-error-summary]");
+  await expect(summary).toBeVisible();
+  await expect(summary).toBeFocused();
+  const invalid = page.locator('main form [aria-invalid="true"]');
+  expect(await invalid.count(), "more than the first field is flagged").toBeGreaterThan(3);
+  // Each flagged field points at a visible message.
+  const quantity = page.locator("main form input[name=quantity]");
+  await expect(quantity).toHaveAttribute("aria-invalid", "true");
+  const describedBy = (await quantity.getAttribute("aria-describedby"))!;
+  await expect(page.locator("#" + describedBy.split(" ").pop())).toHaveText(/Enter/);
+  // Correcting a field clears its message; the summary links move focus to the field.
+  await quantity.fill("12");
+  await expect(quantity).not.toHaveAttribute("aria-invalid", "true");
+  await summary.getByRole("link").first().click();
+  await expect(page.locator(":focus")).toHaveAttribute("aria-invalid", "true");
+});
+
+test("pages with their own closing action do not stack the footer band; legal pages keep it", async ({ page }) => {
+  for (const route of ["/", "/ptt-radio-rental", "/radios-equipment", "/guards", "/join/sales", "/support", "/no-such-page"]) {
+    await page.goto(route);
+    await expect(page.locator(".s1-premium-footer-intro"), route).toHaveCount(0);
+  }
+  await page.goto("/privacy");
+  await expect(page.locator(".s1-premium-footer-intro")).toHaveCount(1);
+  await expect(page.locator(".s1-footer-main-cta")).toHaveAttribute("href", "/contact");
+});

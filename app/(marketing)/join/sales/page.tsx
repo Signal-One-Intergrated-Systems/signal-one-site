@@ -4,17 +4,18 @@ import SalesApplication from "../../../components/journey/SalesApplication";
 import { SplitHero } from "../../../components/ui";
 import { getCareersConfig } from "../../../lib/careers";
 import { photos } from "../../../lib/photos";
+import { pageMetadata } from "../../../lib/seo";
 
 // Recruitment status comes from server env at request time.
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: "Careers: Sales Representative at Signal One",
+export const metadata: Metadata = pageMetadata({
+  title: "Careers: Sales Representative",
   description:
     "Join Signal One's sales team bringing intelligent business operating systems to South African SMEs, beginning with security businesses.",
   alternates: { canonical: "/join/sales" },
   robots: { index: false, follow: true },
-};
+});
 
 const youWill = [
   "Meet SME owners and managers, beginning with security companies",
@@ -44,22 +45,17 @@ export default function SalesCareersPage() {
   const open = config.status === "open";
 
   return (
-    <main id="main" className="bg-light text-text s1-scene-page s1-scene-page--careers">
-      <SplitHero src={photos.enquiry.src} alt={photos.enquiry.alt} scene="/images/scenes/atrium.svg" objectPositionMobile="50% 40%" objectPosition="55% 46%">
-          <p className="t-kicker text-signal-400">Careers at Signal One</p>
-          <h1 className="mt-4 font-display text-[2.9rem] font-bold leading-[1.04] tracking-[-0.02em] sm:text-[3.6rem]">
+    <main id="main" className="s1-scene-page s1-scene-page--careers">
+      <SplitHero material="mat-stone" src={photos.accountReview.src} alt={photos.accountReview.alt} objectPositionMobile="50% 40%" objectPosition="55% 46%">
+          <p className="t-kicker text-accent">Careers at Signal One</p>
+          <h1 className="t-hero mt-4">
             Sell the operating systems SMEs run on.
           </h1>
-          <p className="t-lead measure mt-6 text-text-inv-2">
+          <p className="t-lead measure mt-6 text-ink-2">
             We are building a sales team to help South African SMEs adopt intelligent business operating systems. Our initial commercial focus is 1GUARD for security businesses; 1Service is in development.
           </p>
           <p className="mt-8 inline-flex flex-wrap items-center gap-3">
-            <span
-              className={
-                "rounded-full px-4 py-2 text-[0.9375rem] font-semibold " +
-                (open ? "bg-signal-tint text-signal-ink" : "bg-soon-tint text-soon")
-              }
-            >
+            <span className={"badge " + (open ? "badge-live" : "badge-soon")}>
               {open
                 ? config.openRoles
                   ? "Applications open · " + config.openRoles + (config.openRoles === 1 ? " role" : " roles")
@@ -67,24 +63,24 @@ export default function SalesCareersPage() {
                 : "Applications closed"}
             </span>
             {open ? (
-              <a href="#apply" className="btn btn-primary">
+              <a href="#apply" className="btn btn-primary btn-lg">
                 Apply now
               </a>
             ) : null}
           </p>
-          <p className="t-caption mt-6 text-text-inv-2">Illustrative scene · fictional security company</p>
+          <p className="t-caption mt-6 text-ink-2">Illustrative scene · fictional security company</p>
       </SplitHero>
 
-      <section id="role" className="scroll-mt-[72px] bg-white py-16 md:py-24">
+      <section id="role" className="section mat-day">
         <div className="wrap">
-          <h2 className="font-display text-[2.6rem] font-bold leading-tight sm:text-[3.2rem]">The role</h2>
-          <p className="t-lead measure mt-4 text-text-2">Sales representative for SME business operating systems, with security as the initial focus.</p>
+          <h2 className="t-h2">The role</h2>
+          <p className="t-lead measure mt-4 text-ink-2">Sales representative for SME business operating systems, with security as the initial focus.</p>
           <div className="mt-10 grid gap-12 md:grid-cols-2">
             <div>
               <h3 className="t-h3">What you will do</h3>
               <ul className="m-0 mt-4 list-none p-0">
                 {youWill.map((item) => (
-                  <li key={item} className="t-body border-t border-line py-3">
+                  <li key={item} className="t-body border-t border-hairline py-3">
                     {item}
                   </li>
                 ))}
@@ -94,54 +90,54 @@ export default function SalesCareersPage() {
               <h3 className="t-h3">What we look for</h3>
               <ul className="m-0 mt-4 list-none p-0">
                 {weExpect.map((item) => (
-                  <li key={item} className="t-body border-t border-line py-3">
+                  <li key={item} className="t-body border-t border-hairline py-3">
                     {item}
                   </li>
                 ))}
               </ul>
             </div>
           </div>
-          <p className="t-small mt-10 text-text-2">
+          <p className="t-small mt-10 text-ink-2">
             You will work in Signal One&apos;s internal Sales OS for leads, pipeline, follow-ups and quotes. Pay and terms
             are discussed at interview.
           </p>
         </div>
       </section>
 
-      <section id="process" className="scroll-mt-[72px] py-16 md:py-24">
+      <section id="process" className="section mat-silver">
         <div className="wrap">
-          <h2 className="font-display text-[2.6rem] font-bold leading-tight sm:text-[3.2rem]">How hiring works</h2>
+          <h2 className="t-h2">How hiring works</h2>
           <ol className="m-0 mt-10 grid list-none gap-x-8 gap-y-8 p-0 sm:grid-cols-2 lg:grid-cols-3">
             {process.map(([title, body], index) => (
               <li key={title} className="border-t-2 border-brass pt-4">
-                <span className="font-display text-[2rem] font-bold text-signal-ink">{index + 1}</span>
+                <span className="t-num pt-0.5 text-[1.5rem] text-accent">{index + 1}</span>
                 <h3 className="t-h4 mt-1">{title}</h3>
-                <p className="t-small mt-1 text-text-2">{body}</p>
+                <p className="t-small mt-1 text-ink-2">{body}</p>
               </li>
             ))}
           </ol>
         </div>
       </section>
 
-      <section id="apply" className="scroll-mt-[72px] bg-deep py-16 text-text-inv md:py-24">
+      <section id="apply" className="section mat-close">
         <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
           <div>
-            <h2 className="font-display text-[2.6rem] font-bold leading-tight sm:text-[3.2rem]">
+            <h2 className="t-h2">
               {open ? "Apply" : "Applications are closed"}
             </h2>
-            <p className="t-body mt-4 text-text-inv-2">
+            <p className="t-body mt-4 text-ink-2">
               {open
                 ? "Seven short steps. Your answers are saved in this browser, so you can finish later."
                 : "We are not recruiting sales representatives right now. When the next intake opens, it will be announced on this page."}
             </p>
           </div>
-          <div className="text-text">
+          <div className="text-ink">
             {open ? (
-              <><IntakeAvailability /><SalesApplication roleCount={config.openRoles} /></>
+              <><IntakeAvailability kind="sales" /><SalesApplication roleCount={config.openRoles} /></>
             ) : (
-              <div className="rounded-card bg-white p-6 sm:p-8">
+              <div className="card p-6 sm:p-8">
                 <h3 className="t-h3">No open roles at the moment</h3>
-                <p className="t-body mt-3 text-text-2">
+                <p className="t-body mt-3 text-ink-2">
                   Thank you for your interest. Please check this page again; we do not keep a waiting list.
                 </p>
               </div>
@@ -150,18 +146,18 @@ export default function SalesCareersPage() {
         </div>
       </section>
 
-      <section className="py-12">
+      <section className="py-12 pt-0 mat-close">
         <div className="wrap flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
             <h2 className="t-h4">Already a Signal One representative?</h2>
-            <p className="t-small text-text-2">Open Sales OS after your account has been authorised and compulsory training completed.</p>
+            <p className="t-small text-ink-2">Open Sales OS after your account has been authorised and compulsory training completed.</p>
           </div>
           {config.salesOsUrl ? (
             <a href={config.salesOsUrl} className="btn btn-ghost-light" rel="noopener">
               Open Sales OS
             </a>
           ) : (
-            <p className="t-small rounded-ui bg-white/10 px-4 py-3 text-text-2">
+            <p className="t-small rounded-ui bg-surface-2 px-4 py-3 text-ink-2">
               Sales OS sign-in: use the link from your onboarding email.
             </p>
           )}
