@@ -1,5 +1,5 @@
 import type { StaticImageData } from "next/image";
-import p30Lite from "../../public/images/hardware/hytera-p30-lite.png";
+import p30Lite from "../../public/images/hardware/hytera-p30-lite-1200.png";
 
 /**
  * The interactive radio in the homepage hero (founder, 2026-11-27): a genuine manufacturer cut-out.
@@ -18,11 +18,15 @@ export type HeroRadioAsset = {
   antenna: { x: number; y: number };
 };
 
-/** Measured on public/images/hardware/hytera-p30-lite.png (600 × 600, RGBA): alpha bbox and the orange PTT rim. */
+/**
+ * Official Hytera P30 Lite front view at 1200 × 1200 (RGBA), from the image set served on Hytera's
+ * product page (hytera.co.za/products/p30-lite via hytera.ae), the same view as the 600 px catalogue
+ * cut-out at exactly 2×. Boxes are the 600 px measurements doubled (alpha bbox and the orange PTT rim).
+ */
 export const heroRadio: HeroRadioAsset = {
   src: p30Lite,
   model: "Hytera P30 Lite",
-  device: { x: 190, y: 41, w: 204, h: 520 },
-  ptt: { x: 189, y: 204, w: 17, h: 122 },
-  antenna: { x: 340, y: 46 },
+  device: { x: 380, y: 82, w: 408, h: 1040 },
+  ptt: { x: 378, y: 408, w: 34, h: 244 },
+  antenna: { x: 680, y: 92 },
 };

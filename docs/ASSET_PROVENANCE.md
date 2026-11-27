@@ -178,3 +178,7 @@ Light-first treatment: photographs are no longer toned to graphite (the luminosi
 ## Founder-approved homepage hero replacement — 2026-11-26
 
 The founder explicitly requested the new enterprise communications scene for the homepage. The active hero is now `/images/home/approved-enterprise-communications-2026.jpg` (1672 × 941 JPEG; SHA-256 `224b5d8939787ccb3f10ec9cb33b2c1d5e1623471e8ecdea0eae1359c6f1e859`). This synthetic illustrative photograph is not evidence of actual staff, premises or customers. It replaces only the former guard-and-chef image and its descriptive alt text; the existing globe, glass, navigation, copy, responsive layout and loading priority remain unchanged. Earlier hero approvals above are historical; the previous asset is retained for rollback. The source fixture and visual tests now protect the replacement.
+
+## Hytera P30 Lite, 1200 px official cut-out (hero radio) — 2026-11-27
+
+`public/images/hardware/hytera-p30-lite-1200.png` (1200 × 1200 RGBA, SHA-256 `b1f198a9dfab…` — full hash in git) is the largest image in the official set served on Hytera South Africa's P30 Lite product page (`https://hytera.co.za/products/p30-lite`, images hosted at `hytera.ae/imager/images/1827303/`). Same front view as the 600 px catalogue file at exactly 2×. Used only as the homepage hero's interactive radio. Authorised dealer basis as for the other manufacturer images. Hytera publishes no other angles or 3D assets for this model on those pages (checked 2026-11-27).
