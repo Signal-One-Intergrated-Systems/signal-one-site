@@ -286,7 +286,10 @@ body:has(.so-home) .so-home .s1-brand-stage.so-hero{padding-top:calc(151px + 88p
 .so-home .s1-brand-stage.so-hero .so-hero-bar-item { border-color: rgba(11, 31, 51, 0.12) !important; }
 .so-home .s1-brand-stage.so-hero .so-hero-bar-item:hover { background: rgba(255, 255, 255, 0.9) !important; }
 .so-home .s1-brand-stage.so-hero .so-hero-bar-item strong { color: var(--hero-ink) !important; }
-.so-home .s1-brand-stage.so-hero .so-hero-bar-item span { color: var(--hero-ink-2) !important; }
+.so-home .s1-brand-stage.so-hero .so-hero-bar-item > span { color: var(--hero-ink-2) !important; }
+/* Product wordmarks in the rail take the rail heading's size, like "Radios & equipment"; the 1 stays signal blue. */
+.so-home .s1-brand-stage.so-hero .so-hero-bar-item strong :is(.s1-product-signature, .s1-product-signature span) { font-size: inherit !important; margin-top: 0 !important; color: inherit; }
+.so-home .s1-brand-stage.so-hero .so-hero-bar-item strong .s1-product-signature__one { color: var(--color-signal) !important; }
 .so-home .s1-brand-stage.so-hero .so-hero-photo-note { background: rgba(255, 255, 255, 0.82) !important; color: var(--hero-ink) !important; text-shadow: none !important; }
 /* The radio: on the paving, lit from the left, contact shadow falling right. */
 .so-home .s1-brand-stage.so-hero .so-hero-radio { position: absolute; z-index: 6; }

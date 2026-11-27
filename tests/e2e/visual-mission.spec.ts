@@ -802,17 +802,31 @@ test("glass navigation seals old page before scroll reset and opens onto station
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(450);
   const link = page.locator('header a[href="/service"]:visible').first();
   await expect(link).toBeVisible();
+  // Record every phase (with scroll position and the overlay colour) as it happens. Polling the attribute
+  // could miss the short sealed phase under load and fail the same way on an unchanged tree (2026-11-27:
+  // 2/8 on 9aed64a, 1/8 on b9ec826), which measured the test's sampling, not the transition.
+  await page.evaluate(() => {
+    const overlay = document.querySelector(".sg-entry-overlay")!;
+    const log: { phase: string | null; y: number; bg: string; path: string }[] = [];
+    (window as unknown as { __phases: typeof log }).__phases = log;
+    new MutationObserver(() => log.push({ phase: overlay.getAttribute("data-guard-entry"), y: window.scrollY, bg: getComputedStyle(overlay).backgroundColor, path: location.pathname }))
+      .observe(overlay, { attributes: true, attributeFilter: ["data-guard-entry"] });
+  });
+  const startY = await page.evaluate(() => window.scrollY);
   await link.click();
   const glass = page.locator(".sg-entry-overlay");
-  await expect(glass).toHaveAttribute("data-guard-entry", "closing", { timeout: 5000 });
-  const oldY = await page.evaluate(() => window.scrollY);
-  await page.waitForTimeout(150);
-  expect(Math.abs((await page.evaluate(() => window.scrollY)) - oldY)).toBeLessThan(3);
-  await expect(glass).toHaveAttribute("data-guard-entry", "sealed", { timeout: 6000 });
-  await expect(glass).toHaveCSS("background-color", "rgb(25, 33, 39)");
   await page.waitForURL(/service$/, { timeout: 10000 });
-  await expect(glass).toHaveAttribute("data-guard-entry", "opening", { timeout: 7000 });
-  expect(await page.evaluate(() => window.scrollY)).toBe(0);
-  await expect(glass).toHaveAttribute("data-guard-entry", "idle", { timeout: 6000 });
+  await expect(glass).toHaveAttribute("data-guard-entry", "idle", { timeout: 8000 });
+  const phases = await page.evaluate(() => (window as unknown as { __phases: { phase: string | null; y: number; bg: string; path: string }[] }).__phases);
+  expect(phases.map(p => p.phase)).toEqual(["closing", "sealed", "opening", "idle"]);
+  const [closing, sealed, opening] = phases;
+  // The old page does not scroll while the glass closes and seals.
+  expect(closing.path).toBe("/");
+  expect(Math.abs(closing.y - startY)).toBeLessThan(3);
+  expect(Math.abs(sealed.y - startY)).toBeLessThan(3);
+  expect(sealed.bg).toBe("rgb(25, 33, 39)");
+  // The destination is placed at the top behind sealed glass before it opens.
+  expect(opening.path).toBe("/service");
+  expect(opening.y).toBe(0);
   await expect(page.locator("main h1").first()).toBeVisible();
 });
