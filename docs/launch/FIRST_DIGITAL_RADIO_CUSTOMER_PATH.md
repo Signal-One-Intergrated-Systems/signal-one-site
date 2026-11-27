@@ -29,12 +29,19 @@ No new research was done. **Nothing here is deployed or merged.**
 
 One LEOS builder at a time; audit-class items stop for a pre-merge audit.
 
-1. **In progress:** partner-applications queue, stacked on #758, which is stacked on #756. #758 (partner programme intents) and the queue release together, after #756.
+1. **Done (draft):** partner-applications queue, **#759**, stacked on #758, which is stacked on #756.
+   - Migration 0204, class A, so the PR is audit-class.
+   - Partner applications live outside the customer pipeline and metrics, with full lifecycle, owner, history and notifications.
+   - Gate GREEN, with 10 mutation-proven controls.
+   - #758's manifest is reconciled (8cbc05b).
+   - #758 and #759 release together, after #756.
 2. **#756 release qualification.** Remaining conditions:
    - Exercise the `transaction_timeout` change (258f11e2) on **PostgreSQL 18**. Production is 18; every run so far used 16, and on 17+ this setting ends the whole session, not only the transaction. I tried to run this with PG 18 binaries from npm; the session's permission system refused it. **Your call** (decision 1).
    - R2-01/R2-02: add the missing controls for the log-redaction wiring. These are S3 follow-ups and do not block the release.
    - An Architect ruling on migration numbers 0190–0194 and 0197–0203.
-3. **Money path for the first sale:** GAP-EXP-1 and GAP-PAY-1/2, as one audit-class change with mutation-proven tests. They are on #753's gap register and have not been built.
+3. **In progress:** the money path for the first sale, GAP-EXP-1 and GAP-PAY-1/2, on branch `claude/money-path-first-sale` off main.
+   - One audit-class draft PR with mutation-proven tests.
+   - The expiry guard sits at quote acceptance, so Mubaraq's quote-to-contract conversion (LC01) is not touched.
 4. **PayFast qualification on the sandbox:**
    - verify payment notifications against PayFast's own documented signature examples, not self-signed fixtures;
    - then a single human-armed live payment of a small amount.
