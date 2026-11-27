@@ -36,6 +36,28 @@
     - SW-30: procurement details "on request", which is your stance.
   - SW-21 (one-business-day reply) is your decision, now applied.
 
+## Update 2026-11-27: depth system and hero recomposition
+
+Both are on staging only and not in production.
+
+- **Depth system:** materials, midnight slabs, veils and per-route atmospheres. See `DEPTH_SYSTEM.md`.
+- **Hero recomposition:**
+  - no glass panel;
+  - "Buy or rent radios" first and "Explore 1GUARD" second;
+  - the interactive Hytera P30 Lite radio;
+  - the approved photograph shown whole and never upscaled.
+- **Evidence:** see `HERO_RECOMPOSITION_2026-11-27.md`, which covers:
+  - contrast measured over the photograph;
+  - an independent review (FAIL on the first build, then fixed);
+  - a full e2e run of 478 passed and 0 failed;
+  - mutation-proven controls.
+- **New founder decisions:**
+  - visual acceptance of the hero;
+  - the site-wide glass shutter duration (the reviewer's S1);
+  - the choice of hero photograph;
+  - a curated 1GUARD demo tenant before product screenshots can be published.
+- **1GUARD screenshots:** genuine screens were captured but are withheld because they fail the photography brief. They show "Demo" labels, raw codes and US-format dates.
+
 ## Remaining dependencies
 
 1. **Website release:** your visual acceptance on staging, then merge approval for PR #102. The `www` redirect takes effect only on release; staging stays as it is.
