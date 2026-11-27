@@ -250,7 +250,7 @@ body:has(.so-home) .so-home .s1-brand-stage.so-hero{padding-top:calc(151px + 88p
   -webkit-backdrop-filter: none !important;
   backdrop-filter: none !important;
 }
-.so-home .s1-brand-stage.so-hero .so-eyebrow { color: #0c4a6e !important; }
+.so-home .s1-brand-stage.so-hero .so-eyebrow { color: #083a57 !important; }
 .so-home .s1-brand-stage.so-hero h1 {
   color: var(--hero-ink) !important;
   text-shadow: none !important;
