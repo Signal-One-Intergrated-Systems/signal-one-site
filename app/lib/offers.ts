@@ -94,3 +94,23 @@ export const proposedPackages = [
     publish: false,
   },
 ] as const;
+
+/**
+ * The radio and the service are different things (founder directive 2026-11-27 §3): the customer buys (or rents)
+ * the equipment, and subscribes to the communications service that makes it work. Names no third-party platform
+ * and promises no data allowance; both are set out in the written quote.
+ */
+export const equipmentVsService: ReadonlyArray<readonly [string, string]> = [
+  ["The radio you own", "Equipment you buy outright, or rent where a rental is agreed. A radio you buy is yours."],
+  ["The service you subscribe to", "What makes your radios work together: the push-to-talk platform, SIM and data, talk-group set-up, dispatcher access where you need it, and support. It is a separate line in your quote, with its own term."],
+];
+
+/** Ways to buy (§3). Routes only: no prices, discounts, financing or credit; each is confirmed in a written quotation. */
+export const purchaseRoutes: ReadonlyArray<readonly [string, string]> = [
+  ["Outright purchase", "Buy the radios you need, quoted per model and quantity."],
+  ["Corporate and fleet", "One quotation for many radios across sites and teams, with configuration and handover planned with you."],
+  ["Radios with a monthly service", "Buy the radios and add the communications service as a monthly line."],
+  ["Radios with an annual package", "Buy the radios with a year of communications service, where an approved package is available for your radios."],
+  ["Managed fleet rental", "Rent a fleet on a fixed term where rental suits your operation. The term and what it covers are set out in your quote."],
+  ["Wholesale and resale", "For dealers and resellers, through an approved reseller account only."],
+];

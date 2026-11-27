@@ -5,7 +5,7 @@ import { HardwareCard, HardwareShowcase } from "../../components/Hardware";
 import { catalogue } from "../../lib/catalogue";
 import { ButtonLink, PageHero, Status, Steps } from "../../components/ui";
 import { pageMetadata } from "../../lib/seo";
-import { CommsComponents, CommsFaq, CommsIndustries, CommsJourneys } from "../../components/CommsOffer";
+import { CommsComponents, CommsFaq, CommsIndustries, CommsJourneys, CommsPurchase } from "../../components/CommsOffer";
 import Link from "next/link";
 
 export const metadata: Metadata = pageMetadata({
@@ -38,7 +38,7 @@ export default function RadiosEquipmentPage() {
           <HardwareShowcase products={catalogue[0].products.slice(0, 2)} />
           <dl className="plane plane-rows m-0 grid overflow-hidden">
             {[
-              ["Radios and PTT", "Hytera PNC360S, P30 Lite PoC and P30G Pro; EasyTalk E600; push-to-talk platform, SIM and data"],
+              ["Radios and PTT", "Hytera PNC360S, P30 Lite PoC and P30G Pro; push-to-talk platform, SIM and data; EasyTalk E600 coming soon"],
               ["Vehicle and asset tracking", "FMC920 and FMB920 trackers"],
               ["Body cameras", "SC780 body camera"],
             ].map(([term, detail]) => (
@@ -57,6 +57,14 @@ export default function RadiosEquipmentPage() {
           <h2 id="journeys-h" className="t-h2">Four ways to start</h2>
           <p className="t-body measure mt-3 text-ink-2">Pick the one closest to you. Each opens the quote form with the right questions.</p>
           <div className="mt-8"><CommsJourneys /></div>
+        </div>
+      </section>
+
+      <section id="ways-to-buy" className="surface-light section scroll-mt-[72px] mat-silver" aria-labelledby="ways-to-buy-h">
+        <div className="wrap">
+          <h2 id="ways-to-buy-h" className="t-h2">Buy the radio. Subscribe to the service.</h2>
+          <p className="t-body mt-3 measure text-ink-2">The equipment and the communications service are separate, so you can own your radios and choose the service that suits your teams.</p>
+          <div className="mt-8"><CommsPurchase /></div>
         </div>
       </section>
 

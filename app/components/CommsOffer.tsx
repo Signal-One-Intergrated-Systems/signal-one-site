@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { commsComponents, commsFaq, commsIndustries, commsJourneys, quoteHref } from "../lib/offers";
+import { commsComponents, commsFaq, commsIndustries, commsJourneys, equipmentVsService, purchaseRoutes, quoteHref } from "../lib/offers";
 
 /** The four ways to start with Signal One communications. Compact: one row on desktop, a list on mobile. */
 export function CommsJourneys({ headingLevel = 3, idPrefix = "journey" }: { headingLevel?: 2 | 3; idPrefix?: string }) {
@@ -57,6 +57,37 @@ export function CommsFaq() {
           <p className="t-small mt-2 measure text-ink-2">{a}</p>
         </details>
       ))}
+    </div>
+  );
+}
+
+/** Equipment versus service, and the ways to buy (founder directive 2026-11-27 §3). */
+export function CommsPurchase() {
+  return (
+    <div className="comms-purchase grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
+      <dl className="m-0 grid content-start gap-4">
+        {equipmentVsService.map(([term, detail]) => (
+          <div key={term} className="card p-5 sm:p-6">
+            <dt className="t-h4">{term}</dt>
+            <dd className="t-small m-0 mt-2 text-ink-2">{detail}</dd>
+          </div>
+        ))}
+      </dl>
+      <div>
+        <h3 className="t-h4">Ways to buy</h3>
+        <dl className="m-0 mt-4 grid gap-x-10 gap-y-4 sm:grid-cols-2">
+          {purchaseRoutes.map(([term, detail]) => (
+            <div key={term} className="border-t border-hairline pt-3">
+              <dt className="t-small font-semibold">{term}</dt>
+              <dd className="t-small m-0 mt-1 text-ink-2">{detail}</dd>
+            </div>
+          ))}
+        </dl>
+        <p className="t-small mt-6 text-ink-2">Prices, terms and everything included are confirmed in a written quotation before anything is supplied.</p>
+        <Link href={quoteHref("Buy radios")} className="link-arrow mt-4 inline-flex text-accent">
+          Request a quotation <span aria-hidden="true">→</span>
+        </Link>
+      </div>
     </div>
   );
 }

@@ -6,13 +6,17 @@ import fmc920 from "../../public/images/hardware/teltonika-fmc920.webp";
 import pnc360s from "../../public/images/hardware/hytera-pnc360s.webp";
 import e600 from "../../public/images/hardware/easytalk-e600.png";
 
-export type Availability = "in_stock" | "available_for_rental" | "available_to_order" | "by_quote";
+export type Availability = "in_stock" | "available_for_rental" | "available_to_order" | "by_quote" | "coming_soon";
 export const availabilityLabel: Record<Availability, string> = {
   in_stock: "In stock",
   available_for_rental: "Available for rental",
   available_to_order: "Available to order",
   by_quote: "By quote",
+  coming_soon: "Coming soon",
 };
+
+/** The quote-form option for the E600: interest only, never an order (founder, 2026-11-27). */
+export const e600InterestOption = "EasyTalk E600 (coming soon, register interest)";
 
 export type CatalogueProduct = {
   model: string;
@@ -91,7 +95,9 @@ export const catalogue: ReadonlyArray<{
       // Hytera P30 family. Name only until the exact variant is confirmed: no image (never the P30 Lite's) and no
       // variant-specific specifications.
       { model: "P30G Pro", manufacturer: "Hytera", type: "PoC radio", detail: "Purchase or rental. Specification and availability confirmed in your written quote.", role: "Push-to-talk over the cellular network, from the Hytera P30 family." },
-      { model: "E600", quoteOption: "EasyTalk E600", manufacturer: "EasyTalk", type: "PoC radio, 4G LTE", detail: "Purchase or rental. Push-to-talk service, SIM and data are a separate monthly line.", role: "Push-to-talk over 4G for sites with LTE coverage.",
+      // Not yet available (founder, 2026-11-27): regulatory approval and procurement are not complete. Shown as a
+      // forthcoming product with a non-binding expression of interest; no order, deposit or payment is taken.
+      { model: "E600", quoteOption: e600InterestOption, availability: "coming_soon", manufacturer: "EasyTalk", type: "PoC radio, 4G LTE", detail: "Not yet available to buy or rent. Register interest without obligation: no order, deposit or payment is taken.", role: "An affordable push-to-talk radio over 4G, for sites with LTE coverage.",
         image: { src: e600, alt: "EasyTalk E600 push-to-talk over cellular radio, front view — manufacturer image", bounds: productBounds.e600 },
         // EasyTalk E600 brochure and product specification (2024-03-01), supplied by the founder 2026-11-26.
         // Only values both documents agree on, or that one states and the other leaves blank, are listed;

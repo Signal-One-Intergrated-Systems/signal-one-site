@@ -180,9 +180,15 @@ test("staging walkthrough fixes hold: catalogue cards, E600 link, Help me choose
   expect(link!.x, "the quote link sits outside the image panel").toBeGreaterThanOrEqual(img!.x + img!.width - 1);
   // SW-02: a product without a verified image shows a same-size typographic panel.
   await expect(page.locator("article").filter({ hasText: "P30G Pro" }).first()).toContainText("The exact variant and its photograph are confirmed in your quote");
-  // SW-03: the E600 card preselects the E600 in the form.
-  await page.locator("article").filter({ hasText: "EasyTalk" }).first().getByRole("link", { name: /Request a quote/ }).click();
-  await expect(page.getByLabel("Radio", { exact: true })).toHaveValue("EasyTalk E600");
+  // SW-03 + founder 2026-11-27: the E600 is coming soon; its card registers interest, never a quote or order.
+  const e600 = page.locator("article").filter({ hasText: "EasyTalk" }).first();
+  await expect(e600).toContainText("Coming soon");
+  await expect(e600).toContainText("no order, deposit or payment is taken");
+  await expect(e600.getByRole("link", { name: /Request a quote/ })).toHaveCount(0);
+  await e600.getByRole("link", { name: /Register interest/ }).click();
+  await expect(page.getByLabel("Radio", { exact: true })).toHaveValue("EasyTalk E600 (coming soon, register interest)");
+  await expect(page.getByText("Not yet available. This registers interest without obligation")).toBeVisible();
+  await expect(page.getByRole("radio", { name: "12 months" })).toHaveCount(0);
   // SW-10: Help me choose asks about the team, not a model or term.
   await page.goto("/radios-equipment?quoteType=Help%20me%20choose#quote-form");
   await expect(page.getByLabel("What do you need?")).toHaveValue("Help me choose");
@@ -201,3 +207,15 @@ test("staging walkthrough fixes hold: catalogue cards, E600 link, Help me choose
     expect(text, route).not.toMatch(/\bBeta\b|MVP in development/);
   }
 });
+
+test("communications separate the radio from the service and list ways to buy without prices or financing", async ({ page }) => {
+  await page.goto("/radios-equipment");
+  const section = page.locator("#ways-to-buy");
+  await expect(section.getByRole("heading", { level: 2 })).toHaveText("Buy the radio. Subscribe to the service.");
+  for (const route of ["Outright purchase", "Corporate and fleet", "Radios with a monthly service", "Radios with an annual package", "Managed fleet rental", "Wholesale and resale"]) {
+    await expect(section.getByText(route, { exact: true })).toBeVisible();
+  }
+  await expect(section).toContainText("confirmed in a written quotation before anything is supplied");
+  await expect(section).not.toContainText(/R\s?\d|unlimited|per month from|financ|credit/i);
+});
+

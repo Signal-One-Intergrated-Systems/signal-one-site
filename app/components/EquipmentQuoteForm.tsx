@@ -9,6 +9,7 @@ import { submitIntake, type IntakeFallback, newIdempotencyState } from "../lib/i
 import ConsentFields from "./ConsentFields";
 import IntakeError from "./IntakeError";
 import { radioQuoteTypes } from "../lib/offers";
+import { e600InterestOption } from "../lib/catalogue";
 
 type Category = "radio" | "tracking" | "bodycam";
 type State = "idle" | "sending" | "done" | "error";
@@ -40,7 +41,7 @@ const categories: Record<Category, { label: string; intent: string; summary: str
         error: "Choose a radio, or Not sure yet.",
         type: "select",
         required: true,
-        options: ["Hytera PNC360S", "P30 Lite PoC", "P30G Pro", "EasyTalk E600", "PTT platform + SIM only (I have radios)", "Not sure yet"],
+        options: ["Hytera PNC360S", "P30 Lite PoC", "P30G Pro", e600InterestOption, "PTT platform + SIM only (I have radios)", "Not sure yet"],
       },
       { name: "quantity", label: "How many radios?", error: "Enter how many radios you need.", type: "number", required: true, placeholder: "e.g. 24" },
       {
@@ -175,15 +176,20 @@ function QuoteForm({ initialCategory, initialProduct, initialQuoteType }: { init
   // Rental term only where renting is on the table; radios the customer already owns need no radio choice.
   const ownRadios = values.quoteType === "Connect radios I already own";
   const helpChoose = values.quoteType === "Help me choose";
+  const e600Interest = values.product === e600InterestOption;
   const fields = config.fields
     .filter(field => field.name !== "rentalTerm" || values.quoteType === "Rent radios")
     // "Help me choose" asks about the team, not a model (SW-10); "own radios" needs no model either.
     .filter(field => !((ownRadios || helpChoose) && field.name === "product"))
+    // Interest in a product that cannot yet be supplied asks for no rental term.
+    .filter(field => !(e600Interest && field.name === "rentalTerm"))
     .map(field => field.name === "rentalTerm" ? { ...field, required: values.quoteType === "Rent radios" } : field)
     .map(field => ownRadios && field.name === "quantity" ? { ...field, label: "How many radios do you have?" } : field)
     .map(field => ownRadios && field.name === "deployment" ? { ...field, label: "Make and model of your radios, and where they are used", placeholder: "e.g. 30 × Hytera PNC360S, 4 sites in Durban" } : field)
     .map(field => helpChoose && field.name === "quantity" ? { ...field, label: "How many people need radios?" } : field)
-    .map(field => helpChoose && field.name === "deployment" ? { ...field, label: "Your sites, and how your team communicates today", placeholder: "e.g. 3 warehouses in Germiston; cell phones and WhatsApp today" } : field);
+    .map(field => helpChoose && field.name === "deployment" ? { ...field, label: "Your sites, and how your team communicates today", placeholder: "e.g. 3 warehouses in Germiston; cell phones and WhatsApp today" } : field)
+    // The E600 is not yet available: interest only, never an order (founder, 2026-11-27).
+    .map(field => e600Interest && field.name === "product" ? { ...field, hint: "Not yet available. This registers interest without obligation: no order, deposit or payment is taken, and we contact you when it can be supplied." } : field);
 
   function markStarted() {
     if (started.current) return;

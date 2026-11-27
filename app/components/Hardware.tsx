@@ -55,18 +55,18 @@ export function HardwareCard({
             style={{ ["--bounds" as string]: product.image.bounds }}
           />
         <span className="glass-light absolute left-3 top-3 rounded-full px-3 py-1">
-          <Status kind="quote">{availabilityLabel[product.availability ?? "by_quote"]}</Status>
+          <Status kind={product.availability === "coming_soon" ? "soon" : "quote"}>{availabilityLabel[product.availability ?? "by_quote"]}</Status>
         </span>
       </div> : compact ? (
         <div className="px-5 pt-5">
-          <Status kind="quote">{availabilityLabel[product.availability ?? "by_quote"]}</Status>
+          <Status kind={product.availability === "coming_soon" ? "soon" : "quote"}>{availabilityLabel[product.availability ?? "by_quote"]}</Status>
         </div>
       ) : (
         // No verified manufacturer image yet: a typographic well of the same proportions, never a stand-in
         // photograph of a different device (DR-006), so the card keeps its shape beside its neighbours (SW-02).
         <div className="relative aspect-[4/3] s1-product-well well hardware-well-typographic flex flex-col items-center justify-center p-6 text-center">
           <span className="glass-light absolute left-3 top-3 rounded-full px-3 py-1">
-            <Status kind="quote">{availabilityLabel[product.availability ?? "by_quote"]}</Status>
+            <Status kind={product.availability === "coming_soon" ? "soon" : "quote"}>{availabilityLabel[product.availability ?? "by_quote"]}</Status>
           </span>
           <span className="t-h3 text-ink">{product.manufacturer ? product.manufacturer + " " : ""}{product.model}</span>
           <span className="t-small mt-2 text-ink-2">
@@ -95,12 +95,12 @@ export function HardwareCard({
               ))}
             </dl>
             <p className="t-caption mt-2 text-ink-2">
-              Manufacturer specification: {product.specs.sourceUrl ? <a href={product.specs.sourceUrl} rel="noopener" className="link-inline">{product.specs.source}</a> : product.specs.source}. Your quote confirms the supplied variant.
+              Manufacturer specification: {product.specs.sourceUrl ? <a href={product.specs.sourceUrl} rel="noopener" className="link-inline">{product.specs.source}</a> : product.specs.source}.{product.availability === "coming_soon" ? " Confirmed again before it can be supplied." : " Your quote confirms the supplied variant."}
             </p>
           </div>
         ) : null}
         <Link href={quoteHref} className="link-arrow mt-auto pt-5 text-accent">
-          Request a quote<span className="sr-only"> for {product.model}</span> <span aria-hidden="true">→</span>
+          {product.availability === "coming_soon" ? "Register interest" : "Request a quote"}<span className="sr-only"> for {product.model}</span> <span aria-hidden="true">→</span>
         </Link>
       </div>
     </article>
