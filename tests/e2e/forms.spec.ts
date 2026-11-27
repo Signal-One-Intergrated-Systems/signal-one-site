@@ -35,6 +35,9 @@ const simple = async (page: Page) => {
 const cases: Case[] = [
   { name: "contact", path: "/contact", subject: "Consultation request", intent: "consultation", kind: "client", run: simple },
   { name: "marketplace interest", path: "/guard-marketplace", subject: "Guard Marketplace interest", intent: "marketplace-interest", kind: "client", run: simple },
+  { name: "reseller application", path: "/partners/reseller", subject: "Reseller application", intent: "reseller-application", kind: "client", run: simple },
+  { name: "sales partner application", path: "/partners/sales", subject: "Sales partner application", intent: "sales-partner-application", kind: "sales", run: simple },
+  { name: "technology partnership", path: "/partners", subject: "Technology partnership", intent: "technology-partnership", kind: "client", run: simple },
   ...(
     [
       ["Radios and PTT", "Radio quote, Rent radios", "equipment-rental-quote"],
@@ -98,10 +101,12 @@ for (const c of cases) {
     // The form manifest (contracts/form-manifest.v1.json) must list every field this form sent; the
     // observation is also written for scripts/form-manifest.mjs --write.
     const sent = Object.keys(hit!.body.data).filter((k) => k !== "intent").sort();
-    const listed = manifest.forms.find((f) => f.path === c.path && f.intent === c.intent)?.fields ?? [];
-    expect(sent.filter((k) => !listed.includes(k)), `fields missing from the form manifest for ${c.path}#${c.intent}`).toEqual([]);
+    // Record the observation first, so `npm run contract:manifest` can learn a new form; the check below
+    // still fails until the committed manifest lists it.
     mkdirSync("test-results/form-manifest", { recursive: true });
     writeFileSync(`test-results/form-manifest/${c.name.replace(/[^a-z0-9]+/gi, "-")}.json`, JSON.stringify({ journey: c.name, path: c.path, kind: c.kind, intent: c.intent, fields: sent }));
+    const listed = manifest.forms.find((f) => f.path === c.path && f.intent === c.intent)?.fields ?? [];
+    expect(sent.filter((k) => !listed.includes(k)), `fields missing from the form manifest for ${c.path}#${c.intent}`).toEqual([]);
     // A visit without campaign parameters sends no attribution key at all (v1 receivers refuse unknown keys).
     expect(Object.keys(hit!.body)).not.toContain("attribution");
     expect(hit!.auth).toBe("Bearer qa-token");

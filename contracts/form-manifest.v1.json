@@ -117,6 +117,71 @@
       ]
     },
     {
+      "id": "/partners#technology-partnership",
+      "path": "/partners",
+      "kind": "client",
+      "intent": "technology-partnership",
+      "fields": [
+        "companyName",
+        "contactName",
+        "contactRole",
+        "email",
+        "mobile",
+        "notes",
+        "partnershipType",
+        "website"
+      ],
+      "journeys": [
+        "technology partnership"
+      ]
+    },
+    {
+      "id": "/partners/reseller#reseller-application",
+      "path": "/partners/reseller",
+      "kind": "client",
+      "intent": "reseller-application",
+      "fields": [
+        "businessType",
+        "companyName",
+        "contactName",
+        "contactRole",
+        "currentBrands",
+        "customerSegments",
+        "email",
+        "expectedVolume",
+        "interests",
+        "mobile",
+        "notes",
+        "regions",
+        "registrationStatus",
+        "salesChannels"
+      ],
+      "journeys": [
+        "reseller application"
+      ]
+    },
+    {
+      "id": "/partners/sales#sales-partner-application",
+      "path": "/partners/sales",
+      "kind": "sales",
+      "intent": "sales-partner-application",
+      "fields": [
+        "availability",
+        "background",
+        "email",
+        "fullName",
+        "interests",
+        "location",
+        "mobile",
+        "networks",
+        "notes",
+        "workingStatus"
+      ],
+      "journeys": [
+        "sales partner application"
+      ]
+    },
+    {
       "id": "/ptt-radio-rental#equipment-rental-quote",
       "path": "/ptt-radio-rental",
       "kind": "client",

@@ -117,6 +117,15 @@ Until both receiver variables are set in Railway, every form answers 503 "nothin
 | `/guard-marketplace` interest | client | `marketplace-interest` |
 | `/guards/join` | guard | `guard-profile` |
 | `/join/sales` | sales | `sales-representative-application` |
+| `/partners/reseller` | client | `reseller-application` (contract 1.3.0) |
+| `/partners` technology enquiry | client | `technology-partnership` (contract 1.3.0) |
+| `/partners/sales` | sales | `sales-partner-application` (contract 1.3.0) |
+
+**Partner intents (contract 1.3.0)** are on LEOS draft PR #758, which is stacked on #756 and must merge after it.
+- Reseller and technology-partnership submissions follow the client path: lead or enquiry, receipt `website_enquiry`. Sales OS labels them "Partner programme · …".
+- Sales-partner submissions are stored as `recruitment_application`.
+- Until LEOS deploys 1.3.0, these forms use the truthful email route.
+- Like `/join/sales`, `sales-partner-application` stays on email until `sales` is in `SIGNAL_ONE_INTAKE_KINDS`.
 
 **Receiver:** LEOS draft PR #704 (+ #748), not yet merged — see "Receiver status" above. Until it is deployed and the two variables are set, every form returns the 503 message.
 
