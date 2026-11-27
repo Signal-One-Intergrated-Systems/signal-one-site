@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { runGlobe } from "./globeRenderer";
 
+const transferred = new WeakSet<HTMLCanvasElement>();
 const dprNow = () => Math.min(devicePixelRatio || 1, 2);
 
 /**
@@ -12,6 +13,9 @@ const dprNow = () => Math.min(devicePixelRatio || 1, 2);
 export default function GlassGlobe() {
   const canvas = useRef<HTMLCanvasElement>(null);
   const [mainThread, setMainThread] = useState(false);
+  // A canvas hands its control to a worker only once. When the effect runs again on the same element (React
+  // re-running effects in development, or a fast refresh), mount a fresh canvas instead of throwing.
+  const [generation, setGeneration] = useState(0);
   useEffect(() => {
     const el = canvas.current;
     if (!el) return;
@@ -20,6 +24,10 @@ export default function GlassGlobe() {
     const canOffscreen = !mainThread && typeof Worker !== "undefined" && typeof el.transferControlToOffscreen === "function";
 
     if (canOffscreen) {
+      if (transferred.has(el)) {
+        setGeneration(g => g + 1);
+        return;
+      }
       let worker: Worker;
       try {
         worker = new Worker(new URL("./globe.worker.ts", import.meta.url), { type: "module" });
@@ -30,6 +38,7 @@ export default function GlassGlobe() {
       // A worker that fails to load leaves the transferred canvas blank: remount a fresh canvas on the main thread.
       worker.onerror = () => { worker.terminate(); setMainThread(true); };
       const offscreen = el.transferControlToOffscreen();
+      transferred.add(el);
       const sendSize = () => {
         const rect = el.getBoundingClientRect();
         worker.postMessage({ type: "size", size: { width: rect.width, height: rect.height, dpr: dprNow() } });
@@ -58,6 +67,6 @@ export default function GlassGlobe() {
     const changed = () => controller.setReduced(motion.matches);
     motion.addEventListener("change", changed);
     return () => { controller.stop(); io.disconnect(); ro.disconnect(); motion.removeEventListener("change", changed); };
-  }, [mainThread]);
-  return <canvas key={mainThread ? "main" : "worker"} ref={canvas} className="s1-hero-globe-canvas" role="img" aria-label="Glass globe showing light paths from Johannesburg to ten international cities" />;
+  }, [mainThread, generation]);
+  return <canvas key={mainThread ? "main" : "worker-" + generation} ref={canvas} className="s1-hero-globe-canvas" role="img" aria-label="Glass globe showing light paths from Johannesburg to ten international cities" />;
 }

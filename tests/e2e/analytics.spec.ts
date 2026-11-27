@@ -30,13 +30,18 @@ async function record(page: Page) {
   return seen;
 }
 
-// The founder-locked hero (design-contract.spec.ts fixture) carries one tracked action: the trial request.
-// hero_product_proof and hero_pricing belonged to the retired hero; they stay in the vocabulary but nothing renders them.
-test("hero trial action fires homepage_trial_cta and no retired hero event is rendered", async ({ page }) => {
+// The hero leads with radios (founder, 2026-11-27): its tracked action is the radio quote. The trial request
+// lives in the 1GUARD section. hero_product_proof and hero_pricing belonged to a retired hero; they stay in the
+// vocabulary but nothing renders them.
+test("hero radio action fires homepage_equipment_quote; the 1GUARD trial fires homepage_trial_cta", async ({ page }) => {
   const seen = await record(page);
   await page.goto("/");
   await expect(page.locator('[data-analytics-event="hero_product_proof"], [data-analytics-event="hero_pricing"]')).toHaveCount(0);
-  await page.locator('.so-hero-actions [data-analytics-event="homepage_trial_cta"]').click();
+  await expect(page.locator('.so-hero [data-analytics-event="homepage_trial_cta"]')).toHaveCount(0);
+  await page.locator('.so-hero-actions [data-analytics-event="homepage_equipment_quote"]').click();
+  await expect.poll(() => seen).toContain("homepage_equipment_quote");
+  await page.goto("/");
+  await page.locator('#guard [data-analytics-event="homepage_trial_cta"], .so-vertical-content [data-analytics-event="homepage_trial_cta"]').first().click();
   await expect.poll(() => seen).toContain("homepage_trial_cta");
 });
 

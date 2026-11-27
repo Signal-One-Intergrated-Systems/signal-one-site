@@ -97,13 +97,12 @@ test("genuine 1GUARD screenshot slots render nothing until real captures are sup
   }
 });
 
-/* The hero radio (supplementary directive item 1). It is built (components/HeroRadio.tsx) and is mounted
-   with the hero composition; until the hero change is permitted these tests report themselves as skipped. */
+/* The hero radio (supplementary directive item 1, founder authorisation 2026-11-27): mounted in the hero. */
 test.describe("hero radio", () => {
   test("keyboard focus shows the label and Enter navigates to /radios-equipment", async ({ page }) => {
     await page.goto("/");
     const radio = page.locator("a.so-radio");
-    test.skip((await radio.count()) === 0, "hero radio not mounted: the hero change awaits explicit permission");
+    await expect(radio).toHaveCount(1);
     await radio.focus();
     await expect(radio.locator(".so-radio-label")).toHaveCSS("opacity", "1");
     await expect(radio).toHaveAttribute("href", "/radios-equipment");
@@ -115,7 +114,7 @@ test.describe("hero radio", () => {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto("/");
     const radio = page.locator("a.so-radio");
-    test.skip((await radio.count()) === 0, "hero radio not mounted: the hero change awaits explicit permission");
+    await expect(radio).toHaveCount(1);
     const started = Date.now();
     await radio.click();
     await page.waitForURL("**/radios-equipment", { timeout: 5_000 });
@@ -127,9 +126,32 @@ test.describe("hero radio", () => {
     const page = await context.newPage();
     await page.goto("http://localhost:3100/");
     const radio = page.locator("a.so-radio");
-    test.skip((await radio.count()) === 0, "hero radio not mounted: the hero change awaits explicit permission");
+    await expect(radio).toHaveCount(1);
     await radio.click();
     await page.waitForURL("**/radios-equipment");
     await context.close();
   });
+});
+
+test.describe("hero composition (founder, 2026-11-27)", () => {
+  for (const viewport of [{ width: 1440, height: 900 }, { width: 1280, height: 800 }, { width: 1024, height: 768 }, { width: 390, height: 844 }]) {
+    test(`no glass panel; the radio stands clear of the copy and the rail at ${viewport.width}px`, async ({ page }) => {
+      await page.setViewportSize(viewport);
+      await page.goto("/");
+      const copy = page.locator(".so-hero-copy");
+      const style = await copy.evaluate(el => { const s = getComputedStyle(el); return [s.backgroundImage, s.backgroundColor, s.backdropFilter, s.borderTopWidth]; });
+      expect(style).toEqual(["none", "rgba(0, 0, 0, 0)", "none", "0px"]);
+      const [c, r, bar] = await Promise.all([copy.boundingBox(), page.locator("a.so-radio").boundingBox(), page.locator(".so-hero-bar").boundingBox()]);
+      expect(c && r && bar).toBeTruthy();
+      const apart = (a: NonNullable<typeof c>, b: NonNullable<typeof c>) =>
+        a.x + a.width <= b.x || b.x + b.width <= a.x || a.y + a.height <= b.y || b.y + b.height <= a.y;
+      expect(apart(c!, r!), "radio overlaps the copy").toBe(true);
+      expect(apart(bar!, r!), "radio overlaps the business-areas rail").toBe(true);
+      // The first screen shows the headline and the primary action.
+      const primary = await page.locator(".so-hero-actions .so-home-cta").boundingBox();
+      const h1 = await page.locator("#so-hero-title").boundingBox();
+      expect(h1!.y + h1!.height).toBeLessThanOrEqual(viewport.height);
+      if (viewport.width >= 1200) expect(primary!.y + primary!.height).toBeLessThanOrEqual(viewport.height);
+    });
+  }
 });

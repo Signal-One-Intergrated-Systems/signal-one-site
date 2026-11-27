@@ -51,12 +51,16 @@ test("FOUNDERS LOCK: approved home hero markup must never change accidentally", 
   expect(css).not.toContain(".so-home .so-hero-background-photo");
 });
 
-/** Rendered crop of the approved hero, measured on the approved state (main @ 97331f4, 2026-11-25). */
+/** Rendered crop of the approved hero. Re-measured for the founder's hero composition of 2026-11-27 (glass
+ * panel removed, radios first, interactive radio): at 1200 px and wider the whole photograph by width, as
+ * approved; below 1200 px a full-width band above the copy, whole on phones and portrait tablets, trimmed
+ * top and bottom on short landscape tablets so the headline stays in the first screen. Earlier measurements:
+ * 1280 box 783 (now 788: the section is sized to the photograph), 1024 contain 815, 390 cover 100% 0% 271. */
 const heroCrop = [
   { viewport: { width: 1440, height: 900 }, fit: "contain", position: "50% 0%", box: [1440, 878] },
-  { viewport: { width: 1280, height: 800 }, fit: "contain", position: "50% 0%", box: [1280, 783] },
-  { viewport: { width: 1024, height: 768 }, fit: "contain", position: "50% 0%", box: [1024, 815] },
-  { viewport: { width: 390, height: 844 }, fit: "cover", position: "100% 0%", box: [390, 271] },
+  { viewport: { width: 1280, height: 800 }, fit: "contain", position: "50% 0%", box: [1280, 788] },
+  { viewport: { width: 1024, height: 768 }, fit: "cover", position: "50% 32%", box: [1024, 353] },
+  { viewport: { width: 390, height: 844 }, fit: "cover", position: "50% 32%", box: [390, 219] },
 ] as const;
 for (const crop of heroCrop) {
   test(`FOUNDERS LOCK: rendered hero photograph, crop and priority at ${crop.viewport.width}px`, async ({ page }) => {
@@ -292,14 +296,14 @@ test("hero globe animates, liquid CTA responds and actual routes work", async ({
   const transform = await cta.evaluate(el => getComputedStyle(el).transform);
   expect(transform, "CTA should give tactile hover feedback").not.toBe("none");
   await cta.click();
-  await expect(page).toHaveURL(/\/get-started/);
+  await expect(page).toHaveURL(/\/radios-equipment/);
   await page.goto("/");
   await page.getByRole("link", { name: /explore 1service business operating system/i }).click();
   await expect(page).toHaveURL(/\/service/);
 });
 
 
-test("responsive approved hero shows the full image stage before the glass message", async ({ page }) => {
+test("responsive approved hero shows the full image stage before the message", async ({ page }) => {
   for (const width of [375, 768]) {
     await page.setViewportSize({ width, height: width === 375 ? 812 : 1024 });
     await page.goto("/");
@@ -314,10 +318,9 @@ test("responsive approved hero shows the full image stage before the glass messa
     expect(p).not.toBeNull();
     if (m && p) {
       expect(m.height, "People need a meaningful image stage").toBeGreaterThan(265);
-      expect(p.y, "Glass should start after the image, apart from a small float overlap")
-        .toBeGreaterThanOrEqual(m.y + m.height - 55);
+      expect(p.y, "The copy starts below the photograph and never covers it").toBeGreaterThanOrEqual(m.y + m.height);
     }
-    await expect(page.locator(".so-hero-copy a[href='/get-started']")).toBeVisible();
+    await expect(page.locator(".so-hero-copy a[href='/radios-equipment']")).toBeVisible();
     expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(1);
   }
 });
@@ -381,7 +384,7 @@ test("approved homepage enterprise communications photograph remains separate fr
         expect(dimensions.imageTop, "Photo must start below the mobile navigation pill").toBeGreaterThanOrEqual(dimensions.navBottom - 3);
       }
     }
-    await expect(page.getByRole("link", { name: /request a 14-day trial/i }).first()).toBeVisible();
+    await expect(page.getByRole("link", { name: /buy or rent radios/i }).first()).toBeVisible();
     await expect(page.locator(".s1-hero-globe-canvas")).toBeVisible();
   }
 });

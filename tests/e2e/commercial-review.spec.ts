@@ -42,12 +42,17 @@ test("trial calls to action say it is a request, never an instant free trial", a
   await expect(steps).toContainText("nothing is charged automatically");
 });
 
-test("homepage hero offers both current journeys and the header links to pricing", async ({ page }) => {
+test("homepage hero leads with radios, then 1GUARD, and the header links to pricing", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/");
   const actions = page.locator(".so-hero-actions");
-  await expect(actions.getByRole("link", { name: /Request a 14-day trial/ })).toHaveAttribute("href", "/get-started");
-  await expect(actions.getByRole("link", { name: /Radios & connectivity/ })).toHaveAttribute("href", "/radios-equipment");
+  const links = actions.getByRole("link");
+  await expect(links).toHaveCount(2);
+  await expect(links.nth(0)).toHaveText(/Buy or rent radios/);
+  await expect(links.nth(0)).toHaveAttribute("href", "/radios-equipment");
+  await expect(links.nth(0)).toHaveClass(/so-home-cta/);
+  await expect(links.nth(1)).toHaveText(/Explore 1GUARD/);
+  await expect(links.nth(1)).toHaveAttribute("href", "/solutions/security");
   await expect(page.locator(".so-hero-lead")).toContainText("managed business communications");
   await expect(page.getByRole("banner").getByRole("link", { name: "Pricing", exact: true })).toHaveAttribute("href", "/pricing");
 });

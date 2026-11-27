@@ -8,7 +8,7 @@ Next.js 16 marketing site for Signal One Integrated Systems (https://signalone.c
 - Intake contract with LEOS: `SITE_INTEGRATION.md`.
 
 ## Non-negotiable
-- The homepage hero (photo, composition, glass card, copy) is founder-locked. Fix around it (e.g. background fills, delivery performance), never recompose it.
+- The homepage hero (photo, composition, copy, interactive radio) is founder-locked. The founder recomposed it on 2026-11-27: no glass card, "Buy or rent radios" first, "Explore 1GUARD" second, the trial only in the 1GUARD section. Fix around it (e.g. background fills, delivery performance), never recompose it without a founder decision.
 - Never submit live production forms, even with test data. Use the local build with `tests/e2e/mock-intake.mjs`.
 - Never invent prices, stock, specifications, testimonials, certifications, contact details or customer logos. Missing facts are logged as BLOCKED with the founder as owner.
 - Truth labels (available / pilot / in development / planned / coming soon) stay accurate.

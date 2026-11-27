@@ -16,11 +16,16 @@
               Security operations software, managed business communications and connected technology for South African businesses.
             </p>
             <div className="so-hero-actions">
-              <TrialLink />
-              <Link href="/radios-equipment" data-analytics-event="homepage_equipment_quote" data-analytics-label="hero-radios-connectivity" className="btn so-home-outline">Radios & connectivity <Arrow /></Link>
+              <Link href="/radios-equipment" data-analytics-event="homepage_equipment_quote" data-analytics-label="hero-buy-rent-radios" className="btn so-home-cta">Buy or rent radios <Go /></Link>
+              <Link href="/solutions/security" className="btn so-home-outline">Explore 1GUARD <Go /></Link>
             </div>
-            <p className="so-hero-note">14-day trial by request for eligible 1GUARD companies. Activation and terms are confirmed before access.</p>
+            <p className="so-hero-note">Radios are quoted in writing: buy, rent or connect the radios you already own.</p>
           </div>
+        </div>
+        {/* The interactive radio (founder, 2026-11-27): a genuine manufacturer cut-out standing on the
+            photograph's sunlit paving. It is a link to radios; it never transmits. */}
+        <div className="so-hero-radio">
+          <HeroRadio />
         </div>
         <div className="so-hero-bar" aria-label="Signal One business areas">
           <Link href="/solutions/security" className="so-hero-bar-item" aria-label="Explore 1GUARD Security Business Operating System"><strong className="so-platform-mark"><ProductSignature name="GUARD" tone="dark" /></strong><span>Security Business OS</span></Link>

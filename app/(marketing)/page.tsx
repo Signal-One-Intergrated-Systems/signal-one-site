@@ -3,6 +3,7 @@ import type { CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import HeroGlobeLayer from "../components/HeroGlobeLayer";
+import HeroRadio from "../components/HeroRadio";
 import GuardScreens from "../components/GuardScreens";
 import HomeScrollChoreography from "../components/HomeScrollChoreography";
 import ProductSignature from "../components/brand/ProductSignature";
@@ -23,10 +24,6 @@ export const metadata: Metadata = pageMetadata({
   alternates: { canonical: "/" },
 });
 
-function Arrow() {
-  return <span aria-hidden="true" className="so-arrow">↗</span>;
-}
-
 /** Compact documentary photography: purposeful context without dominating copy. */
 function PanelPhoto({
   src, alt,
@@ -43,13 +40,12 @@ function PanelPhoto({
   );
 }
 
-/** The trial action. Inside the founder-locked hero it keeps the hero's own button; below the hero it
- * is the shared large primary button with the internal-link arrow (VA-07). */
-function TrialLink({ section = false }: { section?: boolean }) {
+/** The trial action. It lives in the 1GUARD journey only (founder, 2026-11-27: radios lead the hero). */
+function TrialLink() {
   return (
     <Link href="/get-started" data-analytics-event="homepage_trial_cta"
-      data-analytics-label="homepage-14-day-trial" className={section ? "btn btn-primary btn-lg" : "btn btn-primary so-home-cta"}>
-      Request a 14-day trial {section ? <Go /> : <Arrow />}
+      data-analytics-label="homepage-14-day-trial" className="btn btn-primary btn-lg">
+      Request a 14-day trial <Go />
     </Link>
   );
 }
@@ -81,11 +77,16 @@ export default function Home() {
               Security operations software, managed business communications and connected technology for South African businesses.
             </p>
             <div className="so-hero-actions">
-              <TrialLink />
-              <Link href="/radios-equipment" data-analytics-event="homepage_equipment_quote" data-analytics-label="hero-radios-connectivity" className="btn so-home-outline">Radios & connectivity <Arrow /></Link>
+              <Link href="/radios-equipment" data-analytics-event="homepage_equipment_quote" data-analytics-label="hero-buy-rent-radios" className="btn so-home-cta">Buy or rent radios <Go /></Link>
+              <Link href="/solutions/security" className="btn so-home-outline">Explore 1GUARD <Go /></Link>
             </div>
-            <p className="so-hero-note">14-day trial by request for eligible 1GUARD companies. Activation and terms are confirmed before access.</p>
+            <p className="so-hero-note">Radios are quoted in writing: buy, rent or connect the radios you already own.</p>
           </div>
+        </div>
+        {/* The interactive radio (founder, 2026-11-27): a genuine manufacturer cut-out standing on the
+            photograph's sunlit paving. It is a link to radios; it never transmits. */}
+        <div className="so-hero-radio">
+          <HeroRadio />
         </div>
         <div className="so-hero-bar" aria-label="Signal One business areas">
           <Link href="/solutions/security" className="so-hero-bar-item" aria-label="Explore 1GUARD Security Business Operating System"><strong className="so-platform-mark"><ProductSignature name="GUARD" tone="dark" /></strong><span>Security Business OS</span></Link>
@@ -131,7 +132,7 @@ export default function Home() {
             {/* Genuine 1GUARD screenshots only (lib/guardScreens.ts); renders nothing until they are supplied. */}
             <GuardScreens slot="home-guard" className="mt-6" />
             <div className="so-inline-actions">
-              <TrialLink section />
+              <TrialLink />
               <Link href="/solutions/security" className="link-arrow"><span>Explore <ProductSignature name="GUARD" tone="dark" /></span> <Go /></Link>
             </div>
             <p className="so-disclosure">{guardOnboardingLine ?? "Already live with security companies."} Current public pricing: {guardDayPricePhrase}, excl. VAT. Trial access requires confirmation.</p>

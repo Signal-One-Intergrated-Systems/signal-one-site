@@ -1,10 +1,11 @@
 /*
  * Signal One homepage.
  *
- * 1) FOUNDER-LOCKED HERO (CLAUDE.md: "The homepage hero (photo, composition, glass card, copy) is
- *    founder-locked"). The block below is every rule that renders the hero, kept byte-for-byte and in
- *    its original cascade order when the 2026-11-25 token consolidation (W1) removed the override
- *    layers around it. It is the only place on the site allowed hard-coded colours and `!important`.
+ * 1) FOUNDER-LOCKED HERO (CLAUDE.md: the homepage hero is founder-locked). The block below is every rule
+ *    that renders the hero, kept in its original cascade order when the 2026-11-25 token consolidation
+ *    (W1) removed the override layers around it, and ending with the founder's 2026-11-27 recomposition
+ *    (no glass card, radios first, interactive radio), which overrides the earlier rules above it.
+ *    It is the only place on the site allowed hard-coded colours and `!important`.
  *    Do not edit it without a founder decision; prove any change with before/after hero captures.
  * 2) Homepage sections below the hero, built only on the shared tokens and components.
  */
@@ -219,6 +220,170 @@ body:has(.so-home) .so-home .s1-brand-stage.so-hero{padding-top:calc(151px + 88p
 .so-home .s1-brand-stage.so-hero .so-hero-wash{background:linear-gradient(90deg,rgba(8,24,34,.09) 0%,rgba(8,24,34,.06) 35%,rgba(8,24,34,0) 72%), linear-gradient(0deg,rgba(8,24,34,.16),transparent 22%,transparent 90%,rgba(8,24,34,.07))!important;}
 @media(max-width:1023px){.so-home .s1-brand-stage.so-hero .so-hero-media .so-hero-photo{left:0!important; right:0!important; top:76px!important; width:100%!important; height:calc(100% - 76px)!important; object-fit:contain!important; object-position:center top!important; -webkit-mask-image:none!important; mask-image:none!important;}}
 @media(max-width:670px){.so-home .s1-brand-stage.so-hero .so-hero-media .so-hero-photo{object-fit:cover!important; object-position:right top!important;}}
+/* ── Hero composition v3 (founder directive 2026-11-27: hero, hardware and navigation) ──────────────────
+   The approved photograph and its crop are unchanged and shown unobstructed: no glass panel. Dark ink sits
+   on the photograph's own sky with a light left-hand gradient; radios lead (primary), 1GUARD follows; the
+   interactive radio stands on the sunlit paving in the photograph's foreground. At 1200 px and wider the
+   copy sits on the sky beside the people; below 1200 px the photograph is a full-width band and the copy
+   sits on the light material beneath it, so the copy never covers anyone in the photograph. */
+.so-home .s1-brand-stage.so-hero {
+  --hero-ink: #0b1f33;
+  --hero-ink-2: #1c3043;
+  --hero-accent: #0369a1;
+  --hero-content-left: calc(max(0px, (100% - var(--wrap-max)) / 2) + var(--wrap-pad));
+  color: var(--hero-ink);
+}
+.so-home .s1-brand-stage.so-hero .so-hero-media {
+  /* The bands around the contained photograph continue its own edges: sky above it and to its left, the
+     dark building to its right on screens wide enough to show the whole photograph by height. */
+  background:
+    linear-gradient(180deg, #dcebfb 0, #dcebfb 86px, transparent 86px),
+    linear-gradient(90deg, #e2edf9 0, #e2edf9 50%, #27302f 50%) !important;
+}
+.so-home .s1-brand-stage.so-hero .so-hero-copy {
+  max-width: min(520px, 38vw) !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: none !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+.so-home .s1-brand-stage.so-hero .so-eyebrow { color: #0c4a6e !important; }
+.so-home .s1-brand-stage.so-hero h1 {
+  color: var(--hero-ink) !important;
+  text-shadow: none !important;
+  font-size: clamp(2.75rem, 4vw, 4rem) !important;
+  letter-spacing: -0.055em !important;
+}
+.so-home .s1-brand-stage.so-hero h1 span { color: var(--hero-accent) !important; }
+.so-home .s1-brand-stage.so-hero :is(.so-hero-lead, .so-hero-note) { color: var(--hero-ink-2) !important; text-shadow: none !important; }
+.so-home .s1-brand-stage.so-hero .so-hero-lead { font-weight: 500; }
+.so-home .s1-brand-stage.so-hero .so-hero-note { font-weight: 500; max-width: 44ch !important; }
+.so-home .s1-brand-stage.so-hero .so-home-cta { background: #0369a1; border-color: #0369a1; color: #fff; }
+.so-home .s1-brand-stage.so-hero .so-home-cta:hover { background: #075985; border-color: #075985; color: #fff; }
+.so-home .s1-brand-stage.so-hero .so-home-outline {
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(11, 31, 51, 0.32);
+  color: var(--hero-ink);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  backdrop-filter: blur(12px) saturate(140%);
+}
+.so-home .s1-brand-stage.so-hero .so-home-outline:hover { background: #fff; border-color: rgba(11, 31, 51, 0.55); }
+/* The globe stays as atmosphere in the sky, behind the copy. */
+.so-home .s1-brand-stage.so-hero .s1-hero-globe-layer {
+  opacity: 0.24 !important;
+  -webkit-mask-image: linear-gradient(180deg, #000 45%, transparent 72%);
+  mask-image: linear-gradient(180deg, #000 45%, transparent 72%);
+}
+/* The business-areas rail: light material over the paving, ink text. */
+.so-home .s1-brand-stage.so-hero .so-hero-bar {
+  background: rgba(255, 255, 255, 0.8) !important;
+  border-color: rgba(11, 31, 51, 0.12) !important;
+  box-shadow: 0 -12px 40px -28px rgba(11, 31, 51, 0.35) !important;
+}
+.so-home .s1-brand-stage.so-hero .so-hero-bar-item { border-color: rgba(11, 31, 51, 0.12) !important; }
+.so-home .s1-brand-stage.so-hero .so-hero-bar-item:hover { background: rgba(255, 255, 255, 0.9) !important; }
+.so-home .s1-brand-stage.so-hero .so-hero-bar-item strong { color: var(--hero-ink) !important; }
+.so-home .s1-brand-stage.so-hero .so-hero-bar-item span { color: var(--hero-ink-2) !important; }
+.so-home .s1-brand-stage.so-hero .so-hero-photo-note { background: rgba(255, 255, 255, 0.82) !important; color: var(--hero-ink) !important; text-shadow: none !important; }
+/* The radio: on the paving, lit from the left, contact shadow falling right. */
+.so-home .s1-brand-stage.so-hero .so-hero-radio { position: absolute; z-index: 6; }
+.so-home .s1-brand-stage.so-hero .so-radio { --floor-shadow: rgba(20, 28, 36, 0.34); }
+
+@media (min-width: 1200px) {
+  body:has(.so-home) .so-home .s1-brand-stage.so-hero {
+    align-items: flex-start !important;
+    padding-top: calc(86px + clamp(48px, 7vh, 80px)) !important;
+    /* Tall enough for the whole photograph by width (the rail overlaps only its paving), up to a screen. */
+    min-height: min(calc(86px + 100vw * 941 / 1672 + 68px), max(980px, 100svh)) !important;
+  }
+  .so-home .s1-brand-stage.so-hero .so-hero-wash {
+    background: linear-gradient(90deg, rgba(241, 247, 253, 0.82) 0%, rgba(241, 247, 253, 0.7) 26%, rgba(241, 247, 253, 0.42) 38%, rgba(241, 247, 253, 0) 49%) !important;
+  }
+  /* The radio's foot rests on the paving just above the rail (the photograph's lowest ~15% is paving). */
+  .so-home .s1-brand-stage.so-hero .so-hero-radio {
+    left: calc(var(--hero-content-left) + min(400px, 29vw));
+    bottom: clamp(120px, 8.6vw - 4px, 156px);
+    --hero-radio-w: clamp(66px, 5.6vw, 88px);
+    --hero-radio-h: calc(var(--hero-radio-w) * 1040 / 408);
+  }
+  .so-home .s1-brand-stage.so-hero .so-radio { --radio-w: var(--hero-radio-w); }
+  /* The label opens over the open paving to the radio's left, never over the people. */
+  .so-home .s1-brand-stage.so-hero .so-radio-label { left: auto; right: calc(100% + 14px); transform: translateX(6px); }
+  .so-home .s1-brand-stage.so-hero .so-radio:is(:hover, :focus-visible, [data-state="pressed"]) .so-radio-label { transform: none; }
+}
+
+@media (max-width: 1199px) {
+  .so-home .s1-brand-stage.so-hero {
+    /* The band shows the whole photograph where the screen is tall enough; on short landscape tablets it
+       is trimmed top and bottom (sky and paving) so the headline stays in the first screen. */
+    --hero-photo-top: 80px;
+    --hero-band: min(100vw * 941 / 1672, 46svh);
+  }
+  body:has(.so-home) .so-home .s1-brand-stage.so-hero {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    min-height: 0 !important;
+    padding: 0 0 40px !important;
+    background: linear-gradient(180deg, #e9f1f8 0%, #f4f7fa 100%) !important;
+    overflow: hidden;
+  }
+  /* The photograph as a full-width band below the floating header, whole and uncovered. */
+  .so-home .s1-brand-stage.so-hero .so-hero-media {
+    position: relative !important;
+    inset: auto !important;
+    display: block;
+    width: 100% !important;
+    flex: none;
+    height: calc(var(--hero-photo-top) + var(--hero-band)) !important;
+    min-height: 0 !important;
+  }
+  .so-home .s1-brand-stage.so-hero .so-hero-media .so-hero-photo {
+    left: 0 !important; right: 0 !important; width: 100% !important;
+    top: var(--hero-photo-top) !important; height: calc(100% - var(--hero-photo-top)) !important;
+    object-fit: cover !important; object-position: 50% 32% !important;
+  }
+  .so-home .s1-brand-stage.so-hero .so-hero-wash { background: linear-gradient(180deg, transparent 80%, rgba(233, 241, 248, 0.5) 100%) !important; }
+  .so-home .s1-brand-stage.so-hero .so-hero-inner {
+    margin: 32px auto 0 !important;
+    padding-inline: var(--wrap-pad) !important;
+    display: block !important;
+  }
+  .so-home .s1-brand-stage.so-hero .so-hero-copy {
+    max-width: 640px !important;
+    margin: 0 !important;
+    animation: none !important;
+  }
+  .so-home .s1-brand-stage.so-hero h1 { font-size: clamp(2.3rem, 6.4vw, 3.6rem) !important; margin-top: 16px !important; }
+  /* The globe as atmosphere behind the copy, on the light material to its right. */
+  .so-home .s1-brand-stage.so-hero .s1-hero-globe-layer {
+    inset: calc(var(--hero-photo-top) + var(--hero-band) + 8px) -34% auto auto !important;
+    width: min(92vw, 620px) !important; height: min(92vw, 620px) !important;
+    transform: none !important; opacity: 0.2 !important;
+    -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent 90%); mask-image: linear-gradient(180deg, #000 55%, transparent 90%);
+  }
+  .so-home .s1-brand-stage.so-hero .so-hero-bar {
+    position: relative !important; left: auto !important; bottom: auto !important; transform: none !important;
+    margin: 32px var(--wrap-pad) 0 !important; width: auto !important; max-width: 760px;
+    border-radius: 18px !important; border-bottom: 1px solid rgba(11, 31, 51, 0.12) !important;
+  }
+  .so-home .s1-brand-stage.so-hero .so-hero-photo-note { top: calc(var(--hero-photo-top) + var(--hero-band) - 30px) !important; bottom: auto !important; }
+  /* On the band, the radio stands on the paving at the photograph's lower left, clear of the people. */
+  .so-home .s1-brand-stage.so-hero .so-hero-radio {
+    left: clamp(16px, 7vw, 72px);
+    top: calc(var(--hero-photo-top) + var(--hero-band) * 0.94 - var(--hero-radio-h));
+    --hero-radio-w: clamp(46px, 8vw, 72px);
+    --hero-radio-h: calc(var(--hero-radio-w) * 1040 / 408);
+  }
+  .so-home .s1-brand-stage.so-hero .so-radio { --radio-w: var(--hero-radio-w); }
+}
+@media (max-width: 670px) {
+  .so-home .s1-brand-stage.so-hero { --hero-photo-top: 76px; --hero-band: calc(100vw * 941 / 1672); }
+  .so-home .s1-brand-stage.so-hero .so-hero-inner { margin-top: 24px !important; }
+}
 /* ===== END FOUNDER-LOCKED HERO ===== */
 
 /* ======================================================================================
