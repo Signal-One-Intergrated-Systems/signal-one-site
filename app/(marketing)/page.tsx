@@ -115,10 +115,14 @@ export default function Home() {
 
       <section id="guard" className="section so-vertical so-guard-section mat-midnight" aria-labelledby="so-guard-title">
         <div className="wrap so-vertical-layout">
-          <div data-motion-from="top" className="so-vertical-visual so-vertical-visual-guard">
-            <Image src="/images/home/approved-sme-security-control-room-2026.png" alt="Illustrative daylight security office for an SME, with three operators monitoring CCTV and a light-skinned Black male supervisor supporting the team"
-              fill sizes="(min-width:1024px) 49vw, 100vw" className="object-cover" />
-            <div className="so-image-caption">Illustrative SME security operations</div>
+          <div className="so-vertical-aside">
+            <div data-motion-from="top" className="so-vertical-visual so-vertical-visual-guard">
+              <Image src="/images/home/approved-sme-security-control-room-2026.png" alt="Illustrative daylight security office for an SME, with three operators monitoring CCTV and a light-skinned Black male supervisor supporting the team"
+                fill sizes="(min-width:1024px) 49vw, 100vw" className="object-cover" />
+              <div className="so-image-caption">Illustrative SME security operations</div>
+            </div>
+            {/* Genuine 1GUARD screenshot (lib/guardScreens.ts): the real control room, synthetic demo data. */}
+            <GuardScreens slot="home-guard" className="mt-6" />
           </div>
           <div data-motion-from="left" style={{ "--so-motion-delay": "240ms" } as CSSProperties} className="so-vertical-content">
             <div className="so-vertical-label"><Link href="/solutions/security" className="so-platform-mark" aria-label="Explore 1GUARD"><ProductSignature name="GUARD" tone="dark" /></Link> <span className="so-vertical-descriptor">Security business OS</span> <GuardStatus tone="dark" /></div>
@@ -129,8 +133,6 @@ export default function Home() {
               <li><strong>Patrol done or missed?</strong><span>Use QR/NFC checkpoints and recorded exceptions.</span></li>
               <li><strong>What needs action?</strong><span>Incidents, SOS and oversight in the control room.</span></li>
             </ul>
-            {/* Genuine 1GUARD screenshots only (lib/guardScreens.ts); renders nothing until they are supplied. */}
-            <GuardScreens slot="home-guard" className="mt-6" />
             <div className="so-inline-actions">
               <TrialLink />
               <Link href="/solutions/security" className="link-arrow"><span>Explore <ProductSignature name="GUARD" tone="dark" /></span> <Go /></Link>

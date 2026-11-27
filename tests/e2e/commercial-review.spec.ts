@@ -179,7 +179,7 @@ test("staging walkthrough fixes hold: catalogue cards, E600 link, Help me choose
   const [img, link] = await Promise.all([sc780.locator("img").first().boundingBox(), quote.boundingBox()]);
   expect(link!.x, "the quote link sits outside the image panel").toBeGreaterThanOrEqual(img!.x + img!.width - 1);
   // SW-02: a product without a verified image shows a same-size typographic panel.
-  await expect(page.locator("article").filter({ hasText: "P30G Pro" }).first()).toContainText("Manufacturer image to follow");
+  await expect(page.locator("article").filter({ hasText: "P30G Pro" }).first()).toContainText("The exact variant and its photograph are confirmed in your quote");
   // SW-03: the E600 card preselects the E600 in the form.
   await page.locator("article").filter({ hasText: "EasyTalk" }).first().getByRole("link", { name: /Request a quote/ }).click();
   await expect(page.getByLabel("Radio", { exact: true })).toHaveValue("EasyTalk E600");

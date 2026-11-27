@@ -428,3 +428,9 @@
     padding-bottom: 16px;
   }
 }
+
+/* Genuine 1GUARD screenshots (components/GuardScreens.tsx): one per row, at a size where the screen reads. */
+.guard-screens {
+  display: grid;
+  gap: 24px;
+}

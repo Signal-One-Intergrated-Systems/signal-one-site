@@ -90,7 +90,8 @@ test("midnight is a slab on the content edge, never a full-bleed band", async ({
   }
 });
 
-test("genuine 1GUARD screenshot slots render nothing until real captures are supplied", async ({ page }) => {
+test("genuine 1GUARD screenshot slots render nothing until captures meet the photography brief", async ({ page }) => {
+  // docs/PHOTOGRAPHY_BRIEF.md "Product capture": a curated tenant, en-ZA dates, no raw codes, no "Demo" labels.
   for (const route of ["/", "/solutions/security"]) {
     await page.goto(route);
     await expect(page.locator("[data-guard-screens]"), route).toHaveCount(0);
@@ -134,24 +135,58 @@ test.describe("hero radio", () => {
 });
 
 test.describe("hero composition (founder, 2026-11-27)", () => {
-  for (const viewport of [{ width: 1440, height: 900 }, { width: 1280, height: 800 }, { width: 1024, height: 768 }, { width: 390, height: 844 }]) {
-    test(`no glass panel; the radio stands clear of the copy and the rail at ${viewport.width}px`, async ({ page }) => {
+  const sizes = [
+    { width: 2560, height: 1440 }, { width: 1920, height: 1080 }, { width: 1680, height: 1050 }, { width: 1440, height: 900 }, { width: 1366, height: 768 }, { width: 1280, height: 800 },
+    { width: 1024, height: 768 }, { width: 768, height: 1024 }, { width: 390, height: 844 }, { width: 360, height: 740 },
+  ];
+  for (const viewport of sizes) {
+    test(`no glass panel; the whole photograph; the radio clear of the copy, rail and fold at ${viewport.width}px`, async ({ page }) => {
       await page.setViewportSize(viewport);
       await page.goto("/");
       const copy = page.locator(".so-hero-copy");
       const style = await copy.evaluate(el => { const s = getComputedStyle(el); return [s.backgroundImage, s.backgroundColor, s.backdropFilter, s.borderTopWidth]; });
       expect(style).toEqual(["none", "rgba(0, 0, 0, 0)", "none", "0px"]);
-      const [c, r, bar] = await Promise.all([copy.boundingBox(), page.locator("a.so-radio").boundingBox(), page.locator(".so-hero-bar").boundingBox()]);
-      expect(c && r && bar).toBeTruthy();
-      const apart = (a: NonNullable<typeof c>, b: NonNullable<typeof c>) =>
+      // The photograph is never letterboxed or pillarboxed: its box has the photograph's own proportions.
+      const photo = await page.locator(".so-hero-media img.so-hero-photo").boundingBox();
+      expect(Math.abs(photo!.width / photo!.height - 1672 / 941), "photo box proportions").toBeLessThan(0.01);
+      // Full width up to the photograph's native 1672 px, never upscaled beyond it.
+      expect(photo!.width).toBeGreaterThanOrEqual(Math.min(viewport.width, 1672) - 1);
+      expect(photo!.width).toBeLessThanOrEqual(1672 + 1);
+      const radio = (await page.locator("a.so-radio").boundingBox())!;
+      const parts = await page.locator(".so-hero-copy > :is(p, h1), .so-hero-actions > a").evaluateAll(nodes =>
+        nodes.filter(n => n.getBoundingClientRect().height > 0).map(n => { const r = n.getBoundingClientRect(); return { x: r.x, y: r.y, width: r.width, height: r.height, what: n.className || n.tagName }; }));
+      const bar = (await page.locator(".so-hero-bar").boundingBox())!;
+      const apart = (a: { x: number; y: number; width: number; height: number }, b: typeof a) =>
         a.x + a.width <= b.x || b.x + b.width <= a.x || a.y + a.height <= b.y || b.y + b.height <= a.y;
-      expect(apart(c!, r!), "radio overlaps the copy").toBe(true);
-      expect(apart(bar!, r!), "radio overlaps the business-areas rail").toBe(true);
-      // The first screen shows the headline and the primary action.
-      const primary = await page.locator(".so-hero-actions .so-home-cta").boundingBox();
-      const h1 = await page.locator("#so-hero-title").boundingBox();
-      expect(h1!.y + h1!.height).toBeLessThanOrEqual(viewport.height);
-      if (viewport.width >= 1200) expect(primary!.y + primary!.height).toBeLessThanOrEqual(viewport.height);
+      for (const part of parts) expect(apart(part, radio), `radio overlaps ${part.what}`).toBe(true);
+      expect(apart(bar, radio), "radio overlaps the business-areas rail").toBe(true);
+      // The radio stands on the photograph and inside the first screen.
+      expect(radio.y + radio.height).toBeLessThanOrEqual(Math.min(photo!.y + photo!.height, viewport.height) + 1);
+      expect(radio.y).toBeGreaterThanOrEqual(photo!.y);
+      // The rail never covers the photograph, and on laptops starts wholly below the fold.
+      expect(bar.y).toBeGreaterThanOrEqual(photo!.y + photo!.height - 1);
+      if (viewport.width >= 1280) expect(bar.y >= viewport.height || bar.y + bar.height <= viewport.height, "rail whole or wholly below the fold").toBe(true);
+      // The first screen shows the headline; from 1024 px also the primary action.
+      const h1 = (await page.locator("#so-hero-title").boundingBox())!;
+      expect(h1.y + h1.height).toBeLessThanOrEqual(viewport.height);
+      const primary = (await page.locator(".so-hero-actions .so-home-cta").boundingBox())!;
+      if (viewport.width >= 1024) expect(primary.y + primary.height).toBeLessThanOrEqual(viewport.height);
     });
   }
+
+  test("the radio skips the page shutter: its press is the transition", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto("/");
+    // Record every shutter phase as it happens: the radio's press must not be followed by the shutter.
+    await page.evaluate(() => {
+      const overlay = document.querySelector(".sg-entry-overlay")!;
+      const seen: (string | null)[] = [];
+      (window as unknown as { __shutter: typeof seen }).__shutter = seen;
+      new MutationObserver(() => seen.push(overlay.getAttribute("data-guard-entry"))).observe(overlay, { attributes: true, attributeFilter: ["data-guard-entry"] });
+    });
+    await page.locator("a.so-radio").click();
+    await page.waitForURL("**/radios-equipment", { timeout: 5_000 });
+    await page.waitForTimeout(600);
+    expect(await page.evaluate(() => (window as unknown as { __shutter: string[] }).__shutter), "no shutter phase after the radio's press").toEqual([]);
+  });
 });

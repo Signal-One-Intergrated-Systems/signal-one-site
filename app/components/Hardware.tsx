@@ -69,7 +69,9 @@ export function HardwareCard({
             <Status kind="quote">{availabilityLabel[product.availability ?? "by_quote"]}</Status>
           </span>
           <span className="t-h3 text-ink">{product.manufacturer ? product.manufacturer + " " : ""}{product.model}</span>
-          <span className="t-small mt-2 text-ink-2">Manufacturer image to follow</span>
+          <span className="t-small mt-2 text-ink-2">
+            {product.type === "Service" ? "A monthly service, set up on your radios" : "The exact variant and its photograph are confirmed in your quote"}
+          </span>
         </div>
       )}
       <div className={"flex flex-1 flex-col " + (compact ? "p-5" : "p-6 sm:p-7")}>

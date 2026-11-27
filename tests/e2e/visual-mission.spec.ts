@@ -51,15 +51,14 @@ test("FOUNDERS LOCK: approved home hero markup must never change accidentally", 
   expect(css).not.toContain(".so-home .so-hero-background-photo");
 });
 
-/** Rendered crop of the approved hero. Re-measured for the founder's hero composition of 2026-11-27 (glass
- * panel removed, radios first, interactive radio): at 1200 px and wider the whole photograph by width, as
- * approved; below 1200 px a full-width band above the copy, whole on phones and portrait tablets, trimmed
- * top and bottom on short landscape tablets so the headline stays in the first screen. Earlier measurements:
- * 1280 box 783 (now 788: the section is sized to the photograph), 1024 contain 815, 390 cover 100% 0% 271. */
+/** Rendered crop of the approved hero, re-measured for the founder's hero composition of 2026-11-27 (glass
+ * panel removed, radios first, interactive radio). From 1024 px the whole photograph by width in a box of its
+ * own proportions (no bands, never cropped, the copy on its sky); below 1024 px a full-width band above the
+ * copy. Earlier: 1440 box 878, 1280 box 783, 1024 box 815 (contain with bands), 390 cover 100% 0% box 271. */
 const heroCrop = [
-  { viewport: { width: 1440, height: 900 }, fit: "contain", position: "50% 0%", box: [1440, 878] },
-  { viewport: { width: 1280, height: 800 }, fit: "contain", position: "50% 0%", box: [1280, 788] },
-  { viewport: { width: 1024, height: 768 }, fit: "cover", position: "50% 32%", box: [1024, 353] },
+  { viewport: { width: 1440, height: 900 }, fit: "contain", position: "50% 0%", box: [1440, 810] },
+  { viewport: { width: 1280, height: 800 }, fit: "contain", position: "50% 0%", box: [1280, 720] },
+  { viewport: { width: 1024, height: 768 }, fit: "contain", position: "50% 0%", box: [1024, 576] },
   { viewport: { width: 390, height: 844 }, fit: "cover", position: "50% 32%", box: [390, 219] },
 ] as const;
 for (const crop of heroCrop) {
@@ -449,7 +448,7 @@ test("approved full-scene hero spans behind the globe without cropping the subje
     expect(metrics.imgWidth).toBeGreaterThan(metrics.mediaWidth * 0.98);
     expect(metrics.mask).toBe("none");
     await expect(page.locator(".s1-hero-globe-canvas")).toBeVisible();
-    await expect(page.getByRole("link",{name:/request a 14-day trial/i}).first()).toBeVisible();
+    await expect(page.getByRole("link",{name:/buy or rent radios/i}).first()).toBeVisible();
   }
 });
 

@@ -87,8 +87,9 @@ export default function SceneTransition({ children }: { children: ReactNode }) {
       if (!(element instanceof Element)) return;
       const link = element.closest("a[href]") as HTMLAnchorElement | null;
       if (!link || link.hasAttribute("download") || (link.target && link.target !== "_self")) return;
-      // A link that plays its own press first (the hero radio) is handed over once it releases.
-      if (link.hasAttribute("data-press-first") && link.dataset.pressFirst !== "released") return;
+      // A link that plays its own press first (the hero radio) is its own transition: once it releases,
+      // Next navigates directly, without the glass shutter on top of the press (founder, 2026-11-27).
+      if (link.hasAttribute("data-press-first")) return;
       const url = new URL(link.href, location.href);
       // Query/fragment changes stay on the current page. The transition commits
       // on pathname changes only; intercepting a product selection would lock
