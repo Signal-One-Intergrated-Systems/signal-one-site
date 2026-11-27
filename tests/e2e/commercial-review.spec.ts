@@ -130,7 +130,8 @@ test("the four communications journeys are discoverable and open the right quote
   await page.goto("/");
   const home = page.getByRole("list", { name: "Four ways to start" });
   for (const title of ["Buy & Connect", "Managed Fleet Rental", "Already Own Radios", "Help Me Choose"]) await expect(home.getByRole("link", { name: new RegExp(title) })).toBeVisible();
-  await expect(page.getByRole("banner").getByRole("link", { name: "Communications", exact: true })).toHaveAttribute("href", "/radios-equipment");
+  await page.getByRole("banner").getByRole("button", { name: "Communications" }).click();
+  await expect(page.getByRole("banner").getByRole("link", { name: /Radios and push-to-talk/ })).toHaveAttribute("href", "/radios-equipment");
   await page.goto("/radios-equipment");
   const hub = page.locator("#journeys");
   await expect(hub.getByRole("heading", { name: "Already Own Radios" })).toBeVisible();
@@ -217,5 +218,57 @@ test("communications separate the radio from the service and list ways to buy wi
   }
   await expect(section).toContainText("confirmed in a written quotation before anything is supplied");
   await expect(section).not.toContainText(/R\s?\d|unlimited|per month from|financ|credit/i);
+});
+
+test("grouped header menus: single row, disclosure buttons, Escape and outside click close, partner links", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/");
+  const banner = page.getByRole("banner");
+  const nav = banner.getByRole("navigation", { name: "Primary" });
+  // Products stay one click away; the header has no trial button.
+  await expect(nav.getByRole("link", { name: /1GUARD/ })).toHaveAttribute("href", "/solutions/security");
+  await expect(nav.getByRole("link", { name: /1Service/ })).toHaveAttribute("href", "/service");
+  await expect(banner.getByRole("link", { name: /14-day trial/i })).toHaveCount(0);
+  const partners = nav.getByRole("button", { name: "Partners" });
+  await expect(partners).toHaveAttribute("aria-expanded", "false");
+  await partners.click();
+  await expect(partners).toHaveAttribute("aria-expanded", "true");
+  await expect(nav.getByRole("link", { name: /Become a reseller/ })).toHaveAttribute("href", "/partners/reseller");
+  await expect(nav.getByRole("link", { name: /Become a sales partner/ })).toHaveAttribute("href", "/partners/sales");
+  await page.keyboard.press("Escape");
+  await expect(partners).toHaveAttribute("aria-expanded", "false");
+  await expect(partners).toBeFocused();
+  await nav.getByRole("button", { name: "Communications" }).click();
+  await expect(nav.getByRole("link", { name: /Ways to buy/ })).toBeVisible();
+  await page.mouse.click(700, 600);
+  await expect(nav.getByRole("link", { name: /Ways to buy/ })).toBeHidden();
+  // Still one row: every primary entry sits on the same line as the logo.
+  const tops = await nav.locator(":scope > a, :scope > div > button").evaluateAll(nodes => nodes.map(n => Math.round(n.getBoundingClientRect().top)));
+  expect(new Set(tops).size).toBe(1);
+  await partners.click();
+  await nav.getByRole("link", { name: /Become a reseller/ }).click();
+  await expect(page).toHaveURL(/\/partners\/reseller$/);
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Sell professional communications");
+});
+
+test("partner pages state the approved policy and never publish prices, credit or earnings", async ({ page }) => {
+  await page.goto("/partners/reseller");
+  const policy = page.locator("[data-reseller-policy]");
+  await expect(policy).toContainText("Wholesale purchases are prepaid.");
+  await expect(policy).toContainText("needs a separate application and approval");
+  await expect(policy).toContainText("non-exclusive unless a written agreement says otherwise");
+  await expect(page.locator('[data-planned="true"]')).toContainText("In development");
+  const reseller = await page.locator("main").innerText();
+  expect(reseller).not.toMatch(/R\s?\d|% (off|discount|margin)|guaranteed/i);
+  await page.goto("/partners/sales");
+  const sales = await page.locator("main").innerText();
+  expect(sales).toContain("not a salaried job");
+  expect(sales).toContain("We do not publish rates or earnings estimates");
+  expect(sales).not.toMatch(/R\s?\d|\d+\s?%|guaranteed income|earn up to/i);
+  await page.goto("/");
+  const section = page.locator("#partners");
+  await expect(section.getByRole("heading", { level: 2 })).toHaveText("Grow your business with Signal One.");
+  await expect(section.getByRole("link", { name: /Become a Reseller/ })).toHaveAttribute("href", "/partners/reseller");
+  await expect(section.getByRole("link", { name: /Become a Sales Partner/ })).toHaveAttribute("href", "/partners/sales");
 });
 

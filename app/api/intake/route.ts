@@ -16,9 +16,9 @@ export const dynamic = "force-dynamic";
 
 // A Map, not an object: "constructor" or "__proto__" as a kind must be an ordinary unknown value.
 const INTENTS = new Map<string, ReadonlySet<string>>([
-  ["client", new Set(["consultation", "company-onboarding", "equipment-rental-quote", "tracking-quote", "bodycam-rental-quote", "marketplace-interest"])],
+  ["client", new Set(["consultation", "company-onboarding", "equipment-rental-quote", "tracking-quote", "bodycam-rental-quote", "marketplace-interest", "reseller-application", "technology-partnership"])],
   ["guard", new Set(["guard-profile"])],
-  ["sales", new Set(["sales-representative-application"])],
+  ["sales", new Set(["sales-representative-application", "sales-partner-application"])],
 ]);
 const MAX_BODY_BYTES = 64 * 1024;
 const MAX_PAYLOAD_CHARS = 20_000;

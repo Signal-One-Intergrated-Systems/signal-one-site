@@ -22,6 +22,11 @@ export const signalOneEvents = [
   "guard_join_complete",
   "sales_application_start",
   "sales_application_complete",
+  "reseller_application_start",
+  "reseller_application_complete",
+  "sales_partner_application_start",
+  "sales_partner_application_complete",
+  "partnership_enquiry_complete",
 ] as const;
 
 export type SignalOneEvent = (typeof signalOneEvents)[number];

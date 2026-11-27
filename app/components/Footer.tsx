@@ -15,7 +15,8 @@ const groups = [
   { title: "Start & join", links: [
     ["/get-started","Request a 14-day trial"],["/contact","Talk to Signal One"],
     ["/guards","For security officers"],["/guards/join","Create a guard profile"],
-    ["/join/sales","Careers"]
+    ["/partners/reseller","Become a reseller"],["/partners/sales","Become a sales partner"],
+    ["/partners#technology","Technology partnerships"],["/join/sales","Careers"]
   ] },
   { title: "Company & trust", links: [
     ["/about","About Signal One"],["/support","Customer support"],

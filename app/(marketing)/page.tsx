@@ -180,6 +180,29 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Partner recruitment (founder, 2026-11-27): resellers and independent sales partners, each with its own journey. */}
+      <section id="partners" className="section so-partners-section mat-day" aria-labelledby="so-partners-title">
+        <div className="wrap">
+          <div className="so-partners-head">
+            <p className="t-kicker text-accent">Partners</p>
+            <h2 id="so-partners-title" className="t-h2 mt-3">Grow your business with Signal One.</h2>
+            <p className="t-body mt-4 measure text-ink-2">Sell professional communications as a dealer, or introduce customers as an independent sales partner. Every application is reviewed.</p>
+          </div>
+          <ul className="so-partners-grid m-0 mt-8 grid list-none gap-4 p-0 md:grid-cols-2">
+            <li className="card flex flex-col p-6 sm:p-8">
+              <h3 className="t-h3">Become a Reseller</h3>
+              <p className="t-body mt-3 text-ink-2">For radio dealers, security suppliers, IT and telecoms businesses. Buy at wholesale on prepaid terms and sell radios with the communications service that keeps them working.</p>
+              <Link href="/partners/reseller" className="btn btn-primary btn-lg mt-6 self-start">Become a Reseller <Go /></Link>
+            </li>
+            <li className="card flex flex-col p-6 sm:p-8">
+              <h3 className="t-h3">Become a Sales Partner</h3>
+              <p className="t-body mt-3 text-ink-2">For independent people with business networks. Introduce companies to our radios, communications services and 1GUARD, and earn commission on eligible sales under a partner agreement.</p>
+              <Link href="/partners/sales" className="btn btn-ghost-light btn-lg mt-6 self-start">Become a Sales Partner <Go /></Link>
+            </li>
+          </ul>
+        </div>
+      </section>
+
       <section id="service" className="section so-vertical so-service-section mat-scene scene-glass" aria-labelledby="so-service-title">
         <div className="wrap so-vertical-layout so-reverse-layout">
           <div data-motion-from="right" className="so-vertical-visual so-vertical-visual-service">

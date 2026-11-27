@@ -1194,8 +1194,54 @@
     letter-spacing: -0.006em;
     transition: background-color 0.2s ease;
   }
-  header.glass-nav nav[aria-label="Primary"] a:hover,
-  header.glass-nav nav[aria-label="Primary"] a[aria-current="page"] {
+  header.glass-nav nav[aria-label="Primary"] > a:hover,
+  header.glass-nav nav[aria-label="Primary"] > a[aria-current="page"] {
+    background: var(--nav-current);
+  }
+  /* Grouped menus (Communications, Partners): the button matches the links; the panel is the header's own
+     solid glass material, so no new blur is introduced. */
+  header.glass-nav .s1-nav-menu > button {
+    padding-inline: clamp(8px, 1vw, 14px);
+    border-radius: 999px;
+    font-size: clamp(0.875rem, 1vw, 1rem);
+    font-weight: 600;
+    letter-spacing: -0.006em;
+    transition: background-color 0.2s ease;
+  }
+  header.glass-nav .s1-nav-menu > button:hover,
+  header.glass-nav .s1-nav-menu > button[aria-expanded="true"],
+  header.glass-nav .s1-nav-menu > button[data-current] {
+    background: var(--nav-current);
+  }
+  header.glass-nav .s1-nav-menu-panel {
+    position: absolute;
+    top: calc(100% + 14px);
+    left: 50%;
+    z-index: 60;
+    width: max-content;
+    min-width: 280px;
+    max-width: 340px;
+    padding: 8px;
+    border: 1px solid var(--glass-edge);
+    border-radius: 20px;
+    background: var(--glass-nav-solid);
+    box-shadow: var(--edge-light), var(--shadow-float);
+    transform: translateX(-50%);
+  }
+  header.glass-nav .s1-nav-menu-panel[hidden] {
+    display: none;
+  }
+  header.glass-nav nav[aria-label="Primary"] .s1-nav-menu-link {
+    display: block;
+    min-height: 44px;
+    padding: 10px 14px;
+    border-radius: 14px;
+    font-size: 0.9375rem;
+    font-weight: 400;
+    line-height: 1.35;
+  }
+  header.glass-nav nav[aria-label="Primary"] .s1-nav-menu-link:hover,
+  header.glass-nav nav[aria-label="Primary"] .s1-nav-menu-link[aria-current="page"] {
     background: var(--nav-current);
   }
   header.glass-nav .btn-primary {

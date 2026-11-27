@@ -16,7 +16,6 @@ const legacyRedirects = [
   ["/solutions/utilities", "/solutions/security"],
   ["/systems", "/"],
   ["/marketplace", "/guard-marketplace"],
-  ["/partners", "/contact"],
 ] as const;
 
 const nextConfig: NextConfig = {

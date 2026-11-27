@@ -14,6 +14,9 @@ export const routes = [
   "/guards",
   "/guards/join",
   "/join/sales",
+  "/partners",
+  "/partners/reseller",
+  "/partners/sales",
   "/about",
   "/support",
   "/security-trust",
@@ -38,5 +41,4 @@ export const legacyRedirects: Array<[string, string]> = [
   ["/solutions/utilities", "/solutions/security"],
   ["/systems", "/"],
   ["/marketplace", "/guard-marketplace"],
-  ["/partners", "/contact"],
 ];

@@ -37,6 +37,9 @@ const subjects: Record<string, string> = {
   "marketplace-interest": "Guard Marketplace interest",
   "guard-profile": "Guard join",
   "sales-representative-application": "Sales application",
+  "reseller-application": "Reseller application",
+  "sales-partner-application": "Sales partner application",
+  "technology-partnership": "Technology partnership",
 };
 
 // Mail clients and some OSes truncate very long mailto: links.

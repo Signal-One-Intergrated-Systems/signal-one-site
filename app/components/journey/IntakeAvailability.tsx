@@ -17,7 +17,7 @@ const copy: Record<Kind | "trial", { what: string; sent: string; subject: string
  * the receiver can be connected for sales enquiries while guard and sales applications still go by
  * email (SIGNAL_ONE_INTAKE_KINDS, audit AUDW-02), so a guard must learn that on step 1, not after step 9.
  */
-export default function IntakeAvailability({ trial = false, kind = "client" }: { trial?: boolean; kind?: Kind }) {
+export default function IntakeAvailability({ trial = false, kind = "client", what, sent, subject }: { trial?: boolean; kind?: Kind; what?: string; sent?: string; subject?: string }) {
   const [available, setAvailable] = useState<boolean | null>(null);
   useEffect(() => {
     let active = true;
@@ -28,7 +28,8 @@ export default function IntakeAvailability({ trial = false, kind = "client" }: {
     return () => { active = false; };
   }, [kind]);
   if (available !== false) return null;
-  const text = copy[trial ? "trial" : kind];
+  const base = copy[trial ? "trial" : kind];
+  const text = { what: what ?? base.what, sent: sent ?? base.sent, subject: subject ?? base.subject };
   const href = "mailto:sales@signalone.co.za" + (text.subject ? "?subject=" + encodeURIComponent(text.subject) : "");
   return (
     <div role="status" data-intake-availability={kind} className="mb-7 rounded-card border border-signal-400/40 bg-surface p-5 text-ink">
