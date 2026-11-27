@@ -214,3 +214,14 @@ The founder explicitly requested the new enterprise communications scene for the
   - Delivery sizes come from Next.js image optimisation (WebP/AVIF), and the file is committed byte-identical as supplied.
   - The genuine Hytera manufacturer radio cut-out is a separate interactive element placed on the pedestal; it is not composited into the photograph.
 - **Replaces:** `approved-enterprise-communications-2026.jpg`, which stays in the repository, unused, for rollback.
+
+## Homepage hero photograph v2, from brief v2 — 2026-11-27
+
+- **File:** `public/images/home/approved-hero-terrace-v2-2026-11-27.webp`, 1672 × 941, WebP, 271,850 bytes; SHA-256 `fa2b33562be0e94d83e35020683991855dceb74c4881049459e83b22aca07967`. The founder-lock test checks this hash.
+- **Source:** supplied by the founder as the replacement generated from `docs/launch/HERO_PHOTO_BRIEF_V2.md`. It is an illustrative scene, and the "Illustrative scene" label stays.
+- **Scene:** a daylight terrace with a city skyline, a glass office building, a planter, and three professionals further back on the right with a tablet. There is no pedestal, radio, logo or text.
+- **Deviations from the brief:**
+  - It is 1672 px wide, not the 2560 px the brief asked for. It is never upscaled; above 1672 px it is a framed stage.
+  - A planter occupies the brief's radio zone (x 44–58%), so the radio's base sits on the paving in front of the planter (y ≈ 71% of the photograph) instead of at y ≈ 62%.
+- **Use:** the site shows the band from 8% to 80% of the photograph's height (`object-position: 50% 28.6%`). The radio is at 24% of the photograph's height, centred at 50%, with its base at 88% of the visible band on a CSS glass plinth.
+- **Replaces:** `approved-hero-terrace-2026-11-27.webp`, which is kept for rollback.

@@ -1,7 +1,7 @@
       <section className="s1-brand-stage so-hero" aria-labelledby="so-hero-title">
         <div className="so-hero-media">
-          <Image src="/images/home/approved-hero-terrace-2026-11-27.webp"
-            alt="Illustrative daylight enterprise campus terrace in Cape Town with Table Mountain behind, three business and operations professionals reviewing a tablet by a glass building, and a round glass pedestal in the foreground"
+          <Image src="/images/home/approved-hero-terrace-v2-2026-11-27.webp"
+            alt="Illustrative daylight enterprise campus terrace with a city skyline behind, and three business and security professionals reviewing a tablet beside a glass office building"
             fill priority fetchPriority="high" quality={75}
             sizes="100vw" className="so-hero-photo object-cover" />
           <div className="so-hero-wash" aria-hidden="true" />

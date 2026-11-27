@@ -328,7 +328,9 @@ body:has(.so-home) .so-home .s1-brand-stage.so-hero{padding-top:calc(151px + 88p
   }
   .so-home .s1-brand-stage.so-hero .so-hero-media .so-hero-photo {
     top: 86px !important; height: var(--hero-photo-h) !important;
-    object-fit: cover !important; object-position: 50% 0% !important;
+    /* The visible 72% is the band from 8% to 80% of the photograph (v2): plain sky trimmed above, the people
+       and the paving in front of the planter kept. */
+    object-fit: cover !important; object-position: 50% 28.6% !important;
   }
   .so-home .s1-brand-stage.so-hero .so-hero-bar {
     position: relative !important; top: auto !important; bottom: auto !important; left: auto !important; transform: none !important;
@@ -359,7 +361,8 @@ body:has(.so-home) .so-home .s1-brand-stage.so-hero{padding-top:calc(151px + 88p
     --hero-radio-h: calc(var(--hero-full-h) * 0.24);
     --hero-radio-w: calc(var(--hero-radio-h) * 408 / 1040);
     left: calc((100% - var(--hero-photo-w)) / 2 + var(--hero-photo-w) * 0.5 - var(--hero-radio-w) / 2);
-    top: calc(86px + var(--hero-photo-h) * 0.86 - var(--hero-radio-h));
+    /* Base on the paving in front of the planter: 71.4% down the photograph = 88% of the visible band. */
+    top: calc(86px + var(--hero-photo-h) * 0.88 - var(--hero-radio-h));
     bottom: auto;
   }
   .so-home .s1-brand-stage.so-hero .so-radio { --radio-w: var(--hero-radio-w); }
@@ -397,7 +400,7 @@ body:has(.so-home) .so-home .s1-brand-stage.so-hero{padding-top:calc(151px + 88p
   .so-home .s1-brand-stage.so-hero .so-hero-media .so-hero-photo {
     left: 0 !important; right: 0 !important; width: 100% !important;
     top: var(--hero-photo-top) !important; height: calc(100% - var(--hero-photo-top)) !important;
-    object-fit: cover !important; object-position: 50% 32% !important;
+    object-fit: cover !important; object-position: 50% 28.6% !important;
   }
   .so-home .s1-brand-stage.so-hero .so-hero-wash { background: linear-gradient(180deg, transparent 80%, rgba(233, 241, 248, 0.5) 100%) !important; }
   .so-home .s1-brand-stage.so-hero .so-hero-inner {
@@ -429,7 +432,7 @@ body:has(.so-home) .so-home .s1-brand-stage.so-hero{padding-top:calc(151px + 88p
     --hero-radio-h: calc(var(--hero-full-band) * 0.26);
     --hero-radio-w: calc(var(--hero-radio-h) * 408 / 1040);
     left: calc(100vw * 0.5 - var(--hero-radio-w) / 2);
-    top: calc(var(--hero-photo-top) + var(--hero-band) * 0.86 - var(--hero-radio-h));
+    top: calc(var(--hero-photo-top) + var(--hero-band) * 0.88 - var(--hero-radio-h));
   }
   .so-home .s1-brand-stage.so-hero .so-radio { --radio-w: var(--hero-radio-w); }
   /* On a tap the label opens above the antenna, in the sky, not across the people. */
