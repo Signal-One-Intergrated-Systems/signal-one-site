@@ -90,11 +90,17 @@ test("midnight is a slab on the content edge, never a full-bleed band", async ({
   }
 });
 
-test("genuine 1GUARD screenshot slots render nothing until captures meet the photography brief", async ({ page }) => {
-  // docs/PHOTOGRAPHY_BRIEF.md "Product capture": a curated tenant, en-ZA dates, no raw codes, no "Demo" labels.
-  for (const route of ["/", "/solutions/security"]) {
+test("1GUARD screenshot slots show genuine captures, each labelled as synthetic demo data", async ({ page }) => {
+  for (const [route, count] of [["/", 1], ["/solutions/security", 2]] as const) {
     await page.goto(route);
-    await expect(page.locator("[data-guard-screens]"), route).toHaveCount(0);
+    const slot = page.locator("[data-guard-screens]");
+    await expect(slot, route).toHaveCount(1);
+    const figures = slot.locator("figure");
+    await expect(figures, route).toHaveCount(count);
+    for (let i = 0; i < count; i++) {
+      await expect(figures.nth(i).locator("figcaption"), route).toContainText("real app, synthetic demo data");
+      await expect(figures.nth(i).locator("img"), route).toHaveAttribute("alt", /^1GUARD /);
+    }
   }
 });
 

@@ -182,3 +182,24 @@ The founder explicitly requested the new enterprise communications scene for the
 ## Hytera P30 Lite, 1200 px official cut-out (hero radio) — 2026-11-27
 
 `public/images/hardware/hytera-p30-lite-1200.png` (1200 × 1200 RGBA, SHA-256 `b1f198a9dfab…` — full hash in git) is the largest image in the official set served on Hytera South Africa's P30 Lite product page (`https://hytera.co.za/products/p30-lite`, images hosted at `hytera.ae/imager/images/1827303/`). Same front view as the 600 px catalogue file at exactly 2×. Used only as the homepage hero's interactive radio. Authorised dealer basis as for the other manufacturer images. Hytera publishes no other angles or 3D assets for this model on those pages (checked 2026-11-27).
+
+## 1GUARD product screenshots (genuine app, curated synthetic tenant) — 2026-11-27
+
+- **Files:** `public/images/1guard/1guard-control-room.webp`, `1guard-my-operation.webp` and `1guard-client-service-today.webp`. They are scaled from 2× PNG captures; the only other edit is cropping out the navigation tabs.
+- **App build:** the 1GUARD web app from `signal-one-guard`, branch `claude/capture-ready-display`:
+  - `b4d4f0b`: round checkpoint count;
+  - `2708a0c`: en-ZA 24-hour dates and codes in words;
+  - `100716a`: proof reasons and one-word codes in words. **This commit is local only and not yet pushed**, and the control-room text depends on it.
+  - Base: `f43e995`.
+  - **Publish these images only once these commits are merged in 1GUARD**, so that the product matches what the website shows.
+- **Capture:** Playwright Chromium, en-ZA locale, timezone Africa/Johannesburg, 1440×900 at 2× scale; the original 2× PNGs are 2880 px wide.
+- **Data:** synthetic only, created through the app's real API by a local script (`ikhaya-tenant.mjs`, kept in the session scratchpad):
+  - an invented company, "Ikhaya Security Services", with four invented sites;
+  - 34 invented guards;
+  - a short-staffed post, patrols, one SOS (resolved), an incident, and occurrence-book entries.
+- **Data caveats:**
+  - Activity was replayed compressed, so checkpoint times are minutes apart.
+  - A stray replay process added extra round-1 patrol starts; these are genuine API calls.
+  - No email or phone number is visible, and no real people or companies are intended. That "Ikhaya Security Services" is not a real company was **not verified** (a web search found none).
+- **Checks:** OCR gate (`scripts/ocr-images.mjs`) passed, and the images were inspected by eye.
+- **Withheld:** proof of service. It shows today's in-progress shift only (0 of 9 services fully proven), not the "mostly proven week" the brief asks for. That needs genuine historical data, either from a staging tenant that has run for a week or from an approved local back-dating seed.
