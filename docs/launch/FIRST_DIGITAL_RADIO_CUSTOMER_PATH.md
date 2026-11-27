@@ -70,3 +70,25 @@ Partner pipelines, dealer workspaces and managed-communications subscriptions fo
 7. **Portal domain:** approve the API + web move to `signalone.co.za`, or launch the first sale on the existing portal address.
 8. **Operations mailbox:** create `operations@signalone.co.za` and confirm a test message arrives.
 9. **Legal:** what a VAT invoice must show. Today's invoice PDFs hard-code the registered entity's name, address, registration number and VAT number; that is required on a tax invoice but conflicts with keeping it off public pages.
+
+## Earliest safe release points (2026-11-27)
+
+Each release is independent unless a dependency is listed. Each needs your approval, its audit gate, and verification that both LEOS services report the pushed SHA.
+
+| Release | Contents | Depends on | Ready when |
+|---|---|---|---|
+| **A. Online enquiry capture** | #749 → #756 (receiver, outbox notifications, privacy and retention, Sales OS enquiry queue) | nothing | Three things: the PostgreSQL 18 `transaction_timeout` check (decision 1); the Architect's migration-number ruling; the receiver credential. Then set the website's receiver variables and send one labelled production smoke enquiry. **Customer enquiries, quote requests and onboarding requests then reach LEOS directly, with no email fallback.** |
+| **B. Partner applications** | #758 + #759 together (partner intents and the partner applications queue, migration 0204, class A) | A | Pre-merge audit of 0204 and the queue; your decision on who may approve; optional operations mailbox variable. **Must not ship #758 without #759.** |
+| **C. First-sale money path** | `claude/money-path-first-sale` (GAP-EXP-1, GAP-PAY-1/2) | nothing (off main) | Build in progress, then pre-merge audit (money). Can ship before or after A. |
+| **D. Online payment** | PayFast switched on, configuration only once C is live | C | Merchant credentials as LEOS secrets; a sandbox pass against PayFast's published signature examples; one human-armed live payment. |
+| **E. Customer onboarding** | Today: a website onboarding request (in A), then a staff-sent client invitation (72-hour single-use link on main), then the customer portal. | A | Usable as soon as A ships. **Automatic** invitation on quote acceptance is not built; it is the next increment after C. |
+| **F. Portal address** | API + web moved to `signalone.co.za` together (`CUSTOMER_PORTAL_DOMAIN_QUALIFICATION.md`) | nothing | Your approval of the infrastructure change. Not needed for the first sale if the existing address is acceptable. |
+| **G. Sales OS consolidation** | `claude/sales-os-consolidation` | Built so the shell can ship from main independently. Enquiry- and partner-queue panels are capability-gated and light up after A and B. | Build in progress, then pre-merge audit (auth and roles), then your visual acceptance. Preview retirement only after G is accepted in production. |
+
+**First paying radio customer, in order:**
+- A (enquiries arrive) and C (safe money path), in either order;
+- then D (PayFast);
+- then the product, price and stock decisions;
+- then the first sale, on the existing portal address unless F has shipped.
+
+B and G proceed in parallel and do not block the first sale.
